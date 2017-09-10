@@ -14,24 +14,24 @@ class POSTOrders(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
     # valid responses
-    responses = {'201': {'orderCreateTransaction': Transaction, 'orderFillTransaction': OrderFillTransaction,
+    responses = {201: {'orderCreateTransaction': Transaction, 'orderFillTransaction': OrderFillTransaction,
                          'orderCancelTransaction': OrderCancelTransaction, 'orderReissueTransaction': Transaction,
                          'orderReissueRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
                          'lastTransactionID': TransactionID},
-                 '400': {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID, 'errorCode': string, 'errorMessage': string},
-                 '404': {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID, 'errorCode': string, 'errorMessage': string}}
+                 400: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
+                         'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
+                 404: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
+                         'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = ['401', '403', '405']
+    error = [401, 403, 405]
 
     # json schema representation
     request_schema = {'order': OrderRequest}
@@ -49,23 +49,23 @@ class GETOrders(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'ids', 'located': 'query', 'type': 'List of OrderID (csv)',
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'ids', 'located': 'query', 'type': str,
          'description': 'List of OrderID (csv)'},
-        {'name': 'state', 'located': 'query', 'type': 'OrderStateFilter', 'description': 'OrderStateFilter'},
-        {'name': 'instrument', 'located': 'query', 'type': 'InstrumentName', 'description': 'InstrumentName'},
-        {'name': 'count', 'located': 'query', 'type': 'int', 'description': 'int'},
-        {'name': 'beforeID', 'located': 'query', 'type': 'OrderID', 'description': 'OrderID'},
+        {'name': 'state', 'located': 'query', 'type': OrderStateFilter, 'description': 'OrderStateFilter'},
+        {'name': 'instrument', 'located': 'query', 'type': InstrumentName, 'description': 'InstrumentName'},
+        {'name': 'count', 'located': 'query', 'type': int, 'description': 'int'},
+        {'name': 'beforeID', 'located': 'query', 'type': OrderID, 'description': 'OrderID'},
     ]
 
     # valid responses
-    responses = {'200': {'orders': Array[Order], 'lastTransactionID': TransactionID}}
+    responses = {200: {'orders': Array[Order], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['400', '404', '405']
+    error = [400, 404, 405]
 
 
 class GETPendingOrders(object):
@@ -80,17 +80,17 @@ class GETPendingOrders(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
     # valid responses
-    responses = {'200': {'orders': Array[Order], 'lastTransactionID': TransactionID}}
+    responses = {200: {'orders': Array[Order], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['401', '404', '405']
+    error = [401, 404, 405]
 
 
 class GETOrderSpecifier(object):
@@ -105,18 +105,18 @@ class GETOrderSpecifier(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'orderSpecifier', 'located': 'path', 'type': 'OrderSpecifier', 'description': 'OrderSpecifier'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'orderSpecifier', 'located': 'path', 'type': OrderSpecifier, 'description': 'OrderSpecifier'},
     ]
 
     # valid responses
-    responses = {'200': {'order': Order, 'lastTransactionID': TransactionID}}
+    responses = {200: {'order': Order, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['401', '404', '405']
+    error = [401, 404, 405]
 
 
 class PUTOrderSpecifier(object):
@@ -131,26 +131,26 @@ class PUTOrderSpecifier(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'orderSpecifier', 'located': 'path', 'type': 'OrderSpecifier', 'description': 'OrderSpecifier'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'orderSpecifier', 'located': 'path', 'type': OrderSpecifier, 'description': 'OrderSpecifier'},
     ]
 
     # valid responses
-    responses = {'201': {'orderCancelTransaction': OrderCancelTransaction, 'orderCreateTransaction': Transaction,
+    responses = {201: {'orderCancelTransaction': OrderCancelTransaction, 'orderCreateTransaction': Transaction,
                          'orderFillTransaction': OrderFillTransaction, 'orderReissueTransaction': Transaction,
                          'orderReissueRejectTransaction': Transaction,
                          'replacingOrderCancelTransaction': OrderCancelTransaction,
                          'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID},
-                 '400': {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID, 'errorCode': string, 'errorMessage': string}
-                 '404': {'orderCancelRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID, 'errorCode': string, 'errorMessage': string}}
+                 400: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
+                         'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
+                 404: {'orderCancelRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
+                         'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = ['401', '405']
+    error = [401, 405]
 
     # json schema representation
     request_schema = {'order': OrderRequest}
@@ -168,11 +168,11 @@ class PUTOrderSpecifierCancel(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'orderSpecifier', 'located': 'path', 'type': 'OrderSpecifier', 'description': 'OrderSpecifier'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'orderSpecifier', 'located': 'path', 'type': OrderSpecifier, 'description': 'OrderSpecifier'},
     ]
 
     # valid responses
@@ -180,10 +180,10 @@ class PUTOrderSpecifierCancel(object):
                        'lastTransactionID': TransactionID},
                  400: {'orderCancelRejectTransaction': OrderCancelRejectTransaction,
                        'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID,
-                       'errorCode': string, 'errorMessage': string}}
+                       'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = ['401', '405']
+    error = [401, 405]
 
 
 class PUTClientExtensions(object):
@@ -198,11 +198,11 @@ class PUTClientExtensions(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'orderSpecifier', 'located': 'path', 'type': 'OrderSpecifier', 'description': 'OrderSpecifier'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'orderSpecifier', 'located': 'path', 'type': OrderSpecifier, 'description': 'OrderSpecifier'},
     ]
 
     # valid responses
@@ -210,13 +210,13 @@ class PUTClientExtensions(object):
                        'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array[TransactionID]},
                  400: {'orderClientExtensionsModifyRejectTransaction': OrderClientExtensionsModifyRejectTransaction,
                        'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array[TransactionID],
-                       'errorCode': string, 'errorMessage': string},
+                       'errorCode': str, 'errorMessage': str},
                  404: {'orderClientExtensionsModifyRejectTransaction': OrderClientExtensionsModifyRejectTransaction,
                        'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array[TransactionID],
-                       'errorCode': string, 'errorMessage': string}}
+                       'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = ['401', '405']
+    error = [401, 405]
 
     # json schema representation
     request_schema = {'clientExtensions': ClientExtensions, 'tradeClientExtensions': ClientExtensions}

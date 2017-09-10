@@ -10,19 +10,20 @@ class GETPositions(object):
     path = '/v3/accounts/{accountID}/positions'
 
     # description of endpoint
-    description = 'List all Positions for an Account. The Positions returned are for every instrument that has had a position during the lifetime of an the Account.'
+    description = 'List all Positions for an Account. The Positions returned are for every ' \
+                  'instrument that has had a position during the lifetime of an the Account.'
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
     # valid responses
     responses = {200: {'positions': Array[Position], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['401', '404', '405']
+    error = [401, 404, 405]
 
 
 class GETOpenPositions(object):
@@ -33,19 +34,20 @@ class GETOpenPositions(object):
     path = '/v3/accounts/{accountID}/openPositions'
 
     # description of endpoint
-    description = 'List all open Positions for an Account. An open Position is a Position in an Account that currently has a Trade opened for it.'
+    description = 'List all open Positions for an Account. An open Position is a ' \
+                  'Position in an Account that currently has a Trade opened for it.'
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
     # valid responses
     responses = {200: {'positions': Array[Position], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['401', '404', '405']
+    error = [401, 404, 405]
 
 
 class GETPositionsInstrument(object):
@@ -60,16 +62,16 @@ class GETPositionsInstrument(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'instrument', 'located': 'path', 'type': 'InstrumentName', 'description': 'InstrumentName'},
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
     ]
 
     # valid responses
     responses = {200: {'position': Position, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['401', '404', '405']
+    error = [401, 404, 405]
 
 
 class PUTPositionsInstrumentClose(object):
@@ -84,11 +86,11 @@ class PUTPositionsInstrumentClose(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'instrument', 'located': 'path', 'type': 'InstrumentName', 'description': 'InstrumentName'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
     ]
 
     # valid responses
@@ -100,16 +102,17 @@ class PUTPositionsInstrumentClose(object):
               'lastTransactionID': TransactionID},
         400: {'longOrderRejectTransaction': MarketOrderRejectTransaction,
               'shortOrderRejectTransaction': MarketOrderRejectTransaction,
-              'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID, 'errorCode': string,
+              'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID, 'errorCode': str,
               'errorMessage': str},
         404: {'longOrderRejectTransaction': MarketOrderRejectTransaction,
               'shortOrderRejectTransaction': MarketOrderRejectTransaction,
-              'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID, 'errorCode': string,
+              'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID, 'errorCode': str,
               'errorMessage': str}}
 
     # error msgs'
-    error = ['401', '405']
+    error = [401, 405]
 
+    # TODO longunits and short units need to default to 'ALL'
     # json schema representation
-    request_schema = {'longUnits': string,
-                      default = ALL, 'longClientExtensions': ClientExtensions, 'shortUnits': string, default = ALL, 'shortClientExtensions': ClientExtensions}
+    request_schema = {'longUnits': str, 'longClientExtensions': ClientExtensions, 'shortUnits': str,
+                      'shortClientExtensions': ClientExtensions}

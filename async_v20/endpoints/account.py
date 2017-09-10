@@ -14,15 +14,14 @@ class GETAccounts(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
     ]
 
     # valid responses
-    responses = {'200', {'accounts': Array[AccountProperties]}}
+    responses = {200, {'accounts': Array[AccountProperties]}}
 
     # error msgs'
-    error = ['401', '405']
-
+    error = [401, 405]
 
 
 class GETAccountID(object):
@@ -38,17 +37,17 @@ class GETAccountID(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
     # valid responses
-    responses = {'200': {'account': Account, 'lastTransactionID': TransactionID}}
+    responses = {200: {'account': Account, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['400', '401', '405']
+    error = [400, 401, 405]
 
 
 class GETAccountIDSummary(object):
@@ -63,17 +62,17 @@ class GETAccountIDSummary(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
     # valid responses
-    responses = {'200': {'account': AccountSummary, 'lastTransactionID': TransactionID}}
+    responses = {200: {'account': AccountSummary, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['400', '401', '405']
+    error = [400, 401, 405]
 
 
 class GETAccountIDInstruments(object):
@@ -88,17 +87,17 @@ class GETAccountIDInstruments(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'instruments', 'located': 'query', 'type': 'List of InstrumentName (csv)',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'instruments', 'located': 'query', 'type': str,
          'description': 'List of InstrumentName (csv)'},
     ]
 
     # valid responses
-    responses = {'200': {'instruments': Array[Instrument], 'lastTransactionID': TransactionID}}
+    responses = {200: {'instruments': Array[Instrument], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['400', '401', '405']
+    error = [400, 401, 405]
 
 
 class PATCHAccountIDConfiguration(object):
@@ -113,24 +112,24 @@ class PATCHAccountIDConfiguration(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
     # valid responses
     responses = {200: {'clientConfigureTransaction': ClientConfigureTransaction, 'lastTransactionID': TransactionID},
                  400: {'clientConfigureRejectTransaction': ClientConfigureRejectTransaction,
-                       'lastTransactionID': TransactionID, 'errorCode': string, 'errorMessage': string},
+                       'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
                  403: {'clientConfigureRejectTransaction': ClientConfigureRejectTransaction,
-                       'lastTransactionID': TransactionID, 'errorCode': string, 'errorMessage': string}}
+                       'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = ['401', '404', '405']
+    error = [401, 404, 405]
 
     # json schema representation
-    request_schema = {'alias': string, 'marginRate': DecimalNumber}
+    request_schema = {'alias': str, 'marginRate': DecimalNumber}
 
 
 class GETAccountIDChanges(object):
@@ -145,15 +144,15 @@ class GETAccountIDChanges(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'sinceTransactionID', 'located': 'query', 'type': 'TransactionID', 'description': 'TransactionID'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'sinceTransactionID', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
     ]
 
     # valid responses
-    responses = {'200', {'changes': AccountChanges, 'state': AccountChangesState, 'lastTransactionID': TransactionID}}
+    responses = {200, {'changes': AccountChanges, 'state': AccountChangesState, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['401', '404', '405', '416']
+    error = [401, 404, 405, 416]

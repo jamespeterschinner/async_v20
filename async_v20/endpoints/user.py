@@ -23,7 +23,7 @@ class GETUserSpecifier(object):
     responses = {200: {'userInfo': UserInfo}}
 
     # error msgs'
-    error = ['401', '403', '405']
+    error = [401, 403, 405]
 
 
 class GETExternalInfo(object):
@@ -47,7 +47,7 @@ class GETExternalInfo(object):
     responses = {200: {'userInfo': UserInfoExternal}}
 
     # error msgs'
-    error = ['401', '403', '405']
+    error = [401, 403, 405]
 
 
 

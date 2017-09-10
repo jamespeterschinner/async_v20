@@ -14,21 +14,21 @@ class GETPricing(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'instruments', 'located': 'query', 'type': 'List of InstrumentName (csv)',
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'instruments', 'located': 'query', 'type': str,
          'description': 'List of InstrumentName (csv)'},
-        {'name': 'since', 'located': 'query', 'type': 'DateTime', 'description': 'DateTime'},
-        {'name': 'includeUnitsAvailable', 'located': 'query', 'type': 'boolean', 'description': 'boolean'},
+        {'name': 'since', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
+        {'name': 'includeUnitsAvailable', 'located': 'query', 'type': bool, 'description': 'boolean'},
     ]
 
     # valid responses
     responses = {200: {'prices': Array[Price], 'time': DateTime}}
 
     # error msgs'
-    error = ['400', '401', '404', '405']
+    error = [400, 401, 404, 405]
 
 
 class GETPricingStream(object):
@@ -52,17 +52,17 @@ class GETPricingStream(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'instruments', 'located': 'query', 'type': 'List of InstrumentName (csv)',
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'instruments', 'located': 'query', 'type': str,
          'description': 'List of InstrumentName (csv)'},
-        {'name': 'snapshot', 'located': 'query', 'type': 'boolean', 'description': 'boolean'},
+        {'name': 'snapshot', 'located': 'query', 'type': bool, 'description': 'boolean'},
     ]
 
     # valid responses
     responses = {200: {'price': Price, 'priceHeartbeat': PricingHeartbeat}}
 
     # error msgs'
-    error = ['400', '401', '404', '405']
+    error = [400, 401, 404, 405]

@@ -3,7 +3,6 @@ from .metaclass import *
 
 
 class GETTransactions(object):
-
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -15,26 +14,27 @@ class GETTransactions(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'from', 'located': 'query', 'type': 'DateTime', 'description': 'DateTime'},
-        {'name': 'to', 'located': 'query', 'type': 'DateTime', 'description': 'DateTime'},
-        {'name': 'pageSize', 'located': 'query', 'type': 'int', 'description': 'int'},
-        {'name': 'type', 'located': 'query', 'type': 'List of TransactionFilter (csv)',
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'from', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
+        {'name': 'to', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
+        {'name': 'pageSize', 'located': 'query', 'type': int, 'description': 'int'},
+        {'name': 'type', 'located': 'query', 'type': str,
          'description': 'List of TransactionFilter (csv)'},
     ]
 
     # valid responses
-    responses = {200: {'from': DateTime, 'to': DateTime, 'pageSize': int, 'type': Array[TransactionFilter], 'count': int, 'pages': Array[string], 'lastTransactionID': TransactionID}}
+    responses = {
+        200: {'from': DateTime, 'to': DateTime, 'pageSize': int, 'type': Array[TransactionFilter], 'count': int,
+              'pages': Array[str], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['400', '401', '403', '404', '405', '416']
+    error = [400, 401, 403, 404, 405, 416]
 
 
 class GETTransactionID(object):
-
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -46,22 +46,21 @@ class GETTransactionID(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'transactionID', 'located': 'path', 'type': 'TransactionID', 'description': 'TransactionID'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'transactionID', 'located': 'path', 'type': TransactionID, 'description': 'TransactionID'},
     ]
 
     # valid responses
     responses = {200: {'transaction': Transaction, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['401', '404', '405']
+    error = [401, 404, 405]
 
 
 class GETIDrange(object):
-
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -73,13 +72,13 @@ class GETIDrange(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'from', 'located': 'query', 'type': 'TransactionID', 'description': 'TransactionID'},
-        {'name': 'to', 'located': 'query', 'type': 'TransactionID', 'description': 'TransactionID'},
-        {'name': 'type', 'located': 'query', 'type': 'List of TransactionFilter (csv)',
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'from', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
+        {'name': 'to', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
+        {'name': 'type', 'located': 'query', 'type': str,
          'description': 'List of TransactionFilter (csv)'},
     ]
 
@@ -87,11 +86,10 @@ class GETIDrange(object):
     responses = {200: {'transactions': Array[Transaction], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['400', '401', '404', '405', '416']
+    error = [400, 401, 404, 405, 416]
 
 
 class GETSinceID(object):
-
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -99,26 +97,26 @@ class GETSinceID(object):
     path = '/v3/accounts/{accountID}/transactions/sinceid'
 
     # description of endpoint
-    description = 'Get a range of Transactions for an Account starting at (but not including) a provided Transaction ID.'
+    description = 'Get a range of Transactions for an Account starting at ' \
+                  '(but not including) a provided Transaction ID.'
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': 'AcceptDatetimeFormat',
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
-        {'name': 'id', 'located': 'query', 'type': 'TransactionID', 'description': 'TransactionID'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
+        {'name': 'id', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
     ]
 
     # valid responses
     responses = {200: {'transactions': Array[Transaction], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = ['400', '401', '404', '405', '416']
+    error = [400, 401, 404, 405, 416]
 
 
 class GETTransactionsStream(object):
-
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -130,12 +128,12 @@ class GETTransactionsStream(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'accountID', 'located': 'path', 'type': 'AccountID', 'description': 'AccountID'},
+        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
     # valid responses
     responses = {200: {'transaction': Transaction, 'transactionHeartbeat': TransactionHeartbeat}}
 
     # error msgs'
-    error = ['400', '401', '404', '405']
+    error = [400, 401, 404, 405]
