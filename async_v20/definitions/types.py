@@ -1,8 +1,8 @@
 from .descriptors import *
-from .metaclass import TypeModel
+from .metaclass import Model
 
 
-class OrderRequest(TypeModel):
+class OrderRequest(Model):
     """The base Order specification used when requesting that an Order be created.
     Each specific Order-type extends this definition.
 
@@ -11,7 +11,7 @@ class OrderRequest(TypeModel):
     """
 
 
-class UnitsAvailable(TypeModel):
+class UnitsAvailable(Model):
     """Representation of how many units of an Instrument are available to be
     traded by an Order depending on its postionFill option.
 
@@ -32,11 +32,10 @@ class UnitsAvailable(TypeModel):
                  # reduceFirst: UnitsAvailableDetails,
                  # reduceOnly: UnitsAvailableDetails,
                  # openOnly: UnitsAvailableDetails
-                 ):pass
+                 ): pass
 
 
-
-class UnitsAvailableDetails(TypeModel):
+class UnitsAvailableDetails(Model):
     """Representation of many units of an Instrument are available to be traded
     for both long and short Orders.
 
@@ -49,10 +48,10 @@ class UnitsAvailableDetails(TypeModel):
     def __init__(self,
                  long: DecimalNumber,
                  short: DecimalNumber
-                 ):pass
+                 ): pass
 
 
-class LiquidityRegenerationScheduleStep(TypeModel):
+class LiquidityRegenerationScheduleStep(Model):
     """A liquidity regeneration schedule Step indicates the amount of bid and ask
     liquidity that is used by the Account at a certain time. These amounts will
     only change at the timestamp of the following step.
@@ -71,7 +70,7 @@ class LiquidityRegenerationScheduleStep(TypeModel):
                  ): pass
 
 
-class LiquidityRegenerationSchedule(TypeModel):
+class LiquidityRegenerationSchedule(Model):
     """A LiquidityRegenerationSchedule indicates how liquidity that is used when
     filling an Order for an instrument is regenerated following the fill.  A
     liquidity regeneration schedule will be in effect until the timestamp of
@@ -88,7 +87,7 @@ class LiquidityRegenerationSchedule(TypeModel):
                  ): pass
 
 
-class CandlestickData(TypeModel):
+class CandlestickData(Model):
     """The price data (open, high, low, close) for the Candlestick representation.
 
     Fields:
@@ -107,9 +106,7 @@ class CandlestickData(TypeModel):
                  ): pass
 
 
-
-
-class OrderIdentifier(TypeModel):
+class OrderIdentifier(Model):
     """An OrderIdentifier is used to refer to an Order, and contains both the
     OrderID and the ClientOrderID.
 
@@ -122,12 +119,10 @@ class OrderIdentifier(TypeModel):
     def __init__(self,
                  orderID: OrderID,
                  clientOrderID: ClientID
-                 ):pass
+                 ): pass
 
 
-
-
-class QuoteHomeConversionFactors(TypeModel):
+class QuoteHomeConversionFactors(Model):
     """QuoteHomeConversionFactors represents the factors that can be used used to
     convert quantities of a Price's Instrument's quote currency into the
     Account's home currency.
@@ -146,9 +141,7 @@ class QuoteHomeConversionFactors(TypeModel):
                  ): pass
 
 
-
-
-class MarketOrderMarginCloseout(TypeModel):
+class MarketOrderMarginCloseout(Model):
     """Details for the Market Order extensions specific to a Market Order placed
     that is part of a Market Order Margin Closeout in a client's account
 
@@ -162,9 +155,7 @@ class MarketOrderMarginCloseout(TypeModel):
                  ): pass
 
 
-
-
-class InstrumentCommission(TypeModel):
+class InstrumentCommission(Model):
     """An InstrumentCommission represents an instrument-specific commission
 
     Fields:
@@ -185,9 +176,7 @@ class InstrumentCommission(TypeModel):
                  ): pass
 
 
-
-
-class OrderBookBucket(TypeModel):
+class OrderBookBucket(Model):
     """The order book data for a partition of the instrument's prices.
 
     Fields:
@@ -207,9 +196,7 @@ class OrderBookBucket(TypeModel):
                  ): pass
 
 
-
-
-class PositionBookBucket(TypeModel):
+class PositionBookBucket(Model):
     """The position book data for a partition of the instrument's prices.
 
     Fields:
@@ -229,9 +216,7 @@ class PositionBookBucket(TypeModel):
                  ): pass
 
 
-
-
-class DynamicOrderState(TypeModel):
+class DynamicOrderState(Model):
     """The dynamic state of an Order. This is only relevant to TrailingStopLoss
     Orders, as no other Order type has dynamic state.
 
@@ -250,12 +235,10 @@ class DynamicOrderState(TypeModel):
                  trailingStopValue: PriceValue,
                  triggerDistance: PriceValue,
                  isTriggerDistanceExact: bool
-                 ):pass
+                 ): pass
 
 
-
-
-class CalculatedPositionState(TypeModel):
+class CalculatedPositionState(Model):
     """The dynamic (calculated) state of a Position
 
     Fields:
@@ -274,7 +257,7 @@ class CalculatedPositionState(TypeModel):
                  ): pass
 
 
-class PositionSide(TypeModel):
+class PositionSide(Model):
     """The representation of a Position for a single direction (long or short).
 
     Fields:
@@ -303,7 +286,7 @@ class PositionSide(TypeModel):
                  ): pass
 
 
-class Position(TypeModel):
+class Position(Model):
     """The specification of a Position within an Account.
 
     Fields:
@@ -336,8 +319,7 @@ class Position(TypeModel):
                  ): pass
 
 
-
-class PriceBucket(TypeModel):
+class PriceBucket(Model):
     """A Price Bucket represents a price available for an amount of liquidity
 
     Fields:
@@ -352,9 +334,7 @@ class PriceBucket(TypeModel):
                  ): pass
 
 
-
-
-class ClientPrice(TypeModel):
+class ClientPrice(Model):
     """Client price for an Account.
 
     Fields:
@@ -379,9 +359,7 @@ class ClientPrice(TypeModel):
                  ): pass
 
 
-
-
-class PricingHeartbeat(TypeModel):
+class PricingHeartbeat(Model):
     """A PricingHeartbeat object is injected into the Pricing stream to ensure
     that the HTTP connection remains active.
 
@@ -400,9 +378,7 @@ class PricingHeartbeat(TypeModel):
                  ): pass
 
 
-
-
-class CalculatedTradeState(TypeModel):
+class CalculatedTradeState(Model):
     """The dynamic (calculated) state of an open Trade
 
     Fields:
@@ -417,7 +393,7 @@ class CalculatedTradeState(TypeModel):
                  ): pass
 
 
-class MarketOrderDelayedTradeClose(TypeModel):
+class MarketOrderDelayedTradeClose(Model):
     """Details for the Market Order extensions specific to a Market Order placed
     with the intent of fully closing a specific open trade that should have
     already been closed but wasn't due to halted market conditions
@@ -437,9 +413,7 @@ class MarketOrderDelayedTradeClose(TypeModel):
                  ): pass
 
 
-
-
-class MarketOrderPositionCloseout(TypeModel):
+class MarketOrderPositionCloseout(Model):
     """A MarketOrderPositionCloseout specifies the extensions to a Market Order
     when it has been created to closeout a specific Position.
 
@@ -456,9 +430,7 @@ class MarketOrderPositionCloseout(TypeModel):
                  ): pass
 
 
-
-
-class MarketOrderTradeClose(TypeModel):
+class MarketOrderTradeClose(Model):
     """A MarketOrderTradeClose specifies the extensions to a Market Order that has
     been created specifically to close a Trade.
 
@@ -477,9 +449,7 @@ class MarketOrderTradeClose(TypeModel):
                  ): pass
 
 
-
-
-class OpenTradeFinancing(TypeModel):
+class OpenTradeFinancing(Model):
     """OpenTradeFinancing is used to pay/collect daily financing charge for an
     open Trade within an Account
 
@@ -495,9 +465,7 @@ class OpenTradeFinancing(TypeModel):
                  ): pass
 
 
-
-
-class PositionFinancing(TypeModel):
+class PositionFinancing(Model):
     """OpenTradeFinancing is used to pay/collect daily financing charge for a
     Position within an Account
 
@@ -515,7 +483,7 @@ class PositionFinancing(TypeModel):
                  ): pass
 
 
-class ClientExtensions(TypeModel):
+class ClientExtensions(Model):
     """A ClientExtensions object allows a client to attach a clientID, tag and
     comment to Orders and Trades in their Account.  Do not set, modify, or
     delete this field if your account is associated with MT4.
@@ -534,8 +502,7 @@ class ClientExtensions(TypeModel):
                  ): pass
 
 
-
-class TradeOpen(TypeModel):
+class TradeOpen(Model):
     """A TradeOpen object represents a Trade for an instrument that was opened in
     an Account. It is found embedded in Transactions that affect the position
     of an instrument in the Account, specifically the OrderFill Transaction.
@@ -554,9 +521,7 @@ class TradeOpen(TypeModel):
                  ): pass
 
 
-
-
-class VWAPReceipt(TypeModel):
+class VWAPReceipt(Model):
     """A VWAP Receipt provides a record of how the price for an Order fill is
     constructed. If the Order is filled with multiple buckets in a depth of
     market, each bucket will be represented with a VWAP Receipt.
@@ -573,11 +538,7 @@ class VWAPReceipt(TypeModel):
                  ): pass
 
 
-
-
-
-
-class UserInfo(TypeModel):
+class UserInfo(Model):
     """A representation of user information, as provided to the user themself.
 
     Fields:
@@ -596,9 +557,7 @@ class UserInfo(TypeModel):
                  ): pass
 
 
-
-
-class AccountProperties(TypeModel):
+class AccountProperties(Model):
     """Properties related to an Account.
 
     Fields:
@@ -616,9 +575,7 @@ class AccountProperties(TypeModel):
                  ): pass
 
 
-
-
-class Candlestick(TypeModel):
+class Candlestick(Model):
     """The Candlestick representation
 
     Fields:
@@ -646,7 +603,7 @@ class Candlestick(TypeModel):
                  ): pass
 
 
-class OrderBook(TypeModel):
+class OrderBook(Model):
     """The representation of an instrument's order book at a point in time
 
     Fields:
@@ -670,9 +627,7 @@ class OrderBook(TypeModel):
                  ): pass
 
 
-
-
-class PositionBook(TypeModel):
+class PositionBook(Model):
     """The representation of an instrument's position book at a point in time
 
     Fields:
@@ -696,11 +651,7 @@ class PositionBook(TypeModel):
                  ): pass
 
 
-
-
-
-
-class Order(TypeModel):
+class Order(Model):
     """The base Order definition specifies the properties that are common to all
     Orders.
 
@@ -718,10 +669,10 @@ class Order(TypeModel):
                  createTime: DateTime,
                  state: OrderState,
                  clientExtensions: ClientExtensions
-                 ):pass
+                 ): pass
 
 
-class StopLossDetails(TypeModel):
+class StopLossDetails(Model):
     """StopLossDetails specifies the details of a Stop Loss Order to be created on
     behalf of a client. This may happen when an Order is filled that opens a
     Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is
@@ -744,9 +695,7 @@ class StopLossDetails(TypeModel):
                  ): pass
 
 
-
-
-class TakeProfitDetails(TypeModel):
+class TakeProfitDetails(Model):
     """TakeProfitDetails specifies the details of a Take Profit Order to be
     created on behalf of a client. This may happen when an Order is filled that
     opens a Trade requiring a Take Profit, or when a Trade's dependent Take
@@ -769,9 +718,7 @@ class TakeProfitDetails(TypeModel):
                  ): pass
 
 
-
-
-class TradeReduce(TypeModel):
+class TradeReduce(Model):
     """A TradeReduce object represents a Trade for an instrument that was reduced
     (either partially or fully) in an Account. It is found embedded in
     Transactions that affect the position of an instrument in the account,
@@ -793,9 +740,7 @@ class TradeReduce(TypeModel):
                  ): pass
 
 
-
-
-class TrailingStopLossDetails(TypeModel):
+class TrailingStopLossDetails(Model):
     """TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order
     to be created on behalf of a client. This may happen when an Order is
     filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's
@@ -820,9 +765,7 @@ class TrailingStopLossDetails(TypeModel):
                  ): pass
 
 
-
-
-class TransactionHeartbeat(TypeModel):
+class TransactionHeartbeat(Model):
     """A TransactionHeartbeat object is injected into the Transaction stream to
     ensure that the HTTP connection remains active.
 
@@ -843,9 +786,7 @@ class TransactionHeartbeat(TypeModel):
                  ): pass
 
 
-
-
-class UserInfoExternal(TypeModel):
+class UserInfoExternal(Model):
     """A representation of user information, as available to external (3rd party)
     clients.
 
@@ -863,9 +804,7 @@ class UserInfoExternal(TypeModel):
                  ): pass
 
 
-
-
-class TradeSummary(TypeModel):
+class TradeSummary(Model):
     """The summary of a Trade within an Account. This representation does not
     provide the full details of the Trade's dependent Orders.
 
@@ -922,8 +861,7 @@ class TradeSummary(TypeModel):
                  ): pass
 
 
-
-class Transaction(TypeModel):
+class Transaction(Model):
     """The base Transaction specification. Specifies properties that are common
     between all Transaction.
 
@@ -951,8 +889,7 @@ class Transaction(TypeModel):
                  ): pass
 
 
-
-class AccountChanges(TypeModel):
+class AccountChanges(Model):
     """An AccountChanges Object is used to represent the changes to an Account's
     Orders, Trades and Positions since a specified Account TransactionID in the
     past.
@@ -984,7 +921,7 @@ class AccountChanges(TypeModel):
                  ): pass
 
 
-class Instrument(TypeModel):
+class Instrument(Model):
     """Full specification of an Instrument.
 
     Fields:
@@ -1027,8 +964,7 @@ class Instrument(TypeModel):
                  ): pass
 
 
-
-class AccountChangesState(TypeModel):
+class AccountChangesState(Model):
     """An AccountState Object is used to represent an Account's current price-
     dependent state. Price-dependent Account state is dependent on OANDA's
     current Prices, and includes things like unrealized PL, NAV and Trailing
@@ -1082,9 +1018,7 @@ class AccountChangesState(TypeModel):
                  ): pass
 
 
-
-
-class Price(TypeModel):
+class Price(Model):
     """The specification of an Account-specific Price.
 
     Fields:
@@ -1123,11 +1057,7 @@ class Price(TypeModel):
                  ): pass
 
 
-
-
-
-
-class CloseTransaction(TypeModel):
+class CloseTransaction(Model):
     """A CloseTransaction represents the closing of an Account.
 
     Fields:
@@ -1159,9 +1089,7 @@ class CloseTransaction(TypeModel):
                  ): pass
 
 
-
-
-class MarginCallEnterTransaction(TypeModel):
+class MarginCallEnterTransaction(Model):
     """A MarginCallEnterTransaction is created when an Account enters the margin
     call state.
 
@@ -1195,9 +1123,7 @@ class MarginCallEnterTransaction(TypeModel):
                  ): pass
 
 
-
-
-class MarginCallExitTransaction(TypeModel):
+class MarginCallExitTransaction(Model):
     """A MarginCallExitnterTransaction is created when an Account leaves the
     margin call state.
 
@@ -1231,9 +1157,7 @@ class MarginCallExitTransaction(TypeModel):
                  ): pass
 
 
-
-
-class MarginCallExtendTransaction(TypeModel):
+class MarginCallExtendTransaction(Model):
     """A MarginCallExtendTransaction is created when the margin call state for an
     Account has been extended.
 
@@ -1270,9 +1194,7 @@ class MarginCallExtendTransaction(TypeModel):
                  ): pass
 
 
-
-
-class ReopenTransaction(TypeModel):
+class ReopenTransaction(Model):
     """A ReopenTransaction represents the re-opening of a closed Account.
 
     Fields:
@@ -1304,9 +1226,7 @@ class ReopenTransaction(TypeModel):
                  ): pass
 
 
-
-
-class ResetResettablePLTransaction(TypeModel):
+class ResetResettablePLTransaction(Model):
     """A ResetResettablePLTransaction represents the resetting of the Account's
     resettable PL counters.
 
@@ -1340,9 +1260,7 @@ class ResetResettablePLTransaction(TypeModel):
                  ): pass
 
 
-
-
-class StopLossOrderRequest(TypeModel):
+class StopLossOrderRequest(Model):
     """A StopLossOrderRequest specifies the parameters that may be set when
     creating a Stop Loss Order.
 
@@ -1379,12 +1297,10 @@ class StopLossOrderRequest(TypeModel):
                  triggerCondition: OrderTriggerCondition,
                  clientExtensions: ClientExtensions,
                  type: OrderType = 'STOP_LOSS'
-                 ):pass
+                 ): pass
 
 
-
-
-class TakeProfitOrderRequest(TypeModel):
+class TakeProfitOrderRequest(Model):
     """A TakeProfitOrderRequest specifies the parameters that may be set when
     creating a Take Profit Order.
 
@@ -1421,12 +1337,10 @@ class TakeProfitOrderRequest(TypeModel):
                  triggerCondition: OrderTriggerCondition,
                  clientExtensions: ClientExtensions,
                  type: OrderType = 'TAKE_PROFIT'
-                 ):pass
+                 ): pass
 
 
-
-
-class TrailingStopLossOrderRequest(TypeModel):
+class TrailingStopLossOrderRequest(Model):
     """A TrailingStopLossOrderRequest specifies the parameters that may be set
     when creating a Trailing Stop Loss Order.
 
@@ -1462,12 +1376,10 @@ class TrailingStopLossOrderRequest(TypeModel):
                  triggerCondition: OrderTriggerCondition,
                  clientExtensions: ClientExtensions,
                  type: OrderType = 'TRAILING_STOP_LOSS'
-                 ):pass
+                 ): pass
 
 
-
-
-class CreateTransaction(TypeModel):
+class CreateTransaction(Model):
     """A CreateTransaction represents the creation of an Account.
 
     Fields:
@@ -1509,11 +1421,7 @@ class CreateTransaction(TypeModel):
                  ): pass
 
 
-
-
-
-
-class ClientConfigureTransaction(TypeModel):
+class ClientConfigureTransaction(Model):
     """A ClientConfigureTransaction represents the configuration of an Account by
     a client.
 
@@ -1551,9 +1459,7 @@ class ClientConfigureTransaction(TypeModel):
                  ): pass
 
 
-
-
-class DelayedTradeClosureTransaction(TypeModel):
+class DelayedTradeClosureTransaction(Model):
     """A DelayedTradeClosure Transaction is created administratively to indicate
     open trades that should have been closed but weren't because the open
     trades' instruments were untradeable at the time. Open trades listed in
@@ -1595,10 +1501,7 @@ class DelayedTradeClosureTransaction(TypeModel):
                  ): pass
 
 
-
-
-
-class OrderCancelTransaction(TypeModel):
+class OrderCancelTransaction(Model):
     """An OrderCancelTransaction represents the cancellation of an Order in the
     client's Account.
 
@@ -1642,9 +1545,7 @@ class OrderCancelTransaction(TypeModel):
                  ): pass
 
 
-
-
-class OrderClientExtensionsModifyTransaction(TypeModel):
+class OrderClientExtensionsModifyTransaction(Model):
     """A OrderClientExtensionsModifyTransaction represents the modification of an
     Order's Client Extensions.
 
@@ -1686,9 +1587,7 @@ class OrderClientExtensionsModifyTransaction(TypeModel):
                  ): pass
 
 
-
-
-class DailyFinancingTransaction(TypeModel):
+class DailyFinancingTransaction(Model):
     """A DailyFinancingTransaction represents the daily payment/collection of
     financing for an Account.
 
@@ -1730,9 +1629,7 @@ class DailyFinancingTransaction(TypeModel):
                  ): pass
 
 
-
-
-class TradeClientExtensionsModifyTransaction(TypeModel):
+class TradeClientExtensionsModifyTransaction(Model):
     """A TradeClientExtensionsModifyTransaction represents the modification of a
     Trade's Client Extensions.
 
@@ -1772,9 +1669,7 @@ class TradeClientExtensionsModifyTransaction(TypeModel):
                  ): pass
 
 
-
-
-class AccountSummary(TypeModel):
+class AccountSummary(Model):
     """A summary representation of a client's Account. The AccountSummary does not
     provide to full specification of pending Orders, open Trades and Positions.
 
@@ -1864,8 +1759,7 @@ class AccountSummary(TypeModel):
                  ): pass
 
 
-
-class MarketOrderRequest(TypeModel):
+class MarketOrderRequest(Model):
     """A MarketOrderRequest specifies the parameters that may be set when creating
     a Market Order.
 
@@ -1911,10 +1805,10 @@ class MarketOrderRequest(TypeModel):
                  trailingStopLossOnFill: TrailingStopLossDetails,
                  tradeClientExtensions: ClientExtensions,
                  type: OrderType = 'MARKET'
-                 ):pass
+                 ): pass
 
 
-class TakeProfitOrderTransaction(TypeModel):
+class TakeProfitOrderTransaction(Model):
     """A TakeProfitOrderTransaction represents the creation of a TakeProfit Order
     in the user's Account.
 
@@ -1978,7 +1872,7 @@ class TakeProfitOrderTransaction(TypeModel):
                  ): pass
 
 
-class TakeProfitOrder(TypeModel):
+class TakeProfitOrder(Model):
     """A TakeProfitOrder is an order that is linked to an open Trade and created
     with a price threshold. The Order will be filled (closing the Trade) by the
     first price that is equal to or better than the threshold. A
@@ -2049,10 +1943,10 @@ class TakeProfitOrder(TypeModel):
                  replacesOrderID: OrderID,
                  replacedByOrderID: OrderID,
                  type: OrderType = 'TAKE_PROFIT'
-                 ):pass
+                 ): pass
 
 
-class StopLossOrder(TypeModel):
+class StopLossOrder(Model):
     """A StopLossOrder is an order that is linked to an open Trade and created
     with a price threshold. The Order will be filled (closing the Trade) by the
     first price that is equal to or worse than the threshold. A StopLossOrder
@@ -2123,10 +2017,10 @@ class StopLossOrder(TypeModel):
                  replacesOrderID: OrderID,
                  replacedByOrderID: OrderID,
                  type: OrderType = 'STOP_LOSS'
-                 ):pass
+                 ): pass
 
 
-class TrailingStopLossOrder(TypeModel):
+class TrailingStopLossOrder(Model):
     """A TrailingStopLossOrder is an order that is linked to an open Trade and
     created with a price distance. The price distance is used to calculate a
     trailing stop value for the order that is in the losing direction from the
@@ -2204,10 +2098,10 @@ class TrailingStopLossOrder(TypeModel):
                  replacesOrderID: OrderID,
                  replacedByOrderID: OrderID,
                  type: OrderType = 'TRAILING_STOP_LOSS'
-                 ):pass
+                 ): pass
 
 
-class Trade(TypeModel):
+class Trade(Model):
     """The specification of a Trade within an Account. This includes the full
     representation of the Trade's dependent Orders in addition to the IDs of
     those Orders.
@@ -2267,9 +2161,7 @@ class Trade(TypeModel):
                  ): pass
 
 
-
-
-class ClientConfigureRejectTransaction(TypeModel):
+class ClientConfigureRejectTransaction(Model):
     """A ClientConfigureRejectTransaction represents the reject of configuration
     of an Account by a client.
 
@@ -2309,9 +2201,7 @@ class ClientConfigureRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class OrderCancelRejectTransaction(TypeModel):
+class OrderCancelRejectTransaction(Model):
     """An OrderCancelRejectTransaction represents the rejection of the
     cancellation of an Order in the client's Account.
 
@@ -2354,9 +2244,7 @@ class OrderCancelRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class OrderClientExtensionsModifyRejectTransaction(TypeModel):
+class OrderClientExtensionsModifyRejectTransaction(Model):
     """A OrderClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of an Order's Client Extensions.
 
@@ -2400,9 +2288,7 @@ class OrderClientExtensionsModifyRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class TradeClientExtensionsModifyRejectTransaction(TypeModel):
+class TradeClientExtensionsModifyRejectTransaction(Model):
     """A TradeClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of a Trade's Client Extensions.
 
@@ -2444,9 +2330,7 @@ class TradeClientExtensionsModifyRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class TransferFundsTransaction(TypeModel):
+class TransferFundsTransaction(Model):
     """A TransferFundsTransaction represents the transfer of funds in/out of an
     Account.
 
@@ -2489,9 +2373,7 @@ class TransferFundsTransaction(TypeModel):
                  ): pass
 
 
-
-
-class TransferFundsRejectTransaction(TypeModel):
+class TransferFundsRejectTransaction(Model):
     """A TransferFundsRejectTransaction represents the rejection of the transfer
     of funds in/out of an Account.
 
@@ -2534,9 +2416,7 @@ class TransferFundsRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class LimitOrderRequest(TypeModel):
+class LimitOrderRequest(Model):
     """A LimitOrderRequest specifies the parameters that may be set when creating
     a Limit Order.
 
@@ -2588,12 +2468,10 @@ class LimitOrderRequest(TypeModel):
                  trailingStopLossOnFill: TrailingStopLossDetails,
                  tradeClientExtensions: ClientExtensions,
                  type: OrderType = 'LIMIT'
-                 ):pass
+                 ): pass
 
 
-
-
-class MarketIfTouchedOrderRequest(TypeModel):
+class MarketIfTouchedOrderRequest(Model):
     """A MarketIfTouchedOrderRequest specifies the parameters that may be set when
     creating a Market-if-Touched Order.
 
@@ -2648,12 +2526,10 @@ class MarketIfTouchedOrderRequest(TypeModel):
                  trailingStopLossOnFill: TrailingStopLossDetails,
                  tradeClientExtensions: ClientExtensions,
                  type: OrderType = 'MARKET_IF_TOUCHED'
-                 ):pass
+                 ): pass
 
 
-
-
-class StopOrderRequest(TypeModel):
+class StopOrderRequest(Model):
     """A StopOrderRequest specifies the parameters that may be set when creating a
     Stop Order.
 
@@ -2708,12 +2584,10 @@ class StopOrderRequest(TypeModel):
                  trailingStopLossOnFill: TrailingStopLossDetails,
                  tradeClientExtensions: ClientExtensions,
                  type: OrderType = 'STOP'
-                 ):pass
+                 ): pass
 
 
-
-
-class Account(TypeModel):
+class Account(Model):
     """The full details of a client's Account. This includes full open Trade, open
     Position and pending Order representation.
 
@@ -2812,9 +2686,7 @@ class Account(TypeModel):
                  ): pass
 
 
-
-
-class MarketOrderTransaction(TypeModel):
+class MarketOrderTransaction(Model):
     """A MarketOrderTransaction represents the creation of a Market Order in the
     user's account. A Market Order is an Order that is filled immediately at
     the current market price. Market Orders can be specialized when they are
@@ -2894,9 +2766,7 @@ class MarketOrderTransaction(TypeModel):
                  ): pass
 
 
-
-
-class MarketOrderRejectTransaction(TypeModel):
+class MarketOrderRejectTransaction(Model):
     """A MarketOrderRejectTransaction represents the rejection of the creation of
     a Market Order.
 
@@ -2975,9 +2845,7 @@ class MarketOrderRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class StopLossOrderTransaction(TypeModel):
+class StopLossOrderTransaction(Model):
     """A StopLossOrderTransaction represents the creation of a StopLoss Order in
     the user's Account.
 
@@ -3041,7 +2909,7 @@ class StopLossOrderTransaction(TypeModel):
                  ): pass
 
 
-class TrailingStopLossOrderTransaction(TypeModel):
+class TrailingStopLossOrderTransaction(Model):
     """A TrailingStopLossOrderTransaction represents the creation of a
     TrailingStopLoss Order in the user's Account.
 
@@ -3104,9 +2972,7 @@ class TrailingStopLossOrderTransaction(TypeModel):
                  ): pass
 
 
-
-
-class LimitOrder(TypeModel):
+class LimitOrder(Model):
     """A LimitOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or better than the threshold.
 
@@ -3190,12 +3056,10 @@ class LimitOrder(TypeModel):
                  replacesOrderID: OrderID,
                  replacedByOrderID: OrderID,
                  type: OrderType = 'LIMIT'
-                 ):pass
+                 ): pass
 
 
-
-
-class MarketIfTouchedOrder(TypeModel):
+class MarketIfTouchedOrder(Model):
     """A MarketIfTouchedOrder is an order that is created with a price threshold,
     and will only be filled by a market price that is touches or crosses the
     threshold.
@@ -3286,12 +3150,10 @@ class MarketIfTouchedOrder(TypeModel):
                  replacesOrderID: OrderID,
                  replacedByOrderID: OrderID,
                  type: OrderType = 'MARKET_IF_TOUCHED'
-                 ):pass
+                 ): pass
 
 
-
-
-class StopOrder(TypeModel):
+class StopOrder(Model):
     """A StopOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or worse than the threshold.
 
@@ -3378,12 +3240,10 @@ class StopOrder(TypeModel):
                  replacesOrderID: OrderID,
                  replacedByOrderID: OrderID,
                  type: OrderType = 'STOP'
-                 ):pass
+                 ): pass
 
 
-
-
-class OrderFillTransaction(TypeModel):
+class OrderFillTransaction(Model):
     """An OrderFillTransaction represents the filling of an Order in the client's
     Account.
 
@@ -3450,9 +3310,7 @@ class OrderFillTransaction(TypeModel):
                  ): pass
 
 
-
-
-class StopLossOrderRejectTransaction(TypeModel):
+class StopLossOrderRejectTransaction(Model):
     """A StopLossOrderRejectTransaction represents the rejection of the creation
     of a StopLoss Order.
 
@@ -3515,9 +3373,7 @@ class StopLossOrderRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class MarketIfTouchedOrderTransaction(TypeModel):
+class MarketIfTouchedOrderTransaction(Model):
     """A MarketIfTouchedOrderTransaction represents the creation of a
     MarketIfTouched Order in the user's Account.
 
@@ -3596,9 +3452,7 @@ class MarketIfTouchedOrderTransaction(TypeModel):
                  ): pass
 
 
-
-
-class LimitOrderTransaction(TypeModel):
+class LimitOrderTransaction(Model):
     """A LimitOrderTransaction represents the creation of a Limit Order in the
     user's Account.
 
@@ -3674,9 +3528,7 @@ class LimitOrderTransaction(TypeModel):
                  ): pass
 
 
-
-
-class TakeProfitOrderRejectTransaction(TypeModel):
+class TakeProfitOrderRejectTransaction(Model):
     """A TakeProfitOrderRejectTransaction represents the rejection of the creation
     of a TakeProfit Order.
 
@@ -3739,9 +3591,7 @@ class TakeProfitOrderRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class TrailingStopLossOrderRejectTransaction(TypeModel):
+class TrailingStopLossOrderRejectTransaction(Model):
     """A TrailingStopLossOrderRejectTransaction represents the rejection of the
     creation of a TrailingStopLoss Order.
 
@@ -3803,9 +3653,7 @@ class TrailingStopLossOrderRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class StopOrderTransaction(TypeModel):
+class StopOrderTransaction(Model):
     """A StopOrderTransaction represents the creation of a Stop Order in the
     user's Account.
 
@@ -3884,9 +3732,7 @@ class StopOrderTransaction(TypeModel):
                  ): pass
 
 
-
-
-class MarketIfTouchedOrderRejectTransaction(TypeModel):
+class MarketIfTouchedOrderRejectTransaction(Model):
     """A MarketIfTouchedOrderRejectTransaction represents the rejection of the
     creation of a MarketIfTouched Order.
 
@@ -3964,9 +3810,7 @@ class MarketIfTouchedOrderRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class LimitOrderRejectTransaction(TypeModel):
+class LimitOrderRejectTransaction(Model):
     """A LimitOrderRejectTransaction represents the rejection of the creation of a
     Limit Order.
 
@@ -4041,9 +3885,7 @@ class LimitOrderRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class StopOrderRejectTransaction(TypeModel):
+class StopOrderRejectTransaction(Model):
     """A StopOrderRejectTransaction represents the rejection of the creation of a
     Stop Order.
 
@@ -4121,9 +3963,7 @@ class StopOrderRejectTransaction(TypeModel):
                  ): pass
 
 
-
-
-class MarketOrder(TypeModel):
+class MarketOrder(Model):
     """A MarketOrder is an order that is filled immediately upon creation using
     the current market price.
 
@@ -4208,6 +4048,4 @@ class MarketOrder(TypeModel):
                  cancellingTransactionID: TransactionID,
                  cancelledTime: DateTime,
                  type: OrderType = 'MARKET'
-                 ):pass
-
-
+                 ): pass

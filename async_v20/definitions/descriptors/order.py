@@ -1,5 +1,6 @@
 from .base import Descriptor
 
+
 class CancellableOrderType(Descriptor):
     """The type of the Order.
     """
@@ -26,7 +27,9 @@ class OrderID(Descriptor):
     typ = str
 
     # Correct syntax of value
-    format_syntax = 'The string representation of the OANDA-assigned OrderID. OANDA-assigned OrderIDs are positive integers, and are derived from the TransactionID of the Transaction that created the Order.'
+    format_syntax = 'The string representation of the OANDA-assigned OrderID. ' \
+                    'OANDA-assigned OrderIDs are positive integers, and are derived from the ' \
+                    'TransactionID of the Transaction that created the Order.'
     # Example of correct format
     example = '1523'
 
@@ -42,9 +45,11 @@ class OrderPositionFill(Descriptor):
     # Valid values
     values = {
         'OPEN_ONLY': 'When the Order is filled, only allow Positions to be opened or extended.',
-        'REDUCE_FIRST': 'When the Order is filled, always fully reduce an existing Position before opening a new Position.',
+        'REDUCE_FIRST': 'When the Order is filled, always fully reduce an existing Position '
+                        'before opening a new Position.',
         'REDUCE_ONLY': 'When the Order is filled, only reduce an existing Position.',
-        'DEFAULT': 'When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, and OPEN_ONLY behaviour for client hedging Accounts.'
+        'DEFAULT': 'When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, '
+                   'and OPEN_ONLY behaviour for client hedging Accounts.'
     }
 
 
@@ -56,7 +61,8 @@ class OrderSpecifier(Descriptor):
     typ = str
 
     # Correct syntax of value
-    format_syntax = 'Either the Order’s OANDA-assigned OrderID or the Order’s client-provided ClientID prefixed by the “@” symbol'
+    format_syntax = 'Either the Order’s OANDA-assigned OrderID or the Order’s client-provided ' \
+                    'ClientID prefixed by the “@” symbol'
     # Example of correct format
     example = '1523'
 
@@ -95,8 +101,17 @@ class OrderStateFilter(Descriptor):
 
 
 class OrderTriggerCondition(Descriptor):
-    """Specification of which price component should be used when determining if an Order should be triggered and filled. This allows Orders to be triggered based on the bid, ask, mid, default (ask for buy, bid for sell) or inverse (ask for sell, bid for buy) price depending on the desired behaviour. Orders are always filled using their default price component. This feature is only provided through the REST
-    API. Clients who choose to specify a non-default trigger condition will not see it reflected in any of OANDA’s proprietary or partner trading platforms, their transaction history or their account statements. OANDA platforms always assume that an Order’s trigger condition is set to the default value when indicating the distance from an Order’s trigger price, and will always provide the default trigger condition when creating or modifying an Order.
+    """Specification of which price component should be used when determining if an
+    Order should be triggered and filled. This allows Orders to be triggered based
+    on the bid, ask, mid, default (ask for buy, bid for sell) or inverse (
+    ask for sell, bid for buy) price depending on the desired behaviour. Orders are
+    always filled using their default price component. This feature is only provided
+    through the REST API. Clients who choose to specify a non-default trigger condition
+    will not see it reflected in any of OANDA’s proprietary or partner trading platforms,
+    their transaction history or their account statements. OANDA platforms always assume
+    that an Order’s trigger condition is set to the default value when indicating the distance
+    from an Order’s trigger price, and will always provide the default trigger condition
+    when creating or modifying an Order.
     """
 
     # Type checking
@@ -104,8 +119,10 @@ class OrderTriggerCondition(Descriptor):
 
     # Valid values
     values = {
-        'DEFAULT': 'Trigger an Order the “natural” way: compare its price to the ask for long Orders and bid for short Orders.',
-        'INVERSE': 'Trigger an Order the opposite of the “natural” way: compare its price the bid for long Orders and ask for short Orders.',
+        'DEFAULT': 'Trigger an Order the “natural” way: '
+                   'compare its price to the ask for long Orders and bid for short Orders.',
+        'INVERSE': 'Trigger an Order the opposite of the “natural” way: '
+                   'compare its price the bid for long Orders and ask for short Orders.',
         'BID': 'Trigger an Order by comparing its price to the bid regardless of whether it is long or short.',
         'ASK': 'Trigger an Order by comparing its price to the ask regardless of whether it is long or short.',
         'MID': 'Trigger an Order by comparing its price to the midpoint regardless of whether it is long or short.'
@@ -147,6 +164,3 @@ class TimeInForce(Descriptor):
         'FOK': 'The Order must be immediately “Filled Or Killed”',
         'IOC': 'The Order must be “Immediatedly paritally filled Or Cancelled”'
     }
-
-
-

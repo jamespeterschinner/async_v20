@@ -2,6 +2,7 @@ class LengthError(Exception):
     def __init__(self, output):
         pass
 
+
 class IncorrectValue(Exception):
     def __init__(self, output):
         pass

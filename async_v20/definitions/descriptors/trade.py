@@ -1,5 +1,6 @@
 from .base import Descriptor
 
+
 class TradeID(Descriptor):
     """The Trade’s identifier, unique within the Trade’s Account.
     """
@@ -8,7 +9,9 @@ class TradeID(Descriptor):
     typ = str
 
     # Correct syntax of value
-    format_syntax = 'The string representation of the OANDA-assigned TradeID. OANDA-assigned TradeIDs are positive integers, and are derived from the TransactionID of the Transaction that opened the Trade.'
+    format_syntax = 'The string representation of the OANDA-assigned TradeID. ' \
+                    'OANDA-assigned TradeIDs are positive integers, and are ' \
+                    'derived from the TransactionID of the Transaction that opened the Trade.'
     # Example of correct format
     example = '1523'
 
@@ -22,9 +25,12 @@ class TradePL(Descriptor):
 
     # Valid values
     values = {
-        'POSITIVE': 'An open Trade currently has a positive (profitable) unrealized P/L, or a closed Trade realized a positive amount of P/L.',
-        'NEGATIVE': 'An open Trade currently has a negative (losing) unrealized P/L, or a closed Trade realized a negative amount of P/L.',
-        'ZERO': 'An open Trade currently has unrealized P/L of zero (neither profitable nor losing), or a closed Trade realized a P/L amount of zero.'
+        'POSITIVE': 'An open Trade currently has a positive (profitable) unrealized P/L, '
+                    'or a closed Trade realized a positive amount of P/L.',
+        'NEGATIVE': 'An open Trade currently has a negative (losing) unrealized P/L, '
+                    'or a closed Trade realized a negative amount of P/L.',
+        'ZERO': 'An open Trade currently has unrealized P/L of zero (neither profitable nor losing),'
+                ' or a closed Trade realized a P/L amount of zero.'
     }
 
 
@@ -36,7 +42,8 @@ class TradeSpecifier(Descriptor):
     typ = str
 
     # Correct syntax of value
-    format_syntax = 'Either the Trade’s OANDA-assigned TradeID or the Trade’s client-provided ClientID prefixed by the “@” symbol'
+    format_syntax = 'Either the Trade’s OANDA-assigned TradeID or the Trade’s client-provided ' \
+                    'ClientID prefixed by the “@” symbol'
     # Example of correct format
     example = '@my_trade_id'
 
@@ -70,6 +77,3 @@ class TradeStateFilter(Descriptor):
         'CLOSE_WHEN_TRADEABLE': 'The Trades  that will be closed as soon as the trades’ instrument becomes tradeable',
         'ALL': 'The Trades that are in any of the possible states listed above.'
     }
-
-
-

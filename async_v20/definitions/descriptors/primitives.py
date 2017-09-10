@@ -1,5 +1,6 @@
 from .base import Descriptor
 
+
 class AcceptDatetimeFormat(Descriptor):
     """DateTime header
     """
@@ -9,8 +10,10 @@ class AcceptDatetimeFormat(Descriptor):
 
     # Valid values
     values = {
-        'UNIX': 'If “UNIX” is specified DateTime fields will be specified or returned in the “12345678.000000123” format.',
-        'RFC3339': 'If “RFC3339” is specified DateTime will be specified or returned in “YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ” format.'
+        'UNIX': 'If “UNIX” is specified DateTime fields will be specified or '
+                'returned in the “12345678.000000123” format.',
+        'RFC3339': 'If “RFC3339” is specified DateTime will be specified or '
+                   'returned in “YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ” format.'
     }
 
 
@@ -22,7 +25,8 @@ class AccountUnits(Descriptor):
     typ = str
 
     # Correct syntax of value
-    format_syntax = 'A decimal number encoded as a string. The amount of precision provided depends on the Account’s home currency.'
+    format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
+                    'provided depends on the Account’s home currency.'
 
 
 class Currency(Descriptor):
@@ -55,7 +59,8 @@ class DecimalNumber(Descriptor):
     typ = (str, float)
 
     # Correct syntax of value
-    format_syntax = 'A decimal number encoded as a string. The amount of precision provided depends on what the number represents.'
+    format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
+                    'provided depends on what the number represents.'
 
 
 class Direction(Descriptor):
@@ -68,8 +73,10 @@ class Direction(Descriptor):
 
     # Valid values
     values = {
-        'LONG': 'A long Order is used to to buy units of an Instrument. A Trade is long when it has bought units of an Instrument.',
-        'SHORT': 'A short Order is used to to sell units of an Instrument. A Trade is short when it has sold units of an Instrument.'
+        'LONG': 'A long Order is used to to buy units of an Instrument. '
+                'A Trade is long when it has bought units of an Instrument.',
+        'SHORT': 'A short Order is used to to sell units of an Instrument.'
+                 'A Trade is short when it has sold units of an Instrument.'
     }
 
 
@@ -97,6 +104,3 @@ class InstrumentType(Descriptor):
         'CFD': 'Contract For Difference',
         'METAL': 'Metal'
     }
-
-
-

@@ -1,5 +1,6 @@
 from .base import Descriptor
 
+
 class CandlestickGranularity(Descriptor):
     """The granularity of a candlestick
     """
@@ -50,6 +51,3 @@ class WeeklyAlignment(Descriptor):
         'Saturday': 'Saturday',
         'Sunday': 'Sunday'
     }
-
-
-

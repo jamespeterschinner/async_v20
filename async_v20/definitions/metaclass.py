@@ -23,7 +23,7 @@ class ORM(type):
             def wrapper(self, *args, **kwargs):
                 for attribute, value in kwargs.items():
                     typ = self.attribute_types[attribute]
-                    if issubclass(typ, Structure):
+                    if issubclass(typ, Model):
                         if callable(typ):
                             setattr(self, attribute, typ(**value))
 
@@ -39,10 +39,9 @@ class ORM(type):
         return class_obj
 
 
-class TypeModel(metaclass=ORM):
-    _summary_format = ''
-    # Format string used when generating a name for this object
-    _name_format = ''
+class Model(metaclass=ORM):
+
+
 
     @classmethod
     async def from_dict(cls, data, ctx):

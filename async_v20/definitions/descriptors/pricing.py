@@ -1,5 +1,6 @@
 from .base import Descriptor
 
+
 class PriceStatus(Descriptor):
     """The status of the Price.
     """
@@ -23,6 +24,5 @@ class PriceValue(Descriptor):
     typ = (str, float)
 
     # Correct syntax of value
-    format_syntax = 'A decimal number encodes as a string. The amount of precision provided depends on the Price’s Instrument.'
-
-
+    format_syntax = 'A decimal number encodes as a string. The amount of precision ' \
+                    'provided depends on the Price’s Instrument.'
