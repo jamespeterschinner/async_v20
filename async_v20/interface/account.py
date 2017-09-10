@@ -1,5 +1,7 @@
 from .decorators import endpoint
 from ..endpoints.account import *
+from ..endpoints.annotations import *
+
 
 class AccountInterface(object):
 
@@ -50,7 +52,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDInstruments)
-    def instruments(self, instruments):
+    def instruments(self, instruments: Instruments):
         """
         Get the list of tradeable instruments for the given Account. The list
         of tradeable instruments is dependent on the regulatory division that
@@ -69,8 +71,9 @@ class AccountInterface(object):
         """
         pass
 
+
     @endpoint(PATCHAccountIDConfiguration)
-    def configure(self, alias, marginRate):
+    def configure(self, alias: Alias, marginRate: DecimalNumber):
         """
         Set the client-configurable portions of an Account.
 
@@ -89,7 +92,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDChanges)
-    def changes(self, sinceTransactionID):
+    def changes(self, sinceTransactionID: TransactionID):
         """
         Endpoint used to poll an Account for its current state and changes
         since a specified TransactionID.

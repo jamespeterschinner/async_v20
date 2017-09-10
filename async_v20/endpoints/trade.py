@@ -117,7 +117,7 @@ class PUTTradeSpecifierClose(object):
 
     # TODO needs to default to 'ALL'
     # json schema representation
-    request_schema = {'units': str}
+    request_schema = {'units': Units}
 
 
 class PUTTradeSpecifierClientExtensions(object):

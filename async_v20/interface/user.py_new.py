@@ -6,7 +6,7 @@ class UserInterface(object):
 
 
     @endpoint(GETUserSpecifier)
-    def get_info(self, userSpecifier):
+    def get_info(self, userSpecifier: UserSpecifier):
         """
         Fetch the user information for the specified user. This endpoint is
         intended to be used by the user thyself to obtain their own
@@ -23,7 +23,7 @@ class UserInterface(object):
         pass
 
     @endpoint(GETExternalInfo)
-    def get_external_info(self, userSpecifier):
+    def get_external_info(self, userSpecifier: UserSpecifier):
 
         """
         Fetch the externally-available user information for the specified user.

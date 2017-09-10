@@ -23,15 +23,15 @@ class GETInstrumentsCandles(object):
         {'name': 'granularity', 'located': 'query', 'type': CandlestickGranularity,
          'description': 'CandlestickGranularity'},
         {'name': 'count', 'located': 'query', 'type': Count, 'description': 'int'},
-        {'name': 'from', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
-        {'name': 'to', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
+        {'name': 'from', 'located': 'query', 'type': FromDateTime, 'description': 'DateTime'},
+        {'name': 'to', 'located': 'query', 'type': ToDateTime, 'description': 'DateTime'},
         {'name': 'smooth', 'located': 'query', 'type': Smooth, 'description': 'boolean'},
         {'name': 'incluclassirst', 'located': 'query', 'type': Incluclassirst, 'description': 'boolean'},
         {'name': 'dailyAlignment', 'located': 'query', 'type': DailyAlignment, 'description': 'int'},
         {'name': 'alignmentTimezone', 'located': 'query', 'type': AlignmentTimezone, 'description': 'str'},
         {'name': 'weeklyAlignment', 'located': 'query', 'type': WeeklyAlignment,
          'description': 'WeeklyAlignment'},
-    ]
+    ] # TODO ASK OANDA if incluc.. is a typo
 
     # valid responses
     responses = {

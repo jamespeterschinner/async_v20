@@ -1,8 +1,8 @@
 from .decorators import endpoint
 from ..endpoints.position import *
 
-class PositionInterface(object):
 
+class PositionInterface(object):
     @endpoint(GETPositions)
     def list(self):
         """
@@ -20,7 +20,6 @@ class PositionInterface(object):
         """
         pass
 
-
     @endpoint(GETOpenPositions)
     def list_open(self):
         """
@@ -37,9 +36,8 @@ class PositionInterface(object):
         """
         pass
 
-
     @endpoint(GETPositionsInstrument)
-    def get(self, instrument):
+    def get(self, instrument: InstrumentName):
         """
         Get the details of a single Instrument's Position in an Account. The
         Position may by open or not.
@@ -56,9 +54,9 @@ class PositionInterface(object):
         """
         pass
 
-
     @endpoint(PUTPositionsInstrumentClose)
-    def close(self, instrument, longUnits, longClientExtensions, shortUnits, shortClientExtensions):
+    def close(self, instrument: InstrumentName, longUnits: LongUnits, longClientExtensions: LongClientExtensions,
+              shortUnits: ShortUnits, shortClientExtensions: ShortClientExtensions):
         """
         Closeout the open Position for a specific instrument in an Account.
 

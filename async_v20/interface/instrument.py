@@ -5,18 +5,17 @@ class InstrumentInterface(object):
 
     @endpoint(GETInstrumentsCandles)
     def candles(self,
-                instrument,
-                *,
-                price,
-                granularity,
-                count,
-                from_,
-                to,
-                smooth,
-                includeFirst,
-                dailyAlignment,
-                alignmentTimezone,
-                weeklyAlignment
+                instrument: Instrument,
+                price: Price,
+                granularity: CandlestickGranularity,
+                count: Count,
+                from_: FromDateTime,
+                to: ToDateTime,
+                smooth: Smooth,
+                includeFirst: Incluclassirst,
+                dailyAlignment: DailyAlignment,
+                alignmentTimezone: AlignmentTimezone,
+                weeklyAlignment: WeeklyAlignment,
     ):
         """
         Fetch candlestick data for an instrument.

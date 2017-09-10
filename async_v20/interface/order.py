@@ -4,9 +4,8 @@ from ..endpoints.order import *
 
 
 class OrderInterface(object):
-
-    @endpoint(GETOrders)
-    def create(self, order):
+    @endpoint(POSTOrders)
+    def create(self, order: OrderRequest):
         """
         Create an Order for an Account
 
@@ -23,7 +22,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrders)
-    def list(self, *, ids, state, instrument, count, beforeID):
+    def list(self, ids: Ids, state: OrderStateFilter, instrument: InstrumentName, count: Count, beforeID: OrderID):
         """
         Get a list of Orders for an Account
 
@@ -64,7 +63,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrderSpecifier)
-    def get(self, orderSpecifier):
+    def get(self, orderSpecifier: OrderSpecifier):
         """
         Get details for a single Order in an Account
 
@@ -81,7 +80,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifier)
-    def replace(self, orderSpecifier, *, order):
+    def replace(self, orderSpecifier: OrderSpecifier, order: OrderRequest):
         """
         Replace an Order in an Account by simultaneously cancelling it and
         creating a replacement Order
@@ -101,7 +100,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifierCancel)
-    def cancel(self, orderSpecifier):
+    def cancel(self, orderSpecifier: OrderSpecifier):
         """
         Cancel a pending Order in an Account
 
@@ -118,7 +117,8 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTClientExtensions)
-    def set_client_extensions(self, orderSpecifier, *, clientExtensions, tradeClientExtensions):
+    def set_client_extensions(self, orderSpecifier: OrderSpecifier, clientExtensions: ClientExtensions,
+                              tradeClientExtensions: TradeClientExtensions):
         """
         Update the Client Extensions for an Order in an Account. Do not set,
         modify, or delete clientExtensions if your account is associated with

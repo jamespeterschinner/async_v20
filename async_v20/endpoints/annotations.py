@@ -1,3 +1,7 @@
+from ..definitions.types import DateTime
+from ..definitions.types import ClientExtensions
+
+
 class Authorization(str): pass
 
 class Instruments(str): pass
@@ -32,3 +36,15 @@ class PageSize(int): pass
 class Type(str): pass
 
 class UserSpecifier(str): pass
+
+class FromDateTime(DateTime): pass
+
+class ToDateTime(DateTime): pass
+
+class TradeClientExtensions(ClientExtensions): pass
+
+class LongClientExtensions(ClientExtensions): pass
+
+class ShortClientExtensions(ClientExtensions): pass
+
+class Units(str): pass
