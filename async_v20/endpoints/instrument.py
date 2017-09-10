@@ -7,7 +7,7 @@ class GETInstrumentsCandles(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/instruments/{instrument}/candles'
+    path = ('/v3/instruments/', Instrument, '/candles')
 
     # description of endpoint
     description = 'Fetch candlestick data for an instrument.'
@@ -37,7 +37,7 @@ class GETInstrumentsCandles(object):
         200: {'instrument': InstrumentName, 'granularity': CandlestickGranularity, 'candles': Array[Candlestick]}}
 
     # error msgs'
-    error = [400, 401, 404, 405]
+    error = (400, 401, 404, 405)
 
 
 class GETInstrumentOrderBook(object):
@@ -45,7 +45,7 @@ class GETInstrumentOrderBook(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/instruments/{instrument}/orderBook'
+    path = ('/v3/instruments/', Instrument, '/orderBook')
 
     # description of endpoint
     description = 'Fetch a gzip compressed order book for an instrument.'
@@ -63,7 +63,7 @@ class GETInstrumentOrderBook(object):
     responses = {200: {'orderBook': OrderBook}}
 
     # error msgs'
-    error = [400, 401, 404, 405]
+    error = (400, 401, 404, 405)
 
 
 class GETInstrumentsPositionBook(object):
@@ -71,7 +71,7 @@ class GETInstrumentsPositionBook(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/instruments/{instrument}/positionBook'
+    path = ('/v3/instruments/', Instrument, '/positionBook')
 
     # description of endpoint
     description = 'Fetch a gzip compressed position book for an instrument.'
@@ -89,4 +89,4 @@ class GETInstrumentsPositionBook(object):
     responses = {200: {'positionBook': PositionBook}}
 
     # error msgs'
-    error = [400, 401, 404, 405]
+    error = (400, 401, 404, 405)

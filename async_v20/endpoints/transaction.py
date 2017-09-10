@@ -7,7 +7,7 @@ class GETTransactions(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/transactions'
+    path = ('/v3/accounts/', AccountID, '/transactions')
 
     # description of endpoint
     description = 'Get a list of Transactions pages that satisfy a time-based Transaction query.'
@@ -31,7 +31,7 @@ class GETTransactions(object):
               'pages': Array[str], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [400, 401, 403, 404, 405, 416]
+    error = (400, 401, 403, 404, 405, 416)
 
 
 class GETTransactionID(object):
@@ -39,7 +39,7 @@ class GETTransactionID(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/transactions/{transactionID}'
+    path = ('/v3/accounts/', AccountID, '/transactions/', TransactionID)
 
     # description of endpoint
     description = 'Get the details of a single Account Transaction.'
@@ -57,7 +57,7 @@ class GETTransactionID(object):
     responses = {200: {'transaction': Transaction, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [401, 404, 405]
+    error = (401, 404, 405)
 
 
 class GETIDrange(object):
@@ -65,7 +65,7 @@ class GETIDrange(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/transactions/idrange'
+    path = ('/v3/accounts/', AccountID, '/transactions/idrange')
 
     # description of endpoint
     description = 'Get a range of Transactions for an Account based on the Transaction IDs.'
@@ -86,7 +86,7 @@ class GETIDrange(object):
     responses = {200: {'transactions': Array[Transaction], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [400, 401, 404, 405, 416]
+    error = (400, 401, 404, 405, 416)
 
 
 class GETSinceID(object):
@@ -94,7 +94,7 @@ class GETSinceID(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/transactions/sinceid'
+    path = ('/v3/accounts/', AccountID, '/transactions/sinceid')
 
     # description of endpoint
     description = 'Get a range of Transactions for an Account starting at ' \
@@ -113,7 +113,7 @@ class GETSinceID(object):
     responses = {200: {'transactions': Array[Transaction], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [400, 401, 404, 405, 416]
+    error = (400, 401, 404, 405, 416)
 
 
 class GETTransactionsStream(object):
@@ -121,7 +121,7 @@ class GETTransactionsStream(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/transactions/stream'
+    path = ('/v3/accounts/', AccountID, '/transactions/stream')
 
     # description of endpoint
     description = 'Get a stream of Transactions for an Account starting from when the request is made.'
@@ -136,4 +136,4 @@ class GETTransactionsStream(object):
     responses = {200: {'transaction': Transaction, 'transactionHeartbeat': TransactionHeartbeat}}
 
     # error msgs'
-    error = [400, 401, 404, 405]
+    error = (400, 401, 404, 405)

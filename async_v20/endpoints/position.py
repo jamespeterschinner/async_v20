@@ -7,7 +7,7 @@ class GETPositions(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/positions'
+    path = ('/v3/accounts/', AccountID, '/positions')
 
     # description of endpoint
     description = 'List all Positions for an Account. The Positions returned are for every ' \
@@ -23,7 +23,7 @@ class GETPositions(object):
     responses = {200: {'positions': Array[Position], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [401, 404, 405]
+    error = (401, 404, 405)
 
 
 class GETOpenPositions(object):
@@ -31,7 +31,7 @@ class GETOpenPositions(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/openPositions'
+    path = ('/v3/accounts/', AccountID, '/openPositions')
 
     # description of endpoint
     description = 'List all open Positions for an Account. An open Position is a ' \
@@ -47,7 +47,7 @@ class GETOpenPositions(object):
     responses = {200: {'positions': Array[Position], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [401, 404, 405]
+    error = (401, 404, 405)
 
 
 class GETPositionsInstrument(object):
@@ -55,7 +55,7 @@ class GETPositionsInstrument(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/positions/{instrument}'
+    path = ('/v3/accounts/', AccountID, '/positions/', Instrument)
 
     # description of endpoint
     description = 'Get the details of a single Instrument’s Position in an Account. The Position may by open or not.'
@@ -71,7 +71,7 @@ class GETPositionsInstrument(object):
     responses = {200: {'position': Position, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [401, 404, 405]
+    error = (401, 404, 405)
 
 
 class PUTPositionsInstrumentClose(object):
@@ -79,7 +79,7 @@ class PUTPositionsInstrumentClose(object):
     method = 'PUT'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/positions/{instrument}/close'
+    path = ('/v3/accounts/', AccountID, '/positions/', Instrument, '/close')
 
     # description of endpoint
     description = 'Closeout the open Position for a specific instrument in an Account.'
@@ -110,7 +110,7 @@ class PUTPositionsInstrumentClose(object):
               'errorMessage': str}}
 
     # error msgs'
-    error = [401, 405]
+    error = (401, 405)
 
     # TODO longunits and short units need to default to 'ALL'
     # json schema representation

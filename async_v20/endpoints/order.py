@@ -7,7 +7,7 @@ class POSTOrders(object):
     method = 'POST'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/orders'
+    path = ('/v3/accounts/', AccountID, '/orders')
 
     # description of endpoint
     description = 'Create an Order for an Account'
@@ -22,16 +22,16 @@ class POSTOrders(object):
 
     # valid responses
     responses = {201: {'orderCreateTransaction': Transaction, 'orderFillTransaction': OrderFillTransaction,
-                         'orderCancelTransaction': OrderCancelTransaction, 'orderReissueTransaction': Transaction,
-                         'orderReissueRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID},
+                       'orderCancelTransaction': OrderCancelTransaction, 'orderReissueTransaction': Transaction,
+                       'orderReissueRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
+                       'lastTransactionID': TransactionID},
                  400: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
+                       'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
                  404: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
+                       'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = [401, 403, 405]
+    error = (401, 403, 405)
 
     # json schema representation
     request_schema = {'order': OrderRequest}
@@ -42,7 +42,7 @@ class GETOrders(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/orders'
+    path = ('/v3/accounts/', AccountID, '/orders')
 
     # description of endpoint
     description = 'Get a list of Orders for an Account'
@@ -65,7 +65,7 @@ class GETOrders(object):
     responses = {200: {'orders': Array[Order], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [400, 404, 405]
+    error = (400, 404, 405)
 
 
 class GETPendingOrders(object):
@@ -73,7 +73,7 @@ class GETPendingOrders(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/pendingOrders'
+    path = ('/v3/accounts/', AccountID, '/pendingOrders')
 
     # description of endpoint
     description = 'List all pending Orders in an Account'
@@ -90,7 +90,7 @@ class GETPendingOrders(object):
     responses = {200: {'orders': Array[Order], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [401, 404, 405]
+    error = (401, 404, 405)
 
 
 class GETOrderSpecifier(object):
@@ -98,7 +98,7 @@ class GETOrderSpecifier(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/orders/{orderSpecifier}'
+    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
 
     # description of endpoint
     description = 'Get details for a single Order in an Account'
@@ -116,7 +116,7 @@ class GETOrderSpecifier(object):
     responses = {200: {'order': Order, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [401, 404, 405]
+    error = (401, 404, 405)
 
 
 class PUTOrderSpecifier(object):
@@ -124,7 +124,7 @@ class PUTOrderSpecifier(object):
     method = 'PUT'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/orders/{orderSpecifier}'
+    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
 
     # description of endpoint
     description = 'Replace an Order in an Account by simultaneously cancelling it and creating a replacement Order'
@@ -140,17 +140,17 @@ class PUTOrderSpecifier(object):
 
     # valid responses
     responses = {201: {'orderCancelTransaction': OrderCancelTransaction, 'orderCreateTransaction': Transaction,
-                         'orderFillTransaction': OrderFillTransaction, 'orderReissueTransaction': Transaction,
-                         'orderReissueRejectTransaction': Transaction,
-                         'replacingOrderCancelTransaction': OrderCancelTransaction,
-                         'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID},
+                       'orderFillTransaction': OrderFillTransaction, 'orderReissueTransaction': Transaction,
+                       'orderReissueRejectTransaction': Transaction,
+                       'replacingOrderCancelTransaction': OrderCancelTransaction,
+                       'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID},
                  400: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
+                       'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
                  404: {'orderCancelRejectTransaction': Transaction, 'relatedTransactionIDs': Array[TransactionID],
-                         'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
+                       'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = [401, 405]
+    error = (401, 405)
 
     # json schema representation
     request_schema = {'order': OrderRequest}
@@ -161,7 +161,7 @@ class PUTOrderSpecifierCancel(object):
     method = 'PUT'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/orders/{orderSpecifier}/cancel'
+    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/cancel')
 
     # description of endpoint
     description = 'Cancel a pending Order in an Account'
@@ -183,7 +183,7 @@ class PUTOrderSpecifierCancel(object):
                        'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = [401, 405]
+    error = (401, 405)
 
 
 class PUTClientExtensions(object):
@@ -191,10 +191,11 @@ class PUTClientExtensions(object):
     method = 'PUT'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/orders/{orderSpecifier}/clientExtensions'
+    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/clientExtensions')
 
     # description of endpoint
-    description = 'Update the Client Extensions for an Order in an Account. Do not set, modify, or delete clientExtensions if your account is associated with MT4.'
+    description = 'Update the Client Extensions for an Order in an Account. Do not set, ' \
+                  'modify, or delete clientExtensions if your account is associated with MT4.'
 
     # parameters required to send to endpoint
     parameters = [
@@ -216,7 +217,7 @@ class PUTClientExtensions(object):
                        'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = [401, 405]
+    error = (401, 405)
 
     # json schema representation
     request_schema = {'clientExtensions': ClientExtensions, 'tradeClientExtensions': ClientExtensions}

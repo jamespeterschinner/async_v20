@@ -21,7 +21,7 @@ class GETAccounts(object):
     responses = {200, {'accounts': Array[AccountProperties]}}
 
     # error msgs'
-    error = [401, 405]
+    error = (401, 405)
 
 
 class GETAccountID(object):
@@ -29,7 +29,7 @@ class GETAccountID(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}'
+    path = ('/v3/accounts/', AccountID)
 
     # description of endpoint
     description = 'Get the full details for a single Account that a client has access to. ' \
@@ -47,7 +47,7 @@ class GETAccountID(object):
     responses = {200: {'account': Account, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [400, 401, 405]
+    error = (400, 401, 405)
 
 
 class GETAccountIDSummary(object):
@@ -55,7 +55,7 @@ class GETAccountIDSummary(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/summary'
+    path = ('/v3/accounts/', AccountID, '/summary')
 
     # description of endpoint
     description = 'Get a summary for a single Account that a client has access to.'
@@ -72,7 +72,7 @@ class GETAccountIDSummary(object):
     responses = {200: {'account': AccountSummary, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [400, 401, 405]
+    error = (400, 401, 405)
 
 
 class GETAccountIDInstruments(object):
@@ -80,7 +80,7 @@ class GETAccountIDInstruments(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/instruments'
+    path = ('/v3/accounts/', AccountID, '/instruments')
 
     # description of endpoint
     description = 'Get the list of tradeable instruments for the given Account. The list of tradeable instruments is dependent on the regulatory division that the Account is located in, thus should be the same for all Accounts owned by a single user.'
@@ -97,7 +97,7 @@ class GETAccountIDInstruments(object):
     responses = {200: {'instruments': Array[Instrument], 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [400, 401, 405]
+    error = (400, 401, 405)
 
 
 class PATCHAccountIDConfiguration(object):
@@ -105,7 +105,7 @@ class PATCHAccountIDConfiguration(object):
     method = 'PATCH'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/configuration'
+    path = ('/v3/accounts/', AccountID, '/configuration')
 
     # description of endpoint
     description = 'Set the client-configurable portions of an Account.'
@@ -126,7 +126,7 @@ class PATCHAccountIDConfiguration(object):
                        'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
-    error = [401, 404, 405]
+    error = (401, 404, 405)
 
     # json schema representation
     request_schema = {'alias': str, 'marginRate': DecimalNumber}
@@ -137,8 +137,7 @@ class GETAccountIDChanges(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/changes'
-
+    path = ('/v3/accounts/', AccountID, '/changes')
     # description of endpoint
     description = 'Endpoint used to poll an Account for its current state and changes since a specified TransactionID.'
 
@@ -155,4 +154,4 @@ class GETAccountIDChanges(object):
     responses = {200, {'changes': AccountChanges, 'state': AccountChangesState, 'lastTransactionID': TransactionID}}
 
     # error msgs'
-    error = [401, 404, 405, 416]
+    error = (401, 404, 405, 416)

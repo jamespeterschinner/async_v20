@@ -8,7 +8,7 @@ class GETUserSpecifier(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/users/{userSpecifier}'
+    path = ('/v3/users/', str) # should be 'UserSpecifier'
 
     # description of endpoint
     description = 'Fetch the user information for the specified user.'
@@ -32,7 +32,7 @@ class GETExternalInfo(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/users/{userSpecifier}/externalInfo'
+    path = ('/v3/users/', str, '/externalInfo')
 
     # description of endpoint
     description = 'Fetch the externally-available user information for the specified user.'
@@ -47,7 +47,7 @@ class GETExternalInfo(object):
     responses = {200: {'userInfo': UserInfoExternal}}
 
     # error msgs'
-    error = [401, 403, 405]
+    error = (401, 403, 405)
 
 
 

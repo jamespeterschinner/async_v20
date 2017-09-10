@@ -7,7 +7,7 @@ class GETPricing(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/pricing'
+    path = ('/v3/accounts/', AccountID, '/pricing')
 
     # description of endpoint
     description = 'Get pricing information for a specified list of Instruments within an Account.'
@@ -28,7 +28,7 @@ class GETPricing(object):
     responses = {200: {'prices': Array[Price], 'time': DateTime}}
 
     # error msgs'
-    error = [400, 401, 404, 405]
+    error = (400, 401, 404, 405)
 
 
 class GETPricingStream(object):
@@ -36,7 +36,7 @@ class GETPricingStream(object):
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts/{accountID}/pricing/stream'
+    path = ('/v3/accounts/', AccountID, '/pricing/stream')
 
     # description of endpoint
     description = '''Get a stream of Account Prices starting from when the request is made.
@@ -65,4 +65,4 @@ class GETPricingStream(object):
     responses = {200: {'price': Price, 'priceHeartbeat': PricingHeartbeat}}
 
     # error msgs'
-    error = [400, 401, 404, 405]
+    error = (400, 401, 404, 405)
