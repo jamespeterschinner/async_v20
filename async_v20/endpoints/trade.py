@@ -1,6 +1,6 @@
 from ..definitions.types import *
 from .metaclass import *
-
+from .annotations import *
 
 class GETTrades(object):
     # the HTTP verb to use for this endpoint
@@ -14,15 +14,15 @@ class GETTrades(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'ids', 'located': 'query', 'type': str,
+        {'name': 'ids', 'located': 'query', 'type': Ids,
          'description': 'List of TradeID (csv)'},
         {'name': 'state', 'located': 'query', 'type': TradeStateFilter, 'description': 'TradeStateFilter'},
         {'name': 'instrument', 'located': 'query', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'count', 'located': 'query', 'type': int, 'description': 'int'},
+        {'name': 'count', 'located': 'query', 'type': Count, 'description': 'int'},
         {'name': 'beforeID', 'located': 'query', 'type': TradeID, 'description': 'TradeID'},
     ]
 
@@ -45,7 +45,7 @@ class GETOpenTrades(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -70,7 +70,7 @@ class GETTradeSpecifier(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -96,7 +96,7 @@ class PUTTradeSpecifierClose(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -133,7 +133,7 @@ class PUTTradeSpecifierClientExtensions(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -170,7 +170,7 @@ class PUTTradesSpecifierOrders(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},

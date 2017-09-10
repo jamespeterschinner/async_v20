@@ -1,6 +1,6 @@
 from ..definitions.types import *
 from .metaclass import *
-
+from .annotations import *
 
 class POSTOrders(object):
     # the HTTP verb to use for this endpoint
@@ -14,7 +14,7 @@ class POSTOrders(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -49,15 +49,15 @@ class GETOrders(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'ids', 'located': 'query', 'type': str,
+        {'name': 'ids', 'located': 'query', 'type': Ids,
          'description': 'List of OrderID (csv)'},
         {'name': 'state', 'located': 'query', 'type': OrderStateFilter, 'description': 'OrderStateFilter'},
         {'name': 'instrument', 'located': 'query', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'count', 'located': 'query', 'type': int, 'description': 'int'},
+        {'name': 'count', 'located': 'query', 'type': Count, 'description': 'int'},
         {'name': 'beforeID', 'located': 'query', 'type': OrderID, 'description': 'OrderID'},
     ]
 
@@ -80,7 +80,7 @@ class GETPendingOrders(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -105,7 +105,7 @@ class GETOrderSpecifier(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -131,7 +131,7 @@ class PUTOrderSpecifier(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -168,7 +168,7 @@ class PUTOrderSpecifierCancel(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -199,7 +199,7 @@ class PUTClientExtensions(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},

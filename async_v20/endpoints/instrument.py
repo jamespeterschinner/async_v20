@@ -1,5 +1,6 @@
 from ..definitions.types import *
 from .metaclass import *
+from .annotations import *
 
 
 class GETInstrumentsCandles(object):
@@ -14,20 +15,20 @@ class GETInstrumentsCandles(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'price', 'located': 'query', 'type': str, 'description': 'str'},
+        {'name': 'price', 'located': 'query', 'type': Price, 'description': 'str'},
         {'name': 'granularity', 'located': 'query', 'type': CandlestickGranularity,
          'description': 'CandlestickGranularity'},
-        {'name': 'count', 'located': 'query', 'type': int, 'description': 'int'},
+        {'name': 'count', 'located': 'query', 'type': Count, 'description': 'int'},
         {'name': 'from', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
         {'name': 'to', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
-        {'name': 'smooth', 'located': 'query', 'type': bool, 'description': 'boolean'},
-        {'name': 'incluclassirst', 'located': 'query', 'type': bool, 'description': 'boolean'},
-        {'name': 'dailyAlignment', 'located': 'query', 'type': int, 'description': 'int'},
-        {'name': 'alignmentTimezone', 'located': 'query', 'type': str, 'description': 'str'},
+        {'name': 'smooth', 'located': 'query', 'type': Smooth, 'description': 'boolean'},
+        {'name': 'incluclassirst', 'located': 'query', 'type': Incluclassirst, 'description': 'boolean'},
+        {'name': 'dailyAlignment', 'located': 'query', 'type': DailyAlignment, 'description': 'int'},
+        {'name': 'alignmentTimezone', 'located': 'query', 'type': AlignmentTimezone, 'description': 'str'},
         {'name': 'weeklyAlignment', 'located': 'query', 'type': WeeklyAlignment,
          'description': 'WeeklyAlignment'},
     ]
@@ -52,7 +53,7 @@ class GETInstrumentOrderBook(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
@@ -78,7 +79,7 @@ class GETInstrumentsPositionBook(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},

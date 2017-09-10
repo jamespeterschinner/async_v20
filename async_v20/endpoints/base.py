@@ -37,4 +37,5 @@ class EndPoint(object):
 
     @classmethod
     def path_args(cls):
-        return list(signature(cls.path).parameters.keys())
+        return [parameter['name'] for parameter
+                in cls.parameters if parameter['located'] == 'path']

@@ -1,6 +1,6 @@
 from ..definitions.types import *
 from .metaclass import *
-
+from .annotations import *
 
 class GETUserSpecifier(object):
 
@@ -8,7 +8,7 @@ class GETUserSpecifier(object):
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/users/', str) # should be 'UserSpecifier'
+    path = ('/v3/users/', UserSpecifier)
 
     # description of endpoint
     description = 'Fetch the user information for the specified user.'
@@ -32,7 +32,7 @@ class GETExternalInfo(object):
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/users/', str, '/externalInfo')
+    path = ('/v3/users/', UserSpecifier, '/externalInfo')
 
     # description of endpoint
     description = 'Fetch the externally-available user information for the specified user.'

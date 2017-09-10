@@ -9,14 +9,15 @@ def endpoint(endpoint):
 
     header_args = endpoint.header_args()
     query_args = endpoint.query_args()
-    
+    path_args = endpoint.path_args()
+
     def wrapper(method):
         @wraps(method)
         async def wrap(self, *args, **kwargs):
-            arguments = args + tuple(kwargs.values())
+            arguments = list(args + tuple(kwargs.values()))
             json_body = await _create_body(self, endpoint.request_schema, arguments)
             headers = await _create_headers(self, header_args, arguments)
-            path = await _create_path(self, endpoint, endpoint.path, arguments)
+            path = await _create_path(self, endpoint.path, path_args, arguments)
             parameters = await _create_params(self, query_args, arguments)
 
             # TODO add json data to request do iu need to await this?

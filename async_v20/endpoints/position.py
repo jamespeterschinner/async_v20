@@ -1,6 +1,6 @@
 from ..definitions.types import *
 from .metaclass import *
-
+from .annotations import *
 
 class GETPositions(object):
     # the HTTP verb to use for this endpoint
@@ -15,7 +15,7 @@ class GETPositions(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
@@ -39,7 +39,7 @@ class GETOpenPositions(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 
@@ -62,7 +62,7 @@ class GETPositionsInstrument(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
         {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
     ]
@@ -86,7 +86,7 @@ class PUTPositionsInstrumentClose(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -114,5 +114,5 @@ class PUTPositionsInstrumentClose(object):
 
     # TODO longunits and short units need to default to 'ALL'
     # json schema representation
-    request_schema = {'longUnits': str, 'longClientExtensions': ClientExtensions, 'shortUnits': str,
+    request_schema = {'longUnits': LongUnits, 'longClientExtensions': ClientExtensions, 'shortUnits': ShortUnits,
                       'shortClientExtensions': ClientExtensions}

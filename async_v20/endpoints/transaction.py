@@ -1,6 +1,6 @@
 from ..definitions.types import *
 from .metaclass import *
-
+from .annotations import *
 
 class GETTransactions(object):
     # the HTTP verb to use for this endpoint
@@ -14,14 +14,14 @@ class GETTransactions(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
         {'name': 'from', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
         {'name': 'to', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
-        {'name': 'pageSize', 'located': 'query', 'type': int, 'description': 'int'},
-        {'name': 'type', 'located': 'query', 'type': str,
+        {'name': 'pageSize', 'located': 'query', 'type': PageSize, 'description': 'int'},
+        {'name': 'type', 'located': 'query', 'type': Type,
          'description': 'List of TransactionFilter (csv)'},
     ]
 
@@ -46,7 +46,7 @@ class GETTransactionID(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -72,13 +72,13 @@ class GETIDrange(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
         {'name': 'from', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
         {'name': 'to', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
-        {'name': 'type', 'located': 'query', 'type': str,
+        {'name': 'type', 'located': 'query', 'type': Type,
          'description': 'List of TransactionFilter (csv)'},
     ]
 
@@ -102,7 +102,7 @@ class GETSinceID(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
@@ -128,7 +128,7 @@ class GETTransactionsStream(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
     ]
 

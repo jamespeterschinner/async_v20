@@ -1,6 +1,10 @@
 from functools import wraps
 from itertools import chain, starmap
 import inspect
+import asyncio
+
+async def sleep(s=0):
+    await asyncio.sleep(s)
 
 async def _flatten_dict(dictionary):
     """Flatten a nested dictionary structure"""

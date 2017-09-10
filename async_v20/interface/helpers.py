@@ -1,18 +1,18 @@
 from async_v20.helpers import sleep
 
-async def _create_body(self, request_schema, kwargs):
+async def _create_body(self, request_schema, arguments):
     # We first create a look up table with the class as the key.
     # This allows for the convenience function to have descriptive args
-    lookup = {type(value): value for value in kwargs.values()}
+    lookup = {type(value): value for value in arguments.values()}
     async def dumps(obj):
         await sleep()
         obj =  lookup.get(obj, None)
     return {key: await dumps(obj) for key, obj in request_schema.items()}
 
-async def _create_headers(self, header_args, kwargs):
+async def _create_headers(self, header_args, arguments):
     async def _resolver(arg):
         await sleep()
-        value = kwargs.pop('arg', None)
+        value = arguments.pop('arg', None)
         if not value:
             value = self.default_parameters.get(arg, None)  # TODO find out if this default value will cause an issue
         return arg, value
@@ -20,10 +20,11 @@ async def _create_headers(self, header_args, kwargs):
     return dict([await _resolver(arg) for arg in header_args])
 
 
-async def _create_path(self, endpoint, path_args, kwargs):
+async def _create_path(self, endpoint, path_args, arguments):
+    look_up
     async def _resolver(arg):
         await sleep()
-        value = kwargs.pop(arg, None)
+        value = arguments.pop(arg, None)
         # look for default value in client session
         if not value:
             value = getattr(self, arg, None)
@@ -32,10 +33,10 @@ async def _create_path(self, endpoint, path_args, kwargs):
     return endpoint.path(**dict([arg for arg in args if all(arg)]))
 
 
-async def _create_params(self, query_args, kwargs):
+async def _create_params(self, query_args, arguments):
     async def _resolver(arg):
         await sleep()
-        value = kwargs.pop('arg', None)
+        value = arguments.pop('arg', None)
         return arg, value
 
     params = [await _resolver(arg) for arg in query_args]

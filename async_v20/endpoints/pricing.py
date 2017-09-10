@@ -1,5 +1,6 @@
 from ..definitions.types import *
 from .metaclass import *
+from .annotations import *
 
 
 class GETPricing(object):
@@ -14,14 +15,14 @@ class GETPricing(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'instruments', 'located': 'query', 'type': str,
+        {'name': 'instruments', 'located': 'query', 'type': Instruments,
          'description': 'List of InstrumentName (csv)'},
         {'name': 'since', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
-        {'name': 'includeUnitsAvailable', 'located': 'query', 'type': bool, 'description': 'boolean'},
+        {'name': 'includeUnitsAvailable', 'located': 'query', 'type': IncludeUnitsAvailable, 'description': 'boolean'}
     ]
 
     # valid responses
@@ -52,13 +53,13 @@ class GETPricingStream(object):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': str, 'description': 'str'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'instruments', 'located': 'query', 'type': str,
+        {'name': 'instruments', 'located': 'query', 'type': Instruments,
          'description': 'List of InstrumentName (csv)'},
-        {'name': 'snapshot', 'located': 'query', 'type': bool, 'description': 'boolean'},
+        {'name': 'snapshot', 'located': 'query', 'type': Snapshot, 'description': 'boolean'},
     ]
 
     # valid responses
