@@ -8,7 +8,7 @@ integer = int
 string = str
 
 
-class DynamicOrderStateobject:
+class DynamicOrderState:
     """The dynamic state of an Order. This is only relevant
     to TrailingStopLoss Orders, as no other Order type has dynamic state.
     """
@@ -29,7 +29,7 @@ class DynamicOrderStateobject:
         'isTriggerDistanceExact': boolean}
 
 
-class LimitOrderobject:
+class LimitOrder:
     """A LimitOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or better than the threshold.
     """
@@ -129,7 +129,7 @@ class LimitOrderobject:
         'replacedByOrderID': OrderID}
 
 
-class LimitOrderRequestobject:
+class LimitOrderRequest:
     """A LimitOrderRequest specifies the parameters that may
     be set when creating a Limit Order.
     """
@@ -194,7 +194,7 @@ class LimitOrderRequestobject:
         'tradeClientExtensions': ClientExtensions}
 
 
-class MarketIfTouchedOrderobject:
+class MarketIfTouchedOrder:
     """A MarketIfTouchedOrder is an order that is created with a price threshold, and will
     only be filled by a market price that is touches or crosses the threshold.
     """
@@ -304,7 +304,7 @@ class MarketIfTouchedOrderobject:
         'replacedByOrderID': OrderID}
 
 
-class MarketIfTouchedOrderRequestobject:
+class MarketIfTouchedOrderRequest:
     """A MarketIfTouchedOrderRequest specifies the parameters that may
     be set when creating a Market-if-Touched Order.
     """
@@ -376,7 +376,7 @@ class MarketIfTouchedOrderRequestobject:
         'tradeClientExtensions': ClientExtensions}
 
 
-class MarketOrderobject:
+class MarketOrder:
     """A MarketOrder is an order that is filled
     immediately upon creation using the current market price.
     """
@@ -468,7 +468,7 @@ class MarketOrderobject:
         'cancelledTime': DateTime}
 
 
-class MarketOrderRequestobject:
+class MarketOrderRequest:
     """A MarketOrderRequest specifies the parameters that may
     be set when creating a Market Order.
     """
@@ -517,7 +517,7 @@ class MarketOrderRequestobject:
         'tradeClientExtensions': ClientExtensions}
 
 
-class Orderobject:
+class Order:
     """The base Order definition specifies the
     properties that are common to all Orders.
     """
@@ -534,7 +534,7 @@ class Orderobject:
         'clientExtensions': ClientExtensions}
 
 
-class OrderIdentifierobject:
+class OrderIdentifier:
     """An OrderIdentifier is used to refer to an
     Order, and contains both the OrderID and the ClientOrderID.
     """
@@ -546,7 +546,7 @@ class OrderIdentifierobject:
         'clientOrderID': ClientID}
 
 
-class StopLossOrderobject:
+class StopLossOrder:
     """A StopLossOrder is an order that is linked to an open
     Trade and created with a price threshold. The Order will be filled (closing
     the Trade) by the first price that is equal to or worse than the threshold.
@@ -625,7 +625,7 @@ class StopLossOrderobject:
         'replacedByOrderID': OrderID}
 
 
-class StopLossOrderRequestobject:
+class StopLossOrderRequest:
     """A StopLossOrderRequest specifies the parameters that may
     be set when creating a Stop Loss Order.
     """
@@ -667,7 +667,7 @@ class StopLossOrderRequestobject:
         'clientExtensions': ClientExtensions}
 
 
-class StopOrderobject:
+class StopOrder:
     """A StopOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or worse than the threshold.
     """
@@ -771,7 +771,7 @@ class StopOrderobject:
         'replacedByOrderID': OrderID}
 
 
-class StopOrderRequestobject:
+class StopOrderRequest:
     """A StopOrderRequest specifies the parameters that may
     be set when creating a Stop Order.
     """
@@ -840,7 +840,7 @@ class StopOrderRequestobject:
         'tradeClientExtensions': ClientExtensions}
 
 
-class TakeProfitOrderobject:
+class TakeProfitOrder:
     """A TakeProfitOrder is an order that is linked to an open Trade and
     created with a price threshold. The Order will be filled (closing
     the Trade) by the first price that is equal to or better than the threshold.
@@ -920,7 +920,7 @@ class TakeProfitOrderobject:
         'replacedByOrderID': OrderID}
 
 
-class TakeProfitOrderRequestobject:
+class TakeProfitOrderRequest:
     """A TakeProfitOrderRequest specifies the parameters that may
     be set when creating a Take Profit Order.
     """
@@ -962,7 +962,7 @@ class TakeProfitOrderRequestobject:
         'clientExtensions': ClientExtensions}
 
 
-class TrailingStopLossOrderobject:
+class TrailingStopLossOrder:
     """A TrailingStopLossOrder is an order that is linked to an open Trade and created with a price distance.
     The price distance is used to calculate a trailing stop value for the order that is in the losing direction
     from the market price at the time of the order’s creation.
@@ -1048,7 +1048,7 @@ class TrailingStopLossOrderobject:
         'replacedByOrderID': OrderID}
 
 
-class TrailingStopLossOrderRequestobject:
+class TrailingStopLossOrderRequest:
     """A TrailingStopLossOrderRequest specifies the parameters that may be
     set when creating a Trailing Stop Loss Order.
     """
@@ -1088,7 +1088,7 @@ class TrailingStopLossOrderRequestobject:
         'clientExtensions': ClientExtensions}
 
 
-class UnitsAvailableobject:
+class UnitsAvailable:
     """Representation of how many units of an Instrument are available
     to be traded by an Order depending on its postionFill option.
     """
@@ -1111,7 +1111,7 @@ class UnitsAvailableobject:
         'openOnly': UnitsAvailableDetails}
 
 
-class UnitsAvailableDetailsobject:
+class UnitsAvailableDetails:
     """Representation of many units of an Instrument are available
     to be traded for both long and short Orders.
     """

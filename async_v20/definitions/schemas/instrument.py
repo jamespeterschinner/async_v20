@@ -7,7 +7,7 @@ boolean = bool
 integer = int
 string = str
 
-class Candlestickobject:
+class Candlestick:
     """The Candlestick representation
     """
     # JSON representation of object
@@ -31,7 +31,7 @@ class Candlestickobject:
         'complete': boolean}
 
 
-class CandlestickDataobject:
+class CandlestickData:
     """The price data (open, high, low, close) for the Candlestick representation.
     """
     # JSON representation of object
@@ -47,7 +47,7 @@ class CandlestickDataobject:
         'c': PriceValue}
 
 
-class OrderBookobject:
+class OrderBook:
     """The representation of an instrument’s order book at a point in time
     """
     # JSON representation of object
@@ -68,7 +68,7 @@ class OrderBookobject:
         'buckets': (Array[OrderBookBucket])}
 
 
-class OrderBookBucketobject:
+class OrderBookBucket:
     """The order book data for a partition of the instrument’s prices.
     """
     # JSON representation of object
@@ -84,7 +84,7 @@ class OrderBookBucketobject:
         'shortCountPercent': DecimalNumber}
 
 
-class PositionBookobject:
+class PositionBook:
     """The representation of an instrument’s position book at a point in time
     """
     # JSON representation of object
@@ -105,7 +105,7 @@ class PositionBookobject:
         'buckets': (Array[PositionBookBucket])}
 
 
-class PositionBookBucketobject:
+class PositionBookBucket:
     """The position book data for a partition of the instrument’s prices.
     """
     # JSON representation of object

@@ -8,7 +8,7 @@ integer = int
 string = str
 
 
-class Instrumentobject:
+class Instrument:
     """Full specification of an Instrument.
     """
     # JSON representation of object
@@ -50,7 +50,7 @@ class Instrumentobject:
         'commission': InstrumentCommission}
 
 
-class InstrumentCommissionobject:
+class InstrumentCommission:
     """An InstrumentCommission represents an instrument-specific commission
     """
     # JSON representation of object

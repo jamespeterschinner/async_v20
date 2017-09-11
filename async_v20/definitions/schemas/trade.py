@@ -8,7 +8,7 @@ integer = int
 string = str
 
 
-class CalculatedTradeStateobject:
+class CalculatedTradeState:
     """The dynamic calculated state of an open Trade
     """
     # JSON representation of object
@@ -19,7 +19,7 @@ class CalculatedTradeStateobject:
         'unrealizedPL': AccountUnits}
 
 
-class Tradeobject:
+class Trade:
     """The specification of a Trade within an Account. This includes the full representation
     of the Trade’s dependent Orders in addition to the IDs of those Orders.
     """
@@ -68,7 +68,7 @@ class Tradeobject:
         'trailingStopLossOrder': TrailingStopLossOrder}
 
 
-class TradeSummaryobject:
+class TradeSummary:
     """The summary of a Trade within an Account. This representation
     does not provide the full details of the Trade’s dependent Orders.
     """

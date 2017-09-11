@@ -8,7 +8,7 @@ integer = int
 string = str
 
 
-class ClientConfigureRejectTransactionobject:
+class ClientConfigureRejectTransaction:
     """A ClientConfigureRejectTransaction represents the reject of
     configuration of an Account by a client.
     """
@@ -38,7 +38,7 @@ class ClientConfigureRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class ClientConfigureTransactionobject:
+class ClientConfigureTransaction:
     """A ClientConfigureTransaction represents the configuration
     of an Account by a client.
     """
@@ -66,7 +66,7 @@ class ClientConfigureTransactionobject:
         'marginRate': DecimalNumber}
 
 
-class ClientExtensionsobject:
+class ClientExtensions:
     """A ClientExtensions Refactor allows a client to attach a clientID, tag and comment to Orders and Trades
     in their Account. Do not set, modify, or delete this field if your account is associated with MT4.
     """
@@ -80,7 +80,7 @@ class ClientExtensionsobject:
         'comment': ClientComment}
 
 
-class CloseTransactionobject:
+class CloseTransaction:
     """A CloseTransaction represents the closing of an Account.
     """
     # JSON representation of object
@@ -102,7 +102,7 @@ class CloseTransactionobject:
         'type': (TransactionType, default('CLOSE'))}
 
 
-class CreateTransactionobject:
+class CreateTransaction:
     """A CreateTransaction represents the creation of an Account.
     """
     # JSON representation of object
@@ -135,7 +135,7 @@ class CreateTransactionobject:
         'homeCurrency': Currency}
 
 
-class DailyFinancingTransactionobject:
+class DailyFinancingTransaction:
     """A DailyFinancingTransaction represents the daily
     payment/collection of financing for an Account.
     """
@@ -167,7 +167,7 @@ class DailyFinancingTransactionobject:
         'positionFinancings': (Array[PositionFinancing])}
 
 
-class DelayedTradeClosureTransactionobject:
+class DelayedTradeClosureTransaction:
     """A DelayedTradeClosure Transaction is created administratively to indicate open trades that should have been closed but weren’t because the open trades’
     instruments were untradeable at the time. Open trades listed in this transaction will be closed once their respective instruments become tradeable.
     """
@@ -196,7 +196,7 @@ class DelayedTradeClosureTransactionobject:
         'tradeIDs': TradeID}
 
 
-class LimitOrderRejectTransactionobject:
+class LimitOrderRejectTransaction:
     """A LimitOrderRejectTransaction represents the rejection of
     the creation of a Limit Order.
     """
@@ -275,7 +275,7 @@ class LimitOrderRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class LimitOrderTransactionobject:
+class LimitOrderTransaction:
     """A LimitOrderTransaction represents the creation of
     a Limit Order in the user’s Account.
     """
@@ -355,7 +355,7 @@ class LimitOrderTransactionobject:
         'cancellingTransactionID': TransactionID}
 
 
-class LiquidityRegenerationScheduleobject:
+class LiquidityRegenerationSchedule:
     """A LiquidityRegenerationSchedule indicates how liquidity that is used when filling an Order for an instrument is regenerated following the fill. A liquidity regeneration schedule will be in effect until
     the timestamp of its final step, but may be replaced by a schedule created for an Order of the same instrument that is filled while it is still in effect.
     """
@@ -365,7 +365,7 @@ class LiquidityRegenerationScheduleobject:
         'steps': (Array[LiquidityRegenerationScheduleStep])}
 
 
-class LiquidityRegenerationScheduleStepobject:
+class LiquidityRegenerationScheduleStep:
     """A liquidity regeneration schedule Step indicates the amount of bid and ask liquidity that is used by
     the Account at a certain time. These amounts will only change at the timestamp of the following step.
     """
@@ -379,7 +379,7 @@ class LiquidityRegenerationScheduleStepobject:
         'askLiquidityUsed': DecimalNumber}
 
 
-class MarginCallEnterTransactionobject:
+class MarginCallEnterTransaction:
     """A MarginCallEnterTransaction is created when an
     Account enters the margin call state.
     """
@@ -403,7 +403,7 @@ class MarginCallEnterTransactionobject:
         'type': (TransactionType, default('MARGIN_CALL_ENTER'))}
 
 
-class MarginCallExitTransactionobject:
+class MarginCallExitTransaction:
     """A MarginCallExitnterTransaction is created when an
     Account leaves the margin call state.
     """
@@ -427,7 +427,7 @@ class MarginCallExitTransactionobject:
         'type': (TransactionType, default('MARGIN_CALL_EXIT'))}
 
 
-class MarginCallExtendTransactionobject:
+class MarginCallExtendTransaction:
     """A MarginCallExtendTransaction is created when the margin
     call state for an Account has been extended.
     """
@@ -455,7 +455,7 @@ class MarginCallExtendTransactionobject:
         'extensionNumber': integer}
 
 
-class MarketIfTouchedOrderRejectTransactionobject:
+class MarketIfTouchedOrderRejectTransaction:
     """A MarketIfTouchedOrderRejectTransaction represents the rejection of
     the creation of a MarketIfTouched Order.
     """
@@ -542,7 +542,7 @@ class MarketIfTouchedOrderRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class MarketIfTouchedOrderTransactionobject:
+class MarketIfTouchedOrderTransaction:
     """A MarketIfTouchedOrderTransaction represents the creation of
     a MarketIfTouched Order in the user’s Account.
     """
@@ -629,7 +629,7 @@ class MarketIfTouchedOrderTransactionobject:
         'cancellingTransactionID': TransactionID}
 
 
-class MarketOrderDelayedTradeCloseobject:
+class MarketOrderDelayedTradeClose:
     """Details for the Market Order extensions specific to a Market Order placed with the intent of fully
     closing a specific open trade that should have already been closed but wasn’t due to halted market conditions
     """
@@ -644,7 +644,7 @@ class MarketOrderDelayedTradeCloseobject:
         'sourceTransactionID': TransactionID}
 
 
-class MarketOrderMarginCloseoutobject:
+class MarketOrderMarginCloseout:
     """Details for the Market Order extensions specific to a Market Order placed
     that is part of a Market Order Margin Closeout in a client’s account
     """
@@ -654,7 +654,7 @@ class MarketOrderMarginCloseoutobject:
         'reason': MarketOrderMarginCloseoutReason}
 
 
-class MarketOrderPositionCloseoutobject:
+class MarketOrderPositionCloseout:
     """A MarketOrderPositionCloseout specifies the extensions to a Market Order
     when it has been created to closeout a specific Position.
     """
@@ -669,7 +669,7 @@ class MarketOrderPositionCloseoutobject:
         'units': string}
 
 
-class MarketOrderRejectTransactionobject:
+class MarketOrderRejectTransaction:
     """A MarketOrderRejectTransaction represents the rejection of
     the creation of a Market Order.
     """
@@ -743,7 +743,7 @@ class MarketOrderRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class MarketOrderTradeCloseobject:
+class MarketOrderTradeClose:
     """A MarketOrderTradeClose specifies the extensions to a Market Order
     that has been created specifically to close a Trade.
     """
@@ -758,7 +758,7 @@ class MarketOrderTradeCloseobject:
         'units': string}
 
 
-class MarketOrderTransactionobject:
+class MarketOrderTransaction:
     """A MarketOrderTransaction represents the creation of a Market Order in the user’s account. A Market Order is an Order that is filled immediately at the current market price. Market
     Orders can be specialized when they are created to accomplish a specific task: to close a Trade, to closeout a Position or to particiate in in a Margin closeout.
     """
@@ -830,7 +830,7 @@ class MarketOrderTransactionobject:
         'tradeClientExtensions': ClientExtensions}
 
 
-class OpenTradeFinancingobject:
+class OpenTradeFinancing:
     """OpenTradeFinancing is used to pay/collect daily financing
     charge for an open Trade within an Account
     """
@@ -842,7 +842,7 @@ class OpenTradeFinancingobject:
         'financing': AccountUnits}
 
 
-class OrderCancelRejectTransactionobject:
+class OrderCancelRejectTransaction:
     """An OrderCancelRejectTransaction represents the rejection of the
     cancellation of an Order in the client’s Account.
     """
@@ -875,7 +875,7 @@ class OrderCancelRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class OrderCancelTransactionobject:
+class OrderCancelTransaction:
     """An OrderCancelTransaction represents the cancellation of
     an Order in the client’s Account.
     """
@@ -909,7 +909,7 @@ class OrderCancelTransactionobject:
         'replacedByOrderID': OrderID}
 
 
-class OrderClientExtensionsModifyRejectTransactionobject:
+class OrderClientExtensionsModifyRejectTransaction:
     """A OrderClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of an Order’s Client Extensions.
     """
@@ -945,7 +945,7 @@ class OrderClientExtensionsModifyRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class OrderClientExtensionsModifyTransactionobject:
+class OrderClientExtensionsModifyTransaction:
     """A OrderClientExtensionsModifyTransaction represents the modification
     of an Order’s Client Extensions.
     """
@@ -979,7 +979,7 @@ class OrderClientExtensionsModifyTransactionobject:
         'tradeClientExtensionsModify': ClientExtensions}
 
 
-class OrderFillTransactionobject:
+class OrderFillTransaction:
     """An OrderFillTransaction represents the filling of
     an Order in the client’s Account.
     """
@@ -1038,7 +1038,7 @@ class OrderFillTransactionobject:
         'tradeReduced': TradeReduce}
 
 
-class PositionFinancingobject:
+class PositionFinancing:
     """OpenTradeFinancing is used to pay/collect daily financing
     charge for a Position within an Account
     """
@@ -1053,7 +1053,7 @@ class PositionFinancingobject:
         'openTradeFinancings': (Array[OpenTradeFinancing])}
 
 
-class ReopenTransactionobject:
+class ReopenTransaction:
     """A ReopenTransaction represents the re-opening of a closed Account.
     """
     # JSON representation of object
@@ -1076,7 +1076,7 @@ class ReopenTransactionobject:
         'type': (TransactionType, default('REOPEN'))}
 
 
-class ResetResettablePLTransactionobject:
+class ResetResettablePLTransaction:
     """A ResetResettablePLTransaction represents the resetting
     of the Account’s resettable PL counters.
     """
@@ -1100,7 +1100,7 @@ class ResetResettablePLTransactionobject:
         'type': (TransactionType, default('RESET_RESETTABLE_PL'))}
 
 
-class StopLossDetailsobject:
+class StopLossDetails:
     """StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a client. This may happen when an Order
     is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified directly through the Trade.
     """
@@ -1118,7 +1118,7 @@ class StopLossDetailsobject:
         'clientExtensions': ClientExtensions}
 
 
-class StopLossOrderRejectTransactionobject:
+class StopLossOrderRejectTransaction:
     """A StopLossOrderRejectTransaction represents the rejection of
     the creation of a StopLoss Order.
     """
@@ -1184,7 +1184,7 @@ class StopLossOrderRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class StopLossOrderTransactionobject:
+class StopLossOrderTransaction:
     """A StopLossOrderTransaction represents the creation of
     a StopLoss Order in the user’s Account.
     """
@@ -1251,7 +1251,7 @@ class StopLossOrderTransactionobject:
         'cancellingTransactionID': TransactionID}
 
 
-class StopOrderRejectTransactionobject:
+class StopOrderRejectTransaction:
     """A StopOrderRejectTransaction represents the rejection of
     the creation of a Stop Order.
     """
@@ -1334,7 +1334,7 @@ class StopOrderRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class StopOrderTransactionobject:
+class StopOrderTransaction:
     """A StopOrderTransaction represents the creation of
     a Stop Order in the user’s Account.
     """
@@ -1418,7 +1418,7 @@ class StopOrderTransactionobject:
         'cancellingTransactionID': TransactionID}
 
 
-class TakeProfitDetailsobject:
+class TakeProfitDetails:
     """TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of a client. This may happen when an Order
     is filled that opens a Trade requiring a Take Profit, or when a Trade’s dependent Take Profit Order is modified directly through the Trade.
     """
@@ -1436,7 +1436,7 @@ class TakeProfitDetailsobject:
         'clientExtensions': ClientExtensions}
 
 
-class TakeProfitOrderRejectTransactionobject:
+class TakeProfitOrderRejectTransaction:
     """A TakeProfitOrderRejectTransaction represents the rejection of
     the creation of a TakeProfit Order.
     """
@@ -1502,7 +1502,7 @@ class TakeProfitOrderRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class TakeProfitOrderTransactionobject:
+class TakeProfitOrderTransaction:
     """A TakeProfitOrderTransaction represents the creation of
     a TakeProfit Order in the user’s Account.
     """
@@ -1569,7 +1569,7 @@ class TakeProfitOrderTransactionobject:
         'cancellingTransactionID': TransactionID}
 
 
-class TradeClientExtensionsModifyRejectTransactionobject:
+class TradeClientExtensionsModifyRejectTransaction:
     """A TradeClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of a Trade’s Client Extensions.
     """
@@ -1603,7 +1603,7 @@ class TradeClientExtensionsModifyRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class TradeClientExtensionsModifyTransactionobject:
+class TradeClientExtensionsModifyTransaction:
     """A TradeClientExtensionsModifyTransaction represents the modification
     of a Trade’s Client Extensions.
     """
@@ -1635,7 +1635,7 @@ class TradeClientExtensionsModifyTransactionobject:
         'tradeClientExtensionsModify': ClientExtensions}
 
 
-class TradeOpenobject:
+class TradeOpen:
     """A TradeOpen Refactor represents a Trade for an instrument that was opened in an Account. It is
     found embedded in Transactions that affect the position of an instrument in the Account, specifically the OrderFill Transaction.
     """
@@ -1649,7 +1649,7 @@ class TradeOpenobject:
         'clientExtensions': ClientExtensions}
 
 
-class TradeReduceobject:
+class TradeReduce:
     """A TradeReduce Refactor represents a Trade for an instrument that was reduced (either partially or fully) in an Account.
     It is found embedded in Transactions that affect the position of an instrument in the account, specifically the OrderFill Transaction.
     """
@@ -1665,7 +1665,7 @@ class TradeReduceobject:
         'financing': AccountUnits}
 
 
-class TrailingStopLossDetailsobject:
+class TrailingStopLossDetails:
     """TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be created on behalf of a client. This may happen when an Order is
     filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss Order is modified directly through the Trade.
     """
@@ -1685,7 +1685,7 @@ class TrailingStopLossDetailsobject:
         'clientExtensions': ClientExtensions}
 
 
-class TrailingStopLossOrderRejectTransactionobject:
+class TrailingStopLossOrderRejectTransaction:
     """A TrailingStopLossOrderRejectTransaction represents the rejection of
     the creation of a TrailingStopLoss Order.
     """
@@ -1750,7 +1750,7 @@ class TrailingStopLossOrderRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class TrailingStopLossOrderTransactionobject:
+class TrailingStopLossOrderTransaction:
     """A TrailingStopLossOrderTransaction represents the creation of
     a TrailingStopLoss Order in the user’s Account.
     """
@@ -1815,7 +1815,7 @@ class TrailingStopLossOrderTransactionobject:
         'cancellingTransactionID': TransactionID}
 
 
-class Transactionobject:
+class Transaction:
     """The base Transaction specification. Specifies properties
     that are common between all Transaction.
     """
@@ -1836,7 +1836,7 @@ class Transactionobject:
         'requestID': RequestID}
 
 
-class TransactionHeartbeatobject:
+class TransactionHeartbeat:
     """A TransactionHeartbeat Refactor is injected into the Transaction
     stream to ensure that the HTTP connection remains active.
     """
@@ -1850,7 +1850,7 @@ class TransactionHeartbeatobject:
         'time': DateTime}
 
 
-class TransferFundsRejectTransactionobject:
+class TransferFundsRejectTransaction:
     """A TransferFundsRejectTransaction represents the rejection of the
     transfer of funds in/out of an Account.
     """
@@ -1885,7 +1885,7 @@ class TransferFundsRejectTransactionobject:
         'rejectReason': TransactionRejectReason}
 
 
-class TransferFundsTransactionobject:
+class TransferFundsTransaction:
     """A TransferFundsTransaction represents the transfer
     of funds in/out of an Account.
     """
@@ -1920,7 +1920,7 @@ class TransferFundsTransactionobject:
         'accountBalance': AccountUnits}
 
 
-class VWAPReceiptobject:
+class VWAPReceipt:
     """A VWAP Receipt provides a record of how the price for an Order fill is constructed. If the Order
     is filled with multiple buckets in a depth of market, each bucket will be represented with a VWAP Receipt.
     """

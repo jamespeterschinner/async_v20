@@ -8,7 +8,7 @@ integer = int
 string = str
 
 
-class CalculatedPositionStateobject:
+class CalculatedPositionState:
     """The dynamic calculated state of a Position
     """
     # JSON representation of object
@@ -23,7 +23,7 @@ class CalculatedPositionStateobject:
         'shortUnrealizedPL': AccountUnits}
 
 
-class Positionobject:
+class Position:
     """The specification of a Position within an Account.
     """
     # JSON representation of object
@@ -47,7 +47,7 @@ class Positionobject:
         'short': PositionSide}
 
 
-class PositionSideobject:
+class PositionSide:
     """The representation of a Position for a single direction (long or short).
     """
     # JSON representation of object

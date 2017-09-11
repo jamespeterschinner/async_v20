@@ -8,7 +8,7 @@ integer = int
 string = str
 
 
-class ClientPriceobject:
+class ClientPrice:
     """Client price for an Account.
     """
     # JSON representation of object
@@ -33,7 +33,7 @@ class ClientPriceobject:
         'timestamp': DateTime}
 
 
-class Priceobject:
+class Price:
     """The specification of an Account-specific Price.
     """
     # JSON representation of object
@@ -76,7 +76,7 @@ class Priceobject:
         'unitsAvailable': (UnitsAvailable, deprecated)}
 
 
-class PriceBucketobject:
+class PriceBucket:
     """A Price Bucket represents a price available for an amount of liquidity
     """
     # JSON representation of object
@@ -87,7 +87,7 @@ class PriceBucketobject:
         'liquidity': integer}
 
 
-class PricingHeartbeatobject:
+class PricingHeartbeat:
     """A PricingHeartbeat Refactor is injected into the Pricing
     stream to ensure that the HTTP connection remains active.
     """
@@ -99,7 +99,7 @@ class PricingHeartbeatobject:
         'time': DateTime}
 
 
-class QuoteHomeConversionFactorsobject:
+class QuoteHomeConversionFactors:
     """QuoteHomeConversionFactors represents the factors that can be used used to convert
     quantities of a Price’s Instrument’s quote currency into the Account’s home currency.
     """

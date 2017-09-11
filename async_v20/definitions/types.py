@@ -13,7 +13,7 @@ class OrderRequest(Model):
 
 class UnitsAvailable(Model):
     """Representation of how many units of an Instrument are available to be
-    traded by an Order depending on its postionFill option.
+    traded by an Order depending on its position Fill option.
 
     Fields:
         default: -- The number of units that are available to be traded using an Order with a positionFill option of "DEFAULT". For an Account with hedging enabled,

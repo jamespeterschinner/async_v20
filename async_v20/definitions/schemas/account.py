@@ -7,7 +7,7 @@ boolean = bool
 integer = int
 string = str
 
-class Accountobject:
+class Account:
     """The full details of a client’s Account. This includes
     full open Trade, open Position and pending Order representation.
     """
@@ -102,7 +102,7 @@ class Accountobject:
         'orders': (Array[Order])}
 
 
-class AccountChangesobject:
+class AccountChanges:
     """An AccountChanges Refactor is used to represent the changes to an Account’s
     Orders, Trades and Positions since a specified Account TransactionID in the past.
     """
@@ -129,7 +129,7 @@ class AccountChangesobject:
         'transactions': (Array[Transaction])}
 
 
-class AccountChangesStateobject:
+class AccountChangesState:
     """An AccountState Refactor is used to represent an Account’s current price-dependent state. Price-dependent Account state is dependent
     on OANDA’s current Prices, and includes things like unrealized PL, NAV and Trailing Stop Loss Order state.
     """
@@ -177,7 +177,7 @@ class AccountChangesStateobject:
         'positions': (Array[CalculatedPositionState])}
 
 
-class AccountPropertiesobject:
+class AccountProperties:
     """Properties related to an Account.
     """
     # JSON representation of object
@@ -191,7 +191,7 @@ class AccountPropertiesobject:
         'tags': (Array[string])}
 
 
-class AccountSummaryobject:
+class AccountSummary:
     """A summary representation of a client’s Account. The AccountSummary does not
     provide to full specification of pending Orders, open Trades and Positions.
     """
