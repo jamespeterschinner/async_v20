@@ -10,10 +10,10 @@ class Alias(str): pass
 
 class Count(int): pass
 
-class Smooth(bool): pass
+class Smooth(object): pass #bool
 
 # TODO figure out what this is about
-class Incluclassirst(bool): pass
+class Incluclassirst(object): pass #bool
 
 class DailyAlignment(int): pass
 
@@ -27,9 +27,9 @@ class LongUnits(str): pass
 class ShortUnits(str): pass
  #  this also needs to default to 'ALL'
 
-class IncludeUnitsAvailable(bool): pass
+class IncludeUnitsAvailable(object): pass #bool
 
-class Snapshot(bool): pass
+class Snapshot(object): pass #bool
 
 class PageSize(int): pass
 

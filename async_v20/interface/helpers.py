@@ -21,7 +21,6 @@ async def _create_headers(self, header_args, arguments):
 
 
 async def _create_path(self, endpoint, path_args, arguments):
-    look_up
     async def _resolver(arg):
         await sleep()
         value = arguments.pop(arg, None)

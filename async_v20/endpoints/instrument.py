@@ -1,14 +1,14 @@
 from ..definitions.types import *
 from .metaclass import *
 from .annotations import *
+from .base import EndPoint, Path
 
-
-class GETInstrumentsCandles(object):
+class GETInstrumentsCandles(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/instruments/', Instrument, '/candles')
+    path = Path('/v3/instruments/', Instrument, '/candles')
 
     # description of endpoint
     description = 'Fetch candlestick data for an instrument.'
@@ -41,12 +41,12 @@ class GETInstrumentsCandles(object):
     error = (400, 401, 404, 405)
 
 
-class GETInstrumentOrderBook(object):
+class GETInstrumentOrderBook(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/instruments/', Instrument, '/orderBook')
+    path = Path('/v3/instruments/', Instrument, '/orderBook')
 
     # description of endpoint
     description = 'Fetch a gzip compressed order book for an instrument.'
@@ -67,12 +67,12 @@ class GETInstrumentOrderBook(object):
     error = (400, 401, 404, 405)
 
 
-class GETInstrumentsPositionBook(object):
+class GETInstrumentsPositionBook(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/instruments/', Instrument, '/positionBook')
+    path = Path('/v3/instruments/', Instrument, '/positionBook')
 
     # description of endpoint
     description = 'Fetch a gzip compressed position book for an instrument.'

@@ -1,14 +1,14 @@
 from ..definitions.types import *
 from .metaclass import *
 from .annotations import *
+from .base import EndPoint, Path
 
-
-class GETPricing(object):
+class GETPricing(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/pricing')
+    path = Path('/v3/accounts/', AccountID, '/pricing')
 
     # description of endpoint
     description = 'Get pricing information for a specified list of Instruments within an Account.'
@@ -32,12 +32,12 @@ class GETPricing(object):
     error = (400, 401, 404, 405)
 
 
-class GETPricingStream(object):
+class GETPricingStream(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/pricing/stream')
+    path = Path('/v3/accounts/', AccountID, '/pricing/stream')
 
     # description of endpoint
     description = '''Get a stream of Account Prices starting from when the request is made.

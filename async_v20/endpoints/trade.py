@@ -1,13 +1,14 @@
 from ..definitions.types import *
 from .metaclass import *
 from .annotations import *
+from .base import EndPoint, Path
 
-class GETTrades(object):
+class GETTrades(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/trades')
+    path = Path('/v3/accounts/', AccountID, '/trades')
 
     # description of endpoint
     description = 'Get a list of Trades for an Account'
@@ -33,12 +34,12 @@ class GETTrades(object):
     error = (401, 404, 405)
 
 
-class GETOpenTrades(object):
+class GETOpenTrades(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/openTrades')
+    path = Path('/v3/accounts/', AccountID, '/openTrades')
 
     # description of endpoint
     description = 'Get the list of open Trades for an Account'
@@ -58,12 +59,12 @@ class GETOpenTrades(object):
     error = (401, 404, 405)
 
 
-class GETTradeSpecifier(object):
+class GETTradeSpecifier(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/trades/', TradeSpecifier)
+    path = Path('/v3/accounts/', AccountID, '/trades/', TradeSpecifier)
 
     # description of endpoint
     description = 'Get the details of a specific Trade in an Account'
@@ -84,12 +85,12 @@ class GETTradeSpecifier(object):
     error = (401, 404, 405)
 
 
-class PUTTradeSpecifierClose(object):
+class PUTTradeSpecifierClose(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'PUT'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/close')
+    path = Path('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/close')
 
     # description of endpoint
     description = 'Close (partially or fully) a specific open Trade in an Account'
@@ -120,12 +121,12 @@ class PUTTradeSpecifierClose(object):
     request_schema = {'units': Units}
 
 
-class PUTTradeSpecifierClientExtensions(object):
+class PUTTradeSpecifierClientExtensions(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'PUT'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/clientExtensions')
+    path = Path('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/clientExtensions')
 
     # description of endpoint
     description = 'Update the Client Extensions for a Trade. Do not add, update, or ' \
@@ -157,12 +158,12 @@ class PUTTradeSpecifierClientExtensions(object):
     request_schema = {'clientExtensions': ClientExtensions}
 
 
-class PUTTradesSpecifierOrders(object):
+class PUTTradesSpecifierOrders(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'PUT'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/orders')
+    path = Path('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/orders')
 
     # description of endpoint
     description = 'Create, replace and cancel a Trade’s dependent Orders ' \

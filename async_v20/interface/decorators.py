@@ -1,11 +1,11 @@
-from inspect import signature
+from inspect import signature, Signature, _empty
 from .helpers import _create_body
 from .helpers import _parse_response
 from .helpers import _create_params
 from .helpers import _create_headers
 from .helpers import _create_path
 from functools import wraps
-
+from ..definitions.helpers import IndexDict
 
 def endpoint(endpoint):
     header_args = endpoint.header_args()
@@ -13,9 +13,17 @@ def endpoint(endpoint):
     path_args = endpoint.path_args()
 
     def wrapper(method):
+        sig = signature(method)
+        # TODO remove self from sig
+        sig = Signature([param.replace(default=None)
+                         if param.default == _empty
+                         else param
+                         for param in sig.parameters.values()])
+
         @wraps(method)
         async def wrap(self, *args, **kwargs):
-            arguments = list(args + tuple(kwargs.values()))
+            bound = sig.bind(*args, **kwargs)
+            arguments = bound.arguments
             json_body = await _create_body(self, endpoint.request_schema, arguments)
             headers = await _create_headers(self, header_args, arguments)
             path = await _create_path(self, endpoint.path, path_args, arguments)

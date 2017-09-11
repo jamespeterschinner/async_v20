@@ -1,13 +1,14 @@
 from ..definitions.types import *
 from .metaclass import *
 from .annotations import *
+from .base import EndPoint, Path
 
-class POSTOrders(object):
+class POSTOrders(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'POST'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/orders')
+    path = Path('/v3/accounts/', AccountID, '/orders')
 
     # description of endpoint
     description = 'Create an Order for an Account'
@@ -37,12 +38,12 @@ class POSTOrders(object):
     request_schema = {'order': OrderRequest}
 
 
-class GETOrders(object):
+class GETOrders(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/orders')
+    path = Path('/v3/accounts/', AccountID, '/orders')
 
     # description of endpoint
     description = 'Get a list of Orders for an Account'
@@ -68,12 +69,12 @@ class GETOrders(object):
     error = (400, 404, 405)
 
 
-class GETPendingOrders(object):
+class GETPendingOrders(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/pendingOrders')
+    path = Path('/v3/accounts/', AccountID, '/pendingOrders')
 
     # description of endpoint
     description = 'List all pending Orders in an Account'
@@ -93,12 +94,12 @@ class GETPendingOrders(object):
     error = (401, 404, 405)
 
 
-class GETOrderSpecifier(object):
+class GETOrderSpecifier(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
+    path = Path('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
 
     # description of endpoint
     description = 'Get details for a single Order in an Account'
@@ -119,12 +120,12 @@ class GETOrderSpecifier(object):
     error = (401, 404, 405)
 
 
-class PUTOrderSpecifier(object):
+class PUTOrderSpecifier(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'PUT'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
+    path = Path('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
 
     # description of endpoint
     description = 'Replace an Order in an Account by simultaneously cancelling it and creating a replacement Order'
@@ -156,12 +157,12 @@ class PUTOrderSpecifier(object):
     request_schema = {'order': OrderRequest}
 
 
-class PUTOrderSpecifierCancel(object):
+class PUTOrderSpecifierCancel(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'PUT'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/cancel')
+    path = Path('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/cancel')
 
     # description of endpoint
     description = 'Cancel a pending Order in an Account'
@@ -186,12 +187,12 @@ class PUTOrderSpecifierCancel(object):
     error = (401, 405)
 
 
-class PUTClientExtensions(object):
+class PUTClientExtensions(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'PUT'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/clientExtensions')
+    path = Path('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/clientExtensions')
 
     # description of endpoint
     description = 'Update the Client Extensions for an Order in an Account. Do not set, ' \

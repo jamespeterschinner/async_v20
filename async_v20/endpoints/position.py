@@ -1,13 +1,14 @@
 from ..definitions.types import *
 from .metaclass import *
 from .annotations import *
+from .base import EndPoint, Path
 
-class GETPositions(object):
+class GETPositions(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/positions')
+    path = Path('/v3/accounts/', AccountID, '/positions')
 
     # description of endpoint
     description = 'List all Positions for an Account. The Positions returned are for every ' \
@@ -26,12 +27,12 @@ class GETPositions(object):
     error = (401, 404, 405)
 
 
-class GETOpenPositions(object):
+class GETOpenPositions(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/openPositions')
+    path = Path('/v3/accounts/', AccountID, '/openPositions')
 
     # description of endpoint
     description = 'List all open Positions for an Account. An open Position is a ' \
@@ -50,12 +51,12 @@ class GETOpenPositions(object):
     error = (401, 404, 405)
 
 
-class GETPositionsInstrument(object):
+class GETPositionsInstrument(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/positions/', Instrument)
+    path = Path('/v3/accounts/', AccountID, '/positions/', Instrument)
 
     # description of endpoint
     description = 'Get the details of a single Instrument’s Position in an Account. The Position may by open or not.'
@@ -74,12 +75,12 @@ class GETPositionsInstrument(object):
     error = (401, 404, 405)
 
 
-class PUTPositionsInstrumentClose(object):
+class PUTPositionsInstrumentClose(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'PUT'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/positions/', Instrument, '/close')
+    path = Path('/v3/accounts/', AccountID, '/positions/', Instrument, '/close')
 
     # description of endpoint
     description = 'Closeout the open Position for a specific instrument in an Account.'

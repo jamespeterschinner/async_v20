@@ -1,14 +1,16 @@
 from ..definitions.types import *
 from .metaclass import *
 from .annotations import *
+from .base import EndPoint, Path
 
-class GETUserSpecifier(object):
+
+class GETUserSpecifier(EndPoint):
 
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/users/', UserSpecifier)
+    path = Path('/v3/users/', UserSpecifier)
 
     # description of endpoint
     description = 'Fetch the user information for the specified user.'
@@ -26,13 +28,13 @@ class GETUserSpecifier(object):
     error = [401, 403, 405]
 
 
-class GETExternalInfo(object):
+class GETExternalInfo(EndPoint):
 
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/users/', UserSpecifier, '/externalInfo')
+    path = Path('/v3/users/', UserSpecifier, '/externalInfo')
 
     # description of endpoint
     description = 'Fetch the externally-available user information for the specified user.'

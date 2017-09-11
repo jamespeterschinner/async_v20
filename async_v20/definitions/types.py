@@ -12,6 +12,23 @@ class OrderRequest(Model):
     """
 
 
+class UnitsAvailableDetails(Model):
+    """Representation of many units of an Instrument are available to be traded
+    for both long and short Orders.
+
+    Fields:
+        long: -- The units available for long Orders.
+        short: -- The units available for short Orders.
+
+    """
+
+    schema = {
+        # The units available for long Orders.
+        'long': SchemaValue(DecimalNumber),
+        # The units available for short Orders.
+        'short': SchemaValue(DecimalNumber)}
+
+
 class UnitsAvailable(Model):
     """Representation of how many units of an Instrument are available to be
     traded by an Order depending on its position Fill option.
@@ -46,23 +63,6 @@ class UnitsAvailable(Model):
         # The number of units that may are available to be traded with an Order
         # with a positionFill option of “OPEN_ONLY”.
         'openOnly': SchemaValue(UnitsAvailableDetails)}
-
-
-class UnitsAvailableDetails(Model):
-    """Representation of many units of an Instrument are available to be traded
-    for both long and short Orders.
-
-    Fields:
-        long: -- The units available for long Orders.
-        short: -- The units available for short Orders.
-
-    """
-
-    schema = {
-        # The units available for long Orders.
-        'long': SchemaValue(DecimalNumber),
-        # The units available for short Orders.
-        'short': SchemaValue(DecimalNumber)}
 
 
 class LiquidityRegenerationScheduleStep(Model):
@@ -1585,7 +1585,7 @@ class ResetResettablePLTransaction(Model):
         'type': SchemaValue(TransactionType, default='RESET_RESETTABLE_PL')}
 
 
-class StopLossOrderRequest(Model, OrderRequest):
+class StopLossOrderRequest(OrderRequest, Model):
     """A StopLossOrderRequest specifies the parameters that may be set when
     creating a Stop Loss Order.
 
@@ -1650,7 +1650,7 @@ class StopLossOrderRequest(Model, OrderRequest):
         'clientExtensions': SchemaValue(ClientExtensions)}
 
 
-class TakeProfitOrderRequest(Model, OrderRequest):
+class TakeProfitOrderRequest(OrderRequest, Model):
     """A TakeProfitOrderRequest specifies the parameters that may be set when
     creating a Take Profit Order.
 
@@ -1715,7 +1715,7 @@ class TakeProfitOrderRequest(Model, OrderRequest):
         'clientExtensions': SchemaValue(ClientExtensions)}
 
 
-class TrailingStopLossOrderRequest(Model, OrderRequest):
+class TrailingStopLossOrderRequest(OrderRequest, Model):
     """A TrailingStopLossOrderRequest specifies the parameters that may be set
     when creating a Trailing Stop Loss Order.
 
@@ -2295,7 +2295,7 @@ class AccountSummary(Model):
         'lastTransactionID': SchemaValue(TransactionID)}
 
 
-class MarketOrderRequest(Model, OrderRequest):
+class MarketOrderRequest(OrderRequest, Model):
     """A MarketOrderRequest specifies the parameters that may be set when creating
     a Market Order.
 
@@ -3285,7 +3285,7 @@ class TransferFundsRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class LimitOrderRequest(Model, OrderRequest):
+class LimitOrderRequest(OrderRequest, Model):
     """A LimitOrderRequest specifies the parameters that may be set when creating
     a Limit Order.
 
@@ -3390,7 +3390,7 @@ class LimitOrderRequest(Model, OrderRequest):
         'tradeClientExtensions': SchemaValue(ClientExtensions)}
 
 
-class MarketIfTouchedOrderRequest(Model, OrderRequest):
+class MarketIfTouchedOrderRequest(OrderRequest, Model):
     """A MarketIfTouchedOrderRequest specifies the parameters that may be set when
     creating a Market-if-Touched Order.
 
@@ -3506,7 +3506,7 @@ class MarketIfTouchedOrderRequest(Model, OrderRequest):
         'tradeClientExtensions': SchemaValue(ClientExtensions)}
 
 
-class StopOrderRequest(Model, OrderRequest):
+class StopOrderRequest(OrderRequest, Model):
     """A StopOrderRequest specifies the parameters that may be set when creating a
     Stop Order.
 

@@ -1,13 +1,14 @@
 from ..definitions.types import *
 from .metaclass import *
 from .annotations import *
+from .base import EndPoint, Path
 
-class GETTransactions(object):
+class GETTransactions(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/transactions')
+    path = Path('/v3/accounts/', AccountID, '/transactions')
 
     # description of endpoint
     description = 'Get a list of Transactions pages that satisfy a time-based Transaction query.'
@@ -34,12 +35,12 @@ class GETTransactions(object):
     error = (400, 401, 403, 404, 405, 416)
 
 
-class GETTransactionID(object):
+class GETTransactionID(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/transactions/', TransactionID)
+    path = Path('/v3/accounts/', AccountID, '/transactions/', TransactionID)
 
     # description of endpoint
     description = 'Get the details of a single Account Transaction.'
@@ -60,12 +61,12 @@ class GETTransactionID(object):
     error = (401, 404, 405)
 
 
-class GETIDrange(object):
+class GETIDrange(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/transactions/idrange')
+    path = Path('/v3/accounts/', AccountID, '/transactions/idrange')
 
     # description of endpoint
     description = 'Get a range of Transactions for an Account based on the Transaction IDs.'
@@ -89,12 +90,12 @@ class GETIDrange(object):
     error = (400, 401, 404, 405, 416)
 
 
-class GETSinceID(object):
+class GETSinceID(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/transactions/sinceid')
+    path = Path('/v3/accounts/', AccountID, '/transactions/sinceid')
 
     # description of endpoint
     description = 'Get a range of Transactions for an Account starting at ' \
@@ -116,12 +117,12 @@ class GETSinceID(object):
     error = (400, 401, 404, 405, 416)
 
 
-class GETTransactionsStream(object):
+class GETTransactionsStream(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/transactions/stream')
+    path = Path('/v3/accounts/', AccountID, '/transactions/stream')
 
     # description of endpoint
     description = 'Get a stream of Transactions for an Account starting from when the request is made.'

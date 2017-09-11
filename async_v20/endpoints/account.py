@@ -1,14 +1,15 @@
 from ..definitions.types import *
 from .annotations import *
 from .metaclass import *
+from .base import EndPoint, Path
 
 
-class GETAccounts(object):
+class GETAccounts(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = '/v3/accounts'
+    path = Path('/v3/accounts')
 
     # description of endpoint
     description = 'Get a list of all Accounts authorized for the provided token.'
@@ -19,18 +20,18 @@ class GETAccounts(object):
     ]
 
     # valid responses
-    responses = {200, {'accounts': Array[AccountProperties]}}
+    responses = {200: {'accounts': Array[AccountProperties]}}
 
     # error msgs'
     error = (401, 405)
 
 
-class GETAccountID(object):
+class GETAccountID(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID)
+    path = Path('/v3/accounts/', AccountID)
 
     # description of endpoint
     description = 'Get the full details for a single Account that a client has access to. ' \
@@ -51,12 +52,12 @@ class GETAccountID(object):
     error = (400, 401, 405)
 
 
-class GETAccountIDSummary(object):
+class GETAccountIDSummary(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/summary')
+    path = Path('/v3/accounts/', AccountID, '/summary')
 
     # description of endpoint
     description = 'Get a summary for a single Account that a client has access to.'
@@ -76,12 +77,12 @@ class GETAccountIDSummary(object):
     error = (400, 401, 405)
 
 
-class GETAccountIDInstruments(object):
+class GETAccountIDInstruments(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/instruments')
+    path = Path('/v3/accounts/', AccountID, '/instruments')
 
     # description of endpoint
     description = 'Get the list of tradeable instruments for the given Account. The list of tradeable instruments is dependent on the regulatory division that the Account is located in, thus should be the same for all Accounts owned by a single user.'
@@ -101,12 +102,12 @@ class GETAccountIDInstruments(object):
     error = (400, 401, 405)
 
 
-class PATCHAccountIDConfiguration(object):
+class PATCHAccountIDConfiguration(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'PATCH'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/configuration')
+    path = Path('/v3/accounts/', AccountID, '/configuration')
 
     # description of endpoint
     description = 'Set the client-configurable portions of an Account.'
@@ -133,12 +134,12 @@ class PATCHAccountIDConfiguration(object):
     request_schema = {'alias': Alias, 'marginRate': DecimalNumber}
 
 
-class GETAccountIDChanges(object):
+class GETAccountIDChanges(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/v3/accounts/', AccountID, '/changes')
+    path = Path('/v3/accounts/', AccountID, '/changes')
     # description of endpoint
     description = 'Endpoint used to poll an Account for its current state and changes since a specified TransactionID.'
 
@@ -152,7 +153,7 @@ class GETAccountIDChanges(object):
     ]
 
     # valid responses
-    responses = {200, {'changes': AccountChanges, 'state': AccountChangesState, 'lastTransactionID': TransactionID}}
+    responses = {200: {'changes': AccountChanges, 'state': AccountChangesState, 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (401, 404, 405, 416)
