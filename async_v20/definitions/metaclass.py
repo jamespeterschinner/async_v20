@@ -1,9 +1,18 @@
 from asyncio import sleep
-from inspect import signature,
+from inspect import signature, _empty
 from .helpers import _create_signature
 from .helpers import _assign_descriptors
+from .helpers import _create_arg_lookup
 from .descriptors.base import Descriptor
 from functools import wraps
+
+class SchemaValue(object):
+    def __init__(self, typ, default=_empty, required=False, deprecated=False):
+        self.typ = typ
+        self.default = default
+        self.required = required
+        self.deprecated = deprecated
+
 
 boolean = bool
 integer = int
@@ -16,21 +25,24 @@ class ORM(type):
 
     def __new__(cls, *args, **kwargs):
         class_obj = super().__new__(cls, *args, **kwargs)
-        init_sig = _create_signature(cls.schema)
-        class_obj = _assign_descriptors(cls)
+        init_sig = _create_signature(cls)
+        class_obj = _create_arg_lookup(_assign_descriptors(cls))
 
         def auto_assign(init):
             @wraps(init)
             def wrapper(self, *args, **kwargs):
-                init_sig
+                bound = init_sig.bind(*args, **kwargs)
+                bound.apply_defaults()
+
                 for attribute, value in kwargs.items():
-                    typ = self.attribute_types[attribute]
+                    typ = self._arg_lookup[attribute]
                     if issubclass(typ, Model):
                         if callable(typ):
                             setattr(self, attribute, typ(**value))
-
                     else:
                         setattr(self, attribute, value)
+
+                for
 
             wrapper.__signature__ = init_sig
             return wrapper

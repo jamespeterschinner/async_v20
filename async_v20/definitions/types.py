@@ -3,14 +3,6 @@ from .metaclass import *
 from ..endpoints.metaclass import Array
 
 
-class SchemaValue(object):
-    def __init__(self, typ, default=None, required=False, deprecated=False):
-        self.typ = typ
-        self.default = default
-        self.required = required
-        self.deprecated = deprecated
-
-
 class OrderRequest(Model):
     """The base Order specification used when requesting that an Order be created.
     Each specific Order-type extends this definition.

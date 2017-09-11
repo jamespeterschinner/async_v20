@@ -2,7 +2,6 @@ from itertools import chain, starmap
 from async_v20.helpers import sleep
 from inspect import Signature, Parameter
 from .descriptors.base import Descriptor
-from .metaclass import Model, Default
 
 
 async def flatten_dict(dictionary):
@@ -19,16 +18,16 @@ async def flatten_dict(dictionary):
                     items = chain(parent_value)
                 except TypeError:
                     # parent value was not iterable or a dict
-                    return (parent_key, parent_value)
+                    return parent_key, parent_value
                 else:
                     for index, value in enumerate(items):
                         # yield (parent_key + '_' + str(index), value)
-                        return (parent_key , value)
+                        return parent_key, value
             else:
                 for key, value in items:
                     return (parent_key + '_' + key, value)
         else:
-            return (parent_key, parent_value)
+            return parent_key, parent_value
 
     # Put each key into a tuple to initiate building a tuple of subkeys
     dictionary = {key: value for key, value in dictionary.items()}
@@ -41,38 +40,38 @@ async def flatten_dict(dictionary):
 
     return dictionary
 
-
-async def _create_signature(schema):
-    async def create_parameter(key, value):
-        await sleep()
-        name = key.lowercase()
-        annotation = None
+class IndexDict(dict):
+    def __getitem__(self, item):
+        result = None
         try:
-            annotation = value[0]
-        except IndexError:
-            annotation = value
-        if Default in value:
-            default =
-
-
-        return Parameter(name=key, annotation=value)
-    return Signature([create_parameter(key, value) for key, value in schema.items()])
-
-async def _assign_descriptors(cls):
-
-    def set_descriptor(attribute, descriptor):
-        setattr(cls, attribute, descriptor())
-
-    async for attr, typ in cls.schema.items():
-        attr = attr.lowercase()
-        if isinstance(typ, Descriptor):
-            set_descriptor(attr, typ)
-        else:
+            result = super().__getitem__(item)
+        except KeyError:
             try:
-                for item in typ:
-                    if isinstance(typ, Descriptor):
-                        set_descriptor(attr, typ)
-            except TypeError:
+                result = list(self.values())[item]
+            except IndexError:
                 pass
+        return result
 
+def _create_signature(cls):
+    def create_parameter(key, schema_value):
+        name = key.lowercase()
+        annotation = schema_value.typ
+        default = schema_value.default
+        return Parameter(name=name, annotation=annotation, default=default, kind=Parameter.POSITIONAL_OR_KEYWORD)
+    return Signature([create_parameter(key, value) for key, value in cls.schema.items()])
+
+
+def _assign_descriptors(cls):
+    for attr, schema_value in cls.schema.items():
+        typ = schema_value.typ
+        if isinstance(typ, Descriptor):
+            if callable(typ):  # This is to keep IDE happy. Descriptor class is callable!
+                setattr(cls, attr, typ())
     return cls
+
+def _create_arg_lookup(cls):
+    cls._arg_lookup = IndexDict([(attr.lowercase(), schema_value.typ)
+                                 for attr, schema_value in cls.schema.items()])
+    return cls
+
+def _set_kwargs
