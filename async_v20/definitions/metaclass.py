@@ -1,26 +1,28 @@
 from asyncio import sleep
-from inspect import signature, _empty, Signature
+from inspect import signature,
+from .helpers import _create_signature
+from .helpers import _assign_descriptors
 from .descriptors.base import Descriptor
 from functools import wraps
 
+boolean = bool
+integer = int
+string = str
+deprecated = None
 
 class ORM(type):
-    def __new__(cls, *args, **kwargs):
-        print('creating class')
-        class_obj = super().__new__(cls, *args, **kwargs)
-        init_sig = signature(class_obj.__init__)
-        attribute_types = {param.name: param.annotation
-                           for param
-                           in init_sig.parameters.values()
-                           if param.name != 'self'}
 
-        for attribute, typ in attribute_types.items():
-            if issubclass(typ, Descriptor):
-                setattr(class_obj, attribute, typ())
+    schema = {}
+
+    def __new__(cls, *args, **kwargs):
+        class_obj = super().__new__(cls, *args, **kwargs)
+        init_sig = _create_signature(cls.schema)
+        class_obj = _assign_descriptors(cls)
 
         def auto_assign(init):
             @wraps(init)
             def wrapper(self, *args, **kwargs):
+                init_sig
                 for attribute, value in kwargs.items():
                     typ = self.attribute_types[attribute]
                     if issubclass(typ, Model):
@@ -34,8 +36,6 @@ class ORM(type):
             return wrapper
 
         class_obj.__init__ = auto_assign(class_obj.__init__)
-        class_obj.attribute_types = attribute_types
-        class_obj._properties = list(init_sig.parameters.keys())[1:]
         return class_obj
 
 

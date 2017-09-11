@@ -1,6 +1,8 @@
 from itertools import chain, starmap
-
 from async_v20.helpers import sleep
+from inspect import Signature, Parameter
+from .descriptors.base import Descriptor
+from .metaclass import Model, Default
 
 
 async def flatten_dict(dictionary):
@@ -38,3 +40,39 @@ async def flatten_dict(dictionary):
             break
 
     return dictionary
+
+
+async def _create_signature(schema):
+    async def create_parameter(key, value):
+        await sleep()
+        name = key.lowercase()
+        annotation = None
+        try:
+            annotation = value[0]
+        except IndexError:
+            annotation = value
+        if Default in value:
+            default =
+
+
+        return Parameter(name=key, annotation=value)
+    return Signature([create_parameter(key, value) for key, value in schema.items()])
+
+async def _assign_descriptors(cls):
+
+    def set_descriptor(attribute, descriptor):
+        setattr(cls, attribute, descriptor())
+
+    async for attr, typ in cls.schema.items():
+        attr = attr.lowercase()
+        if isinstance(typ, Descriptor):
+            set_descriptor(attr, typ)
+        else:
+            try:
+                for item in typ:
+                    if isinstance(typ, Descriptor):
+                        set_descriptor(attr, typ)
+            except TypeError:
+                pass
+
+    return cls
