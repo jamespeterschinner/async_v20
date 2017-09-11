@@ -1,3 +1,4 @@
+from inspect import signature
 from .helpers import _create_body
 from .helpers import _parse_response
 from .helpers import _create_params
@@ -33,4 +34,12 @@ def endpoint(endpoint):
 
 
 
-def add_signature(callable):pass
+def add_signature(class_obj):
+    sig = signature(class_obj.__init__)
+    def wrapper(func):
+        @wraps(func)
+        def wrap(*args, **kwargs):
+            return func(*args, **kwargs)
+        wrap.__signature__ = sig
+        return wrap
+    return wrapper
