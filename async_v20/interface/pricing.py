@@ -7,7 +7,7 @@ class PricingInterface(object):
 
 
     @endpoint(GETPricing)
-    def get(self, instruments: Instruments, since: DateTime, includeUnitsAvailable: IncludeUnitsAvailable):
+    def get_pricing(self, instruments: Instruments, since: DateTime, includeUnitsAvailable: IncludeUnitsAvailable):
         """
         Get pricing information for a specified list of Instruments within an
         Account.
@@ -33,7 +33,7 @@ class PricingInterface(object):
 
     # TODO think about the stream parser that you deleted!
     @endpoint(GETPricingStream)
-    def stream(self, instruments: Instruments, snapshot: Snapshot):
+    def stream_pricing(self, instruments: Instruments, snapshot: Snapshot):
         """
         Get a stream of Account Prices starting from when the request is made.
         This pricing stream does not include every single price created for the

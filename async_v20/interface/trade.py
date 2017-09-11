@@ -4,7 +4,7 @@ from ..endpoints.trade import *
 
 class TradeInterface(object):
     @endpoint(GETTrades)
-    def list(self, ids: Ids, state: TradeStateFilter, instrument: InstrumentName, count: Count, beforeID: TradeID):
+    def list_trades(self, ids: Ids, state: TradeStateFilter, instrument: InstrumentName, count: Count, beforeID: TradeID):
         """
         Get a list of Trades for an Account
 
@@ -28,7 +28,7 @@ class TradeInterface(object):
         pass
 
     @endpoint(GETOpenTrades)
-    def list_open(self):
+    def list_open_trades(self):
         """
         Get the list of open Trades for an Account
 
@@ -41,7 +41,7 @@ class TradeInterface(object):
         pass
 
     @endpoint(GETTradeSpecifier)
-    def get(self, tradeSpecifier: TradeSpecifier):
+    def get_trades(self, tradeSpecifier: TradeSpecifier):
         """
         Get the details of a specific Trade in an Account
 
@@ -57,7 +57,7 @@ class TradeInterface(object):
 
     # TODO fix the return docstrings
     @endpoint(PUTTradeSpecifierClose)
-    def close(self, tradeSpecifier: TradeStateFilter, units: Units):
+    def close_trades(self, tradeSpecifier: TradeStateFilter, units: Units):
         """
         Close (partially or fully) a specific open Trade in an Account
 
@@ -79,7 +79,7 @@ class TradeInterface(object):
         pass
 
     @endpoint(PUTTradeSpecifierClientExtensions)
-    def set_client_extensions(self, tradeSpecifier: TradeSpecifier, clientExtensions: ClientExtensions):
+    def set_client_extensions_trade(self, tradeSpecifier: TradeSpecifier, clientExtensions: ClientExtensions):
         """
         Update the Client Extensions for a Trade. Do not add, update, or delete
         the Client Extensions if your account is associated with MT4.
@@ -100,7 +100,7 @@ class TradeInterface(object):
 
     # TODO Check each methods arguments against the docstring
     @endpoint(PUTTradesSpecifierOrders)
-    def set_dependent_orders(self, tradeSpecifier: TradeSpecifier, takeProfit: TakeProfitDetails,
+    def set_dependent_orders_trade(self, tradeSpecifier: TradeSpecifier, takeProfit: TakeProfitDetails,
                              stopLoss: StopLossDetails, trailingStopLoss: TrailingStopLossDetails):
         """
         Create, replace and cancel a Trade's dependent Orders (Take Profit,

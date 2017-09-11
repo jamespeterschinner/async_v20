@@ -50,6 +50,7 @@ class IndexDict(dict):
                 result = list(self.values())[item]
             except IndexError:
                 pass
+        return result
 
     def reverse_lookup(self, index):
         return list(self.keys())[index]

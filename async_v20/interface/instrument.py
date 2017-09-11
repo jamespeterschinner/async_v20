@@ -4,7 +4,7 @@ from ..endpoints.instrument import *
 class InstrumentInterface(object):
 
     @endpoint(GETInstrumentsCandles)
-    def candles(self,
+    def get_candles(self,
                 instrument: Instrument,
                 price: Price,
                 granularity: CandlestickGranularity,

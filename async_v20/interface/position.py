@@ -4,7 +4,7 @@ from ..endpoints.position import *
 
 class PositionInterface(object):
     @endpoint(GETPositions)
-    def list(self):
+    def list_positions(self):
         """
         List all Positions for an Account. The Positions returned are for every
         instrument that has had a position during the lifetime of an the
@@ -21,7 +21,7 @@ class PositionInterface(object):
         pass
 
     @endpoint(GETOpenPositions)
-    def list_open(self):
+    def list_open_positions(self):
         """
         List all open Positions for an Account. An open Position is a Position
         in an Account that currently has a Trade opened for it.
@@ -37,7 +37,7 @@ class PositionInterface(object):
         pass
 
     @endpoint(GETPositionsInstrument)
-    def get(self, instrument: InstrumentName):
+    def get_positions(self, instrument: InstrumentName):
         """
         Get the details of a single Instrument's Position in an Account. The
         Position may by open or not.
@@ -55,7 +55,7 @@ class PositionInterface(object):
         pass
 
     @endpoint(PUTPositionsInstrumentClose)
-    def close(self, instrument: InstrumentName, longUnits: LongUnits, longClientExtensions: LongClientExtensions,
+    def close_position(self, instrument: InstrumentName, longUnits: LongUnits, longClientExtensions: LongClientExtensions,
               shortUnits: ShortUnits, shortClientExtensions: ShortClientExtensions):
         """
         Closeout the open Position for a specific instrument in an Account.

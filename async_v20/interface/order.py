@@ -5,7 +5,7 @@ from ..endpoints.order import *
 
 class OrderInterface(object):
     @endpoint(POSTOrders)
-    def create(self, order: OrderRequest):
+    def create_order(self, order: OrderRequest):
         """
         Create an Order for an Account
 
@@ -22,7 +22,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrders)
-    def list(self, ids: Ids, state: OrderStateFilter, instrument: InstrumentName, count: Count, beforeID: OrderID):
+    def list_orders(self, ids: Ids, state: OrderStateFilter, instrument: InstrumentName, count: Count, beforeID: OrderID):
         """
         Get a list of Orders for an Account
 
@@ -48,7 +48,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETPendingOrders)
-    def list_pending(self):
+    def list_pending_orders(self):
         """
         List all pending Orders in an Account
 
@@ -63,7 +63,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrderSpecifier)
-    def get(self, orderSpecifier: OrderSpecifier):
+    def get_order(self, orderSpecifier: OrderSpecifier):
         """
         Get details for a single Order in an Account
 
@@ -80,7 +80,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifier)
-    def replace(self, orderSpecifier: OrderSpecifier, order: OrderRequest):
+    def replace_order(self, orderSpecifier: OrderSpecifier, order: OrderRequest):
         """
         Replace an Order in an Account by simultaneously cancelling it and
         creating a replacement Order
@@ -100,7 +100,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifierCancel)
-    def cancel(self, orderSpecifier: OrderSpecifier):
+    def cancel_order(self, orderSpecifier: OrderSpecifier):
         """
         Cancel a pending Order in an Account
 
@@ -145,7 +145,7 @@ class OrderInterface(object):
         pass
 
     @add_signature(MarketOrderRequest)
-    def market(self, *args, **kwargs):
+    def market_order(self, *args, **kwargs):
         """
         Shortcut to create a Market Order in an Account
         MarketOrderRequest
@@ -159,7 +159,7 @@ class OrderInterface(object):
         return self.create(order=MarketOrderRequest(*args, **kwargs))
 
     @add_signature(LimitOrderRequest)
-    def limit(self, *args, **kwargs):
+    def limit_order(self, *args, **kwargs):
         """
         Shortcut to create a Limit Order in an Account
 
@@ -173,7 +173,7 @@ class OrderInterface(object):
         return self.create(order=LimitOrderRequest(*args, **kwargs))
 
     @add_signature(LimitOrderRequest)
-    def limit_replace(self, orderID, *args, **kwargs):
+    def limit_replace_order(self, orderID, *args, **kwargs):
         """
         Shortcut to replace a pending Limit Order in an Account
 
@@ -188,7 +188,7 @@ class OrderInterface(object):
         return self.replace(orderID, order=LimitOrderRequest(*args, **kwargs))
 
     @add_signature(StopOrderRequest)
-    def stop(self, *args, **kwargs):
+    def stop_order(self, *args, **kwargs):
         """
         Shortcut to create a Stop Order in an Account
 
@@ -202,7 +202,7 @@ class OrderInterface(object):
         return self.create(order=StopOrderRequest(*args, **kwargs))
 
     @add_signature(StopOrderRequest)
-    def stop_replace(self, orderID, *args, **kwargs):
+    def stop_replace_order(self, orderID, *args, **kwargs):
         """
         Shortcut to replace a pending Stop Order in an Account
 
@@ -217,7 +217,7 @@ class OrderInterface(object):
         return self.replace(orderID, order=StopOrderRequest(*args, **kwargs))
 
     @add_signature(MarketIfTouchedOrderRequest)
-    def market_if_touched(self, *args, **kwargs):
+    def market_if_touched_order(self, *args, **kwargs):
         """
         Shortcut to create a MarketIfTouched Order in an Account
 
@@ -231,7 +231,7 @@ class OrderInterface(object):
         return self.create(order=MarketIfTouchedOrderRequest(*args, **kwargs))
 
     @add_signature(MarketIfTouchedOrderRequest)
-    def market_if_touched_replace(self, orderID, *args, **kwargs):
+    def market_if_touched_replace_order(self, orderID, *args, **kwargs):
         """
         Shortcut to replace a pending MarketIfTouched Order in an Account
 
@@ -246,7 +246,7 @@ class OrderInterface(object):
         return self.replace(orderID, order=MarketIfTouchedOrderRequest(*args, **kwargs))
 
     @add_signature(TakeProfitOrderRequest)
-    def take_profit(self, *args, **kwargs):
+    def take_profit_order(self, *args, **kwargs):
         """
         Shortcut to create a Take Profit Order in an Account
 
@@ -260,7 +260,7 @@ class OrderInterface(object):
         return self.create(order=TakeProfitOrderRequest(*args, **kwargs))
 
     @add_signature(TakeProfitOrderRequest)
-    def take_profit_replace(self, orderID, *args, **kwargs):
+    def take_profit_replace_order(self, orderID, *args, **kwargs):
         """
         Shortcut to replace a pending Take Profit Order in an Account
 
@@ -275,7 +275,7 @@ class OrderInterface(object):
         return self.replace(orderID, order=TakeProfitOrderRequest(*args, **kwargs))
 
     @add_signature(StopOrderRequest)
-    def stop_loss(self, *args, **kwargs):
+    def stop_loss_order(self, *args, **kwargs):
         """
         Shortcut to create a Stop Loss Order in an Account
 
@@ -289,7 +289,7 @@ class OrderInterface(object):
         return self.create(order=StopLossOrderRequest(*args, **kwargs))
 
     @add_signature(StopLossOrderReason)
-    def stop_loss_replace(self, orderID, *args, **kwargs):
+    def stop_loss_replace_order(self, orderID, *args, **kwargs):
         """
         Shortcut to replace a pending Stop Loss Order in an Account
 
@@ -304,7 +304,7 @@ class OrderInterface(object):
         return self.replace(orderID, order=StopLossOrderRequest(*args, **kwargs))
 
     @add_signature(TrailingStopLossOrderRequest)
-    def trailing_stop_loss(self, *args, **kwargs):
+    def trailing_stop_loss_order(self, *args, **kwargs):
         """
         Shortcut to create a Trailing Stop Loss Order in an Account
 
@@ -318,7 +318,7 @@ class OrderInterface(object):
         return self.create(order=TrailingStopLossOrderRequest(*args, **kwargs))
 
     @add_signature(TrailingStopLossOrderRequest)
-    def trailing_stop_loss_replace(self, orderID, *args, **kwargs):
+    def trailing_stop_loss_replace_order(self, orderID, *args, **kwargs):
         """
         Shortcut to replace a pending Trailing Stop Loss Order in an Account
 

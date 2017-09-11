@@ -6,7 +6,7 @@ class TransactionInterface(object):
 
 
     @endpoint(GETTransactions)
-    def list(self, from_: FromDateTime, to: ToDateTime, pageSize: PageSize, type_: Type):
+    def list_transactions(self, from_: FromDateTime, to: ToDateTime, pageSize: PageSize, type_: Type):
         """
         Get a list of Transactions pages that satisfy a time-based Transaction
         query.
@@ -32,7 +32,7 @@ class TransactionInterface(object):
 
 
     @endpoint(GETTransactionID)
-    def get(self, transactionID: TransactionID):
+    def get_transactions(self, transactionID: TransactionID):
         """
         Get the details of a single Account Transaction.
 
@@ -48,7 +48,7 @@ class TransactionInterface(object):
 
     # TODO Dont forget to handle for the _ on arg names
     @endpoint(GETIDrange)
-    def range(self, from_: FromDateTime, to: ToDateTime, type_: Type):
+    def transaction_range(self, from_: FromDateTime, to: ToDateTime, type_: Type):
         """
         Get a range of Transactions for an Account based on the Transaction
         IDs.
@@ -70,7 +70,7 @@ class TransactionInterface(object):
 
 
     @endpoint(GETSinceID)
-    def since(self, id: TransactionID):
+    def since_transaction(self, id: TransactionID):
         """
         Get a range of Transactions for an Account starting at (but not
         including) a provided Transaction ID.
@@ -88,7 +88,7 @@ class TransactionInterface(object):
 
     # TODO think about the line parser you deleted here!
     @endpoint(GETTransactionsStream)
-    def stream(self):
+    def stream_transactions(self):
         """
         Get a stream of Transactions for an Account starting from when the
         request is made.

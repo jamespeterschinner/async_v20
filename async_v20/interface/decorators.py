@@ -6,8 +6,8 @@ from .helpers import _create_headers
 from .helpers import _create_path
 from functools import wraps
 
-def endpoint(endpoint):
 
+def endpoint(endpoint):
     header_args = endpoint.header_args()
     query_args = endpoint.query_args()
     path_args = endpoint.path_args()
@@ -28,18 +28,21 @@ def endpoint(endpoint):
                                             parameters=parameters)
 
             return await _parse_response(self, response, endpoint)
+
         return wrap
+
     return wrapper
-
-
 
 
 def add_signature(class_obj):
     sig = signature(class_obj.__init__)
+
     def wrapper(func):
         @wraps(func)
         def wrap(*args, **kwargs):
             return func(*args, **kwargs)
+
         wrap.__signature__ = sig
         return wrap
+
     return wrapper
