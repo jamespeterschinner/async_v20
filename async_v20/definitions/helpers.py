@@ -50,7 +50,9 @@ class IndexDict(dict):
                 result = list(self.values())[item]
             except IndexError:
                 pass
-        return result
+
+    def reverse_lookup(self, index):
+        return list(self.keys())[index]
 
 def _create_signature(cls):
     def create_parameter(key, schema_value):
@@ -74,4 +76,17 @@ def _create_arg_lookup(cls):
                                  for attr, schema_value in cls.schema.items()])
     return cls
 
-def _set_kwargs
+async def _set_kwargs(self, kwargs):
+    for attr, value in kwargs.items():
+        await sleep()
+        obj = self.__class__.arg_lookup[attr]
+        setattr(self, attr, obj(**value))
+    return self
+
+async def _set_args(self, args):
+    for index, value in enumerate(args):
+        await sleep()
+        obj = self.__class__.arg_lookup[index]
+        attr = self.__class__.arg_lookup.reverse_lookup(index)
+        setattr(self, attr, obj(**value))
+    return self
