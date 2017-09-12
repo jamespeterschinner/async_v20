@@ -14,12 +14,17 @@ class Descriptor(object):
 
     def __set__(self, instance, value):
 
-        if getattr(self, 'typ', None):
+        typ = getattr(self, 'typ', None)
+        if typ:
             try:
                 assert isinstance(value, self.typ)
             except AssertionError:
-                msg = f'{self.name} must be of type {self.typ}. Was {type(value)}'
-                raise TypeError(msg)
+                try:
+                    value = typ(value)
+                except ValueError:
+                    msg = f'{self.name} must be of type {self.typ.__name__}. Or {typ.__name__}({value}) returns {typ}. ' \
+                          f'Was {type(value)}'
+                    raise TypeError(msg)
 
         if getattr(self, 'example', None):
             try:

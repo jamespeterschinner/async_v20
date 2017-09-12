@@ -8,12 +8,14 @@ def _set_attribute(self, attr, value, obj):
     if not isinstance(obj, ORM):
         setattr(self, attr, value)
     else:
+        print('ORM')
         setattr(self, attr, obj(**value))
 
 
 def _set_kwargs(self, kwargs):
     for attr, value in kwargs.items():
         obj = self.__class__._arg_lookup[attr]
+        print(obj)
         _set_attribute(self, attr, value, obj)
     return self
 

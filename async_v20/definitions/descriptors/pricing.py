@@ -21,7 +21,7 @@ class PriceValue(Descriptor):
     """
 
     # Type checking
-    typ = (str, float)
+    typ = float
 
     # Correct syntax of value
     format_syntax = 'A decimal number encodes as a string. The amount of precision ' \

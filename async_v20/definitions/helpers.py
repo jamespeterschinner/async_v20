@@ -77,7 +77,7 @@ def _create_signature(cls):
 def _assign_descriptors(cls):
     for attr, schema_value in cls.schema.items():
         typ = schema_value.typ
-        if isinstance(typ, Descriptor):
+        if issubclass(typ, Descriptor):
             if callable(typ):  # This is to keep IDE happy. Descriptor class is callable!
                 setattr(cls, attr, typ())
     return cls
