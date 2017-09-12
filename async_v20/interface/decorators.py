@@ -1,39 +1,37 @@
 from inspect import signature, Signature, _empty
+from .helpers import _make_args_optional
+from .helpers import _create_annotation_lookup
 from .helpers import _create_body
 from .helpers import _parse_response
 from .helpers import _create_params
-from .helpers import _create_headers
-from .helpers import _create_path
+from .helpers import _create_request_params
+from .helpers import _create_url
 from functools import wraps
-from ..definitions.helpers import IndexDict
+from ..datatypes import IndexDict
 
 def endpoint(endpoint):
-    header_args = endpoint.header_args()
-    query_args = endpoint.query_args()
-    path_args = endpoint.path_args()
 
     def wrapper(method):
-        sig = signature(method)
-        # TODO remove self from sig
-        sig = Signature([param.replace(default=None)
-                         if param.default == _empty
-                         else param
-                         for param in sig.parameters.values()])
+        sig = _make_args_optional(signature(method))
 
         @wraps(method)
         async def wrap(self, *args, **kwargs):
-            bound = sig.bind(*args, **kwargs)
-            arguments = bound.arguments
-            json_body = await _create_body(self, endpoint.request_schema, arguments)
-            headers = await _create_headers(self, header_args, arguments)
-            path = await _create_path(self, endpoint.path, path_args, arguments)
-            parameters = await _create_params(self, query_args, arguments)
+
+            arguments = sig.bind(*args, **kwargs).arguments
+            arguments = await _create_annotation_lookup(sig, arguments)
+
+
+            # json_body = await _create_body(self, endpoint.request_schema, arguments)
+            headers = await _create_request_params(self, endpoint, arguments, 'header')
+            url = await _create_url(self, endpoint.path, arguments)
+            parameters = await _create_request_params(self, endpoint, arguments, 'query')
+
 
             # TODO add json data to request do iu need to await this?
             response = self.session.request(method=endpoint.method,
-                                            path=path,
+                                            url=url,
                                             headers=headers,
-                                            parameters=parameters)
+                                            params=parameters)
 
             return await _parse_response(self, response, endpoint)
 

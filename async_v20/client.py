@@ -1,5 +1,6 @@
 from .interface import *
-
+from .endpoints.annotations import Authorization
+from .definitions.types import AcceptDatetimeFormat
 
 # from v20.response import Response
 # from v20.errors import V20ConnectionError, V20Timeout
@@ -13,7 +14,7 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
 
     default_parameters = {"Content-Type": "application/json", "OANDA-Agent": "async_v20"}
 
-    def __init__(self, session, hostname, port=443, ssl=True, application="", token=None, decimal_number_as_float=True,
+    def __init__(self, session, host, port=443, ssl=True, application="", token=None, decimal_number_as_float=True,
                  stream_chunk_size=512, stream_timeout=10, datetime_format="RFC3339", poll_timeout=2):
         """
         Create an API context for v20 access
@@ -37,19 +38,21 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
                 the v20 REST server
         """
 
+        self.default_parameters.update({Authorization: 'Bearer {}'.format(token)})
+
         # V20 REST server hostname
-        self.hostname = hostname
+        self.host = host
 
         # V20 REST server port
         self.port = port
 
         # The format to use when dealing with times
-        self.datetime_format = datetime_format
+        self.default_parameters.update({AcceptDatetimeFormat: datetime_format})
 
         # The base URL for every request made using the context
         self._base_url = "http{}://{}:{}".format(
             "s" if ssl else "",
-            hostname,
+            host,
             port
         )
 

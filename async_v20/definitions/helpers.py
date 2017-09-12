@@ -60,6 +60,8 @@ def _create_signature(cls):
         name = key.lower()
         annotation = schema_value.typ
         default = schema_value.default
+        if default == _empty and schema_value.required == False:
+            default = None
         return Parameter(name=name, annotation=annotation, default=default, kind=Parameter.POSITIONAL_OR_KEYWORD)
 
     def sort_key(param):
@@ -85,17 +87,3 @@ def _create_arg_lookup(cls):
                                  for attr, schema_value in cls.schema.items()])
     return cls
 
-async def _set_kwargs(self, kwargs):
-    for attr, value in kwargs.items():
-        await sleep()
-        obj = self.__class__.arg_lookup[attr]
-        setattr(self, attr, obj(**value))
-    return self
-
-async def _set_args(self, args):
-    for index, value in enumerate(args):
-        await sleep()
-        obj = self.__class__.arg_lookup[index]
-        attr = self.__class__.arg_lookup.reverse_lookup(index)
-        setattr(self, attr, obj(**value))
-    return self

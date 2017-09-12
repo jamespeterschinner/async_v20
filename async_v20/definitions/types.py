@@ -1,6 +1,19 @@
 from .descriptors import *
 from .metaclass import *
 from ..endpoints.metaclass import Array
+import inspect
+
+boolean = bool
+integer = int
+string = str
+
+
+class SchemaValue(object):
+    def __init__(self, typ, default: str = inspect._empty, required=False, deprecated=False):
+        self.typ = typ
+        self.default = default
+        self.required = required
+        self.deprecated = deprecated
 
 
 class OrderRequest(Model):

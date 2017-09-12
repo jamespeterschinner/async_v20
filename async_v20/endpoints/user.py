@@ -1,5 +1,4 @@
 from ..definitions.types import *
-from .metaclass import *
 from .annotations import *
 from .base import EndPoint, Path
 

@@ -12,9 +12,9 @@ class IndexDict(dict):
                 result = super().__getitem__(item)
             except (KeyError, TypeError):
                 # if it failed Create a list of values to use as a look up
-                lookup = list(self.values())
+                lookup = tuple(self.items())
                 try:
-                    result = lookup[item]
+                    result = IndexDict(lookup[item])
                 except TypeError:
                     # if that failed there might be a mix between key & int in the slices
                     # resolve key's to int's and then try and take the slice
@@ -23,7 +23,7 @@ class IndexDict(dict):
                                    if not isinstance(key, (int, type(None)))
                                    else key
                                    for key in slice_item])
-                    result = lookup[item]
+                    result = IndexDict(lookup[item])
         return result
 
     def key_lookup(self, index):
