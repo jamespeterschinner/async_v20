@@ -26,7 +26,9 @@ def endpoint(endpoint):
             url = await _create_url(self, endpoint.path, arguments)
             parameters = await _create_request_params(self, endpoint, arguments, 'query')
 
-
+            print(headers)
+            print(url)
+            print(parameters)
             # TODO add json data to request do iu need to await this?
             response = self.session.request(method=endpoint.method,
                                             url=url,

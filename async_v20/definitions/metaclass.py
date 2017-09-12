@@ -8,7 +8,6 @@ def _set_attribute(self, attr, value, obj):
     if not isinstance(obj, ORM):
         setattr(self, attr, value)
     else:
-        print('ORM')
         setattr(self, attr, obj(**value))
 
 
@@ -53,18 +52,3 @@ class ORM(type):
 class Model(metaclass=ORM):
     pass
 
-# @classmethod
-# async def from_dict(cls, data, ctx):
-#
-#     async def string_to_decimal(key, value):
-#         typ = cls.attribute_types.get(key, None)
-#         try:
-#             if float in typ.typ:
-#                 value = ctx.convert_decimal_number(value)
-#         except AttributeError:
-#             sleep(0)
-#         finally:
-#             return key, value
-#
-#     data = dict([await string_to_decimal(key, value) for key, value in data.items()])
-#     return cls(**data)

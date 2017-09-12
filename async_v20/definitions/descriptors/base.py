@@ -8,7 +8,11 @@ class IncorrectValue(Exception):
         pass
 
 
-class Descriptor(object):
+class DescriptorProtocol(type):
+    pass
+
+
+class Descriptor(metaclass=DescriptorProtocol):
     def __init__(self):
         self.name = self.__class__.__name__
 
@@ -41,10 +45,10 @@ class Descriptor(object):
                 msg = f'{value} must be in {self.values}. Possible values are {possible_values}'
                 raise IncorrectValue(msg)
 
-        instance.value = value
+        setattr(instance, self.name, value)
 
     def __get__(self, instance, value):
-        return instance.value
+        return getattr(instance, self.name, value)
 
     def __delete__(self, instance, value):
-        del instance.value
+        delattr(instance, self.name)

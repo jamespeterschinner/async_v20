@@ -1,7 +1,7 @@
 from itertools import chain, starmap
 from async_v20.helpers import sleep
 from inspect import Signature, Parameter, _empty
-from .descriptors.base import Descriptor
+from .descriptors.base import DescriptorProtocol
 
 
 async def flatten_dict(dictionary):
@@ -77,7 +77,7 @@ def _create_signature(cls):
 def _assign_descriptors(cls):
     for attr, schema_value in cls.schema.items():
         typ = schema_value.typ
-        if issubclass(typ, Descriptor):
+        if issubclass(typ, DescriptorProtocol):
             if callable(typ):  # This is to keep IDE happy. Descriptor class is callable!
                 setattr(cls, attr, typ())
     return cls
