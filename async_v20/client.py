@@ -1,6 +1,6 @@
 from .interface import *
 from .endpoints.annotations import Authorization
-from .definitions.types import AcceptDatetimeFormat
+from .definitions.types import AcceptDatetimeFormat, AccountID
 
 # from v20.response import Response
 # from v20.errors import V20ConnectionError, V20Timeout
@@ -14,7 +14,7 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
 
     default_parameters = {"Content-Type": "application/json", "OANDA-Agent": "async_v20"}
 
-    def __init__(self, session, host, port=443, ssl=True, application="", token=None, decimal_number_as_float=True,
+    def __init__(self, session, host, account_id=None, port=443, ssl=True, token=None, decimal_number_as_float=True,
                  stream_chunk_size=512, stream_timeout=10, datetime_format="RFC3339", poll_timeout=2):
         """
         Create an API context for v20 access
@@ -46,6 +46,11 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
         # V20 REST server port
         self.port = port
 
+        if not account_id:
+            account_id = self.run_coroutine(self.get_accounts)['accounts'][0].id
+
+        self.default_parameters.update({AccountID: account_id})
+
         # The format to use when dealing with times
         self.default_parameters.update({AcceptDatetimeFormat: datetime_format})
 
@@ -74,3 +79,7 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
         # The timeout to use when making a polling request with the
         # v20 REST server
         self.poll_timeout = poll_timeout
+
+    @staticmethod
+    async def run_coroutine(coroutine):
+        return await coroutine
