@@ -1,13 +1,11 @@
-from inspect import signature, Signature, _empty
+from inspect import signature
 from .helpers import _make_args_optional
 from .helpers import _create_annotation_lookup
 from .helpers import _create_body
 from .helpers import _parse_response
-from .helpers import _create_params
 from .helpers import _create_request_params
 from .helpers import _create_url
 from functools import wraps
-from ..datatypes import IndexDict
 
 def endpoint(endpoint):
 
@@ -26,9 +24,6 @@ def endpoint(endpoint):
             url = await _create_url(self, endpoint.path, arguments)
             parameters = await _create_request_params(self, endpoint, arguments, 'query')
 
-            print(headers)
-            print(url)
-            print(parameters)
             # TODO add json data to request do iu need to await this?
             response = self.session.request(method=endpoint.method,
                                             url=url,

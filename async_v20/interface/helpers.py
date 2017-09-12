@@ -1,6 +1,8 @@
+from ..endpoints.other_responses import other_responses
 from async_v20.helpers import sleep
 from yarl import URL
 from inspect import Signature, _empty
+
 
 def _make_args_optional(signature):
     sig = Signature([param.replace(default=None)
@@ -9,13 +11,14 @@ def _make_args_optional(signature):
                      for param in signature.parameters.values()][1:])  # Slice drops off 'self'
     return sig
 
+
 async def _create_annotation_lookup(signature, bound_arguments):
     async def wait(x):
         await sleep()
         return x
 
     annotations_lookup = {param.name: param.annotation for param in signature.parameters.values()}
-    return {annotations_lookup[name]: await wait(value)  for name, value in bound_arguments.items()}
+    return {annotations_lookup[name]: await wait(value) for name, value in bound_arguments.items()}
 
 
 async def _create_body(self, request_schema, arguments):
@@ -32,7 +35,7 @@ async def _create_body(self, request_schema, arguments):
 
 async def _create_request_params(self, endpoint, arguments: dict, param_location: str):
     possible_arguments = ((parameter['name'], parameter['type']) for parameter in endpoint.parameters if
-                 parameter['located'] == param_location)
+                          parameter['located'] == param_location)
 
     async def lookup(typ):
         await sleep()
@@ -55,16 +58,6 @@ async def _create_url(self, path, arguments):
     return URL.build(scheme='https', host=self.host, path=await path(arguments))
 
 
-async def _create_params(self, query_args, arguments):
-    async def _resolver(arg):
-        await sleep()
-        value = arguments.pop('arg', None)
-        return arg, value
-
-    params = [await _resolver(arg) for arg in query_args]
-    return dict([param for param in params if all(param)])
-
-
 async def _parse_response(self, response, endpoint):
     async with response as resp:
         status = resp.status
@@ -76,11 +69,15 @@ async def _parse_response(self, response, endpoint):
         self.default_parameters['key'] = value
     print(status)
     print(type(status))
-    response_schema = endpoint.responses[status]  # look up the template to process the data
+    try:
+        response_schema = endpoint.responses[status]  # look up the template to process the data
+    except KeyError:
+        response_schema = other_responses[status]  # See if a response status is an error code
 
     async def create(key, objs):
         await sleep()
         typ = response_schema.get(key)
+
         async def build(obj):
             await sleep()
             try:

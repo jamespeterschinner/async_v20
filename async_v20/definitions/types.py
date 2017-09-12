@@ -35,7 +35,7 @@ class UnitsAvailableDetails(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The units available for long Orders.
         'long': SchemaValue(DecimalNumber),
         # The units available for short Orders.
@@ -60,7 +60,7 @@ class UnitsAvailable(Model):
 
         """
 
-    schema = {
+    _schema = {
         # The number of units that are available to be traded using an Order with a
         # positionFill option of “DEFAULT”. For an Account with hedging enabled,
         # this value will be the same as the “OPEN_ONLY” value. For an Account
@@ -90,7 +90,7 @@ class LiquidityRegenerationScheduleStep(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The timestamp of the schedule step.
         'timestamp': SchemaValue(DateTime),
         # The amount of bid liquidity used at this step in the schedule.
@@ -111,7 +111,7 @@ class LiquidityRegenerationSchedule(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The steps in the Liquidity Regeneration Schedule
         'steps': SchemaValue(Array[LiquidityRegenerationScheduleStep])}
 
@@ -127,7 +127,7 @@ class CandlestickData(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The first open price in the time-range represented by the candlestick.
         'o': SchemaValue(PriceValue),
         # The highest price in the time-range represented by the candlestick.
@@ -149,7 +149,7 @@ class OrderIdentifier(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The OANDA-assigned Order ID
         'orderID': SchemaValue(OrderID),
         # The client-provided client Order ID
@@ -173,7 +173,7 @@ class QuoteHomeConversionFactors(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The factor used to convert a positive amount of the Price’s Instrument’s
         # quote currency into a positive amount of the Account’s home currency.
         # Conversion is performed by multiplying the quote units by the conversion
@@ -195,7 +195,7 @@ class MarketOrderMarginCloseout(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The reason the Market Order was created to perform a margin closeout
         'reason': SchemaValue(MarketOrderMarginCloseoutReason)}
 
@@ -213,7 +213,7 @@ class InstrumentCommission(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The name of the instrument
         'instrument': SchemaValue(InstrumentName),
         # The commission amount (in the Account’s home currency) charged per
@@ -239,7 +239,7 @@ class OrderBookBucket(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The lowest price inclusive covered by the bucket. The bucket covers the
         # price range from the price to price + the order book’s bucketWidth.
         'price': SchemaValue(PriceValue),
@@ -264,7 +264,7 @@ class PositionBookBucket(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The lowest price inclusive covered by the bucket. The bucket covers the
         # price range from the price to price + the position book’s bucketWidth.
         'price': SchemaValue(PriceValue),
@@ -293,7 +293,7 @@ class DynamicOrderState(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Order’s ID.
         'id': SchemaValue(OrderID),
         # The Order’s calculated trailing stop value.
@@ -320,7 +320,7 @@ class CalculatedPositionState(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Position’s Instrument.
         'instrument': SchemaValue(InstrumentName),
         # The Position’s net unrealized profit/loss
@@ -350,7 +350,7 @@ class PositionSide(Model):
     # Format string used when generating a summary for this object
     _summary_format = '{units} @ {averagePrice}, {pl} PL {unrealizedPL} UPL'
 
-    schema = {
+    _schema = {
         # Number of units in the position (negative value indicates short position,
         # positive indicates long position).
         'units': SchemaValue(DecimalNumber),
@@ -392,7 +392,7 @@ class Position(Model):
     # Format string used when generating a name for this object
     _name_format = '{instrument}, {pl} PL {unrealizedPL} UPL'
 
-    schema = {
+    _schema = {
         # The Position’s Instrument.
         'instrument': SchemaValue(InstrumentName),
         # Profit/loss realized by the Position over the lifetime of the Account.
@@ -421,7 +421,7 @@ class PriceBucket(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Price offered by the PriceBucket
         'price': SchemaValue(PriceValue),
         # The amount of liquidity offered by the PriceBucket
@@ -446,7 +446,7 @@ class ClientPrice(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The list of prices and liquidity available on the Instrument’s bid side.
         # It is possible for this list to be empty if there is no bid liquidity
         # currently available for the Instrument in the Account.
@@ -480,7 +480,7 @@ class PricingHeartbeat(Model):
     # Format string used when generating a summary for this object
     _summary_format = 'Pricing Heartbeat {time}'
 
-    schema = {
+    _schema = {
         # The string “HEARTBEAT”
         'type': SchemaValue(string, default='HEARTBEAT'),
         # The date/time when the Heartbeat was created.
@@ -496,7 +496,7 @@ class CalculatedTradeState(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Trade’s ID.
         'id': SchemaValue(TradeID),
         # The Trade’s unrealized profit/loss.
@@ -516,7 +516,7 @@ class MarketOrderDelayedTradeClose(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The ID of the Trade being closed
         'tradeID': SchemaValue(TradeID),
         # The Client ID of the Trade being closed
@@ -539,7 +539,7 @@ class MarketOrderPositionCloseout(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The instrument of the Position being closed out.
         'instrument': SchemaValue(InstrumentName),
         # Indication of how much of the Position to close. Either “ALL”, or a
@@ -561,7 +561,7 @@ class MarketOrderTradeClose(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The ID of the Trade requested to be closed
         'tradeID': SchemaValue(TradeID),
         # The client ID of the Trade requested to be closed
@@ -581,7 +581,7 @@ class OpenTradeFinancing(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The ID of the Trade that financing is being paid/collected for.
         'tradeID': SchemaValue(TradeID),
         # The amount of financing paid/collected for the Trade.
@@ -599,7 +599,7 @@ class PositionFinancing(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The instrument of the Position that financing is being paid/collected
         # for.
         'instrument': SchemaValue(InstrumentName),
@@ -622,7 +622,7 @@ class ClientExtensions(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Client ID of the Order/Trade
         'id': SchemaValue(ClientID),
         # A tag associated with the Order/Trade
@@ -643,7 +643,7 @@ class TradeOpen(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The ID of the Trade that was opened
         'tradeID': SchemaValue(TradeID),
         # The number of units opened by the Trade
@@ -663,7 +663,7 @@ class VWAPReceipt(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The number of units filled
         'units': SchemaValue(DecimalNumber),
         # The price at which the units were filled
@@ -693,7 +693,7 @@ class AccountProperties(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Account’s identifier
         'id': SchemaValue(AccountID),
         # The Account’s associated MT4 Account ID. This field will not be present
@@ -722,7 +722,7 @@ class Candlestick(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The start time of the candlestick
         'time': SchemaValue(DateTime),
         # The candlestick data based on bids. Only provided if bid-based candles
@@ -757,7 +757,7 @@ class OrderBook(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The order book’s instrument
         'instrument': SchemaValue(InstrumentName),
         # The time when the order book snapshot was created.
@@ -790,7 +790,7 @@ class PositionBook(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The position book’s instrument
         'instrument': SchemaValue(InstrumentName),
         # The time when the position book snapshot was created
@@ -821,7 +821,7 @@ class Order(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Order’s identifier, unique within the Order’s Account.
         'id': SchemaValue(OrderID),
         # The time when the Order was created.
@@ -848,7 +848,7 @@ class StopLossDetails(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The price that the Stop Loss Order will be triggered at.
         'price': SchemaValue(PriceValue),
         # The time in force for the created Stop Loss Order. This may only be GTC,
@@ -876,7 +876,7 @@ class TakeProfitDetails(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The price that the Take Profit Order will be triggered at.
         'price': SchemaValue(PriceValue),
         # The time in force for the created Take Profit Order. This may only be
@@ -903,7 +903,7 @@ class TradeReduce(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The ID of the Trade that was reduced or closed
         'tradeID': SchemaValue(TradeID),
         # The number of units that the Trade was reduced by
@@ -931,7 +931,7 @@ class TrailingStopLossDetails(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The distance (in price units) from the Trade’s fill price that the
         # Trailing Stop Loss Order will be triggered at.
         'distance': SchemaValue(PriceValue),
@@ -960,7 +960,7 @@ class TransactionHeartbeat(Model):
     # Format string used when generating a summary for this object
     _summary_format = 'Transaction Heartbeat {time}'
 
-    schema = {
+    _schema = {
         # The string “HEARTBEAT”
         'type': SchemaValue(string, default='HEARTBEAT'),
         # The ID of the most recent Transaction created for the Account
@@ -1017,7 +1017,7 @@ class TradeSummary(Model):
     # Format string used when generating a name for this object
     _name_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Trade’s identifier, unique within the Trade’s Account.
         'id': SchemaValue(TradeID),
         # The Trade’s Instrument.
@@ -1078,7 +1078,7 @@ class Transaction(Model):
     # Format string used when generating a name for this object
     _name_format = ''
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1113,7 +1113,7 @@ class AccountChanges(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Orders created. These Orders may have been filled, cancelled or
         # triggered in the same period.
         'ordersCreated': SchemaValue(Array[Order]),
@@ -1163,7 +1163,7 @@ class Instrument(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The name of the Instrument
         'name': SchemaValue(InstrumentName),
         # The type of the Instrument
@@ -1235,7 +1235,7 @@ class AccountChangesState(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The total unrealized profit/loss for all Trades currently open in the
         # Account. Represented in the Account’s home currency.
         'unrealizedPL': SchemaValue(AccountUnits),
@@ -1305,7 +1305,7 @@ class Price(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The string “PRICE”. Used to identify the a Price Refactor when found in a
         # stream.
         'type': SchemaValue(string, default='PRICE'),
@@ -1366,7 +1366,7 @@ class CloseTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Close Account {accountID}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1407,7 +1407,7 @@ class MarginCallEnterTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Margin Call Enter'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1449,7 +1449,7 @@ class MarginCallExitTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Margin Call Exit'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1493,7 +1493,7 @@ class MarginCallExtendTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Margin Call Enter'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1537,7 +1537,7 @@ class ReopenTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reopen Account {accountID}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1579,7 +1579,7 @@ class ResetResettablePLTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'PL Reset'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1626,7 +1626,7 @@ class StopLossOrderRequest(OrderRequest, Model):
     # Format string used when generating a name for this object
     _name_format = 'Stop Loss for Trade {tradeID} @ {price}'
 
-    schema = {
+    _schema = {
         # The type of the Order to Create. Must be set to “STOP_LOSS” when creating
         # a Stop Loss Order.
         'type': SchemaValue(OrderType, default='STOP_LOSS'),
@@ -1691,7 +1691,7 @@ class TakeProfitOrderRequest(OrderRequest, Model):
     # Format string used when generating a name for this object
     _name_format = 'Take Profit for Trade {tradeID} @ {price}'
 
-    schema = {
+    _schema = {
         # The type of the Order to Create. Must be set to “TAKE_PROFIT” when
         # creating a Take Profit Order.
         'type': SchemaValue(OrderType, default='TAKE_PROFIT'),
@@ -1755,7 +1755,7 @@ class TrailingStopLossOrderRequest(OrderRequest, Model):
     # Format string used when generating a name for this object
     _name_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
 
-    schema = {
+    _schema = {
         # The type of the Order to Create. Must be set to “TRAILING_STOP_LOSS” when
         # creating a Trailng Stop Loss Order.
         'type': SchemaValue(OrderType, default='TRAILING_STOP_LOSS'),
@@ -1816,7 +1816,7 @@ class CreateTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Create Account {accountID}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1870,7 +1870,7 @@ class ClientConfigureTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Client Configure'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1922,7 +1922,7 @@ class DelayedTradeClosureTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Delayed Trade Closure'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -1975,7 +1975,7 @@ class OrderCancelTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Cancel Order {orderID}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -2031,7 +2031,7 @@ class OrderClientExtensionsModifyTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Modify Order {orderID} Client Extensions'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -2087,7 +2087,7 @@ class DailyFinancingTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Daily Account Financing ({financing})'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -2141,7 +2141,7 @@ class TradeClientExtensionsModifyTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Modify Trade {tradeID} Client Extensions'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -2224,7 +2224,7 @@ class AccountSummary(Model):
 
     """
 
-    schema = {
+    _schema = {
         # The Account’s identifier
         'id': SchemaValue(AccountID),
         # Client-assigned alias for the Account. Only provided if the Account has
@@ -2349,7 +2349,7 @@ class MarketOrderRequest(OrderRequest, Model):
     # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument}'
 
-    schema = {
+    _schema = {
         # The type of the Order to Create. Must be set to “MARKET” when creating a
         # Market Order.
         'type': SchemaValue(OrderType, default='MARKET'),
@@ -2435,7 +2435,7 @@ class TakeProfitOrderTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Create Take Profit Order {id} ({reason}): Close Trade {tradeID} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -2547,7 +2547,7 @@ class TakeProfitOrder(Model):
     # Format string used when generating a name for this object
     _name_format = 'Take Profit for Trade {tradeID} @ {price}'
 
-    schema = {
+    _schema = {
         # The Order’s identifier, unique within the Order’s Account.
         'id': SchemaValue(OrderID),
         # The time when the Order was created.
@@ -2670,7 +2670,7 @@ class StopLossOrder(Model):
     # Format string used when generating a name for this object
     _name_format = 'Stop Loss for Trade {tradeID} @ {price}'
 
-    schema = {
+    _schema = {
         # The Order’s identifier, unique within the Order’s Account.
         'id': SchemaValue(OrderID),
         # The time when the Order was created.
@@ -2800,7 +2800,7 @@ class TrailingStopLossOrder(Model):
     # Format string used when generating a name for this object
     _name_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
 
-    schema = {
+    _schema = {
         # The Order’s identifier, unique within the Order’s Account.
         'id': SchemaValue(OrderID),
         # The time when the Order was created.
@@ -2916,7 +2916,7 @@ class Trade(Model):
     # Format string used when generating a name for this object
     _name_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Trade’s identifier, unique within the Trade’s Account.
         'id': SchemaValue(TradeID),
         # The Trade’s Instrument.
@@ -2986,7 +2986,7 @@ class ClientConfigureRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Client Configure Reject'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -3039,7 +3039,7 @@ class OrderCancelRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Order Cancel Reject {orderID}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -3095,7 +3095,7 @@ class OrderClientExtensionsModifyRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject Modify Order {orderID} Client Extensions'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -3153,7 +3153,7 @@ class TradeClientExtensionsModifyRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject Modify Trade {tradeID} Client Extensions'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -3210,7 +3210,7 @@ class TransferFundsTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Account Transfer of {amount}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -3268,7 +3268,7 @@ class TransferFundsRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Account Reject Transfer of {amount}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -3343,7 +3343,7 @@ class LimitOrderRequest(OrderRequest, Model):
     # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The type of the Order to Create. Must be set to “LIMIT” when creating a
         # Market Order.
         'type': SchemaValue(OrderType, default='LIMIT'),
@@ -3452,7 +3452,7 @@ class MarketIfTouchedOrderRequest(OrderRequest, Model):
     # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The type of the Order to Create. Must be set to “MARKET_IF_TOUCHED” when
         # creating a Market If Touched Order.
         'type': SchemaValue(OrderType, default='MARKET_IF_TOUCHED'),
@@ -3566,7 +3566,7 @@ class StopOrderRequest(OrderRequest, Model):
     # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The type of the Order to Create. Must be set to “STOP” when creating a
         # Stop Order.
         'type': SchemaValue(OrderType, default='STOP'),
@@ -3692,7 +3692,7 @@ class Account(Model):
     # Format string used when generating a summary for this object
     _summary_format = 'Account {id}'
 
-    schema = {
+    _schema = {
         # The Account’s identifier
         'id': SchemaValue(AccountID),
         # Client-assigned alias for the Account. Only provided if the Account has
@@ -3836,7 +3836,7 @@ class MarketOrderTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Create Market Order {id} ({reason}): {units} of {instrument}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -3954,7 +3954,7 @@ class MarketOrderRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject Market Order ({reason}): {units} of {instrument}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -4065,7 +4065,7 @@ class StopLossOrderTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Create Stop Loss Order {id} ({reason}): Close Trade {tradeID} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -4168,7 +4168,7 @@ class TrailingStopLossOrderTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Create Trailing Stop Loss Order {id} ({reason}): Close Trade {tradeID}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -4293,7 +4293,7 @@ class LimitOrder(Model):
     # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Order’s identifier, unique within the Order’s Account.
         'id': SchemaValue(OrderID),
         # The time when the Order was created.
@@ -4460,7 +4460,7 @@ class MarketIfTouchedOrder(Model):
     # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Order’s identifier, unique within the Order’s Account.
         'id': SchemaValue(OrderID),
         # The time when the Order was created.
@@ -4632,7 +4632,7 @@ class StopOrder(Model):
     # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Order’s identifier, unique within the Order’s Account.
         'id': SchemaValue(OrderID),
         # The time when the Order was created.
@@ -4775,7 +4775,7 @@ class OrderFillTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Fill Order {orderID} ({reason}): {units} of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -4870,7 +4870,7 @@ class StopLossOrderRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject Stop Loss Order ({reason}): Close Trade {tradeID} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -4985,7 +4985,7 @@ class MarketIfTouchedOrderTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Create MIT Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -5117,7 +5117,7 @@ class LimitOrderTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Create Limit Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -5233,7 +5233,7 @@ class TakeProfitOrderRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject Take Profit Order ({reason}): Close Trade {tradeID} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -5334,7 +5334,7 @@ class TrailingStopLossOrderRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject Trailing Stop Loss Order ({reason}): Close Trade {tradeID}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -5446,7 +5446,7 @@ class StopOrderTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Create Stop Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -5578,7 +5578,7 @@ class MarketIfTouchedOrderRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject MIT Order ({reason}): {units} of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -5709,7 +5709,7 @@ class LimitOrderRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject Limit Order ({reason}): {units} of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -5834,7 +5834,7 @@ class StopOrderRejectTransaction(Model):
     # Format string used when generating a name for this object
     _name_format = 'Reject Stop Order ({reason}): {units} of {instrument} @ {price}'
 
-    schema = {
+    _schema = {
         # The Transaction’s Identifier.
         'id': SchemaValue(TransactionID),
         # The date/time when the Transaction was created.
@@ -5977,7 +5977,7 @@ class MarketOrder(Model):
     # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument}'
 
-    schema = {
+    _schema = {
         # The Order’s identifier, unique within the Order’s Account.
         'id': SchemaValue(OrderID),
         # The time when the Order was created.

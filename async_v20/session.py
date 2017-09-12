@@ -12,8 +12,8 @@ session = aiohttp.ClientSession(json_serialize=json.dumps,
 try:
     oanda = Client(session, token=os.environ['OANDA_TOKEN'], host='api-fxpractice.oanda.com')
     co_1 = oanda.list_accounts()
-    # co_2 = oanda.get_candles('AUD_USD')
+    co_2 = oanda.get_candles('AUD_USD')
     loop = asyncio.get_event_loop()
-    resp = loop.run_until_complete(asyncio.gather(co_1))
+    resp = loop.run_until_complete(asyncio.gather(co_1, co_2))
 finally:
     session.close()
