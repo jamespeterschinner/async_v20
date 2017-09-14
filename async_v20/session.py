@@ -1,21 +1,85 @@
-print(__name__)
-
+from .endpoints.annotations import Authorization
+from .definitions.types import AcceptDatetimeFormat, AccountID
 from async_v20.client import Client
 import aiohttp
+from yarl import URL
 import asyncio
 import ujson as json
 import os
 
 
-session = aiohttp.ClientSession(json_serialize=json.dumps,
-                                headers={"Content-Type": "application/json", "OANDA-Agent": "async_v20"})
-try:
-    oanda = Client(session, token=os.environ['OANDA_TOKEN'], host='api-fxpractice.oanda.com')
-    co_1 = oanda.list_accounts()
-    # co_2 = oanda.get_candles('AUD_USD')
-    # co_3 = oanda.stream_pricing('AUD_USD')
-    loop = asyncio.get_event_loop()
-    resp = loop.run_until_complete(co_1)
+async def client_session(
+        token=os.environ['OANDA_TOKEN'],
+        rest_host='api-fxpractice.oanda.com',
+        rest_port=443,
+        stream_host='stream-fxpractice.oanda.com',
+        stream_port=80,
+        ssl=True,
+        application="async_v20",
+        decimal_number_as_float=True,
+        stream_chunk_size=512,
+        stream_timeout=10,
+        datetime_format="RFC3339",
+        poll_timeout=2
+):
+    """
+            Create an API context for v20 access
 
-finally:
-    session.close()
+            Args:
+                hostname: The hostname of the v20 REST server
+                port: The port of the v20 REST server
+                ssl: Flag to enable/disable SSL
+                application: Optional name of the application using the v20 bindings
+                token: The authorization token to use when making requests to the
+                    v20 server
+                decimal_number_as_float: Flag that controls whether the string
+                    representation of floats received from the server should be
+                    converted into floats or not
+                stream_chunk_size: The size of each chunk to read when processing a
+                    stream response
+                stream_timeout: The timeout to use when making a stream request
+                    with the v20 REST server
+                datetime_format: The format to request when dealing with times
+                poll_timeout: The timeout to use when making a polling request with
+                    the v20 REST server
+            """
+
+    # Create a client instance
+    client = Client()
+
+    headers = {"Content-Type": "application/json", "OANDA-Agent": application}
+    client.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)
+
+    # Get the first account listed in in accounts
+    account_id = await next(iter(client.get_accounts()['accounts'])).id
+
+    # This parameters is placed here for easy access
+    client.account_id = account_id
+
+    # This is the default parameter dictionary. Client Methods that require certain parameters
+    # that are  not explicitly passed will try to find it in this dict
+    client.default_parameters = {Authorization: 'Bearer {}'.format(token),
+                                 AccountID: client.account_id,
+                                 AcceptDatetimeFormat: datetime_format}
+
+    # V20 REST API URL
+    client.rest_url = URL.build(host=rest_host, port=rest_port, scheme='https')
+
+    # v20 STREAM API URL
+    client.stream_url = URL.build(host=stream_host, port=stream_port, scheme='https')
+
+
+    # The size of each chunk to read when processing a stream
+    # response
+    client.stream_chunk_size = stream_chunk_size
+
+    # The timeout to use when making a stream request with the
+    # v20 REST server
+    client.stream_timeout = stream_timeout
+
+    # The timeout to use when making a polling request with the
+    # v20 REST server
+    client.poll_timeout = poll_timeout
+
+
+
