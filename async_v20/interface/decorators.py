@@ -2,9 +2,9 @@ from inspect import signature
 from .helpers import _make_args_optional
 from .helpers import _create_annotation_lookup
 from .helpers import _create_body
-from .helpers import _parse_response
 from .helpers import _create_request_params
 from .helpers import _create_url
+from .parser import _parse_response
 from functools import wraps
 
 def endpoint(endpoint):

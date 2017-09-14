@@ -10,8 +10,7 @@ class OrderInterface(object):
         Create an Order for an Account
 
         Args:
-            accountID:
-                Account Identifier
+
             order:
                 Specification of the Order to create
 
@@ -22,13 +21,13 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrders)
-    def list_orders(self, ids: Ids, state: OrderStateFilter, instrument: InstrumentName, count: Count, beforeID: OrderID):
+    def list_orders(self, ids: Ids, state: OrderStateFilter, instrument: InstrumentName, count: Count,
+                    beforeID: OrderID):
         """
         Get a list of Orders for an Account
 
         Args:
-            accountID:
-                Account Identifier
+
             ids:
                 List of Order IDs to retrieve
             state:
@@ -53,8 +52,7 @@ class OrderInterface(object):
         List all pending Orders in an Account
 
         Args:
-            accountID:
-                Account Identifier
+
 
         Returns:
             v20.response.Response containing the results from submitting the
@@ -68,8 +66,7 @@ class OrderInterface(object):
         Get details for a single Order in an Account
 
         Args:
-            accountID:
-                Account Identifier
+
             orderSpecifier:
                 The Order Specifier
 
@@ -86,8 +83,7 @@ class OrderInterface(object):
         creating a replacement Order
 
         Args:
-            accountID:
-                Account Identifier
+
             orderSpecifier:
                 The Order Specifier
             order:
@@ -105,8 +101,7 @@ class OrderInterface(object):
         Cancel a pending Order in an Account
 
         Args:
-            accountID:
-                Account Identifier
+
             orderSpecifier:
                 The Order Specifier
 
@@ -125,8 +120,7 @@ class OrderInterface(object):
         MT4.
 
         Args:
-            accountID:
-                Account Identifier
+
             orderSpecifier:
                 The Order Specifier
             clientExtensions:

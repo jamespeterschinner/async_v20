@@ -4,8 +4,6 @@ from ..endpoints.annotations import *
 
 
 class PricingInterface(object):
-
-
     @endpoint(GETPricing)
     def get_pricing(self, instruments: Instruments, since: DateTime, includeUnitsAvailable: IncludeUnitsAvailable):
         """
@@ -13,8 +11,7 @@ class PricingInterface(object):
         Account.
 
         Args:
-            accountID:
-                Account Identifier
+
             instruments:
                 List of Instruments to get pricing for.
             since:
@@ -29,7 +26,6 @@ class PricingInterface(object):
             request
         """
         pass
-
 
     # TODO think about the stream parser that you deleted!
     @endpoint(GETPricingStream)
@@ -49,8 +45,7 @@ class PricingInterface(object):
         different prices depending on their alignment.
 
         Args:
-            accountID:
-                Account Identifier
+
             instruments:
                 List of Instruments to stream Prices for.
             snapshot:

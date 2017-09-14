@@ -4,8 +4,6 @@ from ..endpoints.annotations import *
 
 
 class AccountInterface(object):
-
-
     @endpoint(GETAccounts)
     def list_accounts(self):
         """
@@ -27,8 +25,7 @@ class AccountInterface(object):
         provided.
 
         Args:
-            accountID:
-                Account Identifier
+
 
         Returns:
             v20.response.Response containing the results from submitting the
@@ -42,8 +39,7 @@ class AccountInterface(object):
         Get a summary for a single Account that a client has access to.
 
         Args:
-            accountID:
-                Account Identifier
+
 
         Returns:
             v20.response.Response containing the results from submitting the
@@ -60,8 +56,7 @@ class AccountInterface(object):
         owned by a single user.
 
         Args:
-            accountID:
-                Account Identifier
+
             instruments:
                 List of instruments to query specifically.
 
@@ -71,15 +66,13 @@ class AccountInterface(object):
         """
         pass
 
-
     @endpoint(PATCHAccountIDConfiguration)
     def configure_account(self, alias: Alias, marginRate: DecimalNumber):
         """
         Set the client-configurable portions of an Account.
 
         Args:
-            accountID:
-                Account Identifier
+
             alias:
                 Client-defined alias (name) for the Account
             marginRate:
@@ -98,8 +91,7 @@ class AccountInterface(object):
         since a specified TransactionID.
 
         Args:
-            accountID:
-                Account Identifier
+
             sinceTransactionID:
                 ID of the Transaction to get Account changes since.
 

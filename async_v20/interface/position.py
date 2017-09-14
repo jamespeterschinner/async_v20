@@ -11,8 +11,7 @@ class PositionInterface(object):
         Account.
 
         Args:
-            accountID:
-                Account Identifier
+
 
         Returns:
             v20.response.Response containing the results from submitting the
@@ -27,8 +26,7 @@ class PositionInterface(object):
         in an Account that currently has a Trade opened for it.
 
         Args:
-            accountID:
-                Account Identifier
+
 
         Returns:
             v20.response.Response containing the results from submitting the
@@ -43,8 +41,7 @@ class PositionInterface(object):
         Position may by open or not.
 
         Args:
-            accountID:
-                Account Identifier
+
             instrument:
                 Name of the Instrument
 
@@ -55,14 +52,14 @@ class PositionInterface(object):
         pass
 
     @endpoint(PUTPositionsInstrumentClose)
-    def close_position(self, instrument: InstrumentName, longUnits: LongUnits, longClientExtensions: LongClientExtensions,
-              shortUnits: ShortUnits, shortClientExtensions: ShortClientExtensions):
+    def close_position(self, instrument: InstrumentName, longUnits: LongUnits,
+                       longClientExtensions: LongClientExtensions,
+                       shortUnits: ShortUnits, shortClientExtensions: ShortClientExtensions):
         """
         Closeout the open Position for a specific instrument in an Account.
 
         Args:
-            accountID:
-                Account Identifier
+
             instrument:
                 Name of the Instrument
             longUnits:
