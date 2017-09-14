@@ -8,41 +8,27 @@ import ujson as json
 import os
 
 
-async def client_session(
-        token=os.environ['OANDA_TOKEN'],
-        rest_host='api-fxpractice.oanda.com',
-        rest_port=443,
-        stream_host='stream-fxpractice.oanda.com',
-        stream_port=80,
-        ssl=True,
-        application="async_v20",
-        decimal_number_as_float=True,
-        stream_chunk_size=512,
-        stream_timeout=10,
-        datetime_format="RFC3339",
-        poll_timeout=2
-):
+async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpractice.oanda.com', rest_port=443,
+                         stream_host='stream-fxpractice.oanda.com', stream_port=80, application="async_v20",
+                         stream_chunk_size=512, stream_timeout=10, datetime_format="RFC3339", poll_timeout=2):
     """
-            Create an API context for v20 access
+    Create an API context for v20 access
 
-            Args:
-                hostname: The hostname of the v20 REST server
-                port: The port of the v20 REST server
-                ssl: Flag to enable/disable SSL
-                application: Optional name of the application using the v20 bindings
-                token: The authorization token to use when making requests to the
-                    v20 server
-                decimal_number_as_float: Flag that controls whether the string
-                    representation of floats received from the server should be
-                    converted into floats or not
-                stream_chunk_size: The size of each chunk to read when processing a
-                    stream response
-                stream_timeout: The timeout to use when making a stream request
-                    with the v20 REST server
-                datetime_format: The format to request when dealing with times
-                poll_timeout: The timeout to use when making a polling request with
-                    the v20 REST server
-            """
+    Args:
+        token -- User generated token from the online account configuration page
+        rest_host -- The hostname of the v20 REST server
+        rest_port -- The port of the v20 REST server
+        stream_host -- The hostname of the v20 REST server
+        stream_port -- The port of the v20 REST server
+        application: Optional name of the application using the v20 bindings
+        stream_chunk_size -- The size of each chunk to read when processing a
+            stream response
+        stream_timeout -- The timeout to use when making a stream request
+            with the v20 REST server
+        datetime_format -- The format to request when dealing with times
+        poll_timeout -- The timeout to use when making a polling request with
+            the v20 REST server
+    """
 
     # Create a client instance
     client = Client()
@@ -68,7 +54,6 @@ async def client_session(
     # v20 STREAM API URL
     client.stream_url = URL.build(host=stream_host, port=stream_port, scheme='https')
 
-
     # The size of each chunk to read when processing a stream
     # response
     client.stream_chunk_size = stream_chunk_size
@@ -80,6 +65,3 @@ async def client_session(
     # The timeout to use when making a polling request with the
     # v20 REST server
     client.poll_timeout = poll_timeout
-
-
-
