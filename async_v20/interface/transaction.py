@@ -25,7 +25,7 @@ class TransactionInterface(object):
                 A filter for restricting the types of Transactions to retrieve.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -41,7 +41,7 @@ class TransactionInterface(object):
                 A Transaction ID
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -63,7 +63,7 @@ class TransactionInterface(object):
                 retrieve.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -81,7 +81,7 @@ class TransactionInterface(object):
                 all Transactions newer than the TransactionID.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -96,7 +96,7 @@ class TransactionInterface(object):
         Args:
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass

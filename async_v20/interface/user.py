@@ -17,7 +17,7 @@ class UserInterface(object):
                 The User Specifier
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -35,7 +35,7 @@ class UserInterface(object):
                 The User Specifier
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass

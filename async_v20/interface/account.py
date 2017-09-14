@@ -12,7 +12,7 @@ class AccountInterface(object):
         Args:
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -28,7 +28,7 @@ class AccountInterface(object):
 
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -42,7 +42,7 @@ class AccountInterface(object):
 
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -61,7 +61,7 @@ class AccountInterface(object):
                 List of instruments to query specifically.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -79,7 +79,7 @@ class AccountInterface(object):
                 The string representation of a decimal number.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -96,7 +96,7 @@ class AccountInterface(object):
                 ID of the Transaction to get Account changes since.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass

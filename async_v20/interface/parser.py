@@ -1,6 +1,7 @@
 from ..endpoints.other_responses import other_responses
 from ..helpers import sleep
 
+
 async def _parse_response(self, response, endpoint):
     async with response as resp:
         status = resp.status
@@ -36,6 +37,7 @@ async def _parse_response(self, response, endpoint):
 
     class Response(object):
         """Object to assign attributes to"""
+
         @classmethod
         async def create(cls, body):
             class_instance = cls()
@@ -43,6 +45,5 @@ async def _parse_response(self, response, endpoint):
                 attr, value = await create_objects(key, data)
                 setattr(class_instance, attr, value)
             return class_instance
-
 
     return await Response.create(body)

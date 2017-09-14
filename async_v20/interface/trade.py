@@ -22,7 +22,7 @@ class TradeInterface(object):
                 Trades in the Account are returned.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -35,7 +35,7 @@ class TradeInterface(object):
         Args:
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -50,7 +50,7 @@ class TradeInterface(object):
                 Specifier for the Trade
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -73,7 +73,7 @@ class TradeInterface(object):
                 value cannot exceed the magnitude of the Trade's open units.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -93,7 +93,7 @@ class TradeInterface(object):
                 associated with MT4.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -135,7 +135,7 @@ class TradeInterface(object):
                 order on modify.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass

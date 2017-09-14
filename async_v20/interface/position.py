@@ -14,7 +14,7 @@ class PositionInterface(object):
 
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -29,7 +29,7 @@ class PositionInterface(object):
 
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -46,7 +46,7 @@ class PositionInterface(object):
                 Name of the Instrument
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -82,7 +82,7 @@ class PositionInterface(object):
                 the short position.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass

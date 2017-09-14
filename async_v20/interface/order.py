@@ -15,7 +15,7 @@ class OrderInterface(object):
                 Specification of the Order to create
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -41,7 +41,7 @@ class OrderInterface(object):
                 Orders in the Account are returned
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -55,7 +55,7 @@ class OrderInterface(object):
 
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -71,7 +71,7 @@ class OrderInterface(object):
                 The Order Specifier
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -90,7 +90,7 @@ class OrderInterface(object):
                 Specification of the replacing Order
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -106,7 +106,7 @@ class OrderInterface(object):
                 The Order Specifier
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -133,7 +133,7 @@ class OrderInterface(object):
                 if your account is associated with MT4.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -147,7 +147,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a MarketOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.create(order=MarketOrderRequest(*args, **kwargs))
@@ -161,7 +161,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a LimitOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.create(order=LimitOrderRequest(*args, **kwargs))
@@ -176,7 +176,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a LimitOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.replace(orderID, order=LimitOrderRequest(*args, **kwargs))
@@ -190,7 +190,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a StopOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.create(order=StopOrderRequest(*args, **kwargs))
@@ -205,7 +205,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a StopOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.replace(orderID, order=StopOrderRequest(*args, **kwargs))
@@ -219,7 +219,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a MarketIfTouchedOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.create(order=MarketIfTouchedOrderRequest(*args, **kwargs))
@@ -234,7 +234,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a MarketIfTouchedOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.replace(orderID, order=MarketIfTouchedOrderRequest(*args, **kwargs))
@@ -248,7 +248,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a TakeProfitOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.create(order=TakeProfitOrderRequest(*args, **kwargs))
@@ -263,7 +263,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a TakeProfitOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.replace(orderID, order=TakeProfitOrderRequest(*args, **kwargs))
@@ -277,7 +277,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a StopLossOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.create(order=StopLossOrderRequest(*args, **kwargs))
@@ -292,7 +292,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a StopLossOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.replace(orderID, order=StopLossOrderRequest(*args, **kwargs))
@@ -306,7 +306,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a TrailingStopLossOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.create(order=TrailingStopLossOrderRequest(*args, **kwargs))
@@ -321,7 +321,7 @@ class OrderInterface(object):
             kwargs : The arguments to create a TrailingStopLossOrderRequest
 
         Returns:
-            v20.response.Response containing the results from submitting
+            async_v20.interface.parser.Response containing the results from submitting
             the request
         """
         return self.replace(orderID, order=TrailingStopLossOrderRequest(*args, **kwargs))

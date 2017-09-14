@@ -22,7 +22,7 @@ class PricingInterface(object):
                 the returned Price objects.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
@@ -53,7 +53,7 @@ class PricingInterface(object):
                 when initially connecting to the stream.
 
         Returns:
-            v20.response.Response containing the results from submitting the
+            async_v20.interface.parser.Response containing the results from submitting the
             request
         """
         pass
