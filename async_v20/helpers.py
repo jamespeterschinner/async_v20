@@ -3,8 +3,10 @@ from itertools import chain, starmap
 import inspect
 import asyncio
 
+
 async def sleep(s=0):
     await asyncio.sleep(s)
+
 
 async def _flatten_dict(dictionary):
     """Flatten a nested dictionary structure"""
@@ -27,14 +29,15 @@ async def _flatten_dict(dictionary):
     dictionary = dict(chain.from_iterable(starmap(unpack, dictionary.items())))
     return dictionary
 
+
 def return_kwargs(func):
     """Cause the wrapped function to return a dict of keyword arguments
     """
+
     @wraps(func)
     async def wrap(*args, **kwargs):
         bound_arguments = inspect.signature(func).bind(*args, **kwargs)
         bound_arguments.apply_defaults()
-        return  await _flatten_dict(dict(bound_arguments.arguments))
-    return wrap
+        return await _flatten_dict(dict(bound_arguments.arguments))
 
-##test
+    return wrap
