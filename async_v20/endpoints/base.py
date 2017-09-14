@@ -7,10 +7,15 @@ class Path(object):
     def __init__(self, *path):
         self.path = path
 
-    async def __call__(self, arguments: dict):
+    async def __call__(self, arguments: dict, default: dict):
         async def lookup(segment):
             await sleep()
-            return arguments[segment]
+            try:
+                result = arguments[segment]
+            except KeyError:
+                result = default[segment]
+            return result
+
 
         return ''.join([segment if isinstance(segment, str)
                        else await lookup(segment)

@@ -6,7 +6,6 @@ from functools import wraps
 
 
 def _set_attribute(self, attr, value, obj):
-    print(self)
     self._fields.append(attr)
     if not isinstance(obj, ORM):
         setattr(self, attr, value)
@@ -43,7 +42,7 @@ class ORM(type):
             def wrapper(self, *args, **kwargs):
                 bound = init_sig.bind(*args, **kwargs)
                 bound.apply_defaults()
-                self._fields = []
+                self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
                 _set_kwargs(_set_args(self, args), kwargs)
 
             wrapper.__signature__ = init_sig
@@ -56,7 +55,6 @@ class ORM(type):
 class Model(metaclass=ORM):
     _schema = {}
 
-    # _fields = []
 
     # Recursion might be an issue
     async def json_dict(self):

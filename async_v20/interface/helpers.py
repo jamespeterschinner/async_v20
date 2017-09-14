@@ -54,8 +54,14 @@ async def _create_request_params(self, endpoint, arguments: dict, param_location
     return {name: value async for name, value in parameters if value}
 
 
-async def _create_url(self, path, arguments):
-    return URL.build(scheme='https', host=self.host, path=await path(arguments))
+async def _create_url(self, path, arguments, stream=False):
+    endpoint_path = await path(arguments, default=self.default_parameters)
+    if stream:
+        url = self.stream_url(path=endpoint_path)
+    else:
+        url = self.rest_url(path=endpoint_path)
+
+    return url
 
 
 async def _parse_response(self, response, endpoint):
@@ -67,14 +73,13 @@ async def _parse_response(self, response, endpoint):
     # Update client headers. Such as lastTransactionID and the like
     for key, value in headers:
         self.default_parameters['key'] = value
-    print(status)
-    print(type(status))
+    print(f'RESPONSE STATUS: {status}')
     try:
         response_schema = endpoint.responses[status]  # look up the template to process the data
     except KeyError:
         response_schema = other_responses[status]  # See if a response status is an error code
 
-    async def create(key, objs):
+    async def create_objects(key, objs):
         await sleep()
         typ = response_schema.get(key)
 
@@ -92,4 +97,17 @@ async def _parse_response(self, response, endpoint):
 
         return key, objs  # change here to typ in you'd like the class def as the key
 
-    return dict([await create(key, objs) for key, objs in body.items()])
+    class Response(object):
+        """Object to assign attributes to"""
+        @classmethod
+        async def create(cls, body):
+            class_instance = cls()
+            for key, data in body.items():
+                attr, value = await create_objects(key, data)
+                setattr(class_instance, attr, value)
+            return class_instance
+
+
+    return await Response.create(body)
+
+    #dict([await create_objects(key, objs) for key, objs in body.items()])

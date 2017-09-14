@@ -1,6 +1,7 @@
 from .interface import *
 from .endpoints.annotations import Authorization
 from .definitions.types import AcceptDatetimeFormat, AccountID
+from functools import partial
 import aiohttp
 from yarl import URL
 import ujson as json
@@ -43,23 +44,11 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
     headers = {"Content-Type": "application/json", "OANDA-Agent": application}
     client.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)
 
-    # Get the first account listed in in accounts
-    account_id = await next(iter(client.get_accounts()['accounts'])).id
-
-    # This parameters is placed here for easy access
-    client.account_id = account_id
-
-    # This is the default parameter dictionary. Client Methods that require certain parameters
-    # that are  not explicitly passed will try to find it in this dict
-    client.default_parameters = {Authorization: 'Bearer {}'.format(token),
-                                 AccountID: client.account_id,
-                                 AcceptDatetimeFormat: datetime_format}
-
     # V20 REST API URL
-    client.rest_url = URL.build(host=rest_host, port=rest_port, scheme='https')
+    client.rest_url = partial(URL.build, host=rest_host, port=rest_port, scheme='https')
 
     # v20 STREAM API URL
-    client.stream_url = URL.build(host=stream_host, port=stream_port, scheme='https')
+    client.stream_url = partial(URL.build, host=stream_host, port=stream_port, scheme='https')
 
     # The size of each chunk to read when processing a stream
     # response
@@ -72,3 +61,14 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
     # The timeout to use when making a polling request with the
     # v20 REST server
     client.poll_timeout = poll_timeout
+
+    # This is the default parameter dictionary. Client Methods that require certain parameters
+    # that are  not explicitly passed will try to find it in this dict
+    client.default_parameters = {Authorization: 'Bearer {}'.format(token),
+                                 AcceptDatetimeFormat: datetime_format}
+
+    # Get the first account listed in in accounts
+    accounts = await client.list_accounts()
+    client.default_parameters.update({AccountID: accounts.accounts[0].id})
+
+    return client
