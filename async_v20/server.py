@@ -8,7 +8,7 @@ async def server():
         response = await client.get_accounts()
     finally:
         client.session.close()
-    return response
+    return response, client
 
 
 loop = asyncio.get_event_loop()

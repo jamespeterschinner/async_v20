@@ -41,7 +41,7 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
     # Create a client instance
     client = Client()
 
-    headers = {"Content-Type": "application/json", "OANDA-Agent": application}
+    headers = {'Content-Type': 'application/json', 'key': 'Keep-Alive', 'OANDA-Agent': application}
     client.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)
 
     # V20 REST API URL

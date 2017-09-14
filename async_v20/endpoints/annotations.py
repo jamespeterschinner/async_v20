@@ -1,6 +1,6 @@
 from ..definitions.types import DateTime
 from ..definitions.types import ClientExtensions
-
+from ..definitions.types import TransactionID
 
 class Authorization(str): pass
 
@@ -48,3 +48,5 @@ class LongClientExtensions(ClientExtensions): pass
 class ShortClientExtensions(ClientExtensions): pass
 
 class Units(str): pass
+
+class LastTransactionID(TransactionID): pass

@@ -149,7 +149,7 @@ class GETAccountIDChanges(EndPoint):
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'sinceTransactionID', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
+        {'name': 'sinceTransactionID', 'located': 'query', 'type': LastTransactionID, 'description': 'TransactionID'},
     ]
 
     # valid responses

@@ -1,4 +1,5 @@
 from ..endpoints.other_responses import other_responses
+from ..endpoints.annotations import LastTransactionID
 from ..helpers import sleep
 
 
@@ -8,10 +9,13 @@ async def _parse_response(self, response, endpoint):
         headers = resp.raw_headers
         body = await resp.json()
 
+    print(f'RESPONSE STATUS: {status}')
+
     # Update client headers. Such as lastTransactionID and the like
     for key, value in headers:
         self.default_parameters['key'] = value
-    print(f'RESPONSE STATUS: {status}')
+
+
     try:
         response_schema = endpoint.responses[status]  # look up the template to process the data
     except KeyError:
@@ -44,6 +48,8 @@ async def _parse_response(self, response, endpoint):
             for key, data in body.items():
                 attr, value = await create_objects(key, data)
                 setattr(class_instance, attr, value)
+                if attr == 'lastTransactionID':
+                    self.default_parameters.update({LastTransactionID: value})
             return class_instance
 
     return await Response.create(body)
