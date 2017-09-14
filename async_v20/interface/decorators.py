@@ -21,7 +21,7 @@ def endpoint(endpoint):
 
             # json_body = await _create_body(self, endpoint.request_schema, arguments)
             headers = await _create_request_params(self, endpoint, arguments, 'header')
-            url = await _create_url(self, endpoint.path, arguments)
+            url = await _create_url(self, endpoint, arguments)
             parameters = await _create_request_params(self, endpoint, arguments, 'query')
 
             # TODO add json data to request do iu need to await this?

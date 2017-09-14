@@ -25,6 +25,10 @@ class Path(object):
 class EndPoint(object):
     """Base object representation of an endpoint"""
 
+    # Default host to use unless otherwise specified by a derived class
+    host = 'REST'
+
+    # Path needs to be a Path object
     path = Path
 
     # the HTTP verb to use for this endpoint

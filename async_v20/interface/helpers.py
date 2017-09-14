@@ -52,14 +52,10 @@ async def _create_request_params(self, endpoint, arguments: dict, param_location
     return {name: value async for name, value in parameters if value}
 
 
-async def _create_url(self, path, arguments, stream=False):
-    endpoint_path = await path(arguments, default=self.default_parameters)
-    if stream:
-        url = self.stream_url(path=endpoint_path)
-    else:
-        url = self.rest_url(path=endpoint_path)
-
-    return url
+async def _create_url(self, endpoint, arguments, stream=False):
+    endpoint_path = await endpoint.path(arguments, default=self.default_parameters)
+    host = self.hosts[endpoint.host]
+    return host(path=endpoint_path)
 
 
 

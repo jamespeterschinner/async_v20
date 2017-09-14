@@ -45,10 +45,12 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
     client.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)
 
     # V20 REST API URL
-    client.rest_url = partial(URL.build, host=rest_host, port=rest_port, scheme='https')
+    rest_host = partial(URL.build, host=rest_host, port=rest_port, scheme='https')
 
     # v20 STREAM API URL
-    client.stream_url = partial(URL.build, host=stream_host, port=stream_port, scheme='https')
+    stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme='https')
+
+    client.hosts = {'REST': rest_host, 'STREAM': stream_host}
 
     # The size of each chunk to read when processing a stream
     # response

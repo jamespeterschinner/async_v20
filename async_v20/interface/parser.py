@@ -48,7 +48,7 @@ async def _parse_response(self, response, endpoint):
             for key, data in body.items():
                 attr, value = await create_objects(key, data)
                 setattr(class_instance, attr, value)
-                if attr == 'lastTransactionID':
+                if attr == 'lastTransactionID':  # Keep track of the last transaction id
                     self.default_parameters.update({LastTransactionID: value})
             return class_instance
 

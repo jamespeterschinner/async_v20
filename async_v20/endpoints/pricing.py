@@ -33,6 +33,10 @@ class GETPricing(EndPoint):
 
 
 class GETPricingStream(EndPoint):
+
+    # host to use for this endpoint
+    host = 'STREAM'
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
