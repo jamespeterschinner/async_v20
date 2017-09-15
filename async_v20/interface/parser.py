@@ -1,9 +1,33 @@
 from ..endpoints.other_responses import other_responses
 from ..endpoints.annotations import LastTransactionID
 from ..helpers import sleep
+import json
+import re
 
 
-async def _parse_response(self, response, endpoint):
+async def create_objects(schema, key, objs):
+    await sleep()
+    typ = schema.get(key)
+    print(f'TYPE: {typ}')
+    async def build(obj):
+        await sleep()
+        try:
+            obj = typ(**obj)
+        except AttributeError:
+            pass
+        finally:
+            return obj
+
+    if isinstance(objs, list):
+        objs = [await build(obj) for obj in objs]
+
+    if isinstance(objs, dict):
+        objs = await build(objs)
+
+    return key, objs  # change here to typ in you'd like the class def as the key
+
+
+async def _rest_response(self, response, endpoint):
     async with response as resp:
         status = resp.status
         headers = resp.raw_headers
@@ -15,29 +39,10 @@ async def _parse_response(self, response, endpoint):
     for key, value in headers:
         self.default_parameters['key'] = value
 
-
     try:
         response_schema = endpoint.responses[status]  # look up the template to process the data
     except KeyError:
         response_schema = other_responses[status]  # See if a response status is an error code
-
-    async def create_objects(key, objs):
-        await sleep()
-        typ = response_schema.get(key)
-
-        async def build(obj):
-            await sleep()
-            try:
-                obj = typ(**obj)
-            except AttributeError:
-                pass
-            finally:
-                return obj
-
-        if isinstance(objs, list):
-            objs = [await build(obj) for obj in objs]
-
-        return key, objs  # change here to typ in you'd like the class def as the key
 
     class Response(object):
         """Object to assign attributes to"""
@@ -46,10 +51,30 @@ async def _parse_response(self, response, endpoint):
         async def create(cls, body):
             class_instance = cls()
             for key, data in body.items():
-                attr, value = await create_objects(key, data)
+                attr, value = await create_objects(response_schema, key, data)
                 setattr(class_instance, attr, value)
                 if attr == 'lastTransactionID':  # Keep track of the last transaction id
                     self.default_parameters.update({LastTransactionID: value})
             return class_instance
 
     return await Response.create(body)
+
+
+async def _stream_parser(self, response, endpoint):
+    print('STREAMING')
+    async with response as resp:
+        response_schema = endpoint.responses[resp.status]
+        async for bytes in resp.content.iter_chunked(self.stream_chunk_size):
+            lines = bytes.split('\n')
+            for line in lines:
+                body = json.loads(line)
+                key = body.pop('type')
+                print(await create_objects(response_schema, key, body))
+
+
+async def _parse_response(self, response, endpoint):
+    if endpoint.host == 'REST':
+        result = await _rest_response(self, response, endpoint)
+    else:
+        result = await _stream_parser(self, response, endpoint)
+    return result

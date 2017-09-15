@@ -4,7 +4,7 @@ from .definitions.types import AcceptDatetimeFormat, AccountID
 from functools import partial
 import aiohttp
 from yarl import URL
-import ujson as json
+import json
 import os
 
 
@@ -17,7 +17,7 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
 
 
 async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpractice.oanda.com', rest_port=443,
-                         stream_host='stream-fxpractice.oanda.com', stream_port=80, application="async_v20",
+                         stream_host='stream-fxpractice.oanda.com', stream_port=None, application="async_v20",
                          stream_chunk_size=512, stream_timeout=10, datetime_format="RFC3339", poll_timeout=2):
     """
     Create an API context for v20 access

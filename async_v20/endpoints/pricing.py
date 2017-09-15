@@ -67,7 +67,7 @@ class GETPricingStream(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'price': Price, 'priceHeartbeat': PricingHeartbeat}}
+    responses = {200: {'PRICE': Price, 'HEARTBEAT': PricingHeartbeat}}
 
     # error msgs'
     error = (400, 401, 404, 405)

@@ -2,30 +2,8 @@ from .helpers import _create_signature
 from .helpers import _assign_descriptors
 from .helpers import _create_arg_lookup
 from .helpers import _flatten_dict
+from collections import namedtuple
 from functools import wraps
-
-
-def _set_attribute(self, attr, value, obj):
-    self._fields.append(attr)
-    if not isinstance(obj, ORM):
-        setattr(self, attr, value)
-    else:
-        setattr(self, attr, obj(**value))
-
-
-def _set_kwargs(self, kwargs):
-    for attr, value in kwargs.items():
-        obj = self.__class__._arg_lookup[attr]
-        _set_attribute(self, attr, value, obj)
-    return self
-
-
-def _set_args(self, args):
-    for index, value in enumerate(args):
-        obj = self.__class__._arg_lookup[index]
-        attr = self.__class__._arg_lookup.reverse_lookup(index)
-        _set_attribute(self, attr, value, obj)
-    return self
 
 
 class ORM(type):
@@ -38,12 +16,29 @@ class ORM(type):
         init_sig = _create_signature(class_obj)
 
         def auto_assign(init):
+
+
             @wraps(init)
             def wrapper(self, *args, **kwargs):
+                # Encapsulates the idea of an argument
+                argument = namedtuple('argument', ['name', 'value', 'annotation'])
+                kwargs = {key.lower(): value for key, value in kwargs.items()}
                 bound = init_sig.bind(*args, **kwargs)
                 bound.apply_defaults()
+                bound = bound.arguments.items()
+                annotations = (schema_value.typ for schema_value in self._schema.values())
+                arguments = [argument(name_value[0], name_value[1], typ)
+                                  for name_value, typ
+                                  in (zip(bound, annotations)) if name_value[1]]
+
                 self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
-                _set_kwargs(_set_args(self, args), kwargs)
+                for argument in arguments:
+                    self._fields.append(argument.name)
+                    if isinstance(argument.annotation, ORM):
+                        setattr(self, argument.name, argument.annotation(argument.value))
+                    else:
+                        setattr(self, argument.name, argument.value)
+
 
             wrapper.__signature__ = init_sig
             return wrapper
