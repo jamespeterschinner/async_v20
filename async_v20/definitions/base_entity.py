@@ -1,6 +1,8 @@
+"""THIS MODULE IF FROM THE v20 packing being converted. It is here as reference for functionality that needs to be
+incorporated into the new async_v20 package"""
+
 import ujson as json
 import re
-import yaml
 from collections import OrderedDict
 from .metaclass import Structure
 

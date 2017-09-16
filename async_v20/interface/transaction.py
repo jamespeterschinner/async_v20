@@ -3,8 +3,6 @@ from ..endpoints.transaction import *
 
 
 class TransactionInterface(object):
-
-
     @endpoint(GETTransactions)
     def list_transactions(self, from_: FromDateTime, to: ToDateTime, pageSize: PageSize, type_: Type):
         """
@@ -29,7 +27,6 @@ class TransactionInterface(object):
             request
         """
         pass
-
 
     @endpoint(GETTransactionID)
     def get_transactions(self, transactionID: TransactionID):
@@ -67,7 +64,6 @@ class TransactionInterface(object):
             request
         """
         pass
-
 
     @endpoint(GETSinceID)
     def since_transaction(self, id: TransactionID):

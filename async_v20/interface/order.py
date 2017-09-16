@@ -1,5 +1,4 @@
 from .decorators import endpoint, add_signature
-from ..definitions.types import *
 from ..endpoints.order import *
 
 

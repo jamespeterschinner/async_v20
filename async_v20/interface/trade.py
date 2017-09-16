@@ -4,7 +4,8 @@ from ..endpoints.trade import *
 
 class TradeInterface(object):
     @endpoint(GETTrades)
-    def list_trades(self, ids: Ids, state: TradeStateFilter, instrument: InstrumentName, count: Count, beforeID: TradeID):
+    def list_trades(self, ids: Ids, state: TradeStateFilter, instrument: InstrumentName, count: Count,
+                    beforeID: TradeID):
         """
         Get a list of Trades for an Account
 
@@ -101,7 +102,7 @@ class TradeInterface(object):
     # TODO Check each methods arguments against the docstring
     @endpoint(PUTTradesSpecifierOrders)
     def set_dependent_orders_trade(self, tradeSpecifier: TradeSpecifier, takeProfit: TakeProfitDetails,
-                             stopLoss: StopLossDetails, trailingStopLoss: TrailingStopLossDetails):
+                                   stopLoss: StopLossDetails, trailingStopLoss: TrailingStopLossDetails):
         """
         Create, replace and cancel a Trade's dependent Orders (Take Profit,
         Stop Loss and Trailing Stop Loss) through the Trade itself

@@ -65,7 +65,7 @@ async def _stream_parser(self, response, endpoint):
     async with response as resp:
         response_schema = endpoint.responses[resp.status]
         async for bytes in resp.content.iter_chunked(self.stream_chunk_size):
-            lines = bytes.split('\n')
+            lines = bytes.split()
             for line in lines:
                 body = json.loads(line)
                 key = body.pop('type')

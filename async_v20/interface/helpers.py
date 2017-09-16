@@ -1,5 +1,6 @@
-from async_v20.helpers import sleep
 from inspect import Signature, _empty
+
+from async_v20.helpers import sleep
 
 
 def _make_args_optional(signature):
@@ -56,6 +57,3 @@ async def _create_url(self, endpoint, arguments, stream=False):
     endpoint_path = await endpoint.path(arguments, default=self.default_parameters)
     host = self.hosts[endpoint.host]
     return host(path=endpoint_path)
-
-
-

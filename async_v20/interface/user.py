@@ -3,8 +3,6 @@ from ..endpoints.user import *
 
 
 class UserInterface(object):
-
-
     @endpoint(GETUserSpecifier)
     def get_user_info(self, userSpecifier: UserSpecifier):
         """
@@ -24,7 +22,6 @@ class UserInterface(object):
 
     @endpoint(GETExternalInfo)
     def get_external_user_info(self, userSpecifier: UserSpecifier):
-
         """
         Fetch the externally-available user information for the specified user.
         This endpoint is intended to be used by 3rd parties that have been

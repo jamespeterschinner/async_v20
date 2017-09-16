@@ -122,11 +122,15 @@ class OrderCancelReason(Descriptor):
 
     # Valid values
     values = {
-        'INTERNAL_SERVER_ERROR': 'The Order was cancelled because at the time of filling, an unexpected internal server error occurred.',
+        'INTERNAL_SERVER_ERROR': 'The Order was cancelled because at the time of filling, '
+                                 'an unexpected internal server error occurred.',
         'ACCOUNT_LOCKED': 'The Order was cancelled because at the time of filling the account was locked.',
-        'ACCOUNT_NEW_POSITIONS_LOCKED': 'The order was to be filled, however the account is configured to not allow new positions to be created.',
-        'ACCOUNT_ORDER_CREATION_LOCKED': 'Filling the Order wasn’t possible because it required the creation of a dependent Order and the Account is locked for Order creation.',
-        'ACCOUNT_ORDER_FILL_LOCKED': 'Filling the Order was not possible because the Account is locked for filling Orders.',
+        'ACCOUNT_NEW_POSITIONS_LOCKED': 'The order was to be filled, however the account is configured to not allow new'
+                                        'positions to be created.',
+        'ACCOUNT_ORDER_CREATION_LOCKED': 'Filling the Order wasn’t possible because it required the creation of a '
+                                         'dependent Order and the Account is locked for Order creation.',
+        'ACCOUNT_ORDER_FILL_LOCKED': 'Filling the Order was not possible because the Account is locked for filling '
+                                     'Orders.',
         'CLIENT_REQUEST': 'The Order was cancelled explicitly at the request of the client.',
         'MIGRATION': 'The Order cancelled because it is being migrated to another account.',
         'MARKET_HALTED': 'Filling the Order wasn’t possible because the Order’s instrument was halted.',
@@ -137,20 +141,36 @@ class OrderCancelReason(Descriptor):
         'BOUNDS_VIOLATION': 'Filling the Order would have violated the Order’s price bound.',
         'CLIENT_REQUEST_REPLACED': 'The Order was cancelled for replacement at the request of the client.',
         'INSUFFICIENT_LIQUIDITY': 'Filling the Order wasn’t possible because enough liquidity available.',
-        'TAKE_PROFIT_ON_FILL_GTD_TIMESTAMP_IN_PAST': 'Filling the Order would have resulted in the creation of a Take Profit Order with a GTD time in the past.',
-        'TAKE_PROFIT_ON_FILL_LOSS': 'Filling the Order would result in the creation of a Take Profit Order that would have been filled immediately, closing the new Trade at a loss.',
-        'LOSING_TAKE_PROFIT': 'Filling the Order would result in the creation of a Take Profit Loss Order that would close the new Trade at a loss when filled.',
-        'STOP_LOSS_ON_FILL_GTD_TIMESTAMP_IN_PAST': 'Filling the Order would have resulted in the creation of a Stop Loss Order with a GTD time in the past.',
-        'STOP_LOSS_ON_FILL_LOSS': 'Filling the Order would result in the creation of a Stop Loss Order that would have been filled immediately, closing the new Trade at a loss.',
-        'TRAILING_STOP_LOSS_ON_FILL_GTD_TIMESTAMP_IN_PAST': 'Filling the Order would have resulted in the creation of a Trailing Stop Loss Order with a GTD time in the past.',
-        'CLIENT_TRADE_ID_ALREADY_EXISTS': 'Filling the Order would result in the creation of a new Open Trade with a client Trade ID already in use.',
+        'TAKE_PROFIT_ON_FILL_GTD_TIMESTAMP_IN_PAST': 'Filling the Order would have resulted in the creation of a '
+                                                     'Take Profit Order with a GTD time in the past.',
+        'TAKE_PROFIT_ON_FILL_LOSS': 'Filling the Order would result in the creation of a Take Profit Order that '
+                                    'would have been filled immediately, closing the new Trade at a loss.',
+        'LOSING_TAKE_PROFIT': 'Filling the Order would result in the creation of a Take Profit Loss Order that would '
+                              'close the new Trade at a loss when filled.',
+        'STOP_LOSS_ON_FILL_GTD_TIMESTAMP_IN_PAST': 'Filling the Order would have resulted in the creation of a Stop '
+                                                   'Loss Order with a GTD time in the past.',
+        'STOP_LOSS_ON_FILL_LOSS': 'Filling the Order would result in the creation of a Stop Loss Order that would have '
+                                  'been filled immediately, closing the new Trade at a loss.',
+        'TRAILING_STOP_LOSS_ON_FILL_GTD_TIMESTAMP_IN_PAST': 'Filling the Order would have resulted in the creation of a '
+                                                            'Trailing Stop Loss Order with a GTD time in the past.',
+        'CLIENT_TRADE_ID_ALREADY_EXISTS': 'Filling the Order would result in the creation of a new Open Trade with a '
+                                          'client Trade ID already in use.',
         'POSITION_CLOSEOUT_FAILED': 'Closing out a position wasn’t fully possible.',
-        'OPEN_TRADES_ALLOWED_EXCEEDED': 'Filling the Order would cause the maximum open trades allowed for the Account to be exceeded.',
-        'PENDING_ORDERS_ALLOWED_EXCEEDED': 'Filling the Order would have resulted in exceeding the number of pending Orders allowed for the Account.',
-        'TAKE_PROFIT_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS': 'Filling the Order would have resulted in the creation of a Take Profit Order with a client Order ID that is already in use.',
-        'STOP_LOSS_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS': 'Filling the Order would have resulted in the creation of a Stop Loss Order with a client Order ID that is already in use.',
-        'TRAILING_STOP_LOSS_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS': 'Filling the Order would have resulted in the creation of a Trailing Stop Loss Order with a client Order ID that is already in use.',
-        'POSITION_SIZE_EXCEEDED': 'Filling the Order would have resulted in the Account’s maximum position size limit being exceeded for the Order’s instrument.'
+        'OPEN_TRADES_ALLOWED_EXCEEDED': 'Filling the Order would cause the maximum open trades allowed for the Account '
+                                        'to be exceeded.',
+        'PENDING_ORDERS_ALLOWED_EXCEEDED': 'Filling the Order would have resulted in exceeding the number of pending '
+                                           'Orders allowed for the Account.',
+        'TAKE_PROFIT_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS': 'Filling the Order would have resulted in the creation '
+                                                              'of a Take Profit Order with a client Order ID that is '
+                                                              'already in use.',
+        'STOP_LOSS_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS': 'Filling the Order would have resulted in the creation of a '
+                                                            'Stop Loss Order with a client Order ID that is already in '
+                                                            'use.',
+        'TRAILING_STOP_LOSS_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS': 'Filling the Order would have resulted in the '
+                                                                     'creation of a Trailing Stop Loss Order with a '
+                                                                     'client Order ID that is already in use.',
+        'POSITION_SIZE_EXCEEDED': 'Filling the Order would have resulted in the Account’s maximum position size limit '
+                                  'being exceeded for the Order’s instrument.'
     }
 
 
@@ -196,7 +216,8 @@ class StopLossOrderReason(Descriptor):
     values = {
         'CLIENT_ORDER': 'The Stop Loss Order was initiated at the request of a client',
         'REPLACEMENT': 'The Stop Loss Order was initiated as a replacement for an existing Order',
-        'ON_FILL': 'The Stop Loss Order was initiated automatically when an Order was filled that opened a new Trade requiring a Stop Loss Order.'
+        'ON_FILL': 'The Stop Loss Order was initiated automatically when an Order was filled that opened a new Trade '
+                   'requiring a Stop Loss Order.'
     }
 
 
@@ -225,7 +246,8 @@ class TakeProfitOrderReason(Descriptor):
     values = {
         'CLIENT_ORDER': 'The Take Profit Order was initiated at the request of a client',
         'REPLACEMENT': 'The Take Profit Order was initiated as a replacement for an existing Order',
-        'ON_FILL': 'The Take Profit Order was initiated automatically when an Order was filled that opened a new Trade requiring a Take Profit Order.'
+        'ON_FILL': 'The Take Profit Order was initiated automatically when an Order was filled that opened a new Trade '
+                   'requiring a Take Profit Order.'
     }
 
 
@@ -240,7 +262,8 @@ class TrailingStopLossOrderReason(Descriptor):
     values = {
         'CLIENT_ORDER': 'The Trailing Stop Loss Order was initiated at the request of a client',
         'REPLACEMENT': 'The Trailing Stop Loss Order was initiated as a replacement for an existing Order',
-        'ON_FILL': 'The Trailing Stop Loss Order was initiated automatically when an Order was filled that opened a new Trade requiring a Trailing Stop Loss Order.'
+        'ON_FILL': 'The Trailing Stop Loss Order was initiated automatically when an Order was filled that opened a new '
+                   'Trade requiring a Trailing Stop Loss Order.'
     }
 
 

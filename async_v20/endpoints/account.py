@@ -1,7 +1,6 @@
-from ..definitions.types import *
 from .annotations import *
-from .metaclass import *
 from .base import EndPoint, Path
+from ..definitions.types import *
 
 
 class GETAccounts(EndPoint):
@@ -85,7 +84,10 @@ class GETAccountIDInstruments(EndPoint):
     path = Path('/v3/accounts/', AccountID, '/instruments')
 
     # description of endpoint
-    description = 'Get the list of tradeable instruments for the given Account. The list of tradeable instruments is dependent on the regulatory division that the Account is located in, thus should be the same for all Accounts owned by a single user.'
+    description = 'Get the list of tradeable instruments for the given Account.' \
+                  'The list of tradeable instruments is dependent on the regulatory ' \
+                  'division that the Account is located in, thus should be the same for all ' \
+                  'Accounts owned by a single user.'
 
     # parameters required to send to endpoint
     parameters = [
