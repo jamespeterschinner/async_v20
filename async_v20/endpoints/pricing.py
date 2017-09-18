@@ -1,7 +1,11 @@
-from ..definitions.types import *
-from .metaclass import *
 from .annotations import *
 from .base import EndPoint, Path
+from .metaclass import *
+from ..definitions.descriptors import *
+from ..definitions.types import *
+
+__all__ = ['GETPricing', 'GETPricingStream']
+
 
 class GETPricing(EndPoint):
     # the HTTP verb to use for this endpoint
@@ -33,7 +37,6 @@ class GETPricing(EndPoint):
 
 
 class GETPricingStream(EndPoint):
-
     # host to use for this endpoint
     host = 'STREAM'
 

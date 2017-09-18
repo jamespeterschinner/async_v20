@@ -1,5 +1,7 @@
 from typing import List
+
 from ..helpers import sleep
+
 
 class Path(object):
     """capture the construction of a path"""
@@ -16,10 +18,9 @@ class Path(object):
                 result = default[segment]
             return result
 
-
         return ''.join([segment if isinstance(segment, str)
-                       else await lookup(segment)
-                       for segment in self.path])
+                        else await lookup(segment)
+                        for segment in self.path])
 
 
 class EndPoint(object):
@@ -48,8 +49,6 @@ class EndPoint(object):
 
     # json format the data body as per the response_schema below
     request_schema = dict()
-
-
 
     @classmethod
     def header_args(cls):

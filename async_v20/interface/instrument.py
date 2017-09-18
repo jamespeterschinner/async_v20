@@ -1,22 +1,33 @@
 from .decorators import endpoint
+from ..definitions.types import CandlestickGranularity
+from ..definitions.types import Instrument
+from ..definitions.types import Price
+from ..definitions.types import WeeklyAlignment
+from ..endpoints.annotations import AlignmentTimezone
+from ..endpoints.annotations import Count
+from ..endpoints.annotations import DailyAlignment
+from ..endpoints.annotations import FromDateTime
+from ..endpoints.annotations import Incluclassirst
+from ..endpoints.annotations import Smooth
+from ..endpoints.annotations import ToDateTime
 from ..endpoints.instrument import *
 
-class InstrumentInterface(object):
 
+class InstrumentInterface(object):
     @endpoint(GETInstrumentsCandles)
     def get_candles(self,
-                instrument: Instrument,
-                price: Price,
-                granularity: CandlestickGranularity,
-                count: Count,
-                from_: FromDateTime,
-                to: ToDateTime,
-                smooth: Smooth,
-                includeFirst: Incluclassirst,
-                dailyAlignment: DailyAlignment,
-                alignmentTimezone: AlignmentTimezone,
-                weeklyAlignment: WeeklyAlignment,
-    ):
+                    instrument: Instrument,
+                    price: Price,
+                    granularity: CandlestickGranularity,
+                    count: Count,
+                    from_date_time: FromDateTime,
+                    to_date_time: ToDateTime,
+                    smooth: Smooth,
+                    include_first: Incluclassirst,
+                    daily_alignment: DailyAlignment,
+                    alignment_timezone: AlignmentTimezone,
+                    weekly_alignment: WeeklyAlignment,
+                    ):
         """
         Fetch candlestick data for an instrument.
 
@@ -34,29 +45,29 @@ class InstrumentInterface(object):
                 should not be specified if both the start and end parameters
                 are provided, as the time range combined with the graularity
                 will determine the number of candlesticks to return.
-            fromTime:
+            from_date_time:
                 The start of the time range to fetch candlesticks for.
-            toTime:
+            to_date_time:
                 The end of the time range to fetch candlesticks for.
             smooth:
                 A flag that controls whether the candlestick is "smoothed" or
                 not.  A smoothed candlestick uses the previous candle's close
                 price as its open price, while an unsmoothed candlestick uses
                 the first price from its time range as its open price.
-            includeFirst:
+            include_first:
                 A flag that controls whether the candlestick that is covered by
                 the from time should be included in the results. This flag
                 enables clients to use the timestamp of the last completed
                 candlestick received to poll for future candlesticks but avoid
                 receiving the previous candlestick repeatedly.
-            dailyAlignment:
+            daily_alignment:
                 The hour of the day (in the specified timezone) to use for
                 granularities that have daily alignments.
-            alignmentTimezone:
+            alignment_timezone:
                 The timezone to use for the dailyAlignment parameter.
                 Candlesticks with daily alignment will be aligned to the
                 dailyAlignment hour within the alignmentTimezone.
-            weeklyAlignment:
+            weekly_alignment:
                 The day of the week used for granularities that have weekly
                 alignment.
 

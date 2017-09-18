@@ -1,22 +1,21 @@
-from .helpers import _create_signature
-from .helpers import _assign_descriptors
-from .helpers import _create_arg_lookup
-from .helpers import _flatten_dict
 from collections import namedtuple
 from functools import wraps
 
+from .helpers import _assign_descriptors
+from .helpers import _create_arg_lookup
+from .helpers import _create_signature
+from .helpers import _flatten_dict
+
 
 class ORM(type):
-
     _arg_lookup = {}
 
-    def __new__(cls, *args, **kwargs):
-        class_obj = super().__new__(cls, *args, **kwargs)
+    def __new__(mcs, *args, **kwargs):
+        class_obj = super().__new__(mcs, *args, **kwargs)
         class_obj = _create_arg_lookup(_assign_descriptors(class_obj))
-        init_sig = _create_signature(class_obj)
+        init_sig = _create_signature(class_obj._schema)
 
         def auto_assign(init):
-
 
             @wraps(init)
             def wrapper(self, *args, **kwargs):
@@ -28,8 +27,8 @@ class ORM(type):
                 bound = bound.arguments.items()
                 annotations = (schema_value.typ for schema_value in self._schema.values())
                 arguments = [argument(name_value[0], name_value[1], typ)
-                                  for name_value, typ
-                                  in (zip(bound, annotations)) if name_value[1]]
+                             for name_value, typ
+                             in (zip(bound, annotations)) if name_value[1]]
 
                 self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
                 for argument in arguments:
@@ -38,7 +37,6 @@ class ORM(type):
                         setattr(self, argument.name, argument.annotation(argument.value))
                     else:
                         setattr(self, argument.name, argument.value)
-
 
             wrapper.__signature__ = init_sig
             return wrapper
@@ -50,13 +48,15 @@ class ORM(type):
 class Model(metaclass=ORM):
     _schema = {}
 
+    def __init__(self, *args, **kwargs):
+        pass
 
     # Recursion might be an issue
     async def json_dict(self):
         async def get_object_fields(attr):
             attr = getattr(self, attr)
             if isinstance(attr, Model):
-                 attr = await attr.json_dict()
+                attr = await attr.json_dict()
             return attr
 
         return {attr: await get_object_fields(attr) for attr in self._fields}

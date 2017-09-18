@@ -1,11 +1,11 @@
 from .decorators import endpoint
-from ..endpoints.pricing import *
 from ..endpoints.annotations import *
+from ..endpoints.pricing import *
 
 
 class PricingInterface(object):
     @endpoint(GETPricing)
-    def get_pricing(self, instruments: Instruments, since: DateTime, includeUnitsAvailable: IncludeUnitsAvailable):
+    def get_pricing(self, instruments: Instruments, since: DateTime, include_units_available: IncludeUnitsAvailable):
         """
         Get pricing information for a specified list of Instruments within an
         Account.
@@ -17,7 +17,7 @@ class PricingInterface(object):
             since:
                 Date/Time filter to apply to the returned prices. Only prices
                 with a time later than this filter will be provided.
-            includeUnitsAvailable:
+            include_units_available:
                 Flag that enables the inclusion of the unitsAvailable field in
                 the returned Price objects.
 
@@ -27,7 +27,6 @@ class PricingInterface(object):
         """
         pass
 
-    # TODO think about the stream parser that you deleted!
     @endpoint(GETPricingStream)
     def stream_pricing(self, instruments: Instruments, snapshot: Snapshot):
         """

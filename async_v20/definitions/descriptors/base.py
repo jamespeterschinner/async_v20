@@ -1,11 +1,11 @@
 class LengthError(Exception):
     def __init__(self, output):
-        pass
+        super().__init__(output)
 
 
 class IncorrectValue(Exception):
     def __init__(self, output):
-        pass
+        super().__init__(output)
 
 
 class DescriptorProtocol(type):
@@ -13,6 +13,10 @@ class DescriptorProtocol(type):
 
 
 class Descriptor(metaclass=DescriptorProtocol):
+    typ = None
+    example = None
+    values = None
+
     def __init__(self):
         self.name = self.__class__.__name__
 
@@ -26,7 +30,8 @@ class Descriptor(metaclass=DescriptorProtocol):
                 try:
                     value = typ(value)
                 except ValueError:
-                    msg = f'{self.name} must be of type {self.typ.__name__}. Or {typ.__name__}({value}) returns {typ}. ' \
+                    msg = f'{self.name} must be of type {self.typ.__name__}. ' \
+                          f'Or {typ.__name__}({value}) returns {typ}. ' \
                           f'Was {type(value)}'
                     raise TypeError(msg)
 

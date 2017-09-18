@@ -28,6 +28,7 @@ async def _create_body(self, request_schema, arguments):
     async def dumps(obj):
         await sleep()
         obj = lookup.get(obj, None)
+        return obj
 
     return {key: await dumps(obj) for key, obj in request_schema.items()}
 

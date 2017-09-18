@@ -1,6 +1,11 @@
 from .annotations import *
 from .base import EndPoint, Path
+from .metaclass import Array
+from ..definitions.descriptors import *
 from ..definitions.types import *
+
+__all__ = ['GETAccounts', 'GETAccountID', 'GETAccountIDSummary', 'GETAccountIDInstruments',
+           'PATCHAccountIDConfiguration', 'GETAccountIDChanges']
 
 
 class GETAccounts(EndPoint):

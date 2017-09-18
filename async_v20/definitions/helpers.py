@@ -1,6 +1,6 @@
-from itertools import chain, starmap
-from async_v20.helpers import sleep
 from inspect import Signature, Parameter, _empty
+from itertools import chain
+
 from .descriptors.base import DescriptorProtocol
 
 
@@ -47,12 +47,12 @@ class IndexDict(dict):
         return list(self.keys())[index]
 
 
-def _create_signature(cls):
+def _create_signature(schema):
     def create_parameter(key, schema_value):
         name = key.lower()
         annotation = schema_value.typ
         default = schema_value.default
-        if default == _empty and schema_value.required == False:
+        if default == _empty and not schema_value.required:
             default = None
         return Parameter(name=name, annotation=annotation, default=default, kind=Parameter.POSITIONAL_OR_KEYWORD)
 
@@ -62,7 +62,7 @@ def _create_signature(cls):
             default = True
         return default
 
-    return Signature(sorted([create_parameter(key, value) for key, value in cls._schema.items()], key=sort_key))
+    return Signature(sorted([create_parameter(key, value) for key, value in schema.items()], key=sort_key))
 
 
 def _assign_descriptors(cls):

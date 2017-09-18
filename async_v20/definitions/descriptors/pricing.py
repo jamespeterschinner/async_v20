@@ -1,5 +1,7 @@
 from .base import Descriptor
 
+__all__ = ['PriceStatus', 'PriceValue']
+
 
 class PriceStatus(Descriptor):
     """The status of the Price.

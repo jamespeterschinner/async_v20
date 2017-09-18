@@ -1,5 +1,7 @@
 from .base import Descriptor
 
+__all__ = ['CandlestickGranularity', 'WeeklyAlignment']
+
 
 class CandlestickGranularity(Descriptor):
     """The granularity of a candlestick

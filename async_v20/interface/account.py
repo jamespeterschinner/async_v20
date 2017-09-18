@@ -1,4 +1,5 @@
 from .decorators import endpoint
+from ..definitions.types import DecimalNumber
 from ..endpoints.account import *
 from ..endpoints.annotations import *
 
@@ -67,7 +68,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(PATCHAccountIDConfiguration)
-    def configure_account(self, alias: Alias, marginRate: DecimalNumber):
+    def configure_account(self, alias: Alias, margin_rate: DecimalNumber):
         """
         Set the client-configurable portions of an Account.
 
@@ -75,7 +76,7 @@ class AccountInterface(object):
 
             alias:
                 Client-defined alias (name) for the Account
-            marginRate:
+            margin_rate:
                 The string representation of a decimal number.
 
         Returns:
@@ -85,14 +86,14 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDChanges)
-    def account_changes(self, sinceTransactionID: TransactionID):
+    def account_changes(self, since_transaction_id: TransactionID):
         """
         Endpoint used to poll an Account for its current state and changes
         since a specified TransactionID.
 
         Args:
 
-            sinceTransactionID:
+            since_transaction_id:
                 ID of the Transaction to get Account changes since.
 
         Returns:

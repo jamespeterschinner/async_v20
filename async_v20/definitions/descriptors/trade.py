@@ -1,5 +1,7 @@
 from .base import Descriptor
 
+__all__ = ['TradeID', 'TradePL', 'TradeSpecifier', 'TradeState', 'TradeStateFilter']
+
 
 class TradeID(Descriptor):
     """The Trade’s identifier, unique within the Trade’s Account.

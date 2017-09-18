@@ -1,7 +1,11 @@
-from ..definitions.types import *
-from .metaclass import *
 from .annotations import *
 from .base import EndPoint, Path
+from .metaclass import Array
+from ..definitions.descriptors import *
+from ..definitions.types import *
+
+__all__ = ['GETInstrumentsCandles', 'GETInstrumentOrderBook', 'GETInstrumentsPositionBook']
+
 
 class GETInstrumentsCandles(EndPoint):
     # the HTTP verb to use for this endpoint
@@ -31,7 +35,7 @@ class GETInstrumentsCandles(EndPoint):
         {'name': 'alignmentTimezone', 'located': 'query', 'type': AlignmentTimezone, 'description': 'str'},
         {'name': 'weeklyAlignment', 'located': 'query', 'type': WeeklyAlignment,
          'description': 'WeeklyAlignment'},
-    ] # TODO ASK OANDA if incluc.. is a typo
+    ]  # TODO ASK OANDA if incluc.. is a typo
 
     # valid responses
     responses = {

@@ -1,10 +1,11 @@
-from ..definitions.types import *
 from .annotations import *
 from .base import EndPoint, Path
+from ..definitions.types import *
+
+__all__ = ['GETUserSpecifier', 'GETExternalInfo']
 
 
 class GETUserSpecifier(EndPoint):
-
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -28,7 +29,6 @@ class GETUserSpecifier(EndPoint):
 
 
 class GETExternalInfo(EndPoint):
-
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -49,7 +49,3 @@ class GETExternalInfo(EndPoint):
 
     # error msgs'
     error = (401, 403, 405)
-
-
-
-

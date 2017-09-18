@@ -1,7 +1,11 @@
-from ..definitions.types import *
-from .metaclass import *
 from .annotations import *
 from .base import EndPoint, Path
+from .metaclass import *
+from ..definitions.descriptors import *
+from ..definitions.types import *
+
+__all__ = ['GETPositions', 'GETOpenPositions', 'GETPositionsInstrument', 'PUTPositionsInstrumentClose']
+
 
 class GETPositions(EndPoint):
     # the HTTP verb to use for this endpoint

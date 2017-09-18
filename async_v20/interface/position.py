@@ -1,4 +1,9 @@
 from .decorators import endpoint
+from ..definitions.types import InstrumentName
+from ..endpoints.annotations import LongClientExtensions
+from ..endpoints.annotations import LongUnits
+from ..endpoints.annotations import ShortClientExtensions
+from ..endpoints.annotations import ShortUnits
 from ..endpoints.position import *
 
 
@@ -52,9 +57,9 @@ class PositionInterface(object):
         pass
 
     @endpoint(PUTPositionsInstrumentClose)
-    def close_position(self, instrument: InstrumentName, longUnits: LongUnits,
-                       longClientExtensions: LongClientExtensions,
-                       shortUnits: ShortUnits, shortClientExtensions: ShortClientExtensions):
+    def close_position(self, instrument: InstrumentName, long_units: LongUnits,
+                       long_client_extensions: LongClientExtensions,
+                       short_units: ShortUnits, short_client_extensions: ShortClientExtensions):
         """
         Closeout the open Position for a specific instrument in an Account.
 
@@ -62,22 +67,22 @@ class PositionInterface(object):
 
             instrument:
                 Name of the Instrument
-            longUnits:
+            long_units:
                 Indication of how much of the long Position to closeout. Either
                 the string "ALL", the string "NONE", or a DecimalNumber
                 representing how many units of the long position to close using
                 a PositionCloseout MarketOrder. The units specified must always
                 be positive.
-            longClientExtensions:
+            long_client_extensions:
                 The client extensions to add to the MarketOrder used to close
                 the long position.
-            shortUnits:
+            short_units:
                 Indication of how much of the short Position to closeout.
                 Either the string "ALL", the string "NONE", or a DecimalNumber
                 representing how many units of the short position to close
                 using a PositionCloseout MarketOrder. The units specified must
                 always be positive.
-            shortClientExtensions:
+            short_client_extensions:
                 The client extensions to add to the MarketOrder used to close
                 the short position.
 

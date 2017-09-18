@@ -26,7 +26,7 @@ def endpoint(endpoint):
 
             print(url)
             print(headers)
-            # TODO add json data to request do iu need to await this?
+            # TODO add json data to request?
             response = self.session.request(method=endpoint.method,
                                             url=url,
                                             headers=headers,

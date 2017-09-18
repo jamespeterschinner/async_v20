@@ -1,7 +1,12 @@
-from ..definitions.types import *
-from .metaclass import *
 from .annotations import *
 from .base import EndPoint, Path
+from .metaclass import Array
+from ..definitions.descriptors import *
+from ..definitions.types import *
+
+__all__ = ['GETTrades', 'GETOpenTrades', 'GETTradeSpecifier', 'PUTTradeSpecifierClose',
+           'PUTTradeSpecifierClientExtensions', 'PUTTradesSpecifierOrders']
+
 
 class GETTrades(EndPoint):
     # the HTTP verb to use for this endpoint

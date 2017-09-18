@@ -1,14 +1,15 @@
-from ..endpoints.other_responses import other_responses
-from ..endpoints.annotations import LastTransactionID
-from ..helpers import sleep
 import json
-import re
+
+from ..endpoints.annotations import LastTransactionID
+from ..endpoints.other_responses import other_responses
+from ..helpers import sleep
 
 
 async def create_objects(schema, key, objs):
     await sleep()
     typ = schema.get(key)
     print(f'TYPE: {typ}')
+
     async def build(obj):
         await sleep()
         try:
@@ -48,13 +49,13 @@ async def _rest_response(self, response, endpoint):
         """Object to assign attributes to"""
 
         @classmethod
-        async def create(cls, body):
+        async def create(cls, json_data):
             class_instance = cls()
-            for key, data in body.items():
-                attr, value = await create_objects(response_schema, key, data)
-                setattr(class_instance, attr, value)
+            for json_key, json_data in json_data.items():
+                attr, response_value = await create_objects(response_schema, json_key, json_data)
+                setattr(class_instance, attr, response_value)
                 if attr == 'lastTransactionID':  # Keep track of the last transaction id
-                    self.default_parameters.update({LastTransactionID: value})
+                    self.default_parameters.update({LastTransactionID: response_value})
             return class_instance
 
     return await Response.create(body)
@@ -64,8 +65,8 @@ async def _stream_parser(self, response, endpoint):
     print('STREAMING')
     async with response as resp:
         response_schema = endpoint.responses[resp.status]
-        async for bytes in resp.content.iter_chunked(self.stream_chunk_size):
-            lines = bytes.split()
+        async for data in resp.content.iter_chunked(self.stream_chunk_size):
+            lines = data.split()
             for line in lines:
                 body = json.loads(line)
                 key = body.pop('type')

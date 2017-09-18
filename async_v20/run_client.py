@@ -10,6 +10,7 @@ async def run():
         # changes = await client.account_changes()
         # instruments = await client.account_instruments()
         aud_usd = await client.stream_pricing('AUD_USD')
+
     finally:
         client.session.close()
     return accounts, aud_usd
