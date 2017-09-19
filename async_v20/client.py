@@ -1,11 +1,13 @@
-from .interface import *
-from .endpoints.annotations import Authorization
-from .definitions.types import AcceptDatetimeFormat, AccountID
-from functools import partial
-import aiohttp
-from yarl import URL
 import json
 import os
+from functools import partial
+
+import aiohttp
+from yarl import URL
+
+from .definitions.types import AcceptDatetimeFormat, AccountID
+from .endpoints.annotations import Authorization
+from .interface import *
 
 
 class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface, PricingInterface, TradeInterface,
@@ -72,5 +74,6 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
     # Get the first account listed in in accounts
     accounts = await client.list_accounts()
     client.default_parameters.update({AccountID: accounts.accounts[0].id})
+
 
     return client

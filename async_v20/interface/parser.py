@@ -8,7 +8,6 @@ from ..helpers import sleep
 async def create_objects(schema, key, objs):
     await sleep()
     typ = schema.get(key)
-    print(f'TYPE: {typ}')
 
     async def build(obj):
         await sleep()
@@ -70,12 +69,12 @@ async def _stream_parser(self, response, endpoint):
             for line in lines:
                 body = json.loads(line)
                 key = body.pop('type')
-                print(await create_objects(response_schema, key, body))
+                yield await create_objects(response_schema, key, body)
 
 
-async def _parse_response(self, response, endpoint):
+async def parse_response(self, response, endpoint):
     if endpoint.host == 'REST':
         result = await _rest_response(self, response, endpoint)
     else:
-        result = await _stream_parser(self, response, endpoint)
+        result = _stream_parser(self, response, endpoint)
     return result

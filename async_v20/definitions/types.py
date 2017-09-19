@@ -1,8 +1,6 @@
 import inspect
-
 from .descriptors import *
 from .metaclass import *
-from ..endpoints.metaclass import Array
 
 boolean = bool
 integer = int
@@ -50,6 +48,7 @@ class OrderRequest(Model):
     Fields:
 
     """
+    pass
 
 
 class UnitsAvailableDetails(Model):
@@ -5880,7 +5879,7 @@ class StopOrderRejectTransaction(Model):
         'type': SchemaValue(TransactionType, default='STOP_ORDER_REJECT'),
         # The Stop Order’s Instrument.
         'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Stop Order. A posititive
+        # The quantity requested to be filled by the Stop Order. A positive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
         'units': SchemaValue(DecimalNumber, required=True),

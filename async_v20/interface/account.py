@@ -5,7 +5,7 @@ from ..endpoints.annotations import *
 
 
 class AccountInterface(object):
-    @endpoint(GETAccounts)
+    @endpoint(GETAccounts, serial=True)
     def list_accounts(self):
         """
         Get a list of all Accounts authorized for the provided token.
@@ -18,8 +18,8 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountID)
-    def get_accounts(self):
+    @endpoint(GETAccountID, serial=True)
+    def get_account_details(self):
         """
         Get the full details for a single Account that a client has access to.
         Full pending Order, open Trade and open Position representations are
@@ -34,7 +34,7 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountIDSummary)
+    @endpoint(GETAccountIDSummary, serial=True)
     def account_summary(self):
         """
         Get a summary for a single Account that a client has access to.
