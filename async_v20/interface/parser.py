@@ -4,6 +4,8 @@ from ..endpoints.annotations import LastTransactionID
 from ..endpoints.other_responses import other_responses
 from ..helpers import sleep
 
+class UnableToBuildObject(Exception):
+    pass
 
 async def create_objects(schema, key, objs):
     await sleep()
@@ -14,7 +16,7 @@ async def create_objects(schema, key, objs):
         try:
             obj = typ(**obj)
         except AttributeError:
-            pass
+            raise UnableToBuildObject(typ.__name__)
         finally:
             return obj
 

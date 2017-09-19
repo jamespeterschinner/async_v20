@@ -20,7 +20,7 @@ async def create_annotation_lookup(signature, bound_arguments):
     return {annotations_lookup[name]: await wait(value) for name, value in bound_arguments.items()}
 
 
-async def create_body(self, request_schema, arguments):
+async def create_body(request_schema, arguments):
     # We first create a look up table with the class as the key.
     # This allows for the convenience function to have descriptive args
     lookup = {type(value): value for value in arguments.values()}

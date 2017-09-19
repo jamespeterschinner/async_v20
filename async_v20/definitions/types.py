@@ -3805,7 +3805,9 @@ class Account(Model):
         # The details all Account Positions.
         'positions': SchemaValue(Array[Position]),
         # The details of the Orders currently pending in the Account.
-        'orders': SchemaValue(Array[Order])
+        'orders': SchemaValue(Array[Order]),
+        # TODO: This attribute isn't documented in OANDA's website
+        'financing': SchemaValue(DecimalNumber)
     }
 
 

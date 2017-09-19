@@ -10,14 +10,15 @@ from .endpoints.annotations import Authorization
 from .interface import *
 
 
-class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface, PricingInterface, TradeInterface,
-             TransactionInterface, UserInterface):
+class _Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface, PricingInterface,
+              TradeInterface,
+              TransactionInterface, UserInterface):
     """
     A Client encapsulates a connection to OANDA's v20 REST API.
     """
 
-    # This dictionary will be constructed at runtime
-    serial_generators = {}
+    async def poll_account_changes(self):
+        pass
 
     pass
 
@@ -45,7 +46,7 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
     """
 
     # Create a client instance
-    client = Client()
+    client = _Client()
 
     headers = {'Content-Type': 'application/json', 'key': 'Keep-Alive', 'OANDA-Agent': application}
     client.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)
@@ -78,6 +79,5 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
     # Get the first account listed in in accounts
     accounts = await client.list_accounts()
     client.default_parameters.update({AccountID: accounts.accounts[0].id})
-
 
     return client

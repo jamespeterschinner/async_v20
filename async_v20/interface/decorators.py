@@ -16,7 +16,7 @@ async def request(self, endpoint, sig, *args, **kwargs):
     arguments = sig.bind(*args, **kwargs).arguments
     arguments = await create_annotation_lookup(sig, arguments)
 
-    json = await create_body(self, endpoint.request_schema, arguments)
+    json = await create_body(endpoint.request_schema, arguments)
     headers = await create_request_params(self, endpoint, arguments, 'header')
     url = await create_url(self, endpoint, arguments)
     parameters = await create_request_params(self, endpoint, arguments, 'query')
@@ -41,7 +41,7 @@ async def serial_request_async_generator():
 
 def endpoint(endpoint, serial=False):
     """Define a method call to be exposed to the user"""
-    
+
     if serial:
         serial_request = serial_request_async_generator()
         endpoint.initialized = False
@@ -52,7 +52,6 @@ def endpoint(endpoint, serial=False):
 
         @wraps(method)
         async def serial_wrap(self, *args, **kwargs):
-
             if not endpoint.initialized:
                 await serial_request.asend(None)
                 endpoint.initialized = True

@@ -6,6 +6,7 @@ from .helpers import _create_arg_lookup
 from .helpers import _create_signature
 from .helpers import _flatten_dict
 
+
 # Small metaclass that simply returns
 # any value passed to it though the slice syntax
 # This is done purely as documentation.
@@ -18,7 +19,6 @@ class JSONArray(type):
 # this particular JSON value is expected to be an Array
 class Array(metaclass=JSONArray):
     pass
-
 
 
 class ORM(type):
