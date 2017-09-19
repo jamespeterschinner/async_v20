@@ -15,6 +15,10 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
     """
     A Client encapsulates a connection to OANDA's v20 REST API.
     """
+
+    # This dictionary will be constructed at runtime
+    serial_generators = {}
+
     pass
 
 

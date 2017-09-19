@@ -11,7 +11,7 @@ from .helpers import make_args_optional
 from .parser import parse_response
 
 
-async def parallel_request(self, endpoint, sig, *args, **kwargs):
+async def request(self, endpoint, sig, *args, **kwargs):
     """Create a coroutine to construct and parse a request"""
     arguments = sig.bind(*args, **kwargs).arguments
     arguments = await create_annotation_lookup(sig, arguments)
@@ -33,15 +33,18 @@ async def parallel_request(self, endpoint, sig, *args, **kwargs):
     return await parse_response(self, response, endpoint)
 
 
-async def serial_request():
-    """Create an async generator that enforces serial requests"""
+async def serial_request_async_generator():
     self, endpoint, sig, args, kwargs = yield
     while True:
-        self, endpoint, sig, args, kwargs = yield await parallel_request(self, endpoint, sig, *args, **kwargs)
+        self, endpoint, sig, args, kwargs = yield await request(self, endpoint, sig, *args, **kwargs)
 
 
 def endpoint(endpoint, serial=False):
     """Define a method call to be exposed to the user"""
+    
+    if serial:
+        serial_request = serial_request_async_generator()
+        endpoint.initialized = False
 
     def wrapper(method):
         """Take the wrapped method and return a coroutine"""
@@ -49,22 +52,15 @@ def endpoint(endpoint, serial=False):
 
         @wraps(method)
         async def serial_wrap(self, *args, **kwargs):
-            """Enforce serial requests on an endpoint"""
 
-            try:
-                request = getattr(self, endpoint.__name__)
-            except AttributeError:
-                request = serial_request()
-                await request.asend(None)
-                setattr(self, endpoint.__name__, request)
+            if not endpoint.initialized:
+                await serial_request.asend(None)
+                endpoint.initialized = True
 
-            response = await request.asend((self, endpoint, sig, args, kwargs))
-            return response
+            return await serial_request.asend((self, endpoint, sig, args, kwargs))
 
         @wraps(method)
         async def parallel_wrap(self, *args, **kwargs):
-            """Allow parallel requests to be made"""
-            request = parallel_request
             return await request(self, endpoint, sig, *args, **kwargs)
 
         return {True: serial_wrap, False: parallel_wrap}[serial]
