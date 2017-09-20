@@ -27,6 +27,6 @@ async def test_rest_response_builds_account_object_from_json_response():
     self = client(dict())
     result = await _rest_response(self, Response(), GETAccountID)
     print(result)
-    assert hasattr(result, 'account')
-    assert type(result.account) == Account
-    assert hasattr(result.account, 'data')
+    assert 'account' in result
+    assert type(result['account']) == Account
+    assert hasattr(result['account'], 'data')

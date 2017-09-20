@@ -1,10 +1,10 @@
 from collections import namedtuple
 from functools import wraps
 
-from .helpers import _assign_descriptors
-from .helpers import _create_arg_lookup
-from .helpers import _create_signature
-from .helpers import _flatten_dict
+from .helpers import assign_descriptors
+from .helpers import create_signature
+from .helpers import flatten_dict
+import pandas as pd
 
 
 # Small metaclass that simply returns
@@ -26,8 +26,8 @@ class ORM(type):
 
     def __new__(mcs, *args, **kwargs):
         class_obj = super().__new__(mcs, *args, **kwargs)
-        class_obj = _create_arg_lookup(_assign_descriptors(class_obj))
-        init_sig = _create_signature(class_obj._schema)
+        class_obj = assign_descriptors(class_obj)
+        init_sig = create_signature(class_obj._schema)
 
         def auto_assign(init):
 
@@ -65,6 +65,9 @@ class Model(metaclass=ORM):
     def __init__(self, *args, **kwargs):
         pass
 
+    def __repr__(self):
+        return self.__class__.__name__
+
     # Recursion might be an issue
     async def json_dict(self):
         async def get_object_fields(attr):
@@ -76,4 +79,9 @@ class Model(metaclass=ORM):
         return {attr: await get_object_fields(attr) for attr in self._fields}
 
     async def data(self):
-        return await _flatten_dict(await self.json_dict())
+        return await flatten_dict(await self.json_dict())
+
+    async def series(self):
+        template = dict.fromkeys(await flatten_dict(self._schema))
+        template.update(await self.data())
+        return pd.Series(template)

@@ -4,7 +4,7 @@ from itertools import chain
 from .descriptors.base import DescriptorProtocol
 
 
-async def _flatten_dict(dictionary):
+async def flatten_dict(dictionary):
     """Flatten a nested dictionary structure"""
 
     async def unpack(parent_key, parent_value):
@@ -31,23 +31,7 @@ async def _flatten_dict(dictionary):
     return dictionary
 
 
-class IndexDict(dict):
-    def __getitem__(self, item):
-        result = None
-        try:
-            result = super().__getitem__(item)
-        except KeyError:
-            try:
-                result = list(self.values())[item]
-            except IndexError:
-                pass
-        return result
-
-    def reverse_lookup(self, index):
-        return list(self.keys())[index]
-
-
-def _create_signature(schema):
+def create_signature(schema):
     def create_parameter(key, schema_value):
         name = key.lower()
         annotation = schema_value.typ
@@ -65,16 +49,10 @@ def _create_signature(schema):
     return Signature(sorted([create_parameter(key, value) for key, value in schema.items()], key=sort_key))
 
 
-def _assign_descriptors(cls):
+def assign_descriptors(cls):
     for attr, schema_value in cls._schema.items():
         typ = schema_value.typ
         if issubclass(typ, DescriptorProtocol):
             if callable(typ):  # This is to keep IDE happy. Descriptor class is callable!
                 setattr(cls, attr, typ())
-    return cls
-
-
-def _create_arg_lookup(cls):
-    cls._arg_lookup = IndexDict([(attr.lower(), schema_value.typ)
-                                 for attr, schema_value in cls._schema.items()])
     return cls

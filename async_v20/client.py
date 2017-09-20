@@ -77,7 +77,7 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
                                  AcceptDatetimeFormat: datetime_format}
 
     # Get the first account listed in in accounts
-    accounts = await client.list_accounts()
-    client.default_parameters.update({AccountID: accounts.accounts[0].id})
+    response = await client.list_accounts()
+    client.default_parameters.update({AccountID: response['accounts'][0].id})
 
     return client

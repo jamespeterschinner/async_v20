@@ -40,6 +40,11 @@ class SchemaValue(object):
         self.required = required
         self.deprecated = deprecated
 
+    def items(self):
+        return self.typ._schema.items()
+
+    def __repr__(self):
+        return self.typ.__name__
 
 class OrderRequest(Model):
     """The base Order specification used when requesting that an Order be created.

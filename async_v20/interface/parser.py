@@ -4,8 +4,10 @@ from ..endpoints.annotations import LastTransactionID
 from ..endpoints.other_responses import other_responses
 from ..helpers import sleep
 
+
 class UnableToBuildObject(Exception):
     pass
+
 
 async def create_objects(schema, key, objs):
     await sleep()
@@ -33,7 +35,7 @@ async def _rest_response(self, response, endpoint):
     async with response as resp:
         status = resp.status
         headers = resp.raw_headers
-        body = await resp.json()
+        json_body = await resp.json()
 
     print(f'RESPONSE STATUS: {status}')
 
@@ -41,25 +43,20 @@ async def _rest_response(self, response, endpoint):
     for key, value in headers:
         self.default_parameters['key'] = value
 
+    last_transaction_id = json_body.get('lastTransactionID', None)
+    if last_transaction_id:
+        self.default_parameters.update({LastTransactionID: last_transaction_id})
+
     try:
-        response_schema = endpoint.responses[status]  # look up the template to process the data
+        schema = endpoint.responses[status]  # look up the template to process the data
     except KeyError:
-        response_schema = other_responses[status]  # See if a response status is an error code
+        schema = other_responses[status]  # See if a response status is an error code
 
-    class Response(object):
-        """Object to assign attributes to"""
+    async def create(json_data, schema):
+        return dict([await create_objects(schema, json_object, object_field)
+                for json_object, object_field in json_data.items()])
 
-        @classmethod
-        async def create(cls, json_data):
-            class_instance = cls()
-            for json_key, json_data in json_data.items():
-                attr, response_value = await create_objects(response_schema, json_key, json_data)
-                setattr(class_instance, attr, response_value)
-                if attr == 'lastTransactionID':  # Keep track of the last transaction id
-                    self.default_parameters.update({LastTransactionID: response_value})
-            return class_instance
-
-    return await Response.create(body)
+    return await create(json_body, schema)
 
 
 async def _stream_parser(self, response, endpoint):
@@ -71,7 +68,7 @@ async def _stream_parser(self, response, endpoint):
             for line in lines:
                 body = json.loads(line)
                 key = body.pop('type')
-                yield await create_objects(response_schema, key, body)
+                yield dict(await create_objects(response_schema, key, body))
 
 
 async def parse_response(self, response, endpoint):
