@@ -1376,7 +1376,7 @@ class Price(Model):
     }
 
 
-class CloseTransaction(Model):
+class CloseTransaction(Transaction):
     """A CloseTransaction represents the closing of an Account.
 
     Fields:
@@ -1415,7 +1415,7 @@ class CloseTransaction(Model):
         'type': SchemaValue(TransactionType, default='CLOSE')}
 
 
-class MarginCallEnterTransaction(Model):
+class MarginCallEnterTransaction(Transaction):
     """A MarginCallEnterTransaction is created when an Account enters the margin
     call state.
 
@@ -1457,7 +1457,7 @@ class MarginCallEnterTransaction(Model):
         'type': SchemaValue(TransactionType, default='MARGIN_CALL_ENTER')}
 
 
-class MarginCallExitTransaction(Model):
+class MarginCallExitTransaction(Transaction):
     """A MarginCallExitnterTransaction is created when an Account leaves the
     margin call state.
 
@@ -1499,7 +1499,7 @@ class MarginCallExitTransaction(Model):
         'type': SchemaValue(TransactionType, default='MARGIN_CALL_EXIT')}
 
 
-class MarginCallExtendTransaction(Model):
+class MarginCallExtendTransaction(Transaction):
     """A MarginCallExtendTransaction is created when the margin call state for an
     Account has been extended.
 
@@ -1547,7 +1547,7 @@ class MarginCallExtendTransaction(Model):
         'extensionNumber': SchemaValue(integer)}
 
 
-class ReopenTransaction(Model):
+class ReopenTransaction(Transaction):
     """A ReopenTransaction represents the re-opening of a closed Account.
 
     Fields:
@@ -1587,7 +1587,7 @@ class ReopenTransaction(Model):
         'type': SchemaValue(TransactionType, default='REOPEN')}
 
 
-class ResetResettablePLTransaction(Model):
+class ResetResettablePLTransaction(Transaction):
     """A ResetResettablePLTransaction represents the resetting of the Account's
     resettable PL counters.
 
@@ -1821,7 +1821,7 @@ class TrailingStopLossOrderRequest(OrderRequest, Model):
         'clientExtensions': SchemaValue(ClientExtensions)}
 
 
-class CreateTransaction(Model):
+class CreateTransaction(Transaction):
     """A CreateTransaction represents the creation of an Account.
 
     Fields:
@@ -1876,7 +1876,7 @@ class CreateTransaction(Model):
         'homeCurrency': SchemaValue(Currency)}
 
 
-class ClientConfigureTransaction(Model):
+class ClientConfigureTransaction(Transaction):
     """A ClientConfigureTransaction represents the configuration of an Account by
     a client.
 
@@ -1924,7 +1924,7 @@ class ClientConfigureTransaction(Model):
         'marginRate': SchemaValue(DecimalNumber)}
 
 
-class DelayedTradeClosureTransaction(Model):
+class DelayedTradeClosureTransaction(Transaction):
     """A DelayedTradeClosure Transaction is created administratively to indicate
     open trades that should have been closed but weren't because the open
     trades' instruments were untradeable at the time. Open trades listed in
@@ -1977,7 +1977,7 @@ class DelayedTradeClosureTransaction(Model):
         'tradeIDs': SchemaValue(TradeID)}
 
 
-class OrderCancelTransaction(Model):
+class OrderCancelTransaction(Transaction):
     """An OrderCancelTransaction represents the cancellation of an Order in the
     client's Account.
 
@@ -2035,7 +2035,7 @@ class OrderCancelTransaction(Model):
         'replacedByOrderID': SchemaValue(OrderID)}
 
 
-class OrderClientExtensionsModifyTransaction(Model):
+class OrderClientExtensionsModifyTransaction(Transaction):
     """A OrderClientExtensionsModifyTransaction represents the modification of an
     Order's Client Extensions.
 
@@ -2091,7 +2091,7 @@ class OrderClientExtensionsModifyTransaction(Model):
         'tradeClientExtensionsModify': SchemaValue(ClientExtensions)}
 
 
-class DailyFinancingTransaction(Model):
+class DailyFinancingTransaction(Transaction):
     """A DailyFinancingTransaction represents the daily payment/collection of
     financing for an Account.
 
@@ -2146,7 +2146,7 @@ class DailyFinancingTransaction(Model):
     }
 
 
-class TradeClientExtensionsModifyTransaction(Model):
+class TradeClientExtensionsModifyTransaction(Transaction):
     """A TradeClientExtensionsModifyTransaction represents the modification of a
     Trade's Client Extensions.
 
@@ -2424,7 +2424,7 @@ class MarketOrderRequest(OrderRequest, Model):
         'tradeClientExtensions': SchemaValue(ClientExtensions)}
 
 
-class TakeProfitOrderTransaction(Model):
+class TakeProfitOrderTransaction(Transaction):
     """A TakeProfitOrderTransaction represents the creation of a TakeProfit Order
     in the user's Account.
 
@@ -2991,7 +2991,7 @@ class Trade(Model):
         'trailingStopLossOrder': SchemaValue(TrailingStopLossOrder)}
 
 
-class ClientConfigureRejectTransaction(Model):
+class ClientConfigureRejectTransaction(Transaction):
     """A ClientConfigureRejectTransaction represents the reject of configuration
     of an Account by a client.
 
@@ -3042,7 +3042,7 @@ class ClientConfigureRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class OrderCancelRejectTransaction(Model):
+class OrderCancelRejectTransaction(Transaction):
     """An OrderCancelRejectTransaction represents the rejection of the
     cancellation of an Order in the client's Account.
 
@@ -3098,7 +3098,7 @@ class OrderCancelRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class OrderClientExtensionsModifyRejectTransaction(Model):
+class OrderClientExtensionsModifyRejectTransaction(Transaction):
     """A OrderClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of an Order's Client Extensions.
 
@@ -3157,7 +3157,7 @@ class OrderClientExtensionsModifyRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class TradeClientExtensionsModifyRejectTransaction(Model):
+class TradeClientExtensionsModifyRejectTransaction(Transaction):
     """A TradeClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of a Trade's Client Extensions.
 
@@ -3213,7 +3213,7 @@ class TradeClientExtensionsModifyRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class TransferFundsTransaction(Model):
+class TransferFundsTransaction(Transaction):
     """A TransferFundsTransaction represents the transfer of funds in/out of an
     Account.
 
@@ -3271,7 +3271,7 @@ class TransferFundsTransaction(Model):
         'accountBalance': SchemaValue(AccountUnits)}
 
 
-class TransferFundsRejectTransaction(Model):
+class TransferFundsRejectTransaction(Transaction):
     """A TransferFundsRejectTransaction represents the rejection of the transfer
     of funds in/out of an Account.
 
@@ -3661,7 +3661,7 @@ class StopOrderRequest(OrderRequest, Model):
         'tradeClientExtensions': SchemaValue(ClientExtensions)}
 
 
-class Account(Model):
+class Account(AccountSummary):
     """The full details of a client's Account. This includes full open Trade, open
     Position and pending Order representation.
 
@@ -3816,7 +3816,7 @@ class Account(Model):
     }
 
 
-class MarketOrderTransaction(Model):
+class MarketOrderTransaction(Transaction):
     """A MarketOrderTransaction represents the creation of a Market Order in the
     user's account. A Market Order is an Order that is filled immediately at
     the current market price. Market Orders can be specialized when they are
@@ -3936,7 +3936,7 @@ class MarketOrderTransaction(Model):
         'tradeClientExtensions': SchemaValue(ClientExtensions)}
 
 
-class MarketOrderRejectTransaction(Model):
+class MarketOrderRejectTransaction(Transaction):
     """A MarketOrderRejectTransaction represents the rejection of the creation of
     a Market Order.
 
@@ -4056,7 +4056,7 @@ class MarketOrderRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class StopLossOrderTransaction(Model):
+class StopLossOrderTransaction(Transaction):
     """A StopLossOrderTransaction represents the creation of a StopLoss Order in
     the user's Account.
 
@@ -4160,7 +4160,7 @@ class StopLossOrderTransaction(Model):
         'cancellingTransactionID': SchemaValue(TransactionID)}
 
 
-class TrailingStopLossOrderTransaction(Model):
+class TrailingStopLossOrderTransaction(Transaction):
     """A TrailingStopLossOrderTransaction represents the creation of a
     TrailingStopLoss Order in the user's Account.
 
@@ -4764,7 +4764,7 @@ class StopOrder(Model):
         'replacedByOrderID': SchemaValue(OrderID)}
 
 
-class OrderFillTransaction(Model):
+class OrderFillTransaction(Transaction):
     """An OrderFillTransaction represents the filling of an Order in the client's
     Account.
 
@@ -4862,7 +4862,7 @@ class OrderFillTransaction(Model):
         'tradeReduced': SchemaValue(TradeReduce)}
 
 
-class StopLossOrderRejectTransaction(Model):
+class StopLossOrderRejectTransaction(Transaction):
     """A StopLossOrderRejectTransaction represents the rejection of the creation
     of a StopLoss Order.
 
@@ -4964,7 +4964,7 @@ class StopLossOrderRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class MarketIfTouchedOrderTransaction(Model):
+class MarketIfTouchedOrderTransaction(Transaction):
     """A MarketIfTouchedOrderTransaction represents the creation of a
     MarketIfTouched Order in the user's Account.
 
@@ -5100,7 +5100,7 @@ class MarketIfTouchedOrderTransaction(Model):
         'cancellingTransactionID': SchemaValue(TransactionID)}
 
 
-class LimitOrderTransaction(Model):
+class LimitOrderTransaction(Transaction):
     """A LimitOrderTransaction represents the creation of a Limit Order in the
     user's Account.
 
@@ -5225,7 +5225,7 @@ class LimitOrderTransaction(Model):
         'cancellingTransactionID': SchemaValue(TransactionID)}
 
 
-class TakeProfitOrderRejectTransaction(Model):
+class TakeProfitOrderRejectTransaction(Transaction):
     """A TakeProfitOrderRejectTransaction represents the rejection of the creation
     of a TakeProfit Order.
 
@@ -5327,7 +5327,7 @@ class TakeProfitOrderRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class TrailingStopLossOrderRejectTransaction(Model):
+class TrailingStopLossOrderRejectTransaction(Transaction):
     """A TrailingStopLossOrderRejectTransaction represents the rejection of the
     creation of a TrailingStopLoss Order.
 
@@ -5427,7 +5427,7 @@ class TrailingStopLossOrderRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class StopOrderTransaction(Model):
+class StopOrderTransaction(Transaction):
     """A StopOrderTransaction represents the creation of a Stop Order in the
     user's Account.
 
@@ -5558,7 +5558,7 @@ class StopOrderTransaction(Model):
         'cancellingTransactionID': SchemaValue(TransactionID)}
 
 
-class MarketIfTouchedOrderRejectTransaction(Model):
+class MarketIfTouchedOrderRejectTransaction(Transaction):
     """A MarketIfTouchedOrderRejectTransaction represents the rejection of the
     creation of a MarketIfTouched Order.
 
@@ -5693,7 +5693,7 @@ class MarketIfTouchedOrderRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class LimitOrderRejectTransaction(Model):
+class LimitOrderRejectTransaction(Transaction):
     """A LimitOrderRejectTransaction represents the rejection of the creation of a
     Limit Order.
 
@@ -5816,7 +5816,7 @@ class LimitOrderRejectTransaction(Model):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class StopOrderRejectTransaction(Model):
+class StopOrderRejectTransaction(Transaction):
     """A StopOrderRejectTransaction represents the rejection of the creation of a
     Stop Order.
 
