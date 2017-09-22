@@ -1,0 +1,1 @@
+price_bytes = b'{"type":"PRICE","time":"2017-09-21T01:54:35.452443932Z","bids":[{"price":"1.18724","liquidity":10000000}],"asks":[{"price":"1.18736","liquidity":10000000}],"closeoutBid":"1.18709","closeoutAsk":"1.18751","status":"tradeable","tradeable":true,"instrument":"EUR_USD"}\n'

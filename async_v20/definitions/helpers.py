@@ -1,10 +1,12 @@
 from inspect import Signature, Parameter, _empty
-from itertools import chain
+from itertools import chain, starmap
 
 from .descriptors.base import DescriptorProtocol
 
 
-async def flatten_dict(dictionary):
+delimiter = '.'
+
+async def async_flatten_dict(dictionary, delimiter=delimiter):
     """Flatten a nested dictionary structure"""
 
     async def unpack(parent_key, parent_value):
@@ -16,7 +18,7 @@ async def flatten_dict(dictionary):
             yield (parent_key, parent_value)
         else:
             for key, value in items:
-                yield (parent_key + '_' + key, value)
+                yield (parent_key + delimiter + key, value)
 
     async def run(gen):
         return [pair async for pair in gen]
@@ -28,8 +30,30 @@ async def flatten_dict(dictionary):
         dictionary = dict(chain.from_iterable(pairs))
         if not any(isinstance(value, dict) for value in dictionary.values()):
             break
+
     return dictionary
 
+def flatten_dict(dictionary, delimiter=delimiter):
+    """Flatten a nested dictionary structure"""
+
+    def unpack(parent_key, parent_value):
+        """Unpack one level of nesting in a dictionary"""
+        try:
+            items = parent_value.items()
+        except AttributeError:
+            # parent_value was not a dict, no need to flatten
+            yield (parent_key, parent_value)
+        else:
+            for key, value in items:
+                yield (parent_key + delimiter + key, value)
+
+    while True:
+        # Keep unpacking the dictionary until all value's are not dictionary's
+        dictionary = dict(chain.from_iterable(starmap(unpack, dictionary.items())))
+        if not any(isinstance(value, dict) for value in dictionary.values()):
+            break
+
+    return dictionary
 
 def create_signature(schema):
     def create_parameter(key, schema_value):

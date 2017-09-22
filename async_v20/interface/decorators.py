@@ -5,7 +5,8 @@ from inspect import signature
 
 from .helpers import create_annotation_lookup
 from .helpers import create_body
-from .helpers import create_request_params
+from .helpers import header_params
+from .helpers import query_params
 from .helpers import create_url
 from .helpers import make_args_optional
 from .parser import parse_response
@@ -17,12 +18,12 @@ async def request(self, endpoint, sig, *args, **kwargs):
     arguments = await create_annotation_lookup(sig, arguments)
 
     json = await create_body(endpoint.request_schema, arguments)
-    headers = await create_request_params(self, endpoint, arguments, 'header')
+
+    headers = await header_params(self, endpoint, arguments)
     url = await create_url(self, endpoint, arguments)
-    parameters = await create_request_params(self, endpoint, arguments, 'query')
+    parameters = await query_params(self, endpoint, arguments)
 
     print(url)
-    print(headers)
     # TODO test json data being sent correctly
     response = self.session.request(method=endpoint.method,
                                     url=url,

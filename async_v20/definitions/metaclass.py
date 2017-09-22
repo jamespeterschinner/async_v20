@@ -3,6 +3,7 @@ from functools import wraps
 
 from .helpers import assign_descriptors
 from .helpers import create_signature
+from .helpers import async_flatten_dict
 from .helpers import flatten_dict
 import pandas as pd
 
@@ -28,6 +29,7 @@ class ORM(type):
         class_obj = super().__new__(mcs, *args, **kwargs)
         class_obj = assign_descriptors(class_obj)
         init_sig = create_signature(class_obj._schema)
+        class_obj.template = dict.fromkeys(flatten_dict(class_obj._schema))
 
         def auto_assign(init):
 
@@ -74,14 +76,12 @@ class Model(metaclass=ORM):
             attr = getattr(self, attr)
             if isinstance(attr, Model):
                 attr = await attr.json_dict()
-            return attr
+            return str(attr)
 
         return {attr: await get_object_fields(attr) for attr in self._fields}
 
     async def data(self):
-        return await flatten_dict(await self.json_dict())
+        return await async_flatten_dict(await self.json_dict())
 
     async def series(self):
-        template = dict.fromkeys(await flatten_dict(self._schema))
-        template.update(await self.data())
-        return pd.Series(template)
+        return pd.Series(self.template.update(await self.data()))

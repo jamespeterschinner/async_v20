@@ -1,5 +1,6 @@
+from functools import partial
 from inspect import Signature, _empty
-import ujson as json
+
 from async_v20.helpers import sleep
 
 
@@ -20,20 +21,7 @@ async def create_annotation_lookup(signature, bound_arguments):
     return {annotations_lookup[name]: await wait(value) for name, value in bound_arguments.items()}
 
 
-async def create_body(request_schema, arguments):
-    # We first create a look up table with the class as the key.
-    # This allows for the convenience function to have descriptive args
-    lookup = {type(value): value for value in arguments.values()}
-
-    async def dumps(obj):
-        await sleep()
-        obj = lookup.get(obj, None)
-        return obj
-
-    return json.dumps({key: await dumps(obj) for key, obj in request_schema.items()})
-
-
-async def create_request_params(self, endpoint, arguments: dict, param_location: str):
+async def _create_request_params(self, endpoint, arguments: dict, param_location: str):
     possible_arguments = ((parameter['name'], parameter['type']) for parameter in endpoint.parameters if
                           parameter['located'] == param_location)
 
@@ -45,6 +33,9 @@ async def create_request_params(self, endpoint, arguments: dict, param_location:
         except KeyError:
             try:
                 result = self.default_parameters[typ]
+            except TypeError:
+                # TODO create exception module
+                raise Exception('No default parameters provided')
             except KeyError:
                 print(f"WARNING: missing {typ.__name__} in {param_location}")
                 pass  # TODO: This Should raise a warning that not all header parameters were created
@@ -58,3 +49,25 @@ async def create_url(self, endpoint, arguments, stream=False):
     endpoint_path = await endpoint.path(arguments, default=self.default_parameters)
     host = self.hosts[endpoint.host]
     return host(path=endpoint_path)
+
+
+header_params = partial(_create_request_params, param_location='header')
+
+query_params = partial(_create_request_params, param_location='query')
+
+
+async def create_body(request_schema, arguments):
+    # Reverse the request schema to allow for lookups
+    lookup = {value: key for key, value in request_schema.items()}
+
+    async def dumps(arguments):
+        """Iterate over the arguments returning json_dicts of matching objects"""
+        for argument in arguments.values():
+            await sleep()
+            key = lookup.get(type(argument), lookup.get(type(argument).__bases__[0], None))
+            if key:
+                yield (key, await argument.json_dict())
+            else:
+                continue
+
+    return dict([json_data async for json_data in dumps(arguments)])

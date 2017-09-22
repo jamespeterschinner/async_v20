@@ -59,21 +59,19 @@ async def _rest_response(self, response, endpoint):
     return await create(json_body, schema)
 
 
-async def _stream_parser(self, response, endpoint):
+async def _stream_parser(response, endpoint):
     print('STREAMING')
     async with response as resp:
         response_schema = endpoint.responses[resp.status]
-        async for data in resp.content.iter_chunked(self.stream_chunk_size):
-            lines = data.split()
-            for line in lines:
-                body = json.loads(line)
-                key = body.pop('type')
-                yield dict(await create_objects(response_schema, key, body))
+        async for line in resp.content:
+            body = json.loads(line)
+            key = body.pop('type')
+            yield dict([await create_objects(response_schema, key, body)])
 
 
 async def parse_response(self, response, endpoint):
     if endpoint.host == 'REST':
         result = await _rest_response(self, response, endpoint)
     else:
-        result = _stream_parser(self, response, endpoint)
+        result = _stream_parser(response, endpoint)
     return result
