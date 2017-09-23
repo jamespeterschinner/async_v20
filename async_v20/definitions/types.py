@@ -1,8 +1,7 @@
 import inspect
 
-from .descriptors import *
-from .metaclass import *
 from .base import *
+from .descriptors import *
 
 boolean = bool
 integer = int
@@ -2417,7 +2416,10 @@ class AccountSummary(Model):
         # Account is in a margin call situation.
         'marginCallPercent': SchemaValue(DecimalNumber),
         # The ID of the last Transaction created for the Account.
-        'lastTransactionID': SchemaValue(TransactionID)}
+        'lastTransactionID': SchemaValue(TransactionID),
+        # TODO: This attribute isn't documented in OANDA's website
+        'financing': SchemaValue(DecimalNumber)
+    }
 
 
 class MarketOrderRequest(OrderRequest):

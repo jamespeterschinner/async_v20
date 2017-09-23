@@ -40,12 +40,11 @@ async def _rest_response(self, response, endpoint):
     print(f'RESPONSE STATUS: {status}')
 
     # Update client headers. Such as lastTransactionID and the like
-    for key, value in headers:
-        self.default_parameters['key'] = value
-
+    self.default_parameters.update(headers)
     last_transaction_id = json_body.get('lastTransactionID', None)
     if last_transaction_id:
         self.default_parameters.update({LastTransactionID: last_transaction_id})
+
 
     try:
         schema = endpoint.responses[status]  # look up the template to process the data

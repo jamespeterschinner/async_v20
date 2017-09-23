@@ -24,7 +24,7 @@ class Smooth(object):
 
 
 # TODO figure out what this is about
-class Incluclassirst(object):
+class includeFirst(object):
     pass  # bool
 
 

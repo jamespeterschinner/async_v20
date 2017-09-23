@@ -7,7 +7,7 @@ from ..endpoints.annotations import AlignmentTimezone
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import DailyAlignment
 from ..endpoints.annotations import FromDateTime
-from ..endpoints.annotations import Incluclassirst
+from ..endpoints.annotations import includeFirst
 from ..endpoints.annotations import Smooth
 from ..endpoints.annotations import ToDateTime
 from ..endpoints.instrument import *
@@ -23,7 +23,7 @@ class InstrumentInterface(object):
                     from_date_time: FromDateTime,
                     to_date_time: ToDateTime,
                     smooth: Smooth,
-                    include_first: Incluclassirst,
+                    include_first: includeFirst,
                     daily_alignment: DailyAlignment,
                     alignment_timezone: AlignmentTimezone,
                     weekly_alignment: WeeklyAlignment,

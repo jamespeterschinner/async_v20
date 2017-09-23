@@ -1,5 +1,5 @@
-from ..client import client_session
-from ..helpers import sleep
+from client import client_session
+from helpers import sleep
 
 
 async def poll_account(client: client_session(), poll_interval=6):
