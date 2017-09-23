@@ -1,4 +1,5 @@
 import inspect
+
 from .descriptors import *
 from .metaclass import *
 
@@ -46,6 +47,28 @@ class SchemaValue(object):
     def __repr__(self):
         return self.typ.__name__
 
+
+class ClientExtensions(Model):
+    """A ClientExtensions object allows a client to attach a clientID, tag and
+    comment to Orders and Trades in their Account.  Do not set, modify, or
+    delete this field if your account is associated with MT4.
+
+    Fields:
+        id: -- The Client ID of the Order/Trade
+        tag: -- A tag associated with the Order/Trade
+        comment: -- A comment associated with the Order/Trade
+
+    """
+
+    _schema = {
+        # The Client ID of the Order/Trade
+        'id': SchemaValue(ClientID),
+        # A tag associated with the Order/Trade
+        'tag': SchemaValue(ClientTag),
+        # A comment associated with the Order/Trade
+        'comment': SchemaValue(ClientComment)}
+
+
 class OrderRequest(Model):
     """The base Order specification used when requesting that an Order be created.
     Each specific Order-type extends this definition.
@@ -53,7 +76,65 @@ class OrderRequest(Model):
     Fields:
 
     """
+
     pass
+
+
+class Order(Model):
+    """The base Order definition specifies the properties that are common to all
+    Orders.
+
+    Fields:
+        id: -- The Order's identifier, unique within the Order's Account.
+        createTime: -- The time when the Order was created.
+        state: -- The current state of the Order.
+        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+            or delete clientExtensions if your account is associated with MT4.
+
+    """
+
+    _schema = {
+        # The Order’s identifier, unique within the Order’s Account.
+        'id': SchemaValue(OrderID),
+        # The time when the Order was created.
+        'createTime': SchemaValue(DateTime),
+        # The current state of the Order.
+        'state': SchemaValue(OrderState),
+        # The client extensions of the Order. Do not set, modify, or delete
+        # clientExtensions if your account is associated with MT4.
+        'clientExtensions': SchemaValue(ClientExtensions)}
+
+
+class Transaction(Model):
+    """The base Transaction specification. Specifies properties that are common
+    between all Transaction.
+
+    Fields:
+        id: -- The Transaction's Identifier.
+        time: -- The date/time when the Transaction was created.
+        userID: -- The ID of the user that initiated the creation of the Transaction.
+        accountID: -- The ID of the Account the Transaction was created for.
+        batchID: -- The ID of the "batch" that the Transaction belongs to.
+            Transactions in the same batch are applied to the Account simultaneously.
+        requestID: -- The Request ID of the request which generated the transaction.
+
+    """
+
+    # Schema items shared by all Transactions
+    _schema = {
+        # The Transaction’s Identifier.
+        'id': SchemaValue(TransactionID),
+        # The date/time when the Transaction was created.
+        'time': SchemaValue(DateTime),
+        # The ID of the user that initiated the creation of the Transaction.
+        'userID': SchemaValue(integer),
+        # The ID of the Account the Transaction was created for.
+        'accountID': SchemaValue(AccountID),
+        # The ID of the “batch” that the Transaction belongs to. Transactions in
+        # the same batch are applied to the Account simultaneously.
+        'batchID': SchemaValue(TransactionID),
+        # The Request ID of the request which generated the transaction.
+        'requestID': SchemaValue(RequestID)}
 
 
 class UnitsAvailableDetails(Model):
@@ -641,27 +722,6 @@ class PositionFinancing(Model):
     }
 
 
-class ClientExtensions(Model):
-    """A ClientExtensions object allows a client to attach a clientID, tag and
-    comment to Orders and Trades in their Account.  Do not set, modify, or
-    delete this field if your account is associated with MT4.
-
-    Fields:
-        id: -- The Client ID of the Order/Trade
-        tag: -- A tag associated with the Order/Trade
-        comment: -- A comment associated with the Order/Trade
-
-    """
-
-    _schema = {
-        # The Client ID of the Order/Trade
-        'id': SchemaValue(ClientID),
-        # A tag associated with the Order/Trade
-        'tag': SchemaValue(ClientTag),
-        # A comment associated with the Order/Trade
-        'comment': SchemaValue(ClientComment)}
-
-
 class TradeOpen(Model):
     """A TradeOpen object represents a Trade for an instrument that was opened in
     an Account. It is found embedded in Transactions that affect the position
@@ -837,31 +897,6 @@ class PositionBook(Model):
         # actually contain order or position data.
         'buckets': SchemaValue(Array[PositionBookBucket])
     }
-
-
-class Order(Model):
-    """The base Order definition specifies the properties that are common to all
-    Orders.
-
-    Fields:
-        id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
-        state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
-            or delete clientExtensions if your account is associated with MT4.
-
-    """
-
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions)}
 
 
 class StopLossDetails(Model):
@@ -1091,82 +1126,6 @@ class TradeSummary(Model):
         'trailingStopLossOrderID': SchemaValue(OrderID)}
 
 
-class Transaction(Model):
-    """The base Transaction specification. Specifies properties that are common
-    between all Transaction.
-
-    Fields:
-        id: -- The Transaction's Identifier.
-        time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
-            Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
-
-    """
-
-    # Format string used when generating a name for this object
-    _name_format = ''
-
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID)}
-
-
-class AccountChanges(Model):
-    """An AccountChanges Object is used to represent the changes to an Account's
-    Orders, Trades and Positions since a specified Account TransactionID in the
-    past.
-
-    Fields:
-        ordersCreated: -- The Orders created. These Orders may have been
-            filled, cancelled or triggered in the same period.
-        ordersCancelled: -- The Orders cancelled.
-        ordersFilled: -- The Orders filled.
-        ordersTriggered: -- The Orders triggered.
-        tradesOpened: -- The Trades opened.
-        tradesReduced: -- The Trades reduced.
-        tradesClosed: -- The Trades closed.
-        positions: -- The Positions changed.
-        transactions: -- The Transactions that have been generated.
-
-    """
-
-    _schema = {
-        # The Orders created. These Orders may have been filled, cancelled or
-        # triggered in the same period.
-        'ordersCreated': SchemaValue(Array[Order]),
-        # The Orders cancelled.
-        'ordersCancelled': SchemaValue(Array[Order]),
-        # The Orders filled.
-        'ordersFilled': SchemaValue(Array[Order]),
-        # The Orders triggered.
-        'ordersTriggered': SchemaValue(Array[Order]),
-        # The Trades opened.
-        'tradesOpened': SchemaValue(Array[TradeSummary]),
-        # The Trades reduced.
-        'tradesReduced': SchemaValue(Array[TradeSummary]),
-        # The Trades closed.
-        'tradesClosed': SchemaValue(Array[TradeSummary]),
-        # The Positions changed.
-        'positions': SchemaValue(Array[Position]),
-        # The Transactions that have been generated.
-        'transactions': SchemaValue(Array[Transaction])
-    }
-
-
 class Instrument(Model):
     """Full specification of an Instrument.
 
@@ -1199,6 +1158,127 @@ class Instrument(Model):
         'name': SchemaValue(InstrumentName),
         # The type of the Instrument
         'type': SchemaValue(InstrumentType),
+        # The display name of the Instrument
+        'displayName': SchemaValue(string),
+        # The location of the “pip” for this instrument. The decimal position of
+        # the pip in this Instrument’s price can be found at 10 ^ pipLocation (e.g.
+        # -4 pipLocation results in a decimal pip position of 10 ^ -4 = 0.0001).
+        'pipLocation': SchemaValue(integer),
+        # The number of decimal places that should be used to display prices for
+        # this instrument. (e.g. a displayPrecision of 5 would result in a price of
+        # “1” being displayed as “1.00000”)
+        'displayPrecision': SchemaValue(integer),
+        # The amount of decimal places that may be provided when specifying the
+        # number of units traded for this instrument.
+        'tradeUnitsPrecision': SchemaValue(integer),
+        # The smallest number of units allowed to be traded for this instrument.
+        'minimumTradeSize': SchemaValue(DecimalNumber),
+        # The maximum trailing stop distance allowed for a trailing stop loss
+        # created for this instrument. Specified in price units.
+        'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
+        # The minimum trailing stop distance allowed for a trailing stop loss
+        # created for this instrument. Specified in price units.
+        'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
+        # The maximum position size allowed for this instrument. Specified in
+        # units.
+        'maximumPositionSize': SchemaValue(DecimalNumber),
+        # The maximum units allowed for an Order placed for this instrument.
+        # Specified in units.
+        'maximumOrderUnits': SchemaValue(DecimalNumber),
+        # The margin rate for this instrument.
+        'marginRate': SchemaValue(DecimalNumber),
+        # The commission structure for this instrument.
+        'commission': SchemaValue(InstrumentCommission)}
+
+
+class CurrencyInstrument(Instrument):
+    """A Currency Instrument"""
+    _schema = {
+        # The name of the Instrument
+        'name': SchemaValue(InstrumentName),
+        # The type of the Instrument
+        'type': SchemaValue(InstrumentType, default='CURRENCY'),
+        # The display name of the Instrument
+        'displayName': SchemaValue(string),
+        # The location of the “pip” for this instrument. The decimal position of
+        # the pip in this Instrument’s price can be found at 10 ^ pipLocation (e.g.
+        # -4 pipLocation results in a decimal pip position of 10 ^ -4 = 0.0001).
+        'pipLocation': SchemaValue(integer),
+        # The number of decimal places that should be used to display prices for
+        # this instrument. (e.g. a displayPrecision of 5 would result in a price of
+        # “1” being displayed as “1.00000”)
+        'displayPrecision': SchemaValue(integer),
+        # The amount of decimal places that may be provided when specifying the
+        # number of units traded for this instrument.
+        'tradeUnitsPrecision': SchemaValue(integer),
+        # The smallest number of units allowed to be traded for this instrument.
+        'minimumTradeSize': SchemaValue(DecimalNumber),
+        # The maximum trailing stop distance allowed for a trailing stop loss
+        # created for this instrument. Specified in price units.
+        'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
+        # The minimum trailing stop distance allowed for a trailing stop loss
+        # created for this instrument. Specified in price units.
+        'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
+        # The maximum position size allowed for this instrument. Specified in
+        # units.
+        'maximumPositionSize': SchemaValue(DecimalNumber),
+        # The maximum units allowed for an Order placed for this instrument.
+        # Specified in units.
+        'maximumOrderUnits': SchemaValue(DecimalNumber),
+        # The margin rate for this instrument.
+        'marginRate': SchemaValue(DecimalNumber),
+        # The commission structure for this instrument.
+        'commission': SchemaValue(InstrumentCommission)}
+
+
+class CFDInstrument(Instrument):
+    """A Currency Instrument"""
+
+    _schema = {
+        # The name of the Instrument
+        'name': SchemaValue(InstrumentName),
+        # The type of the Instrument
+        'type': SchemaValue(InstrumentType, default='CFD'),
+        # The display name of the Instrument
+        'displayName': SchemaValue(string),
+        # The location of the “pip” for this instrument. The decimal position of
+        # the pip in this Instrument’s price can be found at 10 ^ pipLocation (e.g.
+        # -4 pipLocation results in a decimal pip position of 10 ^ -4 = 0.0001).
+        'pipLocation': SchemaValue(integer),
+        # The number of decimal places that should be used to display prices for
+        # this instrument. (e.g. a displayPrecision of 5 would result in a price of
+        # “1” being displayed as “1.00000”)
+        'displayPrecision': SchemaValue(integer),
+        # The amount of decimal places that may be provided when specifying the
+        # number of units traded for this instrument.
+        'tradeUnitsPrecision': SchemaValue(integer),
+        # The smallest number of units allowed to be traded for this instrument.
+        'minimumTradeSize': SchemaValue(DecimalNumber),
+        # The maximum trailing stop distance allowed for a trailing stop loss
+        # created for this instrument. Specified in price units.
+        'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
+        # The minimum trailing stop distance allowed for a trailing stop loss
+        # created for this instrument. Specified in price units.
+        'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
+        # The maximum position size allowed for this instrument. Specified in
+        # units.
+        'maximumPositionSize': SchemaValue(DecimalNumber),
+        # The maximum units allowed for an Order placed for this instrument.
+        # Specified in units.
+        'maximumOrderUnits': SchemaValue(DecimalNumber),
+        # The margin rate for this instrument.
+        'marginRate': SchemaValue(DecimalNumber),
+        # The commission structure for this instrument.
+        'commission': SchemaValue(InstrumentCommission)}
+
+
+class MetalInstrument(Instrument):
+    """A Currency Instrument"""
+    _schema = {
+        # The name of the Instrument
+        'name': SchemaValue(InstrumentName),
+        # The type of the Instrument
+        'type': SchemaValue(InstrumentType, default='METAL'),
         # The display name of the Instrument
         'displayName': SchemaValue(string),
         # The location of the “pip” for this instrument. The decimal position of
@@ -1629,7 +1709,7 @@ class ResetResettablePLTransaction(Transaction):
         'type': SchemaValue(TransactionType, default='RESET_RESETTABLE_PL')}
 
 
-class StopLossOrderRequest(OrderRequest, Model):
+class StopLossOrderRequest(OrderRequest):
     """A StopLossOrderRequest specifies the parameters that may be set when
     creating a Stop Loss Order.
 
@@ -1694,7 +1774,7 @@ class StopLossOrderRequest(OrderRequest, Model):
         'clientExtensions': SchemaValue(ClientExtensions)}
 
 
-class TakeProfitOrderRequest(OrderRequest, Model):
+class TakeProfitOrderRequest(OrderRequest):
     """A TakeProfitOrderRequest specifies the parameters that may be set when
     creating a Take Profit Order.
 
@@ -1759,7 +1839,7 @@ class TakeProfitOrderRequest(OrderRequest, Model):
         'clientExtensions': SchemaValue(ClientExtensions)}
 
 
-class TrailingStopLossOrderRequest(OrderRequest, Model):
+class TrailingStopLossOrderRequest(OrderRequest):
     """A TrailingStopLossOrderRequest specifies the parameters that may be set
     when creating a Trailing Stop Loss Order.
 
@@ -2339,7 +2419,7 @@ class AccountSummary(Model):
         'lastTransactionID': SchemaValue(TransactionID)}
 
 
-class MarketOrderRequest(OrderRequest, Model):
+class MarketOrderRequest(OrderRequest):
     """A MarketOrderRequest specifies the parameters that may be set when creating
     a Market Order.
 
@@ -2528,7 +2608,7 @@ class TakeProfitOrderTransaction(Transaction):
         'cancellingTransactionID': SchemaValue(TransactionID)}
 
 
-class TakeProfitOrder(Model):
+class TakeProfitOrder(Order):
     """A TakeProfitOrder is an order that is linked to an open Trade and created
     with a price threshold. The Order will be filled (closing the Trade) by the
     first price that is equal to or better than the threshold. A
@@ -2651,7 +2731,7 @@ class TakeProfitOrder(Model):
         'replacedByOrderID': SchemaValue(OrderID)}
 
 
-class StopLossOrder(Model):
+class StopLossOrder(Order):
     """A StopLossOrder is an order that is linked to an open Trade and created
     with a price threshold. The Order will be filled (closing the Trade) by the
     first price that is equal to or worse than the threshold. A StopLossOrder
@@ -2773,7 +2853,7 @@ class StopLossOrder(Model):
         'replacedByOrderID': SchemaValue(OrderID)}
 
 
-class TrailingStopLossOrder(Model):
+class TrailingStopLossOrder(Order):
     """A TrailingStopLossOrder is an order that is linked to an open Trade and
     created with a price distance. The price distance is used to calculate a
     trailing stop value for the order that is in the losing direction from the
@@ -3329,7 +3409,7 @@ class TransferFundsRejectTransaction(Transaction):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class LimitOrderRequest(OrderRequest, Model):
+class LimitOrderRequest(OrderRequest):
     """A LimitOrderRequest specifies the parameters that may be set when creating
     a Limit Order.
 
@@ -3434,7 +3514,7 @@ class LimitOrderRequest(OrderRequest, Model):
         'tradeClientExtensions': SchemaValue(ClientExtensions)}
 
 
-class MarketIfTouchedOrderRequest(OrderRequest, Model):
+class MarketIfTouchedOrderRequest(OrderRequest):
     """A MarketIfTouchedOrderRequest specifies the parameters that may be set when
     creating a Market-if-Touched Order.
 
@@ -3550,7 +3630,7 @@ class MarketIfTouchedOrderRequest(OrderRequest, Model):
         'tradeClientExtensions': SchemaValue(ClientExtensions)}
 
 
-class StopOrderRequest(OrderRequest, Model):
+class StopOrderRequest(OrderRequest):
     """A StopOrderRequest specifies the parameters that may be set when creating a
     Stop Order.
 
@@ -3659,161 +3739,6 @@ class StopOrderRequest(OrderRequest, Model):
         # (if such a Trade is created). Do not set, modify, or delete
         # tradeClientExtensions if your account is associated with MT4.
         'tradeClientExtensions': SchemaValue(ClientExtensions)}
-
-
-class Account(AccountSummary):
-    """The full details of a client's Account. This includes full open Trade, open
-    Position and pending Order representation.
-
-    Fields:
-        id: -- The Account's identifier
-        alias: -- Client-assigned alias for the Account. Only provided
-            if the Account has an alias set
-        currency: -- The home currency of the Account
-        balance: -- The current balance of the Account. Represented in the Account's home currency.
-        createdByUserID: -- ID of the user that created the Account.
-        createdTime: -- The date/time when the Account was created.
-        pl: -- The total profit/loss realized over the lifetime of
-            the Account. Represented in the Account's home currency.
-        resettablePL: -- The total realized profit/loss for the Account since it was
-            last reset by the client. Represented in the Account's home currency.
-        resettabledPLTime: -- The date/time that the Account's resettablePL was last reset.
-        commission: -- The total amount of commission paid over the lifetime
-            of the Account. Represented in the Account's home currency.
-        marginRate: -- Client-provided margin rate override for the Account. The effective margin rate of the Account
-            is the lesser of this value and
-            the OANDA margin rate for the Account's division. This value is only provided if a margin rate override
-            exists for the Account.
-        marginCallEnterTime: -- The date/time when the Account entered a margin call state.
-            Only provided if the Account is in a margin call.
-        marginCallExtensionCount: -- The number of times that the Account's current margin call was extended.
-        lastMarginCallExtensionTime: -- The date/time of the Account's last margin call extension.
-        openTradeCount: -- The number of Trades currently open in the Account.
-        openPositionCount: -- The number of Positions currently open in the Account.
-        pendingOrderCount: -- The number of Orders currently pending in the Account.
-        hedgingEnabled: -- Flag indicating that the Account has hedging enabled.
-        unrealizedPL: -- The total unrealized profit/loss for all Trades currently open
-            in the Account. Represented in the Account's home currency.
-        NAV: -- The net asset value of the Account. Equal to
-            Account balance + unrealizedPL. Represented in the Account's home currency.
-        marginUsed: -- Margin currently used for the Account.
-            Represented in the Account's home currency.
-        marginAvailable: -- Margin available for Account. Represented in the Account's home currency.
-        positionValue: -- The value of the Account's open
-            positions represented in the Account's home currency.
-        marginCloseoutUnrealizedPL: -- The Account's margin closeout unrealized PL.
-        marginCloseoutNAV: -- The Account's margin closeout NAV.
-        marginCloseoutMarginUsed: -- The Account's margin closeout margin used.
-        marginCloseoutPercent: -- The Account's margin closeout percentage. When this value is 1.0
-            or above the Account is in a margin closeout situation.
-        marginCloseoutPositionValue: -- The value of the Account's open positions as used
-            for margin closeout calculations represented in the Account's home currency.
-        withdrawalLimit: -- The current WithdrawalLimit for the account which will be zero or
-            a positive value indicating how much can be withdrawn from the account.
-        marginCallMarginUsed: -- The Account's margin call margin used.
-        marginCallPercent: -- The Account's margin call percentage. When this value is 1.0
-            or above the Account is in a margin call situation.
-        lastTransactionID: -- The ID of the last Transaction created for the Account.
-        trades: -- The details of the Trades currently open in the Account.
-        positions: -- The details all Account Positions.
-        orders: -- The details of the Orders currently pending in the Account.
-
-    """
-
-    # Format string used when generating a summary for this object
-    _summary_format = 'Account {id}'
-
-    _schema = {
-        # The Account’s identifier
-        'id': SchemaValue(AccountID),
-        # Client-assigned alias for the Account. Only provided if the Account has
-        # an alias set
-        'alias': SchemaValue(string),
-        # The home currency of the Account
-        'currency': SchemaValue(Currency),
-        # The current balance of the Account. Represented in the Account’s home
-        # currency.
-        'balance': SchemaValue(AccountUnits),
-        # ID of the user that created the Account.
-        'createdByUserID': SchemaValue(integer),
-        # The date/time when the Account was created.
-        'createdTime': SchemaValue(DateTime),
-        # The total profit/loss realized over the lifetime of the Account.
-        # Represented in the Account’s home currency.
-        'pl': SchemaValue(AccountUnits),
-        # The total realized profit/loss for the Account since it was last reset by
-        # the client. Represented in the Account’s home currency.
-        'resettablePL': SchemaValue(AccountUnits),
-        # The date/time that the Account’s resettablePL was last reset.
-        'resettabledPLTime': SchemaValue(DateTime),
-        # The total amount of commission paid over the lifetime of the Account.
-        # Represented in the Account’s home currency.
-        'commission': SchemaValue(AccountUnits),
-        # Client-provided margin rate override for the Account. The effective
-        # margin rate of the Account is the lesser of this value and the OANDA
-        # margin rate for the Account’s division. This value is only provided if a
-        # margin rate override exists for the Account.
-        'marginRate': SchemaValue(DecimalNumber),
-        # The date/time when the Account entered a margin call state. Only provided
-        # if the Account is in a margin call.
-        'marginCallEnterTime': SchemaValue(DateTime),
-        # The number of times that the Account’s current margin call was extended.
-        'marginCallExtensionCount': SchemaValue(integer),
-        # The date/time of the Account’s last margin call extension.
-        'lastMarginCallExtensionTime': SchemaValue(DateTime),
-        # The number of Trades currently open in the Account.
-        'openTradeCount': SchemaValue(integer),
-        # The number of Positions currently open in the Account.
-        'openPositionCount': SchemaValue(integer),
-        # The number of Orders currently pending in the Account.
-        'pendingOrderCount': SchemaValue(integer),
-        # Flag indicating that the Account has hedging enabled.
-        'hedgingEnabled': SchemaValue(boolean),
-        # The total unrealized profit/loss for all Trades currently open in the
-        # Account. Represented in the Account’s home currency.
-        'unrealizedPL': SchemaValue(AccountUnits),
-        # The net asset value of the Account. Equal to Account balance +
-        # unrealizedPL. Represented in the Account’s home currency.
-        'NAV': SchemaValue(AccountUnits),
-        # Margin currently used for the Account. Represented in the Account’s home
-        # currency.
-        'marginUsed': SchemaValue(AccountUnits),
-        # Margin available for Account. Represented in the Account’s home currency.
-        'marginAvailable': SchemaValue(AccountUnits),
-        # The value of the Account’s open positions represented in the Account’s
-        # home currency.
-        'positionValue': SchemaValue(AccountUnits),
-        # The Account’s margin closeout unrealized PL.
-        'marginCloseoutUnrealizedPL': SchemaValue(AccountUnits),
-        # The Account’s margin closeout NAV.
-        'marginCloseoutNAV': SchemaValue(AccountUnits),
-        # The Account’s margin closeout margin used.
-        'marginCloseoutMarginUsed': SchemaValue(AccountUnits),
-        # The Account’s margin closeout percentage. When this value is 1.0 or above
-        # the Account is in a margin closeout situation.
-        'marginCloseoutPercent': SchemaValue(DecimalNumber),
-        # The value of the Account’s open positions as used for margin closeout
-        # calculations represented in the Account’s home currency.
-        'marginCloseoutPositionValue': SchemaValue(DecimalNumber),
-        # The current WithdrawalLimit for the account which will be zero or a
-        # positive value indicating how much can be withdrawn from the account.
-        'withdrawalLimit': SchemaValue(AccountUnits),
-        # The Account’s margin call margin used.
-        'marginCallMarginUsed': SchemaValue(AccountUnits),
-        # The Account’s margin call percentage. When this value is 1.0 or above the
-        # Account is in a margin call situation.
-        'marginCallPercent': SchemaValue(DecimalNumber),
-        # The ID of the last Transaction created for the Account.
-        'lastTransactionID': SchemaValue(TransactionID),
-        # The details of the Trades currently open in the Account.
-        'trades': SchemaValue(Array[TradeSummary]),
-        # The details all Account Positions.
-        'positions': SchemaValue(Array[Position]),
-        # The details of the Orders currently pending in the Account.
-        'orders': SchemaValue(Array[Order]),
-        # TODO: This attribute isn't documented in OANDA's website
-        'financing': SchemaValue(DecimalNumber)
-    }
 
 
 class MarketOrderTransaction(Transaction):
@@ -4261,7 +4186,7 @@ class TrailingStopLossOrderTransaction(Transaction):
         'cancellingTransactionID': SchemaValue(TransactionID)}
 
 
-class LimitOrder(Model):
+class LimitOrder(Order):
     """A LimitOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or better than the threshold.
 
@@ -4421,7 +4346,7 @@ class LimitOrder(Model):
         'replacedByOrderID': SchemaValue(OrderID)}
 
 
-class MarketIfTouchedOrder(Model):
+class MarketIfTouchedOrder(Order):
     """A MarketIfTouchedOrder is an order that is created with a price threshold,
     and will only be filled by a market price that is touches or crosses the
     threshold.
@@ -4598,7 +4523,7 @@ class MarketIfTouchedOrder(Model):
         'replacedByOrderID': SchemaValue(OrderID)}
 
 
-class StopOrder(Model):
+class StopOrder(Order):
     """A StopOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or worse than the threshold.
 
@@ -5945,7 +5870,7 @@ class StopOrderRejectTransaction(Transaction):
         'rejectReason': SchemaValue(TransactionRejectReason)}
 
 
-class MarketOrder(Model):
+class MarketOrder(Order):
     """A MarketOrder is an order that is filled immediately upon creation using
     the current market price.
 
@@ -6095,3 +6020,200 @@ class MarketOrder(Model):
         # Date/time when the Order was cancelled (only provided when the state of
         # the Order is CANCELLED)
         'cancelledTime': SchemaValue(DateTime)}
+
+
+class Account(AccountSummary):
+    """The full details of a client's Account. This includes full open Trade, open
+    Position and pending Order representation.
+
+    Fields:
+        id: -- The Account's identifier
+        alias: -- Client-assigned alias for the Account. Only provided
+            if the Account has an alias set
+        currency: -- The home currency of the Account
+        balance: -- The current balance of the Account. Represented in the Account's home currency.
+        createdByUserID: -- ID of the user that created the Account.
+        createdTime: -- The date/time when the Account was created.
+        pl: -- The total profit/loss realized over the lifetime of
+            the Account. Represented in the Account's home currency.
+        resettablePL: -- The total realized profit/loss for the Account since it was
+            last reset by the client. Represented in the Account's home currency.
+        resettabledPLTime: -- The date/time that the Account's resettablePL was last reset.
+        commission: -- The total amount of commission paid over the lifetime
+            of the Account. Represented in the Account's home currency.
+        marginRate: -- Client-provided margin rate override for the Account. The effective margin rate of the Account
+            is the lesser of this value and
+            the OANDA margin rate for the Account's division. This value is only provided if a margin rate override
+            exists for the Account.
+        marginCallEnterTime: -- The date/time when the Account entered a margin call state.
+            Only provided if the Account is in a margin call.
+        marginCallExtensionCount: -- The number of times that the Account's current margin call was extended.
+        lastMarginCallExtensionTime: -- The date/time of the Account's last margin call extension.
+        openTradeCount: -- The number of Trades currently open in the Account.
+        openPositionCount: -- The number of Positions currently open in the Account.
+        pendingOrderCount: -- The number of Orders currently pending in the Account.
+        hedgingEnabled: -- Flag indicating that the Account has hedging enabled.
+        unrealizedPL: -- The total unrealized profit/loss for all Trades currently open
+            in the Account. Represented in the Account's home currency.
+        NAV: -- The net asset value of the Account. Equal to
+            Account balance + unrealizedPL. Represented in the Account's home currency.
+        marginUsed: -- Margin currently used for the Account.
+            Represented in the Account's home currency.
+        marginAvailable: -- Margin available for Account. Represented in the Account's home currency.
+        positionValue: -- The value of the Account's open
+            positions represented in the Account's home currency.
+        marginCloseoutUnrealizedPL: -- The Account's margin closeout unrealized PL.
+        marginCloseoutNAV: -- The Account's margin closeout NAV.
+        marginCloseoutMarginUsed: -- The Account's margin closeout margin used.
+        marginCloseoutPercent: -- The Account's margin closeout percentage. When this value is 1.0
+            or above the Account is in a margin closeout situation.
+        marginCloseoutPositionValue: -- The value of the Account's open positions as used
+            for margin closeout calculations represented in the Account's home currency.
+        withdrawalLimit: -- The current WithdrawalLimit for the account which will be zero or
+            a positive value indicating how much can be withdrawn from the account.
+        marginCallMarginUsed: -- The Account's margin call margin used.
+        marginCallPercent: -- The Account's margin call percentage. When this value is 1.0
+            or above the Account is in a margin call situation.
+        lastTransactionID: -- The ID of the last Transaction created for the Account.
+        trades: -- The details of the Trades currently open in the Account.
+        positions: -- The details all Account Positions.
+        orders: -- The details of the Orders currently pending in the Account.
+
+    """
+
+    # Format string used when generating a summary for this object
+    _summary_format = 'Account {id}'
+
+    _schema = {
+        # The Account’s identifier
+        'id': SchemaValue(AccountID),
+        # Client-assigned alias for the Account. Only provided if the Account has
+        # an alias set
+        'alias': SchemaValue(string),
+        # The home currency of the Account
+        'currency': SchemaValue(Currency),
+        # The current balance of the Account. Represented in the Account’s home
+        # currency.
+        'balance': SchemaValue(AccountUnits),
+        # ID of the user that created the Account.
+        'createdByUserID': SchemaValue(integer),
+        # The date/time when the Account was created.
+        'createdTime': SchemaValue(DateTime),
+        # The total profit/loss realized over the lifetime of the Account.
+        # Represented in the Account’s home currency.
+        'pl': SchemaValue(AccountUnits),
+        # The total realized profit/loss for the Account since it was last reset by
+        # the client. Represented in the Account’s home currency.
+        'resettablePL': SchemaValue(AccountUnits),
+        # The date/time that the Account’s resettablePL was last reset.
+        'resettabledPLTime': SchemaValue(DateTime),
+        # The total amount of commission paid over the lifetime of the Account.
+        # Represented in the Account’s home currency.
+        'commission': SchemaValue(AccountUnits),
+        # Client-provided margin rate override for the Account. The effective
+        # margin rate of the Account is the lesser of this value and the OANDA
+        # margin rate for the Account’s division. This value is only provided if a
+        # margin rate override exists for the Account.
+        'marginRate': SchemaValue(DecimalNumber),
+        # The date/time when the Account entered a margin call state. Only provided
+        # if the Account is in a margin call.
+        'marginCallEnterTime': SchemaValue(DateTime),
+        # The number of times that the Account’s current margin call was extended.
+        'marginCallExtensionCount': SchemaValue(integer),
+        # The date/time of the Account’s last margin call extension.
+        'lastMarginCallExtensionTime': SchemaValue(DateTime),
+        # The number of Trades currently open in the Account.
+        'openTradeCount': SchemaValue(integer),
+        # The number of Positions currently open in the Account.
+        'openPositionCount': SchemaValue(integer),
+        # The number of Orders currently pending in the Account.
+        'pendingOrderCount': SchemaValue(integer),
+        # Flag indicating that the Account has hedging enabled.
+        'hedgingEnabled': SchemaValue(boolean),
+        # The total unrealized profit/loss for all Trades currently open in the
+        # Account. Represented in the Account’s home currency.
+        'unrealizedPL': SchemaValue(AccountUnits),
+        # The net asset value of the Account. Equal to Account balance +
+        # unrealizedPL. Represented in the Account’s home currency.
+        'NAV': SchemaValue(AccountUnits),
+        # Margin currently used for the Account. Represented in the Account’s home
+        # currency.
+        'marginUsed': SchemaValue(AccountUnits),
+        # Margin available for Account. Represented in the Account’s home currency.
+        'marginAvailable': SchemaValue(AccountUnits),
+        # The value of the Account’s open positions represented in the Account’s
+        # home currency.
+        'positionValue': SchemaValue(AccountUnits),
+        # The Account’s margin closeout unrealized PL.
+        'marginCloseoutUnrealizedPL': SchemaValue(AccountUnits),
+        # The Account’s margin closeout NAV.
+        'marginCloseoutNAV': SchemaValue(AccountUnits),
+        # The Account’s margin closeout margin used.
+        'marginCloseoutMarginUsed': SchemaValue(AccountUnits),
+        # The Account’s margin closeout percentage. When this value is 1.0 or above
+        # the Account is in a margin closeout situation.
+        'marginCloseoutPercent': SchemaValue(DecimalNumber),
+        # The value of the Account’s open positions as used for margin closeout
+        # calculations represented in the Account’s home currency.
+        'marginCloseoutPositionValue': SchemaValue(DecimalNumber),
+        # The current WithdrawalLimit for the account which will be zero or a
+        # positive value indicating how much can be withdrawn from the account.
+        'withdrawalLimit': SchemaValue(AccountUnits),
+        # The Account’s margin call margin used.
+        'marginCallMarginUsed': SchemaValue(AccountUnits),
+        # The Account’s margin call percentage. When this value is 1.0 or above the
+        # Account is in a margin call situation.
+        'marginCallPercent': SchemaValue(DecimalNumber),
+        # The ID of the last Transaction created for the Account.
+        'lastTransactionID': SchemaValue(TransactionID),
+        # The details of the Trades currently open in the Account.
+        'trades': SchemaValue(Array[TradeSummary]),
+        # The details all Account Positions.
+        'positions': SchemaValue(Array[Position]),
+        # The details of the Orders currently pending in the Account.
+        'orders': SchemaValue(Array[Order]),
+        # TODO: This attribute isn't documented in OANDA's website
+        'financing': SchemaValue(DecimalNumber)
+    }
+
+
+class AccountChanges(Model):
+    """An AccountChanges Object is used to represent the changes to an Account's
+    Orders, Trades and Positions since a specified Account TransactionID in the
+    past.
+
+    Fields:
+        ordersCreated: -- The Orders created. These Orders may have been
+            filled, cancelled or triggered in the same period.
+        ordersCancelled: -- The Orders cancelled.
+        ordersFilled: -- The Orders filled.
+        ordersTriggered: -- The Orders triggered.
+        tradesOpened: -- The Trades opened.
+        tradesReduced: -- The Trades reduced.
+        tradesClosed: -- The Trades closed.
+        positions: -- The Positions changed.
+        transactions: -- The Transactions that have been generated.
+
+    """
+
+    _schema = {
+        # The Orders created. These Orders may have been filled, cancelled or
+        # triggered in the same period.
+        'ordersCreated': SchemaValue(Array[Order]),
+        # The Orders cancelled.
+        'ordersCancelled': SchemaValue(Array[Order]),
+        # The Orders filled.
+        'ordersFilled': SchemaValue(Array[Order]),
+        # The Orders triggered.
+        'ordersTriggered': SchemaValue(Array[Order]),
+        # The Trades opened.
+        'tradesOpened': SchemaValue(Array[TradeSummary]),
+        # The Trades reduced.
+        'tradesReduced': SchemaValue(Array[TradeSummary]),
+        # The Trades closed.
+        'tradesClosed': SchemaValue(Array[TradeSummary]),
+        # The Positions changed.
+        'positions': SchemaValue(Array[Position]),
+        # The Transactions that have been generated.
+        'transactions': SchemaValue(Array[Transaction])
+    }

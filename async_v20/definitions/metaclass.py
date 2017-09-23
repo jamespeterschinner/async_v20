@@ -31,6 +31,9 @@ class ORM(type):
         init_sig = create_signature(class_obj._schema)
         class_obj.template = dict.fromkeys(flatten_dict(class_obj._schema))
 
+        # This attribute is used to keep track of subclasses
+        class_obj._dispatch = {}
+
         def auto_assign(init):
 
             @wraps(init)
@@ -63,6 +66,19 @@ class ORM(type):
 
 class Model(metaclass=ORM):
     _schema = {}
+
+    subclasses = []
+
+    # This dict is to contain mapping for subclass type creation
+    _dispatch = {}
+
+    # More info about this code be found in PEP 487 https://www.python.org/dev/peps/pep-0487/
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        dispatch_key = cls._schema.get('type', None)
+        if dispatch_key:
+            cls._dispatch.update({dispatch_key.default:cls})
+        cls.subclasses.append(cls)
 
     def __init__(self, *args, **kwargs):
         pass
