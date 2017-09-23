@@ -24,7 +24,6 @@ async def request(self, endpoint, sig, *args, **kwargs):
     parameters = await query_params(self, endpoint, arguments)
 
     print(url)
-    # TODO test json data being sent correctly
     response = self.session.request(method=endpoint.method,
                                     url=url,
                                     headers=headers,

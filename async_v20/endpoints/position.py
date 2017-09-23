@@ -117,7 +117,7 @@ class PUTPositionsInstrumentClose(EndPoint):
     # error msgs'
     error = (401, 405)
 
-    # TODO longunits and short units need to default to 'ALL'
+    # TODO test longunits and short units need to default to 'ALL'
     # json schema representation
     request_schema = {'longUnits': LongUnits, 'longClientExtensions': ClientExtensions, 'shortUnits': ShortUnits,
                       'shortClientExtensions': ClientExtensions}

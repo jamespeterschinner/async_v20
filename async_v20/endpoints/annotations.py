@@ -23,7 +23,6 @@ class Smooth(object):
     pass  # bool
 
 
-# TODO figure out what this is about
 class includeFirst(object):
     pass  # bool
 

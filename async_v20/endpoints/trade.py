@@ -121,7 +121,7 @@ class PUTTradeSpecifierClose(EndPoint):
     # error msgs'
     error = (401, 405)
 
-    # TODO needs to default to 'ALL'
+    # TODO test to default to 'ALL'
     # json schema representation
     request_schema = {'units': Units}
 

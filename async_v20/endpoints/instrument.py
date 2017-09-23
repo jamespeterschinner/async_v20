@@ -35,7 +35,7 @@ class GETInstrumentsCandles(EndPoint):
         {'name': 'alignmentTimezone', 'located': 'query', 'type': AlignmentTimezone, 'description': 'str'},
         {'name': 'weeklyAlignment', 'located': 'query', 'type': WeeklyAlignment,
          'description': 'WeeklyAlignment'},
-    ]  # TODO ASK OANDA if incluc.. is a typo
+    ]
 
     # valid responses
     responses = {
