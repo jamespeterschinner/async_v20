@@ -2,6 +2,7 @@ import inspect
 
 from .descriptors import *
 from .metaclass import *
+from .base import *
 
 boolean = bool
 integer = int

@@ -64,7 +64,7 @@ async def create_body(request_schema, arguments):
         """Iterate over the arguments returning json_dicts of matching objects"""
         for argument in arguments.values():
             await sleep()
-            key = lookup.get(type(argument), None)
+            key = lookup.get(argument._derived, None)
             if key:
                 yield (key, await argument.json_dict())
             else:

@@ -9,8 +9,13 @@ class IncorrectValue(Exception):
 
 
 class DescriptorProtocol(type):
-    pass
 
+    def __set__(self, instance, value):
+        pass
+    def __get__(self, instance, owner):
+        pass
+    def __delete__(self, instance):
+        pass
 
 class Descriptor(metaclass=DescriptorProtocol):
     typ = None

@@ -21,6 +21,18 @@ class JSONArray(type):
 class Array(metaclass=JSONArray):
     pass
 
+class Dispatch(dict):
+    """Keep track of the parent class a subclass is derived from"""
+    def __init__(self, derived, **kwargs):
+        # derived is the parent class
+        self.derived = derived
+        super().__init__(self, **kwargs)
+        self.name = self.__class__.__name__
+
+    def update(self, *args):
+        for cls in args[0].values():
+            cls._derived = self.derived
+        super().update(*args)
 
 class ORM(type):
     _arg_lookup = {}
@@ -31,8 +43,10 @@ class ORM(type):
         init_sig = create_signature(class_obj._schema)
         class_obj.template = dict.fromkeys(flatten_dict(class_obj._schema))
 
-        # This attribute is used to keep track of subclasses
-        class_obj._dispatch = {}
+        # This attribute is used to keep track of subclasses for specialized creation
+        class_obj._dispatch = Dispatch(class_obj)
+
+
 
         def auto_assign(init):
 
@@ -64,40 +78,3 @@ class ORM(type):
         return class_obj
 
 
-class Model(metaclass=ORM):
-    _schema = {}
-
-    subclasses = []
-
-    # This dict is to contain mapping for subclass type creation
-    _dispatch = {}
-
-    # More info about this code be found in PEP 487 https://www.python.org/dev/peps/pep-0487/
-    def __init_subclass__(cls, **kwargs):
-        super().__init_subclass__(**kwargs)
-        dispatch_key = cls._schema.get('type', None)
-        if dispatch_key:
-            cls._dispatch.update({dispatch_key.default:cls})
-        cls.subclasses.append(cls)
-
-    def __init__(self, *args, **kwargs):
-        pass
-
-    def __repr__(self):
-        return self.__class__.__name__
-
-    # Recursion might be an issue
-    async def json_dict(self):
-        async def get_object_fields(attr):
-            attr = getattr(self, attr)
-            if isinstance(attr, Model):
-                attr = await attr.json_dict()
-            return str(attr)
-
-        return {attr: await get_object_fields(attr) for attr in self._fields}
-
-    async def data(self):
-        return await async_flatten_dict(await self.json_dict())
-
-    async def series(self):
-        return pd.Series(self.template.update(await self.data()))
