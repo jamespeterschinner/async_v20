@@ -8,22 +8,31 @@ class IncorrectValue(Exception):
         super().__init__(output)
 
 
-class DescriptorProtocol(type):
+class DescriptorProtocol(object):
+
+    def __init__(self, name=None, value=None):
+        self.value = value
+        self.name = name
+        if name is None:
+            self.name = self.__class__.__name__
 
     def __set__(self, instance, value):
-        pass
-    def __get__(self, instance, owner):
-        pass
-    def __delete__(self, instance):
-        pass
+        self.value = value
 
-class Descriptor(metaclass=DescriptorProtocol):
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        return self.value
+
+    def __delete__(self, instance, value):
+        del self.value
+
+
+class Descriptor(DescriptorProtocol):
     typ = None
     example = None
     values = None
 
-    def __init__(self):
-        self.name = self.__class__.__name__
 
     def __set__(self, instance, value):
 
@@ -55,10 +64,4 @@ class Descriptor(metaclass=DescriptorProtocol):
                 msg = f'{value} must be in {self.values}. Possible values are {possible_values}'
                 raise IncorrectValue(msg)
 
-        setattr(instance, self.name, value)
-
-    def __get__(self, instance, value):
-        return getattr(instance, self.name, value)
-
-    def __delete__(self, instance, value):
-        delattr(instance, self.name)
+        self.value = value

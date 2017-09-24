@@ -329,12 +329,12 @@ class TransactionID(Descriptor):
     """
 
     # Type checking
-    typ = str
+    typ = int
 
     # Correct syntax of value
     format_syntax = 'String representation of the numerical OANDA-assigned TransactionID'
     # Example of correct format
-    example = '1523'
+    #example = '1523'
 
 
 class TransactionRejectReason(Descriptor):

@@ -1,6 +1,5 @@
 from .annotations import *
 from .base import EndPoint, Path
-from ..definitions.metaclass import Array
 from ..definitions.descriptors import *
 from ..definitions.types import *
 

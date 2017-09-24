@@ -1,7 +1,7 @@
 from inspect import Signature, Parameter, _empty
 from itertools import chain, starmap
 
-from .descriptors.base import DescriptorProtocol
+from .descriptors.base import Descriptor
 
 
 delimiter = '.'
@@ -60,7 +60,7 @@ def create_signature(schema):
         name = key.lower()
         annotation = schema_value.typ
         default = schema_value.default
-        if default == _empty and not schema_value.required:
+        if default == _empty and schema_value.required is False:
             default = None
         return Parameter(name=name, annotation=annotation, default=default, kind=Parameter.POSITIONAL_OR_KEYWORD)
 
@@ -76,7 +76,8 @@ def create_signature(schema):
 def assign_descriptors(cls):
     for attr, schema_value in cls._schema.items():
         typ = schema_value.typ
-        if issubclass(typ, DescriptorProtocol):
+        if issubclass(typ, Descriptor):
             if callable(typ):  # This is to keep IDE happy. Descriptor class is callable!
-                setattr(cls, attr, typ())
+                attr = attr.lower()
+                setattr(cls, attr, typ(attr))
     return cls

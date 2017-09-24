@@ -1,13 +1,13 @@
 import inspect
 
-from .base import *
 from .descriptors import *
+from .base import *
 
 boolean = bool
 integer = int
 string = str
 
-__all__ = ['OrderRequest', 'UnitsAvailableDetails',
+__all__ = ['Array','OrderRequest', 'UnitsAvailableDetails',
            'UnitsAvailable', 'LiquidityRegenerationScheduleStep',
            'LiquidityRegenerationSchedule', 'CandlestickData', 'OrderIdentifier', 'QuoteHomeConversionFactors',
            'MarketOrderMarginCloseout', 'InstrumentCommission', 'OrderBookBucket', 'PositionBookBucket',
@@ -32,6 +32,8 @@ __all__ = ['OrderRequest', 'UnitsAvailableDetails',
            'MarketIfTouchedOrderTransaction', 'LimitOrderTransaction', 'TakeProfitOrderRejectTransaction',
            'TrailingStopLossOrderRejectTransaction', 'StopOrderTransaction', 'MarketIfTouchedOrderRejectTransaction',
            'LimitOrderRejectTransaction', 'StopOrderRejectTransaction', 'MarketOrder']
+
+
 
 
 class SchemaValue(object):

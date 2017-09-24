@@ -3,21 +3,21 @@ from functools import wraps
 
 from .helpers import assign_descriptors
 from .helpers import create_signature
-from .helpers import async_flatten_dict
 from .helpers import flatten_dict
-import pandas as pd
 
 
-# Small metaclass that simply returns
-# any value passed to it though the slice syntax
-# This is done purely as documentation.
 class JSONArray(type):
-    def __getitem__(cls, value):
-        return value
+    def __getitem__(cls, obj):
+        class Array(object):
+
+            typ = obj
+
+            def __new__(self, data: list):
+                return [self.typ(**json_obj) for json_obj in data]
 
 
-# This array class indicates to the reader of code that
-# this particular JSON value is expected to be an Array
+        return Array
+
 class Array(metaclass=JSONArray):
     pass
 

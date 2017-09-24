@@ -1,3 +1,5 @@
+GETAccounts_response = {'accounts': [{'id': '101-011-6557245-001', 'tags': []}]}
+
 GETAccountID_response = {
     'account': {'id': '101-011-6557245-001', 'createdTime': '2017-08-11T15:04:31.639182352Z', 'currency': 'AUD',
                 'createdByUserID': 6557245, 'alias': 'Primary', 'marginRate': '0.02', 'hedgingEnabled': False,

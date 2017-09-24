@@ -1,7 +1,7 @@
+import pandas as pd
+
+from .helpers import async_flatten_dict
 from .metaclass import *
-from .descriptors.base import DescriptorProtocol
-
-
 
 
 class Model(metaclass=ORM):
@@ -9,13 +9,12 @@ class Model(metaclass=ORM):
 
     _derived = None
 
-
     # More info about this code be found in PEP 487 https://www.python.org/dev/peps/pep-0487/
     def __init_subclass__(cls, **kwargs):
         # super().__init_subclass__(**kwargs)
         dispatch_key = cls._schema.get('type', None)
         if dispatch_key:
-            cls._dispatch.update({dispatch_key.default:cls})
+            cls._dispatch.update({dispatch_key.default: cls})
         else:
             cls._derived = cls
 
@@ -24,9 +23,10 @@ class Model(metaclass=ORM):
         pass
 
     def __new__(cls, *args, **kwargs):
-        typ = kwargs.get('type', None)
-        if typ:
-            return cls._dispatch['type'](*args, **kwargs)
+        if cls._dispatch:
+            typ = kwargs.get('type', None)
+            if typ:
+                return cls._dispatch['type'](*args, **kwargs)
         else:
             return super().__new__(cls)
 

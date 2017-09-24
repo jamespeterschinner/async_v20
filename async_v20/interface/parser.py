@@ -2,33 +2,16 @@ import json
 
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.other_responses import other_responses
-from ..helpers import sleep
 
 
-class UnableToBuildObject(Exception):
-    pass
-
-
-async def create_objects(schema, key, objs):
-    await sleep()
+def create_objects(schema, key, obj):
     typ = schema.get(key)
+    try:
+        obj = typ(**obj)
+    except TypeError:
+        obj = typ(obj)
 
-    async def build(obj):
-        await sleep()
-        try:
-            obj = typ(**obj)
-        except AttributeError:
-            raise UnableToBuildObject(typ.__name__)
-        finally:
-            return obj
-
-    if isinstance(objs, list):
-        objs = [await build(obj) for obj in objs]
-
-    if isinstance(objs, dict):
-        objs = await build(objs)
-
-    return key, objs  # change here to typ in you'd like the class def as the key
+    return key, obj
 
 
 async def _rest_response(self, response, endpoint):
@@ -45,15 +28,14 @@ async def _rest_response(self, response, endpoint):
     if last_transaction_id:
         self.default_parameters.update({LastTransactionID: last_transaction_id})
 
-
     try:
         schema = endpoint.responses[status]  # look up the template to process the data
     except KeyError:
         schema = other_responses[status]  # See if a response status is an error code
 
     async def create(json_data, schema):
-        return dict([await create_objects(schema, json_object, object_field)
-                for json_object, object_field in json_data.items()])
+        return dict([create_objects(schema, json_object, object_field)
+                     for json_object, object_field in json_data.items()])
 
     return await create(json_body, schema)
 
@@ -65,7 +47,7 @@ async def _stream_parser(response, endpoint):
         async for line in resp.content:
             body = json.loads(line)
             key = body.pop('type')
-            yield dict([await create_objects(response_schema, key, body)])
+            yield dict([create_objects(response_schema, key, body)])
 
 
 async def parse_response(self, response, endpoint):

@@ -1,7 +1,6 @@
 from .annotations import *
 from .base import EndPoint, Path
 from ..definitions.descriptors import *
-from ..definitions.metaclass import Array
 from ..definitions.types import *
 
 __all__ = ['GETTransactions', 'GETTransactionID', 'GETIDrange', 'GETSinceID', 'GETTransactionsStream']

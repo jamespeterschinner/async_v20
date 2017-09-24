@@ -1,14 +1,15 @@
 from collections import namedtuple
 
 import pytest
-from async_v20.definitions.types import Account, AccountSummary
+from async_v20.definitions.types import Account, AccountSummary, AccountProperties
 from async_v20.definitions.types import Price
-from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary
+from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary, GETAccounts
 from async_v20.endpoints.annotations import LastTransactionID
 from async_v20.endpoints.pricing import GETPricingStream
 from async_v20.interface.parser import _rest_response
 from async_v20.interface.parser import _stream_parser
 
+from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETAccountIDSummary_response
 from tests.data.json_data import GETAccountID_response
 from tests.data.stream_data import price_bytes
@@ -108,9 +109,27 @@ async def test_rest_response_builds_account_summary_from_json_response(client_in
     # Ensure that the Account has expected attributes
     assert hasattr(result['account'], 'data')
 
+def test_array_object_creates_list_of_objects():
+    array = GETAccounts.responses[200]['accounts']
+    result = array(GETAccounts_response['accounts'])
+    assert type(result) == list
+    assert type(result[0]) == AccountProperties
+    assert hasattr(result[0], 'id')
+
+
+@pytest.mark.asyncio
+async def test_rest_response_builds_array_account_properties(client_instance, rest_response):
+    result = await _rest_response(client_instance, rest_response(GETAccounts_response), GETAccounts)
+    # Ensure the result contains an 'account'
+    print(result)
+    assert 'accounts' in result
+    # Ensure that 'account' is indeed an Account
+    assert type(result['accounts']) == list
+    assert type(result['accounts'][0]) ==  AccountProperties
 
 @pytest.mark.asyncio
 async def test_rest_response_updates_client_default_parameters(client_instance, rest_response):
     await _rest_response(client_instance, rest_response(GETAccountID_response), GETAccountID)
     # Ensure default_parameters is updated
     assert client_instance.default_parameters[LastTransactionID] == str(14)
+
