@@ -1,4 +1,4 @@
-import json
+import ujson as json
 
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.other_responses import other_responses

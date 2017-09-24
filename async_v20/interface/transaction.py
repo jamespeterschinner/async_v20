@@ -5,9 +5,10 @@ from ..endpoints.annotations import PageSize
 from ..endpoints.annotations import ToDateTime
 from ..endpoints.annotations import Type
 from ..endpoints.transaction import *
+from .base import Interface
+__all__ = ['TransactionInterface']
 
-
-class TransactionInterface(object):
+class TransactionInterface(Interface):
     @endpoint(GETTransactions)
     def list_transactions(self, from_date_time: FromDateTime, to_date_time: ToDateTime, page_size: PageSize,
                           type_: Type):

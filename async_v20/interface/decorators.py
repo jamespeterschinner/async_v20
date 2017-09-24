@@ -48,6 +48,9 @@ def endpoint(endpoint, serial=False):
 
     def wrapper(method):
         """Take the wrapped method and return a coroutine"""
+
+        method.endpoint = True
+
         sig = make_args_optional(signature(method))
 
         @wraps(method)

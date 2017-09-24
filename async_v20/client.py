@@ -10,7 +10,7 @@ from .endpoints.annotations import Authorization
 from .interface import *
 
 
-class _Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface, PricingInterface,
+class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface, PricingInterface,
               TradeInterface,
               TransactionInterface, UserInterface):
     """
@@ -46,7 +46,7 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
     """
 
     # Create a client instance
-    client = _Client()
+    client = Client()
 
     headers = {'Content-Type': 'application/json', 'key': 'Keep-Alive', 'OANDA-Agent': application}
     client.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)

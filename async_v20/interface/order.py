@@ -1,3 +1,4 @@
+from .base import Interface
 from .decorators import endpoint, add_signature
 from ..definitions.types import ClientExtensions
 from ..definitions.types import InstrumentName
@@ -18,8 +19,10 @@ from ..endpoints.annotations import Ids
 from ..endpoints.annotations import TradeClientExtensions
 from ..endpoints.order import *
 
+__all__ = ['OrderInterface']
 
-class OrderInterface(object):
+
+class OrderInterface(Interface):
     @endpoint(POSTOrders)
     def create_order(self, order: OrderRequest):
         """

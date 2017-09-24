@@ -1,10 +1,12 @@
+from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import DecimalNumber
 from ..endpoints.account import *
 from ..endpoints.annotations import *
 
+__all__ = ['AccountInterface']
 
-class AccountInterface(object):
+class AccountInterface(Interface):
     @endpoint(GETAccounts, serial=True)
     def list_accounts(self):
         """

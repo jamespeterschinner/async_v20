@@ -11,9 +11,10 @@ from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import Units
 from ..endpoints.trade import *
+from .base import Interface
+__all__ = ['TradeInterface']
 
-
-class TradeInterface(object):
+class TradeInterface(Interface):
     @endpoint(GETTrades)
     def list_trades(self, ids: Ids, state: TradeStateFilter, instrument: InstrumentName, count: Count,
                     before_id: TradeID):

@@ -13,6 +13,8 @@ def make_args_optional(signature):
 
 
 async def create_annotation_lookup(signature, bound_arguments):
+    """Combine the signatures annotations with bound arguments to create a lookup dict
+    for subsequent functions to identify arguments they need to use"""
     async def wait(x):
         await sleep()
         return x
@@ -21,9 +23,12 @@ async def create_annotation_lookup(signature, bound_arguments):
     return {annotations_lookup[name]: await wait(value) for name, value in bound_arguments.items()}
 
 
-async def _create_request_params(self, endpoint, arguments: dict, param_location: str):
-    possible_arguments = ((parameter['name'], parameter['type']) for parameter in endpoint.parameters if
+def _arguments(endpoint, param_location):
+    return ((parameter['name'], parameter['type']) for parameter in endpoint.parameters if
                           parameter['located'] == param_location)
+
+async def _create_request_params(self, endpoint, arguments: dict, param_location: str):
+    possible_arguments = _arguments(endpoint, param_location)
 
     async def lookup(typ):
         await sleep()

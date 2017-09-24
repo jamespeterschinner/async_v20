@@ -1,3 +1,4 @@
+from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import CandlestickGranularity
 from ..definitions.types import Instrument
@@ -7,13 +8,15 @@ from ..endpoints.annotations import AlignmentTimezone
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import DailyAlignment
 from ..endpoints.annotations import FromDateTime
-from ..endpoints.annotations import includeFirst
 from ..endpoints.annotations import Smooth
 from ..endpoints.annotations import ToDateTime
+from ..endpoints.annotations import includeFirst
 from ..endpoints.instrument import *
 
+__all__ = ['InstrumentInterface']
 
-class InstrumentInterface(object):
+
+class InstrumentInterface(Interface):
     @endpoint(GETInstrumentsCandles)
     def get_candles(self,
                     instrument: Instrument,

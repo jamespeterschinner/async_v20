@@ -1,9 +1,12 @@
+from .base import Interface
 from .decorators import endpoint
 from ..endpoints.annotations import UserSpecifier
 from ..endpoints.user import *
 
+__all__ = ['UserInterface']
 
-class UserInterface(object):
+
+class UserInterface(Interface):
     @endpoint(GETUserSpecifier)
     def get_user_info(self, user_specifier: UserSpecifier):
         """
