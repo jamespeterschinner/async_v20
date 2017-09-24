@@ -5,10 +5,10 @@ from async_v20.client import client_session
 async def stream(instruments):
     client = await client_session()
     try:
-        async for price in await client.stream_pricing(instruments):
-            print(price)
-            if price[0] =='PRICE':
-                print(await price[1].data())
+        async for data in await client.stream_pricing(instruments):
+            price = data.get('PRICE', None)
+            if price:
+                print(await price.series())
     finally:
         client.session.close()
 
