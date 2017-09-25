@@ -2,12 +2,13 @@ import asyncio
 
 from async_v20.client import client_session
 
+
 async def account():
     client = await client_session()
     try:
         account_snapshot = await client.get_account_details()
-        print(account_snapshot.json_data)
-        print(await account_snapshot.account.data())
+        print(account_snapshot)
+        print(await account_snapshot['account'].series())
     finally:
         client.session.close()
 

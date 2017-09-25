@@ -1,13 +1,13 @@
 import inspect
 
-from .descriptors import *
 from .base import *
+from .descriptors import *
 
 boolean = bool
 integer = int
 string = str
 
-__all__ = ['Array','OrderRequest', 'UnitsAvailableDetails',
+__all__ = ['Array', 'OrderRequest', 'UnitsAvailableDetails',
            'UnitsAvailable', 'LiquidityRegenerationScheduleStep',
            'LiquidityRegenerationSchedule', 'CandlestickData', 'OrderIdentifier', 'QuoteHomeConversionFactors',
            'MarketOrderMarginCloseout', 'InstrumentCommission', 'OrderBookBucket', 'PositionBookBucket',
@@ -32,8 +32,6 @@ __all__ = ['Array','OrderRequest', 'UnitsAvailableDetails',
            'MarketIfTouchedOrderTransaction', 'LimitOrderTransaction', 'TakeProfitOrderRejectTransaction',
            'TrailingStopLossOrderRejectTransaction', 'StopOrderTransaction', 'MarketIfTouchedOrderRejectTransaction',
            'LimitOrderRejectTransaction', 'StopOrderRejectTransaction', 'MarketOrder']
-
-
 
 
 class SchemaValue(object):
@@ -481,7 +479,10 @@ class PositionSide(Model):
         'unrealizedPL': SchemaValue(AccountUnits),
         # Profit/loss realized by the PositionSide since the Account’s resettablePL
         # was last reset by the client.
-        'resettablePL': SchemaValue(AccountUnits)}
+        'resettablePL': SchemaValue(AccountUnits),
+        # TODO: This attribute isn't documented in OANDA's website
+        'financing': SchemaValue(DecimalNumber)
+    }
 
 
 class Position(Model):
@@ -523,7 +524,10 @@ class Position(Model):
         # The details of the long side of the Position.
         'long': SchemaValue(PositionSide),
         # The details of the short side of the Position.
-        'short': SchemaValue(PositionSide)}
+        'short': SchemaValue(PositionSide),
+        # TODO: This attribute isn't documented in OANDA's website
+        'financing': SchemaValue(DecimalNumber)
+    }
 
 
 class PriceBucket(Model):
@@ -2421,6 +2425,7 @@ class AccountSummary(Model):
         'lastTransactionID': SchemaValue(TransactionID),
         # TODO: This attribute isn't documented in OANDA's website
         'financing': SchemaValue(DecimalNumber)
+
     }
 
 

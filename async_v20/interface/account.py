@@ -6,6 +6,7 @@ from ..endpoints.annotations import *
 
 __all__ = ['AccountInterface']
 
+
 class AccountInterface(Interface):
     @endpoint(GETAccounts, serial=True)
     def list_accounts(self):

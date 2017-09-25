@@ -47,4 +47,4 @@ class Model(metaclass=ORM):
         return await async_flatten_dict(await self.json_dict())
 
     async def series(self):
-        return pd.Series(self.template.update(await self.data()))
+        return pd.Series(dict(self.template, **await self.data()))

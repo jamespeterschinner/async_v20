@@ -2,6 +2,7 @@ from collections import namedtuple
 from functools import wraps
 
 from .helpers import assign_descriptors
+from .helpers import create_attribute
 from .helpers import create_signature
 from .helpers import flatten_dict
 
@@ -9,20 +10,21 @@ from .helpers import flatten_dict
 class JSONArray(type):
     def __getitem__(cls, obj):
         class Array(object):
-
             typ = obj
 
             def __new__(self, data: list):
                 return [self.typ(**json_obj) for json_obj in data]
 
-
         return Array
+
 
 class Array(metaclass=JSONArray):
     pass
 
+
 class Dispatch(dict):
     """Keep track of the parent class a subclass is derived from"""
+
     def __init__(self, derived, **kwargs):
         # derived is the parent class
         self.derived = derived
@@ -33,6 +35,7 @@ class Dispatch(dict):
         for cls in args[0].values():
             cls._derived = self.derived
         super().update(*args)
+
 
 class ORM(type):
     _arg_lookup = {}
@@ -46,10 +49,7 @@ class ORM(type):
         # This attribute is used to keep track of subclasses for specialized creation
         class_obj._dispatch = Dispatch(class_obj)
 
-
-
         def auto_assign(init):
-
             @wraps(init)
             def wrapper(self, *args, **kwargs):
                 # Encapsulates the idea of an argument
@@ -66,15 +66,10 @@ class ORM(type):
                 self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
                 for argument in arguments:
                     self._fields.append(argument.name)
-                    if isinstance(argument.annotation, ORM):
-                        setattr(self, argument.name, argument.annotation(argument.value))
-                    else:
-                        setattr(self, argument.name, argument.value)
+                    setattr(self, argument.name, create_attribute(argument.annotation, argument.value))
 
             wrapper.__signature__ = init_sig
             return wrapper
 
         class_obj.__init__ = auto_assign(class_obj.__init__)
         return class_obj
-
-

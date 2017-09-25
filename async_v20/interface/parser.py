@@ -1,17 +1,13 @@
 import ujson as json
 
+from ..definitions.helpers import create_attribute
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.other_responses import other_responses
 
 
-def create_objects(schema, key, obj):
+def create_objects(schema, key, data):
     typ = schema.get(key)
-    try:
-        obj = typ(**obj)
-    except TypeError:
-        obj = typ(obj)
-
-    return key, obj
+    return key, create_attribute(typ, data)
 
 
 async def _rest_response(self, response, endpoint):

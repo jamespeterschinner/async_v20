@@ -3,7 +3,6 @@ from itertools import chain, starmap
 
 from .descriptors.base import Descriptor
 
-
 delimiter = '.'
 
 async def async_flatten_dict(dictionary, delimiter=delimiter):
@@ -79,5 +78,11 @@ def assign_descriptors(cls):
         if issubclass(typ, Descriptor):
             if callable(typ):  # This is to keep IDE happy. Descriptor class is callable!
                 attr = attr.lower()
-                setattr(cls, attr, typ(attr))
+                setattr(cls, attr, typ())
     return cls
+
+def create_attribute(typ, data):
+    if isinstance(data, dict):
+        return typ(**data)
+    else:
+        return typ(data)

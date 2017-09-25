@@ -11,7 +11,7 @@ def test_all_correct_descriptor_values_can_be_assigned(descriptor):
     if isclass(descriptor):
         # Create a dummy class to assign attributes to
         class TestClass(object):
-            attr = descriptor('attr')
+            attr = descriptor()
 
         test_class = TestClass()
         # Test that every key in values can be assigned
@@ -28,7 +28,7 @@ def test_all_incorrect_descriptor_values_cannot_be_assigned(descriptor):
     if isclass(descriptor):
         # Create a dummy class to assign attributes to
         class TestClass(object):
-            attr = descriptor('attr')
+            attr = descriptor()
 
         test_class = TestClass()
         # Test that every key in values can be assigned
@@ -44,7 +44,7 @@ def test_descriptor_values_have_length_checking(descriptor):
     if isclass(descriptor):
         # Create a dummy class to assign attributes to
         class TestClass(object):
-            attr = descriptor('attr')
+            attr = descriptor()
 
         test_class = TestClass()
         # Test that every key in values can be assigned
@@ -60,7 +60,7 @@ def test_descriptors_enforce_length_checking(descriptor):
     if isclass(descriptor):
         # Create a dummy class to assign attributes to
         class TestClass(object):
-            attr = descriptor('attr')
+            attr = descriptor()
 
         test_class = TestClass()
         # Test that every key in values can be assigned
@@ -75,7 +75,7 @@ def test_descriptors_convert_type_to_float(descriptor):
     if isclass(descriptor) and descriptor.typ == float:
         # Create a dummy class to assign attributes to
         class TestClass(object):
-            attr = descriptor('attr')
+            attr = descriptor()
 
         test_class = TestClass()
         # Test that when a str is passed to a descriptor that requires a float the descriptor will convert it to a float

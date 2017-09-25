@@ -5,10 +5,10 @@ from async_v20 import endpoints
 from async_v20.client import Client
 from async_v20.definitions.types import StopLossOrderRequest, Account
 from async_v20.endpoints import POSTOrders
+from async_v20.interface.helpers import _arguments
 from async_v20.interface.helpers import create_annotation_lookup
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import make_args_optional
-from async_v20.interface.helpers import _arguments
 from hypothesis.strategies import text, sampled_from
 
 client_attrs = [getattr(Client, attr) for attr in dir(Client)]
@@ -47,7 +47,7 @@ annotation_lookup_arguments = [bound_args(sig) for sig in client_signatures]
 @pytest.mark.parametrize('signature, bound_arguments, args', annotation_lookup_arguments)
 async def test_create_annotation_lookup(signature, bound_arguments, args):
     """Ensure that the annotation lookup dictionary is built correctly"""
-    result = await create_annotation_lookup(signature, bound_arguments)
+    result = create_annotation_lookup(signature, bound_arguments)
     annotations = [param.annotation for param in signature.parameters.values()]
     correct = zip(annotations, args)
     assert all(map(lambda x: result[x[0]] == x[1], correct))
