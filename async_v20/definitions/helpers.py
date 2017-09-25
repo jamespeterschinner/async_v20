@@ -83,6 +83,8 @@ def assign_descriptors(cls):
 
 def create_attribute(typ, data):
     if isinstance(data, dict):
-        return typ(**data)
+        result = typ(**data)
     else:
-        return typ(data)
+        result = typ(data)
+    print("CREATED", type(result), result)
+    return result

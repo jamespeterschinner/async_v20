@@ -35,7 +35,7 @@ class Descriptor(DescriptorProtocol):
     values = None
 
     def __new__(cls, value=None):
-        if value:
+        if value is not None:
             return cls.typ(value)
         else:
             return super().__new__(cls)
@@ -45,15 +45,12 @@ class Descriptor(DescriptorProtocol):
         typ = getattr(self, 'typ', None)
         if typ:
             try:
-                assert isinstance(value, self.typ)
-            except AssertionError:
-                try:
-                    value = typ(value)
-                except ValueError:
-                    msg = f'{self.name} must be of type {self.typ.__name__}. ' \
-                          f'Or {typ.__name__}({value}) returns {typ}. ' \
-                          f'Was {type(value)}'
-                    raise TypeError(msg)
+                value = typ(value)
+            except ValueError:
+                msg = f'{self.name} must be of type {self.typ.__name__}. ' \
+                      f'Or {typ.__name__}({value}) returns {typ}. ' \
+                      f'Was {type(value)}'
+                raise TypeError(msg)
 
         if getattr(self, 'example', None):
             try:

@@ -26,7 +26,7 @@ class Model(metaclass=ORM):
         if cls._dispatch:
             typ = kwargs.get('type', None)
             if typ:
-                return cls._dispatch['type'](*args, **kwargs)
+                return cls._dispatch[typ](*args, **kwargs)
         else:
             return super().__new__(cls)
 

@@ -43,7 +43,7 @@ class ORM(type):
     def __new__(mcs, *args, **kwargs):
         class_obj = super().__new__(mcs, *args, **kwargs)
         class_obj = assign_descriptors(class_obj)
-        init_sig = create_signature(class_obj._schema)
+        sig = create_signature(class_obj._schema)
         class_obj.template = dict.fromkeys(flatten_dict(class_obj._schema))
 
         # This attribute is used to keep track of subclasses for specialized creation
@@ -53,22 +53,21 @@ class ORM(type):
             @wraps(init)
             def wrapper(self, *args, **kwargs):
                 # Encapsulates the idea of an argument
-                argument = namedtuple('argument', ['name', 'value', 'annotation'])
                 kwargs = {key.lower(): value for key, value in kwargs.items()}
-                bound = init_sig.bind(*args, **kwargs)
+                bound = sig.bind(*args, **kwargs)
                 bound.apply_defaults()
-                bound = bound.arguments.items()
-                annotations = (schema_value.typ for schema_value in self._schema.values())
-                arguments = [argument(name_value[0], name_value[1], typ)
-                             for name_value, typ
-                             in (zip(bound, annotations)) if name_value[1]]
 
+                annotations = {attr.lower(): value.typ for attr, value in self._schema.items()}
+                arguments = [(name, annotations[name], value) for name, value in bound.arguments.items()
+                             if value]
+                print(arguments)
                 self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
-                for argument in arguments:
-                    self._fields.append(argument.name)
-                    setattr(self, argument.name, create_attribute(argument.annotation, argument.value))
 
-            wrapper.__signature__ = init_sig
+                for name, annotation, value in arguments:
+                    self._fields.append(name)
+                    setattr(self, name, create_attribute(annotation, value))
+
+            wrapper.__signature__ = sig
             return wrapper
 
         class_obj.__init__ = auto_assign(class_obj.__init__)

@@ -2,7 +2,7 @@ from collections import namedtuple
 
 import pytest
 from async_v20.definitions.types import Account, AccountSummary, AccountProperties
-from async_v20.definitions.types import Price
+from async_v20.definitions.types import Price, Position
 from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary, GETAccounts
 from async_v20.endpoints.annotations import LastTransactionID
 from async_v20.endpoints.pricing import GETPricingStream
@@ -97,7 +97,10 @@ async def test_rest_response_builds_account_object_from_json_response(client_ins
     assert type(result['account']) == Account
     # Ensure that the Account has expected attributes
     assert hasattr(result['account'], 'data')
-
+    # Ensure that account.positions is a list and contains a position
+    # This tests that the Array object created the correct object
+    assert type(result['account'].positions) == list
+    assert type(result['account'].positions[0]) == Position
 
 @pytest.mark.asyncio
 async def test_rest_response_builds_account_summary_from_json_response(client_instance, rest_response):
