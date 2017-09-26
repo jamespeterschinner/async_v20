@@ -1,13 +1,13 @@
 import asyncio
-from async_v20.client import client_session
+from async_v20 import Client
 
 async def account():
-    client = await client_session()
+    client = Client()
     try:
         await client.get_account_details()
         response = await client.account_changes()
         print(response['state'])
-        print(await response['state'].series())
+        print(await response['state'].json_dict())
     finally:
         client.session.close()
     return response

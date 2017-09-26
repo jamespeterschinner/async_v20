@@ -86,5 +86,4 @@ def create_attribute(typ, data):
         result = typ(**data)
     else:
         result = typ(data)
-    print("CREATED", type(result), result)
     return result

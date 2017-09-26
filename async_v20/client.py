@@ -11,21 +11,8 @@ from .interface import *
 
 
 class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface, PricingInterface,
-              TradeInterface,
-              TransactionInterface, UserInterface):
-    """
-    A Client encapsulates a connection to OANDA's v20 REST API.
-    """
-
-    async def poll_account_changes(self):
-        pass
-
-    pass
-
-
-async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpractice.oanda.com', rest_port=443,
-                         stream_host='stream-fxpractice.oanda.com', stream_port=None, application="async_v20",
-                         stream_chunk_size=512, stream_timeout=10, datetime_format="RFC3339", poll_timeout=2):
+             TradeInterface,
+             TransactionInterface, UserInterface):
     """
     Create an API context for v20 access
 
@@ -44,40 +31,74 @@ async def client_session(token=os.environ['OANDA_TOKEN'], rest_host='api-fxpract
         poll_timeout: -- The timeout to use when making a polling request with
             the v20 REST server
     """
+    default_parameters = {}
 
-    # Create a client instance
-    client = Client()
+    initialized = False
 
-    headers = {'Content-Type': 'application/json', 'key': 'Keep-Alive', 'OANDA-Agent': application}
-    client.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)
+    account = None
 
-    # V20 REST API URL
-    rest_host = partial(URL.build, host=rest_host, port=rest_port, scheme='https')
+    session = None
 
-    # v20 STREAM API URL
-    stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme='https')
+    def __init__(self, token=os.environ['OANDA_TOKEN'], rest_host='api-fxpractice.oanda.com', rest_port=443,
+                 stream_host='stream-fxpractice.oanda.com', stream_port=None, application="async_v20",
+                 stream_chunk_size=512, stream_timeout=10, datetime_format="RFC3339", poll_timeout=2):
+        self.application = application
 
-    client.hosts = {'REST': rest_host, 'STREAM': stream_host}
+        # V20 REST API URL
+        rest_host = partial(URL.build, host=rest_host, port=rest_port, scheme='https')
 
-    # The size of each chunk to read when processing a stream
-    # response
-    client.stream_chunk_size = stream_chunk_size
+        # v20 STREAM API URL
+        stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme='https')
 
-    # The timeout to use when making a stream request with the
-    # v20 REST server
-    client.stream_timeout = stream_timeout
+        self.hosts = {'REST': rest_host, 'STREAM': stream_host}
 
-    # The timeout to use when making a polling request with the
-    # v20 REST server
-    client.poll_timeout = poll_timeout
+        # The size of each chunk to read when processing a stream
+        # response
+        self.stream_chunk_size = stream_chunk_size
 
-    # This is the default parameter dictionary. Client Methods that require certain parameters
-    # that are  not explicitly passed will try to find it in this dict
-    client.default_parameters = {Authorization: 'Bearer {}'.format(token),
-                                 AcceptDatetimeFormat: datetime_format}
+        # The timeout to use when making a stream request with the
+        # v20 REST server
+        self.stream_timeout = stream_timeout
 
-    # Get the first account listed in in accounts
-    response = await client.list_accounts()
-    client.default_parameters.update({AccountID: response['accounts'][0].id})
+        # The timeout to use when making a polling request with the
+        # v20 REST server
+        self.poll_timeout = poll_timeout
 
-    return client
+        # This is the default parameter dictionary. Client Methods that require certain parameters
+        # that are  not explicitly passed will try to find it in this dict
+        self.default_parameters.update(
+            {Authorization: 'Bearer {}'.format(token),
+             AcceptDatetimeFormat: datetime_format}
+        )
+
+    async def initialize(self):
+        if self.initialized:
+            return True
+
+        # This needs to be set before calling and endpoints
+        # Else initialise will be called multiple times.
+        self.initialized = True
+
+        headers = {'Content-Type': 'application/json', 'Connection': 'keep-alive', 'OANDA-Agent': self.application}
+        self.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)
+
+        # Get the first account listed in in accounts
+        response = await self.list_accounts()
+
+        # Get the corresponding AccountID for the provided token
+        self.default_parameters.update({AccountID: response['accounts'][0].id})
+
+        # Get Account snapshot and last transaction id
+        # last transaction is automatically updated when the
+        # response is parsed
+        response = await self.get_account_details()
+        self.account = response['account']
+
+        # Get the list of all available instruments for this account
+        response = await self.account_instruments()
+        self.account_instruments = response['instruments']
+
+        return True
+
+    async def poll_account(self, interval=None):
+        response = await self.account_changes()

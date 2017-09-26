@@ -13,7 +13,13 @@ class JSONArray(type):
             typ = obj
 
             def __new__(self, data: list):
-                return [self.typ(**json_obj) for json_obj in data]
+                try:
+                    return [create_attribute(self.typ, obj) for obj in data]
+                except TypeError as e:
+                    msg = f'FAILED TO CREATE OBJECT: {self.typ} FROM DATA: {data} DATA TYPE: {type(data)}'
+                    print(e.args)
+                    raise Exception(msg)
+
 
         return Array
 
@@ -60,7 +66,6 @@ class ORM(type):
                 annotations = {attr.lower(): value.typ for attr, value in self._schema.items()}
                 arguments = [(name, annotations[name], value) for name, value in bound.arguments.items()
                              if value]
-                print(arguments)
                 self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
 
                 for name, annotation, value in arguments:

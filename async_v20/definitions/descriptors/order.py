@@ -27,14 +27,14 @@ class OrderID(Descriptor):
     """
 
     # Type checking
-    typ = str
+    typ = int
 
     # Correct syntax of value
     format_syntax = 'The string representation of the OANDA-assigned OrderID. ' \
                     'OANDA-assigned OrderIDs are positive integers, and are derived from the ' \
                     'TransactionID of the Transaction that created the Order.'
-    # Example of correct format
-    example = '1523'
+    # # Example of correct format
+    # example = '1523'
 
 
 class OrderPositionFill(Descriptor):
@@ -61,13 +61,13 @@ class OrderSpecifier(Descriptor):
     """
 
     # Type checking
-    typ = str
+    typ = int
 
     # Correct syntax of value
     format_syntax = 'Either the Order’s OANDA-assigned OrderID or the Order’s client-provided ' \
                     'ClientID prefixed by the “@” symbol'
     # Example of correct format
-    example = '1523'
+    # example = '1523'
 
 
 class OrderState(Descriptor):

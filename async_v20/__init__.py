@@ -1,1 +1,1 @@
-from async_v20.client import client_session
+from async_v20.client import Client

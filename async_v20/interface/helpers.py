@@ -79,7 +79,7 @@ header_params = partial(_create_request_params, param_location='header')
 query_params = partial(_create_request_params, param_location='query')
 
 
-async def request(self, endpoint, sig, *args, **kwargs):
+async def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Create a coroutine to construct and parse a request"""
     arguments = sig.bind(*args, **kwargs).arguments
     arguments = create_annotation_lookup(sig, arguments)
@@ -101,12 +101,7 @@ async def request(self, endpoint, sig, *args, **kwargs):
     if endpoint.host == 'STREAM':
         request_kwargs.update({'timeout': 0})
 
-    response = self.session.request(**request_kwargs)
-
-    return await parse_response(self, response, endpoint)
+    return request_kwargs
 
 
-async def serial_request_async_generator():
-    self, endpoint, sig, args, kwargs = yield
-    while True:
-        self, endpoint, sig, args, kwargs = yield await request(self, endpoint, sig, *args, **kwargs)
+

@@ -56,7 +56,7 @@ class Descriptor(DescriptorProtocol):
             try:
                 assert len(self.example) == len(value)
             except AssertionError:
-                msg = f'{value} does not match length of example {self.example}'
+                msg = f'{value} does not match length of example {self.example}. Attribute {type(self)}'
                 raise LengthError(msg)
 
         if getattr(self, 'values', None):

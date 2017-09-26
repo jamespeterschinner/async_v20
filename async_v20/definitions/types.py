@@ -2118,7 +2118,12 @@ class OrderCancelTransaction(Transaction):
         'reason': SchemaValue(OrderCancelReason),
         # The ID of the Order that replaced this Order (only provided if this Order
         # was cancelled for replacement).
-        'replacedByOrderID': SchemaValue(OrderID)}
+        'replacedByOrderID': SchemaValue(OrderID),
+        # TODO This attribute is not documented on oanda's website
+        'closedTradeID': SchemaValue(OrderID),
+        # TODO This attribute is not documented on oanda's website
+        'tradeCloseTransactionID': SchemaValue(TransactionID)
+    }
 
 
 class OrderClientExtensionsModifyTransaction(Transaction):
