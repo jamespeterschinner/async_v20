@@ -6,7 +6,7 @@ from .metaclass import *
 
 class Model(metaclass=ORM):
     _schema = {}
-
+    _fields = []
     _derived = None
 
     # More info about this code be found in PEP 487 https://www.python.org/dev/peps/pep-0487/
@@ -17,10 +17,6 @@ class Model(metaclass=ORM):
             cls._dispatch.update({dispatch_key.default: cls})
         else:
             cls._derived = cls
-
-    def __init__(self, *args, **kwargs):
-        "Keeps IDE happy"
-        pass
 
     def __new__(cls, *args, **kwargs):
         if cls._dispatch:
@@ -41,7 +37,8 @@ class Model(metaclass=ORM):
                 attr = await attr.json_dict()
             return str(attr)
 
-        return {attr: await get_object_fields(attr) for attr in self._fields}
+        return {self.__class__.json_attributes[attr]: await get_object_fields(attr)
+                for attr in self._fields}
 
     async def data(self):
         return await async_flatten_dict(await self.json_dict())

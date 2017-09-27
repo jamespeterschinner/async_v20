@@ -7,7 +7,7 @@ boolean = bool
 integer = int
 string = str
 
-__all__ = ['Array', 'OrderRequest', 'UnitsAvailableDetails',
+__all__ = ['OrderRequest', 'UnitsAvailableDetails',
            'UnitsAvailable', 'LiquidityRegenerationScheduleStep',
            'LiquidityRegenerationSchedule', 'CandlestickData', 'OrderIdentifier', 'QuoteHomeConversionFactors',
            'MarketOrderMarginCloseout', 'InstrumentCommission', 'OrderBookBucket', 'PositionBookBucket',

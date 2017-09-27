@@ -13,21 +13,22 @@ class DescriptorProtocol(object):
     value = None
 
     def __set__(self, instance, value):
-        self.value = value
+        instance._value = value
 
     def __get__(self, instance, owner):
         if instance is None:
             return self
-        return self.value
+        return instance._value
 
     def __delete__(self, instance, value):
-        del self.value
+        del instance._value
 
 
 class Descriptor(DescriptorProtocol):
     typ = None
     example = None
     values = None
+
 
     def __new__(cls, value=None):
         if value is not None:
@@ -62,4 +63,4 @@ class Descriptor(DescriptorProtocol):
                 msg = f'{value} must be in {self.values}. Possible values are {possible_values}'
                 raise IncorrectValue(msg)
 
-        self.value = value
+        instance._value = value

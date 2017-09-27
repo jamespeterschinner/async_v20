@@ -56,15 +56,17 @@ async def test_create_annotation_lookup(signature, bound_arguments, args):
 location = sampled_from(['header', 'path', 'query'])
 test_arguments_arguments = [(getattr(endpoints, cls), location.example()) for cls in endpoints.__all__]
 
+
 @pytest.mark.parametrize('endpoint, param_location', test_arguments_arguments)
 def test_arguments(endpoint, param_location):
     result = _arguments(endpoint, param_location)
     correct = list(filter(lambda x: x['located'] == param_location, endpoint.parameters))
     assert len(list(result)) == len(list(correct))
 
+
 @pytest.fixture
 def stop_loss_order():
-    order = StopLossOrderRequest(tradeid=1234, price=0.8)
+    order = StopLossOrderRequest(trade_id=1234, price=0.8)
     yield order
     del order
 
@@ -74,5 +76,5 @@ async def test_request_body_is_constructed_correctly(stop_loss_order):
     result = await create_body(POSTOrders.request_schema,
                                {'irrelevant': stop_loss_order, 'test': Account(), 'arg': 'random_string'})
     print(result)
-    assert result == {"order": {"tradeid": "1234", "price": "0.8", "type": "STOP_LOSS", "timeinforce": "GTC",
-                                "triggercondition": "DEFAULT"}}
+    assert result == {'order': {'tradeID': 'DEFAULT', 'price': 'DEFAULT', 'type': 'DEFAULT', 'timeInForce': 'DEFAULT',
+                                'triggerCondition': 'DEFAULT'}}

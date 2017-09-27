@@ -25,11 +25,10 @@ def test_flatten_dict():
 
 # TODO write test to assert both versions of flatten dict produce same output
 
-@pytest.mark.parametrize('schema',
-                         filter(lambda x: x, map(lambda x: getattr(x, '_schema', None), types.__dict__.values())))
-def test_create_signature(schema):
+@pytest.mark.parametrize('cls', map(lambda x: getattr(types, x), types.__all__))
+def test_create_signature(cls):
     # Create the signature
-    result = create_signature(schema)
+    result = create_signature(cls)
     # Ensure result is a Signature
     assert type(result) == inspect.Signature
     # Create names to assert against
@@ -38,13 +37,14 @@ def test_create_signature(schema):
     assert all(map(lambda x: x.islower(), parameter_names))
 
     # Create a dict of all the default arguments
-    default_parameters = dict([(key.lower(), value.default)
-                               for key, value in schema.items()
+    default_parameters = dict([(cls.attribute_mapping[key], value.default)
+                               for key, value in cls._schema.items()
                                if not value.default == inspect._empty])
     # Create a dict of all the required arguments. Use the default value if there is one
-    required_parameters = dict([(key.lower(), 'TEST_PARAMETER')
-                                for key, value in schema.items()
+    required_parameters = dict([(cls.attribute_mapping[key], 'TEST_PARAMETER')
+                                for key, value in cls._schema.items()
                                 if value.required])
+
     # Ensure error occurs when required parameters are missing
     if required_parameters:
         with pytest.raises(TypeError):
@@ -52,7 +52,7 @@ def test_create_signature(schema):
 
     kwargs = required_parameters
     kwargs.update(default_parameters)
-    bound = result.bind(**kwargs)
+    bound = result.bind(*(None,),**kwargs)
     bound.apply_defaults()
     # Ensure that the default parameters are assigned correctly
     assert all(map(lambda x: bound.arguments[x[0]] == x[1], default_parameters.items()))
@@ -60,9 +60,9 @@ def test_create_signature(schema):
     assert all(map(lambda x: bound.arguments[x[0]] == x[1], required_parameters.items()))
 
 
-@pytest.mark.parametrize('cls', filter(lambda x: hasattr(x, '_schema'), types.__dict__.values()))
+@pytest.mark.parametrize('cls', map(lambda x: getattr(types, x), types.__all__))
 def test_assign_descriptors(cls):
-    descriptors = dict([(attr.lower(), schema_value.typ)
+    descriptors = dict([(cls.attribute_mapping[attr], schema_value.typ)
                    for attr, schema_value
                    in cls._schema.items()
                    if issubclass(schema_value.typ, Descriptor)])
