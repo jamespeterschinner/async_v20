@@ -1,16 +1,16 @@
 from .decorators import endpoint
-from ..definitions.types_remove import ClientExtensions
-from ..definitions.types_remove import InstrumentName
-from ..definitions.types_remove import StopLossDetails
-from ..definitions.types_remove import TakeProfitDetails
-from ..definitions.types_remove import TradeID
-from ..definitions.types_remove import TradeSpecifier
-from ..definitions.types_remove import TradeStateFilter
-from ..definitions.types_remove import TrailingStopLossDetails
+from ..definitions.types import ClientExtensions
+from ..definitions.types import InstrumentName
+from ..definitions.types import StopLossDetails
+from ..definitions.types import TakeProfitDetails
+from ..definitions.types import TradeID
+from ..definitions.types import TradeSpecifier
+from ..definitions.types import TradeStateFilter
+from ..definitions.types import TrailingStopLossDetails
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import Units
-from ..endpoints.trade_remove import *
+from ..endpoints.trade import *
 from .base import Interface
 __all__ = ['TradeInterface']
 

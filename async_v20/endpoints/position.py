@@ -1,7 +1,7 @@
 from .annotations import *
 from .base import EndPoint, Path
 from ..definitions.descriptors import *
-from ..definitions.types_remove import *
+from ..definitions.types import *
 
 __all__ = ['GETPositions', 'GETOpenPositions', 'GETPositionsInstrument', 'PUTPositionsInstrumentClose']
 

@@ -1,7 +1,7 @@
 import inspect
 
 import pytest
-from async_v20.definitions import types_remove
+from async_v20.definitions import types
 from async_v20.definitions.descriptors.base import Descriptor
 from async_v20.definitions.helpers import assign_descriptors
 from async_v20.definitions.helpers import async_flatten_dict
@@ -26,7 +26,7 @@ def test_flatten_dict():
 # TODO write test to assert both versions of flatten dict produce same output
 
 @pytest.mark.parametrize('schema',
-                         filter(lambda x: x, map(lambda x: getattr(x, '_schema', None), types_remove.__dict__.values())))
+                         filter(lambda x: x, map(lambda x: getattr(x, '_schema', None), types.__dict__.values())))
 def test_create_signature(schema):
     # Create the signature
     result = create_signature(schema)
@@ -60,7 +60,7 @@ def test_create_signature(schema):
     assert all(map(lambda x: bound.arguments[x[0]] == x[1], required_parameters.items()))
 
 
-@pytest.mark.parametrize('cls', filter(lambda x: hasattr(x, '_schema'), types_remove.__dict__.values()))
+@pytest.mark.parametrize('cls', filter(lambda x: hasattr(x, '_schema'), types.__dict__.values()))
 def test_assign_descriptors(cls):
     descriptors = dict([(attr.lower(), schema_value.typ)
                    for attr, schema_value

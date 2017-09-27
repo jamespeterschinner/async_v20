@@ -225,7 +225,8 @@ class LiquidityRegenerationSchedule(Model):
 
     _schema = {
         # The steps in the Liquidity Regeneration Schedule
-        'steps': SchemaValue(Array(LiquidityRegenerationScheduleStep))}
+        'steps': SchemaValue(Array(LiquidityRegenerationScheduleStep))
+    }
 
 
 class CandlestickData(Model):

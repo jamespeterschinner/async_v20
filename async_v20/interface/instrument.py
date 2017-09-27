@@ -1,9 +1,9 @@
 from .base import Interface
 from .decorators import endpoint
-from ..definitions.types_remove import CandlestickGranularity
-from ..definitions.types_remove import Instrument
-from ..definitions.types_remove import Price
-from ..definitions.types_remove import WeeklyAlignment
+from ..definitions.types import CandlestickGranularity
+from ..definitions.types import Instrument
+from ..definitions.types import Price
+from ..definitions.types import WeeklyAlignment
 from ..endpoints.annotations import AlignmentTimezone
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import DailyAlignment
@@ -11,7 +11,7 @@ from ..endpoints.annotations import FromDateTime
 from ..endpoints.annotations import Smooth
 from ..endpoints.annotations import ToDateTime
 from ..endpoints.annotations import includeFirst
-from ..endpoints.instrument_remove import *
+from ..endpoints.instrument import *
 
 __all__ = ['InstrumentInterface']
 

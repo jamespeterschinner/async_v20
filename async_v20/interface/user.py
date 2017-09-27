@@ -1,7 +1,7 @@
 from .base import Interface
 from .decorators import endpoint
 from ..endpoints.annotations import UserSpecifier
-from ..endpoints.user_remove import *
+from ..endpoints.user import *
 
 __all__ = ['UserInterface']
 

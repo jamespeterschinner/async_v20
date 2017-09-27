@@ -11,11 +11,6 @@ class IncorrectValue(Exception):
 class DescriptorProtocol(object):
 
     value = None
-    # def __init__(self, name=None, value=None):
-    #     self.value = value
-    #     self.name = name
-    #     if name is None:
-    #         self.name = self.__class__.__name__
 
     def __set__(self, instance, value):
         self.value = value

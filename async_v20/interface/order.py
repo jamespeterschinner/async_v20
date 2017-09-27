@@ -1,23 +1,23 @@
 from .base import Interface
 from .decorators import endpoint, add_signature
-from ..definitions.types_remove import ClientExtensions
-from ..definitions.types_remove import InstrumentName
-from ..definitions.types_remove import LimitOrderRequest
-from ..definitions.types_remove import MarketIfTouchedOrderRequest
-from ..definitions.types_remove import MarketOrderRequest
-from ..definitions.types_remove import OrderID
-from ..definitions.types_remove import OrderRequest
-from ..definitions.types_remove import OrderSpecifier
-from ..definitions.types_remove import OrderStateFilter
-from ..definitions.types_remove import StopLossOrderReason
-from ..definitions.types_remove import StopLossOrderRequest
-from ..definitions.types_remove import StopOrderRequest
-from ..definitions.types_remove import TakeProfitOrderRequest
-from ..definitions.types_remove import TrailingStopLossOrderRequest
+from ..definitions.types import ClientExtensions
+from ..definitions.types import InstrumentName
+from ..definitions.types import LimitOrderRequest
+from ..definitions.types import MarketIfTouchedOrderRequest
+from ..definitions.types import MarketOrderRequest
+from ..definitions.types import OrderID
+from ..definitions.types import OrderRequest
+from ..definitions.types import OrderSpecifier
+from ..definitions.types import OrderStateFilter
+from ..definitions.types import StopLossOrderReason
+from ..definitions.types import StopLossOrderRequest
+from ..definitions.types import StopOrderRequest
+from ..definitions.types import TakeProfitOrderRequest
+from ..definitions.types import TrailingStopLossOrderRequest
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import TradeClientExtensions
-from ..endpoints.order_remove import *
+from ..endpoints.order import *
 
 __all__ = ['OrderInterface']
 

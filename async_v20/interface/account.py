@@ -1,7 +1,7 @@
 from .base import Interface
 from .decorators import endpoint
-from ..definitions.types_remove import DecimalNumber
-from ..endpoints.account_remove import *
+from ..definitions.types import DecimalNumber
+from ..endpoints.account import *
 from ..endpoints.annotations import *
 
 __all__ = ['AccountInterface']

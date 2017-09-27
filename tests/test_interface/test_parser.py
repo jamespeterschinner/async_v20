@@ -1,11 +1,11 @@
 from collections import namedtuple
 
 import pytest
-from async_v20.definitions.types_remove import Account, AccountSummary, AccountProperties
-from async_v20.definitions.types_remove import Price, Position
-from async_v20.endpoints.account_remove import GETAccountID, GETAccountIDSummary, GETAccounts
+from async_v20.definitions.types import Account, AccountSummary, AccountProperties
+from async_v20.definitions.types import Price, Position
+from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary, GETAccounts
 from async_v20.endpoints.annotations import LastTransactionID
-from async_v20.endpoints.pricing_remove import GETPricingStream
+from async_v20.endpoints.pricing import GETPricingStream
 from async_v20.interface.parser import _rest_response
 from async_v20.interface.parser import _stream_parser
 

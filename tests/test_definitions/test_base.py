@@ -1,6 +1,6 @@
 import pytest
 from ..data.json_data import GETAccountID_response
-from async_v20.definitions.types_remove import Account
+from async_v20.definitions.types import Account
 from async_v20.definitions.base import Model
 @pytest.fixture
 def account():

@@ -1,4 +1,4 @@
-from .types_remove import *
+from .types import *
 from .descriptors import *
 
-__all__ = (types_remove.__all__ + descriptors.__all__)
+__all__ = (types.__all__ + descriptors.__all__)
