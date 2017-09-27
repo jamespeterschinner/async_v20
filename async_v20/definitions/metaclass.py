@@ -2,7 +2,7 @@ from functools import wraps
 
 from .helpers import assign_descriptors
 from .helpers import create_attribute
-from .helpers import create_attribute_mapping
+from .helpers import create_instance_attributes
 from .helpers import create_json_attributes
 from .helpers import create_signature
 from .helpers import flatten_dict
@@ -46,7 +46,7 @@ def auto_assign(func, signature):
         self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
 
         # Encapsulates the idea of an argument
-        kwargs = {self.__class__.attribute_mapping[key]: value for key, value in kwargs.items()}
+        kwargs = {self.__class__.instance_attributes[key]: value for key, value in kwargs.items()}
         bound = signature.bind(self, *args, **kwargs)
         bound.apply_defaults()
 
@@ -63,11 +63,11 @@ def auto_assign(func, signature):
 
 
 class ORM(type):
-    attribute_mapping = {}
+    instance_attributes = {}
     json_attributes = {}
     def __new__(mcs, *args, **kwargs):
         class_obj = super().__new__(mcs, *args, **kwargs)
-        mcs.attribute_mapping.update(create_attribute_mapping(class_obj))
+        mcs.instance_attributes.update(create_instance_attributes(class_obj))
         mcs.json_attributes.update(create_json_attributes(class_obj))
 
 

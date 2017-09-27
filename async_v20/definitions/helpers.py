@@ -59,7 +59,7 @@ def create_signature(cls):
     schema = cls._schema
 
     def create_parameter(key, schema_value):
-        name = cls.attribute_mapping[key]
+        name = cls.instance_attributes[key]
         annotation = schema_value.typ
         default = schema_value.default
         if default == _empty and schema_value.required is False:
@@ -80,10 +80,10 @@ def create_signature(cls):
 
     return Signature(sorted(parameters(schema), key=sort_key))
 
-def create_attribute_mapping(cls):
-    attribute_mapping = {key: underscore(key) for key in cls._schema}
-    attribute_mapping.update({value: value for value in attribute_mapping.values()})
-    return attribute_mapping
+def create_instance_attributes(cls):
+    instance_attributes = {key: underscore(key) for key in cls._schema}
+    instance_attributes.update({value: value for value in instance_attributes.values()})
+    return instance_attributes
 
 def create_json_attributes(cls):
     return {underscore(key): key for key in cls._schema}
@@ -92,7 +92,7 @@ def assign_descriptors(cls):
     for attr, schema_value in cls._schema.items():
         typ = schema_value.typ
         if issubclass(typ, Descriptor):
-            attr = cls.attribute_mapping[attr]
+            attr = cls.instance_attributes[attr]
             setattr(cls, attr, typ())
     return cls
 

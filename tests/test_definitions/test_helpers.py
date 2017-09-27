@@ -37,11 +37,11 @@ def test_create_signature(cls):
     assert all(map(lambda x: x.islower(), parameter_names))
 
     # Create a dict of all the default arguments
-    default_parameters = dict([(cls.attribute_mapping[key], value.default)
+    default_parameters = dict([(cls.instance_attributes[key], value.default)
                                for key, value in cls._schema.items()
                                if not value.default == inspect._empty])
     # Create a dict of all the required arguments. Use the default value if there is one
-    required_parameters = dict([(cls.attribute_mapping[key], 'TEST_PARAMETER')
+    required_parameters = dict([(cls.instance_attributes[key], 'TEST_PARAMETER')
                                 for key, value in cls._schema.items()
                                 if value.required])
 
@@ -62,7 +62,7 @@ def test_create_signature(cls):
 
 @pytest.mark.parametrize('cls', map(lambda x: getattr(types, x), types.__all__))
 def test_assign_descriptors(cls):
-    descriptors = dict([(cls.attribute_mapping[attr], schema_value.typ)
+    descriptors = dict([(cls.instance_attributes[attr], schema_value.typ)
                    for attr, schema_value
                    in cls._schema.items()
                    if issubclass(schema_value.typ, Descriptor)])
