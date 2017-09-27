@@ -37,12 +37,11 @@ async def _rest_response(self, response, endpoint):
 
 
 async def _stream_parser(response, endpoint):
-    print('STREAMING')
     async with response as resp:
         response_schema = endpoint.responses[resp.status]
         async for line in resp.content:
             body = json.loads(line)
-            key = body.pop('type')
+            key = body.get('type')
             yield dict([create_objects(response_schema, key, body)])
 
 

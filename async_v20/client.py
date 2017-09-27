@@ -5,7 +5,7 @@ from functools import partial
 import aiohttp
 from yarl import URL
 
-from .definitions.types import AcceptDatetimeFormat, AccountID
+from .definitions.types_remove import AcceptDatetimeFormat, AccountID
 from .endpoints.annotations import Authorization
 from .interface import *
 

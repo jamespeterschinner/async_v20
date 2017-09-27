@@ -29,7 +29,7 @@ class GETPricing(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'prices': Array(Price), 'time': DateTime}}
+    responses = {200: {'prices': Array[Price], 'time': DateTime}}
 
     # error msgs'
     error = (400, 401, 404, 405)

@@ -6,26 +6,18 @@ from .helpers import create_attribute
 from .helpers import create_signature
 from .helpers import flatten_dict
 
+class Array(object):
 
-class JSONArray(type):
-    def __getitem__(cls, obj):
-        class Array(object):
-            typ = obj
+    def __init__(self, typ):
+        self.typ = typ
 
-            def __new__(self, data: list):
-                try:
-                    return [create_attribute(self.typ, obj) for obj in data]
-                except TypeError as e:
-                    msg = f'FAILED TO CREATE OBJECT: {self.typ} FROM DATA: {data} DATA TYPE: {type(data)}'
-                    print(e.args)
-                    raise Exception(msg)
-
-
-        return Array
-
-
-class Array(metaclass=JSONArray):
-    pass
+    def __call__(self, data):
+        try:
+            return [create_attribute(self.typ, obj) for obj in data]
+        except TypeError as e:
+            msg = f'FAILED TO CREATE OBJECT: {self.typ} FROM DATA: {data} DATA TYPE: {type(data)}'
+            print(e.args)
+            raise Exception(msg)
 
 
 class Dispatch(dict):

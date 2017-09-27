@@ -3,7 +3,7 @@ import inspect
 import pytest
 from async_v20 import endpoints
 from async_v20.client import Client
-from async_v20.definitions.types import StopLossOrderRequest, Account
+from async_v20.definitions.types_remove import StopLossOrderRequest, Account
 from async_v20.endpoints import POSTOrders
 from async_v20.interface.helpers import _arguments
 from async_v20.interface.helpers import create_annotation_lookup

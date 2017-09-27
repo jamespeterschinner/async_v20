@@ -23,7 +23,7 @@ class GETAccounts(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'accounts': Array(AccountProperties)}}
+    responses = {200: {'accounts': Array[AccountProperties]}}
 
     # error msgs'
     error = (401, 405)
@@ -102,7 +102,7 @@ class GETAccountIDInstruments(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'instruments': Array(Instrument), 'lastTransactionID': TransactionID}}
+    responses = {200: {'instruments': Array[Instrument], 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (400, 401, 405)

@@ -32,7 +32,7 @@ class GETTrades(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'trades': Array(Trade), 'lastTransactionID': TransactionID}}
+    responses = {200: {'trades': Array[Trade], 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (401, 404, 405)
@@ -57,7 +57,7 @@ class GETOpenTrades(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'trades': Array(Trade), 'lastTransactionID': TransactionID}}
+    responses = {200: {'trades': Array[Trade], 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (401, 404, 405)
@@ -110,12 +110,12 @@ class PUTTradeSpecifierClose(EndPoint):
 
     # valid responses
     responses = {200: {'orderCreateTransaction': MarketOrderTransaction, 'orderFillTransaction': OrderFillTransaction,
-                       'orderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': Array(TransactionID),
+                       'orderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': Array[TransactionID],
                        'lastTransactionID': TransactionID},
                  400: {'orderRejectTransaction': MarketOrderRejectTransaction, 'errorCode': str,
                        'errorMessage': str},
                  404: {'orderRejectTransaction': MarketOrderRejectTransaction, 'lastTransactionID': TransactionID,
-                       'relatedTransactionIDs': Array(TransactionID), 'errorCode': str, 'errorMessage': str}}
+                       'relatedTransactionIDs': Array[TransactionID], 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
     error = (401, 405)
@@ -147,12 +147,12 @@ class PUTTradeSpecifierClientExtensions(EndPoint):
 
     # valid responses
     responses = {200: {'tradeClientExtensionsModifyTransaction': TradeClientExtensionsModifyTransaction,
-                       'relatedTransactionIDs': Array(TransactionID), 'lastTransactionID': TransactionID},
+                       'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID},
                  400: {'tradeClientExtensionsModifyRejectTransaction': TradeClientExtensionsModifyRejectTransaction,
-                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array(TransactionID),
+                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array[TransactionID],
                        'errorCode': str, 'errorMessage': str},
                  404: {'tradeClientExtensionsModifyRejectTransaction': TradeClientExtensionsModifyRejectTransaction,
-                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array(TransactionID),
+                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array[TransactionID],
                        'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
@@ -193,14 +193,14 @@ class PUTTradesSpecifierOrders(EndPoint):
                        'stopLossOrderCreatedCancelTransaction': OrderCancelTransaction,
                        'trailingStopLossOrderCancelTransaction': OrderCancelTransaction,
                        'trailingStopLossOrderTransaction': TrailingStopLossOrderTransaction,
-                       'relatedTransactionIDs': Array(TransactionID), 'lastTransactionID': TransactionID},
+                       'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID},
                  400: {'takeProfitOrderCancelRejectTransaction': OrderCancelRejectTransaction,
                        'takeProfitOrderRejectTransaction': TakeProfitOrderRejectTransaction,
                        'stopLossOrderCancelRejectTransaction': OrderCancelRejectTransaction,
                        'stopLossOrderRejectTransaction': StopLossOrderRejectTransaction,
                        'trailingStopLossOrderCancelRejectTransaction': OrderCancelRejectTransaction,
                        'trailingStopLossOrderRejectTransaction': TrailingStopLossOrderRejectTransaction,
-                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array(TransactionID),
+                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array[TransactionID],
                        'errorCode': str, 'errorMessage': str}}
 
     # error msgs'

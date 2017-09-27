@@ -31,8 +31,8 @@ class GETTransactions(EndPoint):
 
     # valid responses
     responses = {
-        200: {'from': DateTime, 'to': DateTime, 'pageSize': int, 'type': Array(TransactionFilter), 'count': int,
-              'pages': Array(str), 'lastTransactionID': TransactionID}}
+        200: {'from': DateTime, 'to': DateTime, 'pageSize': int, 'type': Array[TransactionFilter], 'count': int,
+              'pages': Array[str], 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (400, 401, 403, 404, 405, 416)
@@ -87,7 +87,7 @@ class GETIDrange(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'transactions': Array(Transaction), 'lastTransactionID': TransactionID}}
+    responses = {200: {'transactions': Array[Transaction], 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (400, 401, 404, 405, 416)
@@ -114,7 +114,7 @@ class GETSinceID(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'transactions': Array(Transaction), 'lastTransactionID': TransactionID}}
+    responses = {200: {'transactions': Array[Transaction], 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (400, 401, 404, 405, 416)

@@ -38,7 +38,7 @@ class GETInstrumentsCandles(EndPoint):
 
     # valid responses
     responses = {
-        200: {'instrument': InstrumentName, 'granularity': CandlestickGranularity, 'candles': Array(Candlestick)}}
+        200: {'instrument': InstrumentName, 'granularity': CandlestickGranularity, 'candles': Array[Candlestick]}}
 
     # error msgs'
     error = (400, 401, 404, 405)

@@ -24,7 +24,7 @@ class GETPositions(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'positions': Array(Position), 'lastTransactionID': TransactionID}}
+    responses = {200: {'positions': Array[Position], 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (401, 404, 405)
@@ -48,7 +48,7 @@ class GETOpenPositions(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'positions': Array(Position), 'lastTransactionID': TransactionID}}
+    responses = {200: {'positions': Array[Position], 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (401, 404, 405)
@@ -102,15 +102,15 @@ class PUTPositionsInstrumentClose(EndPoint):
         200: {'longOrderCreateTransaction': MarketOrderTransaction, 'longOrderFillTransaction': OrderFillTransaction,
               'longOrderCancelTransaction': OrderCancelTransaction,
               'shortOrderCreateTransaction': MarketOrderTransaction, 'shortOrderFillTransaction': OrderFillTransaction,
-              'shortOrderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': Array(TransactionID),
+              'shortOrderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': Array[TransactionID],
               'lastTransactionID': TransactionID},
         400: {'longOrderRejectTransaction': MarketOrderRejectTransaction,
               'shortOrderRejectTransaction': MarketOrderRejectTransaction,
-              'relatedTransactionIDs': Array(TransactionID), 'lastTransactionID': TransactionID, 'errorCode': str,
+              'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID, 'errorCode': str,
               'errorMessage': str},
         404: {'longOrderRejectTransaction': MarketOrderRejectTransaction,
               'shortOrderRejectTransaction': MarketOrderRejectTransaction,
-              'relatedTransactionIDs': Array(TransactionID), 'lastTransactionID': TransactionID, 'errorCode': str,
+              'relatedTransactionIDs': Array[TransactionID], 'lastTransactionID': TransactionID, 'errorCode': str,
               'errorMessage': str}}
 
     # error msgs'

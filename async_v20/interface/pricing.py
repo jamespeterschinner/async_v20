@@ -1,7 +1,7 @@
 from .base import Interface
 from .decorators import endpoint
 from ..endpoints.annotations import *
-from ..endpoints.pricing import *
+from ..endpoints.pricing_remove import *
 
 __all__ = ['PricingInterface']
 

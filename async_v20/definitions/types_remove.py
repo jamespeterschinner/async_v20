@@ -225,7 +225,7 @@ class LiquidityRegenerationSchedule(Model):
 
     _schema = {
         # The steps in the Liquidity Regeneration Schedule
-        'steps': SchemaValue(Array(LiquidityRegenerationScheduleStep))}
+        'steps': SchemaValue(Array[LiquidityRegenerationScheduleStep])}
 
 
 class CandlestickData(Model):
@@ -470,7 +470,7 @@ class PositionSide(Model):
         # Position.
         'averagePrice': SchemaValue(PriceValue),
         # List of the open Trade IDs which contribute to the open Position.
-        'tradeIDs': SchemaValue(Array(TradeID)),
+        'tradeIDs': SchemaValue(Array[TradeID]),
         # Profit/loss realized by the PositionSide over the lifetime of the
         # Account.
         'pl': SchemaValue(AccountUnits),
@@ -568,11 +568,11 @@ class ClientPrice(Model):
         # The list of prices and liquidity available on the Instrument’s bid side.
         # It is possible for this list to be empty if there is no bid liquidity
         # currently available for the Instrument in the Account.
-        'bids': SchemaValue(Array(PriceBucket)),
+        'bids': SchemaValue(Array[PriceBucket]),
         # The list of prices and liquidity available on the Instrument’s ask side.
         # It is possible for this list to be empty if there is no ask liquidity
         # currently available for the Instrument in the Account.
-        'asks': SchemaValue(Array(PriceBucket)),
+        'asks': SchemaValue(Array[PriceBucket]),
         # The closeout bid Price. This Price is used when a bid is required to
         # closeout a Position (margin closeout or manual) yet there is no bid
         # liquidity. The closeout bid is never used to open a new position.
@@ -724,7 +724,7 @@ class PositionFinancing(Model):
         # The amount of financing paid/collected for the Position.
         'financing': SchemaValue(AccountUnits),
         # The financing paid/collecte for each open Trade within the Position.
-        'openTradeFinancings': SchemaValue(Array(OpenTradeFinancing))
+        'openTradeFinancings': SchemaValue(Array[OpenTradeFinancing])
     }
 
 
@@ -797,7 +797,7 @@ class AccountProperties(Model):
         # if the Account is not an MT4 account.
         'mt4AccountID': SchemaValue(integer),
         # The Account’s tags
-        'tags': SchemaValue(Array(string))
+        'tags': SchemaValue(Array[string])
     }
 
 
@@ -868,7 +868,7 @@ class OrderBook(Model):
         # The partitioned order book, divided into buckets using a default bucket
         # width. These buckets are only provided for price ranges which actually
         # contain order or position data.
-        'buckets': SchemaValue(Array(OrderBookBucket))
+        'buckets': SchemaValue(Array[OrderBookBucket])
     }
 
 
@@ -901,7 +901,7 @@ class PositionBook(Model):
         # The partitioned position book, divided into buckets using a default
         # bucket width. These buckets are only provided for price ranges which
         # actually contain order or position data.
-        'buckets': SchemaValue(Array(PositionBookBucket))
+        'buckets': SchemaValue(Array[PositionBookBucket])
     }
 
 
@@ -1114,7 +1114,7 @@ class TradeSummary(Model):
         # been closed or reduced at least once.
         'averageClosePrice': SchemaValue(PriceValue),
         # The IDs of the Transactions that have closed portions of this Trade.
-        'closingTransactionIDs': SchemaValue(Array(TransactionID)),
+        'closingTransactionIDs': SchemaValue(Array[TransactionID]),
         # The financing paid/collected for this Trade.
         'financing': SchemaValue(AccountUnits),
         # The date/time when the Trade was fully closed. Only provided for Trades
@@ -1388,11 +1388,11 @@ class AccountChangesState(Model):
         # Account is in a margin call situation.
         'marginCallPercent': SchemaValue(DecimalNumber),
         # The price-dependent state of each pending Order in the Account.
-        'orders': SchemaValue(Array(DynamicOrderState)),
+        'orders': SchemaValue(Array[DynamicOrderState]),
         # The price-dependent state for each open Trade in the Account.
-        'trades': SchemaValue(Array(CalculatedTradeState)),
+        'trades': SchemaValue(Array[CalculatedTradeState]),
         # The price-dependent state for each open Position in the Account.
-        'positions': SchemaValue(Array(CalculatedPositionState))
+        'positions': SchemaValue(Array[CalculatedPositionState])
     }
 
 
@@ -1438,11 +1438,11 @@ class Price(Model):
         # The list of prices and liquidity available on the Instrument’s bid side.
         # It is possible for this list to be empty if there is no bid liquidity
         # currently available for the Instrument in the Account.
-        'bids': SchemaValue(Array(PriceBucket)),
+        'bids': SchemaValue(Array[PriceBucket]),
         # The list of prices and liquidity available on the Instrument’s ask side.
         # It is possible for this list to be empty if there is no ask liquidity
         # currently available for the Instrument in the Account.
-        'asks': SchemaValue(Array(PriceBucket)),
+        'asks': SchemaValue(Array[PriceBucket]),
         # The closeout bid Price. This Price is used when a bid is required to
         # closeout a Position (margin closeout or manual) yet there is no bid
         # liquidity. The closeout bid is never used to open a new position.
@@ -2233,7 +2233,7 @@ class DailyFinancingTransaction(Transaction):
         # The account financing mode at the time of the daily financing.
         'accountFinancingMode': SchemaValue(AccountFinancingMode),
         # The financing paid/collected for each Position in the Account.
-        'positionFinancings': SchemaValue(Array(PositionFinancing))
+        'positionFinancings': SchemaValue(Array[PositionFinancing])
     }
 
 
@@ -2731,7 +2731,7 @@ class TakeProfitOrder(Order):
         # Trade IDs of Trades closed when the Order was filled (only provided when
         # the Order’s state is FILLED and one or more Trades were closed as a
         # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
+        'tradeClosedIDs': SchemaValue(Array[TradeID]),
         # ID of the Transaction that cancelled the Order (only provided when the
         # Order’s state is CANCELLED)
         'cancellingTransactionID': SchemaValue(TransactionID),
@@ -2853,7 +2853,7 @@ class StopLossOrder(Order):
         # Trade IDs of Trades closed when the Order was filled (only provided when
         # the Order’s state is FILLED and one or more Trades were closed as a
         # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
+        'tradeClosedIDs': SchemaValue(Array[TradeID]),
         # ID of the Transaction that cancelled the Order (only provided when the
         # Order’s state is CANCELLED)
         'cancellingTransactionID': SchemaValue(TransactionID),
@@ -2988,7 +2988,7 @@ class TrailingStopLossOrder(Order):
         # Trade IDs of Trades closed when the Order was filled (only provided when
         # the Order’s state is FILLED and one or more Trades were closed as a
         # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
+        'tradeClosedIDs': SchemaValue(Array[TradeID]),
         # ID of the Transaction that cancelled the Order (only provided when the
         # Order’s state is CANCELLED)
         'cancellingTransactionID': SchemaValue(TransactionID),
@@ -3067,7 +3067,7 @@ class Trade(Model):
         # been closed or reduced at least once.
         'averageClosePrice': SchemaValue(PriceValue),
         # The IDs of the Transactions that have closed portions of this Trade.
-        'closingTransactionIDs': SchemaValue(Array(TransactionID)),
+        'closingTransactionIDs': SchemaValue(Array[TransactionID]),
         # The financing paid/collected for this Trade.
         'financing': SchemaValue(AccountUnits),
         # The date/time when the Trade was fully closed. Only provided for Trades
@@ -4346,7 +4346,7 @@ class LimitOrder(Order):
         # Trade IDs of Trades closed when the Order was filled (only provided when
         # the Order’s state is FILLED and one or more Trades were closed as a
         # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
+        'tradeClosedIDs': SchemaValue(Array[TradeID]),
         # ID of the Transaction that cancelled the Order (only provided when the
         # Order’s state is CANCELLED)
         'cancellingTransactionID': SchemaValue(TransactionID),
@@ -4523,7 +4523,7 @@ class MarketIfTouchedOrder(Order):
         # Trade IDs of Trades closed when the Order was filled (only provided when
         # the Order’s state is FILLED and one or more Trades were closed as a
         # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
+        'tradeClosedIDs': SchemaValue(Array[TradeID]),
         # ID of the Transaction that cancelled the Order (only provided when the
         # Order’s state is CANCELLED)
         'cancellingTransactionID': SchemaValue(TransactionID),
@@ -4689,7 +4689,7 @@ class StopOrder(Order):
         # Trade IDs of Trades closed when the Order was filled (only provided when
         # the Order’s state is FILLED and one or more Trades were closed as a
         # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
+        'tradeClosedIDs': SchemaValue(Array[TradeID]),
         # ID of the Transaction that cancelled the Order (only provided when the
         # Order’s state is CANCELLED)
         'cancellingTransactionID': SchemaValue(TransactionID),
@@ -4796,7 +4796,7 @@ class OrderFillTransaction(Transaction):
         'tradeOpened': SchemaValue(TradeOpen),
         # The Trades that were closed when the Order was filled (only provided if
         # filling the Order resulted in a closing open Trades).
-        'tradesClosed': SchemaValue(Array(TradeReduce)),
+        'tradesClosed': SchemaValue(Array[TradeReduce]),
         # The Trade that was reduced when the Order was filled (only provided if
         # filling the Order resulted in reducing an open Trade).
         'tradeReduced': SchemaValue(TradeReduce)}
@@ -6028,7 +6028,7 @@ class MarketOrder(Order):
         # Trade IDs of Trades closed when the Order was filled (only provided when
         # the Order’s state is FILLED and one or more Trades were closed as a
         # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
+        'tradeClosedIDs': SchemaValue(Array[TradeID]),
         # ID of the Transaction that cancelled the Order (only provided when the
         # Order’s state is CANCELLED)
         'cancellingTransactionID': SchemaValue(TransactionID),
@@ -6182,11 +6182,11 @@ class Account(AccountSummary):
         # The ID of the last Transaction created for the Account.
         'lastTransactionID': SchemaValue(TransactionID),
         # The details of the Trades currently open in the Account.
-        'trades': SchemaValue(Array(TradeSummary)),
+        'trades': SchemaValue(Array[TradeSummary]),
         # The details all Account Positions.
-        'positions': SchemaValue(Array(Position)),
+        'positions': SchemaValue(Array[Position]),
         # The details of the Orders currently pending in the Account.
-        'orders': SchemaValue(Array(Order)),
+        'orders': SchemaValue(Array[Order]),
         # TODO: This attribute isn't documented in OANDA's website
         'financing': SchemaValue(DecimalNumber)
     }
@@ -6214,21 +6214,21 @@ class AccountChanges(Model):
     _schema = {
         # The Orders created. These Orders may have been filled, cancelled or
         # triggered in the same period.
-        'ordersCreated': SchemaValue(Array(Order)),
+        'ordersCreated': SchemaValue(Array[Order]),
         # The Orders cancelled.
-        'ordersCancelled': SchemaValue(Array(Order)),
+        'ordersCancelled': SchemaValue(Array[Order]),
         # The Orders filled.
-        'ordersFilled': SchemaValue(Array(Order)),
+        'ordersFilled': SchemaValue(Array[Order]),
         # The Orders triggered.
-        'ordersTriggered': SchemaValue(Array(Order)),
+        'ordersTriggered': SchemaValue(Array[Order]),
         # The Trades opened.
-        'tradesOpened': SchemaValue(Array(TradeSummary)),
+        'tradesOpened': SchemaValue(Array[TradeSummary]),
         # The Trades reduced.
-        'tradesReduced': SchemaValue(Array(TradeSummary)),
+        'tradesReduced': SchemaValue(Array[TradeSummary]),
         # The Trades closed.
-        'tradesClosed': SchemaValue(Array(TradeSummary)),
+        'tradesClosed': SchemaValue(Array[TradeSummary]),
         # The Positions changed.
-        'positions': SchemaValue(Array(Position)),
+        'positions': SchemaValue(Array[Position]),
         # The Transactions that have been generated.
-        'transactions': SchemaValue(Array(Transaction))
+        'transactions': SchemaValue(Array[Transaction])
     }

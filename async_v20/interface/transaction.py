@@ -1,10 +1,10 @@
 from .decorators import endpoint
-from ..definitions.types import TransactionID
+from ..definitions.types_remove import TransactionID
 from ..endpoints.annotations import FromDateTime
 from ..endpoints.annotations import PageSize
 from ..endpoints.annotations import ToDateTime
 from ..endpoints.annotations import Type
-from ..endpoints.transaction import *
+from ..endpoints.transaction_remove import *
 from .base import Interface
 __all__ = ['TransactionInterface']
 

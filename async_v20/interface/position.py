@@ -1,11 +1,11 @@
 from .base import Interface
 from .decorators import endpoint
-from ..definitions.types import InstrumentName
+from ..definitions.types_remove import InstrumentName
 from ..endpoints.annotations import LongClientExtensions
 from ..endpoints.annotations import LongUnits
 from ..endpoints.annotations import ShortClientExtensions
 from ..endpoints.annotations import ShortUnits
-from ..endpoints.position import *
+from ..endpoints.position_remove import *
 
 __all__ = ['PositionInterface']
 

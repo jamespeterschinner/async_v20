@@ -1,6 +1,6 @@
-from ..definitions.types import ClientExtensions
-from ..definitions.types import DateTime
-from ..definitions.types import TransactionID
+from ..definitions.types_remove import ClientExtensions
+from ..definitions.types_remove import DateTime
+from ..definitions.types_remove import TransactionID
 
 
 class Authorization(str):
