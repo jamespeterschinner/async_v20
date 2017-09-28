@@ -51,12 +51,14 @@ def auto_assign(func, signature):
         bound.apply_defaults()
 
         annotations = {attr: param.annotation for attr, param in signature.parameters.items()}
-        arguments = ((attr, annotations[attr], value) for attr, value in bound.arguments.items()
-                     if value is not None and attr != 'self')
+        arguments = [(attr, annotations[attr], value) for attr, value in bound.arguments.items()
+                     if value is not None and attr != 'self']
+
 
         for name, annotation, value in arguments:
             self._fields.append(name)
-            setattr(self, name, create_attribute(annotation, value))
+            attribute_value = create_attribute(annotation, value)
+            setattr(self, name, attribute_value)
 
     __init__.__signature__ = signature
     return __init__

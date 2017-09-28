@@ -93,7 +93,7 @@ def assign_descriptors(cls):
         typ = schema_value.typ
         if issubclass(typ, Descriptor):
             attr = cls.instance_attributes[attr]
-            setattr(cls, attr, typ())
+            setattr(cls, attr, typ(name='_' + attr))
     return cls
 
 def create_attribute(typ, data):

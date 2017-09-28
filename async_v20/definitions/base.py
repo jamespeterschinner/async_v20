@@ -1,4 +1,5 @@
 import pandas as pd
+import ujson as json
 
 from .helpers import async_flatten_dict
 from .metaclass import *
@@ -11,7 +12,6 @@ class Model(metaclass=ORM):
 
     # More info about this code be found in PEP 487 https://www.python.org/dev/peps/pep-0487/
     def __init_subclass__(cls, **kwargs):
-        # super().__init_subclass__(**kwargs)
         dispatch_key = cls._schema.get('type', None)
         if dispatch_key:
             cls._dispatch.update({dispatch_key.default: cls})
@@ -33,12 +33,20 @@ class Model(metaclass=ORM):
     async def json_dict(self):
         async def get_object_fields(attr):
             attr = getattr(self, attr)
-            if isinstance(attr, Model):
-                attr = await attr.json_dict()
-            return str(attr)
+            if not isinstance(attr, (int, float, str)):
+                try:
+                    attr = await attr.json_dict()
+                except AttributeError:
+                    attr = [await obj.json_dict() for obj in attr]
+            elif isinstance(attr, float):
+                attr = str(attr)
+            return attr
 
         return {self.__class__.json_attributes[attr]: await get_object_fields(attr)
                 for attr in self._fields}
+
+    async def json_data(self):
+        return json.dumps({await self.json_dict()})
 
     async def data(self):
         return await async_flatten_dict(await self.json_dict())

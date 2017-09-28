@@ -12,16 +12,21 @@ class DescriptorProtocol(object):
 
     value = None
 
+    def __init__(self, name):
+        self.name = name
+
     def __set__(self, instance, value):
-        instance._value = value
+        setattr(instance, self.name, value)
 
     def __get__(self, instance, owner):
         if instance is None:
             return self
-        return instance._value
+        return getattr(instance, self.name)
 
     def __delete__(self, instance, value):
-        del instance._value
+        pass
+        # TODO implement this
+        # del getattr(instance, self.name)
 
 
 class Descriptor(DescriptorProtocol):
@@ -30,7 +35,7 @@ class Descriptor(DescriptorProtocol):
     values = None
 
 
-    def __new__(cls, value=None):
+    def __new__(cls, value=None, *, name=None):
         if value is not None:
             return cls.typ(value)
         else:
@@ -63,4 +68,4 @@ class Descriptor(DescriptorProtocol):
                 msg = f'{value} must be in {self.values}. Possible values are {possible_values}'
                 raise IncorrectValue(msg)
 
-        instance._value = value
+        setattr(instance, self.name, value)

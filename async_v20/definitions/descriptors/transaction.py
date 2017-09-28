@@ -329,7 +329,7 @@ class TransactionID(Descriptor):
     """
 
     # Type checking
-    typ = int
+    typ = str
 
     # Correct syntax of value
     format_syntax = 'String representation of the numerical OANDA-assigned TransactionID'
