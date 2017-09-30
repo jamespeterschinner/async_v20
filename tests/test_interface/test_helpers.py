@@ -12,6 +12,7 @@ from async_v20.interface.helpers import make_args_optional
 from hypothesis.strategies import text, sampled_from
 
 from ..data.json_data import GETAccountID_response
+from .helpers import order_dict
 
 client_attrs = [getattr(Client, attr) for attr in dir(Client)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
@@ -82,23 +83,15 @@ async def test_request_body_is_constructed_correctly(stop_loss_order):
                                 'triggerCondition': 'DEFAULT'}}
 
 
-def ordered(obj):
-    if isinstance(obj, dict):
-        return sorted((k, ordered(v)) for k, v in obj.items())
-    if isinstance(obj, list):
-        return sorted(ordered(x) for x in obj)
-    else:
-        return obj
-
 
 @pytest.mark.asyncio
-async def test_objects_can_be_converted_between_python_and_json():
+async def test_objects_can_be_converted_between_Model_object_and_json():
     account = Account(**GETAccountID_response['account'])
     response_json_account = GETAccountID_response['account']
     account_to_json = await account.json_dict()
 
-    response_json_account = ordered(response_json_account)
-    account_to_json = ordered(account_to_json)
+    response_json_account = order_dict(response_json_account)
+    account_to_json = order_dict(account_to_json)
     print('SERVER DATA')
     print(response_json_account)
     print('ASYNC_20 DATA')

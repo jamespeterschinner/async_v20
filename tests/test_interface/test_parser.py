@@ -6,14 +6,18 @@ from async_v20.definitions.types import Price, Position
 from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary, GETAccounts
 from async_v20.endpoints.annotations import LastTransactionID
 from async_v20.endpoints.pricing import GETPricingStream
+from async_v20.endpoints.instrument import GETInstrumentsCandles
 from async_v20.interface.parser import _rest_response
 from async_v20.interface.parser import _stream_parser
+from async_v20.interface.parser import _create_response
 
 from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETAccountIDSummary_response
 from tests.data.json_data import GETAccountID_response
+from tests.data.json_data import GETInstrumentsCandles_response
 from tests.data.stream_data import price_bytes
 
+from .helpers import order_dict
 @pytest.fixture
 @pytest.mark.asyncio
 async def stream_generator():
@@ -136,3 +140,15 @@ async def test_rest_response_updates_client_default_parameters(client_instance, 
     # Ensure default_parameters is updated
     assert client_instance.default_parameters[LastTransactionID] == str(14)
 
+@pytest.mark.asyncio
+@pytest.mark.parametrize('json_body, schema', [(GETInstrumentsCandles_response, GETInstrumentsCandles.responses[200]),
+                                               (GETAccounts_response, GETAccounts.responses[200]),
+                                               (GETAccountIDSummary_response, GETAccountIDSummary.responses[200])])
+async def test_conversion_from_server_json_to_response_object_to_json_equal(json_body, schema):
+    response = await _create_response(json_body, schema)
+    response_json = await response.json_dict()
+    pretty_json_body = order_dict(json_body)
+    pretty_response_json = order_dict(response_json)
+    print('SERVER JSON:\n', pretty_json_body)
+    print('Response JSON:\n', pretty_response_json)
+    assert response_json == json_body

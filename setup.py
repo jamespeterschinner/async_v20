@@ -11,5 +11,7 @@ setup(name='async_v20',
       install_requires=['aiohttp>=2.2.5',
                         'pytest>=3.2.2',
                         'ujson==1.35',
-                        'yarl==0.12.0']
+                        'yarl==0.12.0',
+                        'inflection==0.3.1',
+                        'pandas==0.20.3']
 )

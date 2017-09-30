@@ -3,12 +3,16 @@ import ujson as json
 from ..definitions.helpers import create_attribute
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.other_responses import other_responses
+from .response import Response
 
 
-def create_objects(schema, key, data):
+def _create_objects(schema, key, data):
     typ = schema.get(key)
     return key, create_attribute(typ, data)
 
+async def _create_response(json_body, schema):
+    return Response([_create_objects(schema, json_object, object_field)
+                 for json_object, object_field in json_body.items()])
 
 async def _rest_response(self, response, endpoint):
     async with response as resp:
@@ -29,20 +33,17 @@ async def _rest_response(self, response, endpoint):
     except KeyError:
         schema = other_responses[status]  # See if a response status is an error code
 
-    async def create(json_data, schema):
-        return dict([create_objects(schema, json_object, object_field)
-                     for json_object, object_field in json_data.items()])
-
-    return await create(json_body, schema)
+    return await _create_response(json_body, schema)
 
 
 async def _stream_parser(response, endpoint):
     async with response as resp:
-        response_schema = endpoint.responses[resp.status]
+        schema = endpoint.responses[resp.status]
         async for line in resp.content:
             body = json.loads(line)
             key = body.get('type')
-            yield dict([create_objects(response_schema, key, body)])
+            json_body = {key: body}
+            yield await _create_response(json_body, schema)
 
 
 async def parse_response(self, response, endpoint):

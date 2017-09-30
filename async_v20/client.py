@@ -23,10 +23,6 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
         stream_host: -- The hostname of the v20 REST server
         stream_port: -- The port of the v20 REST server
         application: Optional name of the application using the v20 bindings
-        stream_chunk_size: -- The size of each chunk to read when processing a
-            stream response
-        stream_timeout: -- The timeout to use when making a stream request
-            with the v20 REST server
         datetime_format: -- The format to request when dealing with times
         poll_timeout: -- The timeout to use when making a polling request with
             the v20 REST server
@@ -40,8 +36,8 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
     session = None
 
     def __init__(self, token=os.environ['OANDA_TOKEN'], rest_host='api-fxpractice.oanda.com', rest_port=443,
-                 stream_host='stream-fxpractice.oanda.com', stream_port=None, application="async_v20",
-                 stream_chunk_size=512, stream_timeout=10, datetime_format="RFC3339", poll_timeout=2):
+                 stream_host='stream-fxpractice.oanda.com', stream_port=None, application='async_v20',
+                 datetime_format='UNIX', poll_timeout=2):
         self.application = application
 
         # V20 REST API URL
@@ -51,14 +47,6 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
         stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme='https')
 
         self.hosts = {'REST': rest_host, 'STREAM': stream_host}
-
-        # The size of each chunk to read when processing a stream
-        # response
-        self.stream_chunk_size = stream_chunk_size
-
-        # The timeout to use when making a stream request with the
-        # v20 REST server
-        self.stream_timeout = stream_timeout
 
         # The timeout to use when making a polling request with the
         # v20 REST server
