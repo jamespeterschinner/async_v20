@@ -2,7 +2,7 @@ import inspect
 
 import pytest
 from async_v20 import endpoints
-from async_v20.client import Client
+from async_v20.client import OandaClient
 from async_v20.definitions.types import StopLossOrderRequest, Account
 from async_v20.endpoints import POSTOrders
 from async_v20.interface.helpers import _arguments
@@ -11,10 +11,10 @@ from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import make_args_optional
 from hypothesis.strategies import text, sampled_from
 
-from ..data.json_data import GETAccountID_response
 from .helpers import order_dict
+from ..data.json_data import GETAccountID_response
 
-client_attrs = [getattr(Client, attr) for attr in dir(Client)]
+client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
 
@@ -76,7 +76,7 @@ def stop_loss_order():
 
 @pytest.mark.asyncio
 async def test_request_body_is_constructed_correctly(stop_loss_order):
-    result = await create_body(POSTOrders.request_schema,
+    result = create_body(POSTOrders.request_schema,
                                {'irrelevant': stop_loss_order, 'test': Account(), 'arg': 'random_string'})
     print(result)
     assert result == {'order': {'tradeID': 1234, 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
@@ -88,7 +88,7 @@ async def test_request_body_is_constructed_correctly(stop_loss_order):
 async def test_objects_can_be_converted_between_Model_object_and_json():
     account = Account(**GETAccountID_response['account'])
     response_json_account = GETAccountID_response['account']
-    account_to_json = await account.json_dict()
+    account_to_json = account.json_dict()
 
     response_json_account = order_dict(response_json_account)
     account_to_json = order_dict(account_to_json)

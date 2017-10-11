@@ -1,13 +1,14 @@
-import pandas as pd
 import ujson as json
 
-from .helpers import async_flatten_dict
+import pandas as pd
+
 from .metaclass import *
 
 
 class Model(metaclass=ORM):
     _schema = {}
     _fields = []
+    _delimiter = '_'
     _derived = None
 
     # More info about this code be found in PEP 487 https://www.python.org/dev/peps/pep-0487/
@@ -30,26 +31,26 @@ class Model(metaclass=ORM):
         return self.__class__.__name__
 
     # Recursion might be an issue
-    async def json_dict(self):
-        async def get_object_fields(attr):
+    def json_dict(self):
+        def get_object_fields(attr):
             attr = getattr(self, attr)
             if not isinstance(attr, (int, float, str)):
                 try:
-                    attr = await attr.json_dict()
+                    attr = attr.json_dict()
                 except AttributeError:
-                    attr = [await obj.json_dict() for obj in attr]
+                    attr = [obj.json_dict() for obj in attr]
             elif isinstance(attr, float):
                 attr = str(attr)
             return attr
 
-        return {self.__class__.json_attributes[attr]: await get_object_fields(attr)
+        return {self.__class__.json_attributes[attr]: get_object_fields(attr)
                 for attr in self._fields}
 
-    async def json_data(self):
-        return json.dumps({await self.json_dict()})
+    def json_data(self):
+        return json.dumps({self.json_dict()})
 
-    async def data(self):
-        return await async_flatten_dict(await self.json_dict())
+    def data(self):
+        return flatten_dict(self.json_dict(), self._delimiter)
 
-    async def series(self):
-        return pd.Series(dict(self.template, **await self.data()))
+    def series(self):
+        return pd.Series(dict(self.template, **self.data()))

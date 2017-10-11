@@ -1,18 +1,18 @@
-import json
 import os
 from functools import partial
 
-import aiohttp
 from yarl import URL
 
-from .definitions.types import AcceptDatetimeFormat, AccountID
+from .definitions.types import AcceptDatetimeFormat
 from .endpoints.annotations import Authorization
+from .helpers import request_limiter, initialize_client
 from .interface import *
 
 
-class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface, PricingInterface,
-             TradeInterface,
-             TransactionInterface, UserInterface):
+class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
+                  PricingInterface,
+                  TradeInterface,
+                  TransactionInterface, UserInterface):
     """
     Create an API context for v20 access
 
@@ -27,17 +27,20 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
         poll_timeout: -- The timeout to use when making a polling request with
             the v20 REST server
     """
+
     default_parameters = {}
 
-    initialized = False
+    initialized = 0
 
     account = None
 
     session = None
 
+    loop = None
+
     def __init__(self, token=os.environ['OANDA_TOKEN'], rest_host='api-fxpractice.oanda.com', rest_port=443,
                  stream_host='stream-fxpractice.oanda.com', stream_port=None, application='async_v20',
-                 datetime_format='UNIX', poll_timeout=2):
+                 datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99, max_simultaneous_connections=10):
         self.application = application
 
         # V20 REST API URL
@@ -52,41 +55,24 @@ class Client(AccountInterface, InstrumentInterface, OrderInterface, PositionInte
         # v20 REST server
         self.poll_timeout = poll_timeout
 
-        # This is the default parameter dictionary. Client Methods that require certain parameters
+        # TODO limit this to > 0
+        # Limit new requests to a certain rate
+        self.max_requests_per_second = max_requests_per_second
+
+        # TODO limit this to > 0
+        # Limit concurrent connections
+        self.max_simultaneous_connections = max_simultaneous_connections
+
+        # This is the default parameter dictionary. OandaClient Methods that require certain parameters
         # that are  not explicitly passed will try to find it in this dict
         self.default_parameters.update(
             {Authorization: 'Bearer {}'.format(token),
              AcceptDatetimeFormat: datetime_format}
         )
 
-    async def initialize(self):
-        if self.initialized:
-            return True
+        self.request = request_limiter(self)
 
-        # This needs to be set before calling and endpoints
-        # Else initialise will be called multiple times.
-        self.initialized = True
+        self.initialize = initialize_client(self)
 
-        headers = {'Content-Type': 'application/json', 'Connection': 'keep-alive', 'OANDA-Agent': self.application}
-        self.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers)
 
-        # Get the first account listed in in accounts
-        response = await self.list_accounts()
 
-        # Get the corresponding AccountID for the provided token
-        self.default_parameters.update({AccountID: response['accounts'][0].id})
-
-        # Get Account snapshot and last transaction id
-        # last transaction is automatically updated when the
-        # response is parsed
-        response = await self.get_account_details()
-        self.account = response['account']
-
-        # Get the list of all available instruments for this account
-        response = await self.account_instruments()
-        self.account_instruments = response['instruments']
-
-        return True
-
-    async def poll_account(self, interval=None):
-        response = await self.account_changes()

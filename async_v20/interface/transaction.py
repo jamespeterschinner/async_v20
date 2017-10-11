@@ -1,26 +1,27 @@
+from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import TransactionID
-from ..endpoints.annotations import FromDateTime
+from ..endpoints.annotations import FromTime
 from ..endpoints.annotations import PageSize
-from ..endpoints.annotations import ToDateTime
+from ..endpoints.annotations import ToTime
 from ..endpoints.annotations import Type
 from ..endpoints.transaction import *
-from .base import Interface
+
 __all__ = ['TransactionInterface']
 
 class TransactionInterface(Interface):
     @endpoint(GETTransactions)
-    def list_transactions(self, from_date_time: FromDateTime, to_date_time: ToDateTime, page_size: PageSize,
+    def list_transactions(self, from_time: FromTime, to_time: ToTime, page_size: PageSize,
                           type_: Type):
         """
         Get a list of Transactions pages that satisfy a time-based Transaction
         query.
 
         Args:
-            from_date_time:
+            from_time:
                 The starting time (inclusive) of the time range for the
                 Transactions being queried.
-            to_date_time:
+            to_time:
                 The ending time (inclusive) of the time range for the
                 Transactions being queried.
             page_size:
@@ -51,15 +52,15 @@ class TransactionInterface(Interface):
         pass
 
     @endpoint(GETIDrange)
-    def transaction_range(self, from_date_time: FromDateTime, to_date_time: ToDateTime, type_: Type):
+    def transaction_range(self, from_time: FromTime, to_time: ToTime, type_: Type):
         """
         Get a range of Transactions for an Account based on the Transaction
         IDs.
 
         Args:
-            from_date_time:
+            from_time:
                 The starting Transaction ID (inclusive) to fetch.
-            to_date_time:
+            to_time:
                 The ending Transaction ID (inclusive) to fetch.
             type_:
                 The filter that restricts the types of Transactions to

@@ -1,15 +1,16 @@
 import asyncio
 
-from async_v20.client import Client
+from async_v20.client import OandaClient
 
 
 async def candles():
-    client = Client()
+    client = OandaClient()
     try:
-        candles = await client.get_candles('AUD_USD')
+        candles_1 = await client.get_candles('AUD_USD')
+        candles_2 = await client.get_candles('EUR_USD')
     finally:
         client.session.close()
-    return candles
+    return candles_1, candles_2
 
 
 loop = asyncio.get_event_loop()

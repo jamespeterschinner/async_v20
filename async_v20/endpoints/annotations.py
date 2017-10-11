@@ -71,11 +71,11 @@ class UserSpecifier(str):
     pass
 
 
-class FromDateTime(DateTime):
+class FromTime(DateTime):
     pass
 
 
-class ToDateTime(DateTime):
+class ToTime(DateTime):
     pass
 
 

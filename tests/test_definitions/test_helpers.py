@@ -4,7 +4,7 @@ import pytest
 from async_v20.definitions import types
 from async_v20.definitions.descriptors.base import Descriptor
 from async_v20.definitions.helpers import assign_descriptors
-from async_v20.definitions.helpers import async_flatten_dict
+# from async_v20.definitions.helpers import async_flatten_dict
 from async_v20.definitions.helpers import create_signature
 from async_v20.definitions.helpers import flatten_dict
 
@@ -12,18 +12,16 @@ nested_dict = {'a': {'b': 2, 'c': {'d': 4}}}
 flattened_dict = {'a_b': 2, 'a_c_d': 4}
 
 
-@pytest.mark.asyncio
-async def test_async_flatten_dict():
-    result = await async_flatten_dict(nested_dict, delimiter='_')
-    assert result == flattened_dict
+# @pytest.mark.asyncio
+# async def test_async_flatten_dict():
+#     result = await async_flatten_dict(nested_dict, delimiter='_')
+#     assert result == flattened_dict
 
 
 def test_flatten_dict():
     result = flatten_dict(nested_dict, delimiter='_')
     assert result == flattened_dict
 
-
-# TODO write test to assert both versions of flatten dict produce same output
 
 @pytest.mark.parametrize('cls', map(lambda x: getattr(types, x), types.__all__))
 def test_create_signature(cls):

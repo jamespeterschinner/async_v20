@@ -1,5 +1,4 @@
 """Module that defines the behaviour of the exposed client method calls by using decorators"""
-
 from functools import wraps
 from inspect import signature
 
@@ -9,12 +8,11 @@ from .parser import parse_response
 
 
 async def serial_request_async_generator():
-    self, endpoint, sig, args, kwargs = yield
+    self, request_args, endpoint = yield
     while True:
-        request_kwargs = await create_request_kwargs(self, endpoint, sig, *args, **kwargs)
-        print(request_kwargs)
-        response = self.session.request(**request_kwargs)
-        self, endpoint, sig, args, kwargs = yield await parse_response(self, response, endpoint)
+        request = await self.request.asend(None)
+        response = request(**request_args)
+        self, request_args, endpoint = yield await parse_response(self, response, endpoint)
 
 
 def endpoint(endpoint, serial=False):
@@ -33,19 +31,32 @@ def endpoint(endpoint, serial=False):
 
         @wraps(method)
         async def serial_wrap(self, *args, **kwargs):
-            await self.initialize()
+            try:
+                await self.initialize.asend(None)
+            except ValueError:
+                pass
+
             if not endpoint.initialized:
                 await serial_request.asend(None)
                 endpoint.initialized = True
 
-            return await serial_request.asend((self, endpoint, sig, args, kwargs))
+            request_args = await create_request_kwargs(self, endpoint, sig, *args, **kwargs)
+
+            return await serial_request.asend((self, request_args, endpoint))
+
 
         @wraps(method)
         async def parallel_wrap(self, *args, **kwargs):
-            await self.initialize()
-            request_kwargs = await create_request_kwargs(self, endpoint, sig, *args, **kwargs)
+            try:
+                await self.initialize.asend(None)
+            except ValueError:
+                pass
 
-            response = self.session.request(**request_kwargs)
+            request_args = await create_request_kwargs(self, endpoint, sig, *args, **kwargs)
+
+            request = await self.request.asend(None)
+
+            response = request(**request_args)
 
             return await parse_response(self, response, endpoint)
 

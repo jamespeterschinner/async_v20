@@ -1,9 +1,9 @@
 import ujson as json
 
+from .response import Response
 from ..definitions.helpers import create_attribute
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.other_responses import other_responses
-from .response import Response
 
 
 def _create_objects(schema, key, data):
@@ -33,7 +33,9 @@ async def _rest_response(self, response, endpoint):
     except KeyError:
         schema = other_responses[status]  # See if a response status is an error code
 
-    return await _create_response(json_body, schema)
+    result = await _create_response(json_body, schema)
+    result.raw_body = json_body
+    return result
 
 
 async def _stream_parser(response, endpoint):

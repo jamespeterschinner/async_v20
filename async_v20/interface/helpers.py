@@ -1,9 +1,7 @@
 from functools import partial
 from inspect import Signature, _empty
 
-from async_v20.helpers import sleep
-
-from .parser import parse_response
+from ..helpers import sleep
 
 
 def make_args_optional(signature):
@@ -55,23 +53,22 @@ async def create_url(self, endpoint, arguments):
     return host(path=endpoint_path)
 
 
-async def create_body(request_schema, arguments):
+def create_body(request_schema, arguments):
     # Reverse the request schema to allow for lookups
     lookup = {value: key for key, value in request_schema.items()}
 
-    async def dumps():
+    def dumps():
         """Iterate over the arguments returning json_dicts of matching objects"""
         for argument in arguments.values():
-            await sleep()
             try:
                 key = lookup.get(argument._derived, None)
             except AttributeError:
                 continue
             else:
                 if key:
-                    yield (key, await argument.json_dict())
+                    yield (key, argument.json_dict())
 
-    return dict([json_data async for json_data in dumps()])
+    return dict([json_data for json_data in dumps()])
 
 
 header_params = partial(_create_request_params, param_location='header')
@@ -84,7 +81,7 @@ async def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     arguments = sig.bind(*args, **kwargs).arguments
     arguments = create_annotation_lookup(sig, arguments)
 
-    json = await create_body(endpoint.request_schema, arguments)
+    json = create_body(endpoint.request_schema, arguments)
 
     headers = await header_params(self, endpoint, arguments)
     url = await create_url(self, endpoint, arguments)
@@ -102,6 +99,3 @@ async def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
         request_kwargs.update({'timeout': 0})
 
     return request_kwargs
-
-
-

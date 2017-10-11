@@ -7,9 +7,9 @@ from ..definitions.types import WeeklyAlignment
 from ..endpoints.annotations import AlignmentTimezone
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import DailyAlignment
-from ..endpoints.annotations import FromDateTime
+from ..endpoints.annotations import FromTime
 from ..endpoints.annotations import Smooth
-from ..endpoints.annotations import ToDateTime
+from ..endpoints.annotations import ToTime
 from ..endpoints.annotations import includeFirst
 from ..endpoints.instrument import *
 
@@ -23,8 +23,8 @@ class InstrumentInterface(Interface):
                     price: Price,
                     granularity: CandlestickGranularity,
                     count: Count,
-                    from_date_time: FromDateTime,
-                    to_date_time: ToDateTime,
+                    from_time: FromTime,
+                    to_time: ToTime,
                     smooth: Smooth,
                     include_first: includeFirst,
                     daily_alignment: DailyAlignment,
@@ -48,9 +48,9 @@ class InstrumentInterface(Interface):
                 should not be specified if both the start and end parameters
                 are provided, as the time range combined with the graularity
                 will determine the number of candlesticks to return.
-            from_date_time:
+            from_time:
                 The start of the time range to fetch candlesticks for.
-            to_date_time:
+            to_time:
                 The end of the time range to fetch candlesticks for.
             smooth:
                 A flag that controls whether the candlestick is "smoothed" or
