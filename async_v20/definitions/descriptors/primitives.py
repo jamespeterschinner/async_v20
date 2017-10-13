@@ -25,7 +25,11 @@ class AccountUnits(Descriptor):
     """
 
     # Type checking
-    typ = str
+    # TODO keep an eye on this. OANDA specifies this as a str.
+    # Though it makes more sense for it to be a float
+    # floats automatically get converted to to strings anyway
+    # when serialized into JSON
+    typ = float
 
     # Correct syntax of value
     format_syntax = 'A decimal number encoded as a string. The amount of precision ' \

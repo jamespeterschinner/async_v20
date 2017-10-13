@@ -48,10 +48,20 @@ class Model(metaclass=ORM):
 
 
     def json_data(self):
-        return json.dumps({self.json_dict()})
+        return json.dumps(self.json_dict(float_to_string=True))
 
-    def data(self, float_to_string=True):
+    def data(self, float_to_string=False):
         return flatten_dict(self.json_dict(float_to_string), self._delimiter)
 
     def series(self):
-        return pd.Series(dict(self.template, **self.data(float_to_string=False)))
+
+        def str_to_int(value):
+            try:
+                value = int(value)
+            except ValueError:
+                pass
+            return value
+
+        data = {key: str_to_int(value) if isinstance(value, str) else value
+                for key, value in self.data(float_to_string=False).items()}
+        return pd.Series(dict(self.template, **data))

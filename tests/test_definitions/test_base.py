@@ -5,6 +5,8 @@ from async_v20.definitions.helpers import flatten_dict
 
 from ..data.json_data import GETAccountID_response
 
+import ujson as json
+
 
 @pytest.fixture
 def account():
@@ -62,5 +64,34 @@ def test_json_dict_returns_correct_data_structure(account):
     for value in flattened_result:
         assert isinstance(value, (dict, float, str, int, list))
         if isinstance(value, str):
+            with pytest.raises(ValueError):
+                float(value)
+
+def test_json_data(account):
+    result = account.json_data()
+    assert type(result) == str
+    assert json.loads(result) == account.json_dict(float_to_string=True)
+
+def test_data(account):
+    result = account.data(float_to_string=True)
+    for value in result:
+        assert isinstance(value, (str, int, list))
+
+    result = account.data(float_to_string=False)
+    for value in result:
+        print(value)
+        assert isinstance(value, (float, str, int, list))
+        if isinstance(value, str):
+            with pytest.raises(ValueError):
+                float(value)
+
+def test_series(account):
+    result = account.series()
+    print(result)
+
+    for value in result:
+        assert isinstance(value, (float, str, int, list, type(None)))
+        if isinstance(value, str):
+            print(value)
             with pytest.raises(ValueError):
                 float(value)

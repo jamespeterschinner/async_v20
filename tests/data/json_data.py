@@ -30,9 +30,9 @@ GETAccountIDSummary_response = {
                 'pendingOrderCount': 0, 'pl': '0.1899', 'resettablePL': '0.1899', 'financing': '-0.0104',
                 'commission': '0.0', 'unrealizedPL': '0.0033', 'NAV': '100000.1828', 'marginUsed': '0.0401',
                 'marginAvailable': '100000.1427', 'positionValue': '2.0027', 'marginCloseoutUnrealizedPL': '0.0046',
-                'marginCloseoutNAV': '100000.1841', 'marginCloseoutMarginUsed': '0.0400',
+                'marginCloseoutNAV': '100000.1841', 'marginCloseoutMarginUsed': '0.04',
                 'marginCloseoutPositionValue': '2.0', 'marginCloseoutPercent': '0.0',
-                'withdrawalLimit': '100000.1427', 'marginCallMarginUsed': '0.0400', 'marginCallPercent': '0.0'},
+                'withdrawalLimit': '100000.1427', 'marginCallMarginUsed': '0.04', 'marginCallPercent': '0.0'},
     'lastTransactionID': '56'}
 
 account_changes_transactions_data = [
