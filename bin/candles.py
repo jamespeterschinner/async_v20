@@ -1,6 +1,6 @@
 import asyncio
 
-from async_v20.client import OandaClient
+from async_v20 import OandaClient
 
 
 async def candles():
