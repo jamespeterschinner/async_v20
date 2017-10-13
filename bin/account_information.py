@@ -1,17 +1,25 @@
 import asyncio
 
-from async_v20.client import Client
+from async_v20 import OandaClient
 
 
 async def account():
-    client = Client()
+    client = OandaClient()
     try:
-        account_snapshot = await client.get_account_details()
-        print(account_snapshot)
-        print(await account_snapshot['account'].json_dict())
+        response = await client.get_account_details()
     finally:
         client.session.close()
+    return response
 
 
 loop = asyncio.get_event_loop()
-loop.run_until_complete(account())
+response = loop.run_until_complete(account())
+
+# HTTP response state
+print(response['account'])
+
+# JSON data in python dictionary format
+print(response['account'].json_dict())
+
+# pandas Series
+print(response['account'].series())

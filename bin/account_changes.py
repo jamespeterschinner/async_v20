@@ -1,13 +1,12 @@
 import asyncio
-from async_v20 import Client
+
+from async_v20 import OandaClient
+
 
 async def account():
-    client = Client()
+    client = OandaClient()
     try:
-        await client.get_account_details()
         response = await client.account_changes()
-        print(response['state'])
-        print(await response['state'].json_dict())
     finally:
         client.session.close()
     return response
@@ -15,3 +14,12 @@ async def account():
 
 loop = asyncio.get_event_loop()
 response = loop.run_until_complete(account())
+
+# HTTP response state
+print(response['state'])
+
+# JSON data in python dictionary format
+print(response['state'].json_dict())
+
+# pandas Series
+print(response['state'].series())

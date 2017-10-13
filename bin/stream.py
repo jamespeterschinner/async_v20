@@ -1,14 +1,15 @@
 import asyncio
 
-from async_v20.client import client_session
+from async_v20 import OandaClient
+
 
 async def stream(instruments):
-    client = await client_session()
+    client = OandaClient()
     try:
         async for data in await client.stream_pricing(instruments):
             price = data.get('PRICE', None)
             if price:
-                print(await price.series())
+                print(price.series())
     finally:
         client.session.close()
 
