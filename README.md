@@ -5,7 +5,7 @@ An asynchronous client application for the OANDA's v20 Rest Api.
 The package aims to provide an async version of the OANDA v20 python wrapper
 
 
-#Disclaimer 
+# Disclaimer 
 Losses can exceed investment.
 
 async_v20 and its creator has no affiliation with OANDA. And is not endorsed by OANDA in any manner.
@@ -14,7 +14,7 @@ async_v20 is in Alpha stage and has not been tested on a live OANDA account
 
 This package currently does not have full unittest coverage.
 
-#Usage
+# Usage
 To install use:
 
 `$ pip install async_v20`
