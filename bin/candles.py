@@ -4,11 +4,11 @@ from async_v20 import OandaClient
 
 
 async def candles():
-    client = OandaClient()
+    oanda_client = OandaClient()
     try:
-        response = await client.get_candles('AUD_USD', granularity='M')
+        response = await oanda_client.get_candles('AUD_USD', granularity='M')
     finally:
-        client.session.close()
+        oanda_client.session.close()
     return response
 
 
