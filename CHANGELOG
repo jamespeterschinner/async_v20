@@ -1,0 +1,6 @@
+1.0.1a1
+    Fixed code examples in bin directory
+
+1.1.0a1
+    Model.series returns data in more natural type
+    OandaClient methods now have correct signature

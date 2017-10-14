@@ -60,7 +60,11 @@ def endpoint(endpoint, serial=False):
 
             return await parse_response(self, response, endpoint)
 
+        serial_wrap.__signature__ = sig
+        parallel_wrap.__signature__ = sig
+
         return {True: serial_wrap, False: parallel_wrap}[serial]
+
 
     return wrapper
 

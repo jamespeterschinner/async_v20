@@ -1,7 +1,8 @@
 from setuptools import setup, find_packages
+version = '1.1.0a1'
 
 setup(name='async_v20',
-      version='1.0.1a1',
+      version=version,
       description="Asynchronous wrapper for OANDA's v20 REST API",
       long_description="Asynchronous wrapper for OANDA's v20 REST API. Client methods return coroutines that can be run"
                        "inside an asyncio event loop",

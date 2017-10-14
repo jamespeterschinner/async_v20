@@ -8,6 +8,8 @@ from .endpoints.annotations import Authorization
 from .helpers import request_limiter, initialize_client
 from .interface import *
 
+version = '1.1.0a1'
+
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
                   PricingInterface,
@@ -41,6 +43,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     def __init__(self, token=None, rest_host='api-fxpractice.oanda.com', rest_port=443,
                  stream_host='stream-fxpractice.oanda.com', stream_port=None, application='async_v20',
                  datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99, max_simultaneous_connections=10):
+
+        self.version = version
 
         if token is None:
             token = os.environ['OANDA_TOKEN']

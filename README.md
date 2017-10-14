@@ -41,7 +41,7 @@ async_v20 provides one interface to OANDA'a v20 REST API. This interface is `Oan
 
 it can be imported into you project like this:
 
-`from async_v20.client import OandaClient`
+`from async_v20 import OandaClient`
 
 You must instantiate an OandaClient instance. Example:
 
@@ -53,7 +53,7 @@ This example code retrieves candles for the AUD/USD currency pair with monthly g
 
     import asyncio
     
-    from async_v20.client import OandaClient
+    from async_v20 import OandaClient
     
     
     async def candles():
