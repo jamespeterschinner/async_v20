@@ -38,9 +38,13 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     loop = None
 
-    def __init__(self, token=os.environ['OANDA_TOKEN'], rest_host='api-fxpractice.oanda.com', rest_port=443,
+    def __init__(self, token=None, rest_host='api-fxpractice.oanda.com', rest_port=443,
                  stream_host='stream-fxpractice.oanda.com', stream_port=None, application='async_v20',
                  datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99, max_simultaneous_connections=10):
+
+        if token is None:
+            token = os.environ['OANDA_TOKEN']
+
         self.application = application
 
         # V20 REST API URL
