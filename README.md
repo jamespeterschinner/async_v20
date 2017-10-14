@@ -53,7 +53,7 @@ This example code retrieves candles for the AUD/USD currency pair with monthly g
 
     import asyncio
     
-    from async_v20 import OandaClient
+    from async_v20.client import OandaClient
     
     
     async def candles():
