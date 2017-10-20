@@ -1,4 +1,5 @@
-"""Module that defines the behaviour of the exposed client method calls by using decorators"""
+"""Module that defines the behaviour of the exposed client method calls by using decorators
+"""
 from functools import wraps
 from inspect import signature
 
@@ -7,7 +8,7 @@ from .helpers import make_args_optional
 from .parser import parse_response
 
 
-async def serial_request_async_generator():
+async def _serial_request_async_generator():
     self, request_args, endpoint = yield
     while True:
         request = await self.request.asend(None)
@@ -15,11 +16,12 @@ async def serial_request_async_generator():
         self, request_args, endpoint = yield await parse_response(self, response, endpoint)
 
 
+
 def endpoint(endpoint, serial=False):
     """Define a method call to be exposed to the user"""
 
     if serial:
-        serial_request = serial_request_async_generator()
+        serial_request = _serial_request_async_generator()
         endpoint.initialized = False
 
     def wrapper(method):
@@ -44,7 +46,6 @@ def endpoint(endpoint, serial=False):
 
             return await serial_request.asend((self, request_args, endpoint))
 
-
         @wraps(method)
         async def parallel_wrap(self, *args, **kwargs):
             try:
@@ -64,7 +65,6 @@ def endpoint(endpoint, serial=False):
         parallel_wrap.__signature__ = sig
 
         return {True: serial_wrap, False: parallel_wrap}[serial]
-
 
     return wrapper
 
