@@ -34,7 +34,7 @@ def endpoint(endpoint, serial=False):
         @wraps(method)
         async def serial_wrap(self, *args, **kwargs):
             try:
-                await self.initialize.asend(None)
+                await self.initialize()
             except ValueError:
                 pass
 
@@ -49,7 +49,7 @@ def endpoint(endpoint, serial=False):
         @wraps(method)
         async def parallel_wrap(self, *args, **kwargs):
             try:
-                await self.initialize.asend(None)
+                await self.initialize()
             except ValueError:
                 pass
 

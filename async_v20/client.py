@@ -5,10 +5,10 @@ from yarl import URL
 
 from .definitions.types import AcceptDatetimeFormat
 from .endpoints.annotations import Authorization
-from .helpers import request_limiter, initialize_client
+from .helpers import request_limiter, initializer
 from .interface import *
 
-version = '1.1.1a1'
+version = '1.1.2a1'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
@@ -80,7 +80,18 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
         self.request = request_limiter(self)
 
-        self.initialize = initialize_client(self)
+        self.initialize_client = initializer(self)
+
+    async def initialize(self):
+        await self.initialize_client.asend(None)
+
+    async def __aenter__(self):
+        await self.initialize()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        self.session.close()
+
 
 
 

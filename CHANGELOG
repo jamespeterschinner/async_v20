@@ -11,3 +11,5 @@
 
 1.1.2a1 (not yet released)
     OandaClient.initialize() method is now exposed
+    OandaClient is now also a context manager. To automatically close the http session
+    Additional documentation
