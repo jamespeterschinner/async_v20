@@ -41,8 +41,7 @@ class Descriptor(DescriptorProtocol):
         else:
             return super().__new__(cls)
 
-    def __set__(self, instance, value):
-
+    def type_check(self, value):
         typ = getattr(self, 'typ', None)
         if typ:
             try:
@@ -52,6 +51,12 @@ class Descriptor(DescriptorProtocol):
                       f'Or {typ.__name__}({value}) returns {typ}. ' \
                       f'Was {type(value)}'
                 raise TypeError(msg)
+            else:
+                return value
+
+    def __set__(self, instance, value):
+
+        value = self.type_check(value)
 
         if getattr(self, 'example', None):
             try:

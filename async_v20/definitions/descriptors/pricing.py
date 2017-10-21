@@ -28,3 +28,7 @@ class PriceValue(Descriptor):
     # Correct syntax of value
     format_syntax = 'A decimal number encodes as a string. The amount of precision ' \
                     'provided depends on the Price’s Instrument.'
+
+    def __set__(self, instance, value):
+        value = super().type_check(value)
+        super().__set__(instance, round(value, 5))

@@ -90,3 +90,11 @@ def test_descriptors_return_correct_type_when_initialized_with_value(descriptor)
     typ = descriptor.typ
     gen = data_gen[typ]
     assert all(map(lambda x: type(x) == typ, (descriptor(gen.example()) for _ in range(50))))
+
+def test_PriceValue_rounds_floats_to_the_correct_accuracy():
+    class TestClass(object):
+        attribute = descriptors.PriceValue(name='_' + 'attribute')
+
+    test_class = TestClass()
+    test_class.attribute = 0.123456
+    assert test_class.attribute == 0.12346
