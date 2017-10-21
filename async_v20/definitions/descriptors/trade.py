@@ -79,3 +79,4 @@ class TradeStateFilter(Descriptor):
         'CLOSE_WHEN_TRADEABLE': 'The Trades  that will be closed as soon as the trades’ instrument becomes tradeable',
         'ALL': 'The Trades that are in any of the possible states listed above.'
     }
+

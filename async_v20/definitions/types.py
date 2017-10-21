@@ -35,17 +35,20 @@ __all__ = ['OrderRequest', 'UnitsAvailableDetails',
 
 
 class SchemaValue(object):
-    def __init__(self, typ, default: str = inspect._empty, required=False, deprecated=False):
+    def __init__(self, typ, default: str = inspect._empty, required=False, deprecated=False,
+                 accuracy=None):
         self.typ = typ
         self.default = default
         self.required = required
         self.deprecated = deprecated
+        self.accuracy = accuracy
 
     def items(self):
         return self.typ._schema.items()
 
     def __repr__(self):
-        return self.typ.__name__
+        self.name__ = self.typ.__name__
+        return self.name__
 
 
 class ClientExtensions(Model):
@@ -149,9 +152,9 @@ class UnitsAvailableDetails(Model):
 
     _schema = {
         # The units available for long Orders.
-        'long': SchemaValue(DecimalNumber),
+        'long': SchemaValue(Unit),
         # The units available for short Orders.
-        'short': SchemaValue(DecimalNumber)}
+        'short': SchemaValue(Unit)}
 
 
 class UnitsAvailable(Model):
@@ -333,7 +336,7 @@ class InstrumentCommission(Model):
         # unitsTraded of the instrument
         'commission': SchemaValue(DecimalNumber),
         # The number of units traded that the commission amount is based on.
-        'unitsTraded': SchemaValue(DecimalNumber),
+        'unitsTraded': SchemaValue(Unit),
         # The minimum commission amount (in the Account’s home currency) that is
         # charged when an Order is filled for this instrument.
         'minimumCommission': SchemaValue(DecimalNumber)}
@@ -466,7 +469,7 @@ class PositionSide(Model):
     _schema = {
         # Number of units in the position (negative value indicates short position,
         # positive indicates long position).
-        'units': SchemaValue(DecimalNumber),
+        'units': SchemaValue(Unit),
         # Volume-weighted average of the underlying Trade open prices for the
         # Position.
         'averagePrice': SchemaValue(PriceValue),
@@ -745,7 +748,7 @@ class TradeOpen(Model):
         # The ID of the Trade that was opened
         'tradeID': SchemaValue(TradeID),
         # The number of units opened by the Trade
-        'units': SchemaValue(DecimalNumber),
+        'units': SchemaValue(Unit),
         # The client extensions for the newly opened Trade
         'clientExtensions': SchemaValue(ClientExtensions)}
 
@@ -763,7 +766,7 @@ class VWAPReceipt(Model):
 
     _schema = {
         # The number of units filled
-        'units': SchemaValue(DecimalNumber),
+        'units': SchemaValue(Unit),
         # The price at which the units were filled
         'price': SchemaValue(PriceValue)}
 
@@ -980,7 +983,7 @@ class TradeReduce(Model):
         # The ID of the Trade that was reduced or closed
         'tradeID': SchemaValue(TradeID),
         # The number of units that the Trade was reduced by
-        'units': SchemaValue(DecimalNumber),
+        'units': SchemaValue(Unit),
         # The PL realized when reducing the Trade
         'realizedPL': SchemaValue(AccountUnits),
         # The financing paid/collected when reducing the Trade
@@ -1103,10 +1106,10 @@ class TradeSummary(Model):
         'state': SchemaValue(TradeState),
         # The initial size of the Trade. Negative values indicate a short Trade,
         # and positive values indicate a long Trade.
-        'initialUnits': SchemaValue(DecimalNumber),
+        'initialUnits': SchemaValue(Unit),
         # The number of units currently open for the Trade. This value is reduced
         # to 0.0 as the Trade is closed.
-        'currentUnits': SchemaValue(DecimalNumber),
+        'currentUnits': SchemaValue(Unit),
         # The total profit/loss realized on the closed portion of the Trade.
         'realizedPL': SchemaValue(AccountUnits),
         # The unrealized profit/loss on the open portion of the Trade.
@@ -1179,7 +1182,7 @@ class Instrument(Model):
         # number of units traded for this instrument.
         'tradeUnitsPrecision': SchemaValue(integer),
         # The smallest number of units allowed to be traded for this instrument.
-        'minimumTradeSize': SchemaValue(DecimalNumber),
+        'minimumTradeSize': SchemaValue(Unit),
         # The maximum trailing stop distance allowed for a trailing stop loss
         # created for this instrument. Specified in price units.
         'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
@@ -1188,10 +1191,10 @@ class Instrument(Model):
         'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
         # The maximum position size allowed for this instrument. Specified in
         # units.
-        'maximumPositionSize': SchemaValue(DecimalNumber),
+        'maximumPositionSize': SchemaValue(Unit),
         # The maximum units allowed for an Order placed for this instrument.
         # Specified in units.
-        'maximumOrderUnits': SchemaValue(DecimalNumber),
+        'maximumOrderUnits': SchemaValue(Unit),
         # The margin rate for this instrument.
         'marginRate': SchemaValue(DecimalNumber),
         # The commission structure for this instrument.
@@ -1219,7 +1222,7 @@ class CurrencyInstrument(Instrument):
         # number of units traded for this instrument.
         'tradeUnitsPrecision': SchemaValue(integer),
         # The smallest number of units allowed to be traded for this instrument.
-        'minimumTradeSize': SchemaValue(DecimalNumber),
+        'minimumTradeSize': SchemaValue(Unit),
         # The maximum trailing stop distance allowed for a trailing stop loss
         # created for this instrument. Specified in price units.
         'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
@@ -1228,10 +1231,10 @@ class CurrencyInstrument(Instrument):
         'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
         # The maximum position size allowed for this instrument. Specified in
         # units.
-        'maximumPositionSize': SchemaValue(DecimalNumber),
+        'maximumPositionSize': SchemaValue(Unit),
         # The maximum units allowed for an Order placed for this instrument.
         # Specified in units.
-        'maximumOrderUnits': SchemaValue(DecimalNumber),
+        'maximumOrderUnits': SchemaValue(Unit),
         # The margin rate for this instrument.
         'marginRate': SchemaValue(DecimalNumber),
         # The commission structure for this instrument.
@@ -1260,19 +1263,19 @@ class CFDInstrument(Instrument):
         # number of units traded for this instrument.
         'tradeUnitsPrecision': SchemaValue(integer),
         # The smallest number of units allowed to be traded for this instrument.
-        'minimumTradeSize': SchemaValue(DecimalNumber),
+        'minimumTradeSize': SchemaValue(Unit),
         # The maximum trailing stop distance allowed for a trailing stop loss
         # created for this instrument. Specified in price units.
-        'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
+        'maximumTrailingStopDistance': SchemaValue(Unit),
         # The minimum trailing stop distance allowed for a trailing stop loss
         # created for this instrument. Specified in price units.
-        'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
+        'minimumTrailingStopDistance': SchemaValue(Unit),
         # The maximum position size allowed for this instrument. Specified in
         # units.
-        'maximumPositionSize': SchemaValue(DecimalNumber),
+        'maximumPositionSize': SchemaValue(Unit),
         # The maximum units allowed for an Order placed for this instrument.
         # Specified in units.
-        'maximumOrderUnits': SchemaValue(DecimalNumber),
+        'maximumOrderUnits': SchemaValue(Unit),
         # The margin rate for this instrument.
         'marginRate': SchemaValue(DecimalNumber),
         # The commission structure for this instrument.
@@ -1300,19 +1303,19 @@ class MetalInstrument(Instrument):
         # number of units traded for this instrument.
         'tradeUnitsPrecision': SchemaValue(integer),
         # The smallest number of units allowed to be traded for this instrument.
-        'minimumTradeSize': SchemaValue(DecimalNumber),
+        'minimumTradeSize': SchemaValue(Unit),
         # The maximum trailing stop distance allowed for a trailing stop loss
         # created for this instrument. Specified in price units.
-        'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
+        'maximumTrailingStopDistance': SchemaValue(Unit),
         # The minimum trailing stop distance allowed for a trailing stop loss
         # created for this instrument. Specified in price units.
-        'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
+        'minimumTrailingStopDistance': SchemaValue(Unit),
         # The maximum position size allowed for this instrument. Specified in
         # units.
-        'maximumPositionSize': SchemaValue(DecimalNumber),
+        'maximumPositionSize': SchemaValue(Unit),
         # The maximum units allowed for an Order placed for this instrument.
         # Specified in units.
-        'maximumOrderUnits': SchemaValue(DecimalNumber),
+        'maximumOrderUnits': SchemaValue(Unit),
         # The margin rate for this instrument.
         'marginRate': SchemaValue(DecimalNumber),
         # The commission structure for this instrument.
@@ -2485,7 +2488,7 @@ class MarketOrderRequest(OrderRequest):
         # The quantity requested to be filled by the Market Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The time-in-force requested for the Market Order. Restricted to FOK or
         # IOC for a MarketOrder.
         'timeInForce': SchemaValue(TimeInForce, required=True, default='FOK'),
@@ -3479,7 +3482,7 @@ class LimitOrderRequest(OrderRequest):
         # The quantity requested to be filled by the Limit Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the Limit Order. The Limit Order will
         # only be filled by a market price that is equal to or better than this
         # price.
@@ -3588,7 +3591,7 @@ class MarketIfTouchedOrderRequest(OrderRequest):
         # The quantity requested to be filled by the MarketIfTouched Order. A
         # posititive number of units results in a long Order, and a negative number
         # of units results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the MarketIfTouched Order. The
         # MarketIfTouched Order will only be filled by a market price that crosses
         # this price from the direction of the market price at the time when the
@@ -3702,7 +3705,7 @@ class StopOrderRequest(OrderRequest):
         # The quantity requested to be filled by the Stop Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the Stop Order. The Stop Order will
         # only be filled by a market price that is equal to or worse than this
         # price.
@@ -3832,7 +3835,7 @@ class MarketOrderTransaction(Transaction):
         # The quantity requested to be filled by the Market Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The time-in-force requested for the Market Order. Restricted to FOK or
         # IOC for a MarketOrder.
         'timeInForce': SchemaValue(TimeInForce, required=True, default='FOK'),
@@ -3950,7 +3953,7 @@ class MarketOrderRejectTransaction(Transaction):
         # The quantity requested to be filled by the Market Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The time-in-force requested for the Market Order. Restricted to FOK or
         # IOC for a MarketOrder.
         'timeInForce': SchemaValue(TimeInForce, required=True, default='FOK'),
@@ -4284,7 +4287,7 @@ class LimitOrder(Order):
         # The quantity requested to be filled by the Limit Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the Limit Order. The Limit Order will
         # only be filled by a market price that is equal to or better than this
         # price.
@@ -4452,7 +4455,7 @@ class MarketIfTouchedOrder(Order):
         # The quantity requested to be filled by the MarketIfTouched Order. A
         # posititive number of units results in a long Order, and a negative number
         # of units results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the MarketIfTouched Order. The
         # MarketIfTouched Order will only be filled by a market price that crosses
         # this price from the direction of the market price at the time when the
@@ -4623,7 +4626,7 @@ class StopOrder(Order):
         # The quantity requested to be filled by the Stop Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the Stop Order. The Stop Order will
         # only be filled by a market price that is equal to or worse than this
         # price.
@@ -4774,7 +4777,7 @@ class OrderFillTransaction(Transaction):
         # The name of the filled Order’s instrument.
         'instrument': SchemaValue(InstrumentName),
         # The number of units filled by the Order.
-        'units': SchemaValue(DecimalNumber),
+        'units': SchemaValue(Unit),
         # The average market price that the Order was filled at.
         'price': SchemaValue(PriceValue),
         # The price in effect for the account at the time of the Order fill.
@@ -4981,7 +4984,7 @@ class MarketIfTouchedOrderTransaction(Transaction):
         # The quantity requested to be filled by the MarketIfTouched Order. A
         # posititive number of units results in a long Order, and a negative number
         # of units results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the MarketIfTouched Order. The
         # MarketIfTouched Order will only be filled by a market price that crosses
         # this price from the direction of the market price at the time when the
@@ -5113,7 +5116,7 @@ class LimitOrderTransaction(Transaction):
         # The quantity requested to be filled by the Limit Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the Limit Order. The Limit Order will
         # only be filled by a market price that is equal to or better than this
         # price.
@@ -5442,7 +5445,7 @@ class StopOrderTransaction(Transaction):
         # The quantity requested to be filled by the Stop Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the Stop Order. The Stop Order will
         # only be filled by a market price that is equal to or worse than this
         # price.
@@ -5575,7 +5578,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
         # The quantity requested to be filled by the MarketIfTouched Order. A
         # posititive number of units results in a long Order, and a negative number
         # of units results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the MarketIfTouched Order. The
         # MarketIfTouched Order will only be filled by a market price that crosses
         # this price from the direction of the market price at the time when the
@@ -5705,7 +5708,7 @@ class LimitOrderRejectTransaction(Transaction):
         # The quantity requested to be filled by the Limit Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the Limit Order. The Limit Order will
         # only be filled by a market price that is equal to or better than this
         # price.
@@ -5830,7 +5833,7 @@ class StopOrderRejectTransaction(Transaction):
         # The quantity requested to be filled by the Stop Order. A positive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The price threshold specified for the Stop Order. The Stop Order will
         # only be filled by a market price that is equal to or worse than this
         # price.
@@ -5968,7 +5971,7 @@ class MarketOrder(Order):
         # The quantity requested to be filled by the Market Order. A posititive
         # number of units results in a long Order, and a negative number of units
         # results in a short Order.
-        'units': SchemaValue(DecimalNumber, required=True),
+        'units': SchemaValue(Unit, required=True),
         # The time-in-force requested for the Market Order. Restricted to FOK or
         # IOC for a MarketOrder.
         'timeInForce': SchemaValue(TimeInForce, required=True, default='FOK'),

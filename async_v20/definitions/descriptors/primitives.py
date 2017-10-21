@@ -1,6 +1,7 @@
 from .base import Descriptor
 
-__all__ = ['AcceptDatetimeFormat', 'AccountUnits', 'Currency', 'DateTime', 'DecimalNumber', 'Direction',
+__all__ = ['AcceptDatetimeFormat', 'AccountUnits', 'Currency', 'DateTime', 'DecimalNumber',
+           'Unit', 'Direction',
            'InstrumentName', 'InstrumentType']
 
 
@@ -44,7 +45,7 @@ class Currency(Descriptor):
     typ = str
 
     # Correct syntax of value
-    format_syntax = 'A string containing an ISO 4217 currency ('
+    format_syntax = 'A string containing an ISO 4217 currency'
 
 
 class DateTime(Descriptor):
@@ -55,7 +56,7 @@ class DateTime(Descriptor):
     typ = str
 
     # Correct syntax of value
-    format_syntax = 'The RFC 3339 representation is a string conforming to '
+    format_syntax = 'The RFC 3339 representation is a string conforming to'
 
 
 class DecimalNumber(Descriptor):
@@ -68,6 +69,25 @@ class DecimalNumber(Descriptor):
     # Correct syntax of value
     format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
                     'provided depends on what the number represents.'
+
+    def __set__(self, instance, value):
+        value = super().type_check(value)
+        super().__set__(instance, round(value, 5))
+
+class Unit(Descriptor):
+    """A unit is a standard allotment of a currency
+    """
+
+    # Type checking
+    typ = float
+
+    # Correct syntax of value
+    format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
+                    'provided depends on what the number represents.'
+
+    def __set__(self, instance, value):
+        value = super().type_check(value)
+        super().__set__(instance, round(value, 0))
 
 
 class Direction(Descriptor):
