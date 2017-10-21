@@ -4,3 +4,7 @@
 1.1.0a1
     Model.series() returns data in more specific types instead of all 'str'
     OandaClient methods now have correct signature instead of *args, **kwargs
+
+1.1.1a1
+    Floating point numbers are rounded to the correct accuracy required for correct
+    serialization.
