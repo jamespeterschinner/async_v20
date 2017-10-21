@@ -1,4 +1,4 @@
-.. _async_v20-glossary:
+.. _glossary:
 
 
 ==========
@@ -12,7 +12,9 @@
 
    aiohttp
 
-      Async http client/server framework :term:`async_v20` use's to communicate asynchronously.
+      http client/server framework :term:`async_v20` use's to communicate asynchronously.
+
+      http://aiohttp.readthedocs.io/en/stable/
 
    asyncio
 
@@ -29,6 +31,7 @@
 
       The name of the package this documentation is documenting
 
+      https://github.com/jamespeterschinner/async_v20
 
    callable
 
@@ -48,11 +51,23 @@
       The process by which a single threaded application switches between
       different tasks. Typically done to prevent waiting for I/O bound operations
 
+   OANDA
+
+      The name of the Foreign Exchange (FOREX) broker :term:`async_v20` communicates with
+
    pandas
 
       a Python package providing fast, flexible, and expressive data structures
       designed to make working with “relational” or “labeled” data both easy and intuitive
 
+      http://pandas.pydata.org/
+
+   token
+
+      A 65 character string used to uniquely identify and authorise access to the OANDA v20 API
+
+      Example:
+         `810492ace47473fa9f72c0eeecd33657-1eae8a55f01431bdd370206f69071e5f`
 
    yarl
 

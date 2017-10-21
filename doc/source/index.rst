@@ -1,7 +1,11 @@
+.. _async_v20-home:
+
 .. async_v20 documentation master file, created by
    sphinx-quickstart on Sat Oct 21 19:19:01 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
+
+
 
 async_v20: Asynchronous OANDA v20 client
 ========================================
@@ -20,10 +24,13 @@ Features
 ---------
 
 - Exposes the entire `v20 API <http://developer.oanda.com/rest-live-v20/introduction/>`_ `
+- No `*args, **kwargs` In client methods. So no guessing what arguments a method takes
 - Serialize objects directly into :term:`pandas`. `Series <http://pandas.pydata.org/pandas-docs/stable/dsintro.html#series>`_ ` objects
 - Construct :term:`concurrent` trading algorithms
 
-Installation
+.. _installation:
+
+installation
 ------------
 
 .. code-block:: bash
@@ -43,5 +50,6 @@ Contents
 --------
 .. toctree::
 
+   tutorial
    glossary
 

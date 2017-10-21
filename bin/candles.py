@@ -4,12 +4,8 @@ from async_v20 import OandaClient
 
 
 async def candles():
-    oanda_client = OandaClient()
-    try:
-        response = await oanda_client.get_candles('AUD_USD', granularity='M')
-    finally:
-        oanda_client.session.close()
-    return response
+    async with OandaClient() as client:
+        return await client.get_candles('AUD_USD', granularity='M')
 
 
 loop = asyncio.get_event_loop()
