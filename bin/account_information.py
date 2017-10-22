@@ -12,11 +12,11 @@ async def account():
 loop = asyncio.get_event_loop()
 response = loop.run_until_complete(account())
 
+# pandas Series
+print(response['account'].series())
+
 # HTTP response state
 print(response['account'])
 
 # JSON data in python dictionary format
 print(response['account'].json_dict())
-
-# pandas Series
-print(response['account'].series())

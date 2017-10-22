@@ -51,5 +51,9 @@ Contents
 .. toctree::
 
    tutorial
+   best_practices
+   api
+   digging_deeper
+   basic_types
    glossary
 

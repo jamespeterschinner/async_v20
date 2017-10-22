@@ -6,33 +6,6 @@ from inflection import underscore
 from .descriptors.base import Descriptor
 
 
-# async def async_flatten_dict(dictionary, delimiter='_'):
-#     """Flatten a nested dictionary structure"""
-#
-#     async def unpack(parent_key, parent_value):
-#         """Unpack one level of nesting in a dictionary"""
-#         try:
-#             items = parent_value.items()
-#         except AttributeError:
-#             # parent_value was not a dict, no need to flatten
-#             yield (parent_key, parent_value)
-#         else:
-#             for key, value in items:
-#                 yield (parent_key + delimiter + key, value)
-#
-#     async def run(gen):
-#         return [pair async for pair in gen]
-#
-#     while True:
-#         # Keep unpacking the dictionary until all value's are not dictionary's
-#         agens = (unpack(k, v) for k, v in dictionary.items())
-#         pairs = [await run(gen) for gen in agens]
-#         dictionary = dict(chain.from_iterable(pairs))
-#         if not any(isinstance(value, dict) for value in dictionary.values()):
-#             break
-#
-#     return dictionary
-
 def flatten_dict(dictionary, delimiter='_'):
     """Flatten a nested dictionary structure"""
 
@@ -55,8 +28,8 @@ def flatten_dict(dictionary, delimiter='_'):
 
     return dictionary
 
-def create_signature(cls):
 
+def create_signature(cls):
     schema = cls._schema
 
     def create_parameter(key, schema_value):
@@ -78,16 +51,18 @@ def create_signature(cls):
         for key, value in schema.items():
             yield create_parameter(key, value)
 
-
     return Signature(sorted(parameters(schema), key=sort_key))
+
 
 def create_instance_attributes(cls):
     instance_attributes = {key: underscore(key) for key in cls._schema}
     instance_attributes.update({value: value for value in instance_attributes.values()})
     return instance_attributes
 
+
 def create_json_attributes(cls):
     return {underscore(key): key for key in cls._schema}
+
 
 def assign_descriptors(cls):
     for attr, schema_value in cls._schema.items():
@@ -96,6 +71,7 @@ def assign_descriptors(cls):
             attr = cls.instance_attributes[attr]
             setattr(cls, attr, typ(name='_' + attr))
     return cls
+
 
 def create_attribute(typ, data):
     if isinstance(data, dict):

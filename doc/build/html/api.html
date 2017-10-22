@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Hello World! &#8212; async_v20 1.1.1a1 documentation</title>
+    <title>OandaClient API &#8212; async_v20 1.1.1a1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,7 +23,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to async_v20’s documentation!" href="index.html" />
+    <link rel="next" title="Digging Deeper" href="digging_deeper.html" />
+    <link rel="prev" title="Best Practices" href="best_practices.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -39,8 +40,1261 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="hello-world">
-<h1>Hello World!<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="oandaclient-api">
+<h1>OandaClient API<a class="headerlink" href="#oandaclient-api" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>methods</strong> arguments annotated with ‘TransactionID’
+will be passed the correct TransactionID implicitly.</p>
+</div>
+<dl class="class">
+<dt id="async_v20.OandaClient">
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="account">
+<h2>Account<a class="headerlink" href="#account" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_v20.OandaClient.account_changes">
+<code class="descname">account_changes</code><span class="sig-paren">(</span><em>since_transaction_id: async_v20.definitions.descriptors.transaction.TransactionID = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_changes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Endpoint used to poll an Account for its current state and changes
+since a specified TransactionID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>since_transaction_id</strong> – ID of the Transaction to get Account changes since.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.account_instruments">
+<code class="descname">account_instruments</code><span class="sig-paren">(</span><em>instruments: async_v20.endpoints.annotations.Instruments = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_instruments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of tradeable instruments for the given Account. The list
+of tradeable instruments is dependent on the regulatory division that
+the Account is located in, thus should be the same for all Accounts
+owned by a single user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instruments</strong> – List of instruments to query specifically.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.account_summary">
+<code class="descname">account_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a summary for a single Account that a client has access to.</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.configure_account">
+<code class="descname">configure_account</code><span class="sig-paren">(</span><em>alias: async_v20.endpoints.annotations.Alias = None</em>, <em>margin_rate: async_v20.definitions.descriptors.primitives.DecimalNumber = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.configure_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the client-configurable portions of an Account.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>alias</strong> – Client-defined alias (name) for the Account</li>
+<li><strong>margin_rate</strong> – The string representation of a decimal number.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_account_details">
+<code class="descname">get_account_details</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_account_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the full details for a single Account that a client has access to.
+Full pending Order, open Trade and open Position representations are
+provided.</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_accounts">
+<code class="descname">list_accounts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all Accounts authorized for the provided token.</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="instrument">
+<h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_v20.OandaClient.get_candles">
+<code class="descname">get_candles</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.types.Instrument = None</em>, <em>price: async_v20.definitions.types.Price = None</em>, <em>granularity: async_v20.definitions.descriptors.instrument.CandlestickGranularity = None</em>, <em>count: async_v20.endpoints.annotations.Count = None</em>, <em>from_time: async_v20.endpoints.annotations.FromTime = None</em>, <em>to_time: async_v20.endpoints.annotations.ToTime = None</em>, <em>smooth: async_v20.endpoints.annotations.Smooth = None</em>, <em>include_first: async_v20.endpoints.annotations.includeFirst = None</em>, <em>daily_alignment: async_v20.endpoints.annotations.DailyAlignment = None</em>, <em>alignment_timezone: async_v20.endpoints.annotations.AlignmentTimezone = None</em>, <em>weekly_alignment: async_v20.definitions.descriptors.instrument.WeeklyAlignment = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_candles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch candlestick data for an instrument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instrument</strong> – Name of the Instrument</li>
+<li><strong>price</strong> – The Price component(s) to get candlestick data for. Can contain
+any combination of the characters “M” (midpoint candles) “B”
+(bid candles) and “A” (ask candles).</li>
+<li><strong>granularity</strong> – The granularity of the candlesticks to fetch</li>
+<li><strong>count</strong> – The number of candlesticks to return in the reponse. Count
+should not be specified if both the start and end parameters
+are provided, as the time range combined with the graularity
+will determine the number of candlesticks to return.</li>
+<li><strong>from_time</strong> – The start of the time range to fetch candlesticks for.</li>
+<li><strong>to_time</strong> – The end of the time range to fetch candlesticks for.</li>
+<li><strong>smooth</strong> – A flag that controls whether the candlestick is “smoothed” or
+not.  A smoothed candlestick uses the previous candle’s close
+price as its open price, while an unsmoothed candlestick uses
+the first price from its time range as its open price.</li>
+<li><strong>include_first</strong> – A flag that controls whether the candlestick that is covered by
+the from time should be included in the results. This flag
+enables clients to use the timestamp of the last completed
+candlestick received to poll for future candlesticks but avoid
+receiving the previous candlestick repeatedly.</li>
+<li><strong>daily_alignment</strong> – The hour of the day (in the specified timezone) to use for
+granularities that have daily alignments.</li>
+<li><strong>alignment_timezone</strong> – The timezone to use for the dailyAlignment parameter.
+Candlesticks with daily alignment will be aligned to the
+dailyAlignment hour within the alignmentTimezone.</li>
+<li><strong>weekly_alignment</strong> – The day of the week used for granularities that have weekly
+alignment.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="order">
+<h2>Order<a class="headerlink" href="#order" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_v20.OandaClient.cancel_order">
+<code class="descname">cancel_order</code><span class="sig-paren">(</span><em>order_specifier: async_v20.definitions.descriptors.order.OrderSpecifier = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.cancel_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel a pending Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_specifier</strong> – The Order Specifier</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.create_order">
+<code class="descname">create_order</code><span class="sig-paren">(</span><em>order: async_v20.definitions.types.OrderRequest = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.create_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an Order for an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order</strong> – Specification of the Order to create</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_order">
+<code class="descname">get_order</code><span class="sig-paren">(</span><em>order_specifier: async_v20.definitions.descriptors.order.OrderSpecifier = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details for a single Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_specifier</strong> – The Order Specifier</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.limit_order">
+<code class="descname">limit_order</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName</em>, <em>units: async_v20.definitions.descriptors.primitives.Unit</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'LIMIT'</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>position_fill: async_v20.definitions.descriptors.order.OrderPositionFill = 'DEFAULT'</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>take_profit_on_fill: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss_on_fill: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss_on_fill: async_v20.definitions.types.TrailingStopLossDetails = None</em>, <em>trade_client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create a Limit Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a LimitOrderRequest</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
+the request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.limit_replace_order">
+<code class="descname">limit_replace_order</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName</em>, <em>units: async_v20.definitions.descriptors.primitives.Unit</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'LIMIT'</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>position_fill: async_v20.definitions.descriptors.order.OrderPositionFill = 'DEFAULT'</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>take_profit_on_fill: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss_on_fill: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss_on_fill: async_v20.definitions.types.TrailingStopLossDetails = None</em>, <em>trade_client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_replace_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to replace a pending Limit Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_id</strong> – The ID of the Limit Order to replace</li>
+<li><strong>kwargs</strong> – The arguments to create a LimitOrderRequest</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
+the request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_orders">
+<code class="descname">list_orders</code><span class="sig-paren">(</span><em>ids: async_v20.endpoints.annotations.Ids = None</em>, <em>state: async_v20.definitions.descriptors.order.OrderStateFilter = None</em>, <em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName = None</em>, <em>count: async_v20.endpoints.annotations.Count = None</em>, <em>before_id: async_v20.definitions.descriptors.order.OrderID = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_orders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of Orders for an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ids</strong> – List of Order IDs to retrieve</li>
+<li><strong>state</strong> – The state to filter the requested Orders by</li>
+<li><strong>instrument</strong> – The instrument to filter the requested orders by</li>
+<li><strong>count</strong> – The maximum number of Orders to return</li>
+<li><strong>before_id</strong> – The maximum Order ID to return. If not provided the most recent
+Orders in the Account are returned</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_pending_orders">
+<code class="descname">list_pending_orders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_pending_orders" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all pending Orders in an Account</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.market_if_touched_order">
+<code class="descname">market_if_touched_order</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName</em>, <em>units: async_v20.definitions.descriptors.primitives.Unit</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'MARKET_IF_TOUCHED'</em>, <em>price_bound: async_v20.definitions.descriptors.pricing.PriceValue = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>position_fill: async_v20.definitions.descriptors.order.OrderPositionFill = 'DEFAULT'</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>take_profit_on_fill: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss_on_fill: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss_on_fill: async_v20.definitions.types.TrailingStopLossDetails = None</em>, <em>trade_client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create a MarketIfTouched Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a MarketIfTouchedOrderRequest</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
+the request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.market_if_touched_replace_order">
+<code class="descname">market_if_touched_replace_order</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName</em>, <em>units: async_v20.definitions.descriptors.primitives.Unit</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'MARKET_IF_TOUCHED'</em>, <em>price_bound: async_v20.definitions.descriptors.pricing.PriceValue = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>position_fill: async_v20.definitions.descriptors.order.OrderPositionFill = 'DEFAULT'</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>take_profit_on_fill: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss_on_fill: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss_on_fill: async_v20.definitions.types.TrailingStopLossDetails = None</em>, <em>trade_client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_replace_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to replace a pending MarketIfTouched Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_id</strong> – The ID of the MarketIfTouched Order to replace</li>
+<li><strong>kwargs</strong> – The arguments to create a MarketIfTouchedOrderRequest</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
+the request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.market_order">
+<code class="descname">market_order</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName</em>, <em>units: async_v20.definitions.descriptors.primitives.Unit</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'MARKET'</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'FOK'</em>, <em>price_bound: async_v20.definitions.descriptors.pricing.PriceValue = None</em>, <em>position_fill: async_v20.definitions.descriptors.order.OrderPositionFill = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>take_profit_on_fill: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss_on_fill: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss_on_fill: async_v20.definitions.types.TrailingStopLossDetails = None</em>, <em>trade_client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create a Market Order in an Account
+MarketOrderRequest
+:param kwargs: The arguments to create a MarketOrderRequest</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
+the request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.replace_order">
+<code class="descname">replace_order</code><span class="sig-paren">(</span><em>order_specifier: async_v20.definitions.descriptors.order.OrderSpecifier = None</em>, <em>order: async_v20.definitions.types.OrderRequest = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.replace_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace an Order in an Account by simultaneously cancelling it and
+creating a replacement Order</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_specifier</strong> – The Order Specifier</li>
+<li><strong>order</strong> – Specification of the replacing Order</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.set_client_extensions">
+<code class="descname">set_client_extensions</code><span class="sig-paren">(</span><em>order_specifier: async_v20.definitions.descriptors.order.OrderSpecifier = None</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>trade_client_extensions: async_v20.endpoints.annotations.TradeClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_client_extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the Client Extensions for an Order in an Account. Do not set,
+modify, or delete clientExtensions if your account is associated with
+MT4.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_specifier</strong> – The Order Specifier</li>
+<li><strong>client_extensions</strong> – The Client Extensions to update for the Order. Do not set,
+modify, or delete clientExtensions if your account is
+associated with MT4.</li>
+<li><strong>trade_client_extensions</strong> – The Client Extensions to update for the Trade created when the
+Order is filled. Do not set, modify, or delete clientExtensions
+if your account is associated with MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.stop_loss_order">
+<code class="descname">stop_loss_order</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName</em>, <em>units: async_v20.definitions.descriptors.primitives.Unit</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'STOP'</em>, <em>price_bound: async_v20.definitions.descriptors.pricing.PriceValue = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>position_fill: async_v20.definitions.descriptors.order.OrderPositionFill = 'DEFAULT'</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>take_profit_on_fill: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss_on_fill: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss_on_fill: async_v20.definitions.types.TrailingStopLossDetails = None</em>, <em>trade_client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create a Stop Loss Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a StopLossOrderRequest</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
+the request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.stop_loss_replace_order">
+<code class="descname">stop_loss_replace_order</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_replace_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to replace a pending Stop Loss Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_id</strong> – The ID of the Stop Loss Order to replace</li>
+<li><strong>kwargs</strong> – The arguments to create a StopLossOrderRequest</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
+the request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.stop_order">
+<code class="descname">stop_order</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName</em>, <em>units: async_v20.definitions.descriptors.primitives.Unit</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'STOP'</em>, <em>price_bound: async_v20.definitions.descriptors.pricing.PriceValue = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>position_fill: async_v20.definitions.descriptors.order.OrderPositionFill = 'DEFAULT'</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>take_profit_on_fill: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss_on_fill: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss_on_fill: async_v20.definitions.types.TrailingStopLossDetails = None</em>, <em>trade_client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create a Stop Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a StopOrderRequest</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
+the request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.stop_replace_order">
+<code class="descname">stop_replace_order</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName</em>, <em>units: async_v20.definitions.descriptors.primitives.Unit</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'STOP'</em>, <em>price_bound: async_v20.definitions.descriptors.pricing.PriceValue = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>position_fill: async_v20.definitions.descriptors.order.OrderPositionFill = 'DEFAULT'</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em>, <em>take_profit_on_fill: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss_on_fill: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss_on_fill: async_v20.definitions.types.TrailingStopLossDetails = None</em>, <em>trade_client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_replace_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to replace a pending Stop Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_id</strong> – The ID of the Stop Order to replace</li>
+<li><strong>kwargs</strong> – The arguments to create a StopOrderRequest</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
+the request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.take_profit_order">
+<code class="descname">take_profit_order</code><span class="sig-paren">(</span><em>trade_id: async_v20.definitions.descriptors.trade.TradeID</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'TAKE_PROFIT'</em>, <em>client_trade_id: async_v20.definitions.descriptors.transaction.ClientID = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create a Take Profit Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a TakeProfitOrderRequest</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
+the request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.take_profit_replace_order">
+<code class="descname">take_profit_replace_order</code><span class="sig-paren">(</span><em>trade_id: async_v20.definitions.descriptors.trade.TradeID</em>, <em>price: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'TAKE_PROFIT'</em>, <em>client_trade_id: async_v20.definitions.descriptors.transaction.ClientID = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_replace_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to replace a pending Take Profit Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_id</strong> – The ID of the Take Profit Order to replace</li>
+<li><strong>kwargs</strong> – The arguments to create a TakeProfitOrderRequest</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
+the request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.trailing_stop_loss_order">
+<code class="descname">trailing_stop_loss_order</code><span class="sig-paren">(</span><em>trade_id: async_v20.definitions.descriptors.trade.TradeID</em>, <em>distance: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'TRAILING_STOP_LOSS'</em>, <em>client_trade_id: async_v20.definitions.descriptors.transaction.ClientID = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to create a Trailing Stop Loss Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a TrailingStopLossOrderRequest</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
+the request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.trailing_stop_loss_replace_order">
+<code class="descname">trailing_stop_loss_replace_order</code><span class="sig-paren">(</span><em>trade_id: async_v20.definitions.descriptors.trade.TradeID</em>, <em>distance: async_v20.definitions.descriptors.pricing.PriceValue</em>, <em>type: async_v20.definitions.descriptors.order.OrderType = 'TRAILING_STOP_LOSS'</em>, <em>client_trade_id: async_v20.definitions.descriptors.transaction.ClientID = None</em>, <em>time_in_force: async_v20.definitions.descriptors.order.TimeInForce = 'GTC'</em>, <em>gtd_time: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>trigger_condition: async_v20.definitions.descriptors.order.OrderTriggerCondition = 'DEFAULT'</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_replace_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to replace a pending Trailing Stop Loss Order in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_id</strong> – The ID of the Take Profit Order to replace</li>
+<li><strong>kwargs</strong> – The arguments to create a TrailingStopLossOrderRequest</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
+the request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="position">
+<h2>Position<a class="headerlink" href="#position" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_v20.OandaClient.close_position">
+<code class="descname">close_position</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName = None</em>, <em>long_units: async_v20.endpoints.annotations.LongUnits = None</em>, <em>long_client_extensions: async_v20.endpoints.annotations.LongClientExtensions = None</em>, <em>short_units: async_v20.endpoints.annotations.ShortUnits = None</em>, <em>short_client_extensions: async_v20.endpoints.annotations.ShortClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.close_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closeout the open Position for a specific instrument in an Account.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instrument</strong> – Name of the Instrument</li>
+<li><strong>long_units</strong> – Indication of how much of the long Position to closeout. Either
+the string “ALL”, the string “NONE”, or a DecimalNumber
+representing how many units of the long position to close using
+a PositionCloseout MarketOrder. The units specified must always
+be positive.</li>
+<li><strong>long_client_extensions</strong> – The client extensions to add to the MarketOrder used to close
+the long position.</li>
+<li><strong>short_units</strong> – Indication of how much of the short Position to closeout.
+Either the string “ALL”, the string “NONE”, or a DecimalNumber
+representing how many units of the short position to close
+using a PositionCloseout MarketOrder. The units specified must
+always be positive.</li>
+<li><strong>short_client_extensions</strong> – The client extensions to add to the MarketOrder used to close
+the short position.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_positions">
+<code class="descname">get_positions</code><span class="sig-paren">(</span><em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the details of a single Instrument’s Position in an Account. The
+Position may by open or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instrument</strong> – Name of the Instrument</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_open_positions">
+<code class="descname">list_open_positions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_open_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all open Positions for an Account. An open Position is a Position
+in an Account that currently has a Trade opened for it.</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_positions">
+<code class="descname">list_positions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all Positions for an Account. The Positions returned are for every
+instrument that has had a position during the lifetime of an the
+Account.</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="pricing">
+<h2>Pricing<a class="headerlink" href="#pricing" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_v20.OandaClient.get_pricing">
+<code class="descname">get_pricing</code><span class="sig-paren">(</span><em>instruments: async_v20.endpoints.annotations.Instruments = None</em>, <em>since: async_v20.definitions.descriptors.primitives.DateTime = None</em>, <em>include_units_available: async_v20.endpoints.annotations.IncludeUnitsAvailable = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_pricing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get pricing information for a specified list of Instruments within an
+Account.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instruments</strong> – List of Instruments to get pricing for.</li>
+<li><strong>since</strong> – Date/Time filter to apply to the returned prices. Only prices
+with a time later than this filter will be provided.</li>
+<li><strong>include_units_available</strong> – Flag that enables the inclusion of the unitsAvailable field in
+the returned Price objects.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.stream_pricing">
+<code class="descname">stream_pricing</code><span class="sig-paren">(</span><em>instruments: async_v20.endpoints.annotations.Instruments = None</em>, <em>snapshot: async_v20.endpoints.annotations.Snapshot = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stream_pricing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a stream of Account Prices starting from when the request is made.
+This pricing stream does not include every single price created for the
+Account, but instead will provide at most 4 prices per second (every
+250 milliseconds) for each instrument being requested. If more than one
+price is created for an instrument during the 250 millisecond window,
+only the price in effect at the end of the window is sent. This means
+that during periods of rapid price movement, subscribers to this stream
+will not be sent every price. Pricing windows for different connections
+to the price stream are not all aligned in the same way (i.e. they are
+not all aligned to the top of the second). This means that during
+periods of rapid price movement, different subscribers may observe
+different prices depending on their alignment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instruments</strong> – List of Instruments to stream Prices for.</li>
+<li><strong>snapshot</strong> – Flag that enables/disables the sending of a pricing snapshot
+when initially connecting to the stream.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="trade">
+<h2>Trade<a class="headerlink" href="#trade" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_v20.OandaClient.close_trades">
+<code class="descname">close_trades</code><span class="sig-paren">(</span><em>trade_specifier: async_v20.definitions.descriptors.trade.TradeStateFilter = None</em>, <em>units: async_v20.endpoints.annotations.Units = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.close_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close (partially or fully) a specific open Trade in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>trade_specifier</strong> – Specifier for the Trade</li>
+<li><strong>units</strong> – Indication of how much of the Trade to close. Either the string
+“ALL” (indicating that all of the Trade should be closed), or a
+DecimalNumber representing the number of units of the open
+Trade to Close using a TradeClose MarketOrder. The units
+specified must always be positive, and the magnitude of the
+value cannot exceed the magnitude of the Trade’s open units.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_trades">
+<code class="descname">get_trades</code><span class="sig-paren">(</span><em>trade_specifier: async_v20.definitions.descriptors.trade.TradeSpecifier = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the details of a specific Trade in an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>trade_specifier</strong> – Specifier for the Trade</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_open_trades">
+<code class="descname">list_open_trades</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_open_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of open Trades for an Account</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_trades">
+<code class="descname">list_trades</code><span class="sig-paren">(</span><em>ids: async_v20.endpoints.annotations.Ids = None</em>, <em>state: async_v20.definitions.descriptors.trade.TradeStateFilter = None</em>, <em>instrument: async_v20.definitions.descriptors.primitives.InstrumentName = None</em>, <em>count: async_v20.endpoints.annotations.Count = None</em>, <em>before_id: async_v20.definitions.descriptors.trade.TradeID = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of Trades for an Account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ids</strong> – List of Trade IDs to retrieve.</li>
+<li><strong>state</strong> – The state to filter the requested Trades by.</li>
+<li><strong>instrument</strong> – The instrument to filter the requested Trades by.</li>
+<li><strong>count</strong> – The maximum number of Trades to return.</li>
+<li><strong>before_id</strong> – The maximum Trade ID to return. If not provided the most recent
+Trades in the Account are returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.set_client_extensions_trade">
+<code class="descname">set_client_extensions_trade</code><span class="sig-paren">(</span><em>trade_specifier: async_v20.definitions.descriptors.trade.TradeSpecifier = None</em>, <em>client_extensions: async_v20.definitions.types.ClientExtensions = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_client_extensions_trade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the Client Extensions for a Trade. Do not add, update, or delete
+the Client Extensions if your account is associated with MT4.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>trade_specifier</strong> – Specifier for the Trade</li>
+<li><strong>client_extensions</strong> – The Client Extensions to update the Trade with. Do not add,
+update, or delete the Client Extensions if your account is
+associated with MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.set_dependent_orders_trade">
+<code class="descname">set_dependent_orders_trade</code><span class="sig-paren">(</span><em>trade_specifier: async_v20.definitions.descriptors.trade.TradeSpecifier = None</em>, <em>take_profit: async_v20.definitions.types.TakeProfitDetails = None</em>, <em>stop_loss: async_v20.definitions.types.StopLossDetails = None</em>, <em>trailing_stop_loss: async_v20.definitions.types.TrailingStopLossDetails = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_dependent_orders_trade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create, replace and cancel a Trade’s dependent Orders (Take Profit,
+Stop Loss and Trailing Stop Loss) through the Trade itself</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>trade_specifier</strong> – Specifier for the Trade</li>
+<li><strong>take_profit</strong> – The specification of the Take Profit to create/modify/cancel.
+If takeProfit is set to null, the Take Profit Order will be
+cancelled if it exists. If takeProfit is not provided, the
+existing Take Profit Order will not be modified. If a sub-
+field of takeProfit is not specified, that field will be set to
+a default value on create, and be inherited by the replacing
+order on modify.</li>
+<li><strong>stop_loss</strong> – The specification of the Stop Loss to create/modify/cancel. If
+stopLoss is set to null, the Stop Loss Order will be cancelled
+if it exists. If stopLoss is not provided, the existing Stop
+Loss Order will not be modified. If a sub-field of stopLoss is
+not specified, that field will be set to a default value on
+create, and be inherited by the replacing order on modify.</li>
+<li><strong>trailing_stop_loss</strong> – The specification of the Trailing Stop Loss to
+create/modify/cancel. If trailingStopLoss is set to null, the
+Trailing Stop Loss Order will be cancelled if it exists. If
+trailingStopLoss is not provided, the existing Trailing Stop
+Loss Order will not be modified. If a sub-field of
+trailingStopLoss is not specified, that field will be set to a
+default value on create, and be inherited by the replacing
+order on modify.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="transaction">
+<h2>Transaction<a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_v20.OandaClient.get_transactions">
+<code class="descname">get_transactions</code><span class="sig-paren">(</span><em>transaction_id: async_v20.definitions.descriptors.transaction.TransactionID = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_transactions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the details of a single Account Transaction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction_id</strong> – A Transaction ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_transactions">
+<code class="descname">list_transactions</code><span class="sig-paren">(</span><em>from_time: async_v20.endpoints.annotations.FromTime = None</em>, <em>to_time: async_v20.endpoints.annotations.ToTime = None</em>, <em>page_size: async_v20.endpoints.annotations.PageSize = None</em>, <em>type_: async_v20.endpoints.annotations.Type = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_transactions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of Transactions pages that satisfy a time-based Transaction
+query.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>from_time</strong> – The starting time (inclusive) of the time range for the
+Transactions being queried.</li>
+<li><strong>to_time</strong> – The ending time (inclusive) of the time range for the
+Transactions being queried.</li>
+<li><strong>page_size</strong> – The number of Transactions to include in each page of the
+results.</li>
+<li><strong>type</strong> – A filter for restricting the types of Transactions to retrieve.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.since_transaction">
+<code class="descname">since_transaction</code><span class="sig-paren">(</span><em>transaction_id: async_v20.definitions.descriptors.transaction.TransactionID = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.since_transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a range of Transactions for an Account starting at (but not
+including) a provided Transaction ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction_id</strong> – The ID of the last Transaction fetched. This query will return
+all Transactions newer than the TransactionID.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.stream_transactions">
+<code class="descname">stream_transactions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stream_transactions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a stream of Transactions for an Account starting from when the
+request is made.</p>
+<p>Args:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.transaction_range">
+<code class="descname">transaction_range</code><span class="sig-paren">(</span><em>from_time: async_v20.endpoints.annotations.FromTime = None</em>, <em>to_time: async_v20.endpoints.annotations.ToTime = None</em>, <em>type_: async_v20.endpoints.annotations.Type = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.transaction_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a range of Transactions for an Account based on the Transaction
+IDs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>from_time</strong> – The starting Transaction ID (inclusive) to fetch.</li>
+<li><strong>to_time</strong> – The ending Transaction ID (inclusive) to fetch.</li>
+<li><strong>type</strong> – The filter that restricts the types of Transactions to
+retrieve.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
+request</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="user">
+<h2>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create an API context for v20 access</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>rest_port</strong> – – The port of the v20 REST server</li>
+<li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
+<li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
+<li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
+<li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
+the v20 REST server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="async_v20.OandaClient.get_external_user_info">
+<code class="descname">get_external_user_info</code><span class="sig-paren">(</span><em>user_specifier: async_v20.endpoints.annotations.UserSpecifier = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_external_user_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch the externally-available user information for the specified user.
+This endpoint is intended to be used by 3rd parties that have been
+authorized by a user to view their personal information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – The User Specifier</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_user_info">
+<code class="descname">get_user_info</code><span class="sig-paren">(</span><em>user_specifier: async_v20.endpoints.annotations.UserSpecifier = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_user_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch the user information for the specified user. This endpoint is
+intended to be used by the user thyself to obtain their own
+information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – The User Specifier</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
+request</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -60,14 +1314,29 @@
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Hello World!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#account">Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#order">Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#position">Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pricing">Pricing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trade">Trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction">Transaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="digging_deeper.html">Digging Deeper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to async_v20’s documentation!</a></li>
+      <li>Previous: <a href="best_practices.html" title="previous chapter">Best Practices</a></li>
+      <li>Next: <a href="digging_deeper.html" title="next chapter">Digging Deeper</a></li>
   </ul></li>
 </ul>
 </div>

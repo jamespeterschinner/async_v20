@@ -56,7 +56,7 @@ class ClientExtensions(Model):
     comment to Orders and Trades in their Account.  Do not set, modify, or
     delete this field if your account is associated with MT4.
 
-    Fields:
+    Attributes:
         id: -- The Client ID of the Order/Trade
         tag: -- A tag associated with the Order/Trade
         comment: -- A comment associated with the Order/Trade
@@ -76,7 +76,7 @@ class OrderRequest(Model):
     """The base Order specification used when requesting that an Order be created.
     Each specific Order-type extends this definition.
 
-    Fields:
+    Attributes:
 
     """
 
@@ -87,7 +87,7 @@ class Order(Model):
     """The base Order definition specifies the properties that are common to all
     Orders.
 
-    Fields:
+    Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
         createTime: -- The time when the Order was created.
         state: -- The current state of the Order.
@@ -112,7 +112,7 @@ class Transaction(Model):
     """The base Transaction specification. Specifies properties that are common
     between all Transaction.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -144,7 +144,7 @@ class UnitsAvailableDetails(Model):
     """Representation of many units of an Instrument are available to be traded
     for both long and short Orders.
 
-    Fields:
+    Attributes:
         long: -- The units available for long Orders.
         short: -- The units available for short Orders.
 
@@ -161,7 +161,7 @@ class UnitsAvailable(Model):
     """Representation of how many units of an Instrument are available to be
     traded by an Order depending on its position Fill option.
 
-    Fields:
+    Attributes:
         default: -- The number of units that are available to be traded using an Order with a positionFill option of
             "DEFAULT". For an Account with hedging enabled,
             this value will be the same as the "OPEN_ONLY" value. For an Account without hedging enabled,
@@ -198,7 +198,7 @@ class LiquidityRegenerationScheduleStep(Model):
     liquidity that is used by the Account at a certain time. These amounts will
     only change at the timestamp of the following step.
 
-    Fields:
+    Attributes:
         timestamp: -- The timestamp of the schedule step.
         bidLiquidityUsed: -- The amount of bid liquidity used at this step in the schedule.
         askLiquidityUsed: -- The amount of ask liquidity used at this step in the schedule.
@@ -221,7 +221,7 @@ class LiquidityRegenerationSchedule(Model):
     its final step, but may be replaced by a schedule created for an Order of
     the same instrument that is filled while it is still in effect.
 
-    Fields:
+    Attributes:
         steps: -- The steps in the Liquidity Regeneration Schedule
 
     """
@@ -235,7 +235,7 @@ class LiquidityRegenerationSchedule(Model):
 class CandlestickData(Model):
     """The price data (open, high, low, close) for the Candlestick representation.
 
-    Fields:
+    Attributes:
         o: -- The first (open) price in the time-range represented by the candlestick.
         h: -- The highest price in the time-range represented by the candlestick.
         l: -- The lowest price in the time-range represented by the candlestick.
@@ -259,7 +259,7 @@ class OrderIdentifier(Model):
     """An OrderIdentifier is used to refer to an Order, and contains both the
     OrderID and the ClientOrderID.
 
-    Fields:
+    Attributes:
         orderID: -- The OANDA-assigned Order ID
         clientOrderID: -- The client-provided client Order ID
 
@@ -277,7 +277,7 @@ class QuoteHomeConversionFactors(Model):
     convert quantities of a Price's Instrument's quote currency into the
     Account's home currency.
 
-    Fields:
+    Attributes:
         positiveUnits: -- The factor used to convert a positive amount of the
             Price's Instrument's quote currency into a positive
             amount of the Account's home currency. Conversion is performed by multiplying
@@ -306,7 +306,7 @@ class MarketOrderMarginCloseout(Model):
     """Details for the Market Order extensions specific to a Market Order placed
     that is part of a Market Order Margin Closeout in a client's account
 
-    Fields:
+    Attributes:
         reason: -- The reason the Market Order was created to perform a margin closeout
 
     """
@@ -319,7 +319,7 @@ class MarketOrderMarginCloseout(Model):
 class InstrumentCommission(Model):
     """An InstrumentCommission represents an instrument-specific commission
 
-    Fields:
+    Attributes:
         instrument: -- The name of the instrument
         commission: -- The commission amount (in the Account's home
             currency) charged per unitsTraded of the instrument
@@ -345,7 +345,7 @@ class InstrumentCommission(Model):
 class OrderBookBucket(Model):
     """The order book data for a partition of the instrument's prices.
 
-    Fields:
+    Attributes:
         price: -- The lowest price (inclusive) covered by the bucket. The bucket covers the
             price range from the price to price + the order book's bucketWidth.
         longCountPercent: -- The percentage of the total number of orders
@@ -370,7 +370,7 @@ class OrderBookBucket(Model):
 class PositionBookBucket(Model):
     """The position book data for a partition of the instrument's prices.
 
-    Fields:
+    Attributes:
         price: -- The lowest price (inclusive) covered by the bucket. The bucket covers the
             price range from the price to price + the position book's bucketWidth.
         longCountPercent: -- The percentage of the total number of positions
@@ -396,7 +396,7 @@ class DynamicOrderState(Model):
     """The dynamic state of an Order. This is only relevant to TrailingStopLoss
     Orders, as no other Order type has dynamic state.
 
-    Fields:
+    Attributes:
         id: -- The Order's ID.
         trailingStopValue: -- The Order's calculated trailing stop value.
         triggerDistance: -- The distance between the Trailing Stop Loss Order's trailingStopValue and the current
@@ -428,7 +428,7 @@ class DynamicOrderState(Model):
 class CalculatedPositionState(Model):
     """The dynamic (calculated) state of a Position
 
-    Fields:
+    Attributes:
         instrument: -- The Position's Instrument.
         netUnrealizedPL: -- The Position's net unrealized profit/loss
         longUnrealizedPL: -- The unrealized profit/loss of the Position's long open Trades
@@ -450,7 +450,7 @@ class CalculatedPositionState(Model):
 class PositionSide(Model):
     """The representation of a Position for a single direction (long or short).
 
-    Fields:
+    Attributes:
         units: -- Number of units in the position (negative
             value indicates short position, positive indicates long position).
         averagePrice: -- Volume-weighted average of the underlying Trade open prices for the Position.
@@ -492,7 +492,7 @@ class PositionSide(Model):
 class Position(Model):
     """The specification of a Position within an Account.
 
-    Fields:
+    Attributes:
         instrument: -- The Position's Instrument.
         pl: -- Profit/loss realized by the Position over the lifetime of the Account.
         unrealizedPL: -- The unrealized profit/loss of all open Trades that contribute to this Position.
@@ -537,7 +537,7 @@ class Position(Model):
 class PriceBucket(Model):
     """A Price Bucket represents a price available for an amount of liquidity
 
-    Fields:
+    Attributes:
         price: -- The Price offered by the PriceBucket
         liquidity: -- The amount of liquidity offered by the PriceBucket
 
@@ -553,7 +553,7 @@ class PriceBucket(Model):
 class ClientPrice(Model):
     """Client price for an Account.
 
-    Fields:
+    Attributes:
         bids: -- The list of prices and liquidity available on the Instrument's bid side. It is possible for this
             list to be empty if there is no bid liquidity currently available for the Instrument in the Account.
         asks: -- The list of prices and liquidity available on the Instrument's ask side. It is possible for this
@@ -593,7 +593,7 @@ class PricingHeartbeat(Model):
     """A PricingHeartbeat object is injected into the Pricing stream to ensure
     that the HTTP connection remains active.
 
-    Fields:
+    Attributes:
         type: -- The string "HEARTBEAT"
         time: -- The date/time when the Heartbeat was created.
 
@@ -612,7 +612,7 @@ class PricingHeartbeat(Model):
 class CalculatedTradeState(Model):
     """The dynamic (calculated) state of an open Trade
 
-    Fields:
+    Attributes:
         id: -- The Trade's ID.
         unrealizedPL: -- The Trade's unrealized profit/loss.
 
@@ -630,7 +630,7 @@ class MarketOrderDelayedTradeClose(Model):
     with the intent of fully closing a specific open trade that should have
     already been closed but wasn't due to halted market conditions
 
-    Fields:
+    Attributes:
         tradeID: -- The ID of the Trade being closed
         clientTradeID: -- The Client ID of the Trade being closed
         sourceTransactionID: -- The Transaction ID of the DelayedTradeClosure transaction
@@ -652,7 +652,7 @@ class MarketOrderPositionCloseout(Model):
     """A MarketOrderPositionCloseout specifies the extensions to a Market Order
     when it has been created to closeout a specific Position.
 
-    Fields:
+    Attributes:
         instrument: -- The instrument of the Position being closed out.
         units: -- Indication of how much of the Position to close. Either "ALL", or a DecimalNumber reflection a
             partial close of the
@@ -675,7 +675,7 @@ class MarketOrderTradeClose(Model):
     """A MarketOrderTradeClose specifies the extensions to a Market Order that has
     been created specifically to close a Trade.
 
-    Fields:
+    Attributes:
         tradeID: -- The ID of the Trade requested to be closed
         clientTradeID: -- The client ID of the Trade requested to be closed
         units: -- Indication of how much of the Trade to close. Either
@@ -697,7 +697,7 @@ class OpenTradeFinancing(Model):
     """OpenTradeFinancing is used to pay/collect daily financing charge for an
     open Trade within an Account
 
-    Fields:
+    Attributes:
         tradeID: -- The ID of the Trade that financing is being paid/collected for.
         financing: -- The amount of financing paid/collected for the Trade.
 
@@ -714,7 +714,7 @@ class PositionFinancing(Model):
     """OpenTradeFinancing is used to pay/collect daily financing charge for a
     Position within an Account
 
-    Fields:
+    Attributes:
         instrument: -- The instrument of the Position that financing is being paid/collected for.
         financing: -- The amount of financing paid/collected for the Position.
         openTradeFinancings: -- The financing paid/collecte for each open Trade within the Position.
@@ -737,7 +737,7 @@ class TradeOpen(Model):
     an Account. It is found embedded in Transactions that affect the position
     of an instrument in the Account, specifically the OrderFill Transaction.
 
-    Fields:
+    Attributes:
         tradeID: -- The ID of the Trade that was opened
         units: -- The number of units opened by the Trade
         clientExtensions: -- The client extensions for the newly opened Trade
@@ -758,7 +758,7 @@ class VWAPReceipt(Model):
     constructed. If the Order is filled with multiple buckets in a depth of
     market, each bucket will be represented with a VWAP Receipt.
 
-    Fields:
+    Attributes:
         units: -- The number of units filled
         price: -- The price at which the units were filled
 
@@ -774,7 +774,7 @@ class VWAPReceipt(Model):
 class UserInfo(Model):
     """A representation of user information, as provided to the user themself.
 
-    Fields:
+    Attributes:
         username: -- The user-provided username.
         userID: -- The user's OANDA-assigned user ID.
         country: -- The country that the user is based in.
@@ -786,7 +786,7 @@ class UserInfo(Model):
 class AccountProperties(Model):
     """Properties related to an Account.
 
-    Fields:
+    Attributes:
         id: -- The Account's identifier
         mt4AccountID: -- The Account's associated MT4 Account ID. This field will not
             be present if the Account is not an MT4 account.
@@ -808,7 +808,7 @@ class AccountProperties(Model):
 class Candlestick(Model):
     """The Candlestick representation
 
-    Fields:
+    Attributes:
         time: -- The start time of the candlestick
         bid: -- The candlestick data based on bids.
             Only provided if bid-based candles were requested.
@@ -846,7 +846,7 @@ class Candlestick(Model):
 class OrderBook(Model):
     """The representation of an instrument's order book at a point in time
 
-    Fields:
+    Attributes:
         instrument: -- The order book's instrument
         time: -- The time when the order book snapshot was created.
         price: -- The price (midpoint) for the order book's instrument
@@ -879,7 +879,7 @@ class OrderBook(Model):
 class PositionBook(Model):
     """The representation of an instrument's position book at a point in time
 
-    Fields:
+    Attributes:
         instrument: -- The position book's instrument
         time: -- The time when the position book snapshot was created
         price: -- The price (midpoint) for the position book's instrument
@@ -915,7 +915,7 @@ class StopLossDetails(Model):
     Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is
     modified directly through the Trade.
 
-    Fields:
+    Attributes:
         price: -- The price that the Stop Loss Order will be triggered at.
         timeInForce: -- The time in force for the created Stop Loss
             Order. This may only be GTC, GTD or GFD.
@@ -943,7 +943,7 @@ class TakeProfitDetails(Model):
     opens a Trade requiring a Take Profit, or when a Trade's dependent Take
     Profit Order is modified directly through the Trade.
 
-    Fields:
+    Attributes:
         price: -- The price that the Take Profit Order will be triggered at.
         timeInForce: -- The time in force for the created Take Profit
             Order. This may only be GTC, GTD or GFD.
@@ -971,7 +971,7 @@ class TradeReduce(Model):
     Transactions that affect the position of an instrument in the account,
     specifically the OrderFill Transaction.
 
-    Fields:
+    Attributes:
         tradeID: -- The ID of the Trade that was reduced or closed
         units: -- The number of units that the Trade was reduced by
         realizedPL: -- The PL realized when reducing the Trade
@@ -996,7 +996,7 @@ class TrailingStopLossDetails(Model):
     filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's
     dependent Trailing Stop Loss Order is modified directly through the Trade.
 
-    Fields:
+    Attributes:
         distance: -- The distance (in price units) from the Trade's fill price
             that the Trailing Stop Loss Order will be triggered at.
         timeInForce: -- The time in force for the created Trailing Stop
@@ -1026,7 +1026,7 @@ class TransactionHeartbeat(Model):
     """A TransactionHeartbeat object is injected into the Transaction stream to
     ensure that the HTTP connection remains active.
 
-    Fields:
+    Attributes:
         type: -- The string "HEARTBEAT"
         lastTransactionID: -- The ID of the most recent Transaction created for the Account
         time: -- The date/time when the TransactionHeartbeat was created.
@@ -1049,7 +1049,7 @@ class UserInfoExternal(Model):
     """A representation of user information, as available to external (3rd party)
     clients.
 
-    Fields:
+    Attributes:
         userID: -- The user's OANDA-assigned user ID.
         country: -- The country that the user is based in.
         FIFO: -- Flag indicating if the the user's Accounts adhere to FIFO execution rules.
@@ -1061,7 +1061,7 @@ class TradeSummary(Model):
     """The summary of a Trade within an Account. This representation does not
     provide the full details of the Trade's dependent Orders.
 
-    Fields:
+    Attributes:
         id: -- The Trade's identifier, unique within the Trade's Account.
         instrument: -- The Trade's Instrument.
         price: -- The execution price of the Trade.
@@ -1139,7 +1139,7 @@ class TradeSummary(Model):
 class Instrument(Model):
     """Full specification of an Instrument.
 
-    Fields:
+    Attributes:
         name: -- The name of the Instrument
         type: -- The type of the Instrument
         displayName: -- The display name of the Instrument
@@ -1328,7 +1328,7 @@ class AccountChangesState(Model):
     current Prices, and includes things like unrealized PL, NAV and Trailing
     Stop Loss Order state.
 
-    Fields:
+    Attributes:
         unrealizedPL: -- The total unrealized profit/loss for all Trades currently open
             in the Account. Represented in the Account's home currency.
         NAV: -- The net asset value of the Account. Equal to
@@ -1403,7 +1403,7 @@ class AccountChangesState(Model):
 class Price(Model):
     """The specification of an Account-specific Price.
 
-    Fields:
+    Attributes:
         type: -- The string "PRICE". Used to identify the a Price object when found in a stream.
         instrument: -- The Price's Instrument.
         time: -- The date/time when the Price was created
@@ -1469,7 +1469,7 @@ class Price(Model):
 class CloseTransaction(Transaction):
     """A CloseTransaction represents the closing of an Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -1509,7 +1509,7 @@ class MarginCallEnterTransaction(Transaction):
     """A MarginCallEnterTransaction is created when an Account enters the margin
     call state.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -1551,7 +1551,7 @@ class MarginCallExitTransaction(Transaction):
     """A MarginCallExitnterTransaction is created when an Account leaves the
     margin call state.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -1593,7 +1593,7 @@ class MarginCallExtendTransaction(Transaction):
     """A MarginCallExtendTransaction is created when the margin call state for an
     Account has been extended.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -1640,7 +1640,7 @@ class MarginCallExtendTransaction(Transaction):
 class ReopenTransaction(Transaction):
     """A ReopenTransaction represents the re-opening of a closed Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -1681,7 +1681,7 @@ class ResetResettablePLTransaction(Transaction):
     """A ResetResettablePLTransaction represents the resetting of the Account's
     resettable PL counters.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -1723,7 +1723,7 @@ class StopLossOrderRequest(OrderRequest):
     """A StopLossOrderRequest specifies the parameters that may be set when
     creating a Stop Loss Order.
 
-    Fields:
+    Attributes:
         type: -- The type of the Order to Create. Must be
             set to "STOP_LOSS" when creating a Stop Loss Order.
         tradeID: -- The ID of the Trade to close when the price threshold is breached.
@@ -1788,7 +1788,7 @@ class TakeProfitOrderRequest(OrderRequest):
     """A TakeProfitOrderRequest specifies the parameters that may be set when
     creating a Take Profit Order.
 
-    Fields:
+    Attributes:
         type: -- The type of the Order to Create. Must be
             set to "TAKE_PROFIT" when creating a Take Profit Order.
         tradeID: -- The ID of the Trade to close when the price threshold is breached.
@@ -1853,7 +1853,7 @@ class TrailingStopLossOrderRequest(OrderRequest):
     """A TrailingStopLossOrderRequest specifies the parameters that may be set
     when creating a Trailing Stop Loss Order.
 
-    Fields:
+    Attributes:
         type: -- The type of the Order to Create. Must be
             set to "TRAILING_STOP_LOSS" when creating a Trailng Stop Loss Order.
         tradeID: -- The ID of the Trade to close when the price threshold is breached.
@@ -1914,7 +1914,7 @@ class TrailingStopLossOrderRequest(OrderRequest):
 class CreateTransaction(Transaction):
     """A CreateTransaction represents the creation of an Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -1970,7 +1970,7 @@ class ClientConfigureTransaction(Transaction):
     """A ClientConfigureTransaction represents the configuration of an Account by
     a client.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -2021,7 +2021,7 @@ class DelayedTradeClosureTransaction(Transaction):
     this transaction will be closed once their respective instruments become
     tradeable.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -2071,7 +2071,7 @@ class OrderCancelTransaction(Transaction):
     """An OrderCancelTransaction represents the cancellation of an Order in the
     client's Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -2134,7 +2134,7 @@ class OrderClientExtensionsModifyTransaction(Transaction):
     """A OrderClientExtensionsModifyTransaction represents the modification of an
     Order's Client Extensions.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -2190,7 +2190,7 @@ class DailyFinancingTransaction(Transaction):
     """A DailyFinancingTransaction represents the daily payment/collection of
     financing for an Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -2245,7 +2245,7 @@ class TradeClientExtensionsModifyTransaction(Transaction):
     """A TradeClientExtensionsModifyTransaction represents the modification of a
     Trade's Client Extensions.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -2298,7 +2298,7 @@ class AccountSummary(Model):
     """A summary representation of a client's Account. The AccountSummary does not
     provide to full specification of pending Orders, open Trades and Positions.
 
-    Fields:
+    Attributes:
         id: -- The Account's identifier
         alias: -- Client-assigned alias for the Account. Only provided
             if the Account has an alias set
@@ -2442,7 +2442,7 @@ class MarketOrderRequest(OrderRequest):
     """A MarketOrderRequest specifies the parameters that may be set when creating
     a Market Order.
 
-    Fields:
+    Attributes:
         type: -- The type of the Order to Create. Must
             be set to "MARKET" when creating a Market Order.
         instrument: -- The Market Order's Instrument.
@@ -2527,7 +2527,7 @@ class TakeProfitOrderTransaction(Transaction):
     """A TakeProfitOrderTransaction represents the creation of a TakeProfit Order
     in the user's Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -2633,7 +2633,7 @@ class TakeProfitOrder(Order):
     first price that is equal to or better than the threshold. A
     TakeProfitOrder cannot be used to open a new Position.
 
-    Fields:
+    Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
         createTime: -- The time when the Order was created.
         state: -- The current state of the Order.
@@ -2756,7 +2756,7 @@ class StopLossOrder(Order):
     first price that is equal to or worse than the threshold. A StopLossOrder
     cannot be used to open a new Position.
 
-    Fields:
+    Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
         createTime: -- The time when the Order was created.
         state: -- The current state of the Order.
@@ -2882,7 +2882,7 @@ class TrailingStopLossOrder(Order):
     or worse than the trailing stop value. A TrailingStopLossOrder cannot be
     used to open a new Position.
 
-    Fields:
+    Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
         createTime: -- The time when the Order was created.
         state: -- The current state of the Order.
@@ -3012,7 +3012,7 @@ class Trade(Model):
     representation of the Trade's dependent Orders in addition to the IDs of
     those Orders.
 
-    Fields:
+    Attributes:
         id: -- The Trade's identifier, unique within the Trade's Account.
         instrument: -- The Trade's Instrument.
         price: -- The execution price of the Trade.
@@ -3094,7 +3094,7 @@ class ClientConfigureRejectTransaction(Transaction):
     """A ClientConfigureRejectTransaction represents the reject of configuration
     of an Account by a client.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -3145,7 +3145,7 @@ class OrderCancelRejectTransaction(Transaction):
     """An OrderCancelRejectTransaction represents the rejection of the
     cancellation of an Order in the client's Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -3201,7 +3201,7 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
     """A OrderClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of an Order's Client Extensions.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -3260,7 +3260,7 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction):
     """A TradeClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of a Trade's Client Extensions.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -3316,7 +3316,7 @@ class TransferFundsTransaction(Transaction):
     """A TransferFundsTransaction represents the transfer of funds in/out of an
     Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -3374,7 +3374,7 @@ class TransferFundsRejectTransaction(Transaction):
     """A TransferFundsRejectTransaction represents the rejection of the transfer
     of funds in/out of an Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -3432,7 +3432,7 @@ class LimitOrderRequest(OrderRequest):
     """A LimitOrderRequest specifies the parameters that may be set when creating
     a Limit Order.
 
-    Fields:
+    Attributes:
         type: -- The type of the Order to Create. Must
             be set to "LIMIT" when creating a Market Order.
         instrument: -- The Limit Order's Instrument.
@@ -3537,7 +3537,7 @@ class MarketIfTouchedOrderRequest(OrderRequest):
     """A MarketIfTouchedOrderRequest specifies the parameters that may be set when
     creating a Market-if-Touched Order.
 
-    Fields:
+    Attributes:
         type: -- The type of the Order to Create. Must be
             set to "MARKET_IF_TOUCHED" when creating a Market If Touched Order.
         instrument: -- The MarketIfTouched Order's Instrument.
@@ -3653,7 +3653,7 @@ class StopOrderRequest(OrderRequest):
     """A StopOrderRequest specifies the parameters that may be set when creating a
     Stop Order.
 
-    Fields:
+    Attributes:
         type: -- The type of the Order to Create. Must
             be set to "STOP" when creating a Stop Order.
         instrument: -- The Stop Order's Instrument.
@@ -3767,7 +3767,7 @@ class MarketOrderTransaction(Transaction):
     created to accomplish a specific tas': 'to' close a Trade, to closeout a
     Position or to particiate in in a Margin closeout.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -3884,7 +3884,7 @@ class MarketOrderRejectTransaction(Transaction):
     """A MarketOrderRejectTransaction represents the rejection of the creation of
     a Market Order.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -4004,7 +4004,7 @@ class StopLossOrderTransaction(Transaction):
     """A StopLossOrderTransaction represents the creation of a StopLoss Order in
     the user's Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -4108,7 +4108,7 @@ class TrailingStopLossOrderTransaction(Transaction):
     """A TrailingStopLossOrderTransaction represents the creation of a
     TrailingStopLoss Order in the user's Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -4209,7 +4209,7 @@ class LimitOrder(Order):
     """A LimitOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or better than the threshold.
 
-    Fields:
+    Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
         createTime: -- The time when the Order was created.
         state: -- The current state of the Order.
@@ -4370,7 +4370,7 @@ class MarketIfTouchedOrder(Order):
     and will only be filled by a market price that is touches or crosses the
     threshold.
 
-    Fields:
+    Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
         createTime: -- The time when the Order was created.
         state: -- The current state of the Order.
@@ -4546,7 +4546,7 @@ class StopOrder(Order):
     """A StopOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or worse than the threshold.
 
-    Fields:
+    Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
         createTime: -- The time when the Order was created.
         state: -- The current state of the Order.
@@ -4712,7 +4712,7 @@ class OrderFillTransaction(Transaction):
     """An OrderFillTransaction represents the filling of an Order in the client's
     Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -4810,7 +4810,7 @@ class StopLossOrderRejectTransaction(Transaction):
     """A StopLossOrderRejectTransaction represents the rejection of the creation
     of a StopLoss Order.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -4912,7 +4912,7 @@ class MarketIfTouchedOrderTransaction(Transaction):
     """A MarketIfTouchedOrderTransaction represents the creation of a
     MarketIfTouched Order in the user's Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -5048,7 +5048,7 @@ class LimitOrderTransaction(Transaction):
     """A LimitOrderTransaction represents the creation of a Limit Order in the
     user's Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -5173,7 +5173,7 @@ class TakeProfitOrderRejectTransaction(Transaction):
     """A TakeProfitOrderRejectTransaction represents the rejection of the creation
     of a TakeProfit Order.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -5275,7 +5275,7 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
     """A TrailingStopLossOrderRejectTransaction represents the rejection of the
     creation of a TrailingStopLoss Order.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -5375,7 +5375,7 @@ class StopOrderTransaction(Transaction):
     """A StopOrderTransaction represents the creation of a Stop Order in the
     user's Account.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -5506,7 +5506,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
     """A MarketIfTouchedOrderRejectTransaction represents the rejection of the
     creation of a MarketIfTouched Order.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -5641,7 +5641,7 @@ class LimitOrderRejectTransaction(Transaction):
     """A LimitOrderRejectTransaction represents the rejection of the creation of a
     Limit Order.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -5764,7 +5764,7 @@ class StopOrderRejectTransaction(Transaction):
     """A StopOrderRejectTransaction represents the rejection of the creation of a
     Stop Order.
 
-    Fields:
+    Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
         userID: -- The ID of the user that initiated the creation of the Transaction.
@@ -5893,7 +5893,7 @@ class MarketOrder(Order):
     """A MarketOrder is an order that is filled immediately upon creation using
     the current market price.
 
-    Fields:
+    Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
         createTime: -- The time when the Order was created.
         state: -- The current state of the Order.
@@ -6045,7 +6045,7 @@ class Account(AccountSummary):
     """The full details of a client's Account. This includes full open Trade, open
     Position and pending Order representation.
 
-    Fields:
+    Attributes:
         id: -- The Account's identifier
         alias: -- Client-assigned alias for the Account. Only provided
             if the Account has an alias set
@@ -6201,7 +6201,7 @@ class AccountChanges(Model):
     Orders, Trades and Positions since a specified Account TransactionID in the
     past.
 
-    Fields:
+    Attributes:
         ordersCreated: -- The Orders created. These Orders may have been
             filled, cancelled or triggered in the same period.
         ordersCancelled: -- The Orders cancelled.

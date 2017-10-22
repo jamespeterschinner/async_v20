@@ -90,7 +90,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        self.session.close()
+        self.close()
 
     def __enter__(self):
         # TODO Make this print in red
@@ -98,6 +98,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.session.close()
+        self.close()
 
+    def close(self):
+        self.session.close()
 

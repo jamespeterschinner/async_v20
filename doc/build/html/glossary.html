@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Getting started" href="tutorial.html" />
+    <link rel="prev" title="Digging Deeper" href="digging_deeper.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -58,6 +58,8 @@ related primitives.</p>
 <p>Reference implementation of <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-3156"><strong>PEP 3156</strong></a></p>
 <p class="last"><a class="reference external" href="https://pypi.python.org/pypi/asyncio/">https://pypi.python.org/pypi/asyncio/</a></p>
 </dd>
+<dt id="term-await">await</dt>
+<dd>Python syntax to execute a <a class="reference internal" href="#term-coroutine"><span class="xref std std-term">coroutine</span></a> inside an asynchronous function</dd>
 <dt id="term-callable">callable</dt>
 <dd>Any object that can be called. Use <code class="xref py py-func docutils literal"><span class="pre">callable()</span></code> to check
 that.</dd>
@@ -69,23 +71,34 @@ binding to charsetdetect.</p>
 <dt id="term-concurrent">concurrent</dt>
 <dd>The process by which a single threaded application switches between
 different tasks. Typically done to prevent waiting for I/O bound operations</dd>
+<dt id="term-context-manager">context manager</dt>
+<dd>A Python programming concept that defines <cite>enter</cite> and <cite>exit</cite> methods. Used to handle set-up
+and tear-down tasks</dd>
+<dt id="term-coroutine">coroutine</dt>
+<dd>A python object that supports asynchronous execution</dd>
+<dt id="term-environment-variable">environment variable</dt>
+<dd>An environment variable is a dynamic-named value that can affect the way running processes
+will behave on a computer. They are part of the environment in which a process runs</dd>
 <dt id="term-oanda">OANDA</dt>
 <dd>The name of the Foreign Exchange (FOREX) broker <a class="reference internal" href="#term-async-v20"><span class="xref std std-term">async_v20</span></a> communicates with</dd>
+<dt id="term-oandaclient">OandaClient</dt>
+<dd>The client class definition <a class="reference internal" href="#term-async-v20"><span class="xref std std-term">async_v20</span></a> exposes</dd>
 <dt id="term-pandas">pandas</dt>
 <dd><p class="first">a Python package providing fast, flexible, and expressive data structures
 designed to make working with “relational” or “labeled” data both easy and intuitive</p>
 <p class="last"><a class="reference external" href="http://pandas.pydata.org/">http://pandas.pydata.org/</a></p>
 </dd>
 <dt id="term-token">token</dt>
-<dd><p class="first">A 65 character string used to uniquely identify and authorise access to OANDA v20 API</p>
+<dd><p class="first">A 65 character string used to uniquely identify and authorise access to the OANDA v20 API</p>
 <dl class="last docutils">
 <dt>Example:</dt>
 <dd><cite>810492ace47473fa9f72c0eeecd33657-1eae8a55f01431bdd370206f69071e5f</cite></dd>
 </dl>
 </dd>
-<dt id="term-yarl">yarl</dt>
-<dd><p class="first">A library for operating with URL objects.</p>
-<p class="last"><a class="reference external" href="https://pypi.python.org/pypi/yarl">https://pypi.python.org/pypi/yarl</a></p>
+<dt id="term-virtual-environment">virtual environment</dt>
+<dd><p class="first">A self-contained directory tree that contains a Python installation for a particular version of Python,
+plus a number of additional packages.</p>
+<p class="last"><a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">https://docs.python.org/3/tutorial/venv.html</a></p>
 </dd>
 </dl>
 </div>
@@ -108,6 +121,9 @@ designed to make working with “relational” or “labeled” data both easy a
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">OandaClient API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digging_deeper.html">Digging Deeper</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a></li>
 </ul>
 
@@ -115,7 +131,7 @@ designed to make working with “relational” or “labeled” data both easy a
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="tutorial.html" title="previous chapter">Getting started</a></li>
+      <li>Previous: <a href="digging_deeper.html" title="previous chapter">Digging Deeper</a></li>
   </ul></li>
 </ul>
 </div>
