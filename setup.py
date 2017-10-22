@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-version = '1.1.1a1'
+version = '1.1.2a1'
 
 setup(name='async_v20',
       version=version,

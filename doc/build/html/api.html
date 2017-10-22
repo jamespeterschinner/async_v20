@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>OandaClient API &#8212; async_v20 1.1.1a1 documentation</title>
+    <title>OandaClient API &#8212; async_v20 1.1.2a1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.1.1a1',
+        VERSION:     '1.1.2a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,6 +46,11 @@
 <p class="first admonition-title">Note</p>
 <p class="last"><strong>methods</strong> arguments annotated with ‘TransactionID’
 will be passed the correct TransactionID implicitly.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">OandaClient will look for OANDA_TOKEN in the enviroment variables
+if no token is passed</p>
 </div>
 <dl class="class">
 <dt id="async_v20.OandaClient">
@@ -102,6 +107,10 @@ the v20 REST server</li>
 <code class="descname">account_changes</code><span class="sig-paren">(</span><em>since_transaction_id: async_v20.definitions.descriptors.transaction.TransactionID = None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_changes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint used to poll an Account for its current state and changes
 since a specified TransactionID.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">since_transaction_id is automatically handled by OandaClient</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1328,6 +1337,7 @@ request</td>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="digging_deeper.html">Digging Deeper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 

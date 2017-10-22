@@ -25,7 +25,7 @@ Features
 
 - Exposes the entire `v20 API <http://developer.oanda.com/rest-live-v20/introduction/>`_ `
 - No `*args, **kwargs` In client methods. So no guessing what arguments a method takes
-- Serialize objects directly into :term:`pandas`. `Series <http://pandas.pydata.org/pandas-docs/stable/dsintro.html#series>`_ ` objects
+- Serialize objects directly into :term:`pandas`. `Series <http://pandas.pydata.org/pandas-docs/stable/dsintro.html#series>`_ objects
 - Construct :term:`concurrent` trading algorithms
 
 .. _installation:
@@ -54,6 +54,6 @@ Contents
    best_practices
    api
    digging_deeper
-   basic_types
+   types
    glossary
 

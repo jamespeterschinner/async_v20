@@ -28,6 +28,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         datetime_format: -- The format to request when dealing with times
         poll_timeout: -- The timeout to use when making a polling request with
             the v20 REST server
+
     """
 
     default_parameters = {}
@@ -44,6 +45,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                  stream_host='stream-fxpractice.oanda.com', stream_port=None, application='async_v20',
                  datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99, max_simultaneous_connections=10):
 
+        # TODO: add poll timeout
         self.version = version
 
         if token is None:

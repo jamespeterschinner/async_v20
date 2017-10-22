@@ -6,6 +6,12 @@ OandaClient API
       **methods** arguments annotated with 'TransactionID'
       will be passed the correct TransactionID implicitly.
 
+.. note::
+
+      OandaClient will look for OANDA_TOKEN in the enviroment variables
+      if no token is passed
+
+
 .. autoclass:: async_v20.OandaClient
 
 Account
@@ -22,6 +28,7 @@ Instrument
 
 Order
 -----
+
 .. autoclass:: async_v20.OandaClient
    :members: create_order,
             list_orders,
@@ -47,6 +54,7 @@ Order
 
 Position
 --------
+
 .. autoclass:: async_v20.OandaClient
    :members: list_positions,
             list_open_positions,
