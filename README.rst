@@ -93,18 +93,21 @@ Lets first take a look at this code example, then go though it line by line.
 
 
 First we need to import *asyncio* this allows up to run our *coroutine*
+
 .. code-block:: python
 
     import asyncio
 
 
 We then import *OandaClient* which provides us the means to interact with OANDA
+
 .. code-block:: python
 
     from async_v20 import OandaClient
 
 
 Because *OandaClient* returns *coroutines* we use *async def*. This allows the use of the *await* syntax
+
 .. code-block:: python
 
     async def account():
@@ -112,12 +115,14 @@ Because *OandaClient* returns *coroutines* we use *async def*. This allows the u
 
 *OandaClient* is a *context manager*, we use *async with* to instantiate a
 client instance. Doing so will automatically close the *http session* when we're done
+
 .. code-block:: python
 
         async with OandaClient() as client:
 
 
 We then create and *run* the *coroutine* by calling *client*. **get_account_details()**
+
 .. code-block:: python
 
             return await client.get_account_details()
@@ -125,18 +130,21 @@ We then create and *run* the *coroutine* by calling *client*. **get_account_deta
 
 Now we have defined our *coroutine* we need to execute it.
 To do so we need an event loop. Achieved using *asyncio*. **get_event_loop()**
+
 .. code-block:: python
 
     loop = asyncio.get_event_loop()
 
 
 The value returned by executing the `account()` *coroutine* is accessed through the event loop.
+
 .. code-block:: python
 
     response = loop.run_until_complete(account())
 
 
 `async_v20` objects have a `series()` method that returns a `pandas.Series`
+
 .. code-block:: python
 
     print(response['account'].series())
