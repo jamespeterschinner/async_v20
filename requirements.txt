@@ -10,3 +10,4 @@ pytest-asyncio>=0.8.0
 Sphinx>=1.6.4
 ujson>=1.35
 yarl>=0.13.0
+codecov==2.0.9
