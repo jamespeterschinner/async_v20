@@ -1,11 +1,4 @@
-aiohttp==2.2.5
-async-timeout==1.4.0
-chardet==3.0.4
-colorama==0.3.9
-multidict==3.2.0
-py==1.4.34
-pytest==3.2.2
-ujson==1.35
-yarl==0.12.0
-inflection==0.3.1
-pandas==0.20.3
+aiohttp
+ujson
+yarl
+inflection

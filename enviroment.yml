@@ -1,0 +1,12 @@
+name: async_v20
+channels:
+  - conda-forge
+dependencies:
+- python==3.6
+- sphinx>=1.6
+- aiohttp>=2.3.1
+- ujson>=1.35
+- yarl>=0.130
+- inflection>=0.3.1
+- pandas>=0.20.3
+- Sphinx>=1.6.4
