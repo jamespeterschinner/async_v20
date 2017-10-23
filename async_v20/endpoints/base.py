@@ -49,12 +49,3 @@ class EndPoint(object):
 
     # json format the data body as per the response_schema below
     request_schema = dict()
-
-    @classmethod
-    def header_args(cls):
-        return
-
-    @classmethod
-    def query_args(cls):
-        return [parameter['typ'] for parameter
-                in cls.parameters if parameter['located'] == 'query']
