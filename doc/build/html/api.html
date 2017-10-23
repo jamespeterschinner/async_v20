@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Digging Deeper" href="digging_deeper.html" />
-    <link rel="prev" title="Best Practices" href="best_practices.html" />
+    <link rel="next" title="Class Definitions" href="types.html" />
+    <link rel="prev" title="Beyond Getting Started" href="beyond_getting_started.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -41,7 +41,7 @@
           <div class="body" role="main">
             
   <div class="section" id="oandaclient-api">
-<h1>OandaClient API<a class="headerlink" href="#oandaclient-api" title="Permalink to this headline">¶</a></h1>
+<span id="api-docs"></span><h1>OandaClient API<a class="headerlink" href="#oandaclient-api" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><strong>methods</strong> arguments annotated with ‘TransactionID’
@@ -52,6 +52,8 @@ will be passed the correct TransactionID implicitly.</p>
 <p class="last">OandaClient will look for OANDA_TOKEN in the enviroment variables
 if no token is passed</p>
 </div>
+<div class="section" id="oandaclient">
+<span id="id1"></span><h2>OandaClient<a class="headerlink" href="#oandaclient" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="async_v20.OandaClient">
 <em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
@@ -77,6 +79,7 @@ the v20 REST server</li>
 </table>
 </dd></dl>
 
+</div>
 <div class="section" id="account">
 <h2>Account<a class="headerlink" href="#account" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1323,9 +1326,11 @@ request</td>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#account">Account</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#order">Order</a></li>
@@ -1336,7 +1341,6 @@ request</td>
 <li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="digging_deeper.html">Digging Deeper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
@@ -1345,8 +1349,8 @@ request</td>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="best_practices.html" title="previous chapter">Best Practices</a></li>
-      <li>Next: <a href="digging_deeper.html" title="next chapter">Digging Deeper</a></li>
+      <li>Previous: <a href="beyond_getting_started.html" title="previous chapter">Beyond Getting Started</a></li>
+      <li>Next: <a href="types.html" title="next chapter">Class Definitions</a></li>
   </ul></li>
 </ul>
 </div>

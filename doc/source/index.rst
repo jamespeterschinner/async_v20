@@ -10,7 +10,7 @@
 async_v20: Asynchronous OANDA v20 client
 ========================================
 
-.. _GitHub: https://github.com/jamespeterschinner/async_v20
+
 
 Disclaimer
 ----------
@@ -45,15 +45,43 @@ It is therefor recommended to also install :term:`cchardet` as per :term:`aiohtt
 
    $ pip install cchardet
 
+Tutorial
+--------
+
+:ref:`tutorial`
+
+Source code
+-----------
+
+Can be found on `GitHub <https://github.com/jamespeterschinner/async_v20>`_
+
+Please feel free to file an issue on the bug tracker if you have found a bug
+or have some suggestion in order to improve the library.
+
+
+Dependencies
+------------
+
+- aiohttp >= 2.2.5
+- ujson >= 1.35'
+- yarl >= 0.12.0'
+- inflection >= 0.3.1'
+
+It is recommend to also install :term:`pandas` to enable full functionally of :term:`async_v20`
+
+.. code-block:: bash
+
+   $ pip install pandas
+
 
 Contents
 --------
 .. toctree::
 
-   tutorial
+   getting_started
    best_practices
+   beyond_getting_started
    api
-   digging_deeper
    types
    glossary
 

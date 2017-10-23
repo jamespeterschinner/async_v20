@@ -16,7 +16,8 @@ __all__ = ['OrderRequest', 'UnitsAvailableDetails',
            'MarketOrderTradeClose', 'OpenTradeFinancing', 'PositionFinancing', 'ClientExtensions', 'TradeOpen',
            'VWAPReceipt', 'UserInfo', 'AccountProperties', 'Candlestick', 'OrderBook', 'PositionBook', 'Order',
            'StopLossDetails', 'TakeProfitDetails', 'TradeReduce', 'TrailingStopLossDetails', 'TransactionHeartbeat',
-           'UserInfoExternal', 'TradeSummary', 'Transaction', 'AccountChanges', 'Instrument', 'AccountChangesState',
+           'UserInfoExternal', 'TradeSummary', 'Transaction', 'AccountChanges', 'Instrument', 'CurrencyInstrument',
+           'CFDInstrument', 'MetalInstrument', 'AccountChangesState',
            'Price', 'CloseTransaction', 'MarginCallEnterTransaction', 'MarginCallExitTransaction',
            'MarginCallExtendTransaction', 'ReopenTransaction', 'ResetResettablePLTransaction', 'StopLossOrderRequest',
            'TakeProfitOrderRequest', 'TrailingStopLossOrderRequest', 'CreateTransaction', 'ClientConfigureTransaction',
@@ -281,11 +282,10 @@ class QuoteHomeConversionFactors(Model):
         positiveUnits: -- The factor used to convert a positive amount of the
             Price's Instrument's quote currency into a positive
             amount of the Account's home currency. Conversion is performed by multiplying
-             the quote units by the conversion factor.
+            the quote units by the conversion factor.
         negativeUnits: -- The factor used to convert a negative amount of the Price's Instrument's
-            quote currency into a negative
-            amount of the Account's home currency. Conversion is performed by multiplying the quote
-            units by the conversion factor.
+            quote currency into a negative amount of the Account's home currency. Conversion is performed by
+            multiplying the quote units by the conversion factor.
 
     """
 
@@ -655,9 +655,8 @@ class MarketOrderPositionCloseout(Model):
     Attributes:
         instrument: -- The instrument of the Position being closed out.
         units: -- Indication of how much of the Position to close. Either "ALL", or a DecimalNumber reflection a
-            partial close of the
-            Trade. The DecimalNumber must always be positive, and represent a number that doesn't exceed the absolute
-                size of the Position.
+            partial close of the Trade. The DecimalNumber must always be positive, and represent a number that doesn't exceed the absolute
+            size of the Position.
 
     """
 

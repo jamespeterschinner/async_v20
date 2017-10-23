@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting started" href="tutorial.html" />
+    <link rel="next" title="Getting started" href="getting_started.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -71,14 +71,37 @@ It is therefor recommended to also install <a class="reference internal" href="g
 </pre></div>
 </div>
 </div>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="getting_started.html#tutorial"><span class="std std-ref">Using async_v20</span></a></p>
+</div>
+<div class="section" id="source-code">
+<h2>Source code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h2>
+<p>Can be found on <a class="reference external" href="https://github.com/jamespeterschinner/async_v20">GitHub</a></p>
+<p>Please feel free to file an issue on the bug tracker if you have found a bug
+or have some suggestion in order to improve the library.</p>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>aiohttp &gt;= 2.2.5</li>
+<li>ujson &gt;= 1.35’</li>
+<li>yarl &gt;= 0.12.0’</li>
+<li>inflection &gt;= 0.3.1’</li>
+</ul>
+<p>It is recommend to also install <a class="reference internal" href="glossary.html#term-pandas"><span class="xref std std-term">pandas</span></a> to enable full functionally of <a class="reference internal" href="glossary.html#term-async-v20"><span class="xref std std-term">async_v20</span></a></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install pandas
+</pre></div>
+</div>
+</div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#creating-an-account">Creating an Account</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#setting-up-environment">Setting up environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#using-async-v20">Using async_v20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#creating-an-account">Creating an Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#setting-up-environment">Setting up environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#using-async-v20">Using async_v20</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a><ul>
@@ -86,7 +109,18 @@ It is therefor recommended to also install <a class="reference internal" href="g
 <li class="toctree-l2"><a class="reference internal" href="best_practices.html#initialize-first">Initialize first</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="beyond_getting_started.html#what-you-need-to-know">What you need to know</a></li>
+<li class="toctree-l2"><a class="reference internal" href="beyond_getting_started.html#what-might-be-usefull">What might be usefull</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="beyond_getting_started.html#how-are-arguments-passed">How Are Arguments Passed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="beyond_getting_started.html#how-responses-are-constructed">How Responses are Constructed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="beyond_getting_started.html#how-objects-are-serialized">How Objects are Serialized</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">OandaClient API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#oandaclient">OandaClient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#account">Account</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#instrument">Instrument</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#order">Order</a></li>
@@ -97,13 +131,16 @@ It is therefor recommended to also install <a class="reference internal" href="g
 <li class="toctree-l2"><a class="reference internal" href="api.html#user">User</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="digging_deeper.html">Digging Deeper</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="digging_deeper.html#under-the-hood">Under the hood</a></li>
-<li class="toctree-l2"><a class="reference internal" href="digging_deeper.html#descriptors">Descriptors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="digging_deeper.html#the-model">The Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="account.html">Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instrument.html">Instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="order.html">Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="positions.html">Positions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pricing.html">Pricing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trade.html">Trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transaction.html">Transaction</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 </div>
@@ -127,10 +164,10 @@ It is therefor recommended to also install <a class="reference internal" href="g
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">OandaClient API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="digging_deeper.html">Digging Deeper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
@@ -139,7 +176,7 @@ It is therefor recommended to also install <a class="reference internal" href="g
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="tutorial.html" title="next chapter">Getting started</a></li>
+      <li>Next: <a href="getting_started.html" title="next chapter">Getting started</a></li>
   </ul></li>
 </ul>
 </div>

@@ -9,7 +9,7 @@ Creating an Account
 To use :term:`async_v20` you must have an account with :term:`OANDA`
 
     - Create an account `HERE <https://www.oanda.com/account/login>`_
-    - Create an API :term:`token` `HERE <https://www.oanda.com/demo-account/tpa/personal_token>`_
+    - Create an API :term:`token` `AND HERE <https://www.oanda.com/demo-account/tpa/personal_token>`_
 
 .. _setting-up-environment:
 
@@ -22,7 +22,7 @@ Setting up environment
     .. note::
 
         - It is considered best practice use a :term:`virtual environment`
-        - It is not required to store the token in an :term:`environment variable`. The token can be passed to :term:`OandaClient`
+        - It is not required to store the token in an :term:`environment variable`. The token can be passed to :ref:`OandaClient`
 
 .. _tutorial:
 

@@ -1,3 +1,5 @@
+.. _api-docs:
+
 OandaClient API
 ===============
 
@@ -11,6 +13,10 @@ OandaClient API
       OandaClient will look for OANDA_TOKEN in the enviroment variables
       if no token is passed
 
+.. _OandaClient:
+
+OandaClient
+-----------
 
 .. autoclass:: async_v20.OandaClient
 
@@ -49,7 +55,7 @@ Order
             stop_loss_order,
             stop_loss_replace_order,
             trailing_stop_loss_order,
-            trailing_stop_loss_replace_order,
+            trailing_stop_loss_replace_order
 
 
 Position
@@ -59,7 +65,7 @@ Position
    :members: list_positions,
             list_open_positions,
             get_positions,
-            close_position,
+            close_position
 
 Pricing
 -------
