@@ -90,9 +90,9 @@ class Order(Model):
 
     Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
+        create_time: -- The time when the Order was created.
         state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
 
     """
@@ -116,11 +116,11 @@ class Transaction(Model):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
 
     """
 
@@ -167,11 +167,11 @@ class UnitsAvailable(Model):
             "DEFAULT". For an Account with hedging enabled,
             this value will be the same as the "OPEN_ONLY" value. For an Account without hedging enabled,
             this value will be the same as the "REDUCE_FIRST" value.
-        reduceFirst: -- The number of units that may are available to be
+        reduce_first: -- The number of units that may are available to be
             traded with an Order with a positionFill option of "REDUCE_FIRST".
-        reduceOnly: -- The number of units that may are available to be
+        reduce_only: -- The number of units that may are available to be
             traded with an Order with a positionFill option of "REDUCE_ONLY".
-        openOnly: -- The number of units that may are available to be
+        open_only: -- The number of units that may are available to be
             traded with an Order with a positionFill option of "OPEN_ONLY".
 
         """
@@ -201,8 +201,8 @@ class LiquidityRegenerationScheduleStep(Model):
 
     Attributes:
         timestamp: -- The timestamp of the schedule step.
-        bidLiquidityUsed: -- The amount of bid liquidity used at this step in the schedule.
-        askLiquidityUsed: -- The amount of ask liquidity used at this step in the schedule.
+        bid_liquidity_used: -- The amount of bid liquidity used at this step in the schedule.
+        ask_liquidity_used: -- The amount of ask liquidity used at this step in the schedule.
 
     """
 
@@ -261,8 +261,8 @@ class OrderIdentifier(Model):
     OrderID and the ClientOrderID.
 
     Attributes:
-        orderID: -- The OANDA-assigned Order ID
-        clientOrderID: -- The client-provided client Order ID
+        order_id: -- The OANDA-assigned Order ID
+        client_order_id: -- The client-provided client Order ID
 
     """
 
@@ -279,11 +279,11 @@ class QuoteHomeConversionFactors(Model):
     Account's home currency.
 
     Attributes:
-        positiveUnits: -- The factor used to convert a positive amount of the
+        positive_units: -- The factor used to convert a positive amount of the
             Price's Instrument's quote currency into a positive
             amount of the Account's home currency. Conversion is performed by multiplying
             the quote units by the conversion factor.
-        negativeUnits: -- The factor used to convert a negative amount of the Price's Instrument's
+        negative_units: -- The factor used to convert a negative amount of the Price's Instrument's
             quote currency into a negative amount of the Account's home currency. Conversion is performed by
             multiplying the quote units by the conversion factor.
 
@@ -323,8 +323,8 @@ class InstrumentCommission(Model):
         instrument: -- The name of the instrument
         commission: -- The commission amount (in the Account's home
             currency) charged per unitsTraded of the instrument
-        unitsTraded: -- The number of units traded that the commission amount is based on.
-        minimumCommission: -- The minimum commission amount (in the Account's home currency) that
+        units_traded: -- The number of units traded that the commission amount is based on.
+        minimum_commission: -- The minimum commission amount (in the Account's home currency) that
             is charged when an Order is filled for this instrument.
 
     """
@@ -348,9 +348,9 @@ class OrderBookBucket(Model):
     Attributes:
         price: -- The lowest price (inclusive) covered by the bucket. The bucket covers the
             price range from the price to price + the order book's bucketWidth.
-        longCountPercent: -- The percentage of the total number of orders
+        long_count_percent: -- The percentage of the total number of orders
             represented by the long orders found in this bucket.
-        shortCountPercent: -- The percentage of the total number of orders
+        short_count_percent: -- The percentage of the total number of orders
             represented by the short orders found in this bucket.
 
     """
@@ -373,9 +373,9 @@ class PositionBookBucket(Model):
     Attributes:
         price: -- The lowest price (inclusive) covered by the bucket. The bucket covers the
             price range from the price to price + the position book's bucketWidth.
-        longCountPercent: -- The percentage of the total number of positions
+        long_count_percent: -- The percentage of the total number of positions
             represented by the long positions found in this bucket.
-        shortCountPercent: -- The percentage of the total number of positions
+        short_count_percent: -- The percentage of the total number of positions
             represented by the short positions found in this bucket.
 
     """
@@ -398,12 +398,12 @@ class DynamicOrderState(Model):
 
     Attributes:
         id: -- The Order's ID.
-        trailingStopValue: -- The Order's calculated trailing stop value.
-        triggerDistance: -- The distance between the Trailing Stop Loss Order's trailingStopValue and the current
+        trailing_stop_value: -- The Order's calculated trailing stop value.
+        trigger_distance: -- The distance between the Trailing Stop Loss Order's trailingStopValue and the current
             Market Price. This represents the distance (in price
             units) of the Order from a triggering price. If the distance could not be determined,
             this value will not be set.
-        isTriggerDistanceExact: -- True if an exact trigger distance could be calculated. If false,
+        is_trigger_distance_exact: -- True if an exact trigger distance could be calculated. If false,
             it means the provided trigger distance
             is a best estimate. If the distance could not be determined, this value will not be set.
 
@@ -430,9 +430,9 @@ class CalculatedPositionState(Model):
 
     Attributes:
         instrument: -- The Position's Instrument.
-        netUnrealizedPL: -- The Position's net unrealized profit/loss
-        longUnrealizedPL: -- The unrealized profit/loss of the Position's long open Trades
-        shortUnrealizedPL: -- The unrealized profit/loss of the Position's short open Trades
+        net_unrealized_pl: -- The Position's net unrealized profit/loss
+        long_unrealized_pl: -- The unrealized profit/loss of the Position's long open Trades
+        short_unrealized_pl: -- The unrealized profit/loss of the Position's short open Trades
 
     """
 
@@ -453,12 +453,12 @@ class PositionSide(Model):
     Attributes:
         units: -- Number of units in the position (negative
             value indicates short position, positive indicates long position).
-        averagePrice: -- Volume-weighted average of the underlying Trade open prices for the Position.
-        tradeIDs: -- List of the open Trade IDs which contribute to the open Position.
+        average_price: -- Volume-weighted average of the underlying Trade open prices for the Position.
+        trade_i_ds: -- List of the open Trade IDs which contribute to the open Position.
         pl: -- Profit/loss realized by the PositionSide over the lifetime of the Account.
-        unrealizedPL: -- The unrealized profit/loss of all open
+        unrealized_pl: -- The unrealized profit/loss of all open
             Trades that contribute to this PositionSide.
-        resettablePL: -- Profit/loss realized by the PositionSide since the
+        resettable_pl: -- Profit/loss realized by the PositionSide since the
             Account's resettablePL was last reset by the client.
 
     """
@@ -495,8 +495,8 @@ class Position(Model):
     Attributes:
         instrument: -- The Position's Instrument.
         pl: -- Profit/loss realized by the Position over the lifetime of the Account.
-        unrealizedPL: -- The unrealized profit/loss of all open Trades that contribute to this Position.
-        resettablePL: -- Profit/loss realized by the Position since the
+        unrealized_pl: -- The unrealized profit/loss of all open Trades that contribute to this Position.
+        resettable_pl: -- Profit/loss realized by the Position since the
             Account's resettablePL was last reset by the client.
         commission: -- The total amount of commission paid for this instrument over
             the lifetime of the Account. Represented in the Account's home currency.
@@ -558,10 +558,10 @@ class ClientPrice(Model):
             list to be empty if there is no bid liquidity currently available for the Instrument in the Account.
         asks: -- The list of prices and liquidity available on the Instrument's ask side. It is possible for this
             list to be empty if there is no ask liquidity currently available for the Instrument in the Account.
-        closeoutBid: -- The closeout bid Price. This Price is used when a bid is required to closeout a Position
+        closeout_bid: -- The closeout bid Price. This Price is used when a bid is required to closeout a Position
             (margin closeout
             or manual) yet there is no bid liquidity. The closeout bid is never used to open a new position.
-        closeoutAsk: -- The closeout ask Price. This Price is used when a ask is required to closeout a Position
+        closeout_ask: -- The closeout ask Price. This Price is used when a ask is required to closeout a Position
             (margin closeout
             or manual) yet there is no ask liquidity. The closeout ask is never used to open a new position.
         timestamp: -- The date/time when the Price was created.
@@ -614,7 +614,7 @@ class CalculatedTradeState(Model):
 
     Attributes:
         id: -- The Trade's ID.
-        unrealizedPL: -- The Trade's unrealized profit/loss.
+        unrealized_pl: -- The Trade's unrealized profit/loss.
 
     """
 
@@ -631,9 +631,9 @@ class MarketOrderDelayedTradeClose(Model):
     already been closed but wasn't due to halted market conditions
 
     Attributes:
-        tradeID: -- The ID of the Trade being closed
-        clientTradeID: -- The Client ID of the Trade being closed
-        sourceTransactionID: -- The Transaction ID of the DelayedTradeClosure transaction
+        trade_id: -- The ID of the Trade being closed
+        client_trade_id: -- The Client ID of the Trade being closed
+        source_transaction_id: -- The Transaction ID of the DelayedTradeClosure transaction
             to which this Delayed Trade Close belongs to
 
     """
@@ -675,8 +675,8 @@ class MarketOrderTradeClose(Model):
     been created specifically to close a Trade.
 
     Attributes:
-        tradeID: -- The ID of the Trade requested to be closed
-        clientTradeID: -- The client ID of the Trade requested to be closed
+        trade_id: -- The ID of the Trade requested to be closed
+        client_trade_id: -- The client ID of the Trade requested to be closed
         units: -- Indication of how much of the Trade to close. Either
             "ALL", or a DecimalNumber reflection a partial close of the Trade.
 
@@ -697,7 +697,7 @@ class OpenTradeFinancing(Model):
     open Trade within an Account
 
     Attributes:
-        tradeID: -- The ID of the Trade that financing is being paid/collected for.
+        trade_id: -- The ID of the Trade that financing is being paid/collected for.
         financing: -- The amount of financing paid/collected for the Trade.
 
     """
@@ -716,7 +716,7 @@ class PositionFinancing(Model):
     Attributes:
         instrument: -- The instrument of the Position that financing is being paid/collected for.
         financing: -- The amount of financing paid/collected for the Position.
-        openTradeFinancings: -- The financing paid/collecte for each open Trade within the Position.
+        open_trade_financings: -- The financing paid/collecte for each open Trade within the Position.
 
     """
 
@@ -737,9 +737,9 @@ class TradeOpen(Model):
     of an instrument in the Account, specifically the OrderFill Transaction.
 
     Attributes:
-        tradeID: -- The ID of the Trade that was opened
+        trade_id: -- The ID of the Trade that was opened
         units: -- The number of units opened by the Trade
-        clientExtensions: -- The client extensions for the newly opened Trade
+        client_extensions: -- The client extensions for the newly opened Trade
 
     """
 
@@ -775,9 +775,9 @@ class UserInfo(Model):
 
     Attributes:
         username: -- The user-provided username.
-        userID: -- The user's OANDA-assigned user ID.
+        user_id: -- The user's OANDA-assigned user ID.
         country: -- The country that the user is based in.
-        emailAddress: -- The user's email address.
+        email_address: -- The user's email address.
 
     """
 
@@ -787,7 +787,7 @@ class AccountProperties(Model):
 
     Attributes:
         id: -- The Account's identifier
-        mt4AccountID: -- The Account's associated MT4 Account ID. This field will not
+        mt4account_id: -- The Account's associated MT4 Account ID. This field will not
             be present if the Account is not an MT4 account.
         tags: -- The Account's tags
 
@@ -850,7 +850,7 @@ class OrderBook(Model):
         time: -- The time when the order book snapshot was created.
         price: -- The price (midpoint) for the order book's instrument
             at the time of the order book snapshot
-        bucketWidth: -- The price width for each bucket. Each bucket covers the price
+        bucket_width: -- The price width for each bucket. Each bucket covers the price
             range from the bucket's price to the bucket's price + bucketWidth.
         buckets: -- The partitioned order book, divided into buckets using a default bucket width. These
             buckets are only provided for price ranges which actually contain order or position data.
@@ -883,7 +883,7 @@ class PositionBook(Model):
         time: -- The time when the position book snapshot was created
         price: -- The price (midpoint) for the position book's instrument
             at the time of the position book snapshot
-        bucketWidth: -- The price width for each bucket. Each bucket covers the price
+        bucket_width: -- The price width for each bucket. Each bucket covers the price
             range from the bucket's price to the bucket's price + bucketWidth.
         buckets: -- The partitioned position book, divided into buckets using a default bucket width. These
             buckets are only provided for price ranges which actually contain order or position data.
@@ -916,10 +916,10 @@ class StopLossDetails(Model):
 
     Attributes:
         price: -- The price that the Stop Loss Order will be triggered at.
-        timeInForce: -- The time in force for the created Stop Loss
+        time_in_force: -- The time in force for the created Stop Loss
             Order. This may only be GTC, GTD or GFD.
-        gtdTime: -- The date when the Stop Loss Order will be cancelled on if timeInForce is GTD.
-        clientExtensions: -- The Client Extensions to add to the Stop Loss Order when created.
+        gtd_time: -- The date when the Stop Loss Order will be cancelled on if timeInForce is GTD.
+        client_extensions: -- The Client Extensions to add to the Stop Loss Order when created.
 
     """
 
@@ -944,10 +944,10 @@ class TakeProfitDetails(Model):
 
     Attributes:
         price: -- The price that the Take Profit Order will be triggered at.
-        timeInForce: -- The time in force for the created Take Profit
+        time_in_force: -- The time in force for the created Take Profit
             Order. This may only be GTC, GTD or GFD.
-        gtdTime: -- The date when the Take Profit Order will be cancelled on if timeInForce is GTD.
-        clientExtensions: -- The Client Extensions to add to the Take Profit Order when created.
+        gtd_time: -- The date when the Take Profit Order will be cancelled on if timeInForce is GTD.
+        client_extensions: -- The Client Extensions to add to the Take Profit Order when created.
 
     """
 
@@ -971,9 +971,9 @@ class TradeReduce(Model):
     specifically the OrderFill Transaction.
 
     Attributes:
-        tradeID: -- The ID of the Trade that was reduced or closed
+        trade_id: -- The ID of the Trade that was reduced or closed
         units: -- The number of units that the Trade was reduced by
-        realizedPL: -- The PL realized when reducing the Trade
+        realized_pl: -- The PL realized when reducing the Trade
         financing: -- The financing paid/collected when reducing the Trade
 
     """
@@ -998,11 +998,11 @@ class TrailingStopLossDetails(Model):
     Attributes:
         distance: -- The distance (in price units) from the Trade's fill price
             that the Trailing Stop Loss Order will be triggered at.
-        timeInForce: -- The time in force for the created Trailing Stop
+        time_in_force: -- The time in force for the created Trailing Stop
             Loss Order. This may only be GTC, GTD or GFD.
-        gtdTime: -- The date when the Trailing Stop Loss Order
+        gtd_time: -- The date when the Trailing Stop Loss Order
             will be cancelled on if timeInForce is GTD.
-        clientExtensions: -- The Client Extensions to add to the Trailing Stop Loss Order when created.
+        client_extensions: -- The Client Extensions to add to the Trailing Stop Loss Order when created.
 
     """
 
@@ -1027,7 +1027,7 @@ class TransactionHeartbeat(Model):
 
     Attributes:
         type: -- The string "HEARTBEAT"
-        lastTransactionID: -- The ID of the most recent Transaction created for the Account
+        last_transaction_id: -- The ID of the most recent Transaction created for the Account
         time: -- The date/time when the TransactionHeartbeat was created.
 
     """
@@ -1049,9 +1049,9 @@ class UserInfoExternal(Model):
     clients.
 
     Attributes:
-        userID: -- The user's OANDA-assigned user ID.
+        user_id: -- The user's OANDA-assigned user ID.
         country: -- The country that the user is based in.
-        FIFO: -- Flag indicating if the the user's Accounts adhere to FIFO execution rules.
+        fifo: -- Flag indicating if the the user's Accounts adhere to FIFO execution rules.
 
     """
 
@@ -1064,24 +1064,24 @@ class TradeSummary(Model):
         id: -- The Trade's identifier, unique within the Trade's Account.
         instrument: -- The Trade's Instrument.
         price: -- The execution price of the Trade.
-        openTime: -- The date/time when the Trade was opened.
+        open_time: -- The date/time when the Trade was opened.
         state: -- The current state of the Trade.
-        initialUnits: -- The initial size of the Trade. Negative values indicate
+        initial_units: -- The initial size of the Trade. Negative values indicate
             a short Trade, and positive values indicate a long Trade.
-        currentUnits: -- The number of units currently open for the Trade. This
+        current_units: -- The number of units currently open for the Trade. This
             value is reduced to 0.0 as the Trade is closed.
-        realizedPL: -- The total profit/loss realized on the closed portion of the Trade.
-        unrealizedPL: -- The unrealized profit/loss on the open portion of the Trade.
-        averageClosePrice: -- The average closing price of the Trade. Only present if
+        realized_pl: -- The total profit/loss realized on the closed portion of the Trade.
+        unrealized_pl: -- The unrealized profit/loss on the open portion of the Trade.
+        average_close_price: -- The average closing price of the Trade. Only present if
             the Trade has been closed or reduced at least once.
-        closingTransactionIDs: -- The IDs of the Transactions that have closed portions of this Trade.
+        closing_transaction_i_ds: -- The IDs of the Transactions that have closed portions of this Trade.
         financing: -- The financing paid/collected for this Trade.
-        closeTime: -- The date/time when the Trade was fully closed.
+        close_time: -- The date/time when the Trade was fully closed.
             Only provided for Trades whose state is CLOSED.
-        clientExtensions: -- The client extensions of the Trade.
-        takeProfitOrderID: -- ID of the Trade's Take Profit Order, only provided if such an Order exists.
-        stopLossOrderID: -- ID of the Trade's Stop Loss Order, only provided if such an Order exists.
-        trailingStopLossOrderID: -- ID of the Trade's Trailing Stop Loss
+        client_extensions: -- The client extensions of the Trade.
+        take_profit_order_id: -- ID of the Trade's Take Profit Order, only provided if such an Order exists.
+        stop_loss_order_id: -- ID of the Trade's Stop Loss Order, only provided if such an Order exists.
+        trailing_stop_loss_order_id: -- ID of the Trade's Trailing Stop Loss
             Order, only provided if such an Order exists.
 
     """
@@ -1141,23 +1141,23 @@ class Instrument(Model):
     Attributes:
         name: -- The name of the Instrument
         type: -- The type of the Instrument
-        displayName: -- The display name of the Instrument
-        pipLocation: -- The location of the "pip" for this instrument. The decimal position of the pip in this
+        display_name: -- The display name of the Instrument
+        pip_location: -- The location of the "pip" for this instrument. The decimal position of the pip in this
             Instrument's price can be
             found at 10 ^ pipLocation (e.g. -4 pipLocation results in a decimal pip position of 10 ^ -4 = 0.0001).
-        displayPrecision: -- The number of decimal places that should be used to display prices for this instrument.
+        display_precision: -- The number of decimal places that should be used to display prices for this instrument.
             (e.g. a displayPrecision of 5 would result in a price of "1" being displayed as "1.00000")
-        tradeUnitsPrecision: -- The amount of decimal places that may be provided
+        trade_units_precision: -- The amount of decimal places that may be provided
             when specifying the number of units traded for this instrument.
-        minimumTradeSize: -- The smallest number of units allowed to be traded for this instrument.
-        maximumTrailingStopDistance: -- The maximum trailing stop distance allowed for a trailing
+        minimum_trade_size: -- The smallest number of units allowed to be traded for this instrument.
+        maximum_trailing_stop_distance: -- The maximum trailing stop distance allowed for a trailing
             stop loss created for this instrument. Specified in price units.
-        minimumTrailingStopDistance: -- The minimum trailing stop distance allowed for a trailing
+        minimum_trailing_stop_distance: -- The minimum trailing stop distance allowed for a trailing
             stop loss created for this instrument. Specified in price units.
-        maximumPositionSize: -- The maximum position size allowed for this instrument. Specified in units.
-        maximumOrderUnits: -- The maximum units allowed for an Order
+        maximum_position_size: -- The maximum position size allowed for this instrument. Specified in units.
+        maximum_order_units: -- The maximum units allowed for an Order
             placed for this instrument. Specified in units.
-        marginRate: -- The margin rate for this instrument.
+        margin_rate: -- The margin rate for this instrument.
         commission: -- The commission structure for this instrument.
 
     """
@@ -1328,26 +1328,26 @@ class AccountChangesState(Model):
     Stop Loss Order state.
 
     Attributes:
-        unrealizedPL: -- The total unrealized profit/loss for all Trades currently open
+        unrealized_pl: -- The total unrealized profit/loss for all Trades currently open
             in the Account. Represented in the Account's home currency.
-        NAV: -- The net asset value of the Account. Equal to
+        nav: -- The net asset value of the Account. Equal to
             Account balance + unrealizedPL. Represented in the Account's home currency.
-        marginUsed: -- Margin currently used for the Account.
+        margin_used: -- Margin currently used for the Account.
             Represented in the Account's home currency.
-        marginAvailable: -- Margin available for Account. Represented in the Account's home currency.
-        positionValue: -- The value of the Account's open
+        margin_available: -- Margin available for Account. Represented in the Account's home currency.
+        position_value: -- The value of the Account's open
             positions represented in the Account's home currency.
-        marginCloseoutUnrealizedPL: -- The Account's margin closeout unrealized PL.
-        marginCloseoutNAV: -- The Account's margin closeout NAV.
-        marginCloseoutMarginUsed: -- The Account's margin closeout margin used.
-        marginCloseoutPercent: -- The Account's margin closeout percentage. When this value is 1.0
+        margin_closeout_unrealized_pl: -- The Account's margin closeout unrealized PL.
+        margin_closeout_nav: -- The Account's margin closeout NAV.
+        margin_closeout_margin_used: -- The Account's margin closeout margin used.
+        margin_closeout_percent: -- The Account's margin closeout percentage. When this value is 1.0
             or above the Account is in a margin closeout situation.
-        marginCloseoutPositionValue: -- The value of the Account's open positions as used
+        margin_closeout_position_value: -- The value of the Account's open positions as used
             for margin closeout calculations represented in the Account's home currency.
-        withdrawalLimit: -- The current WithdrawalLimit for the account which will be zero or
+        withdrawal_limit: -- The current WithdrawalLimit for the account which will be zero or
             a positive value indicating how much can be withdrawn from the account.
-        marginCallMarginUsed: -- The Account's margin call margin used.
-        marginCallPercent: -- The Account's margin call percentage. When this value is 1.0
+        margin_call_margin_used: -- The Account's margin call margin used.
+        margin_call_percent: -- The Account's margin call percentage. When this value is 1.0
             or above the Account is in a margin call situation.
         orders: -- The price-dependent state of each pending Order in the Account.
         trades: -- The price-dependent state for each open Trade in the Account.
@@ -1412,15 +1412,15 @@ class Price(Model):
             list to be empty if there is no bid liquidity currently available for the Instrument in the Account.
         asks: -- The list of prices and liquidity available on the Instrument's ask side. It is possible for this
             list to be empty if there is no ask liquidity currently available for the Instrument in the Account.
-        closeoutBid: -- The closeout bid Price. This Price is used when a bid is required to closeout a Position
+        closeout_bid: -- The closeout bid Price. This Price is used when a bid is required to closeout a Position
             (margin closeout
             or manual) yet there is no bid liquidity. The closeout bid is never used to open a new position.
-        closeoutAsk: -- The closeout ask Price. This Price is used when a ask is required to closeout a Position
+        closeout_ask: -- The closeout ask Price. This Price is used when a ask is required to closeout a Position
             (margin closeout
             or manual) yet there is no ask liquidity. The closeout ask is never used to open a new position.
-        quoteHomeConversionFactors: -- The factors used to convert quantities of this price's Instrument's
+        quote_home_conversion_factors: -- The factors used to convert quantities of this price's Instrument's
             quote currency into a quantity of the Account's home currency.
-        unitsAvailable: -- Representation of how many units of an Instrument are available
+        units_available: -- Representation of how many units of an Instrument are available
             to be traded by an Order depending on its postionFill option.
 
     """
@@ -1471,11 +1471,11 @@ class CloseTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always set to "CLOSE" in a CloseTransaction.
 
     """
@@ -1511,11 +1511,11 @@ class MarginCallEnterTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "MARGIN_CALL_ENTER" for an MarginCallEnterTransaction.
 
@@ -1553,11 +1553,11 @@ class MarginCallExitTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "MARGIN_CALL_EXIT" for an MarginCallExitTransaction.
 
@@ -1595,14 +1595,14 @@ class MarginCallExtendTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "MARGIN_CALL_EXTEND" for an MarginCallExtendTransaction.
-        extensionNumber: -- The number of the extensions to the Account's current margin call that have
+        extension_number: -- The number of the extensions to the Account's current margin call that have
             been applied. This value will be set to 1 for the first MarginCallExtend Transaction
 
     """
@@ -1642,11 +1642,11 @@ class ReopenTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always set to "REOPEN" in a ReopenTransaction.
 
     """
@@ -1683,11 +1683,11 @@ class ResetResettablePLTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "RESET_RESETTABLE_PL" for a ResetResettablePLTransaction.
 
@@ -1725,17 +1725,17 @@ class StopLossOrderRequest(OrderRequest):
     Attributes:
         type: -- The type of the Order to Create. Must be
             set to "STOP_LOSS" when creating a Stop Loss Order.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         price: -- The price threshold specified for the StopLoss Order. The associated Trade will be
             closed by a market price that is equal to or worse than this threshold.
-        timeInForce: -- The time-in-force requested for the StopLoss Order. Restricted
+        time_in_force: -- The time-in-force requested for the StopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for StopLoss Orders.
-        gtdTime: -- The date/time when the StopLoss Order will
+        gtd_time: -- The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        clientExtensions: -- The client extensions to add to the Order. Do not set,
+        client_extensions: -- The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
 
     """
@@ -1790,17 +1790,17 @@ class TakeProfitOrderRequest(OrderRequest):
     Attributes:
         type: -- The type of the Order to Create. Must be
             set to "TAKE_PROFIT" when creating a Take Profit Order.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         price: -- The price threshold specified for the TakeProfit Order. The associated Trade will be
             closed by a market price that is equal to or better than this threshold.
-        timeInForce: -- The time-in-force requested for the TakeProfit Order. Restricted
+        time_in_force: -- The time-in-force requested for the TakeProfit Order. Restricted
             to "GTC", "GFD" and "GTD" for TakeProfit Orders.
-        gtdTime: -- The date/time when the TakeProfit Order will
+        gtd_time: -- The date/time when the TakeProfit Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        clientExtensions: -- The client extensions to add to the Order. Do not set,
+        client_extensions: -- The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
 
     """
@@ -1855,16 +1855,16 @@ class TrailingStopLossOrderRequest(OrderRequest):
     Attributes:
         type: -- The type of the Order to Create. Must be
             set to "TRAILING_STOP_LOSS" when creating a Trailng Stop Loss Order.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         distance: -- The price distance specified for the TrailingStopLoss Order.
-        timeInForce: -- The time-in-force requested for the TrailingStopLoss Order. Restricted
+        time_in_force: -- The time-in-force requested for the TrailingStopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.
-        gtdTime: -- The date/time when the StopLoss Order will
+        gtd_time: -- The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        clientExtensions: -- The client extensions to add to the Order. Do not set,
+        client_extensions: -- The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
 
     """
@@ -1916,17 +1916,17 @@ class CreateTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always set to "CREATE" in a CreateTransaction.
-        divisionID: -- The ID of the Division that the Account is in
-        siteID: -- The ID of the Site that the Account was created at
-        accountUserID: -- The ID of the user that the Account was created for
-        accountNumber: -- The number of the Account within the site/division/user
-        homeCurrency: -- The home currency of the Account
+        division_id: -- The ID of the Division that the Account is in
+        site_id: -- The ID of the Site that the Account was created at
+        account_user_id: -- The ID of the user that the Account was created for
+        account_number: -- The number of the Account within the site/division/user
+        home_currency: -- The home currency of the Account
 
     """
 
@@ -1972,15 +1972,15 @@ class ClientConfigureTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "CLIENT_CONFIGURE" in a ClientConfigureTransaction.
         alias: -- The client-provided alias for the Account.
-        marginRate: -- The margin rate override for the Account.
+        margin_rate: -- The margin rate override for the Account.
 
     """
 
@@ -2023,15 +2023,15 @@ class DelayedTradeClosureTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "DELAYED_TRADE_CLOSURE" for an DelayedTradeClosureTransaction.
         reason: -- The reason for the delayed trade closure
-        tradeIDs: -- List of Trade ID's identifying the open trades that
+        trade_i_ds: -- List of Trade ID's identifying the open trades that
             will be closed when their respective instruments become tradeable
 
     """
@@ -2073,18 +2073,18 @@ class OrderCancelTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "ORDER_CANCEL" for an OrderCancelTransaction.
-        orderID: -- The ID of the Order cancelled
-        clientOrderID: -- The client ID of the Order cancelled (only
+        order_id: -- The ID of the Order cancelled
+        client_order_id: -- The client ID of the Order cancelled (only
             provided if the Order has a client Order ID).
         reason: -- The reason that the Order was cancelled.
-        replacedByOrderID: -- The ID of the Order that replaced this Order
+        replaced_by_order_id: -- The ID of the Order that replaced this Order
             (only provided if this Order was cancelled for replacement).
 
     """
@@ -2136,17 +2136,17 @@ class OrderClientExtensionsModifyTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "ORDER_CLIENT_EXTENSIONS_MODIFY" for a OrderClienteExtensionsModifyTransaction.
-        orderID: -- The ID of the Order who's client extensions are to be modified.
-        clientOrderID: -- The original Client ID of the Order who's client extensions are to be modified.
-        clientExtensionsModify: -- The new Client Extensions for the Order.
-        tradeClientExtensionsModify: -- The new Client Extensions for the Order's Trade on fill.
+        order_id: -- The ID of the Order who's client extensions are to be modified.
+        client_order_id: -- The original Client ID of the Order who's client extensions are to be modified.
+        client_extensions_modify: -- The new Client Extensions for the Order.
+        trade_client_extensions_modify: -- The new Client Extensions for the Order's Trade on fill.
 
     """
 
@@ -2192,17 +2192,17 @@ class DailyFinancingTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "DAILY_FINANCING" for a DailyFinancingTransaction.
         financing: -- The amount of financing paid/collected for the Account.
-        accountBalance: -- The Account's balance after daily financing.
-        accountFinancingMode: -- The account financing mode at the time of the daily financing.
-        positionFinancings: -- The financing paid/collected for each Position in the Account.
+        account_balance: -- The Account's balance after daily financing.
+        account_financing_mode: -- The account financing mode at the time of the daily financing.
+        position_financings: -- The financing paid/collected for each Position in the Account.
 
     """
 
@@ -2247,16 +2247,16 @@ class TradeClientExtensionsModifyTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "TRADE_CLIENT_EXTENSIONS_MODIFY" for a TradeClientExtensionsModifyTransaction.
-        tradeID: -- The ID of the Trade who's client extensions are to be modified.
-        clientTradeID: -- The original Client ID of the Trade who's client extensions are to be modified.
-        tradeClientExtensionsModify: -- The new Client Extensions for the Trade.
+        trade_id: -- The ID of the Trade who's client extensions are to be modified.
+        client_trade_id: -- The original Client ID of the Trade who's client extensions are to be modified.
+        trade_client_extensions_modify: -- The new Client Extensions for the Trade.
 
     """
 
@@ -2303,49 +2303,49 @@ class AccountSummary(Model):
             if the Account has an alias set
         currency: -- The home currency of the Account
         balance: -- The current balance of the Account. Represented in the Account's home currency.
-        createdByUserID: -- ID of the user that created the Account.
-        createdTime: -- The date/time when the Account was created.
+        created_by_user_id: -- ID of the user that created the Account.
+        created_time: -- The date/time when the Account was created.
         pl: -- The total profit/loss realized over the lifetime of
             the Account. Represented in the Account's home currency.
-        resettablePL: -- The total realized profit/loss for the Account since it was
+        resettable_pl: -- The total realized profit/loss for the Account since it was
             last reset by the client. Represented in the Account's home currency.
-        resettabledPLTime: -- The date/time that the Account's resettablePL was last reset.
+        resettabled_pl_time: -- The date/time that the Account's resettablePL was last reset.
         commission: -- The total amount of commission paid over the lifetime
             of the Account. Represented in the Account's home currency.
-        marginRate: -- Client-provided margin rate override for the Account. The effective margin rate of the Account
+        margin_rate: -- Client-provided margin rate override for the Account. The effective margin rate of the Account
             is the lesser of this value and
             the OANDA margin rate for the Account's division. This value is only provided if a margin rate override
             exists for the Account.
-        marginCallEnterTime: -- The date/time when the Account entered a margin call state.
+        margin_call_enter_time: -- The date/time when the Account entered a margin call state.
             Only provided if the Account is in a margin call.
-        marginCallExtensionCount: -- The number of times that the Account's current margin call was extended.
-        lastMarginCallExtensionTime: -- The date/time of the Account's last margin call extension.
-        openTradeCount: -- The number of Trades currently open in the Account.
-        openPositionCount: -- The number of Positions currently open in the Account.
-        pendingOrderCount: -- The number of Orders currently pending in the Account.
-        hedgingEnabled: -- Flag indicating that the Account has hedging enabled.
-        unrealizedPL: -- The total unrealized profit/loss for all Trades currently open
+        margin_call_extension_count: -- The number of times that the Account's current margin call was extended.
+        last_margin_call_extension_time: -- The date/time of the Account's last margin call extension.
+        open_trade_count: -- The number of Trades currently open in the Account.
+        open_position_count: -- The number of Positions currently open in the Account.
+        pending_order_count: -- The number of Orders currently pending in the Account.
+        hedging_enabled: -- Flag indicating that the Account has hedging enabled.
+        unrealized_pl: -- The total unrealized profit/loss for all Trades currently open
             in the Account. Represented in the Account's home currency.
-        NAV: -- The net asset value of the Account. Equal to
+        nav: -- The net asset value of the Account. Equal to
             Account balance + unrealizedPL. Represented in the Account's home currency.
-        marginUsed: -- Margin currently used for the Account.
+        margin_used: -- Margin currently used for the Account.
             Represented in the Account's home currency.
-        marginAvailable: -- Margin available for Account. Represented in the Account's home currency.
-        positionValue: -- The value of the Account's open
+        margin_available: -- Margin available for Account. Represented in the Account's home currency.
+        position_value: -- The value of the Account's open
             positions represented in the Account's home currency.
-        marginCloseoutUnrealizedPL: -- The Account's margin closeout unrealized PL.
-        marginCloseoutNAV: -- The Account's margin closeout NAV.
-        marginCloseoutMarginUsed: -- The Account's margin closeout margin used.
-        marginCloseoutPercent: -- The Account's margin closeout percentage. When this value is 1.0
+        margin_closeout_unrealized_pl: -- The Account's margin closeout unrealized PL.
+        margin_closeout_nav: -- The Account's margin closeout NAV.
+        margin_closeout_margin_used: -- The Account's margin closeout margin used.
+        margin_closeout_percent: -- The Account's margin closeout percentage. When this value is 1.0
             or above the Account is in a margin closeout situation.
-        marginCloseoutPositionValue: -- The value of the Account's open positions as used
+        margin_closeout_position_value: -- The value of the Account's open positions as used
             for margin closeout calculations represented in the Account's home currency.
-        withdrawalLimit: -- The current WithdrawalLimit for the account which will be zero or
+        withdrawal_limit: -- The current WithdrawalLimit for the account which will be zero or
             a positive value indicating how much can be withdrawn from the account.
-        marginCallMarginUsed: -- The Account's margin call margin used.
-        marginCallPercent: -- The Account's margin call percentage. When this value is 1.0
+        margin_call_margin_used: -- The Account's margin call margin used.
+        margin_call_percent: -- The Account's margin call percentage. When this value is 1.0
             or above the Account is in a margin call situation.
-        lastTransactionID: -- The ID of the last Transaction created for the Account.
+        last_transaction_id: -- The ID of the last Transaction created for the Account.
 
     """
 
@@ -2447,26 +2447,26 @@ class MarketOrderRequest(OrderRequest):
         instrument: -- The Market Order's Instrument.
         units: -- The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        timeInForce: -- The time-in-force requested for the Market Order.
+        time_in_force: -- The time-in-force requested for the Market Order.
             Restricted to FOK or IOC for a MarketOrder.
-        priceBound: -- The worst price that the client is willing to have the Market Order filled at.
-        positionFill: -- Specification of how Positions in the Account
+        price_bound: -- The worst price that the client is willing to have the Market Order filled at.
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        clientExtensions: -- The client extensions to add to the Order. Do not set,
+        client_extensions: -- The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
-        takeProfitOnFill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+        take_profit_on_fill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stopLossOnFill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+        stop_loss_on_fill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailingStopLossOnFill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+        trailing_stop_loss_on_fill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
 
@@ -2529,31 +2529,31 @@ class TakeProfitOrderTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "TAKE_PROFIT_ORDER" in a TakeProfitOrderTransaction.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         price: -- The price threshold specified for the TakeProfit Order. The associated Trade will be
             closed by a market price that is equal to or better than this threshold.
-        timeInForce: -- The time-in-force requested for the TakeProfit Order. Restricted
+        time_in_force: -- The time-in-force requested for the TakeProfit Order. Restricted
             to "GTC", "GFD" and "GTD" for TakeProfit Orders.
-        gtdTime: -- The date/time when the TakeProfit Order will
+        gtd_time: -- The date/time when the TakeProfit Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Take Profit Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        orderFillTransactionID: -- The ID of the OrderFill Transaction that caused this Order to be created
+        order_fill_transaction_id: -- The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        replacesOrderID: -- The ID of the Order that this Order replaces
+        replaces_order_id: -- The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancellingTransactionID: -- The ID of the Transaction that cancels the replaced
+        cancelling_transaction_id: -- The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
     """
@@ -2634,38 +2634,38 @@ class TakeProfitOrder(Order):
 
     Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
+        create_time: -- The time when the Order was created.
         state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
         type: -- The type of the Order. Always set to "TAKE_PROFIT" for Take Profit Orders.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         price: -- The price threshold specified for the TakeProfit Order. The associated Trade will be
             closed by a market price that is equal to or better than this threshold.
-        timeInForce: -- The time-in-force requested for the TakeProfit Order. Restricted
+        time_in_force: -- The time-in-force requested for the TakeProfit Order. Restricted
             to "GTC", "GFD" and "GTD" for TakeProfit Orders.
-        gtdTime: -- The date/time when the TakeProfit Order will
+        gtd_time: -- The date/time when the TakeProfit Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        fillingTransactionID: -- ID of the Transaction that filled this Order
+        filling_transaction_id: -- ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filledTime: -- Date/time when the Order was filled (only
+        filled_time: -- Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        tradeOpenedID: -- Trade ID of Trade opened when the Order was filled (only provided when the
+        trade_opened_id: -- Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        tradeReducedID: -- Trade ID of Trade reduced when the Order was filled (only provided when the
+        trade_reduced_id: -- Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        tradeClosedIDs: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
+        trade_closed_i_ds: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancellingTransactionID: -- ID of the Transaction that cancelled the Order
+        cancelling_transaction_id: -- ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelledTime: -- Date/time when the Order was cancelled (only provided
+        cancelled_time: -- Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replacesOrderID: -- The ID of the Order that was replaced by this Order
+        replaces_order_id: -- The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replacedByOrderID: -- The ID of the Order that replaced this Order (only
+        replaced_by_order_id: -- The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
     """
@@ -2757,38 +2757,38 @@ class StopLossOrder(Order):
 
     Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
+        create_time: -- The time when the Order was created.
         state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
         type: -- The type of the Order. Always set to "STOP_LOSS" for Stop Loss Orders.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         price: -- The price threshold specified for the StopLoss Order. The associated Trade will be
             closed by a market price that is equal to or worse than this threshold.
-        timeInForce: -- The time-in-force requested for the StopLoss Order. Restricted
+        time_in_force: -- The time-in-force requested for the StopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for StopLoss Orders.
-        gtdTime: -- The date/time when the StopLoss Order will
+        gtd_time: -- The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        fillingTransactionID: -- ID of the Transaction that filled this Order
+        filling_transaction_id: -- ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filledTime: -- Date/time when the Order was filled (only
+        filled_time: -- Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        tradeOpenedID: -- Trade ID of Trade opened when the Order was filled (only provided when the
+        trade_opened_id: -- Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        tradeReducedID: -- Trade ID of Trade reduced when the Order was filled (only provided when the
+        trade_reduced_id: -- Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        tradeClosedIDs: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
+        trade_closed_i_ds: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancellingTransactionID: -- ID of the Transaction that cancelled the Order
+        cancelling_transaction_id: -- ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelledTime: -- Date/time when the Order was cancelled (only provided
+        cancelled_time: -- Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replacesOrderID: -- The ID of the Order that was replaced by this Order
+        replaces_order_id: -- The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replacedByOrderID: -- The ID of the Order that replaced this Order (only
+        replaced_by_order_id: -- The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
         """
@@ -2883,42 +2883,42 @@ class TrailingStopLossOrder(Order):
 
     Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
+        create_time: -- The time when the Order was created.
         state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
         type: -- The type of the Order. Always set
             to "TRAILING_STOP_LOSS" for Trailing Stop Loss Orders.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         distance: -- The price distance specified for the TrailingStopLoss Order.
-        timeInForce: -- The time-in-force requested for the TrailingStopLoss Order. Restricted
+        time_in_force: -- The time-in-force requested for the TrailingStopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.
-        gtdTime: -- The date/time when the StopLoss Order will
+        gtd_time: -- The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        trailingStopValue: -- The trigger price for the Trailing Stop Loss Order. The trailing stop value will trail
+        trailing_stop_value: -- The trigger price for the Trailing Stop Loss Order. The trailing stop value will trail
             (follow) the market price by the TSL order's configured "distance" as the market price moves in the
             winning direction. If the market price moves to a level that is equal to or worse than the trailing stop
             value, the order will be filled and the Trade will be closed.
-        fillingTransactionID: -- ID of the Transaction that filled this Order
+        filling_transaction_id: -- ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filledTime: -- Date/time when the Order was filled (only
+        filled_time: -- Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        tradeOpenedID: -- Trade ID of Trade opened when the Order was filled (only provided when the
+        trade_opened_id: -- Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        tradeReducedID: -- Trade ID of Trade reduced when the Order was filled (only provided when the
+        trade_reduced_id: -- Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        tradeClosedIDs: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
+        trade_closed_i_ds: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancellingTransactionID: -- ID of the Transaction that cancelled the Order
+        cancelling_transaction_id: -- ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelledTime: -- Date/time when the Order was cancelled (only provided
+        cancelled_time: -- Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replacesOrderID: -- The ID of the Order that was replaced by this Order
+        replaces_order_id: -- The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replacedByOrderID: -- The ID of the Order that replaced this Order (only
+        replaced_by_order_id: -- The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
     """
@@ -3015,26 +3015,26 @@ class Trade(Model):
         id: -- The Trade's identifier, unique within the Trade's Account.
         instrument: -- The Trade's Instrument.
         price: -- The execution price of the Trade.
-        openTime: -- The date/time when the Trade was opened.
+        open_time: -- The date/time when the Trade was opened.
         state: -- The current state of the Trade.
-        initialUnits: -- The initial size of the Trade. Negative values indicate
+        initial_units: -- The initial size of the Trade. Negative values indicate
             a short Trade, and positive values indicate a long Trade.
-        currentUnits: -- The number of units currently open for the Trade. This
+        current_units: -- The number of units currently open for the Trade. This
             value is reduced to 0.0 as the Trade is closed.
-        realizedPL: -- The total profit/loss realized on the closed portion of the Trade.
-        unrealizedPL: -- The unrealized profit/loss on the open portion of the Trade.
-        averageClosePrice: -- The average closing price of the Trade. Only present if
+        realized_pl: -- The total profit/loss realized on the closed portion of the Trade.
+        unrealized_pl: -- The unrealized profit/loss on the open portion of the Trade.
+        average_close_price: -- The average closing price of the Trade. Only present if
             the Trade has been closed or reduced at least once.
-        closingTransactionIDs: -- The IDs of the Transactions that have closed portions of this Trade.
+        closing_transaction_i_ds: -- The IDs of the Transactions that have closed portions of this Trade.
         financing: -- The financing paid/collected for this Trade.
-        closeTime: -- The date/time when the Trade was fully closed.
+        close_time: -- The date/time when the Trade was fully closed.
             Only provided for Trades whose state is CLOSED.
-        clientExtensions: -- The client extensions of the Trade.
-        takeProfitOrder: -- Full representation of the Trade's Take Profit
+        client_extensions: -- The client extensions of the Trade.
+        take_profit_order: -- Full representation of the Trade's Take Profit
             Order, only provided if such an Order exists.
-        stopLossOrder: -- Full representation of the Trade's Stop Loss
+        stop_loss_order: -- Full representation of the Trade's Stop Loss
             Order, only provided if such an Order exists.
-        trailingStopLossOrder: -- Full representation of the Trade's Trailing Stop Loss
+        trailing_stop_loss_order: -- Full representation of the Trade's Trailing Stop Loss
             Order, only provided if such an Order exists.
 
     """
@@ -3096,16 +3096,16 @@ class ClientConfigureRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "CLIENT_CONFIGURE_REJECT" in a ClientConfigureRejectTransaction.
         alias: -- The client-provided alias for the Account.
-        marginRate: -- The margin rate override for the Account.
-        rejectReason: -- The reason that the Reject Transaction was created
+        margin_rate: -- The margin rate override for the Account.
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -3147,18 +3147,18 @@ class OrderCancelRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "ORDER_CANCEL_REJECT" for an OrderCancelRejectTransaction.
-        orderID: -- The ID of the Order intended to be cancelled
-        clientOrderID: -- The client ID of the Order intended to be cancelled
+        order_id: -- The ID of the Order intended to be cancelled
+        client_order_id: -- The client ID of the Order intended to be cancelled
             (only provided if the Order has a client Order ID).
         reason: -- The reason that the Order was to be cancelled.
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -3203,18 +3203,18 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT" for a OrderClientExtensionsModifyRejectTransaction.
-        orderID: -- The ID of the Order who's client extensions are to be modified.
-        clientOrderID: -- The original Client ID of the Order who's client extensions are to be modified.
-        clientExtensionsModify: -- The new Client Extensions for the Order.
-        tradeClientExtensionsModify: -- The new Client Extensions for the Order's Trade on fill.
-        rejectReason: -- The reason that the Reject Transaction was created
+        order_id: -- The ID of the Order who's client extensions are to be modified.
+        client_order_id: -- The original Client ID of the Order who's client extensions are to be modified.
+        client_extensions_modify: -- The new Client Extensions for the Order.
+        trade_client_extensions_modify: -- The new Client Extensions for the Order's Trade on fill.
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -3262,17 +3262,17 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT" for a TradeClientExtensionsModifyRejectTransaction.
-        tradeID: -- The ID of the Trade who's client extensions are to be modified.
-        clientTradeID: -- The original Client ID of the Trade who's client extensions are to be modified.
-        tradeClientExtensionsModify: -- The new Client Extensions for the Trade.
-        rejectReason: -- The reason that the Reject Transaction was created
+        trade_id: -- The ID of the Trade who's client extensions are to be modified.
+        client_trade_id: -- The original Client ID of the Trade who's client extensions are to be modified.
+        trade_client_extensions_modify: -- The new Client Extensions for the Trade.
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -3318,18 +3318,18 @@ class TransferFundsTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "TRANSFER_FUNDS" in a TransferFundsTransaction.
         amount: -- The amount to deposit/withdraw from the Account in the Account's home currency.
             A positive value indicates a deposit, a negative value indicates a withdrawal.
-        fundingReason: -- The reason that an Account is being funded.
+        funding_reason: -- The reason that an Account is being funded.
         comment: -- An optional comment that may be attached to a fund transfer for audit purposes
-        accountBalance: -- The Account's balance after funds are transferred.
+        account_balance: -- The Account's balance after funds are transferred.
 
     """
 
@@ -3376,18 +3376,18 @@ class TransferFundsRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "TRANSFER_FUNDS_REJECT" in a TransferFundsRejectTransaction.
         amount: -- The amount to deposit/withdraw from the Account in the Account's home currency.
             A positive value indicates a deposit, a negative value indicates a withdrawal.
-        fundingReason: -- The reason that an Account is being funded.
+        funding_reason: -- The reason that an Account is being funded.
         comment: -- An optional comment that may be attached to a fund transfer for audit purposes
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -3439,28 +3439,28 @@ class LimitOrderRequest(OrderRequest):
             results in a long Order, and a negative number of units results in a short Order.
         price: -- The price threshold specified for the Limit Order. The Limit Order will only be
             filled by a market price that is equal to or better than this price.
-        timeInForce: -- The time-in-force requested for the Limit Order.
-        gtdTime: -- The date/time when the Limit Order will
+        time_in_force: -- The time-in-force requested for the Limit Order.
+        gtd_time: -- The date/time when the Limit Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        clientExtensions: -- The client extensions to add to the Order. Do not set,
+        client_extensions: -- The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
-        takeProfitOnFill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+        take_profit_on_fill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stopLossOnFill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+        stop_loss_on_fill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailingStopLossOnFill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+        trailing_stop_loss_on_fill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
 
@@ -3546,30 +3546,30 @@ class MarketIfTouchedOrderRequest(OrderRequest):
             filled by a market price that crosses this price from the direction of the market price
             at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order's
             price and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.
-        priceBound: -- The worst market price that may be used to fill this MarketIfTouched Order.
-        timeInForce: -- The time-in-force requested for the MarketIfTouched Order. Restricted
+        price_bound: -- The worst market price that may be used to fill this MarketIfTouched Order.
+        time_in_force: -- The time-in-force requested for the MarketIfTouched Order. Restricted
             to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.
-        gtdTime: -- The date/time when the MarketIfTouched Order will
+        gtd_time: -- The date/time when the MarketIfTouched Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        clientExtensions: -- The client extensions to add to the Order. Do not set,
+        client_extensions: -- The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
-        takeProfitOnFill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+        take_profit_on_fill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stopLossOnFill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+        stop_loss_on_fill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailingStopLossOnFill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+        trailing_stop_loss_on_fill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
 
@@ -3660,30 +3660,30 @@ class StopOrderRequest(OrderRequest):
             results in a long Order, and a negative number of units results in a short Order.
         price: -- The price threshold specified for the Stop Order. The Stop Order will only be
             filled by a market price that is equal to or worse than this price.
-        priceBound: -- The worst market price that may be used to fill this Stop Order. If the market gaps and
+        price_bound: -- The worst market price that may be used to fill this Stop Order. If the market gaps and
             crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.
-        timeInForce: -- The time-in-force requested for the Stop Order.
-        gtdTime: -- The date/time when the Stop Order will
+        time_in_force: -- The time-in-force requested for the Stop Order.
+        gtd_time: -- The date/time when the Stop Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        clientExtensions: -- The client extensions to add to the Order. Do not set,
+        client_extensions: -- The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
-        takeProfitOnFill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+        take_profit_on_fill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stopLossOnFill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+        stop_loss_on_fill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailingStopLossOnFill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+        trailing_stop_loss_on_fill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
 
@@ -3769,39 +3769,39 @@ class MarketOrderTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "MARKET_ORDER" in a MarketOrderTransaction.
         instrument: -- The Market Order's Instrument.
         units: -- The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        timeInForce: -- The time-in-force requested for the Market Order.
+        time_in_force: -- The time-in-force requested for the Market Order.
             Restricted to FOK or IOC for a MarketOrder.
-        priceBound: -- The worst price that the client is willing to have the Market Order filled at.
-        positionFill: -- Specification of how Positions in the Account
+        price_bound: -- The worst price that the client is willing to have the Market Order filled at.
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        tradeClose: -- Details of the Trade requested to be closed, only provided when
+        trade_close: -- Details of the Trade requested to be closed, only provided when
             the Market Order is being used to explicitly close a Trade.
-        longPositionCloseout: -- Details of the long Position requested to be closed out, only provided
+        long_position_closeout: -- Details of the long Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a long Position.
-        shortPositionCloseout: -- Details of the short Position requested to be closed out, only provided
+        short_position_closeout: -- Details of the short Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a short Position.
-        marginCloseout: -- Details of the Margin Closeout that this Market Order was created for
-        delayedTradeClose: -- Details of the delayed Trade close that this Market Order was created for
+        margin_closeout: -- Details of the Margin Closeout that this Market Order was created for
+        delayed_trade_close: -- Details of the delayed Trade close that this Market Order was created for
         reason: -- The reason that the Market Order was created
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        takeProfitOnFill: -- The specification of the Take Profit Order that should be created for a
+        take_profit_on_fill: -- The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stopLossOnFill: -- The specification of the Stop Loss Order that should be created for a
+        stop_loss_on_fill: -- The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailingStopLossOnFill: -- The specification of the Trailing Stop Loss Order that should be created for a
+        trailing_stop_loss_on_fill: -- The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
 
     """
@@ -3886,41 +3886,41 @@ class MarketOrderRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "MARKET_ORDER_REJECT" in a MarketOrderRejectTransaction.
         instrument: -- The Market Order's Instrument.
         units: -- The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        timeInForce: -- The time-in-force requested for the Market Order.
+        time_in_force: -- The time-in-force requested for the Market Order.
             Restricted to FOK or IOC for a MarketOrder.
-        priceBound: -- The worst price that the client is willing to have the Market Order filled at.
-        positionFill: -- Specification of how Positions in the Account
+        price_bound: -- The worst price that the client is willing to have the Market Order filled at.
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        tradeClose: -- Details of the Trade requested to be closed, only provided when
+        trade_close: -- Details of the Trade requested to be closed, only provided when
             the Market Order is being used to explicitly close a Trade.
-        longPositionCloseout: -- Details of the long Position requested to be closed out, only provided
+        long_position_closeout: -- Details of the long Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a long Position.
-        shortPositionCloseout: -- Details of the short Position requested to be closed out, only provided
+        short_position_closeout: -- Details of the short Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a short Position.
-        marginCloseout: -- Details of the Margin Closeout that this Market Order was created for
-        delayedTradeClose: -- Details of the delayed Trade close that this Market Order was created for
+        margin_closeout: -- Details of the Margin Closeout that this Market Order was created for
+        delayed_trade_close: -- Details of the delayed Trade close that this Market Order was created for
         reason: -- The reason that the Market Order was created
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        takeProfitOnFill: -- The specification of the Take Profit Order that should be created for a
+        take_profit_on_fill: -- The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stopLossOnFill: -- The specification of the Stop Loss Order that should be created for a
+        stop_loss_on_fill: -- The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailingStopLossOnFill: -- The specification of the Trailing Stop Loss Order that should be created for a
+        trailing_stop_loss_on_fill: -- The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -4006,31 +4006,31 @@ class StopLossOrderTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "STOP_LOSS_ORDER" in a StopLossOrderTransaction.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         price: -- The price threshold specified for the StopLoss Order. The associated Trade will be
             closed by a market price that is equal to or worse than this threshold.
-        timeInForce: -- The time-in-force requested for the StopLoss Order. Restricted
+        time_in_force: -- The time-in-force requested for the StopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for StopLoss Orders.
-        gtdTime: -- The date/time when the StopLoss Order will
+        gtd_time: -- The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Stop Loss Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        orderFillTransactionID: -- The ID of the OrderFill Transaction that caused this Order to be created
+        order_fill_transaction_id: -- The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        replacesOrderID: -- The ID of the Order that this Order replaces
+        replaces_order_id: -- The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancellingTransactionID: -- The ID of the Transaction that cancels the replaced
+        cancelling_transaction_id: -- The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
     """
@@ -4110,30 +4110,30 @@ class TrailingStopLossOrderTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "TRAILING_STOP_LOSS_ORDER" in a TrailingStopLossOrderTransaction.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         distance: -- The price distance specified for the TrailingStopLoss Order.
-        timeInForce: -- The time-in-force requested for the TrailingStopLoss Order. Restricted
+        time_in_force: -- The time-in-force requested for the TrailingStopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.
-        gtdTime: -- The date/time when the StopLoss Order will
+        gtd_time: -- The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Trailing Stop Loss Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        orderFillTransactionID: -- The ID of the OrderFill Transaction that caused this Order to be created
+        order_fill_transaction_id: -- The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        replacesOrderID: -- The ID of the Order that this Order replaces
+        replaces_order_id: -- The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancellingTransactionID: -- The ID of the Transaction that cancels the replaced
+        cancelling_transaction_id: -- The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
     """
@@ -4210,9 +4210,9 @@ class LimitOrder(Order):
 
     Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
+        create_time: -- The time when the Order was created.
         state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
         type: -- The type of the Order. Always set to "LIMIT" for Limit Orders.
         instrument: -- The Limit Order's Instrument.
@@ -4220,45 +4220,45 @@ class LimitOrder(Order):
             results in a long Order, and a negative number of units results in a short Order.
         price: -- The price threshold specified for the Limit Order. The Limit Order will only be
             filled by a market price that is equal to or better than this price.
-        timeInForce: -- The time-in-force requested for the Limit Order.
-        gtdTime: -- The date/time when the Limit Order will
+        time_in_force: -- The time-in-force requested for the Limit Order.
+        gtd_time: -- The date/time when the Limit Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        takeProfitOnFill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+        take_profit_on_fill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stopLossOnFill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+        stop_loss_on_fill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailingStopLossOnFill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+        trailing_stop_loss_on_fill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
-        fillingTransactionID: -- ID of the Transaction that filled this Order
+        filling_transaction_id: -- ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filledTime: -- Date/time when the Order was filled (only
+        filled_time: -- Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        tradeOpenedID: -- Trade ID of Trade opened when the Order was filled (only provided when the
+        trade_opened_id: -- Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        tradeReducedID: -- Trade ID of Trade reduced when the Order was filled (only provided when the
+        trade_reduced_id: -- Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        tradeClosedIDs: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
+        trade_closed_i_ds: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancellingTransactionID: -- ID of the Transaction that cancelled the Order
+        cancelling_transaction_id: -- ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelledTime: -- Date/time when the Order was cancelled (only provided
+        cancelled_time: -- Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replacesOrderID: -- The ID of the Order that was replaced by this Order
+        replaces_order_id: -- The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replacedByOrderID: -- The ID of the Order that replaced this Order (only
+        replaced_by_order_id: -- The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
         """
@@ -4371,9 +4371,9 @@ class MarketIfTouchedOrder(Order):
 
     Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
+        create_time: -- The time when the Order was created.
         state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
         type: -- The type of the Order. Always set
             to "MARKET_IF_TOUCHED" for Market If Touched Orders.
@@ -4384,48 +4384,48 @@ class MarketIfTouchedOrder(Order):
             filled by a market price that crosses this price from the direction of the market price
             at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order's
             price and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.
-        priceBound: -- The worst market price that may be used to fill this MarketIfTouched Order.
-        timeInForce: -- The time-in-force requested for the MarketIfTouched Order. Restricted
+        price_bound: -- The worst market price that may be used to fill this MarketIfTouched Order.
+        time_in_force: -- The time-in-force requested for the MarketIfTouched Order. Restricted
             to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.
-        gtdTime: -- The date/time when the MarketIfTouched Order will
+        gtd_time: -- The date/time when the MarketIfTouched Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        initialMarketPrice: -- The Market price at the time when the MarketIfTouched Order was created.
-        takeProfitOnFill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+        initial_market_price: -- The Market price at the time when the MarketIfTouched Order was created.
+        take_profit_on_fill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stopLossOnFill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+        stop_loss_on_fill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailingStopLossOnFill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+        trailing_stop_loss_on_fill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
-        fillingTransactionID: -- ID of the Transaction that filled this Order
+        filling_transaction_id: -- ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filledTime: -- Date/time when the Order was filled (only
+        filled_time: -- Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        tradeOpenedID: -- Trade ID of Trade opened when the Order was filled (only provided when the
+        trade_opened_id: -- Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        tradeReducedID: -- Trade ID of Trade reduced when the Order was filled (only provided when the
+        trade_reduced_id: -- Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        tradeClosedIDs: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
+        trade_closed_i_ds: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancellingTransactionID: -- ID of the Transaction that cancelled the Order
+        cancelling_transaction_id: -- ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelledTime: -- Date/time when the Order was cancelled (only provided
+        cancelled_time: -- Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replacesOrderID: -- The ID of the Order that was replaced by this Order
+        replaces_order_id: -- The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replacedByOrderID: -- The ID of the Order that replaced this Order (only
+        replaced_by_order_id: -- The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
         """
@@ -4547,9 +4547,9 @@ class StopOrder(Order):
 
     Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
+        create_time: -- The time when the Order was created.
         state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
         type: -- The type of the Order. Always set to "STOP" for Stop Orders.
         instrument: -- The Stop Order's Instrument.
@@ -4557,47 +4557,47 @@ class StopOrder(Order):
             results in a long Order, and a negative number of units results in a short Order.
         price: -- The price threshold specified for the Stop Order. The Stop Order will only be
             filled by a market price that is equal to or worse than this price.
-        priceBound: -- The worst market price that may be used to fill this Stop Order. If the market gaps and
+        price_bound: -- The worst market price that may be used to fill this Stop Order. If the market gaps and
             crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.
-        timeInForce: -- The time-in-force requested for the Stop Order.
-        gtdTime: -- The date/time when the Stop Order will
+        time_in_force: -- The time-in-force requested for the Stop Order.
+        gtd_time: -- The date/time when the Stop Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        takeProfitOnFill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+        take_profit_on_fill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stopLossOnFill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+        stop_loss_on_fill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailingStopLossOnFill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+        trailing_stop_loss_on_fill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
-        fillingTransactionID: -- ID of the Transaction that filled this Order
+        filling_transaction_id: -- ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filledTime: -- Date/time when the Order was filled (only
+        filled_time: -- Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        tradeOpenedID: -- Trade ID of Trade opened when the Order was filled (only provided when the
+        trade_opened_id: -- Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        tradeReducedID: -- Trade ID of Trade reduced when the Order was filled (only provided when the
+        trade_reduced_id: -- Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        tradeClosedIDs: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
+        trade_closed_i_ds: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancellingTransactionID: -- ID of the Transaction that cancelled the Order
+        cancelling_transaction_id: -- ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelledTime: -- Date/time when the Order was cancelled (only provided
+        cancelled_time: -- Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replacesOrderID: -- The ID of the Order that was replaced by this Order
+        replaces_order_id: -- The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replacedByOrderID: -- The ID of the Order that replaced this Order (only
+        replaced_by_order_id: -- The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
     """
@@ -4714,20 +4714,20 @@ class OrderFillTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "ORDER_FILL" for an OrderFillTransaction.
-        orderID: -- The ID of the Order filled.
-        clientOrderID: -- The client Order ID of the Order filled
+        order_id: -- The ID of the Order filled.
+        client_order_id: -- The client Order ID of the Order filled
             (only provided if the client has assigned one).
         instrument: -- The name of the filled Order's instrument.
         units: -- The number of units filled by the Order.
         price: -- The average market price that the Order was filled at.
-        fullPrice: -- The price in effect for the account at the time of the Order fill.
+        full_price: -- The price in effect for the account at the time of the Order fill.
         reason: -- The reason that an Order was filled
         pl: -- The profit or loss incurred when the Order was filled.
         financing: -- The financing paid or collected when the Order was filled.
@@ -4735,12 +4735,12 @@ class OrderFillTransaction(Transaction):
             commission is
             always represented as a positive quantity of the Account's home currency, however it reduces the balance in
             the Account.
-        accountBalance: -- The Account's balance after the Order was filled.
-        tradeOpened: -- The Trade that was opened when the Order was filled
+        account_balance: -- The Account's balance after the Order was filled.
+        trade_opened: -- The Trade that was opened when the Order was filled
             (only provided if filling the Order resulted in a new Trade).
-        tradesClosed: -- The Trades that were closed when the Order was filled (only
+        trades_closed: -- The Trades that were closed when the Order was filled (only
             provided if filling the Order resulted in a closing open Trades).
-        tradeReduced: -- The Trade that was reduced when the Order was filled (only
+        trade_reduced: -- The Trade that was reduced when the Order was filled (only
             provided if filling the Order resulted in reducing an open Trade).
 
     """
@@ -4812,31 +4812,31 @@ class StopLossOrderRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "STOP_LOSS_ORDER_REJECT" in a StopLossOrderRejectTransaction.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         price: -- The price threshold specified for the StopLoss Order. The associated Trade will be
             closed by a market price that is equal to or worse than this threshold.
-        timeInForce: -- The time-in-force requested for the StopLoss Order. Restricted
+        time_in_force: -- The time-in-force requested for the StopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for StopLoss Orders.
-        gtdTime: -- The date/time when the StopLoss Order will
+        gtd_time: -- The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Stop Loss Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        orderFillTransactionID: -- The ID of the OrderFill Transaction that caused this Order to be created
+        order_fill_transaction_id: -- The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        intendedReplacesOrderID: -- The ID of the Order that this Order was intended to replace
+        intended_replaces_order_id: -- The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -4914,11 +4914,11 @@ class MarketIfTouchedOrderTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "MARKET_IF_TOUCHED_ORDER" in a MarketIfTouchedOrderTransaction.
         instrument: -- The MarketIfTouched Order's Instrument.
@@ -4928,29 +4928,29 @@ class MarketIfTouchedOrderTransaction(Transaction):
             filled by a market price that crosses this price from the direction of the market price
             at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order's price
             and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.
-        priceBound: -- The worst market price that may be used to fill this MarketIfTouched Order.
-        timeInForce: -- The time-in-force requested for the MarketIfTouched Order. Restricted
+        price_bound: -- The worst market price that may be used to fill this MarketIfTouched Order.
+        time_in_force: -- The time-in-force requested for the MarketIfTouched Order. Restricted
             to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.
-        gtdTime: -- The date/time when the MarketIfTouched Order will
+        gtd_time: -- The date/time when the MarketIfTouched Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Market-if-touched Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        takeProfitOnFill: -- The specification of the Take Profit Order that should be created for a
+        take_profit_on_fill: -- The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stopLossOnFill: -- The specification of the Stop Loss Order that should be created for a
+        stop_loss_on_fill: -- The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailingStopLossOnFill: -- The specification of the Trailing Stop Loss Order that should be created for a
+        trailing_stop_loss_on_fill: -- The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        replacesOrderID: -- The ID of the Order that this Order replaces
+        replaces_order_id: -- The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancellingTransactionID: -- The ID of the Transaction that cancels the replaced
+        cancelling_transaction_id: -- The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
     """
@@ -5050,11 +5050,11 @@ class LimitOrderTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "LIMIT_ORDER" in a LimitOrderTransaction.
         instrument: -- The Limit Order's Instrument.
@@ -5062,27 +5062,27 @@ class LimitOrderTransaction(Transaction):
             results in a long Order, and a negative number of units results in a short Order.
         price: -- The price threshold specified for the Limit Order. The Limit Order will only be
             filled by a market price that is equal to or better than this price.
-        timeInForce: -- The time-in-force requested for the Limit Order.
-        gtdTime: -- The date/time when the Limit Order will
+        time_in_force: -- The time-in-force requested for the Limit Order.
+        gtd_time: -- The date/time when the Limit Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Limit Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        takeProfitOnFill: -- The specification of the Take Profit Order that should be created for a
+        take_profit_on_fill: -- The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stopLossOnFill: -- The specification of the Stop Loss Order that should be created for a
+        stop_loss_on_fill: -- The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailingStopLossOnFill: -- The specification of the Trailing Stop Loss Order that should be created for a
+        trailing_stop_loss_on_fill: -- The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        replacesOrderID: -- The ID of the Order that this Order replaces
+        replaces_order_id: -- The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancellingTransactionID: -- The ID of the Transaction that cancels the replaced
+        cancelling_transaction_id: -- The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
     """
@@ -5175,31 +5175,31 @@ class TakeProfitOrderRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "TAKE_PROFIT_ORDER_REJECT" in a TakeProfitOrderRejectTransaction.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         price: -- The price threshold specified for the TakeProfit Order. The associated Trade will be
             closed by a market price that is equal to or better than this threshold.
-        timeInForce: -- The time-in-force requested for the TakeProfit Order. Restricted
+        time_in_force: -- The time-in-force requested for the TakeProfit Order. Restricted
             to "GTC", "GFD" and "GTD" for TakeProfit Orders.
-        gtdTime: -- The date/time when the TakeProfit Order will
+        gtd_time: -- The date/time when the TakeProfit Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Take Profit Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        orderFillTransactionID: -- The ID of the OrderFill Transaction that caused this Order to be created
+        order_fill_transaction_id: -- The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        intendedReplacesOrderID: -- The ID of the Order that this Order was intended to replace
+        intended_replaces_order_id: -- The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -5277,30 +5277,30 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "TRAILING_STOP_LOSS_ORDER_REJECT" in a TrailingStopLossOrderRejectTransaction.
-        tradeID: -- The ID of the Trade to close when the price threshold is breached.
-        clientTradeID: -- The client ID of the Trade to be closed when the price threshold is breached.
+        trade_id: -- The ID of the Trade to close when the price threshold is breached.
+        client_trade_id: -- The client ID of the Trade to be closed when the price threshold is breached.
         distance: -- The price distance specified for the TrailingStopLoss Order.
-        timeInForce: -- The time-in-force requested for the TrailingStopLoss Order. Restricted
+        time_in_force: -- The time-in-force requested for the TrailingStopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.
-        gtdTime: -- The date/time when the StopLoss Order will
+        gtd_time: -- The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Trailing Stop Loss Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        orderFillTransactionID: -- The ID of the OrderFill Transaction that caused this Order to be created
+        order_fill_transaction_id: -- The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        intendedReplacesOrderID: -- The ID of the Order that this Order was intended to replace
+        intended_replaces_order_id: -- The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -5377,11 +5377,11 @@ class StopOrderTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "STOP_ORDER" in a StopOrderTransaction.
         instrument: -- The Stop Order's Instrument.
@@ -5389,29 +5389,29 @@ class StopOrderTransaction(Transaction):
             results in a long Order, and a negative number of units results in a short Order.
         price: -- The price threshold specified for the Stop Order. The Stop Order will only be
             filled by a market price that is equal to or worse than this price.
-        priceBound: -- The worst market price that may be used to fill this Stop Order. If the market gaps and
+        price_bound: -- The worst market price that may be used to fill this Stop Order. If the market gaps and
             crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.
-        timeInForce: -- The time-in-force requested for the Stop Order.
-        gtdTime: -- The date/time when the Stop Order will
+        time_in_force: -- The time-in-force requested for the Stop Order.
+        gtd_time: -- The date/time when the Stop Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Stop Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        takeProfitOnFill: -- The specification of the Take Profit Order that should be created for a
+        take_profit_on_fill: -- The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stopLossOnFill: -- The specification of the Stop Loss Order that should be created for a
+        stop_loss_on_fill: -- The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailingStopLossOnFill: -- The specification of the Trailing Stop Loss Order that should be created for a
+        trailing_stop_loss_on_fill: -- The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        replacesOrderID: -- The ID of the Order that this Order replaces
+        replaces_order_id: -- The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancellingTransactionID: -- The ID of the Transaction that cancels the replaced
+        cancelling_transaction_id: -- The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
     """
@@ -5508,11 +5508,11 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "MARKET_IF_TOUCHED_ORDER_REJECT" in a MarketIfTouchedOrderRejectTransaction.
         instrument: -- The MarketIfTouched Order's Instrument.
@@ -5522,29 +5522,29 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
             filled by a market price that crosses this price from the direction of the market price
             at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order's price
             and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.
-        priceBound: -- The worst market price that may be used to fill this MarketIfTouched Order.
-        timeInForce: -- The time-in-force requested for the MarketIfTouched Order. Restricted
+        price_bound: -- The worst market price that may be used to fill this MarketIfTouched Order.
+        time_in_force: -- The time-in-force requested for the MarketIfTouched Order. Restricted
             to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.
-        gtdTime: -- The date/time when the MarketIfTouched Order will
+        gtd_time: -- The date/time when the MarketIfTouched Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Market-if-touched Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        takeProfitOnFill: -- The specification of the Take Profit Order that should be created for a
+        take_profit_on_fill: -- The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stopLossOnFill: -- The specification of the Stop Loss Order that should be created for a
+        stop_loss_on_fill: -- The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailingStopLossOnFill: -- The specification of the Trailing Stop Loss Order that should be created for a
+        trailing_stop_loss_on_fill: -- The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        intendedReplacesOrderID: -- The ID of the Order that this Order was intended to replace
+        intended_replaces_order_id: -- The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -5643,11 +5643,11 @@ class LimitOrderRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "LIMIT_ORDER_REJECT" in a LimitOrderRejectTransaction.
         instrument: -- The Limit Order's Instrument.
@@ -5655,27 +5655,27 @@ class LimitOrderRejectTransaction(Transaction):
             results in a long Order, and a negative number of units results in a short Order.
         price: -- The price threshold specified for the Limit Order. The Limit Order will only be
             filled by a market price that is equal to or better than this price.
-        timeInForce: -- The time-in-force requested for the Limit Order.
-        gtdTime: -- The date/time when the Limit Order will
+        time_in_force: -- The time-in-force requested for the Limit Order.
+        gtd_time: -- The date/time when the Limit Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Limit Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        takeProfitOnFill: -- The specification of the Take Profit Order that should be created for a
+        take_profit_on_fill: -- The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stopLossOnFill: -- The specification of the Stop Loss Order that should be created for a
+        stop_loss_on_fill: -- The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailingStopLossOnFill: -- The specification of the Trailing Stop Loss Order that should be created for a
+        trailing_stop_loss_on_fill: -- The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        intendedReplacesOrderID: -- The ID of the Order that this Order was intended to replace
+        intended_replaces_order_id: -- The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -5766,11 +5766,11 @@ class StopOrderRejectTransaction(Transaction):
     Attributes:
         id: -- The Transaction's Identifier.
         time: -- The date/time when the Transaction was created.
-        userID: -- The ID of the user that initiated the creation of the Transaction.
-        accountID: -- The ID of the Account the Transaction was created for.
-        batchID: -- The ID of the "batch" that the Transaction belongs to.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        requestID: -- The Request ID of the request which generated the transaction.
+        request_id: -- The Request ID of the request which generated the transaction.
         type: -- The Type of the Transaction. Always
             set to "STOP_ORDER_REJECT" in a StopOrderRejectTransaction.
         instrument: -- The Stop Order's Instrument.
@@ -5778,29 +5778,29 @@ class StopOrderRejectTransaction(Transaction):
             results in a long Order, and a negative number of units results in a short Order.
         price: -- The price threshold specified for the Stop Order. The Stop Order will only be
             filled by a market price that is equal to or worse than this price.
-        priceBound: -- The worst market price that may be used to fill this Stop Order. If the market gaps and
+        price_bound: -- The worst market price that may be used to fill this Stop Order. If the market gaps and
             crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.
-        timeInForce: -- The time-in-force requested for the Stop Order.
-        gtdTime: -- The date/time when the Stop Order will
+        time_in_force: -- The time-in-force requested for the Stop Order.
+        gtd_time: -- The date/time when the Stop Order will
             be cancelled if its timeInForce is "GTD".
-        positionFill: -- Specification of how Positions in the Account
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        triggerCondition: -- Specification of what component of a price should be used
+        trigger_condition: -- Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
         reason: -- The reason that the Stop Order was initiated
-        clientExtensions: -- Client Extensions to add to the Order (only provided
+        client_extensions: -- Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        takeProfitOnFill: -- The specification of the Take Profit Order that should be created for a
+        take_profit_on_fill: -- The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stopLossOnFill: -- The specification of the Stop Loss Order that should be created for a
+        stop_loss_on_fill: -- The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailingStopLossOnFill: -- The specification of the Trailing Stop Loss Order that should be created for a
+        trailing_stop_loss_on_fill: -- The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        intendedReplacesOrderID: -- The ID of the Order that this Order was intended to replace
+        intended_replaces_order_id: -- The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        rejectReason: -- The reason that the Reject Transaction was created
+        reject_reason: -- The reason that the Reject Transaction was created
 
     """
 
@@ -5894,55 +5894,55 @@ class MarketOrder(Order):
 
     Attributes:
         id: -- The Order's identifier, unique within the Order's Account.
-        createTime: -- The time when the Order was created.
+        create_time: -- The time when the Order was created.
         state: -- The current state of the Order.
-        clientExtensions: -- The client extensions of the Order. Do not set, modify,
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
         type: -- The type of the Order. Always set to "MARKET" for Market Orders.
         instrument: -- The Market Order's Instrument.
         units: -- The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        timeInForce: -- The time-in-force requested for the Market Order.
+        time_in_force: -- The time-in-force requested for the Market Order.
             Restricted to FOK or IOC for a MarketOrder.
-        priceBound: -- The worst price that the client is willing to have the Market Order filled at.
-        positionFill: -- Specification of how Positions in the Account
+        price_bound: -- The worst price that the client is willing to have the Market Order filled at.
+        position_fill: -- Specification of how Positions in the Account
             are modified when the Order is filled.
-        tradeClose: -- Details of the Trade requested to be closed, only provided when
+        trade_close: -- Details of the Trade requested to be closed, only provided when
             the Market Order is being used to explicitly close a Trade.
-        longPositionCloseout: -- Details of the long Position requested to be closed out, only provided
+        long_position_closeout: -- Details of the long Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a long Position.
-        shortPositionCloseout: -- Details of the short Position requested to be closed out, only provided
+        short_position_closeout: -- Details of the short Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a short Position.
-        marginCloseout: -- Details of the Margin Closeout that this Market Order was created for
-        delayedTradeClose: -- Details of the delayed Trade close that this Market Order was created for
-        takeProfitOnFill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of a
+        margin_closeout: -- Details of the Margin Closeout that this Market Order was created for
+        delayed_trade_close: -- Details of the delayed Trade close that this Market Order was created for
+        take_profit_on_fill: -- TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stopLossOnFill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+        stop_loss_on_fill: -- StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailingStopLossOnFill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+        trailing_stop_loss_on_fill: -- TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        tradeClientExtensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
+        trade_client_extensions: -- Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
-        fillingTransactionID: -- ID of the Transaction that filled this Order
+        filling_transaction_id: -- ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filledTime: -- Date/time when the Order was filled (only
+        filled_time: -- Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        tradeOpenedID: -- Trade ID of Trade opened when the Order was filled (only provided when the
+        trade_opened_id: -- Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        tradeReducedID: -- Trade ID of Trade reduced when the Order was filled (only provided when the
+        trade_reduced_id: -- Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        tradeClosedIDs: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
+        trade_closed_i_ds: -- Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancellingTransactionID: -- ID of the Transaction that cancelled the Order
+        cancelling_transaction_id: -- ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelledTime: -- Date/time when the Order was cancelled (only provided
+        cancelled_time: -- Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
 
     """
@@ -6050,49 +6050,49 @@ class Account(AccountSummary):
             if the Account has an alias set
         currency: -- The home currency of the Account
         balance: -- The current balance of the Account. Represented in the Account's home currency.
-        createdByUserID: -- ID of the user that created the Account.
-        createdTime: -- The date/time when the Account was created.
+        created_by_user_id: -- ID of the user that created the Account.
+        created_time: -- The date/time when the Account was created.
         pl: -- The total profit/loss realized over the lifetime of
             the Account. Represented in the Account's home currency.
-        resettablePL: -- The total realized profit/loss for the Account since it was
+        resettable_pl: -- The total realized profit/loss for the Account since it was
             last reset by the client. Represented in the Account's home currency.
-        resettabledPLTime: -- The date/time that the Account's resettablePL was last reset.
+        resettabled_pl_time: -- The date/time that the Account's resettablePL was last reset.
         commission: -- The total amount of commission paid over the lifetime
             of the Account. Represented in the Account's home currency.
-        marginRate: -- Client-provided margin rate override for the Account. The effective margin rate of the Account
+        margin_rate: -- Client-provided margin rate override for the Account. The effective margin rate of the Account
             is the lesser of this value and
             the OANDA margin rate for the Account's division. This value is only provided if a margin rate override
             exists for the Account.
-        marginCallEnterTime: -- The date/time when the Account entered a margin call state.
+        margin_call_enter_time: -- The date/time when the Account entered a margin call state.
             Only provided if the Account is in a margin call.
-        marginCallExtensionCount: -- The number of times that the Account's current margin call was extended.
-        lastMarginCallExtensionTime: -- The date/time of the Account's last margin call extension.
-        openTradeCount: -- The number of Trades currently open in the Account.
-        openPositionCount: -- The number of Positions currently open in the Account.
-        pendingOrderCount: -- The number of Orders currently pending in the Account.
-        hedgingEnabled: -- Flag indicating that the Account has hedging enabled.
-        unrealizedPL: -- The total unrealized profit/loss for all Trades currently open
+        margin_call_extension_count: -- The number of times that the Account's current margin call was extended.
+        last_margin_call_extension_time: -- The date/time of the Account's last margin call extension.
+        open_trade_count: -- The number of Trades currently open in the Account.
+        open_position_count: -- The number of Positions currently open in the Account.
+        pending_order_count: -- The number of Orders currently pending in the Account.
+        hedging_enabled: -- Flag indicating that the Account has hedging enabled.
+        unrealized_pl: -- The total unrealized profit/loss for all Trades currently open
             in the Account. Represented in the Account's home currency.
-        NAV: -- The net asset value of the Account. Equal to
+        nav: -- The net asset value of the Account. Equal to
             Account balance + unrealizedPL. Represented in the Account's home currency.
-        marginUsed: -- Margin currently used for the Account.
+        margin_used: -- Margin currently used for the Account.
             Represented in the Account's home currency.
-        marginAvailable: -- Margin available for Account. Represented in the Account's home currency.
-        positionValue: -- The value of the Account's open
+        margin_available: -- Margin available for Account. Represented in the Account's home currency.
+        position_value: -- The value of the Account's open
             positions represented in the Account's home currency.
-        marginCloseoutUnrealizedPL: -- The Account's margin closeout unrealized PL.
-        marginCloseoutNAV: -- The Account's margin closeout NAV.
-        marginCloseoutMarginUsed: -- The Account's margin closeout margin used.
-        marginCloseoutPercent: -- The Account's margin closeout percentage. When this value is 1.0
+        margin_closeout_unrealized_pl: -- The Account's margin closeout unrealized PL.
+        margin_closeout_nav: -- The Account's margin closeout NAV.
+        margin_closeout_margin_used: -- The Account's margin closeout margin used.
+        margin_closeout_percent: -- The Account's margin closeout percentage. When this value is 1.0
             or above the Account is in a margin closeout situation.
-        marginCloseoutPositionValue: -- The value of the Account's open positions as used
+        margin_closeout_position_value: -- The value of the Account's open positions as used
             for margin closeout calculations represented in the Account's home currency.
-        withdrawalLimit: -- The current WithdrawalLimit for the account which will be zero or
+        withdrawal_limit: -- The current WithdrawalLimit for the account which will be zero or
             a positive value indicating how much can be withdrawn from the account.
-        marginCallMarginUsed: -- The Account's margin call margin used.
-        marginCallPercent: -- The Account's margin call percentage. When this value is 1.0
+        margin_call_margin_used: -- The Account's margin call margin used.
+        margin_call_percent: -- The Account's margin call percentage. When this value is 1.0
             or above the Account is in a margin call situation.
-        lastTransactionID: -- The ID of the last Transaction created for the Account.
+        last_transaction_id: -- The ID of the last Transaction created for the Account.
         trades: -- The details of the Trades currently open in the Account.
         positions: -- The details all Account Positions.
         orders: -- The details of the Orders currently pending in the Account.
@@ -6201,14 +6201,14 @@ class AccountChanges(Model):
     past.
 
     Attributes:
-        ordersCreated: -- The Orders created. These Orders may have been
+        orders_created: -- The Orders created. These Orders may have been
             filled, cancelled or triggered in the same period.
-        ordersCancelled: -- The Orders cancelled.
-        ordersFilled: -- The Orders filled.
-        ordersTriggered: -- The Orders triggered.
-        tradesOpened: -- The Trades opened.
-        tradesReduced: -- The Trades reduced.
-        tradesClosed: -- The Trades closed.
+        orders_cancelled: -- The Orders cancelled.
+        orders_filled: -- The Orders filled.
+        orders_triggered: -- The Orders triggered.
+        trades_opened: -- The Trades opened.
+        trades_reduced: -- The Trades reduced.
+        trades_closed: -- The Trades closed.
         positions: -- The Positions changed.
         transactions: -- The Transactions that have been generated.
 
