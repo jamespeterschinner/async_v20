@@ -5,6 +5,9 @@ async_v20: Asynchronous OANDA v20 client
   :target:  https://travis-ci.org/jamespeterschinner/async_v20
   :align: right
 
+.. image:: https://codecov.io/gh/jamespeterschinner/async_v20/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/jamespeterschinner/async_v20
+
 Documentation
 -------------
 
