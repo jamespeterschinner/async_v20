@@ -94,8 +94,10 @@ class AccountInterface(Interface):
         Endpoint used to poll an Account for its current state and changes
         since a specified TransactionID.
 
-        Args:
+        Note:
+            since_transaction_id is automatically handled by OandaClient
 
+        Args:
             since_transaction_id:
                 ID of the Transaction to get Account changes since.
 

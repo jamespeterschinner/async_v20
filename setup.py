@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-version = '1.1.1a1'
+version = '1.1.2a1'
 
 setup(name='async_v20',
       version=version,
@@ -12,11 +12,9 @@ setup(name='async_v20',
       license='MIT',
       packages=find_packages(),
       install_requires=['aiohttp>=2.2.5',
-                        'pytest>=3.2.2',
-                        'ujson==1.35',
-                        'yarl==0.12.0',
-                        'inflection==0.3.1',
-                        'pandas==0.20.3'],
+                        'ujson>=1.35',
+                        'yarl>=0.12.0',
+                        'inflection>=0.3.1'],
       classifiers=['Programming Language :: Python :: 3.6', 'Development Status :: 3 - Alpha',
                    'Framework :: AsyncIO',
                    'Intended Audience :: Developers',

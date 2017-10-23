@@ -1,0 +1,212 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>async_v20.interface.account &#8212; async_v20 1.1.2a1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.1.2a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for async_v20.interface.account</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">Interface</span>
+<span class="kn">from</span> <span class="nn">.decorators</span> <span class="k">import</span> <span class="n">endpoint</span>
+<span class="kn">from</span> <span class="nn">..definitions.types</span> <span class="k">import</span> <span class="n">DecimalNumber</span>
+<span class="kn">from</span> <span class="nn">..endpoints.account</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..endpoints.annotations</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AccountInterface&#39;</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">AccountInterface</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span>
+    <span class="nd">@endpoint</span><span class="p">(</span><span class="n">GETAccounts</span><span class="p">,</span> <span class="n">serial</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">list_accounts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a list of all Accounts authorized for the provided token.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            async_v20.interface.parser.Response containing the results from submitting the</span>
+<span class="sd">            request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@endpoint</span><span class="p">(</span><span class="n">GETAccountID</span><span class="p">,</span> <span class="n">serial</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_account_details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the full details for a single Account that a client has access to.</span>
+<span class="sd">        Full pending Order, open Trade and open Position representations are</span>
+<span class="sd">        provided.</span>
+
+<span class="sd">        Args:</span>
+
+
+<span class="sd">        Returns:</span>
+<span class="sd">            async_v20.interface.parser.Response containing the results from submitting the</span>
+<span class="sd">            request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@endpoint</span><span class="p">(</span><span class="n">GETAccountIDSummary</span><span class="p">,</span> <span class="n">serial</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">account_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a summary for a single Account that a client has access to.</span>
+
+<span class="sd">        Args:</span>
+
+
+<span class="sd">        Returns:</span>
+<span class="sd">            async_v20.interface.parser.Response containing the results from submitting the</span>
+<span class="sd">            request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@endpoint</span><span class="p">(</span><span class="n">GETAccountIDInstruments</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">account_instruments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instruments</span><span class="p">:</span> <span class="n">Instruments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of tradeable instruments for the given Account. The list</span>
+<span class="sd">        of tradeable instruments is dependent on the regulatory division that</span>
+<span class="sd">        the Account is located in, thus should be the same for all Accounts</span>
+<span class="sd">        owned by a single user.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            instruments:</span>
+<span class="sd">                List of instruments to query specifically.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            async_v20.interface.parser.Response containing the results from submitting the</span>
+<span class="sd">            request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@endpoint</span><span class="p">(</span><span class="n">PATCHAccountIDConfiguration</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">configure_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias</span><span class="p">:</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">margin_rate</span><span class="p">:</span> <span class="n">DecimalNumber</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the client-configurable portions of an Account.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            alias:</span>
+<span class="sd">                Client-defined alias (name) for the Account</span>
+<span class="sd">            margin_rate:</span>
+<span class="sd">                The string representation of a decimal number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            async_v20.interface.parser.Response containing the results from submitting the</span>
+<span class="sd">            request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@endpoint</span><span class="p">(</span><span class="n">GETAccountIDChanges</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">account_changes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">since_transaction_id</span><span class="p">:</span> <span class="n">TransactionID</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Endpoint used to poll an Account for its current state and changes</span>
+<span class="sd">        since a specified TransactionID.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            since_transaction_id is automatically handled by OandaClient</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            since_transaction_id:</span>
+<span class="sd">                ID of the Transaction to get Account changes since.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            async_v20.interface.parser.Response containing the results from submitting the</span>
+<span class="sd">            request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">async_v20</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../beyond_getting_started.html">Beyond Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">OandaClient API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../types.html">Class Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, James Peter Schinner.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

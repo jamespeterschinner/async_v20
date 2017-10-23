@@ -28,7 +28,7 @@ async def request_limiter(self):
         yield self.session.request
         await wait(time_delta, previous_time)
 
-async def initialize_client(self):
+async def initializer(self):
 
     print('Initializing')
 

@@ -5,10 +5,10 @@ from yarl import URL
 
 from .definitions.types import AcceptDatetimeFormat
 from .endpoints.annotations import Authorization
-from .helpers import request_limiter, initialize_client
+from .helpers import request_limiter, initializer
 from .interface import *
 
-version = '1.1.1a1'
+version = '1.1.2a1'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
@@ -28,6 +28,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         datetime_format: -- The format to request when dealing with times
         poll_timeout: -- The timeout to use when making a polling request with
             the v20 REST server
+
     """
 
     default_parameters = {}
@@ -44,6 +45,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                  stream_host='stream-fxpractice.oanda.com', stream_port=None, application='async_v20',
                  datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99, max_simultaneous_connections=10):
 
+        # TODO: add poll timeout
         self.version = version
 
         if token is None:
@@ -80,7 +82,26 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
         self.request = request_limiter(self)
 
-        self.initialize = initialize_client(self)
+        self.initialize_client = initializer(self)
 
+    async def initialize(self):
+        await self.initialize_client.asend(None)
 
+    async def __aenter__(self):
+        await self.initialize()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def __enter__(self):
+        # TODO Make this print in red
+        print('Warning: `with` used rather than `async with`')
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def close(self):
+        self.session.close()
 

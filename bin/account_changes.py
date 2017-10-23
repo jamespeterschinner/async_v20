@@ -4,12 +4,8 @@ from async_v20 import OandaClient
 
 
 async def account():
-    client = OandaClient()
-    try:
-        response = await client.account_changes()
-    finally:
-        client.session.close()
-    return response
+    async with OandaClient() as client:
+        return await client.account_changes()
 
 
 loop = asyncio.get_event_loop()
