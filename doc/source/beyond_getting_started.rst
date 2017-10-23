@@ -36,7 +36,7 @@ All methods exposed by *async_v20*. **OandaClient** are written in a declarative
 
 Lets take at look at an example:
 
-.. literalinclude:: ..\..\async_v20\interface\instrument.py
+.. literalinclude:: ../../async_v20/interface/instrument.py
     :lines: 20-33
 
 .. Note::
@@ -47,7 +47,7 @@ Lets take at look at an example:
 **First**
    - We define the endpoint:
 
-    .. literalinclude:: ..\..\async_v20\interface\instrument.py
+    .. literalinclude:: ../../async_v20/interface/instrument.py
         :lines: 20
         :emphasize-lines: 1
 
@@ -55,7 +55,7 @@ Lets take at look at an example:
    - We define arguments to pass to the endpoint
 
 
-    .. literalinclude:: ..\..\async_v20\interface\instrument.py
+    .. literalinclude:: ../../async_v20/interface/instrument.py
         :lines: 21-33
         :emphasize-lines: 2-12
 
@@ -69,12 +69,12 @@ The http request formatting is defined by the *EndPoint*
 
 **In this case**
 
-    .. literalinclude:: ..\..\async_v20\endpoints\instrument.py
+    .. literalinclude:: ../../async_v20/endpoints/instrument.py
         :lines: 10-45
 
 **Notice that**
 
-    .. literalinclude:: ..\..\async_v20\endpoints\instrument.py
+    .. literalinclude:: ../../async_v20/endpoints/instrument.py
         :lines: 21
         :emphasize-lines: 1
 
@@ -92,7 +92,7 @@ This section assumes you have read :ref:`passing-arguments`
 The :term:`http` response from :term:`OANDA` is handled by the `EndPoint`
 each *OandaClient*. **method** defines.
 
-     .. literalinclude:: ..\..\async_v20\endpoints\instrument.py
+     .. literalinclude:: ../../async_v20/endpoints/instrument.py
         :lines: 41-42
         :emphasize-lines: 1,2
 
@@ -125,7 +125,7 @@ To solve this the :term:`metaclass`:
     **for** `async_v20.definitions.types.base`. **Model**
     constructs two dictionary's
 
-       .. literalinclude:: ..\..\async_v20\definitions\metaclass.py
+       .. literalinclude:: ../../async_v20/definitions/metaclass.py
           :lines: 93,94
           :emphasize-lines: 1,2
 
