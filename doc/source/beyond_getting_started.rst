@@ -12,7 +12,7 @@ What you need to know
 
 - :ref:`OandaClient` returns server responses in the equivalent :term:`python` dictionary:
     - dictionary responses contain the equivalent python objects. As defined in :ref:`class-definitions`
-        - these objects are constructed from http response :term:`JSON` body
+        - these objects are constructed from the servers http response :term:`JSON` body
 
 - *OandaClient*. **methods** that require:
 
