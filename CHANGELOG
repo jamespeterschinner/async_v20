@@ -13,3 +13,12 @@
     OandaClient.initialize() method is now exposed
     OandaClient is now also a context manager. To automatically close the http session
     Additional documentation
+
+1.1.2a2
+    Documentation
+1.1.2a3
+    Documentation
+1.1.2a4
+    Documentation
+1.1.2a4
+    Documentation

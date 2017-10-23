@@ -9,7 +9,6 @@ class IncorrectValue(Exception):
 
 
 class DescriptorProtocol(object):
-
     value = None
 
     def __init__(self, name):
@@ -33,7 +32,6 @@ class Descriptor(DescriptorProtocol):
     typ = None
     example = None
     values = None
-
 
     def __new__(cls, value=None, *, name=None):
         if value is not None:
