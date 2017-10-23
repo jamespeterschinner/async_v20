@@ -84,12 +84,12 @@ class ORM(type):
 
         # async_v20 allows camelCase and snake_case to be used when instantiating objects.
         # arguments passed in camelCase are converted to snake_case prior to attribute assignment.
-        # Signatures arguments are also snake_case.
-        # when serializing objects attributes must be converted to camelCase,
+        # Signature arguments are also snake_case.
+        # when serializing objects. Attributes must be converted to camelCase,
         # as per OANDA's specification.
         # To achieve this these two dictionary's are created:
         #   instance_attributes :- camelCase & snake_case keys -> snake_case values
-        #   json_attributes :- snake_case
+        #   json_attributes :- snake_case keys -> camelCase values
         mcs.instance_attributes.update(create_instance_attributes(class_obj))
         mcs.json_attributes.update(create_json_attributes(class_obj))
 

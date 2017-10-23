@@ -100,7 +100,7 @@ each *OandaClient*. **method** defines.
 
 There is a two step process by which the response is constructed:
    - The http :term:`status` is used to look up the expected response
-   - Each JSON object is constructed into the appropriate object
+   - Each JSON object is constructed into the appropriate python object
 
 How Objects are Serialized
 __________________________
@@ -112,7 +112,7 @@ The issue here is that OANDA defines objects with :term:`camelCase` :term:`attri
 Python programs typically reserve camelCase for :term:`class` definitions.
 
 This means, in order to both satisfy python standards and OANDA,
-objects as defined in :ref:`class-definitions` need to accept `camelCase` and :term:`snake_case`
+objects (as defined in :ref:`class-definitions`) need to accept `camelCase` and :term:`snake_case`
 arguments when being constructed
 
 `objects` store there attributes as `snake_case` (as python programmers would expect),
