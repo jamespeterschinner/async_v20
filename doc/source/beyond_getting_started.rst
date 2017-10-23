@@ -3,7 +3,7 @@ Beyond Getting Started
 
 So you have read :ref:`tutorial` and need to know more.
 
-Your fist issue is knowing what methods to use.
+Your first issue is knowing what methods to use.
 
 The :ref:`api-docs` contains all the exposed methods :term:`async_v20` provides.
 
