@@ -6,7 +6,7 @@ Best Practices
 One OandaClient per application
 -------------------------------
 
-Our :ref:`tutorial` used :ref:`OandaClient` as a context manager. This is correct when
+:ref:`tutorial` example, used :ref:`OandaClient` as a context manager. This is correct when
 the client does not need to be shared between multiple :term:`coroutines`.
 
 This is a an example of multiple coroutines using the **One** OandaClient instance:
