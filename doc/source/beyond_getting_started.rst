@@ -3,7 +3,7 @@ Beyond Getting Started
 
 So you have read :ref:`tutorial` and need to know more.
 
-Your fist issue is knowing what method to use.
+Your fist issue is knowing what methods to use.
 
 The :ref:`api-docs` contains all the exposed methods :term:`async_v20` provides.
 
@@ -22,7 +22,7 @@ What you need to know
 
 
 - **OandaClient** by default will connect to the practice server:
-    - OANDA's `docs <http://developer.oanda.com/rest-live-v20/>`_ Contain host information
+    - OANDA's `docs <http://developer.oanda.com/rest-live-v20/introduction/>`_ Contain host information
 
 What might be usefull
 ---------------------
