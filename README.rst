@@ -1,6 +1,10 @@
 async_v20: Asynchronous OANDA v20 client
 ========================================
 
+.. image:: https://travis-ci.org/aio-libs/aiohttp.svg?branch=master
+  :target:  https://travis-ci.org/jamespeterschinner/async_v20
+  :align: right
+
 Documentation
 -------------
 
