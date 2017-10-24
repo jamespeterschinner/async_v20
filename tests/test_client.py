@@ -19,10 +19,10 @@ def test_oanda_client_has_correct_version(client, setup):
     setup_version = re.findall(r"(?<=version\s=\s').*?(?='\n)", setup)[0]
     assert setup_version == client.version
 
-def test_oanda_client_finds_token():
-    os.environ['OANDA_TOKEN'] = 'test_environ_token'
-    client = OandaClient()
-    assert client.default_parameters[Authorization] == 'Bearer test_environ_token'
+# def test_oanda_client_finds_token():
+#     os.environ['OANDA_TOKEN'] = 'test_environ_token'
+#     client = OandaClient()
+#     assert client.default_parameters[Authorization] == 'Bearer test_environ_token'
 
 def test_oanda_client_accepts_token():
     client = OandaClient(token='test_token')
