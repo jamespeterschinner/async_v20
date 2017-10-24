@@ -6,8 +6,12 @@ from async_v20.endpoints.annotations import Authorization
 
 @pytest.fixture()
 def setup():
-    with open(os.path.abspath(r'../../async_v20/setup.py'), 'r') as f:
-        yield f.read()
+    try:
+        with open(os.path.abspath(r'../../async_v20/setup.py'), 'r') as f:
+            yield f.read()
+    except FileNotFoundError:
+        with open(os.path.abspath(r'../jamespeterschinner/async_v20/setup.py'), 'r') as f:
+            yield f.read()
 
 @pytest.fixture()
 def client():
