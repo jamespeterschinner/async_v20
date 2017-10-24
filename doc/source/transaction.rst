@@ -54,4 +54,4 @@ Transaction
         LiquidityRegenerationScheduleStep,
         OpenTradeFinancing,
         PositionFinancing,
-        TransactionHeartbeat,
+        TransactionHeartbeat

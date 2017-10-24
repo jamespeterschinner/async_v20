@@ -28,6 +28,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         datetime_format: -- The format to request when dealing with times
         poll_timeout: -- The timeout to use when making a polling request with
             the v20 REST server
+        max_requests_per_second: -- Maximum HTTP requests sent per second
+        max_simultaneous_connections: -- Maximum concurrent HTTP requests
 
     """
 

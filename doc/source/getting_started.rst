@@ -1,6 +1,7 @@
 Getting started
 ===============
 
+
 .. _create-account:
 
 Creating an Account
@@ -17,7 +18,12 @@ Setting up environment
 ----------------------
 
     - Install :term:`async_v20` as per :ref:`installation`
-    - Create a new :term:`environment variable` with the name `OANDA_TOKEN` and value as the :term:`token` generated from :ref:`create-account`.
+    - Create a new :term:`environment variable` with the name `OANDA_TOKEN` and value as
+      the :term:`token` generated from :ref:`create-account`.
+
+    .. toctree::
+        environment_variables
+
 
     .. note::
 

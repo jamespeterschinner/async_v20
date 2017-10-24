@@ -8,4 +8,4 @@ Pricing
             PriceBucket,
             QuoteHomeConversionFactors,
             ClientPrice,
-            PricingHeartbeat,
+            PricingHeartbeat
