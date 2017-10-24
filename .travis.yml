@@ -4,7 +4,7 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - dir
+  - ls -a
   - pytest
   - pytest --cov
 after_success:
