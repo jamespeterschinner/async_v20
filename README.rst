@@ -35,10 +35,23 @@ Features
 - Construct *concurrent* trading algorithms
 
 
+
 installation
 ------------
 
+**REQUIRES:**
+
+    python >= 3.6
+
+    https://www.python.org/
+
     $ pip install async_v20
+
+It is also recommended to install pandas. This allows objects to be converted into *pandas*. **Series** objects
+allowing for easier integration with python's powerful data analysis tool chain.
+
+    $ pip install pandas
+
 
 `async_v20` is built upon `aiohttp`.
 It is therefor recommended to also install `cchardet` as per `aiohttp` documentation
@@ -46,6 +59,8 @@ It is therefor recommended to also install `cchardet` as per `aiohttp` documenta
 http://aiohttp.readthedocs.io/en/stable/
 
     $ pip install cchardet
+
+
 
 Getting started
 ===============
