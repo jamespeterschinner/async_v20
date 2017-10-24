@@ -8,3 +8,5 @@ script:
   - pytest --cov
 after_success:
   - codecov
+env:
+  - OANDA_TOKEN='test_environ_token'
