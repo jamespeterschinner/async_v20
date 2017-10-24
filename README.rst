@@ -41,9 +41,9 @@ installation
 
 **REQUIRES:**
 
-    python >= 3.6
+python >= 3.6
 
-    https://www.python.org/
+https://www.python.org/
 
     $ pip install async_v20
 
