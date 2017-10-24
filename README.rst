@@ -54,7 +54,7 @@ allowing for easier integration with python's powerful data analysis tool chain.
 
 
 `async_v20` is built upon `aiohttp`.
-It is therefor recommended to also install `cchardet` as per `aiohttp` documentation
+It is therefore recommended to also install `cchardet` as per `aiohttp` documentation
 
 http://aiohttp.readthedocs.io/en/stable/
 
