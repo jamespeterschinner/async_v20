@@ -49,6 +49,17 @@ Tests coverage
 
 Please add a test corresponding to any new features
 
+async_v20 uses **pytest**
+
+Install the test runner first:
+
+.. code-block:: shell
+
+   $ pip install pytest
+   $ pip install pytest-asyncio
+
+Test your changes with
+
 .. code-block:: shell
 
    $ pytest
@@ -59,7 +70,9 @@ Documentation
 
 documentation improvements are wanted!
 
-Please before making a Pull Request about documentation changes run:
+Please before making a Pull Request about documentation changes.
+
+from async_v20 root directory run:
 
 .. code-block:: shell
 
