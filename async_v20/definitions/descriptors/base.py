@@ -23,9 +23,7 @@ class DescriptorProtocol(object):
         return getattr(instance, self.name)
 
     def __delete__(self, instance, value):
-        pass
-        # TODO implement this
-        # del getattr(instance, self.name)
+        delattr(instance, self.name)
 
 
 class Descriptor(DescriptorProtocol):
