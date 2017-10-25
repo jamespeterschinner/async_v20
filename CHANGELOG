@@ -15,13 +15,22 @@
     Additional documentation
 
 1.1.2a2
-    Documentation
+    Update Documentation
+
 1.1.2a3
-    Documentation
+    Update Documentation
+
 1.1.2a4
-    Documentation
+    Update Documentation
+
 1.1.2a4
-    Documentation
+    Update Documentation
+
 1.1.2a5
     Added Travis CI
     Added Codecov
+
+1.1.3a0
+    Bug fixes:
+        Fixed incorrect annotation on Interface methods
+        Fixed argument passing bug caused by false'y evaluation
