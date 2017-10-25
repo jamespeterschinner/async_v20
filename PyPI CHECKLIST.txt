@@ -1,4 +1,4 @@
-- Versions match in setup.py and client.py
+- Versions match in setup.py and client.py and conf.py
 - CHANGELOG updated
 - Tests pass
 - latest Version on gitHub
