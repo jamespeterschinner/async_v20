@@ -5,15 +5,16 @@ from async_v20 import endpoints
 from async_v20 import interface
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
-from async_v20.definitions.types import AccountID
 from async_v20.definitions.types import StopLossOrderRequest
-from async_v20.definitions.types import TransactionID
+from async_v20.definitions.types import AccountID
+from async_v20.endpoints.annotations import Authorization
 from async_v20.endpoints import POSTOrders
-from async_v20.endpoints.annotations import LastTransactionID
 from async_v20.interface.helpers import _arguments
 from async_v20.interface.helpers import _create_request_params
+from async_v20.interface.helpers import create_url
 from async_v20.interface.helpers import create_annotation_lookup
 from async_v20.interface.helpers import create_body
+from async_v20.interface.helpers import create_request_kwargs
 from async_v20.interface.helpers import make_args_optional
 from hypothesis.strategies import text, sampled_from
 
@@ -33,7 +34,7 @@ def stop_loss_order():
 
 @pytest.fixture
 def client():
-    client = OandaClient(token='test_token', rest_host=None, stream_host=None)
+    client = OandaClient(token='test_token', rest_host='rest_test', stream_host='stream_test')
     client.default_parameters = {}
     yield client
     del client
@@ -88,6 +89,7 @@ def test_arguments(endpoint, param_location):
     correct = list(filter(lambda x: x['located'] == param_location, endpoint.parameters))
     assert len(list(result)) == len(list(correct))
 
+
 test_arguments_arguments = [(getattr(endpoints, cls), location.example(),) for cls in endpoints.__all__]
 
 
@@ -114,7 +116,29 @@ async def test_create_request_params(client, interface_method):
 
     assert len(total_params) == len(arguments) - len(list(endpoint.request_schema))
 
+@pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])
+def test_create_url(client, endpoint):
+    path = endpoint.path.path
+    arguments = [value for value in path if not isinstance(value, str)]
+    values = list(map(lambda x: str(x), range(len(arguments))))
+    arguments = dict(zip(arguments, values))
+    url = create_url(client, endpoint, arguments)
+    path = url.path
+    for value in values:
+        assert value in path
+        path = path[path.index(value):]
 
+@pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
+                                              for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
+def test_create_request_kwargs(client, interface_method):
+    client.default_parameters.update({AccountID: 'TEST_ID',
+                                      Authorization: 'TEST_AUTH'})
+    args = list(map(lambda x: str(x), (range(len(interface_method.__signature__.parameters)))))
+    print(interface_method.__name__)
+    request_kwargs = create_request_kwargs(client,
+                                           interface_method.endpoint,
+                                           interface_method.__signature__,
+                                           *args)
 
 @pytest.mark.asyncio
 async def test_request_body_is_constructed_correctly(stop_loss_order):

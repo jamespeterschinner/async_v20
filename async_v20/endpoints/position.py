@@ -60,7 +60,7 @@ class GETPositionsInstrument(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/positions/', Instrument)
+    path = Path('/v3/accounts/', AccountID, '/positions/', InstrumentName)
 
     # description of endpoint
     description = 'Get the details of a single Instrument’s Position in an Account. The Position may by open or not.'
@@ -84,7 +84,7 @@ class PUTPositionsInstrumentClose(EndPoint):
     method = 'PUT'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/positions/', Instrument, '/close')
+    path = Path('/v3/accounts/', AccountID, '/positions/', InstrumentName, '/close')
 
     # description of endpoint
     description = 'Closeout the open Position for a specific instrument in an Account.'
