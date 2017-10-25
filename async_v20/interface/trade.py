@@ -1,3 +1,4 @@
+from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import ClientExtensions
 from ..definitions.types import InstrumentName
@@ -11,8 +12,9 @@ from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import Units
 from ..endpoints.trade import *
-from .base import Interface
+
 __all__ = ['TradeInterface']
+
 
 class TradeInterface(Interface):
     @endpoint(GETTrades)

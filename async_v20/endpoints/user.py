@@ -1,6 +1,7 @@
 from .annotations import *
 from .base import EndPoint, Path
 from ..definitions.types import *
+from .annotations import UserSpecifier, Authorization
 
 __all__ = ['GETUserSpecifier', 'GETExternalInfo']
 
@@ -17,8 +18,8 @@ class GETUserSpecifier(EndPoint):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'userSpecifier', 'located': 'query', 'type': 'string', 'description': 'The User Specifier'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'string'},
+        {'name': 'userSpecifier', 'located': 'query', 'type': UserSpecifier, 'description': 'The User Specifier'},
     ]
 
     # valid responses
@@ -40,8 +41,8 @@ class GETExternalInfo(EndPoint):
 
     # parameters required to send to endpoint
     parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': 'string', 'description': 'string'},
-        {'name': 'userSpecifier', 'located': 'query', 'type': 'string', 'description': 'The User Specifier'},
+        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'string'},
+        {'name': 'userSpecifier', 'located': 'query', 'type': UserSpecifier, 'description': 'The User Specifier'},
     ]
 
     # valid responses

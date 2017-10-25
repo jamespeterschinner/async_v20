@@ -2,10 +2,18 @@ import inspect
 
 import pytest
 from async_v20 import endpoints
+from async_v20 import interface
 from async_v20.client import OandaClient
-from async_v20.definitions.types import StopLossOrderRequest, Account
+from async_v20.definitions.types import Account
+from async_v20.definitions.types import AccountID
+from async_v20.definitions.types import InstrumentName
+from async_v20.definitions.types import StopLossOrderRequest
+from async_v20.definitions.types import TradeSpecifier
+from async_v20.definitions.types import TransactionID
 from async_v20.endpoints import POSTOrders
+from async_v20.endpoints.annotations import Instruments, LastTransactionID
 from async_v20.interface.helpers import _arguments
+from async_v20.interface.helpers import _create_request_params
 from async_v20.interface.helpers import create_annotation_lookup
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import make_args_optional
@@ -16,6 +24,27 @@ from ..data.json_data import GETAccountID_response
 
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
+
+
+@pytest.fixture
+def stop_loss_order():
+    order = StopLossOrderRequest(trade_id=1234, price=0.8)
+    yield order
+    del order
+
+
+@pytest.fixture
+def client():
+    client = OandaClient(token='test_token', rest_host=None, stream_host=None)
+    client.default_parameters.update({AccountID: 123456789,
+                                      # Instruments: 'AUD_USD,EUR_USD',
+                                      # InstrumentName: 'AUD_USD',
+                                      LastTransactionID: 0,
+                                      # TradeSpecifier: '@test_trade_specifier',
+                                      TransactionID: 0
+                                      })
+    yield client
+    del client
 
 
 @pytest.mark.parametrize('method', client_methods)
@@ -56,7 +85,8 @@ async def test_create_annotation_lookup(signature, bound_arguments, args):
     assert all(map(lambda x: result[x[0]] == x[1], correct))
 
 
-location = sampled_from(['header', 'path', 'query'])
+param_locations = ['header', 'path', 'query']
+location = sampled_from(param_locations)
 test_arguments_arguments = [(getattr(endpoints, cls), location.example()) for cls in endpoints.__all__]
 
 
@@ -67,21 +97,31 @@ def test_arguments(endpoint, param_location):
     assert len(list(result)) == len(list(correct))
 
 
-@pytest.fixture
-def stop_loss_order():
-    order = StopLossOrderRequest(trade_id=1234, price=0.8)
-    yield order
-    del order
+test_arguments_arguments = [(getattr(endpoints, cls), location.example(),) for cls in endpoints.__all__]
+
+
+@pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
+                                              for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
+@pytest.mark.asyncio
+async def test_create_request_params(client, interface_method):
+    endpoint = interface_method.endpoint
+    sig = interface_method.__signature__
+    print(interface_method.__name__)
+    args = tuple(range(len(sig.parameters)))
+    arguments = create_annotation_lookup(sig, sig.bind(*args).arguments)
+    print('arguments', arguments)
+    for location in param_locations:
+        result = await _create_request_params(client, endpoint, arguments, location)
+        print(result)
 
 
 @pytest.mark.asyncio
 async def test_request_body_is_constructed_correctly(stop_loss_order):
     result = create_body(POSTOrders.request_schema,
-                               {'irrelevant': stop_loss_order, 'test': Account(), 'arg': 'random_string'})
+                         {'irrelevant': stop_loss_order, 'test': Account(), 'arg': 'random_string'})
     print(result)
     assert result == {'order': {'tradeID': 1234, 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
                                 'triggerCondition': 'DEFAULT'}}
-
 
 
 @pytest.mark.asyncio

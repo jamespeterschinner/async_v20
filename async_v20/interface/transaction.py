@@ -9,6 +9,7 @@ from ..endpoints.transaction import *
 
 __all__ = ['TransactionInterface']
 
+
 class TransactionInterface(Interface):
     @endpoint(GETTransactions)
     def list_transactions(self, from_time: FromTime, to_time: ToTime, page_size: PageSize,

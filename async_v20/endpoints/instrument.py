@@ -12,7 +12,7 @@ class GETInstrumentsCandles(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/instruments/', Instrument, '/candles')
+    path = Path('/v3/instruments/', InstrumentName, '/candles')
 
     # description of endpoint
     description = 'Fetch candlestick data for an instrument.'
