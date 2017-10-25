@@ -170,7 +170,7 @@ The value returned by executing the `account()` *coroutine* is accessed through 
     response = loop.run_until_complete(account())
 
 
-`async_v20` objects have a `series()` method that returns a `pandas.Series`
+`async_v20` objects have a **series()** method that returns a `pandas.Series`
 
 .. code-block:: python
 
