@@ -5,6 +5,8 @@ from ..endpoints.annotations import FromTime
 from ..endpoints.annotations import PageSize
 from ..endpoints.annotations import ToTime
 from ..endpoints.annotations import Type
+from ..endpoints.annotations import FromTransactionID
+from ..endpoints.annotations import ToTransactionID
 from ..endpoints.transaction import *
 
 __all__ = ['TransactionInterface']
@@ -53,15 +55,15 @@ class TransactionInterface(Interface):
         pass
 
     @endpoint(GETIDrange)
-    def transaction_range(self, from_time: FromTime, to_time: ToTime, type_: Type):
+    def transaction_range(self, from_transaction: FromTransactionID, to_transaction: ToTransactionID, type_: Type):
         """
         Get a range of Transactions for an Account based on the Transaction
         IDs.
 
         Args:
-            from_time:
+            from_transaction:
                 The starting Transaction ID (inclusive) to fetch.
-            to_time:
+            to_transaction:
                 The ending Transaction ID (inclusive) to fetch.
             type_:
                 The filter that restricts the types of Transactions to

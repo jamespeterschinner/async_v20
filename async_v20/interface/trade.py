@@ -71,7 +71,7 @@ class TradeInterface(Interface):
         pass
 
     @endpoint(PUTTradeSpecifierClose)
-    def close_trades(self, trade_specifier: TradeStateFilter, units: Units):
+    def close_trades(self, trade_specifier: TradeSpecifier, units: Units):
         """
         Close (partially or fully) a specific open Trade in an Account
 

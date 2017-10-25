@@ -81,8 +81,8 @@ class GETIDrange(EndPoint):
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'from', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
-        {'name': 'to', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
+        {'name': 'from', 'located': 'query', 'type': FromTransactionID, 'description': 'TransactionID'},
+        {'name': 'to', 'located': 'query', 'type': ToTransactionID, 'description': 'TransactionID'},
         {'name': 'type', 'located': 'query', 'type': Type,
          'description': 'List of TransactionFilter (csv)'},
     ]

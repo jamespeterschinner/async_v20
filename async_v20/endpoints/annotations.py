@@ -97,3 +97,9 @@ class Units(str):
 
 class LastTransactionID(TransactionID):
     pass
+
+class FromTransactionID(TransactionID):
+    pass
+
+class ToTransactionID(TransactionID):
+    pass

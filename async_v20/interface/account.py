@@ -89,7 +89,7 @@ class AccountInterface(Interface):
         pass
 
     @endpoint(GETAccountIDChanges)
-    def account_changes(self, since_transaction_id: TransactionID):
+    def account_changes(self, since_transaction_id: LastTransactionID):
         """
         Endpoint used to poll an Account for its current state and changes
         since a specified TransactionID.
