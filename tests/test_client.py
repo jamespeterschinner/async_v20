@@ -13,7 +13,9 @@ def client():
 
 def test_oanda_client_has_correct_version(client):
     try:
-        with open(os.path.abspath(r'../../async_v20/setup.py'), 'r') as f:
+        path = os.path.abspath(r'../../async_v20/setup.py')
+        print(path)
+        with open(path, 'r') as f:
             setup = f.read()
     except FileNotFoundError as e:
         print(e)

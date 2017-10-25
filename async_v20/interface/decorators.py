@@ -16,7 +16,6 @@ async def _serial_request_async_generator():
         self, request_args, endpoint = yield await parse_response(self, response, endpoint)
 
 
-
 def endpoint(endpoint, serial=False):
     """Define a method call to be exposed to the user"""
 
@@ -62,6 +61,7 @@ def endpoint(endpoint, serial=False):
             return await parse_response(self, response, endpoint)
 
         serial_wrap.__signature__ = sig
+
         parallel_wrap.__signature__ = sig
 
         return {True: serial_wrap, False: parallel_wrap}[serial]
