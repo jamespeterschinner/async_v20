@@ -7,7 +7,7 @@ Guide lines adapted from `aiohttp <http://aiohttp.readthedocs.io/en/stable/>`_
 Code Evaluation
 _______________
 
-async_v20 aims to lower the barrier of entry to algorithmic trading.
+async_v20 aims to lower the barrier of entry of algorithmic trading on the FOREX market.
 
 Features such as:
     - Correct signature for all API methods
