@@ -106,3 +106,13 @@ def test_Unit_rounds_floats_to_the_correct_accuracy():
     test_class = TestClass()
     test_class.attribute = 0.6
     assert test_class.attribute == 1
+
+def test_delattr():
+    class TestClass(object):
+        attribute = descriptors.Unit(name='_' + 'attribute')
+
+    test_class = TestClass()
+    test_class.attribute = 0.6
+    assert hasattr(test_class, '_attribute')
+    del test_class._attribute
+    assert not hasattr(test_class, '_attribute')
