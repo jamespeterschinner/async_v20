@@ -70,7 +70,7 @@ Documentation
 
 documentation improvements are wanted!
 
-Please before making a Pull Request about documentation changes.
+Before making a Pull Request with documentation changes.
 
 from async_v20 root directory run:
 
