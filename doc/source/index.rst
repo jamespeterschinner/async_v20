@@ -45,6 +45,8 @@ It is therefore recommended to also install :term:`cchardet` as per :term:`aioht
 
    $ pip install cchardet
 
+   $ pip install aiodns
+
 Tutorial
 --------
 
