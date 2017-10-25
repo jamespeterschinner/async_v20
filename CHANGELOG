@@ -34,3 +34,9 @@
     Bug fixes:
         Fixed incorrect annotation on Interface methods
         Fixed argument passing bug caused by false'y evaluation
+
+1.1.4a0
+    Bug fixes:
+        Fixed incorrect annotation on:
+            PUTPositionsInstrumentClose
+            GETPositionsInstrument

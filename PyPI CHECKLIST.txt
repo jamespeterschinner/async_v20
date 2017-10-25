@@ -1,0 +1,6 @@
+- Versions match in setup.py and client.py
+- CHANGELOG updated
+- Tests pass
+- latest Version on gitHub
+- Build, and Docs passing
+- all bin examples work
