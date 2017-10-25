@@ -9,9 +9,8 @@ class Path(object):
     def __init__(self, *path):
         self.path = path
 
-    async def __call__(self, arguments: dict, default: dict):
-        async def lookup(segment):
-            await sleep()
+    def __call__(self, arguments: dict, default: dict):
+        def lookup(segment):
             try:
                 result = arguments[segment]
             except KeyError:
@@ -19,7 +18,7 @@ class Path(object):
             return result
 
         return ''.join([segment if isinstance(segment, str)
-                        else await lookup(segment)
+                        else lookup(segment)
                         for segment in self.path])
 
 

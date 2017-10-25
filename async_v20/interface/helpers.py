@@ -24,11 +24,10 @@ def _arguments(endpoint, param_location):
             parameter['located'] == param_location)
 
 
-async def _create_request_params(self, endpoint, arguments: dict, param_location: str):
+def _create_request_params(self, endpoint, arguments: dict, param_location: str):
     possible_arguments = _arguments(endpoint, param_location)
 
-    async def lookup(typ):
-        await sleep()
+    def lookup(typ):
         result = None
         try:
             result = arguments[typ]
@@ -43,12 +42,12 @@ async def _create_request_params(self, endpoint, arguments: dict, param_location
                 pass  # TODO: This Should raise a warning that not all header parameters were created
         return result
 
-    parameters = ((name, await lookup(typ)) for name, typ in possible_arguments)
-    return {name: value async for name, value in parameters if value}
+    parameters = ((name, lookup(typ)) for name, typ in possible_arguments)
+    return {name: value for name, value in parameters if value is not None}
 
 
-async def create_url(self, endpoint, arguments):
-    endpoint_path = await endpoint.path(arguments, default=self.default_parameters)
+def create_url(self, endpoint, arguments):
+    endpoint_path = endpoint.path(arguments, default=self.default_parameters)
     host = self.hosts[endpoint.host]
     return host(path=endpoint_path)
 
@@ -76,16 +75,16 @@ header_params = partial(_create_request_params, param_location='header')
 query_params = partial(_create_request_params, param_location='query')
 
 
-async def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
+def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Create a coroutine to construct and parse a request"""
     arguments = sig.bind(*args, **kwargs).arguments
     arguments = create_annotation_lookup(sig, arguments)
 
     json = create_body(endpoint.request_schema, arguments)
 
-    headers = await header_params(self, endpoint, arguments)
-    url = await create_url(self, endpoint, arguments)
-    parameters = await query_params(self, endpoint, arguments)
+    headers = header_params(self, endpoint, arguments)
+    url = create_url(self, endpoint, arguments)
+    parameters = query_params(self, endpoint, arguments)
 
     request_kwargs = {
         'method': endpoint.method,

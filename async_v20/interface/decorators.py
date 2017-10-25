@@ -42,7 +42,7 @@ def endpoint(endpoint, serial=False):
                 await serial_request.asend(None)
                 endpoint.initialized = True
 
-            request_args = await create_request_kwargs(self, endpoint, sig, *args, **kwargs)
+            request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
             return await serial_request.asend((self, request_args, endpoint))
 
@@ -53,7 +53,7 @@ def endpoint(endpoint, serial=False):
             except ValueError:
                 pass
 
-            request_args = await create_request_kwargs(self, endpoint, sig, *args, **kwargs)
+            request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
             request = await self.request.asend(None)
 
