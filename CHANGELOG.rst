@@ -73,7 +73,12 @@
    Bug fixes:
         - Fix long description on PyPI
 
-1.1.5a1
+1.1.5a2
+=======
+   Bug fixes:
+        - Fix long description on PyPI
+
+1.1.5a3
 =======
    Bug fixes:
         - Fix long description on PyPI
