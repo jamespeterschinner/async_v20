@@ -139,6 +139,15 @@ def test_create_request_kwargs(client, interface_method):
                                            interface_method.endpoint,
                                            interface_method.__signature__,
                                            *args)
+    assert 'method' in request_kwargs
+    assert 'url' in request_kwargs
+    assert 'headers' in request_kwargs
+    assert 'params' in request_kwargs
+    assert 'json' in request_kwargs
+
+    assert [request_kwargs['method']] in [['POST'], ['GET'], ['PUT'], ['PATCH'], ['DELETE']]
+    assert 'Authorization' in request_kwargs['headers']
+    
 
 @pytest.mark.asyncio
 async def test_request_body_is_constructed_correctly(stop_loss_order):
