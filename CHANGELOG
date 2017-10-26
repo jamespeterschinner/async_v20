@@ -44,3 +44,8 @@
         Fixed incorrect annotation on:
             PUTPositionsInstrumentClose
             GETPositionsInstrument
+
+1.1.5a0
+    Bug fixes:
+        Issue method signatures were offset buy 1 argument due to removal
+        of 'self' parameter. Methods now displaying correct signature

@@ -8,7 +8,7 @@ def make_args_optional(signature):
     sig = Signature([param.replace(default=None)
                      if param.default == _empty
                      else param
-                     for param in signature.parameters.values()][1:])  # Slice drops off 'self'
+                     for param in signature.parameters.values()])
     return sig
 
 

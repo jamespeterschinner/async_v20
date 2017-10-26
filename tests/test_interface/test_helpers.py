@@ -114,7 +114,7 @@ async def test_create_request_params(client, interface_method):
         print(location, ': ', result)
         total_params.extend(result)
 
-    assert len(total_params) == len(arguments) - len(list(endpoint.request_schema))
+    assert len(total_params) == len(arguments) - len(list(endpoint.request_schema)) -1  #-1 removes 'self'
 
 @pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])
 def test_create_url(client, endpoint):
@@ -139,6 +139,8 @@ def test_create_request_kwargs(client, interface_method):
                                            interface_method.endpoint,
                                            interface_method.__signature__,
                                            *args)
+    print("('",request_kwargs['method'], "', '", request_kwargs['url'].path, "')")
+
     assert 'method' in request_kwargs
     assert 'url' in request_kwargs
     assert 'headers' in request_kwargs
@@ -147,7 +149,7 @@ def test_create_request_kwargs(client, interface_method):
 
     assert [request_kwargs['method']] in [['POST'], ['GET'], ['PUT'], ['PATCH'], ['DELETE']]
     assert 'Authorization' in request_kwargs['headers']
-    
+
 
 @pytest.mark.asyncio
 async def test_request_body_is_constructed_correctly(stop_loss_order):
