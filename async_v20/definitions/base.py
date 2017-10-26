@@ -38,7 +38,13 @@ class Model(metaclass=ORM):
                 try:
                     attr = attr.json_dict(float_to_string)
                 except AttributeError:
-                    attr = [obj.json_dict(float_to_string) for obj in attr]
+                    try:
+                        attr = [obj.json_dict(float_to_string) for obj in attr]
+                    except AttributeError:
+                        attr = [str(obj)
+                                if float_to_string and isinstance(obj, float)
+                                else obj
+                                for obj in attr]
             elif float_to_string and isinstance(attr, float):
                 attr = str(attr)
             return attr

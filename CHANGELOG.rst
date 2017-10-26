@@ -87,3 +87,8 @@
 =======
    Bug fixes:
         - Argument passing
+
+1.1.6a0
+=======
+   Bug fixes:
+        - Issue with object serialization not working with lists of Type[str, float, int]

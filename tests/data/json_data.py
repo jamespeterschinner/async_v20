@@ -92,3 +92,10 @@ GETInstrumentsCandles_response = {'instrument': 'AUD_USD', 'granularity': 'S5', 
      'volume': 3, 'complete': True},
     {'time': '1506709880.000000000', 'mid': {'o': '0.78445', 'h': '0.7845', 'l': '0.78445', 'c': '0.7845'}, 'volume': 2,
      'complete': True}]}
+
+position_response = {'instrument': 'AUD_USD', 'pl': -1290.1203, 'unrealizedPL': -0.0219, 'resettablePL': -1290.1203,
+            'commission': 0.0,
+            'long': {'units': 12.0, 'averagePrice': 0.77079, 'tradeIDs': [4853, 4855, 4857], 'pl': -1086.1652,
+                     'unrealizedPL': -0.0219, 'resettablePL': -1086.1652, 'financing': -1.4693},
+            'short': {'units': 0.0, 'pl': -203.9551, 'unrealizedPL': 0.0, 'resettablePL': -203.9551,
+                      'financing': -0.643}, 'financing': -2.1123}

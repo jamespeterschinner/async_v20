@@ -8,7 +8,7 @@ from .endpoints.annotations import Authorization
 from .helpers import request_limiter, initializer
 from .interface import *
 
-version = '1.1.5a4'
+version = '1.1.6a0'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
