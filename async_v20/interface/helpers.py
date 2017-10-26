@@ -77,7 +77,7 @@ query_params = partial(_create_request_params, param_location='query')
 
 def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Format arguments to be passed to an aiohttp request"""
-    arguments = sig.bind(*args, **kwargs).arguments
+    arguments = sig.bind(self, *args, **kwargs).arguments
     arguments = create_annotation_lookup(sig, arguments)
 
     json = create_body(endpoint.request_schema, arguments)

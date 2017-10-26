@@ -60,8 +60,9 @@ class OrderSpecifier(Descriptor):
     """The specification of an Order as referred to by clients
     """
 
+    # TODO Check with OANDA. spec = int. I believe it should be a str
     # Type checking
-    typ = int
+    typ = str
 
     # Correct syntax of value
     format_syntax = 'Either the Order’s OANDA-assigned OrderID or the Order’s client-provided ' \

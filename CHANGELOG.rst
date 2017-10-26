@@ -82,3 +82,8 @@
 =======
    Bug fixes:
         - Fix long description on PyPI
+
+1.1.5a4
+=======
+   Bug fixes:
+        - Argument passing

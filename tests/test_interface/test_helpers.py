@@ -133,7 +133,7 @@ def test_create_url(client, endpoint):
 def test_create_request_kwargs(client, interface_method):
     client.default_parameters.update({AccountID: 'TEST_ID',
                                       Authorization: 'TEST_AUTH'})
-    args = list(map(lambda x: str(x), (range(len(interface_method.__signature__.parameters)))))
+    args = list(map(lambda x: str(x), (range(len(interface_method.__signature__.parameters)))))[1:]
     print(interface_method.__name__)
     request_kwargs = create_request_kwargs(client,
                                            interface_method.endpoint,
