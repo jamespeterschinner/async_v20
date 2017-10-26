@@ -4,3 +4,4 @@
 - latest Version on gitHub
 - Build, and Docs passing
 - all bin examples work
+- Upload to PyPI TEST. Does it look good?
