@@ -1,4 +1,3 @@
-from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import TransactionID
 from ..endpoints.annotations import FromTime
@@ -12,7 +11,7 @@ from ..endpoints.transaction import *
 __all__ = ['TransactionInterface']
 
 
-class TransactionInterface(Interface):
+class TransactionInterface(object):
     @endpoint(GETTransactions)
     def list_transactions(self, from_time: FromTime, to_time: ToTime, page_size: PageSize,
                           type_: Type):

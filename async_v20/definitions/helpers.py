@@ -53,6 +53,14 @@ def create_signature(cls):
 
     return Signature(sorted(parameters(schema), key=sort_key))
 
+def create_doc_signature(cls, sig):
+    names = list(sig.parameters.keys())
+    annotations = list(map(lambda x: '' if x.annotation == _empty else ': '+ x.annotation.__name__
+                           , sig.parameters.values()))
+
+    defaults = list(map(lambda x: '' if x.default == _empty else '=' + str(x.default), sig.parameters.values()))
+    arguments = ', '.join(''.join(argument) for argument in zip(names, annotations, defaults))
+    return f'{cls.__name__}({arguments})\n{cls.__doc__}'
 
 def create_instance_attributes(cls):
     instance_attributes = {key: underscore(key) for key in cls._schema}

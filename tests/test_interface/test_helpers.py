@@ -49,6 +49,8 @@ def test_make_args_optional(method):
     def check_valid_param(param):
         if param.default != inspect._empty:
             return True
+        elif param.name == 'self':
+            return True
         else:
             print(param)
 

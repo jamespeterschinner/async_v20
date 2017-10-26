@@ -4,11 +4,6 @@ Trade
 =====
 
 .. automodule:: async_v20.definitions.types
-    :members: TradeID,
-            TradeState,
-            TradeStateFilter,
-            TradeSpecifier,
-            Trade,
+    :members: Trade,
             TradeSummary,
-            CalculatedTradeState,
-            TradePL
+            CalculatedTradeState

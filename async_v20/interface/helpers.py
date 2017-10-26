@@ -6,7 +6,7 @@ from ..helpers import sleep
 
 def make_args_optional(signature):
     sig = Signature([param.replace(default=None)
-                     if param.default == _empty
+                     if param.default == _empty and param.name != 'self'
                      else param
                      for param in signature.parameters.values()])
     return sig

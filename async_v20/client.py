@@ -7,7 +7,7 @@ from .definitions.types import AcceptDatetimeFormat
 from .endpoints.annotations import Authorization
 from .helpers import request_limiter, initializer
 from .interface import *
-
+from .interface.account import AccountInterface
 version = '1.1.6a0'
 
 

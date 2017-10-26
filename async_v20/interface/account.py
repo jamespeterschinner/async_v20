@@ -1,4 +1,3 @@
-from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import DecimalNumber
 from ..endpoints.account import *
@@ -7,11 +6,10 @@ from ..endpoints.annotations import *
 __all__ = ['AccountInterface']
 
 
-class AccountInterface(Interface):
+class AccountInterface(object):
     @endpoint(GETAccounts, serial=True)
     def list_accounts(self):
-        """
-        Get a list of all Accounts authorized for the provided token.
+        """Get a list of all Accounts authorized for the provided token.
 
         Args:
 

@@ -5,6 +5,7 @@ from .helpers import create_attribute
 from .helpers import create_instance_attributes
 from .helpers import create_json_attributes
 from .helpers import create_signature
+from .helpers import create_doc_signature
 from .helpers import flatten_dict
 
 
@@ -95,8 +96,12 @@ class ORM(type):
 
         # Instrument the class' with descriptors corresponding to OANDA's definitions
         class_obj = assign_descriptors(class_obj)
+        # Create class signature
+        sig = create_signature(class_obj)
         # assign the standard __init__ to correctly initialize objects from json
-        class_obj.__init__ = auto_assign(class_obj.__init__, create_signature(class_obj))
+        class_obj.__init__ = auto_assign(class_obj.__init__, sig)
+        # Create a pretty signature for documentation
+        class_obj.__doc__ = create_doc_signature(class_obj, sig)
         # This dictionary is used to create pandas.Series objects. The template ensures that all
         # like objects have same length Series allowing for them to be passed into a dataframe
         class_obj.template = dict.fromkeys(flatten_dict(class_obj._schema))

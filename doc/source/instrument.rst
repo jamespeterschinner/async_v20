@@ -4,9 +4,7 @@ Instrument
 ==========
 
 .. automodule:: async_v20.definitions.types
-    :members: CandlestickGranularity,
-        WeeklyAlignment,
-        Candlestick,
+    :members: Candlestick,
         CandlestickData,
         OrderBook,
         OrderBookBucket,

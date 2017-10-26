@@ -1,4 +1,3 @@
-from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import InstrumentName
 from ..endpoints.annotations import LongClientExtensions
@@ -10,7 +9,7 @@ from ..endpoints.position import *
 __all__ = ['PositionInterface']
 
 
-class PositionInterface(Interface):
+class PositionInterface(object):
     @endpoint(GETPositions)
     def list_positions(self):
         """

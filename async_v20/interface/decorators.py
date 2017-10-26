@@ -6,7 +6,7 @@ from inspect import signature
 from .helpers import create_request_kwargs
 from .helpers import make_args_optional
 from .parser import parse_response
-
+from ..definitions.helpers import create_doc_signature
 
 async def _serial_request_async_generator():
     self, request_args, endpoint = yield
@@ -29,6 +29,8 @@ def endpoint(endpoint, serial=False):
         method.endpoint = endpoint
 
         sig = make_args_optional(signature(method))
+
+        method.__doc__ = create_doc_signature(method, sig)
 
         @wraps(method)
         async def serial_wrap(self, *args, **kwargs):
@@ -78,6 +80,7 @@ def add_signature(class_obj):
             return func(*args, **kwargs)
 
         wrap.__signature__ = sig
+        wrap.__doc__ = create_doc_signature(func, sig)
         return wrap
 
     return wrapper

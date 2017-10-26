@@ -1,4 +1,3 @@
-from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import CandlestickGranularity
 from ..definitions.descriptors.primitives import InstrumentName
@@ -16,7 +15,7 @@ from ..endpoints.instrument import *
 __all__ = ['InstrumentInterface']
 
 
-class InstrumentInterface(Interface):
+class InstrumentInterface(object):
     @endpoint(GETInstrumentsCandles)
     def get_candles(self,
                     instrument: InstrumentName,

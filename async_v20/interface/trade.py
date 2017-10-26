@@ -1,4 +1,3 @@
-from .base import Interface
 from .decorators import endpoint
 from ..definitions.types import ClientExtensions
 from ..definitions.types import InstrumentName
@@ -16,7 +15,7 @@ from ..endpoints.trade import *
 __all__ = ['TradeInterface']
 
 
-class TradeInterface(Interface):
+class TradeInterface(object):
     @endpoint(GETTrades)
     def list_trades(self, ids: Ids, state: TradeStateFilter, instrument: InstrumentName, count: Count,
                     before_id: TradeID):

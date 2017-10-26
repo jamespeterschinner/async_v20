@@ -1,4 +1,3 @@
-from .base import Interface
 from .decorators import endpoint
 from ..endpoints.annotations import *
 from ..endpoints.pricing import *
@@ -6,7 +5,7 @@ from ..endpoints.pricing import *
 __all__ = ['PricingInterface']
 
 
-class PricingInterface(Interface):
+class PricingInterface(object):
     @endpoint(GETPricing)
     def get_pricing(self, instruments: Instruments, since: DateTime, include_units_available: IncludeUnitsAvailable):
         """
