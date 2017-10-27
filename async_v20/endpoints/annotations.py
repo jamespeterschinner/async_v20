@@ -2,6 +2,9 @@ from ..definitions.types import ClientExtensions
 from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
 
+class Bool(object):
+    def __new__(cls, arg):
+        return bool(arg)
 
 class Authorization(str):
     pass
@@ -19,11 +22,11 @@ class Count(int):
     pass
 
 
-class Smooth(object):
-    pass  # bool
+class Smooth(Bool):
+    pass
 
 
-class includeFirst(object):
+class includeFirst(Bool):
     pass  # bool
 
 
@@ -51,11 +54,11 @@ class ShortUnits(str):
 
 # this also needs to default to 'ALL'
 
-class IncludeUnitsAvailable(object):
+class IncludeUnitsAvailable(Bool):
     pass  # bool
 
 
-class Snapshot(object):
+class Snapshot(Bool):
     pass  # bool
 
 

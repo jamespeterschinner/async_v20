@@ -26,8 +26,9 @@ class ClientID(Descriptor):
     # Type checking
     typ = str
 
+    # TODO: you need to handle these examples better. Maybe just use them for documentation
     # Example of correct format
-    example = 'my_order_id'
+    #example = 'my_order_id'
 
 
 class ClientTag(Descriptor):
