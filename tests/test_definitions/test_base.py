@@ -95,3 +95,4 @@ def test_series(account):
             print(value)
             with pytest.raises(ValueError):
                 float(value)
+

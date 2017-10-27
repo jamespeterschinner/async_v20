@@ -4,9 +4,10 @@ import pytest
 from async_v20.definitions import types
 from async_v20.definitions.descriptors.base import Descriptor
 from async_v20.definitions.helpers import assign_descriptors
-# from async_v20.definitions.helpers import async_flatten_dict
 from async_v20.definitions.helpers import create_signature
 from async_v20.definitions.helpers import flatten_dict
+from async_v20.definitions.helpers import parse_args_for_typ
+from async_v20.definitions.types import OrderRequest
 
 nested_dict = {'a': {'b': 2, 'c': {'d': 4}}}
 flattened_dict = {'a_b': 2, 'a_c_d': 4}
@@ -44,7 +45,7 @@ def test_create_signature(cls):
 
     kwargs = required_parameters
     kwargs.update(default_parameters)
-    bound = result.bind(*(None,),**kwargs)
+    bound = result.bind(*(None,), **kwargs)
     bound.apply_defaults()
     # Ensure that the default parameters are assigned correctly
     assert all(map(lambda x: bound.arguments[x[0]] == x[1], default_parameters.items()))
@@ -55,10 +56,18 @@ def test_create_signature(cls):
 @pytest.mark.parametrize('cls', map(lambda x: getattr(types, x), types.__all__))
 def test_assign_descriptors(cls):
     descriptors = dict([(cls.instance_attributes[attr], schema_value.typ)
-                   for attr, schema_value
-                   in cls._schema.items()
-                   if issubclass(schema_value.typ, Descriptor)])
+                        for attr, schema_value
+                        in cls._schema.items()
+                        if issubclass(schema_value.typ, Descriptor)])
     cls = assign_descriptors(cls)
 
     assert all(map(lambda x: hasattr(cls, x), descriptors.keys()))
     assert all(map(lambda x: type(getattr(cls, x[0])) == x[1], descriptors.items()))
+
+
+def test_parse_args_for_typ():
+    correct = ((10, 30), {}, 'STOP_LOSS')
+    assert parse_args_for_typ(OrderRequest, ('STOP_LOSS', 10, 30), {}) == correct
+    assert parse_args_for_typ(OrderRequest, (10, 30), {'type': 'STOP_LOSS'}) == correct
+    assert parse_args_for_typ(OrderRequest, ('STOP_LOSS', 10, 30), {}) == correct
+    assert parse_args_for_typ(OrderRequest, (10, 30), {}) == ((10, 30), {}, None)

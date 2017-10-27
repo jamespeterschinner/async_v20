@@ -1,5 +1,5 @@
 import inspect
-
+from inspect import Parameter
 import pytest
 from async_v20 import endpoints
 from async_v20 import interface
@@ -47,9 +47,9 @@ def test_make_args_optional(method):
     result = make_args_optional(inspect.signature(method))
 
     def check_valid_param(param):
-        if param.default != inspect._empty:
-            return True
-        elif param.name == 'self':
+        if param.default != inspect._empty \
+            or param.name == 'self' \
+            or param.kind in (Parameter.VAR_POSITIONAL, Parameter.VAR_KEYWORD):
             return True
         else:
             print(param)
@@ -62,7 +62,8 @@ client_signatures = [inspect.signature(method) for method in client_methods]
 
 
 def bound_args(sig):
-    args = [text_gen.example() for _ in range(len(sig.parameters.keys()))]
+    args = [text_gen.example() for param in sig.parameters.values()
+            if param.kind not in (Parameter.VAR_KEYWORD, Parameter.VAR_POSITIONAL)]
     bound = sig.bind(*args)
     return sig, bound.arguments, args
 
@@ -102,7 +103,8 @@ async def test_create_request_params(client, interface_method):
     endpoint = interface_method.endpoint
     sig = interface_method.__signature__
     print(interface_method.__name__)
-    args = tuple(range(len(sig.parameters)))
+    args = tuple(range(len([param for param in sig.parameters.values()
+                            if param.kind not in (Parameter.VAR_KEYWORD, Parameter.VAR_POSITIONAL)])))
     bound = dict(sig.bind(*args).arguments)
     arguments = create_annotation_lookup(sig, bound)
     total_params = []
@@ -137,6 +139,11 @@ def test_create_request_kwargs(client, interface_method):
                                       Authorization: 'TEST_AUTH'})
     args = list(map(lambda x: str(x), (range(len(interface_method.__signature__.parameters)))))[1:]
     print(interface_method.__name__)
+    if interface_method.__name__ == 'create_order':
+        args = (('STOP_LOSS', 1, 1),)
+    elif interface_method.__name__ == 'replace_order':
+        args = (12, ('STOP_LOSS', 1, 1))
+
     request_kwargs = create_request_kwargs(client,
                                            interface_method.endpoint,
                                            interface_method.__signature__,

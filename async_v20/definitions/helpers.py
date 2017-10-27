@@ -89,3 +89,21 @@ def create_attribute(typ, data):
     else:
         result = typ(data)
     return result
+
+
+def parse_args_for_typ(cls, args, kwargs):
+    """See if a type was given in the arguments"""
+    none = {None}  # default type argument
+
+    def search_args(args):
+        typ = sorted(none.union(set(args)).intersection(none.union(cls._dispatch)),
+                     key=lambda x: False if x else True)[0]
+        if typ is not None:
+            args = tuple(arg for arg in args if arg != typ)
+        return args, typ
+
+    args, typ = search_args(args)
+    typ = kwargs.pop('type', typ)
+    print('Called')
+    print('PARSER', args, kwargs, typ)
+    return args, kwargs, typ

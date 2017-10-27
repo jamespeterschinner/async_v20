@@ -23,7 +23,7 @@ __all__ = ['OrderInterface']
 
 class OrderInterface(object):
     @endpoint(POSTOrders)
-    def create_order(self, order: OrderRequest):
+    def create_order(self, order: OrderRequest, **kwargs):
         """
         Create an Order for an Account
 
@@ -95,7 +95,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifier)
-    def replace_order(self, order_specifier: OrderSpecifier, order: OrderRequest):
+    def replace_order(self, order_specifier: OrderSpecifier, order: OrderRequest, **kwargs):
         """
         Replace an Order in an Account by simultaneously cancelling it and
         creating a replacement Order

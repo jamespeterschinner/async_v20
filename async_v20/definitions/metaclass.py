@@ -7,6 +7,7 @@ from .helpers import create_json_attributes
 from .helpers import create_signature
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
+from .helpers import parse_args_for_typ
 
 
 class JSONArray(object):
@@ -49,6 +50,11 @@ def auto_assign(func, signature):
     def __init__(self, *args, **kwargs):
         self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
 
+        # When a bass class is called with a 'type' argument, the argument gets passed to the init
+        # The argument must be removed
+        if self.__class__._derived:
+            args, kwargs, typ = parse_args_for_typ(self.__class__._derived, args, kwargs)
+
         # This dict allow for camelCase and snake_case to be passed without error
         kwargs = {self.__class__.instance_attributes[key]: value for key, value in kwargs.items()}
         # Bind passed arguments to the generated signature for this class
@@ -67,6 +73,7 @@ def auto_assign(func, signature):
         # Instantiate annotations with value and assign to instance
         for name, annotation, value in arguments:
             self._fields.append(name)
+            print(annotation, value)
             attribute_value = create_attribute(annotation, value)
             setattr(self, name, attribute_value)
 

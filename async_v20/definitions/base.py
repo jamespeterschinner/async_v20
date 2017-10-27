@@ -1,6 +1,5 @@
-import ujson as json
-
 import pandas as pd
+import ujson as json
 
 from .metaclass import *
 
@@ -21,11 +20,16 @@ class Model(metaclass=ORM):
 
     def __new__(cls, *args, **kwargs):
         if cls._dispatch:
-            typ = kwargs.get('type', None)
-            if typ:
-                return cls._dispatch[typ](*args, **kwargs)
-        else:
-            return super().__new__(cls)
+            args, kwargs, typ = parse_args_for_typ(cls, args, kwargs)
+
+            if typ and cls._dispatch:
+                cls = cls._dispatch[typ]
+            else:
+                msg = f"{cls.__name__}.__new__() missing required keyword argument: 'type'. \n" \
+                      f"Possible values are: {', '.join(cls._dispatch)}"
+                raise TypeError(msg)
+
+        return super().__new__(cls)
 
     def __repr__(self):
         return self.__class__.__name__
@@ -51,7 +55,6 @@ class Model(metaclass=ORM):
 
         return {self.__class__.json_attributes[attr]: get_object_fields(attr)
                 for attr in self._fields}
-
 
     def json_data(self):
         return json.dumps(self.json_dict(float_to_string=True))
