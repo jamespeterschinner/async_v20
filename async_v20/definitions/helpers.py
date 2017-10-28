@@ -79,6 +79,7 @@ def assign_descriptors(cls):
 
 
 def create_attribute(typ, data):
+    print('TYPE:', typ, data)
     if isinstance(data, dict):
         result = typ(**data)
     elif isinstance(data, tuple):

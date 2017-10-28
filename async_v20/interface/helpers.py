@@ -5,6 +5,7 @@ from ..definitions.helpers import create_attribute
 
 
 def create_annotation_lookup(signature, bound_arguments):
+    print('supplied SIGNATURE', signature)
     """Combine the signatures annotations with bound arguments to create a lookup dict
     for subsequent functions to identify arguments they need to use"""
     annotations_lookup = {param.name: param.annotation for param in signature.parameters.values()}
@@ -82,8 +83,10 @@ query_params = partial(_create_request_params, param_location='query')
 def construct_arguments(annotation_lookup: dict):
     """Construct passed arguments into corresponding objects"""
     annotation_lookup.pop(_empty)  # Remove self parameter
-    return {annotation: create_attribute(annotation, value) for annotation, value in annotation_lookup.items()}
-
+    print('ANNOTATION LOOKUP: ', annotation_lookup)
+    result = {annotation: create_attribute(annotation, value) for annotation, value in annotation_lookup.items()}
+    print('RESULT', result)
+    return result
 
 def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Format arguments to be passed to an aiohttp request"""

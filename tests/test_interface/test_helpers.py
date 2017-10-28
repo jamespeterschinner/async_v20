@@ -130,13 +130,11 @@ def test_create_request_kwargs(client, interface_method):
         args = ((1, 1, 'STOP_LOSS',),)
     elif interface_method.__name__ == 'replace_order':
         args = (12, (1, 1, 'STOP_LOSS'))
-
+    print('ARGS: ', args)
     request_kwargs = create_request_kwargs(client,
                                            interface_method.endpoint,
                                            interface_method.__signature__,
                                            *args)
-    print("('", request_kwargs['method'], "', '", request_kwargs['url'].path, "')")
-
     assert 'method' in request_kwargs
     assert 'url' in request_kwargs
     assert 'headers' in request_kwargs

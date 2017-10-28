@@ -1,4 +1,4 @@
-from ..definitions.types import ClientExtensions
+from ..definitions.types import ClientExtensions, ClientID, ClientComment, ClientTag
 from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
 
@@ -83,15 +83,18 @@ class ToTime(DateTime):
 
 
 class TradeClientExtensions(ClientExtensions):
-    pass
+    def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
+        return ClientExtensions.__new__(**locals())
 
 
 class LongClientExtensions(ClientExtensions):
-    pass
+    def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
+        return ClientExtensions.__new__(**locals())
 
 
 class ShortClientExtensions(ClientExtensions):
-    pass
+    def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
+        return ClientExtensions.__new__(**locals())
 
 
 class Units(str):
