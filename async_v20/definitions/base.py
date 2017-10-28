@@ -1,5 +1,6 @@
-import pandas as pd
 import ujson as json
+
+import pandas as pd
 
 from .metaclass import *
 
@@ -12,11 +13,28 @@ class Model(metaclass=ORM):
 
     # More info about this code be found in PEP 487 https://www.python.org/dev/peps/pep-0487/
     def __init_subclass__(cls, **kwargs):
-        dispatch_key = cls._schema.get('type', None)
-        if dispatch_key:
-            cls._dispatch.update({dispatch_key.default: cls})
+        # When creating a new class we need to update the _dispatch attribute.
+        # The _dispatch attribute allows an OANDA JSON response (converted to a dict)
+        # to be passed to base class specified in OANDA's docs
+
+        # Only class' that have a deeper inheritance structure than Model->Subclass
+        # require the dispatch parameter. These include:
+        # - specialisation of Transaction
+        # - specialisation of Orders
+        parent = next(iter(cls.__bases__))
+
+        # Must use name of class to avoid cyclic imports
+        if parent is not Model:
+            # This value is used to determine what subclass to return from the parent
+            dispatch_key = cls._schema.get('type')
+            # The streaming objects are unique, in that they specify a 'type'
+            # with no base class. This checks for that
+            if dispatch_key:
+                cls.specialized = True
+                cls._dispatch.update({dispatch_key.default: cls})
         else:
             cls._derived = cls
+
 
     def __new__(cls, *args, **kwargs):
         if cls._dispatch:

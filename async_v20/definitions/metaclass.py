@@ -1,11 +1,12 @@
 from functools import wraps
 
 from .helpers import assign_descriptors
+from .helpers import combine_signature
 from .helpers import create_attribute
+from .helpers import create_doc_signature
 from .helpers import create_instance_attributes
 from .helpers import create_json_attributes
 from .helpers import create_signature
-from .helpers import create_doc_signature
 from .helpers import flatten_dict
 from .helpers import parse_args_for_typ
 
@@ -26,6 +27,7 @@ class Array(type):
     """Used to denote objects that are sent from OANDA in an array.
     Also used to correctly serialize objects.
     """
+
     def __new__(mcs, typ):
         return super().__new__(mcs, f'Array_{typ.__name__}', (JSONArray,), {'typ': typ})
 
@@ -82,13 +84,19 @@ def auto_assign(func, signature):
     return __init__
 
 
+def derived_init(auto_assign_init):
+    @wraps(auto_assign_init)
+    def __init__(self, *args, **kwargs):
+        bound_arguments = auto_assign_init.__signature__.bind(self, *args, **kwargs)
+        auto_assign_init(**bound_arguments.arguments)
+
+
 class ORM(type):
     instance_attributes = {}
     json_attributes = {}
 
     def __new__(mcs, *args, **kwargs):
         class_obj = super().__new__(mcs, *args, **kwargs)
-
 
         # async_v20 allows camelCase and snake_case to be used when instantiating objects.
         # arguments passed in camelCase are converted to snake_case prior to attribute assignment.
@@ -115,5 +123,15 @@ class ORM(type):
 
         # This attribute is used to keep track of subclasses for specialized creation
         class_obj._dispatch = Dispatch(class_obj)
+
+        # If the new class is derived from a base class we want to:
+        # - Add the signature to the base class
+        # - Add the derived class as an attribute to the bass class for easier access.
+        if class_obj._derived:
+            # Update the bass class signature
+            class_obj._derived.__init__.__signature__ = combine_signature(class_obj._derived, class_obj)
+
+            # Add the subclass to the parent for easier access
+            setattr(class_obj._derived, class_obj.__name__, class_obj)
 
         return class_obj

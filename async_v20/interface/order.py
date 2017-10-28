@@ -95,7 +95,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifier)
-    def replace_order(self, order_specifier: OrderSpecifier, order: OrderRequest, **kwargs):
+    def replace_order(self, order_specifier: OrderSpecifier, order: OrderRequest):
         """
         Replace an Order in an Account by simultaneously cancelling it and
         creating a replacement Order

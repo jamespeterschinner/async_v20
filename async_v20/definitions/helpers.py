@@ -1,5 +1,5 @@
 from inspect import Signature, Parameter, _empty
-from itertools import chain, starmap
+from itertools import starmap
 
 from inflection import underscore
 
@@ -29,6 +29,17 @@ def flatten_dict(dictionary, delimiter='_'):
     return dictionary
 
 
+def _sig_sort_key(param):
+    default = False
+    if param.default != _empty:
+        default = True
+    return default
+
+
+def _create_signature_from_parameters(parameters):
+    return Signature(sorted(parameters, key=_sig_sort_key))
+
+
 def create_signature(cls):
     schema = cls._schema
 
@@ -40,27 +51,23 @@ def create_signature(cls):
             default = None
         return Parameter(name=name, annotation=annotation, default=default, kind=Parameter.POSITIONAL_OR_KEYWORD)
 
-    def sort_key(param):
-        default = False
-        if param.default != _empty:
-            default = True
-        return default
-
     def parameters(schema):
         yield Parameter(name='self', kind=Parameter.POSITIONAL_ONLY)
         for key, value in schema.items():
             yield create_parameter(key, value)
 
-    return Signature(sorted(parameters(schema), key=sort_key))
+    return _create_signature_from_parameters(parameters(schema))
+
 
 def create_doc_signature(cls, sig):
     names = list(sig.parameters.keys())
-    annotations = list(map(lambda x: '' if x.annotation == _empty else ': '+ x.annotation.__name__
+    annotations = list(map(lambda x: '' if x.annotation == _empty else ': ' + x.annotation.__name__
                            , sig.parameters.values()))
 
     defaults = list(map(lambda x: '' if x.default == _empty else '=' + str(x.default), sig.parameters.values()))
     arguments = ', '.join(''.join(argument) for argument in zip(names, annotations, defaults))
     return f'{cls.__name__}({arguments})\n{cls.__doc__}'
+
 
 def create_instance_attributes(cls):
     instance_attributes = {key: underscore(key) for key in cls._schema}
@@ -104,6 +111,14 @@ def parse_args_for_typ(cls, args, kwargs):
 
     args, typ = search_args(args)
     typ = kwargs.pop('type', typ)
-    print('Called')
-    print('PARSER', args, kwargs, typ)
     return args, kwargs, typ
+
+
+from itertools import chain
+
+
+def combine_signature(*cls):
+    parameters = {parameter.name: parameter.replace(default=None, kind=Parameter.POSITIONAL_OR_KEYWORD)
+                  for parameter
+                  in chain.from_iterable(map(lambda x: x.__init__.__signature__.parameters.values(), cls))}
+    return _create_signature_from_parameters(parameters.values())
