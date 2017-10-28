@@ -1,11 +1,5 @@
-import inspect
-
 from .base import *
 from .descriptors import *
-
-boolean = bool
-integer = int
-string = str
 
 __all__ = ['OrderRequest', 'UnitsAvailableDetails',
            'UnitsAvailable', 'LiquidityRegenerationScheduleStep',
@@ -34,26 +28,9 @@ __all__ = ['OrderRequest', 'UnitsAvailableDetails',
            'TrailingStopLossOrderRejectTransaction', 'StopOrderTransaction', 'MarketIfTouchedOrderRejectTransaction',
            'LimitOrderRejectTransaction', 'StopOrderRejectTransaction', 'MarketOrder']
 
-
-class SchemaValue(object):
-    def __init__(self, typ, default: str = inspect._empty, required=False, deprecated=False,
-                 accuracy=None):
-        self.typ = typ
-        self.default = default
-        self.required = required
-        self.deprecated = deprecated
-        self.accuracy = accuracy
-
-    def items(self):
-        return self.typ._schema.items()
-
-    def __repr__(self):
-        self.name__ = self.typ.__name__
-        return self.name__
-
-
 class ClientExtensions(Model):
-    """A ClientExtensions object allows a client to attach a clientID, tag and
+    """ClientExtensions(self, id: ClientID=None, tag: ClientTag=None, comment: ClientComment=None)
+A ClientExtensions object allows a client to attach a clientID, tag and
     comment to Orders and Trades in their Account.  Do not set, modify, or
     delete this field if your account is associated with MT4.
 
@@ -64,86 +41,117 @@ class ClientExtensions(Model):
 
     """
 
-    _schema = {
-        # The Client ID of the Order/Trade
-        'id': SchemaValue(ClientID),
-        # A tag associated with the Order/Trade
-        'tag': SchemaValue(ClientTag),
-        # A comment associated with the Order/Trade
-        'comment': SchemaValue(ClientComment)}
+    _summary_format = ''
 
+    _name_format = ''
+
+    def __init__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
+        super().__init__()
+
+class TakeProfitDetails(Model):
+    """TakeProfitDetails(self, price: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, client_extensions: ClientExtensions=None)
+TakeProfitDetails specifies the details of a Take Profit Order to be
+    created on behalf of a client. This may happen when an Order is filled that
+    opens a Trade requiring a Take Profit, or when a Trade's dependent Take
+    Profit Order is modified directly through the Trade.
+
+    Attributes:
+        price: -- The price that the Take Profit Order will be triggered at.
+        time_in_force: -- The time in force for the created Take Profit
+            Order. This may only be GTC, GTD or GFD.
+        gtd_time: -- The date when the Take Profit Order will be cancelled on if timeInForce is GTD.
+        client_extensions: -- The Client Extensions to add to the Take Profit Order when created.
+
+    """
+
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, price: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
+                 client_extensions: ClientExtensions = None):
+        super().__init__()
+
+class StopLossDetails(Model):
+    """StopLossDetails(self, price: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, client_extensions: ClientExtensions=None)
+StopLossDetails specifies the details of a Stop Loss Order to be created on
+    behalf of a client. This may happen when an Order is filled that opens a
+    Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is
+    modified directly through the Trade.
+
+    Attributes:
+        price: -- The price that the Stop Loss Order will be triggered at.
+        time_in_force: -- The time in force for the created Stop Loss
+            Order. This may only be GTC, GTD or GFD.
+        gtd_time: -- The date when the Stop Loss Order will be cancelled on if timeInForce is GTD.
+        client_extensions: -- The Client Extensions to add to the Stop Loss Order when created.
+
+    """
+
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, price: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
+                 client_extensions: ClientExtensions = None):
+        super().__init__()
+
+
+class TrailingStopLossDetails(Model):
+    """TrailingStopLossDetails(self, distance: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, client_extensions: ClientExtensions=None)
+TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order
+    to be created on behalf of a client. This may happen when an Order is
+    filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's
+    dependent Trailing Stop Loss Order is modified directly through the Trade.
+
+    Attributes:
+        distance: -- The distance (in price units) from the Trade's fill price
+            that the Trailing Stop Loss Order will be triggered at.
+        time_in_force: -- The time in force for the created Trailing Stop
+            Loss Order. This may only be GTC, GTD or GFD.
+        gtd_time: -- The date when the Trailing Stop Loss Order
+            will be cancelled on if timeInForce is GTD.
+        client_extensions: -- The Client Extensions to add to the Trailing Stop Loss Order when created.
+
+    """
+
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, distance: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
+                 client_extensions: ClientExtensions = None):
+        super().__init__()
 
 class OrderRequest(Model):
-    """The base Order specification used when requesting that an Order be created.
+    """OrderRequest(self)
+
+    The base Order specification used when requesting that an Order be created.
     Each specific Order-type extends this definition.
 
     Attributes:
 
     """
 
-    pass
+    _summary_format = ''
 
+    _name_format = ''
 
-
-class Order(Model):
-    """The base Order definition specifies the properties that are common to all
-    Orders.
-
-    Attributes:
-        id: -- The Order's identifier, unique within the Order's Account.
-        create_time: -- The time when the Order was created.
-        state: -- The current state of the Order.
-        client_extensions: -- The client extensions of the Order. Do not set, modify,
-            or delete clientExtensions if your account is associated with MT4.
-
-    """
-
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions)}
-
-
-class Transaction(Model):
-    """The base Transaction specification. Specifies properties that are common
-    between all Transaction.
-
-    Attributes:
-        id: -- The Transaction's Identifier.
-        time: -- The date/time when the Transaction was created.
-        user_id: -- The ID of the user that initiated the creation of the Transaction.
-        account_id: -- The ID of the Account the Transaction was created for.
-        batch_id: -- The ID of the "batch" that the Transaction belongs to.
-            Transactions in the same batch are applied to the Account simultaneously.
-        request_id: -- The Request ID of the request which generated the transaction.
-
-    """
-
-    # Schema items shared by all Transactions
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID)}
+    def __init__(self, trade_id: TradeID = None, price: PriceValue = None, type: OrderType = None,
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = None, client_extensions: ClientExtensions = None,
+                 distance: PriceValue = None, instrument: InstrumentName = None, units: Unit = None,
+                 price_bound: PriceValue = None, position_fill: OrderPositionFill = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class UnitsAvailableDetails(Model):
-    """Representation of many units of an Instrument are available to be traded
+    """UnitsAvailableDetails(self, long: Unit=None, short: Unit=None)
+
+    Representation of many units of an Instrument are available to be traded
     for both long and short Orders.
 
     Attributes:
@@ -152,15 +160,18 @@ class UnitsAvailableDetails(Model):
 
     """
 
-    _schema = {
-        # The units available for long Orders.
-        'long': SchemaValue(Unit),
-        # The units available for short Orders.
-        'short': SchemaValue(Unit)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, long: Unit = None, short: Unit = None):
+        super().__init__()
 
 
 class UnitsAvailable(Model):
-    """Representation of how many units of an Instrument are available to be
+    """UnitsAvailable(self, default: UnitsAvailableDetails=None, reduce_first: UnitsAvailableDetails=None, reduce_only: UnitsAvailableDetails=None, open_only: UnitsAvailableDetails=None)
+
+    Representation of how many units of an Instrument are available to be
     traded by an Order depending on its position Fill option.
 
     Attributes:
@@ -177,26 +188,19 @@ class UnitsAvailable(Model):
 
         """
 
-    _schema = {
-        # The number of units that are available to be traded using an Order with a
-        # positionFill option of “DEFAULT”. For an Account with hedging enabled,
-        # this value will be the same as the “OPEN_ONLY” value. For an Account
-        # without hedging enabled, this value will be the same as the
-        # “REDUCE_FIRST” value.
-        'default': SchemaValue(UnitsAvailableDetails),
-        # The number of units that may are available to be traded with an Order
-        # with a positionFill option of “REDUCE_FIRST”.
-        'reduceFirst': SchemaValue(UnitsAvailableDetails),
-        # The number of units that may are available to be traded with an Order
-        # with a positionFill option of “REDUCE_ONLY”.
-        'reduceOnly': SchemaValue(UnitsAvailableDetails),
-        # The number of units that may are available to be traded with an Order
-        # with a positionFill option of “OPEN_ONLY”.
-        'openOnly': SchemaValue(UnitsAvailableDetails)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, default: UnitsAvailableDetails = None, reduce_first: UnitsAvailableDetails = None,
+                 reduce_only: UnitsAvailableDetails = None, open_only: UnitsAvailableDetails = None):
+        super().__init__()
 
 
 class LiquidityRegenerationScheduleStep(Model):
-    """A liquidity regeneration schedule Step indicates the amount of bid and ask
+    """LiquidityRegenerationScheduleStep(self, timestamp: DateTime=None, bid_liquidity_used: DecimalNumber=None, ask_liquidity_used: DecimalNumber=None)
+
+    A liquidity regeneration schedule Step indicates the amount of bid and ask
     liquidity that is used by the Account at a certain time. These amounts will
     only change at the timestamp of the following step.
 
@@ -207,17 +211,19 @@ class LiquidityRegenerationScheduleStep(Model):
 
     """
 
-    _schema = {
-        # The timestamp of the schedule step.
-        'timestamp': SchemaValue(DateTime),
-        # The amount of bid liquidity used at this step in the schedule.
-        'bidLiquidityUsed': SchemaValue(DecimalNumber),
-        # The amount of ask liquidity used at this step in the schedule.
-        'askLiquidityUsed': SchemaValue(DecimalNumber)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, timestamp: DateTime = None, bid_liquidity_used: DecimalNumber = None,
+                 ask_liquidity_used: DecimalNumber = None):
+        super().__init__()
 
 
 class LiquidityRegenerationSchedule(Model):
-    """A LiquidityRegenerationSchedule indicates how liquidity that is used when
+    """LiquidityRegenerationSchedule(self, steps: Array_LiquidityRegenerationScheduleStep=None)
+
+    A LiquidityRegenerationSchedule indicates how liquidity that is used when
     filling an Order for an instrument is regenerated following the fill.  A
     liquidity regeneration schedule will be in effect until the timestamp of
     its final step, but may be replaced by a schedule created for an Order of
@@ -228,14 +234,18 @@ class LiquidityRegenerationSchedule(Model):
 
     """
 
-    _schema = {
-        # The steps in the Liquidity Regeneration Schedule
-        'steps': SchemaValue(Array(LiquidityRegenerationScheduleStep))
-    }
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, steps: Array(LiquidityRegenerationScheduleStep) = None):
+        super().__init__()
 
 
 class CandlestickData(Model):
-    """The price data (open, high, low, close) for the Candlestick representation.
+    """CandlestickData(self, o: PriceValue=None, h: PriceValue=None, l: PriceValue=None, c: PriceValue=None)
+
+    The price data (open, high, low, close) for the Candlestick representation.
 
     Attributes:
         o: -- The first (open) price in the time-range represented by the candlestick.
@@ -245,20 +255,17 @@ class CandlestickData(Model):
 
     """
 
-    _schema = {
-        # The first open price in the time-range represented by the candlestick.
-        'o': SchemaValue(PriceValue),
-        # The highest price in the time-range represented by the candlestick.
-        'h': SchemaValue(PriceValue),
-        # The lowest price in the time-range represented by the candlestick.
-        'l': SchemaValue(PriceValue),
-        # The last closing price in the time-range represented by the
-        # candlestick.
-        'c': SchemaValue(PriceValue)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, o: PriceValue = None, h: PriceValue = None, l: PriceValue = None, c: PriceValue = None):
+        super().__init__()
 
 
 class OrderIdentifier(Model):
-    """An OrderIdentifier is used to refer to an Order, and contains both the
+    """OrderIdentifier(self, order_id: OrderID=None, client_order_id: ClientID=None)
+An OrderIdentifier is used to refer to an Order, and contains both the
     OrderID and the ClientOrderID.
 
     Attributes:
@@ -267,15 +274,17 @@ class OrderIdentifier(Model):
 
     """
 
-    _schema = {
-        # The OANDA-assigned Order ID
-        'orderID': SchemaValue(OrderID),
-        # The client-provided client Order ID
-        'clientOrderID': SchemaValue(ClientID)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, order_id: OrderID = None, client_order_id: ClientID = None):
+        super().__init__()
 
 
 class QuoteHomeConversionFactors(Model):
-    """QuoteHomeConversionFactors represents the factors that can be used used to
+    """QuoteHomeConversionFactors(self, positive_units: DecimalNumber=None, negative_units: DecimalNumber=None)
+QuoteHomeConversionFactors represents the factors that can be used used to
     convert quantities of a Price's Instrument's quote currency into the
     Account's home currency.
 
@@ -290,21 +299,17 @@ class QuoteHomeConversionFactors(Model):
 
     """
 
-    _schema = {
-        # The factor used to convert a positive amount of the Price’s Instrument’s
-        # quote currency into a positive amount of the Account’s home currency.
-        # Conversion is performed by multiplying the quote units by the conversion
-        # factor.
-        'positiveUnits': SchemaValue(DecimalNumber),
-        # The factor used to convert a negative amount of the Price’s Instrument’s
-        # quote currency into a negative amount of the Account’s home currency.
-        # Conversion is performed by multiplying the quote units by the conversion
-        # factor.
-        'negativeUnits': SchemaValue(DecimalNumber)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, positive_units: DecimalNumber = None, negative_units: DecimalNumber = None):
+        super().__init__()
 
 
 class MarketOrderMarginCloseout(Model):
-    """Details for the Market Order extensions specific to a Market Order placed
+    """MarketOrderMarginCloseout(self, reason: MarketOrderMarginCloseoutReason=None)
+Details for the Market Order extensions specific to a Market Order placed
     that is part of a Market Order Margin Closeout in a client's account
 
     Attributes:
@@ -312,13 +317,17 @@ class MarketOrderMarginCloseout(Model):
 
     """
 
-    _schema = {
-        # The reason the Market Order was created to perform a margin closeout
-        'reason': SchemaValue(MarketOrderMarginCloseoutReason)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, reason: MarketOrderMarginCloseoutReason = None):
+        super().__init__()
 
 
 class InstrumentCommission(Model):
-    """An InstrumentCommission represents an instrument-specific commission
+    """InstrumentCommission(self, instrument: InstrumentName=None, commission: DecimalNumber=None, units_traded: Unit=None, minimum_commission: DecimalNumber=None)
+An InstrumentCommission represents an instrument-specific commission
 
     Attributes:
         instrument: -- The name of the instrument
@@ -330,21 +339,18 @@ class InstrumentCommission(Model):
 
     """
 
-    _schema = {
-        # The name of the instrument
-        'instrument': SchemaValue(InstrumentName),
-        # The commission amount (in the Account’s home currency) charged per
-        # unitsTraded of the instrument
-        'commission': SchemaValue(DecimalNumber),
-        # The number of units traded that the commission amount is based on.
-        'unitsTraded': SchemaValue(Unit),
-        # The minimum commission amount (in the Account’s home currency) that is
-        # charged when an Order is filled for this instrument.
-        'minimumCommission': SchemaValue(DecimalNumber)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, instrument: InstrumentName = None, commission: DecimalNumber = None, units_traded: Unit = None,
+                 minimum_commission: DecimalNumber = None):
+        super().__init__()
 
 
 class OrderBookBucket(Model):
-    """The order book data for a partition of the instrument's prices.
+    """OrderBookBucket(self, price: PriceValue=None, long_count_percent: DecimalNumber=None, short_count_percent: DecimalNumber=None)
+The order book data for a partition of the instrument's prices.
 
     Attributes:
         price: -- The lowest price (inclusive) covered by the bucket. The bucket covers the
@@ -356,20 +362,18 @@ class OrderBookBucket(Model):
 
     """
 
-    _schema = {
-        # The lowest price inclusive covered by the bucket. The bucket covers the
-        # price range from the price to price + the order book’s bucketWidth.
-        'price': SchemaValue(PriceValue),
-        # The percentage of the total number of orders represented by the long
-        # orders found in this bucket.
-        'longCountPercent': SchemaValue(DecimalNumber),
-        # The percentage of the total number of orders represented by the short
-        # orders found in this bucket.
-        'shortCountPercent': SchemaValue(DecimalNumber)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, price: PriceValue = None, long_count_percent: DecimalNumber = None,
+                 short_count_percent: DecimalNumber = None):
+        super().__init__()
 
 
 class PositionBookBucket(Model):
-    """The position book data for a partition of the instrument's prices.
+    """PositionBookBucket(self, price: PriceValue=None, long_count_percent: DecimalNumber=None, short_count_percent: DecimalNumber=None)
+The position book data for a partition of the instrument's prices.
 
     Attributes:
         price: -- The lowest price (inclusive) covered by the bucket. The bucket covers the
@@ -381,20 +385,18 @@ class PositionBookBucket(Model):
 
     """
 
-    _schema = {
-        # The lowest price inclusive covered by the bucket. The bucket covers the
-        # price range from the price to price + the position book’s bucketWidth.
-        'price': SchemaValue(PriceValue),
-        # The percentage of the total number of positions represented by the long
-        # positions found in this bucket.
-        'longCountPercent': SchemaValue(DecimalNumber),
-        # The percentage of the total number of positions represented by the short
-        # positions found in this bucket.
-        'shortCountPercent': SchemaValue(DecimalNumber)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, price: PriceValue = None, long_count_percent: DecimalNumber = None,
+                 short_count_percent: DecimalNumber = None):
+        super().__init__()
 
 
 class DynamicOrderState(Model):
-    """The dynamic state of an Order. This is only relevant to TrailingStopLoss
+    """DynamicOrderState(self, id: OrderID=None, trailing_stop_value: PriceValue=None, trigger_distance: PriceValue=None, is_trigger_distance_exact: bool=None)
+The dynamic state of an Order. This is only relevant to TrailingStopLoss
     Orders, as no other Order type has dynamic state.
 
     Attributes:
@@ -410,24 +412,18 @@ class DynamicOrderState(Model):
 
     """
 
-    _schema = {
-        # The Order’s ID.
-        'id': SchemaValue(OrderID),
-        # The Order’s calculated trailing stop value.
-        'trailingStopValue': SchemaValue(PriceValue),
-        # The distance between the Trailing Stop Loss Order’s trailingStopValue and
-        # the current Market Price. This represents the distance (in price units)
-        # of the Order from a triggering price. If the distance could not be
-        # determined, this value will not be set.
-        'triggerDistance': SchemaValue(PriceValue),
-        # True if an exact trigger distance could be calculated. If false, it means
-        # the provided trigger distance is a best estimate. If the distance could
-        # not be determined, this value will not be set.
-        'isTriggerDistanceExact': SchemaValue(boolean)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, id: OrderID = None, trailing_stop_value: PriceValue = None, trigger_distance: PriceValue = None,
+                 is_trigger_distance_exact: bool = None):
+        super().__init__()
 
 
 class CalculatedPositionState(Model):
-    """The dynamic (calculated) state of a Position
+    """CalculatedPositionState(self, instrument: InstrumentName=None, net_unrealized_pl: AccountUnits=None, long_unrealized_pl: AccountUnits=None, short_unrealized_pl: AccountUnits=None)
+The dynamic (calculated) state of a Position
 
     Attributes:
         instrument: -- The Position's Instrument.
@@ -437,19 +433,18 @@ class CalculatedPositionState(Model):
 
     """
 
-    _schema = {
-        # The Position’s Instrument.
-        'instrument': SchemaValue(InstrumentName),
-        # The Position’s net unrealized profit/loss
-        'netUnrealizedPL': SchemaValue(AccountUnits),
-        # The unrealized profit/loss of the Position’s long open Trades
-        'longUnrealizedPL': SchemaValue(AccountUnits),
-        # The unrealized profit/loss of the Position’s short open Trades
-        'shortUnrealizedPL': SchemaValue(AccountUnits)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, instrument: InstrumentName = None, net_unrealized_pl: AccountUnits = None,
+                 long_unrealized_pl: AccountUnits = None, short_unrealized_pl: AccountUnits = None):
+        super().__init__()
 
 
 class PositionSide(Model):
-    """The representation of a Position for a single direction (long or short).
+    """PositionSide(self, units: Unit=None, average_price: PriceValue=None, trade_i_ds: Array_TradeID=None, pl: AccountUnits=None, unrealized_pl: AccountUnits=None, resettable_pl: AccountUnits=None, financing: DecimalNumber=None)
+The representation of a Position for a single direction (long or short).
 
     Attributes:
         units: -- Number of units in the position (negative
@@ -464,34 +459,19 @@ class PositionSide(Model):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} @ {averagePrice}, {pl} PL {unrealizedPL} UPL'
 
-    _schema = {
-        # Number of units in the position (negative value indicates short position,
-        # positive indicates long position).
-        'units': SchemaValue(Unit),
-        # Volume-weighted average of the underlying Trade open prices for the
-        # Position.
-        'averagePrice': SchemaValue(PriceValue),
-        # List of the open Trade IDs which contribute to the open Position.
-        'tradeIDs': SchemaValue(Array(TradeID)),
-        # Profit/loss realized by the PositionSide over the lifetime of the
-        # Account.
-        'pl': SchemaValue(AccountUnits),
-        # The unrealized profit/loss of all open Trades that contribute to this
-        # PositionSide.
-        'unrealizedPL': SchemaValue(AccountUnits),
-        # Profit/loss realized by the PositionSide since the Account’s resettablePL
-        # was last reset by the client.
-        'resettablePL': SchemaValue(AccountUnits),
-        # TODO: This attribute isn't documented in OANDA's website
-        'financing': SchemaValue(DecimalNumber)
-    }
+    _name_format = ''
+
+    def __init__(self, units: Unit = None, average_price: PriceValue = None, trade_i_ds: Array(TradeID) = None,
+                 pl: AccountUnits = None, unrealized_pl: AccountUnits = None, resettable_pl: AccountUnits = None,
+                 financing: DecimalNumber = None):
+        super().__init__()
 
 
 class Position(Model):
-    """The specification of a Position within an Account.
+    """Position(self, instrument: InstrumentName=None, pl: AccountUnits=None, unrealized_pl: AccountUnits=None, resettable_pl: AccountUnits=None, commission: AccountUnits=None, long: PositionSide=None, short: PositionSide=None, financing: DecimalNumber=None)
+The specification of a Position within an Account.
 
     Attributes:
         instrument: -- The Position's Instrument.
@@ -506,37 +486,19 @@ class Position(Model):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{instrument}, {pl} PL {unrealizedPL} UPL'
 
-    # Format string used when generating a name for this object
     _name_format = '{instrument}, {pl} PL {unrealizedPL} UPL'
 
-    _schema = {
-        # The Position’s Instrument.
-        'instrument': SchemaValue(InstrumentName),
-        # Profit/loss realized by the Position over the lifetime of the Account.
-        'pl': SchemaValue(AccountUnits),
-        # The unrealized profit/loss of all open Trades that contribute to this
-        # Position.
-        'unrealizedPL': SchemaValue(AccountUnits),
-        # Profit/loss realized by the Position since the Account’s resettablePL was
-        # last reset by the client.
-        'resettablePL': SchemaValue(AccountUnits),
-        # The total amount of commission paid for this instrument over the lifetime
-        # of the Account. Represented in the Account’s home currency.
-        'commission': SchemaValue(AccountUnits),
-        # The details of the long side of the Position.
-        'long': SchemaValue(PositionSide),
-        # The details of the short side of the Position.
-        'short': SchemaValue(PositionSide),
-        # TODO: This attribute isn't documented in OANDA's website
-        'financing': SchemaValue(DecimalNumber)
-    }
+    def __init__(self, instrument: InstrumentName = None, pl: AccountUnits = None, unrealized_pl: AccountUnits = None,
+                 resettable_pl: AccountUnits = None, commission: AccountUnits = None, long: PositionSide = None,
+                 short: PositionSide = None, financing: DecimalNumber = None):
+        super().__init__()
 
 
 class PriceBucket(Model):
-    """A Price Bucket represents a price available for an amount of liquidity
+    """PriceBucket(self, price: PriceValue=None, liquidity: int=None)
+A Price Bucket represents a price available for an amount of liquidity
 
     Attributes:
         price: -- The Price offered by the PriceBucket
@@ -544,15 +506,17 @@ class PriceBucket(Model):
 
     """
 
-    _schema = {
-        # The Price offered by the PriceBucket
-        'price': SchemaValue(PriceValue),
-        # The amount of liquidity offered by the PriceBucket
-        'liquidity': SchemaValue(integer)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, price: PriceValue = None, liquidity: int = None):
+        super().__init__()
 
 
 class ClientPrice(Model):
-    """Client price for an Account.
+    """ClientPrice(self, bids: Array_PriceBucket=None, asks: Array_PriceBucket=None, closeout_bid: PriceValue=None, closeout_ask: PriceValue=None, timestamp: DateTime=None)
+Client price for an Account.
 
     Attributes:
         bids: -- The list of prices and liquidity available on the Instrument's bid side. It is possible for this
@@ -569,29 +533,18 @@ class ClientPrice(Model):
 
     """
 
-    _schema = {
-        # The list of prices and liquidity available on the Instrument’s bid side.
-        # It is possible for this list to be empty if there is no bid liquidity
-        # currently available for the Instrument in the Account.
-        'bids': SchemaValue(Array(PriceBucket)),
-        # The list of prices and liquidity available on the Instrument’s ask side.
-        # It is possible for this list to be empty if there is no ask liquidity
-        # currently available for the Instrument in the Account.
-        'asks': SchemaValue(Array(PriceBucket)),
-        # The closeout bid Price. This Price is used when a bid is required to
-        # closeout a Position (margin closeout or manual) yet there is no bid
-        # liquidity. The closeout bid is never used to open a new position.
-        'closeoutBid': SchemaValue(PriceValue),
-        # The closeout ask Price. This Price is used when a ask is required to
-        # closeout a Position (margin closeout or manual) yet there is no ask
-        # liquidity. The closeout ask is never used to open a new position.
-        'closeoutAsk': SchemaValue(PriceValue),
-        # The date/time when the Price was created.
-        'timestamp': SchemaValue(DateTime)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, bids: Array(PriceBucket) = None, asks: Array(PriceBucket) = None,
+                 closeout_bid: PriceValue = None, closeout_ask: PriceValue = None, timestamp: DateTime = None):
+        super().__init__()
 
 
 class PricingHeartbeat(Model):
-    """A PricingHeartbeat object is injected into the Pricing stream to ensure
+    """PricingHeartbeat(self, type: str=HEARTBEAT, time: DateTime=None)
+A PricingHeartbeat object is injected into the Pricing stream to ensure
     that the HTTP connection remains active.
 
     Attributes:
@@ -600,18 +553,17 @@ class PricingHeartbeat(Model):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Pricing Heartbeat {time}'
 
-    _schema = {
-        # The string “HEARTBEAT”
-        'type': SchemaValue(string, default='HEARTBEAT'),
-        # The date/time when the Heartbeat was created.
-        'time': SchemaValue(DateTime)}
+    _name_format = ''
+
+    def __init__(self, type: str = None, time: DateTime = None):
+        super().__init__()
 
 
 class CalculatedTradeState(Model):
-    """The dynamic (calculated) state of an open Trade
+    """CalculatedTradeState(self, id: TradeID=None, unrealized_pl: AccountUnits=None)
+The dynamic (calculated) state of an open Trade
 
     Attributes:
         id: -- The Trade's ID.
@@ -619,15 +571,17 @@ class CalculatedTradeState(Model):
 
     """
 
-    _schema = {
-        # The Trade’s ID.
-        'id': SchemaValue(TradeID),
-        # The Trade’s unrealized profit/loss.
-        'unrealizedPL': SchemaValue(AccountUnits)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, id: TradeID = None, unrealized_pl: AccountUnits = None):
+        super().__init__()
 
 
 class MarketOrderDelayedTradeClose(Model):
-    """Details for the Market Order extensions specific to a Market Order placed
+    """MarketOrderDelayedTradeClose(self, trade_id: TradeID=None, client_trade_id: TradeID=None, source_transaction_id: TransactionID=None)
+Details for the Market Order extensions specific to a Market Order placed
     with the intent of fully closing a specific open trade that should have
     already been closed but wasn't due to halted market conditions
 
@@ -639,18 +593,18 @@ class MarketOrderDelayedTradeClose(Model):
 
     """
 
-    _schema = {
-        # The ID of the Trade being closed
-        'tradeID': SchemaValue(TradeID),
-        # The Client ID of the Trade being closed
-        'clientTradeID': SchemaValue(TradeID),
-        # The Transaction ID of the DelayedTradeClosure transaction to which this
-        # Delayed Trade Close belongs to
-        'sourceTransactionID': SchemaValue(TransactionID)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, trade_id: TradeID = None, client_trade_id: TradeID = None,
+                 source_transaction_id: TransactionID = None):
+        super().__init__()
 
 
 class MarketOrderPositionCloseout(Model):
-    """A MarketOrderPositionCloseout specifies the extensions to a Market Order
+    """MarketOrderPositionCloseout(self, instrument: InstrumentName=None, units: str=None)
+A MarketOrderPositionCloseout specifies the extensions to a Market Order
     when it has been created to closeout a specific Position.
 
     Attributes:
@@ -661,18 +615,17 @@ class MarketOrderPositionCloseout(Model):
 
     """
 
-    _schema = {
-        # The instrument of the Position being closed out.
-        'instrument': SchemaValue(InstrumentName),
-        # Indication of how much of the Position to close. Either “ALL”, or a
-        # DecimalNumber reflection a partial close of the Trade. The DecimalNumber
-        # must always be positive, and represent a number that doesn’t exceed the
-        # absolute size of the Position.
-        'units': SchemaValue(string)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, instrument: InstrumentName = None, units: str = None):
+        super().__init__()
 
 
 class MarketOrderTradeClose(Model):
-    """A MarketOrderTradeClose specifies the extensions to a Market Order that has
+    """MarketOrderTradeClose(self, trade_id: TradeID=None, client_trade_id: str=None, units: str=None)
+A MarketOrderTradeClose specifies the extensions to a Market Order that has
     been created specifically to close a Trade.
 
     Attributes:
@@ -683,18 +636,17 @@ class MarketOrderTradeClose(Model):
 
     """
 
-    _schema = {
-        # The ID of the Trade requested to be closed
-        'tradeID': SchemaValue(TradeID),
-        # The client ID of the Trade requested to be closed
-        'clientTradeID': SchemaValue(string),
-        # Indication of how much of the Trade to close. Either “ALL”, or a
-        # DecimalNumber reflection a partial close of the Trade.
-        'units': SchemaValue(string)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, trade_id: TradeID = None, client_trade_id: str = None, units: str = None):
+        super().__init__()
 
 
 class OpenTradeFinancing(Model):
-    """OpenTradeFinancing is used to pay/collect daily financing charge for an
+    """OpenTradeFinancing(self, trade_id: TradeID=None, financing: AccountUnits=None)
+OpenTradeFinancing is used to pay/collect daily financing charge for an
     open Trade within an Account
 
     Attributes:
@@ -703,15 +655,17 @@ class OpenTradeFinancing(Model):
 
     """
 
-    _schema = {
-        # The ID of the Trade that financing is being paid/collected for.
-        'tradeID': SchemaValue(TradeID),
-        # The amount of financing paid/collected for the Trade.
-        'financing': SchemaValue(AccountUnits)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, trade_id: TradeID = None, financing: AccountUnits = None):
+        super().__init__()
 
 
 class PositionFinancing(Model):
-    """OpenTradeFinancing is used to pay/collect daily financing charge for a
+    """PositionFinancing(self, instrument: InstrumentName=None, financing: AccountUnits=None, open_trade_financings: Array_OpenTradeFinancing=None)
+OpenTradeFinancing is used to pay/collect daily financing charge for a
     Position within an Account
 
     Attributes:
@@ -721,19 +675,19 @@ class PositionFinancing(Model):
 
     """
 
-    _schema = {
-        # The instrument of the Position that financing is being paid/collected
-        # for.
-        'instrument': SchemaValue(InstrumentName),
-        # The amount of financing paid/collected for the Position.
-        'financing': SchemaValue(AccountUnits),
-        # The financing paid/collecte for each open Trade within the Position.
-        'openTradeFinancings': SchemaValue(Array(OpenTradeFinancing))
-    }
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, instrument: InstrumentName = None, financing: AccountUnits = None,
+                 open_trade_financings: Array(OpenTradeFinancing) = None):
+        super().__init__()
+
 
 
 class TradeOpen(Model):
-    """A TradeOpen object represents a Trade for an instrument that was opened in
+    """TradeOpen(self, trade_id: TradeID=None, units: Unit=None, client_extensions: ClientExtensions=None)
+A TradeOpen object represents a Trade for an instrument that was opened in
     an Account. It is found embedded in Transactions that affect the position
     of an instrument in the Account, specifically the OrderFill Transaction.
 
@@ -744,17 +698,17 @@ class TradeOpen(Model):
 
     """
 
-    _schema = {
-        # The ID of the Trade that was opened
-        'tradeID': SchemaValue(TradeID),
-        # The number of units opened by the Trade
-        'units': SchemaValue(Unit),
-        # The client extensions for the newly opened Trade
-        'clientExtensions': SchemaValue(ClientExtensions)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, trade_id: TradeID = None, units: Unit = None, client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class VWAPReceipt(Model):
-    """A VWAP Receipt provides a record of how the price for an Order fill is
+    """VWAPReceipt(self, units: Unit=None, price: PriceValue=None)
+A VWAP Receipt provides a record of how the price for an Order fill is
     constructed. If the Order is filled with multiple buckets in a depth of
     market, each bucket will be represented with a VWAP Receipt.
 
@@ -764,15 +718,17 @@ class VWAPReceipt(Model):
 
     """
 
-    _schema = {
-        # The number of units filled
-        'units': SchemaValue(Unit),
-        # The price at which the units were filled
-        'price': SchemaValue(PriceValue)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, units: Unit = None, price: PriceValue = None):
+        super().__init__()
 
 
 class UserInfo(Model):
-    """A representation of user information, as provided to the user themself.
+    """UserInfo(self)
+A representation of user information, as provided to the user themself.
 
     Attributes:
         username: -- The user-provided username.
@@ -782,9 +738,17 @@ class UserInfo(Model):
 
     """
 
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, ):
+        super().__init__()
+
 
 class AccountProperties(Model):
-    """Properties related to an Account.
+    """AccountProperties(self, id: AccountID=None, mt4_account_id: int=None, tags: Array_str=None)
+Properties related to an Account.
 
     Attributes:
         id: -- The Account's identifier
@@ -794,19 +758,17 @@ class AccountProperties(Model):
 
     """
 
-    _schema = {
-        # The Account’s identifier
-        'id': SchemaValue(AccountID),
-        # The Account’s associated MT4 Account ID. This field will not be present
-        # if the Account is not an MT4 account.
-        'mt4AccountID': SchemaValue(integer),
-        # The Account’s tags
-        'tags': SchemaValue(Array(string))
-    }
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, id: AccountID = None, mt4_account_id: int = None, tags: Array(str) = None):
+        super().__init__()
 
 
 class Candlestick(Model):
-    """The Candlestick representation
+    """Candlestick(self, time: DateTime=None, bid: CandlestickData=None, ask: CandlestickData=None, mid: CandlestickData=None, volume: int=None, complete: bool=None)
+The Candlestick representation
 
     Attributes:
         time: -- The start time of the candlestick
@@ -823,28 +785,18 @@ class Candlestick(Model):
 
     """
 
-    _schema = {
-        # The start time of the candlestick
-        'time': SchemaValue(DateTime),
-        # The candlestick data based on bids. Only provided if bid-based candles
-        # were requested.
-        'bid': SchemaValue(CandlestickData),
-        # The candlestick data based on asks. Only provided if ask-based candles
-        # were requested.
-        'ask': SchemaValue(CandlestickData),
-        # The candlestick data based on midpoints. Only provided if midpoint-based
-        # candles were requested.
-        'mid': SchemaValue(CandlestickData),
-        # The number of prices created during the time-range represented by the
-        # candlestick.
-        'volume': SchemaValue(integer),
-        # A flag indicating if the candlestick is complete. A complete candlestick
-        # is one whose ending time is not in the future.
-        'complete': SchemaValue(boolean)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, time: DateTime = None, bid: CandlestickData = None, ask: CandlestickData = None,
+                 mid: CandlestickData = None, volume: int = None, complete: bool = None):
+        super().__init__()
 
 
 class OrderBook(Model):
-    """The representation of an instrument's order book at a point in time
+    """OrderBook(self, instrument: InstrumentName=None, time: DateTime=None, price: PriceValue=None, bucket_width: PriceValue=None, buckets: Array_OrderBookBucket=None)
+The representation of an instrument's order book at a point in time
 
     Attributes:
         instrument: -- The order book's instrument
@@ -858,26 +810,18 @@ class OrderBook(Model):
 
     """
 
-    _schema = {
-        # The order book’s instrument
-        'instrument': SchemaValue(InstrumentName),
-        # The time when the order book snapshot was created.
-        'time': SchemaValue(DateTime),
-        # The price midpoint for the order book’s instrument at the time of the
-        # order book snapshot
-        'price': SchemaValue(PriceValue),
-        # The price width for each bucket. Each bucket covers the price range from
-        # the bucket’s price to the bucket’s price + bucketWidth.
-        'bucketWidth': SchemaValue(PriceValue),
-        # The partitioned order book, divided into buckets using a default bucket
-        # width. These buckets are only provided for price ranges which actually
-        # contain order or position data.
-        'buckets': SchemaValue(Array(OrderBookBucket))
-    }
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
+                 bucket_width: PriceValue = None, buckets: Array(OrderBookBucket) = None):
+        super().__init__()
 
 
 class PositionBook(Model):
-    """The representation of an instrument's position book at a point in time
+    """PositionBook(self, instrument: InstrumentName=None, time: DateTime=None, price: PriceValue=None, bucket_width: PriceValue=None, buckets: Array_PositionBookBucket=None)
+The representation of an instrument's position book at a point in time
 
     Attributes:
         instrument: -- The position book's instrument
@@ -891,82 +835,61 @@ class PositionBook(Model):
 
     """
 
-    _schema = {
-        # The position book’s instrument
-        'instrument': SchemaValue(InstrumentName),
-        # The time when the position book snapshot was created
-        'time': SchemaValue(DateTime),
-        # The price midpoint for the position book’s instrument at the time of
-        # the position book snapshot
-        'price': SchemaValue(PriceValue),
-        # The price width for each bucket. Each bucket covers the price range from
-        # the bucket’s price to the bucket’s price + bucketWidth.
-        'bucketWidth': SchemaValue(PriceValue),
-        # The partitioned position book, divided into buckets using a default
-        # bucket width. These buckets are only provided for price ranges which
-        # actually contain order or position data.
-        'buckets': SchemaValue(Array(PositionBookBucket))
-    }
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
+                 bucket_width: PriceValue = None, buckets: Array(PositionBookBucket) = None):
+        super().__init__()
 
 
-class StopLossDetails(Model):
-    """StopLossDetails specifies the details of a Stop Loss Order to be created on
-    behalf of a client. This may happen when an Order is filled that opens a
-    Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is
-    modified directly through the Trade.
+class Order(Model):
+    """Order(self, id: OrderID=None, create_time: DateTime=None, state: OrderState=None, client_extensions: ClientExtensions=None)
+The base Order definition specifies the properties that are common to all
+    Orders.
 
     Attributes:
-        price: -- The price that the Stop Loss Order will be triggered at.
-        time_in_force: -- The time in force for the created Stop Loss
-            Order. This may only be GTC, GTD or GFD.
-        gtd_time: -- The date when the Stop Loss Order will be cancelled on if timeInForce is GTD.
-        client_extensions: -- The Client Extensions to add to the Stop Loss Order when created.
+        id: -- The Order's identifier, unique within the Order's Account.
+        create_time: -- The time when the Order was created.
+        state: -- The current state of the Order.
+        client_extensions: -- The client extensions of the Order. Do not set, modify,
+            or delete clientExtensions if your account is associated with MT4.
 
     """
 
-    _schema = {
-        # The price that the Stop Loss Order will be triggered at.
-        'price': SchemaValue(PriceValue),
-        # The time in force for the created Stop Loss Order. This may only be GTC,
-        # GTD or GFD.
-        'timeInForce': SchemaValue(TimeInForce, default='GTC'),
-        # The date when the Stop Loss Order will be cancelled on if timeInForce is
-        # GTD.
-        'gtdTime': SchemaValue(DateTime),
-        # The Client Extensions to add to the Stop Loss Order when created.
-        'clientExtensions': SchemaValue(ClientExtensions)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, id: OrderID = None, create_time: DateTime = None, state: OrderState = None,
+                 client_extensions: ClientExtensions = None, trade_id: TradeID = None, price: PriceValue = None,
+                 type: OrderType = None, client_trade_id: ClientID = None, time_in_force: TimeInForce = None,
+                 gtd_time: DateTime = None, trigger_condition: OrderTriggerCondition = None,
+                 filling_transaction_id: TransactionID = None, filled_time: DateTime = None,
+                 trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
+                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
+                 replaced_by_order_id: OrderID = None, distance: PriceValue = None,
+                 trailing_stop_value: PriceValue = None, instrument: InstrumentName = None, units: Unit = None,
+                 position_fill: OrderPositionFill = None, take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, price_bound: PriceValue = None,
+                 initial_market_price: PriceValue = None, trade_close: MarketOrderTradeClose = None,
+                 long_position_closeout: MarketOrderPositionCloseout = None,
+                 short_position_closeout: MarketOrderPositionCloseout = None,
+                 margin_closeout: MarketOrderMarginCloseout = None,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = None):
+        super().__init__()
 
 
-class TakeProfitDetails(Model):
-    """TakeProfitDetails specifies the details of a Take Profit Order to be
-    created on behalf of a client. This may happen when an Order is filled that
-    opens a Trade requiring a Take Profit, or when a Trade's dependent Take
-    Profit Order is modified directly through the Trade.
 
-    Attributes:
-        price: -- The price that the Take Profit Order will be triggered at.
-        time_in_force: -- The time in force for the created Take Profit
-            Order. This may only be GTC, GTD or GFD.
-        gtd_time: -- The date when the Take Profit Order will be cancelled on if timeInForce is GTD.
-        client_extensions: -- The Client Extensions to add to the Take Profit Order when created.
 
-    """
-
-    _schema = {
-        # The price that the Take Profit Order will be triggered at.
-        'price': SchemaValue(PriceValue),
-        # The time in force for the created Take Profit Order. This may only be
-        # GTC, GTD or GFD.
-        'timeInForce': SchemaValue(TimeInForce, default='GTC'),
-        # The date when the Take Profit Order will be cancelled on if timeInForce
-        # is GTD.
-        'gtdTime': SchemaValue(DateTime),
-        # The Client Extensions to add to the Take Profit Order when created.
-        'clientExtensions': SchemaValue(ClientExtensions)}
 
 
 class TradeReduce(Model):
-    """A TradeReduce object represents a Trade for an instrument that was reduced
+    """TradeReduce(self, trade_id: TradeID=None, units: Unit=None, realized_pl: AccountUnits=None, financing: AccountUnits=None)
+A TradeReduce object represents a Trade for an instrument that was reduced
     (either partially or fully) in an Account. It is found embedded in
     Transactions that affect the position of an instrument in the account,
     specifically the OrderFill Transaction.
@@ -979,51 +902,20 @@ class TradeReduce(Model):
 
     """
 
-    _schema = {
-        # The ID of the Trade that was reduced or closed
-        'tradeID': SchemaValue(TradeID),
-        # The number of units that the Trade was reduced by
-        'units': SchemaValue(Unit),
-        # The PL realized when reducing the Trade
-        'realizedPL': SchemaValue(AccountUnits),
-        # The financing paid/collected when reducing the Trade
-        'financing': SchemaValue(AccountUnits)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, trade_id: TradeID = None, units: Unit = None, realized_pl: AccountUnits = None,
+                 financing: AccountUnits = None):
+        super().__init__()
 
 
-class TrailingStopLossDetails(Model):
-    """TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order
-    to be created on behalf of a client. This may happen when an Order is
-    filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's
-    dependent Trailing Stop Loss Order is modified directly through the Trade.
-
-    Attributes:
-        distance: -- The distance (in price units) from the Trade's fill price
-            that the Trailing Stop Loss Order will be triggered at.
-        time_in_force: -- The time in force for the created Trailing Stop
-            Loss Order. This may only be GTC, GTD or GFD.
-        gtd_time: -- The date when the Trailing Stop Loss Order
-            will be cancelled on if timeInForce is GTD.
-        client_extensions: -- The Client Extensions to add to the Trailing Stop Loss Order when created.
-
-    """
-
-    _schema = {
-        # The distance (in price units) from the Trade’s fill price that the
-        # Trailing Stop Loss Order will be triggered at.
-        'distance': SchemaValue(PriceValue),
-        # The time in force for the created Trailing Stop Loss Order. This may only
-        # be GTC, GTD or GFD.
-        'timeInForce': SchemaValue(TimeInForce, default='GTC'),
-        # The date when the Trailing Stop Loss Order will be cancelled on if
-        # timeInForce is GTD.
-        'gtdTime': SchemaValue(DateTime),
-        # The Client Extensions to add to the Trailing Stop Loss Order when
-        # created.
-        'clientExtensions': SchemaValue(ClientExtensions)}
 
 
 class TransactionHeartbeat(Model):
-    """A TransactionHeartbeat object is injected into the Transaction stream to
+    """TransactionHeartbeat(self, type: str=HEARTBEAT, last_transaction_id: TransactionID=None, time: DateTime=None)
+A TransactionHeartbeat object is injected into the Transaction stream to
     ensure that the HTTP connection remains active.
 
     Attributes:
@@ -1033,20 +925,17 @@ class TransactionHeartbeat(Model):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Transaction Heartbeat {time}'
 
-    _schema = {
-        # The string “HEARTBEAT”
-        'type': SchemaValue(string, default='HEARTBEAT'),
-        # The ID of the most recent Transaction created for the Account
-        'lastTransactionID': SchemaValue(TransactionID),
-        # The date/time when the TransactionHeartbeat was created.
-        'time': SchemaValue(DateTime)}
+    _name_format = ''
+
+    def __init__(self, type: str = None, last_transaction_id: TransactionID = None, time: DateTime = None):
+        super().__init__()
 
 
 class UserInfoExternal(Model):
-    """A representation of user information, as available to external (3rd party)
+    """UserInfoExternal(self)
+A representation of user information, as available to external (3rd party)
     clients.
 
     Attributes:
@@ -1056,9 +945,17 @@ class UserInfoExternal(Model):
 
     """
 
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, ):
+        super().__init__()
+
 
 class TradeSummary(Model):
-    """The summary of a Trade within an Account. This representation does not
+    """TradeSummary(self, id: TradeID=None, instrument: InstrumentName=None, price: PriceValue=None, open_time: DateTime=None, state: TradeState=None, initial_units: Unit=None, current_units: Unit=None, realized_pl: AccountUnits=None, unrealized_pl: AccountUnits=None, average_close_price: PriceValue=None, closing_transaction_i_ds: Array_TransactionID=None, financing: AccountUnits=None, close_time: DateTime=None, client_extensions: ClientExtensions=None, take_profit_order_id: OrderID=None, stop_loss_order_id: OrderID=None, trailing_stop_loss_order_id: OrderID=None)
+The summary of a Trade within an Account. This representation does not
     provide the full details of the Trade's dependent Orders.
 
     Attributes:
@@ -1087,57 +984,107 @@ class TradeSummary(Model):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
 
-    _schema = {
-        # The Trade’s identifier, unique within the Trade’s Account.
-        'id': SchemaValue(TradeID),
-        # The Trade’s Instrument.
-        'instrument': SchemaValue(InstrumentName),
-        # The execution price of the Trade.
-        'price': SchemaValue(PriceValue),
-        # The date/time when the Trade was opened.
-        'openTime': SchemaValue(DateTime),
-        # The current state of the Trade.
-        'state': SchemaValue(TradeState),
-        # The initial size of the Trade. Negative values indicate a short Trade,
-        # and positive values indicate a long Trade.
-        'initialUnits': SchemaValue(Unit),
-        # The number of units currently open for the Trade. This value is reduced
-        # to 0.0 as the Trade is closed.
-        'currentUnits': SchemaValue(Unit),
-        # The total profit/loss realized on the closed portion of the Trade.
-        'realizedPL': SchemaValue(AccountUnits),
-        # The unrealized profit/loss on the open portion of the Trade.
-        'unrealizedPL': SchemaValue(AccountUnits),
-        # The average closing price of the Trade. Only present if the Trade has
-        # been closed or reduced at least once.
-        'averageClosePrice': SchemaValue(PriceValue),
-        # The IDs of the Transactions that have closed portions of this Trade.
-        'closingTransactionIDs': SchemaValue(Array(TransactionID)),
-        # The financing paid/collected for this Trade.
-        'financing': SchemaValue(AccountUnits),
-        # The date/time when the Trade was fully closed. Only provided for Trades
-        # whose state is CLOSED.
-        'closeTime': SchemaValue(DateTime),
-        # The client extensions of the Trade.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # ID of the Trade’s Take Profit Order, only provided if such an Order
-        # exists.
-        'takeProfitOrderID': SchemaValue(OrderID),
-        # ID of the Trade’s Stop Loss Order, only provided if such an Order exists.
-        'stopLossOrderID': SchemaValue(OrderID),
-        # ID of the Trade’s Trailing Stop Loss Order, only provided if such an
-        # Order exists.
-        'trailingStopLossOrderID': SchemaValue(OrderID)}
+    def __init__(self, id: TradeID = None, instrument: InstrumentName = None, price: PriceValue = None,
+                 open_time: DateTime = None, state: TradeState = None, initial_units: Unit = None,
+                 current_units: Unit = None, realized_pl: AccountUnits = None, unrealized_pl: AccountUnits = None,
+                 average_close_price: PriceValue = None, closing_transaction_i_ds: Array(TransactionID) = None,
+                 financing: AccountUnits = None, close_time: DateTime = None,
+                 client_extensions: ClientExtensions = None, take_profit_order_id: OrderID = None,
+                 stop_loss_order_id: OrderID = None, trailing_stop_loss_order_id: OrderID = None):
+        super().__init__()
+
+
+class Transaction(Model):
+    """Transaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None)
+The base Transaction specification. Specifies properties that are common
+    between all Transaction.
+
+    Attributes:
+        id: -- The Transaction's Identifier.
+        time: -- The date/time when the Transaction was created.
+        user_id: -- The ID of the user that initiated the creation of the Transaction.
+        account_id: -- The ID of the Account the Transaction was created for.
+        batch_id: -- The ID of the "batch" that the Transaction belongs to.
+            Transactions in the same batch are applied to the Account simultaneously.
+        request_id: -- The Request ID of the request which generated the transaction.
+
+    """
+
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = None, extension_number: int = None, division_id: int = None,
+                 site_id: int = None, account_user_id: int = None, account_number: int = None,
+                 home_currency: Currency = None, alias: str = None, margin_rate: DecimalNumber = None,
+                 reason: StopOrderReason = None, trade_i_ds: TradeID = None, order_id: OrderID = None,
+                 client_order_id: ClientID = None, replaced_by_order_id: OrderID = None,
+                 closed_trade_id: OrderID = None, trade_close_transaction_id: TransactionID = None,
+                 client_extensions_modify: ClientExtensions = None,
+                 trade_client_extensions_modify: ClientExtensions = None, financing: AccountUnits = None,
+                 account_balance: AccountUnits = None, account_financing_mode: AccountFinancingMode = None,
+                 position_financings: Array(PositionFinancing) = None, trade_id: TradeID = None,
+                 client_trade_id: ClientID = None, price: PriceValue = None, time_in_force: TimeInForce = None,
+                 gtd_time: DateTime = None, trigger_condition: OrderTriggerCondition = None,
+                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
+                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None,
+                 reject_reason: TransactionRejectReason = None, amount: AccountUnits = None,
+                 funding_reason: FundingReason = None, comment: str = None, instrument: InstrumentName = None,
+                 units: Unit = None, price_bound: PriceValue = None, position_fill: OrderPositionFill = None,
+                 trade_close: MarketOrderTradeClose = None, long_position_closeout: MarketOrderPositionCloseout = None,
+                 short_position_closeout: MarketOrderPositionCloseout = None,
+                 margin_closeout: MarketOrderMarginCloseout = None,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, distance: PriceValue = None,
+                 full_price: ClientPrice = None, pl: AccountUnits = None, commission: AccountUnits = None,
+                 trade_opened: TradeOpen = None, trades_closed: Array(TradeReduce) = None,
+                 trade_reduced: TradeReduce = None, intended_replaces_order_id: OrderID = None):
+        super().__init__()
+
+
+class AccountChanges(Model):
+    """AccountChanges(self, orders_created: Array_Order=None, orders_cancelled: Array_Order=None, orders_filled: Array_Order=None, orders_triggered: Array_Order=None, trades_opened: Array_TradeSummary=None, trades_reduced: Array_TradeSummary=None, trades_closed: Array_TradeSummary=None, positions: Array_Position=None, transactions: Array_Transaction=None)
+An AccountChanges Object is used to represent the changes to an Account's
+    Orders, Trades and Positions since a specified Account TransactionID in the
+    past.
+
+    Attributes:
+        orders_created: -- The Orders created. These Orders may have been
+            filled, cancelled or triggered in the same period.
+        orders_cancelled: -- The Orders cancelled.
+        orders_filled: -- The Orders filled.
+        orders_triggered: -- The Orders triggered.
+        trades_opened: -- The Trades opened.
+        trades_reduced: -- The Trades reduced.
+        trades_closed: -- The Trades closed.
+        positions: -- The Positions changed.
+        transactions: -- The Transactions that have been generated.
+
+    """
+
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, orders_created: Array(Order) = None, orders_cancelled: Array(Order) = None,
+                 orders_filled: Array(Order) = None, orders_triggered: Array(Order) = None,
+                 trades_opened: Array(TradeSummary) = None, trades_reduced: Array(TradeSummary) = None,
+                 trades_closed: Array(TradeSummary) = None, positions: Array(Position) = None,
+                 transactions: Array(Transaction) = None):
+        super().__init__()
 
 
 class Instrument(Model):
-    """Full specification of an Instrument.
+    """Instrument(self, name: InstrumentName=None, type: InstrumentType=None, display_name: str=None, pip_location: int=None, display_precision: int=None, trade_units_precision: int=None, minimum_trade_size: Unit=None, maximum_trailing_stop_distance: DecimalNumber=None, minimum_trailing_stop_distance: DecimalNumber=None, maximum_position_size: Unit=None, maximum_order_units: Unit=None, margin_rate: DecimalNumber=None, commission: InstrumentCommission=None)
+Full specification of an Instrument.
 
     Attributes:
         name: -- The name of the Instrument
@@ -1163,167 +1110,73 @@ class Instrument(Model):
 
     """
 
-    _schema = {
-        # The name of the Instrument
-        'name': SchemaValue(InstrumentName),
-        # The type of the Instrument
-        'type': SchemaValue(InstrumentType),
-        # The display name of the Instrument
-        'displayName': SchemaValue(string),
-        # The location of the “pip” for this instrument. The decimal position of
-        # the pip in this Instrument’s price can be found at 10 ^ pipLocation (e.g.
-        # -4 pipLocation results in a decimal pip position of 10 ^ -4 = 0.0001).
-        'pipLocation': SchemaValue(integer),
-        # The number of decimal places that should be used to display prices for
-        # this instrument. (e.g. a displayPrecision of 5 would result in a price of
-        # “1” being displayed as “1.00000”)
-        'displayPrecision': SchemaValue(integer),
-        # The amount of decimal places that may be provided when specifying the
-        # number of units traded for this instrument.
-        'tradeUnitsPrecision': SchemaValue(integer),
-        # The smallest number of units allowed to be traded for this instrument.
-        'minimumTradeSize': SchemaValue(Unit),
-        # The maximum trailing stop distance allowed for a trailing stop loss
-        # created for this instrument. Specified in price units.
-        'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
-        # The minimum trailing stop distance allowed for a trailing stop loss
-        # created for this instrument. Specified in price units.
-        'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
-        # The maximum position size allowed for this instrument. Specified in
-        # units.
-        'maximumPositionSize': SchemaValue(Unit),
-        # The maximum units allowed for an Order placed for this instrument.
-        # Specified in units.
-        'maximumOrderUnits': SchemaValue(Unit),
-        # The margin rate for this instrument.
-        'marginRate': SchemaValue(DecimalNumber),
-        # The commission structure for this instrument.
-        'commission': SchemaValue(InstrumentCommission)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, name: InstrumentName = None, type: InstrumentType = None, display_name: str = None,
+                 pip_location: int = None, display_precision: int = None, trade_units_precision: int = None,
+                 minimum_trade_size: Unit = None, maximum_trailing_stop_distance: Unit = None,
+                 minimum_trailing_stop_distance: Unit = None, maximum_position_size: Unit = None,
+                 maximum_order_units: Unit = None, margin_rate: DecimalNumber = None,
+                 commission: InstrumentCommission = None):
+        super().__init__()
 
 
 class CurrencyInstrument(Instrument):
-    """A Currency Instrument"""
-    _schema = {
-        # The name of the Instrument
-        'name': SchemaValue(InstrumentName),
-        # The type of the Instrument
-        'type': SchemaValue(InstrumentType, default='CURRENCY'),
-        # The display name of the Instrument
-        'displayName': SchemaValue(string),
-        # The location of the “pip” for this instrument. The decimal position of
-        # the pip in this Instrument’s price can be found at 10 ^ pipLocation (e.g.
-        # -4 pipLocation results in a decimal pip position of 10 ^ -4 = 0.0001).
-        'pipLocation': SchemaValue(integer),
-        # The number of decimal places that should be used to display prices for
-        # this instrument. (e.g. a displayPrecision of 5 would result in a price of
-        # “1” being displayed as “1.00000”)
-        'displayPrecision': SchemaValue(integer),
-        # The amount of decimal places that may be provided when specifying the
-        # number of units traded for this instrument.
-        'tradeUnitsPrecision': SchemaValue(integer),
-        # The smallest number of units allowed to be traded for this instrument.
-        'minimumTradeSize': SchemaValue(Unit),
-        # The maximum trailing stop distance allowed for a trailing stop loss
-        # created for this instrument. Specified in price units.
-        'maximumTrailingStopDistance': SchemaValue(DecimalNumber),
-        # The minimum trailing stop distance allowed for a trailing stop loss
-        # created for this instrument. Specified in price units.
-        'minimumTrailingStopDistance': SchemaValue(DecimalNumber),
-        # The maximum position size allowed for this instrument. Specified in
-        # units.
-        'maximumPositionSize': SchemaValue(Unit),
-        # The maximum units allowed for an Order placed for this instrument.
-        # Specified in units.
-        'maximumOrderUnits': SchemaValue(Unit),
-        # The margin rate for this instrument.
-        'marginRate': SchemaValue(DecimalNumber),
-        # The commission structure for this instrument.
-        'commission': SchemaValue(InstrumentCommission)}
+    """CurrencyInstrument(self, name: InstrumentName=None, type: InstrumentType=CURRENCY, display_name: str=None, pip_location: int=None, display_precision: int=None, trade_units_precision: int=None, minimum_trade_size: Unit=None, maximum_trailing_stop_distance: DecimalNumber=None, minimum_trailing_stop_distance: DecimalNumber=None, maximum_position_size: Unit=None, maximum_order_units: Unit=None, margin_rate: DecimalNumber=None, commission: InstrumentCommission=None)
+A Currency Instrument"""
+
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, name: InstrumentName = None, type: InstrumentType = 'CURRENCY', display_name: str = None,
+                 pip_location: int = None, display_precision: int = None, trade_units_precision: int = None,
+                 minimum_trade_size: Unit = None, maximum_trailing_stop_distance: DecimalNumber = None,
+                 minimum_trailing_stop_distance: DecimalNumber = None, maximum_position_size: Unit = None,
+                 maximum_order_units: Unit = None, margin_rate: DecimalNumber = None,
+                 commission: InstrumentCommission = None):
+        super().__init__()
 
 
 class CFDInstrument(Instrument):
-    """A Currency Instrument"""
+    """CFDInstrument(self, name: InstrumentName=None, type: InstrumentType=CFD, display_name: str=None, pip_location: int=None, display_precision: int=None, trade_units_precision: int=None, minimum_trade_size: Unit=None, maximum_trailing_stop_distance: Unit=None, minimum_trailing_stop_distance: Unit=None, maximum_position_size: Unit=None, maximum_order_units: Unit=None, margin_rate: DecimalNumber=None, commission: InstrumentCommission=None)
+A Currency Instrument"""
 
-    _schema = {
-        # The name of the Instrument
-        'name': SchemaValue(InstrumentName),
-        # The type of the Instrument
-        'type': SchemaValue(InstrumentType, default='CFD'),
-        # The display name of the Instrument
-        'displayName': SchemaValue(string),
-        # The location of the “pip” for this instrument. The decimal position of
-        # the pip in this Instrument’s price can be found at 10 ^ pipLocation (e.g.
-        # -4 pipLocation results in a decimal pip position of 10 ^ -4 = 0.0001).
-        'pipLocation': SchemaValue(integer),
-        # The number of decimal places that should be used to display prices for
-        # this instrument. (e.g. a displayPrecision of 5 would result in a price of
-        # “1” being displayed as “1.00000”)
-        'displayPrecision': SchemaValue(integer),
-        # The amount of decimal places that may be provided when specifying the
-        # number of units traded for this instrument.
-        'tradeUnitsPrecision': SchemaValue(integer),
-        # The smallest number of units allowed to be traded for this instrument.
-        'minimumTradeSize': SchemaValue(Unit),
-        # The maximum trailing stop distance allowed for a trailing stop loss
-        # created for this instrument. Specified in price units.
-        'maximumTrailingStopDistance': SchemaValue(Unit),
-        # The minimum trailing stop distance allowed for a trailing stop loss
-        # created for this instrument. Specified in price units.
-        'minimumTrailingStopDistance': SchemaValue(Unit),
-        # The maximum position size allowed for this instrument. Specified in
-        # units.
-        'maximumPositionSize': SchemaValue(Unit),
-        # The maximum units allowed for an Order placed for this instrument.
-        # Specified in units.
-        'maximumOrderUnits': SchemaValue(Unit),
-        # The margin rate for this instrument.
-        'marginRate': SchemaValue(DecimalNumber),
-        # The commission structure for this instrument.
-        'commission': SchemaValue(InstrumentCommission)}
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, name: InstrumentName = None, type: InstrumentType = 'CFD', display_name: str = None,
+                 pip_location: int = None, display_precision: int = None, trade_units_precision: int = None,
+                 minimum_trade_size: Unit = None, maximum_trailing_stop_distance: Unit = None,
+                 minimum_trailing_stop_distance: Unit = None, maximum_position_size: Unit = None,
+                 maximum_order_units: Unit = None, margin_rate: DecimalNumber = None,
+                 commission: InstrumentCommission = None):
+        super().__init__()
 
 
 class MetalInstrument(Instrument):
-    """A Currency Instrument"""
-    _schema = {
-        # The name of the Instrument
-        'name': SchemaValue(InstrumentName),
-        # The type of the Instrument
-        'type': SchemaValue(InstrumentType, default='METAL'),
-        # The display name of the Instrument
-        'displayName': SchemaValue(string),
-        # The location of the “pip” for this instrument. The decimal position of
-        # the pip in this Instrument’s price can be found at 10 ^ pipLocation (e.g.
-        # -4 pipLocation results in a decimal pip position of 10 ^ -4 = 0.0001).
-        'pipLocation': SchemaValue(integer),
-        # The number of decimal places that should be used to display prices for
-        # this instrument. (e.g. a displayPrecision of 5 would result in a price of
-        # “1” being displayed as “1.00000”)
-        'displayPrecision': SchemaValue(integer),
-        # The amount of decimal places that may be provided when specifying the
-        # number of units traded for this instrument.
-        'tradeUnitsPrecision': SchemaValue(integer),
-        # The smallest number of units allowed to be traded for this instrument.
-        'minimumTradeSize': SchemaValue(Unit),
-        # The maximum trailing stop distance allowed for a trailing stop loss
-        # created for this instrument. Specified in price units.
-        'maximumTrailingStopDistance': SchemaValue(Unit),
-        # The minimum trailing stop distance allowed for a trailing stop loss
-        # created for this instrument. Specified in price units.
-        'minimumTrailingStopDistance': SchemaValue(Unit),
-        # The maximum position size allowed for this instrument. Specified in
-        # units.
-        'maximumPositionSize': SchemaValue(Unit),
-        # The maximum units allowed for an Order placed for this instrument.
-        # Specified in units.
-        'maximumOrderUnits': SchemaValue(Unit),
-        # The margin rate for this instrument.
-        'marginRate': SchemaValue(DecimalNumber),
-        # The commission structure for this instrument.
-        'commission': SchemaValue(InstrumentCommission)}
+    """MetalInstrument(self, name: InstrumentName=None, type: InstrumentType=METAL, display_name: str=None, pip_location: int=None, display_precision: int=None, trade_units_precision: int=None, minimum_trade_size: Unit=None, maximum_trailing_stop_distance: Unit=None, minimum_trailing_stop_distance: Unit=None, maximum_position_size: Unit=None, maximum_order_units: Unit=None, margin_rate: DecimalNumber=None, commission: InstrumentCommission=None)
+A Currency Instrument"""
+
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, name: InstrumentName = None, type: InstrumentType = 'METAL', display_name: str = None,
+                 pip_location: int = None, display_precision: int = None, trade_units_precision: int = None,
+                 minimum_trade_size: Unit = None, maximum_trailing_stop_distance: Unit = None,
+                 minimum_trailing_stop_distance: Unit = None, maximum_position_size: Unit = None,
+                 maximum_order_units: Unit = None, margin_rate: DecimalNumber = None,
+                 commission: InstrumentCommission = None):
+        super().__init__()
 
 
 class AccountChangesState(Model):
-    """An AccountState Object is used to represent an Account's current price-
+    """AccountChangesState(self, unrealized_pl: AccountUnits=None, nav: AccountUnits=None, margin_used: AccountUnits=None, margin_available: AccountUnits=None, position_value: AccountUnits=None, margin_closeout_unrealized_pl: AccountUnits=None, margin_closeout_nav: AccountUnits=None, margin_closeout_margin_used: AccountUnits=None, margin_closeout_percent: DecimalNumber=None, margin_closeout_position_value: DecimalNumber=None, withdrawal_limit: AccountUnits=None, margin_call_margin_used: AccountUnits=None, margin_call_percent: DecimalNumber=None, orders: Array_DynamicOrderState=None, trades: Array_CalculatedTradeState=None, positions: Array_CalculatedPositionState=None)
+An AccountState Object is used to represent an Account's current price-
     dependent state. Price-dependent Account state is dependent on OANDA's
     current Prices, and includes things like unrealized PL, NAV and Trailing
     Stop Loss Order state.
@@ -1356,52 +1209,24 @@ class AccountChangesState(Model):
 
     """
 
-    _schema = {
-        # The total unrealized profit/loss for all Trades currently open in the
-        # Account. Represented in the Account’s home currency.
-        'unrealizedPL': SchemaValue(AccountUnits),
-        # The net asset value of the Account. Equal to Account balance +
-        # unrealizedPL. Represented in the Account’s home currency.
-        'NAV': SchemaValue(AccountUnits),
-        # Margin currently used for the Account. Represented in the Account’s home
-        # currency.
-        'marginUsed': SchemaValue(AccountUnits),
-        # Margin available for Account. Represented in the Account’s home currency.
-        'marginAvailable': SchemaValue(AccountUnits),
-        # The value of the Account’s open positions represented in the Account’s
-        # home currency.
-        'positionValue': SchemaValue(AccountUnits),
-        # The Account’s margin closeout unrealized PL.
-        'marginCloseoutUnrealizedPL': SchemaValue(AccountUnits),
-        # The Account’s margin closeout NAV.
-        'marginCloseoutNAV': SchemaValue(AccountUnits),
-        # The Account’s margin closeout margin used.
-        'marginCloseoutMarginUsed': SchemaValue(AccountUnits),
-        # The Account’s margin closeout percentage. When this value is 1.0 or above
-        # the Account is in a margin closeout situation.
-        'marginCloseoutPercent': SchemaValue(DecimalNumber),
-        # The value of the Account’s open positions as used for margin closeout
-        # calculations represented in the Account’s home currency.
-        'marginCloseoutPositionValue': SchemaValue(DecimalNumber),
-        # The current WithdrawalLimit for the account which will be zero or a
-        # positive value indicating how much can be withdrawn from the account.
-        'withdrawalLimit': SchemaValue(AccountUnits),
-        # The Account’s margin call margin used.
-        'marginCallMarginUsed': SchemaValue(AccountUnits),
-        # The Account’s margin call percentage. When this value is 1.0 or above the
-        # Account is in a margin call situation.
-        'marginCallPercent': SchemaValue(DecimalNumber),
-        # The price-dependent state of each pending Order in the Account.
-        'orders': SchemaValue(Array(DynamicOrderState)),
-        # The price-dependent state for each open Trade in the Account.
-        'trades': SchemaValue(Array(CalculatedTradeState)),
-        # The price-dependent state for each open Position in the Account.
-        'positions': SchemaValue(Array(CalculatedPositionState))
-    }
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, unrealized_pl: AccountUnits = None, nav: AccountUnits = None, margin_used: AccountUnits = None,
+                 margin_available: AccountUnits = None, position_value: AccountUnits = None,
+                 margin_closeout_unrealized_pl: AccountUnits = None, margin_closeout_nav: AccountUnits = None,
+                 margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
+                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
+                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
+                 orders: Array(DynamicOrderState) = None, trades: Array(CalculatedTradeState) = None,
+                 positions: Array(CalculatedPositionState) = None):
+        super().__init__()
 
 
 class Price(Model):
-    """The specification of an Account-specific Price.
+    """Price(self, type: str=PRICE, instrument: InstrumentName=None, time: DateTime=None, status: PriceStatus=None, tradeable: bool=None, bids: Array_PriceBucket=None, asks: Array_PriceBucket=None, closeout_bid: PriceValue=None, closeout_ask: PriceValue=None, quote_home_conversion_factors: QuoteHomeConversionFactors=None, units_available: UnitsAvailable=None)
+The specification of an Account-specific Price.
 
     Attributes:
         type: -- The string "PRICE". Used to identify the a Price object when found in a stream.
@@ -1426,48 +1251,21 @@ class Price(Model):
 
     """
 
-    _schema = {
-        # The string “PRICE”. Used to identify the a Price Refactor when found in a
-        # stream.
-        'type': SchemaValue(string, default='PRICE'),
-        # The Price’s Instrument.
-        'instrument': SchemaValue(InstrumentName),
-        # The date/time when the Price was created
-        'time': SchemaValue(DateTime),
-        # The status of the Price.
-        # Deprecated: Will be removed in a future API update.
-        'status': SchemaValue(PriceStatus, deprecated=True),
-        # Flag indicating if the Price is tradeable or not
-        'tradeable': SchemaValue(boolean),
-        # The list of prices and liquidity available on the Instrument’s bid side.
-        # It is possible for this list to be empty if there is no bid liquidity
-        # currently available for the Instrument in the Account.
-        'bids': SchemaValue(Array(PriceBucket)),
-        # The list of prices and liquidity available on the Instrument’s ask side.
-        # It is possible for this list to be empty if there is no ask liquidity
-        # currently available for the Instrument in the Account.
-        'asks': SchemaValue(Array(PriceBucket)),
-        # The closeout bid Price. This Price is used when a bid is required to
-        # closeout a Position (margin closeout or manual) yet there is no bid
-        # liquidity. The closeout bid is never used to open a new position.
-        'closeoutBid': SchemaValue(PriceValue),
-        # The closeout ask Price. This Price is used when a ask is required to
-        # closeout a Position (margin closeout or manual) yet there is no ask
-        # liquidity. The closeout ask is never used to open a new position.
-        'closeoutAsk': SchemaValue(PriceValue),
-        # The factors used to convert quantities of this price’s Instrument’s quote
-        # currency into a quantity of the Account’s home currency.
-        # Deprecated: Will be removed in a future API update.
-        'quoteHomeConversionFactors': SchemaValue(QuoteHomeConversionFactors, deprecated=True),
-        # Representation of how many units of an Instrument are available to be
-        # traded by an Order depending on its postionFill option.
-        # Deprecated: Will be removed in a future API update.
-        'unitsAvailable': SchemaValue(UnitsAvailable, deprecated=True)
-    }
+    _summary_format = ''
+
+    _name_format = ''
+
+    def __init__(self, type: str = None, instrument: InstrumentName = None, time: DateTime = None,
+                 status: PriceStatus = None, tradeable: bool = None, bids: Array(PriceBucket) = None,
+                 asks: Array(PriceBucket) = None, closeout_bid: PriceValue = None, closeout_ask: PriceValue = None,
+                 quote_home_conversion_factors: QuoteHomeConversionFactors = None,
+                 units_available: UnitsAvailable = None):
+        super().__init__()
 
 
 class CloseTransaction(Transaction):
-    """A CloseTransaction represents the closing of an Account.
+    """CloseTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=CLOSE)
+A CloseTransaction represents the closing of an Account.
 
     Attributes:
         id: -- The Transaction's Identifier.
@@ -1481,32 +1279,19 @@ class CloseTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Close Account {accountID}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Close Account {accountID}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “CLOSE” in a CloseTransaction.
-        'type': SchemaValue(TransactionType, default='CLOSE')}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'CLOSE'):
+        super().__init__()
 
 
 class MarginCallEnterTransaction(Transaction):
-    """A MarginCallEnterTransaction is created when an Account enters the margin
+    """MarginCallEnterTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=MARGIN_CALL_ENTER)
+A MarginCallEnterTransaction is created when an Account enters the margin
     call state.
 
     Attributes:
@@ -1522,33 +1307,19 @@ class MarginCallEnterTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Margin Call Enter'
 
-    # Format string used when generating a name for this object
     _name_format = 'Margin Call Enter'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “MARGIN_CALL_ENTER” for an
-        # MarginCallEnterTransaction.
-        'type': SchemaValue(TransactionType, default='MARGIN_CALL_ENTER')}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'MARGIN_CALL_ENTER'):
+        super().__init__()
 
 
 class MarginCallExitTransaction(Transaction):
-    """A MarginCallExitnterTransaction is created when an Account leaves the
+    """MarginCallExitTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=MARGIN_CALL_EXIT)
+A MarginCallExitnterTransaction is created when an Account leaves the
     margin call state.
 
     Attributes:
@@ -1564,33 +1335,19 @@ class MarginCallExitTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Margin Call Exit'
 
-    # Format string used when generating a name for this object
     _name_format = 'Margin Call Exit'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “MARGIN_CALL_EXIT” for an
-        # MarginCallExitTransaction.
-        'type': SchemaValue(TransactionType, default='MARGIN_CALL_EXIT')}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'MARGIN_CALL_EXIT'):
+        super().__init__()
 
 
 class MarginCallExtendTransaction(Transaction):
-    """A MarginCallExtendTransaction is created when the margin call state for an
+    """MarginCallExtendTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=MARGIN_CALL_EXTEND, extension_number: int=None)
+A MarginCallExtendTransaction is created when the margin call state for an
     Account has been extended.
 
     Attributes:
@@ -1608,37 +1365,19 @@ class MarginCallExtendTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Margin Call Enter'
 
-    # Format string used when generating a name for this object
     _name_format = 'Margin Call Enter'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “MARGIN_CALL_EXTEND” for an
-        # MarginCallExtendTransaction.
-        'type': SchemaValue(TransactionType, default='MARGIN_CALL_EXTEND'),
-        # The number of the extensions to the Account’s current margin call that
-        # have been applied. This value will be set to 1 for the first
-        # MarginCallExtend Transaction
-        'extensionNumber': SchemaValue(integer)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'MARGIN_CALL_EXTEND', extension_number: int = None):
+        super().__init__()
 
 
 class ReopenTransaction(Transaction):
-    """A ReopenTransaction represents the re-opening of a closed Account.
+    """ReopenTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=REOPEN)
+A ReopenTransaction represents the re-opening of a closed Account.
 
     Attributes:
         id: -- The Transaction's Identifier.
@@ -1652,33 +1391,19 @@ class ReopenTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reopen Account {accountID}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reopen Account {accountID}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “REOPEN” in a
-        # ReopenTransaction.
-        'type': SchemaValue(TransactionType, default='REOPEN')}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'REOPEN'):
+        super().__init__()
 
 
 class ResetResettablePLTransaction(Transaction):
-    """A ResetResettablePLTransaction represents the resetting of the Account's
+    """ResetResettablePLTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=RESET_RESETTABLE_PL)
+A ResetResettablePLTransaction represents the resetting of the Account's
     resettable PL counters.
 
     Attributes:
@@ -1694,33 +1419,19 @@ class ResetResettablePLTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'PL Reset'
 
-    # Format string used when generating a name for this object
     _name_format = 'PL Reset'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “RESET_RESETTABLE_PL” for a
-        # ResetResettablePLTransaction.
-        'type': SchemaValue(TransactionType, default='RESET_RESETTABLE_PL')}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'RESET_RESETTABLE_PL'):
+        super().__init__()
 
 
 class StopLossOrderRequest(OrderRequest):
-    """A StopLossOrderRequest specifies the parameters that may be set when
+    """StopLossOrderRequest(self, trade_id: TradeID, price: PriceValue, type: OrderType=STOP_LOSS, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, client_extensions: ClientExtensions=None)
+A StopLossOrderRequest specifies the parameters that may be set when
     creating a Stop Loss Order.
 
     Attributes:
@@ -1741,51 +1452,19 @@ class StopLossOrderRequest(OrderRequest):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Stop Loss for Trade {tradeID} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Stop Loss for Trade {tradeID} @ {price}'
 
-    _schema = {
-        # The type of the Order to Create. Must be set to “STOP_LOSS” when creating
-        # a Stop Loss Order.
-        'type': SchemaValue(OrderType, default='STOP_LOSS'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price threshold specified for the StopLoss Order. The associated
-        # Trade will be closed by a market price that is equal to or worse than
-        # this threshold.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the StopLoss Order. Restricted to “GTC”,
-        # “GFD” and “GTD” for StopLoss Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the StopLoss Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The client extensions to add to the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions)}
+    def __init__(self, trade_id: TradeID, price: PriceValue, type: OrderType = 'STOP_LOSS',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class TakeProfitOrderRequest(OrderRequest):
-    """A TakeProfitOrderRequest specifies the parameters that may be set when
+    """TakeProfitOrderRequest(self, trade_id: TradeID, price: PriceValue, type: OrderType=TAKE_PROFIT, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, client_extensions: ClientExtensions=None)
+A TakeProfitOrderRequest specifies the parameters that may be set when
     creating a Take Profit Order.
 
     Attributes:
@@ -1806,51 +1485,19 @@ class TakeProfitOrderRequest(OrderRequest):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Take Profit for Trade {tradeID} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Take Profit for Trade {tradeID} @ {price}'
 
-    _schema = {
-        # The type of the Order to Create. Must be set to “TAKE_PROFIT” when
-        # creating a Take Profit Order.
-        'type': SchemaValue(OrderType, default='TAKE_PROFIT'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price threshold specified for the TakeProfit Order. The associated
-        # Trade will be closed by a market price that is equal to or better than
-        # this threshold.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the TakeProfit Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for TakeProfit Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the TakeProfit Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The client extensions to add to the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions)}
+    def __init__(self, trade_id: TradeID, price: PriceValue, type: OrderType = 'TAKE_PROFIT',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class TrailingStopLossOrderRequest(OrderRequest):
-    """A TrailingStopLossOrderRequest specifies the parameters that may be set
+    """TrailingStopLossOrderRequest(self, trade_id: TradeID, distance: PriceValue, type: OrderType=TRAILING_STOP_LOSS, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, client_extensions: ClientExtensions=None)
+A TrailingStopLossOrderRequest specifies the parameters that may be set
     when creating a Trailing Stop Loss Order.
 
     Attributes:
@@ -1870,49 +1517,19 @@ class TrailingStopLossOrderRequest(OrderRequest):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
 
-    _schema = {
-        # The type of the Order to Create. Must be set to “TRAILING_STOP_LOSS” when
-        # creating a Trailng Stop Loss Order.
-        'type': SchemaValue(OrderType, default='TRAILING_STOP_LOSS'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price distance specified for the TrailingStopLoss Order.
-        'distance': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the TrailingStopLoss Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for TrailingStopLoss Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the StopLoss Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The client extensions to add to the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions)}
+    def __init__(self, trade_id: TradeID, distance: PriceValue, type: OrderType = 'TRAILING_STOP_LOSS',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class CreateTransaction(Transaction):
-    """A CreateTransaction represents the creation of an Account.
+    """CreateTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=CREATE, division_id: int=None, site_id: int=None, account_user_id: int=None, account_number: int=None, home_currency: Currency=None)
+A CreateTransaction represents the creation of an Account.
 
     Attributes:
         id: -- The Transaction's Identifier.
@@ -1931,43 +1548,20 @@ class CreateTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Create Account {accountID}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Create Account {accountID}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “CREATE” in a
-        # CreateTransaction.
-        'type': SchemaValue(TransactionType, default='CREATE'),
-        # The ID of the Division that the Account is in
-        'divisionID': SchemaValue(integer),
-        # The ID of the Site that the Account was created at
-        'siteID': SchemaValue(integer),
-        # The ID of the user that the Account was created for
-        'accountUserID': SchemaValue(integer),
-        # The number of the Account within the site/division/user
-        'accountNumber': SchemaValue(integer),
-        # The home currency of the Account
-        'homeCurrency': SchemaValue(Currency)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'CREATE', division_id: int = None, site_id: int = None,
+                 account_user_id: int = None, account_number: int = None, home_currency: Currency = None):
+        super().__init__()
 
 
 class ClientConfigureTransaction(Transaction):
-    """A ClientConfigureTransaction represents the configuration of an Account by
+    """ClientConfigureTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=CLIENT_CONFIGURE, alias: str=None, margin_rate: DecimalNumber=None)
+A ClientConfigureTransaction represents the configuration of an Account by
     a client.
 
     Attributes:
@@ -1985,37 +1579,19 @@ class ClientConfigureTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Client Configure'
 
-    # Format string used when generating a name for this object
     _name_format = 'Client Configure'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “CLIENT_CONFIGURE” in a
-        # ClientConfigureTransaction.
-        'type': SchemaValue(TransactionType, default='CLIENT_CONFIGURE'),
-        # The client-provided alias for the Account.
-        'alias': SchemaValue(string),
-        # The margin rate override for the Account.
-        'marginRate': SchemaValue(DecimalNumber)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'CLIENT_CONFIGURE', alias: str = None, margin_rate: DecimalNumber = None):
+        super().__init__()
 
 
 class DelayedTradeClosureTransaction(Transaction):
-    """A DelayedTradeClosure Transaction is created administratively to indicate
+    """DelayedTradeClosureTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=DELAYED_TRADE_CLOSURE, reason: MarketOrderReason=None, trade_i_ds: TradeID=None)
+A DelayedTradeClosure Transaction is created administratively to indicate
     open trades that should have been closed but weren't because the open
     trades' instruments were untradeable at the time. Open trades listed in
     this transaction will be closed once their respective instruments become
@@ -2037,38 +1613,20 @@ class DelayedTradeClosureTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Delayed Trade Closure'
 
-    # Format string used when generating a name for this object
     _name_format = 'Delayed Trade Closure'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “DELAYED_TRADE_CLOSURE” for an
-        # DelayedTradeClosureTransaction.
-        'type': SchemaValue(TransactionType, default='DELAYED_TRADE_CLOSURE'),
-        # The reason for the delayed trade closure
-        'reason': SchemaValue(MarketOrderReason),
-        # List of Trade ID’s identifying the open trades that will be closed when
-        # their respective instruments become tradeable
-        'tradeIDs': SchemaValue(TradeID)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'DELAYED_TRADE_CLOSURE', reason: MarketOrderReason = None,
+                 trade_i_ds: TradeID = None):
+        super().__init__()
 
 
 class OrderCancelTransaction(Transaction):
-    """An OrderCancelTransaction represents the cancellation of an Order in the
+    """OrderCancelTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=ORDER_CANCEL, order_id: OrderID=None, client_order_id: OrderID=None, reason: OrderCancelReason=None, replaced_by_order_id: OrderID=None, closed_trade_id: OrderID=None, trade_close_transaction_id: TransactionID=None)
+An OrderCancelTransaction represents the cancellation of an Order in the
     client's Account.
 
     Attributes:
@@ -2090,48 +1648,21 @@ class OrderCancelTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Cancel Order {orderID}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Cancel Order {orderID}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “ORDER_CANCEL” for an
-        # OrderCancelTransaction.
-        'type': SchemaValue(TransactionType, default='ORDER_CANCEL'),
-        # The ID of the Order cancelled
-        'orderID': SchemaValue(OrderID),
-        # The client ID of the Order cancelled (only provided if the Order has a
-        # client Order ID).
-        'clientOrderID': SchemaValue(OrderID),
-        # The reason that the Order was cancelled.
-        'reason': SchemaValue(OrderCancelReason),
-        # The ID of the Order that replaced this Order (only provided if this Order
-        # was cancelled for replacement).
-        'replacedByOrderID': SchemaValue(OrderID),
-        # TODO This attribute is not documented on oanda's website
-        'closedTradeID': SchemaValue(OrderID),
-        # TODO This attribute is not documented on oanda's website
-        'tradeCloseTransactionID': SchemaValue(TransactionID)
-    }
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'ORDER_CANCEL', order_id: OrderID = None, client_order_id: OrderID = None,
+                 reason: OrderCancelReason = None, replaced_by_order_id: OrderID = None,
+                 closed_trade_id: OrderID = None, trade_close_transaction_id: TransactionID = None):
+        super().__init__()
 
 
 class OrderClientExtensionsModifyTransaction(Transaction):
-    """A OrderClientExtensionsModifyTransaction represents the modification of an
+    """OrderClientExtensionsModifyTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=ORDER_CLIENT_EXTENSIONS_MODIFY, order_id: OrderID=None, client_order_id: ClientID=None, client_extensions_modify: ClientExtensions=None, trade_client_extensions_modify: ClientExtensions=None)
+A OrderClientExtensionsModifyTransaction represents the modification of an
     Order's Client Extensions.
 
     Attributes:
@@ -2151,43 +1682,21 @@ class OrderClientExtensionsModifyTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Modify Order {orderID} Client Extensions'
 
-    # Format string used when generating a name for this object
     _name_format = 'Modify Order {orderID} Client Extensions'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to
-        # “ORDER_CLIENT_EXTENSIONS_MODIFY” for a
-        # OrderClienteExtensionsModifyTransaction.
-        'type': SchemaValue(TransactionType, default='ORDER_CLIENT_EXTENSIONS_MODIFY'),
-        # The ID of the Order who’s client extensions are to be modified.
-        'orderID': SchemaValue(OrderID),
-        # The original Client ID of the Order who’s client extensions are to be
-        # modified.
-        'clientOrderID': SchemaValue(ClientID),
-        # The new Client Extensions for the Order.
-        'clientExtensionsModify': SchemaValue(ClientExtensions),
-        # The new Client Extensions for the Order’s Trade on fill.
-        'tradeClientExtensionsModify': SchemaValue(ClientExtensions)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'ORDER_CLIENT_EXTENSIONS_MODIFY', order_id: OrderID = None,
+                 client_order_id: ClientID = None, client_extensions_modify: ClientExtensions = None,
+                 trade_client_extensions_modify: ClientExtensions = None):
+        super().__init__()
 
 
 class DailyFinancingTransaction(Transaction):
-    """A DailyFinancingTransaction represents the daily payment/collection of
+    """DailyFinancingTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=DAILY_FINANCING, financing: AccountUnits=None, account_balance: AccountUnits=None, account_financing_mode: AccountFinancingMode=None, position_financings: Array_PositionFinancing=None)
+A DailyFinancingTransaction represents the daily payment/collection of
     financing for an Account.
 
     Attributes:
@@ -2207,42 +1716,21 @@ class DailyFinancingTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Daily Account Financing ({financing})'
 
-    # Format string used when generating a name for this object
     _name_format = 'Daily Account Financing ({financing})'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “DAILY_FINANCING” for a
-        # DailyFinancingTransaction.
-        'type': SchemaValue(TransactionType, default='DAILY_FINANCING'),
-        # The amount of financing paid/collected for the Account.
-        'financing': SchemaValue(AccountUnits),
-        # The Account’s balance after daily financing.
-        'accountBalance': SchemaValue(AccountUnits),
-        # The account financing mode at the time of the daily financing.
-        'accountFinancingMode': SchemaValue(AccountFinancingMode),
-        # The financing paid/collected for each Position in the Account.
-        'positionFinancings': SchemaValue(Array(PositionFinancing))
-    }
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'DAILY_FINANCING', financing: AccountUnits = None,
+                 account_balance: AccountUnits = None, account_financing_mode: AccountFinancingMode = None,
+                 position_financings: Array(PositionFinancing) = None):
+        super().__init__()
 
 
 class TradeClientExtensionsModifyTransaction(Transaction):
-    """A TradeClientExtensionsModifyTransaction represents the modification of a
+    """TradeClientExtensionsModifyTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=TRADE_CLIENT_EXTENSIONS_MODIFY, trade_id: TradeID=None, client_trade_id: ClientID=None, trade_client_extensions_modify: ClientExtensions=None)
+A TradeClientExtensionsModifyTransaction represents the modification of a
     Trade's Client Extensions.
 
     Attributes:
@@ -2261,41 +1749,20 @@ class TradeClientExtensionsModifyTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Modify Trade {tradeID} Client Extensions'
 
-    # Format string used when generating a name for this object
     _name_format = 'Modify Trade {tradeID} Client Extensions'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to
-        # “TRADE_CLIENT_EXTENSIONS_MODIFY” for a
-        # TradeClientExtensionsModifyTransaction.
-        'type': SchemaValue(TransactionType, default='TRADE_CLIENT_EXTENSIONS_MODIFY'),
-        # The ID of the Trade who’s client extensions are to be modified.
-        'tradeID': SchemaValue(TradeID),
-        # The original Client ID of the Trade who’s client extensions are to be
-        # modified.
-        'clientTradeID': SchemaValue(ClientID),
-        # The new Client Extensions for the Trade.
-        'tradeClientExtensionsModify': SchemaValue(ClientExtensions)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'TRADE_CLIENT_EXTENSIONS_MODIFY', trade_id: TradeID = None,
+                 client_trade_id: ClientID = None, trade_client_extensions_modify: ClientExtensions = None):
+        super().__init__()
 
 
 class AccountSummary(Model):
-    """A summary representation of a client's Account. The AccountSummary does not
+    """AccountSummary(self, id: AccountID=None, alias: str=None, currency: Currency=None, balance: AccountUnits=None, created_by_user_id: int=None, created_time: DateTime=None, pl: AccountUnits=None, resettable_pl: AccountUnits=None, resettabled_pl_time: DateTime=None, commission: AccountUnits=None, margin_rate: DecimalNumber=None, margin_call_enter_time: DateTime=None, margin_call_extension_count: int=None, last_margin_call_extension_time: DateTime=None, open_trade_count: int=None, open_position_count: int=None, pending_order_count: int=None, hedging_enabled: bool=None, unrealized_pl: AccountUnits=None, nav: AccountUnits=None, margin_used: AccountUnits=None, margin_available: AccountUnits=None, position_value: AccountUnits=None, margin_closeout_unrealized_pl: AccountUnits=None, margin_closeout_nav: AccountUnits=None, margin_closeout_margin_used: AccountUnits=None, margin_closeout_percent: DecimalNumber=None, margin_closeout_position_value: DecimalNumber=None, withdrawal_limit: AccountUnits=None, margin_call_margin_used: AccountUnits=None, margin_call_percent: DecimalNumber=None, last_transaction_id: TransactionID=None, financing: DecimalNumber=None)
+A summary representation of a client's Account. The AccountSummary does not
     provide to full specification of pending Orders, open Trades and Positions.
 
     Attributes:
@@ -2350,96 +1817,31 @@ class AccountSummary(Model):
 
     """
 
-    _schema = {
-        # The Account’s identifier
-        'id': SchemaValue(AccountID),
-        # Client-assigned alias for the Account. Only provided if the Account has
-        # an alias set
-        'alias': SchemaValue(string),
-        # The home currency of the Account
-        'currency': SchemaValue(Currency),
-        # The current balance of the Account. Represented in the Account’s home
-        # currency.
-        'balance': SchemaValue(AccountUnits),
-        # ID of the user that created the Account.
-        'createdByUserID': SchemaValue(integer),
-        # The date/time when the Account was created.
-        'createdTime': SchemaValue(DateTime),
-        # The total profit/loss realized over the lifetime of the Account.
-        # Represented in the Account’s home currency.
-        'pl': SchemaValue(AccountUnits),
-        # The total realized profit/loss for the Account since it was last reset by
-        # the client. Represented in the Account’s home currency.
-        'resettablePL': SchemaValue(AccountUnits),
-        # The date/time that the Account’s resettablePL was last reset.
-        'resettabledPLTime': SchemaValue(DateTime),
-        # The total amount of commission paid over the lifetime of the Account.
-        # Represented in the Account’s home currency.
-        'commission': SchemaValue(AccountUnits),
-        # Client-provided margin rate override for the Account. The effective
-        # margin rate of the Account is the lesser of this value and the OANDA
-        # margin rate for the Account’s division. This value is only provided if a
-        # margin rate override exists for the Account.
-        'marginRate': SchemaValue(DecimalNumber),
-        # The date/time when the Account entered a margin call state. Only provided
-        # if the Account is in a margin call.
-        'marginCallEnterTime': SchemaValue(DateTime),
-        # The number of times that the Account’s current margin call was extended.
-        'marginCallExtensionCount': SchemaValue(integer),
-        # The date/time of the Account’s last margin call extension.
-        'lastMarginCallExtensionTime': SchemaValue(DateTime),
-        # The number of Trades currently open in the Account.
-        'openTradeCount': SchemaValue(integer),
-        # The number of Positions currently open in the Account.
-        'openPositionCount': SchemaValue(integer),
-        # The number of Orders currently pending in the Account.
-        'pendingOrderCount': SchemaValue(integer),
-        # Flag indicating that the Account has hedging enabled.
-        'hedgingEnabled': SchemaValue(boolean),
-        # The total unrealized profit/loss for all Trades currently open in the
-        # Account. Represented in the Account’s home currency.
-        'unrealizedPL': SchemaValue(AccountUnits),
-        # The net asset value of the Account. Equal to Account balance +
-        # unrealizedPL. Represented in the Account’s home currency.
-        'NAV': SchemaValue(AccountUnits),
-        # Margin currently used for the Account. Represented in the Account’s home
-        # currency.
-        'marginUsed': SchemaValue(AccountUnits),
-        # Margin available for Account. Represented in the Account’s home currency.
-        'marginAvailable': SchemaValue(AccountUnits),
-        # The value of the Account’s open positions represented in the Account’s
-        # home currency.
-        'positionValue': SchemaValue(AccountUnits),
-        # The Account’s margin closeout unrealized PL.
-        'marginCloseoutUnrealizedPL': SchemaValue(AccountUnits),
-        # The Account’s margin closeout NAV.
-        'marginCloseoutNAV': SchemaValue(AccountUnits),
-        # The Account’s margin closeout margin used.
-        'marginCloseoutMarginUsed': SchemaValue(AccountUnits),
-        # The Account’s margin closeout percentage. When this value is 1.0 or above
-        # the Account is in a margin closeout situation.
-        'marginCloseoutPercent': SchemaValue(DecimalNumber),
-        # The value of the Account’s open positions as used for margin closeout
-        # calculations represented in the Account’s home currency.
-        'marginCloseoutPositionValue': SchemaValue(DecimalNumber),
-        # The current WithdrawalLimit for the account which will be zero or a
-        # positive value indicating how much can be withdrawn from the account.
-        'withdrawalLimit': SchemaValue(AccountUnits),
-        # The Account’s margin call margin used.
-        'marginCallMarginUsed': SchemaValue(AccountUnits),
-        # The Account’s margin call percentage. When this value is 1.0 or above the
-        # Account is in a margin call situation.
-        'marginCallPercent': SchemaValue(DecimalNumber),
-        # The ID of the last Transaction created for the Account.
-        'lastTransactionID': SchemaValue(TransactionID),
-        # TODO: This attribute isn't documented in OANDA's website
-        'financing': SchemaValue(DecimalNumber)
+    _summary_format = ''
 
-    }
+    _name_format = ''
+
+    def __init__(self, id: AccountID = None, alias: str = None, currency: Currency = None, balance: AccountUnits = None,
+                 created_by_user_id: int = None, created_time: DateTime = None, pl: AccountUnits = None,
+                 resettable_pl: AccountUnits = None, resettabled_pl_time: DateTime = None,
+                 commission: AccountUnits = None, margin_rate: DecimalNumber = None,
+                 margin_call_enter_time: DateTime = None, margin_call_extension_count: int = None,
+                 last_margin_call_extension_time: DateTime = None, open_trade_count: int = None,
+                 open_position_count: int = None, pending_order_count: int = None, hedging_enabled: bool = None,
+                 unrealized_pl: AccountUnits = None, nav: AccountUnits = None, margin_used: AccountUnits = None,
+                 margin_available: AccountUnits = None, position_value: AccountUnits = None,
+                 margin_closeout_unrealized_pl: AccountUnits = None, margin_closeout_nav: AccountUnits = None,
+                 margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
+                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
+                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
+                 last_transaction_id: TransactionID = None, financing: DecimalNumber = None,
+                 trades: Array(TradeSummary) = None, positions: Array(Position) = None, orders: Array(Order) = None):
+        super().__init__()
 
 
 class MarketOrderRequest(OrderRequest):
-    """A MarketOrderRequest specifies the parameters that may be set when creating
+    """MarketOrderRequest(self, instrument: InstrumentName, units: Unit, type: OrderType=MARKET, time_in_force: TimeInForce=FOK, price_bound: PriceValue=None, position_fill: OrderPositionFill=DEFAULT, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None)
+A MarketOrderRequest specifies the parameters that may be set when creating
     a Market Order.
 
     Attributes:
@@ -2473,58 +1875,22 @@ class MarketOrderRequest(OrderRequest):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} units of {instrument}'
 
-    # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument}'
 
-    _schema = {
-        # The type of the Order to Create. Must be set to “MARKET” when creating a
-        # Market Order.
-        'type': SchemaValue(OrderType, default='MARKET'),
-        # The Market Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Market Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The time-in-force requested for the Market Order. Restricted to FOK or
-        # IOC for a MarketOrder.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='FOK'),
-        # The worst price that the client is willing to have the Market Order
-        # filled at.
-        'priceBound': SchemaValue(PriceValue),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # The client extensions to add to the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # TakeProfitDetails specifies the details of a Take Profit Order to be
-        # created on behalf of a client. This may happen when an Order is filled
-        # that opens a Trade requiring a Take Profit, or when a Trade’s dependent
-        # Take Profit Order is modified directly through the Trade.
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # StopLossDetails specifies the details of a Stop Loss Order to be created
-        # on behalf of a client. This may happen when an Order is filled that opens
-        # a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
-        # Order is modified directly through the Trade.
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # TrailingStopLossDetails specifies the details of a Trailing Stop Loss
-        # Order to be created on behalf of a client. This may happen when an Order
-        # is filled that opens a Trade requiring a Trailing Stop Loss, or when a
-        # Trade’s dependent Trailing Stop Loss Order is modified directly through
-        # the Trade.
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created). Do not set, modify, or delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions)}
+    def __init__(self, instrument: InstrumentName, units: Unit, type: OrderType = 'MARKET',
+                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class TakeProfitOrderTransaction(Transaction):
-    """A TakeProfitOrderTransaction represents the creation of a TakeProfit Order
+    """TakeProfitOrderTransaction(self, trade_id: TradeID, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=TAKE_PROFIT_ORDER, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, reason: TakeProfitOrderReason=None, client_extensions: ClientExtensions=None, order_fill_transaction_id: TransactionID=None, replaces_order_id: OrderID=None, cancelling_transaction_id: TransactionID=None)
+A TakeProfitOrderTransaction represents the creation of a TakeProfit Order
     in the user's Account.
 
     Attributes:
@@ -2559,76 +1925,23 @@ class TakeProfitOrderTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Create Take Profit Order {id} ({reason}): Close Trade {tradeID} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Create Take Profit Order {id} ({reason}): Close Trade {tradeID} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “TAKE_PROFIT_ORDER” in a
-        # TakeProfitOrderTransaction.
-        'type': SchemaValue(TransactionType, default='TAKE_PROFIT_ORDER'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price threshold specified for the TakeProfit Order. The associated
-        # Trade will be closed by a market price that is equal to or better than
-        # this threshold.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the TakeProfit Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for TakeProfit Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the TakeProfit Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Take Profit Order was initiated
-        'reason': SchemaValue(TakeProfitOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the OrderFill Transaction that caused this Order to be created
-        # (only provided if this Order was created automatically when another Order
-        # was filled).
-        'orderFillTransactionID': SchemaValue(TransactionID),
-        # The ID of the Order that this Order replaces (only provided if this Order
-        # replaces an existing Order).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Transaction that cancels the replaced Order (only provided
-        # if this Order replaces an existing Order).
-        'cancellingTransactionID': SchemaValue(TransactionID)}
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
+                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
+                 request_id: RequestID = None, type: TransactionType = 'TAKE_PROFIT_ORDER',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = None,
+                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
+                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
+        super().__init__()
 
 
 class TakeProfitOrder(Order):
-    """A TakeProfitOrder is an order that is linked to an open Trade and created
+    """TakeProfitOrder(self, trade_id: TradeID, price: PriceValue, id: OrderID=None, create_time: DateTime=None, state: OrderState=None, client_extensions: ClientExtensions=None, type: OrderType=TAKE_PROFIT, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, filling_transaction_id: TransactionID=None, filled_time: DateTime=None, trade_opened_id: TradeID=None, trade_reduced_id: TradeID=None, trade_closed_i_ds: Array_TradeID=None, cancelling_transaction_id: TransactionID=None, cancelled_time: DateTime=None, replaces_order_id: OrderID=None, replaced_by_order_id: OrderID=None)
+A TakeProfitOrder is an order that is linked to an open Trade and created
     with a price threshold. The Order will be filled (closing the Trade) by the
     first price that is equal to or better than the threshold. A
     TakeProfitOrder cannot be used to open a new Position.
@@ -2671,87 +1984,24 @@ class TakeProfitOrder(Order):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Take Profit for Trade {tradeID} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Take Profit for Trade {tradeID} @ {price}'
 
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The type of the Order. Always set to “TAKE_PROFIT” for Take Profit
-        # Orders.
-        'type': SchemaValue(OrderType, default='TAKE_PROFIT'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price threshold specified for the TakeProfit Order. The associated
-        # Trade will be closed by a market price that is equal to or better than
-        # this threshold.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the TakeProfit Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for TakeProfit Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the TakeProfit Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # ID of the Transaction that filled this Order (only provided when the
-        # Order’s state is FILLED)
-        'fillingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was filled (only provided when the Order’s state
-        # is FILLED)
-        'filledTime': SchemaValue(DateTime),
-        # Trade ID of Trade opened when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was opened as a result of the
-        # fill)
-        'tradeOpenedID': SchemaValue(TradeID),
-        # Trade ID of Trade reduced when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was reduced as a result of the
-        # fill)
-        'tradeReducedID': SchemaValue(TradeID),
-        # Trade IDs of Trades closed when the Order was filled (only provided when
-        # the Order’s state is FILLED and one or more Trades were closed as a
-        # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
-        # ID of the Transaction that cancelled the Order (only provided when the
-        # Order’s state is CANCELLED)
-        'cancellingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was cancelled (only provided when the state of
-        # the Order is CANCELLED)
-        'cancelledTime': SchemaValue(DateTime),
-        # The ID of the Order that was replaced by this Order (only provided if
-        # this Order was created as part of a cancel/replace).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Order that replaced this Order (only provided if this Order
-        # was cancelled as part of a cancel/replace).
-        'replacedByOrderID': SchemaValue(OrderID)}
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
+                 state: OrderState = None, client_extensions: ClientExtensions = None, type: OrderType = 'TAKE_PROFIT',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = None,
+                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
+                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
+                 replaced_by_order_id: OrderID = None):
+        super().__init__()
 
 
 class StopLossOrder(Order):
-    """A StopLossOrder is an order that is linked to an open Trade and created
+    """StopLossOrder(self, trade_id: TradeID, price: PriceValue, id: OrderID=None, create_time: DateTime=None, state: OrderState=None, client_extensions: ClientExtensions=None, type: OrderType=STOP_LOSS, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, filling_transaction_id: TransactionID=None, filled_time: DateTime=None, trade_opened_id: TradeID=None, trade_reduced_id: TradeID=None, trade_closed_i_ds: Array_TradeID=None, cancelling_transaction_id: TransactionID=None, cancelled_time: DateTime=None, replaces_order_id: OrderID=None, replaced_by_order_id: OrderID=None)
+A StopLossOrder is an order that is linked to an open Trade and created
     with a price threshold. The Order will be filled (closing the Trade) by the
     first price that is equal to or worse than the threshold. A StopLossOrder
     cannot be used to open a new Position.
@@ -2794,86 +2044,24 @@ class StopLossOrder(Order):
 
         """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Stop Loss for Trade {tradeID} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Stop Loss for Trade {tradeID} @ {price}'
 
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The type of the Order. Always set to “STOP_LOSS” for Stop Loss Orders.
-        'type': SchemaValue(OrderType, default='STOP_LOSS'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price threshold specified for the StopLoss Order. The associated
-        # Trade will be closed by a market price that is equal to or worse than
-        # this threshold.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the StopLoss Order. Restricted to “GTC”,
-        # “GFD” and “GTD” for StopLoss Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the StopLoss Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # ID of the Transaction that filled this Order (only provided when the
-        # Order’s state is FILLED)
-        'fillingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was filled (only provided when the Order’s state
-        # is FILLED)
-        'filledTime': SchemaValue(DateTime),
-        # Trade ID of Trade opened when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was opened as a result of the
-        # fill)
-        'tradeOpenedID': SchemaValue(TradeID),
-        # Trade ID of Trade reduced when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was reduced as a result of the
-        # fill)
-        'tradeReducedID': SchemaValue(TradeID),
-        # Trade IDs of Trades closed when the Order was filled (only provided when
-        # the Order’s state is FILLED and one or more Trades were closed as a
-        # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
-        # ID of the Transaction that cancelled the Order (only provided when the
-        # Order’s state is CANCELLED)
-        'cancellingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was cancelled (only provided when the state of
-        # the Order is CANCELLED)
-        'cancelledTime': SchemaValue(DateTime),
-        # The ID of the Order that was replaced by this Order (only provided if
-        # this Order was created as part of a cancel/replace).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Order that replaced this Order (only provided if this Order
-        # was cancelled as part of a cancel/replace).
-        'replacedByOrderID': SchemaValue(OrderID)}
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
+                 state: OrderState = None, client_extensions: ClientExtensions = None, type: OrderType = 'STOP_LOSS',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = None,
+                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
+                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
+                 replaced_by_order_id: OrderID = None):
+        super().__init__()
 
 
 class TrailingStopLossOrder(Order):
-    """A TrailingStopLossOrder is an order that is linked to an open Trade and
+    """TrailingStopLossOrder(self, trade_id: TradeID, distance: PriceValue, id: OrderID=None, create_time: DateTime=None, state: OrderState=None, client_extensions: ClientExtensions=None, type: OrderType=TRAILING_STOP_LOSS, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, trailing_stop_value: PriceValue=None, filling_transaction_id: TransactionID=None, filled_time: DateTime=None, trade_opened_id: TradeID=None, trade_reduced_id: TradeID=None, trade_closed_i_ds: Array_TradeID=None, cancelling_transaction_id: TransactionID=None, cancelled_time: DateTime=None, replaces_order_id: OrderID=None, replaced_by_order_id: OrderID=None)
+A TrailingStopLossOrder is an order that is linked to an open Trade and
     created with a price distance. The price distance is used to calculate a
     trailing stop value for the order that is in the losing direction from the
     market price at the time of the order's creation. The trailing stop value
@@ -2924,91 +2112,26 @@ class TrailingStopLossOrder(Order):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
 
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The type of the Order. Always set to “TRAILING_STOP_LOSS” for Trailing
-        # Stop Loss Orders.
-        'type': SchemaValue(OrderType, default='TRAILING_STOP_LOSS'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price distance specified for the TrailingStopLoss Order.
-        'distance': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the TrailingStopLoss Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for TrailingStopLoss Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the StopLoss Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The trigger price for the Trailing Stop Loss Order. The trailing stop
-        # value will trail follow the market price by the TSL order’s configured
-        # “distance” as the market price moves in the winning direction. If the
-        # market price moves to a level that is equal to or worse than the trailing
-        # stop value, the order will be filled and the Trade will be closed.
-        'trailingStopValue': SchemaValue(PriceValue),
-        # ID of the Transaction that filled this Order (only provided when the
-        # Order’s state is FILLED)
-        'fillingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was filled (only provided when the Order’s state
-        # is FILLED)
-        'filledTime': SchemaValue(DateTime),
-        # Trade ID of Trade opened when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was opened as a result of the
-        # fill)
-        'tradeOpenedID': SchemaValue(TradeID),
-        # Trade ID of Trade reduced when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was reduced as a result of the
-        # fill)
-        'tradeReducedID': SchemaValue(TradeID),
-        # Trade IDs of Trades closed when the Order was filled (only provided when
-        # the Order’s state is FILLED and one or more Trades were closed as a
-        # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
-        # ID of the Transaction that cancelled the Order (only provided when the
-        # Order’s state is CANCELLED)
-        'cancellingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was cancelled (only provided when the state of
-        # the Order is CANCELLED)
-        'cancelledTime': SchemaValue(DateTime),
-        # The ID of the Order that was replaced by this Order (only provided if
-        # this Order was created as part of a cancel/replace).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Order that replaced this Order (only provided if this Order
-        # was cancelled as part of a cancel/replace).
-        'replacedByOrderID': SchemaValue(OrderID)}
+    def __init__(self, trade_id: TradeID, distance: PriceValue, id: OrderID = None, create_time: DateTime = None,
+                 state: OrderState = None, client_extensions: ClientExtensions = None,
+                 type: OrderType = 'TRAILING_STOP_LOSS', client_trade_id: ClientID = None,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = None,
+                 filling_transaction_id: TransactionID = None, filled_time: DateTime = None,
+                 trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
+                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
+                 replaced_by_order_id: OrderID = None):
+        super().__init__()
 
 
 class Trade(Model):
-    """The specification of a Trade within an Account. This includes the full
+    """Trade(self, id: TradeID=None, instrument: InstrumentName=None, price: PriceValue=None, open_time: DateTime=None, state: TradeState=None, initial_units: DecimalNumber=None, current_units: DecimalNumber=None, realized_pl: AccountUnits=None, unrealized_pl: AccountUnits=None, average_close_price: PriceValue=None, closing_transaction_i_ds: Array_TransactionID=None, financing: AccountUnits=None, close_time: DateTime=None, client_extensions: ClientExtensions=None, take_profit_order: TakeProfitOrder=None, stop_loss_order: StopLossOrder=None, trailing_stop_loss_order: TrailingStopLossOrder=None)
+The specification of a Trade within an Account. This includes the full
     representation of the Trade's dependent Orders in addition to the IDs of
     those Orders.
 
@@ -3040,58 +2163,24 @@ class Trade(Model):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
 
-    _schema = {
-        # The Trade’s identifier, unique within the Trade’s Account.
-        'id': SchemaValue(TradeID),
-        # The Trade’s Instrument.
-        'instrument': SchemaValue(InstrumentName),
-        # The execution price of the Trade.
-        'price': SchemaValue(PriceValue),
-        # The date/time when the Trade was opened.
-        'openTime': SchemaValue(DateTime),
-        # The current state of the Trade.
-        'state': SchemaValue(TradeState),
-        # The initial size of the Trade. Negative values indicate a short Trade,
-        # and positive values indicate a long Trade.
-        'initialUnits': SchemaValue(DecimalNumber),
-        # The number of units currently open for the Trade. This value is reduced
-        # to 0.0 as the Trade is closed.
-        'currentUnits': SchemaValue(DecimalNumber),
-        # The total profit/loss realized on the closed portion of the Trade.
-        'realizedPL': SchemaValue(AccountUnits),
-        # The unrealized profit/loss on the open portion of the Trade.
-        'unrealizedPL': SchemaValue(AccountUnits),
-        # The average closing price of the Trade. Only present if the Trade has
-        # been closed or reduced at least once.
-        'averageClosePrice': SchemaValue(PriceValue),
-        # The IDs of the Transactions that have closed portions of this Trade.
-        'closingTransactionIDs': SchemaValue(Array(TransactionID)),
-        # The financing paid/collected for this Trade.
-        'financing': SchemaValue(AccountUnits),
-        # The date/time when the Trade was fully closed. Only provided for Trades
-        # whose state is CLOSED.
-        'closeTime': SchemaValue(DateTime),
-        # The client extensions of the Trade.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # Full representation of the Trade’s Take Profit Order, only provided if
-        # such an Order exists.
-        'takeProfitOrder': SchemaValue(TakeProfitOrder),
-        # Full representation of the Trade’s Stop Loss Order, only provided if such
-        # an Order exists.
-        'stopLossOrder': SchemaValue(StopLossOrder),
-        # Full representation of the Trade’s Trailing Stop Loss Order, only
-        # provided if such an Order exists.
-        'trailingStopLossOrder': SchemaValue(TrailingStopLossOrder)}
+    def __init__(self, id: TradeID = None, instrument: InstrumentName = None, price: PriceValue = None,
+                 open_time: DateTime = None, state: TradeState = None, initial_units: DecimalNumber = None,
+                 current_units: DecimalNumber = None, realized_pl: AccountUnits = None,
+                 unrealized_pl: AccountUnits = None, average_close_price: PriceValue = None,
+                 closing_transaction_i_ds: Array(TransactionID) = None, financing: AccountUnits = None,
+                 close_time: DateTime = None, client_extensions: ClientExtensions = None,
+                 take_profit_order: TakeProfitOrder = None, stop_loss_order: StopLossOrder = None,
+                 trailing_stop_loss_order: TrailingStopLossOrder = None):
+        super().__init__()
 
 
 class ClientConfigureRejectTransaction(Transaction):
-    """A ClientConfigureRejectTransaction represents the reject of configuration
+    """ClientConfigureRejectTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=CLIENT_CONFIGURE_REJECT, alias: str=None, margin_rate: DecimalNumber=None, reject_reason: TransactionRejectReason=None)
+A ClientConfigureRejectTransaction represents the reject of configuration
     of an Account by a client.
 
     Attributes:
@@ -3110,39 +2199,20 @@ class ClientConfigureRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Client Configure Reject'
 
-    # Format string used when generating a name for this object
     _name_format = 'Client Configure Reject'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “CLIENT_CONFIGURE_REJECT” in a
-        # ClientConfigureRejectTransaction.
-        'type': SchemaValue(TransactionType, default='CLIENT_CONFIGURE_REJECT'),
-        # The client-provided alias for the Account.
-        'alias': SchemaValue(string),
-        # The margin rate override for the Account.
-        'marginRate': SchemaValue(DecimalNumber),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'CLIENT_CONFIGURE_REJECT', alias: str = None,
+                 margin_rate: DecimalNumber = None, reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class OrderCancelRejectTransaction(Transaction):
-    """An OrderCancelRejectTransaction represents the rejection of the
+    """OrderCancelRejectTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=ORDER_CANCEL_REJECT, order_id: OrderID=None, client_order_id: OrderID=None, reason: OrderCancelReason=None, reject_reason: TransactionRejectReason=None)
+An OrderCancelRejectTransaction represents the rejection of the
     cancellation of an Order in the client's Account.
 
     Attributes:
@@ -3163,42 +2233,21 @@ class OrderCancelRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Order Cancel Reject {orderID}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Order Cancel Reject {orderID}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “ORDER_CANCEL_REJECT” for an
-        # OrderCancelRejectTransaction.
-        'type': SchemaValue(TransactionType, default='ORDER_CANCEL_REJECT'),
-        # The ID of the Order intended to be cancelled
-        'orderID': SchemaValue(OrderID),
-        # The client ID of the Order intended to be cancelled (only provided if the
-        # Order has a client Order ID).
-        'clientOrderID': SchemaValue(OrderID),
-        # The reason that the Order was to be cancelled.
-        'reason': SchemaValue(OrderCancelReason),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'ORDER_CANCEL_REJECT', order_id: OrderID = None,
+                 client_order_id: OrderID = None, reason: OrderCancelReason = None,
+                 reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class OrderClientExtensionsModifyRejectTransaction(Transaction):
-    """A OrderClientExtensionsModifyRejectTransaction represents the rejection of
+    """OrderClientExtensionsModifyRejectTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT, order_id: OrderID=None, client_order_id: ClientID=None, client_extensions_modify: ClientExtensions=None, trade_client_extensions_modify: ClientExtensions=None, reject_reason: TransactionRejectReason=None)
+A OrderClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of an Order's Client Extensions.
 
     Attributes:
@@ -3219,45 +2268,22 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject Modify Order {orderID} Client Extensions'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject Modify Order {orderID} Client Extensions'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to
-        # “ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT” for a
-        # OrderClientExtensionsModifyRejectTransaction.
-        'type': SchemaValue(TransactionType, default='ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT'),
-        # The ID of the Order who’s client extensions are to be modified.
-        'orderID': SchemaValue(OrderID),
-        # The original Client ID of the Order who’s client extensions are to be
-        # modified.
-        'clientOrderID': SchemaValue(ClientID),
-        # The new Client Extensions for the Order.
-        'clientExtensionsModify': SchemaValue(ClientExtensions),
-        # The new Client Extensions for the Order’s Trade on fill.
-        'tradeClientExtensionsModify': SchemaValue(ClientExtensions),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT', order_id: OrderID = None,
+                 client_order_id: ClientID = None, client_extensions_modify: ClientExtensions = None,
+                 trade_client_extensions_modify: ClientExtensions = None,
+                 reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class TradeClientExtensionsModifyRejectTransaction(Transaction):
-    """A TradeClientExtensionsModifyRejectTransaction represents the rejection of
+    """TradeClientExtensionsModifyRejectTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT, trade_id: TradeID=None, client_trade_id: ClientID=None, trade_client_extensions_modify: ClientExtensions=None, reject_reason: TransactionRejectReason=None)
+A TradeClientExtensionsModifyRejectTransaction represents the rejection of
     the modification of a Trade's Client Extensions.
 
     Attributes:
@@ -3277,43 +2303,21 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject Modify Trade {tradeID} Client Extensions'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject Modify Trade {tradeID} Client Extensions'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to
-        # “TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT” for a
-        # TradeClientExtensionsModifyRejectTransaction.
-        'type': SchemaValue(TransactionType, default='TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT'),
-        # The ID of the Trade who’s client extensions are to be modified.
-        'tradeID': SchemaValue(TradeID),
-        # The original Client ID of the Trade who’s client extensions are to be
-        # modified.
-        'clientTradeID': SchemaValue(ClientID),
-        # The new Client Extensions for the Trade.
-        'tradeClientExtensionsModify': SchemaValue(ClientExtensions),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT', trade_id: TradeID = None,
+                 client_trade_id: ClientID = None, trade_client_extensions_modify: ClientExtensions = None,
+                 reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class TransferFundsTransaction(Transaction):
-    """A TransferFundsTransaction represents the transfer of funds in/out of an
+    """TransferFundsTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=TRANSFER_FUNDS, amount: AccountUnits=None, funding_reason: FundingReason=None, comment: str=None, account_balance: AccountUnits=None)
+A TransferFundsTransaction represents the transfer of funds in/out of an
     Account.
 
     Attributes:
@@ -3334,44 +2338,20 @@ class TransferFundsTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Account Transfer of {amount}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Account Transfer of {amount}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “TRANSFER_FUNDS” in a
-        # TransferFundsTransaction.
-        'type': SchemaValue(TransactionType, default='TRANSFER_FUNDS'),
-        # The amount to deposit/withdraw from the Account in the Account’s home
-        # currency. A positive value indicates a deposit, a negative value
-        # indicates a withdrawal.
-        'amount': SchemaValue(AccountUnits),
-        # The reason that an Account is being funded.
-        'fundingReason': SchemaValue(FundingReason),
-        # An optional comment that may be attached to a fund transfer for audit
-        # purposes
-        'comment': SchemaValue(string),
-        # The Account’s balance after funds are transferred.
-        'accountBalance': SchemaValue(AccountUnits)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'TRANSFER_FUNDS', amount: AccountUnits = None,
+                 funding_reason: FundingReason = None, comment: str = None, account_balance: AccountUnits = None):
+        super().__init__()
 
 
 class TransferFundsRejectTransaction(Transaction):
-    """A TransferFundsRejectTransaction represents the rejection of the transfer
+    """TransferFundsRejectTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=TRANSFER_FUNDS_REJECT, amount: AccountUnits=None, funding_reason: FundingReason=None, comment: str=None, reject_reason: TransactionRejectReason=None)
+A TransferFundsRejectTransaction represents the rejection of the transfer
     of funds in/out of an Account.
 
     Attributes:
@@ -3392,44 +2372,21 @@ class TransferFundsRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Account Reject Transfer of {amount}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Account Reject Transfer of {amount}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “TRANSFER_FUNDS_REJECT” in a
-        # TransferFundsRejectTransaction.
-        'type': SchemaValue(TransactionType, default='TRANSFER_FUNDS_REJECT'),
-        # The amount to deposit/withdraw from the Account in the Account’s home
-        # currency. A positive value indicates a deposit, a negative value
-        # indicates a withdrawal.
-        'amount': SchemaValue(AccountUnits),
-        # The reason that an Account is being funded.
-        'fundingReason': SchemaValue(FundingReason),
-        # An optional comment that may be attached to a fund transfer for audit
-        # purposes
-        'comment': SchemaValue(string),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'TRANSFER_FUNDS_REJECT', amount: AccountUnits = None,
+                 funding_reason: FundingReason = None, comment: str = None,
+                 reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class LimitOrderRequest(OrderRequest):
-    """A LimitOrderRequest specifies the parameters that may be set when creating
+    """LimitOrderRequest(self, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType=LIMIT, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None)
+A LimitOrderRequest specifies the parameters that may be set when creating
     a Limit Order.
 
     Attributes:
@@ -3467,74 +2424,22 @@ class LimitOrderRequest(OrderRequest):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} units of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    _schema = {
-        # The type of the Order to Create. Must be set to “LIMIT” when creating a
-        # Market Order.
-        'type': SchemaValue(OrderType, default='LIMIT'),
-        # The Limit Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Limit Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the Limit Order. The Limit Order will
-        # only be filled by a market price that is equal to or better than this
-        # price.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the Limit Order.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the Limit Order will be cancelled if its timeInForce
-        # is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The client extensions to add to the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # TakeProfitDetails specifies the details of a Take Profit Order to be
-        # created on behalf of a client. This may happen when an Order is filled
-        # that opens a Trade requiring a Take Profit, or when a Trade’s dependent
-        # Take Profit Order is modified directly through the Trade.
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # StopLossDetails specifies the details of a Stop Loss Order to be created
-        # on behalf of a client. This may happen when an Order is filled that opens
-        # a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
-        # Order is modified directly through the Trade.
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # TrailingStopLossDetails specifies the details of a Trailing Stop Loss
-        # Order to be created on behalf of a client. This may happen when an Order
-        # is filled that opens a Trade requiring a Trailing Stop Loss, or when a
-        # Trade’s dependent Trailing Stop Loss Order is modified directly through
-        # the Trade.
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created). Do not set, modify, or delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType = 'LIMIT',
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class MarketIfTouchedOrderRequest(OrderRequest):
-    """A MarketIfTouchedOrderRequest specifies the parameters that may be set when
+    """MarketIfTouchedOrderRequest(self, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType=MARKET_IF_TOUCHED, price_bound: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None)
+A MarketIfTouchedOrderRequest specifies the parameters that may be set when
     creating a Market-if-Touched Order.
 
     Attributes:
@@ -3576,81 +2481,23 @@ class MarketIfTouchedOrderRequest(OrderRequest):
 
         """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} units of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    _schema = {
-        # The type of the Order to Create. Must be set to “MARKET_IF_TOUCHED” when
-        # creating a Market If Touched Order.
-        'type': SchemaValue(OrderType, default='MARKET_IF_TOUCHED'),
-        # The MarketIfTouched Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the MarketIfTouched Order. A
-        # posititive number of units results in a long Order, and a negative number
-        # of units results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the MarketIfTouched Order. The
-        # MarketIfTouched Order will only be filled by a market price that crosses
-        # this price from the direction of the market price at the time when the
-        # Order was created (the initialMarketPrice). Depending on the value of the
-        # Order’s price and initialMarketPrice, the MarketIfTouchedOrder will
-        # behave like a Limit or a Stop Order.
-        'price': SchemaValue(PriceValue, required=True),
-        # The worst market price that may be used to fill this MarketIfTouched
-        # Order.
-        'priceBound': SchemaValue(PriceValue),
-        # The time-in-force requested for the MarketIfTouched Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for MarketIfTouched Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the MarketIfTouched Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The client extensions to add to the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # TakeProfitDetails specifies the details of a Take Profit Order to be
-        # created on behalf of a client. This may happen when an Order is filled
-        # that opens a Trade requiring a Take Profit, or when a Trade’s dependent
-        # Take Profit Order is modified directly through the Trade.
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # StopLossDetails specifies the details of a Stop Loss Order to be created
-        # on behalf of a client. This may happen when an Order is filled that opens
-        # a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
-        # Order is modified directly through the Trade.
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # TrailingStopLossDetails specifies the details of a Trailing Stop Loss
-        # Order to be created on behalf of a client. This may happen when an Order
-        # is filled that opens a Trade requiring a Trailing Stop Loss, or when a
-        # Trade’s dependent Trailing Stop Loss Order is modified directly through
-        # the Trade.
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created). Do not set, modify, or delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue,
+                 type: OrderType = 'MARKET_IF_TOUCHED', price_bound: PriceValue = None,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class StopOrderRequest(OrderRequest):
-    """A StopOrderRequest specifies the parameters that may be set when creating a
+    """StopOrderRequest(self, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType=STOP, price_bound: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None)
+A StopOrderRequest specifies the parameters that may be set when creating a
     Stop Order.
 
     Attributes:
@@ -3690,78 +2537,104 @@ class StopOrderRequest(OrderRequest):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} units of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    _schema = {
-        # The type of the Order to Create. Must be set to “STOP” when creating a
-        # Stop Order.
-        'type': SchemaValue(OrderType, default='STOP'),
-        # The Stop Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Stop Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the Stop Order. The Stop Order will
-        # only be filled by a market price that is equal to or worse than this
-        # price.
-        'price': SchemaValue(PriceValue, required=True),
-        # The worst market price that may be used to fill this Stop Order. If the
-        # market gaps and crosses through both the price and the priceBound, the
-        # Stop Order will be cancelled instead of being filled.
-        'priceBound': SchemaValue(PriceValue),
-        # The time-in-force requested for the Stop Order.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the Stop Order will be cancelled if its timeInForce is
-        # “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The client extensions to add to the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # TakeProfitDetails specifies the details of a Take Profit Order to be
-        # created on behalf of a client. This may happen when an Order is filled
-        # that opens a Trade requiring a Take Profit, or when a Trade’s dependent
-        # Take Profit Order is modified directly through the Trade.
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # StopLossDetails specifies the details of a Stop Loss Order to be created
-        # on behalf of a client. This may happen when an Order is filled that opens
-        # a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
-        # Order is modified directly through the Trade.
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # TrailingStopLossDetails specifies the details of a Trailing Stop Loss
-        # Order to be created on behalf of a client. This may happen when an Order
-        # is filled that opens a Trade requiring a Trailing Stop Loss, or when a
-        # Trade’s dependent Trailing Stop Loss Order is modified directly through
-        # the Trade.
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created). Do not set, modify, or delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType = 'STOP',
+                 price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None):
+        super().__init__()
+
+
+class Account(AccountSummary):
+    """Account(self, id: AccountID=None, alias: str=None, currency: Currency=None, balance: AccountUnits=None, created_by_user_id: int=None, created_time: DateTime=None, pl: AccountUnits=None, resettable_pl: AccountUnits=None, resettabled_pl_time: DateTime=None, commission: AccountUnits=None, margin_rate: DecimalNumber=None, margin_call_enter_time: DateTime=None, margin_call_extension_count: int=None, last_margin_call_extension_time: DateTime=None, open_trade_count: int=None, open_position_count: int=None, pending_order_count: int=None, hedging_enabled: bool=None, unrealized_pl: AccountUnits=None, nav: AccountUnits=None, margin_used: AccountUnits=None, margin_available: AccountUnits=None, position_value: AccountUnits=None, margin_closeout_unrealized_pl: AccountUnits=None, margin_closeout_nav: AccountUnits=None, margin_closeout_margin_used: AccountUnits=None, margin_closeout_percent: DecimalNumber=None, margin_closeout_position_value: DecimalNumber=None, withdrawal_limit: AccountUnits=None, margin_call_margin_used: AccountUnits=None, margin_call_percent: DecimalNumber=None, last_transaction_id: TransactionID=None, trades: Array_TradeSummary=None, positions: Array_Position=None, orders: Array_Order=None, financing: DecimalNumber=None)
+The full details of a client's Account. This includes full open Trade, open
+    Position and pending Order representation.
+
+    Attributes:
+        id: -- The Account's identifier
+        alias: -- Client-assigned alias for the Account. Only provided
+            if the Account has an alias set
+        currency: -- The home currency of the Account
+        balance: -- The current balance of the Account. Represented in the Account's home currency.
+        created_by_user_id: -- ID of the user that created the Account.
+        created_time: -- The date/time when the Account was created.
+        pl: -- The total profit/loss realized over the lifetime of
+            the Account. Represented in the Account's home currency.
+        resettable_pl: -- The total realized profit/loss for the Account since it was
+            last reset by the client. Represented in the Account's home currency.
+        resettabled_pl_time: -- The date/time that the Account's resettablePL was last reset.
+        commission: -- The total amount of commission paid over the lifetime
+            of the Account. Represented in the Account's home currency.
+        margin_rate: -- Client-provided margin rate override for the Account. The effective margin rate of the Account
+            is the lesser of this value and
+            the OANDA margin rate for the Account's division. This value is only provided if a margin rate override
+            exists for the Account.
+        margin_call_enter_time: -- The date/time when the Account entered a margin call state.
+            Only provided if the Account is in a margin call.
+        margin_call_extension_count: -- The number of times that the Account's current margin call was extended.
+        last_margin_call_extension_time: -- The date/time of the Account's last margin call extension.
+        open_trade_count: -- The number of Trades currently open in the Account.
+        open_position_count: -- The number of Positions currently open in the Account.
+        pending_order_count: -- The number of Orders currently pending in the Account.
+        hedging_enabled: -- Flag indicating that the Account has hedging enabled.
+        unrealized_pl: -- The total unrealized profit/loss for all Trades currently open
+            in the Account. Represented in the Account's home currency.
+        nav: -- The net asset value of the Account. Equal to
+            Account balance + unrealizedPL. Represented in the Account's home currency.
+        margin_used: -- Margin currently used for the Account.
+            Represented in the Account's home currency.
+        margin_available: -- Margin available for Account. Represented in the Account's home currency.
+        position_value: -- The value of the Account's open
+            positions represented in the Account's home currency.
+        margin_closeout_unrealized_pl: -- The Account's margin closeout unrealized PL.
+        margin_closeout_nav: -- The Account's margin closeout NAV.
+        margin_closeout_margin_used: -- The Account's margin closeout margin used.
+        margin_closeout_percent: -- The Account's margin closeout percentage. When this value is 1.0
+            or above the Account is in a margin closeout situation.
+        margin_closeout_position_value: -- The value of the Account's open positions as used
+            for margin closeout calculations represented in the Account's home currency.
+        withdrawal_limit: -- The current WithdrawalLimit for the account which will be zero or
+            a positive value indicating how much can be withdrawn from the account.
+        margin_call_margin_used: -- The Account's margin call margin used.
+        margin_call_percent: -- The Account's margin call percentage. When this value is 1.0
+            or above the Account is in a margin call situation.
+        last_transaction_id: -- The ID of the last Transaction created for the Account.
+        trades: -- The details of the Trades currently open in the Account.
+        positions: -- The details all Account Positions.
+        orders: -- The details of the Orders currently pending in the Account.
+
+    """
+
+    _summary_format = 'Account {id}'
+
+    _name_format = ''
+
+    def __init__(self, id: AccountID = None, alias: str = None, currency: Currency = None, balance: AccountUnits = None,
+                 created_by_user_id: int = None, created_time: DateTime = None, pl: AccountUnits = None,
+                 resettable_pl: AccountUnits = None, resettabled_pl_time: DateTime = None,
+                 commission: AccountUnits = None, margin_rate: DecimalNumber = None,
+                 margin_call_enter_time: DateTime = None, margin_call_extension_count: int = None,
+                 last_margin_call_extension_time: DateTime = None, open_trade_count: int = None,
+                 open_position_count: int = None, pending_order_count: int = None, hedging_enabled: bool = None,
+                 unrealized_pl: AccountUnits = None, nav: AccountUnits = None, margin_used: AccountUnits = None,
+                 margin_available: AccountUnits = None, position_value: AccountUnits = None,
+                 margin_closeout_unrealized_pl: AccountUnits = None, margin_closeout_nav: AccountUnits = None,
+                 margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
+                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
+                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
+                 last_transaction_id: TransactionID = None, trades: Array(TradeSummary) = None,
+                 positions: Array(Position) = None, orders: Array(Order) = None, financing: DecimalNumber = None):
+        super().__init__()
 
 
 class MarketOrderTransaction(Transaction):
-    """A MarketOrderTransaction represents the creation of a Market Order in the
+    """MarketOrderTransaction(self, instrument: InstrumentName, units: Unit, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=MARKET_ORDER, time_in_force: TimeInForce=FOK, price_bound: PriceValue=None, position_fill: OrderPositionFill=DEFAULT, trade_close: MarketOrderTradeClose=None, long_position_closeout: MarketOrderPositionCloseout=None, short_position_closeout: MarketOrderPositionCloseout=None, margin_closeout: MarketOrderMarginCloseout=None, delayed_trade_close: MarketOrderDelayedTradeClose=None, reason: MarketOrderReason=None, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None)
+A MarketOrderTransaction represents the creation of a Market Order in the
     user's account. A Market Order is an Order that is filled immediately at
     the current market price. Market Orders can be specialized when they are
     created to accomplish a specific tas': 'to' close a Trade, to closeout a
@@ -3807,81 +2680,28 @@ class MarketOrderTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Create Market Order {id} ({reason}): {units} of {instrument}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Create Market Order {id} ({reason}): {units} of {instrument}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “MARKET_ORDER” in a
-        # MarketOrderTransaction.
-        'type': SchemaValue(TransactionType, default='MARKET_ORDER'),
-        # The Market Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Market Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The time-in-force requested for the Market Order. Restricted to FOK or
-        # IOC for a MarketOrder.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='FOK'),
-        # The worst price that the client is willing to have the Market Order
-        # filled at.
-        'priceBound': SchemaValue(PriceValue),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Details of the Trade requested to be closed, only provided when the
-        # Market Order is being used to explicitly close a Trade.
-        'tradeClose': SchemaValue(MarketOrderTradeClose),
-        # Details of the long Position requested to be closed out, only provided
-        # when a Market Order is being used to explicitly closeout a long Position.
-        'longPositionCloseout': SchemaValue(MarketOrderPositionCloseout),
-        # Details of the short Position requested to be closed out, only provided
-        # when a Market Order is being used to explicitly closeout a short
-        # Position.
-        'shortPositionCloseout': SchemaValue(MarketOrderPositionCloseout),
-        # Details of the Margin Closeout that this Market Order was created for
-        'marginCloseout': SchemaValue(MarketOrderMarginCloseout),
-        # Details of the delayed Trade close that this Market Order was created for
-        'delayedTradeClose': SchemaValue(MarketOrderDelayedTradeClose),
-        # The reason that the Market Order was created
-        'reason': SchemaValue(MarketOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The specification of the Take Profit Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # The specification of the Stop Loss Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # The specification of the Trailing Stop Loss Order that should be created
-        # for a Trade that is opened when the Order is filled (if such a Trade is
-        # created).
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created).  Do not set, modify, delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions)}
+    def __init__(self, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
+                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
+                 request_id: RequestID = None, type: TransactionType = 'MARKET_ORDER',
+                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = None,
+                 long_position_closeout: MarketOrderPositionCloseout = None,
+                 short_position_closeout: MarketOrderPositionCloseout = None,
+                 margin_closeout: MarketOrderMarginCloseout = None,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = None, reason: MarketOrderReason = None,
+                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None):
+        super().__init__()
 
 
 class MarketOrderRejectTransaction(Transaction):
-    """A MarketOrderRejectTransaction represents the rejection of the creation of
+    """MarketOrderRejectTransaction(self, instrument: InstrumentName, units: Unit, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=MARKET_ORDER_REJECT, time_in_force: TimeInForce=FOK, price_bound: PriceValue=None, position_fill: OrderPositionFill=DEFAULT, trade_close: MarketOrderTradeClose=None, long_position_closeout: MarketOrderPositionCloseout=None, short_position_closeout: MarketOrderPositionCloseout=None, margin_closeout: MarketOrderMarginCloseout=None, delayed_trade_close: MarketOrderDelayedTradeClose=None, reason: MarketOrderReason=None, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, reject_reason: TransactionRejectReason=None)
+A MarketOrderRejectTransaction represents the rejection of the creation of
     a Market Order.
 
     Attributes:
@@ -3925,83 +2745,28 @@ class MarketOrderRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject Market Order ({reason}): {units} of {instrument}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject Market Order ({reason}): {units} of {instrument}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “MARKET_ORDER_REJECT” in a
-        # MarketOrderRejectTransaction.
-        'type': SchemaValue(TransactionType, default='MARKET_ORDER_REJECT'),
-        # The Market Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Market Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The time-in-force requested for the Market Order. Restricted to FOK or
-        # IOC for a MarketOrder.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='FOK'),
-        # The worst price that the client is willing to have the Market Order
-        # filled at.
-        'priceBound': SchemaValue(PriceValue),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Details of the Trade requested to be closed, only provided when the
-        # Market Order is being used to explicitly close a Trade.
-        'tradeClose': SchemaValue(MarketOrderTradeClose),
-        # Details of the long Position requested to be closed out, only provided
-        # when a Market Order is being used to explicitly closeout a long Position.
-        'longPositionCloseout': SchemaValue(MarketOrderPositionCloseout),
-        # Details of the short Position requested to be closed out, only provided
-        # when a Market Order is being used to explicitly closeout a short
-        # Position.
-        'shortPositionCloseout': SchemaValue(MarketOrderPositionCloseout),
-        # Details of the Margin Closeout that this Market Order was created for
-        'marginCloseout': SchemaValue(MarketOrderMarginCloseout),
-        # Details of the delayed Trade close that this Market Order was created for
-        'delayedTradeClose': SchemaValue(MarketOrderDelayedTradeClose),
-        # The reason that the Market Order was created
-        'reason': SchemaValue(MarketOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The specification of the Take Profit Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # The specification of the Stop Loss Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # The specification of the Trailing Stop Loss Order that should be created
-        # for a Trade that is opened when the Order is filled (if such a Trade is
-        # created).
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created).  Do not set, modify, delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
+                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
+                 request_id: RequestID = None, type: TransactionType = 'MARKET_ORDER_REJECT',
+                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = None,
+                 long_position_closeout: MarketOrderPositionCloseout = None,
+                 short_position_closeout: MarketOrderPositionCloseout = None,
+                 margin_closeout: MarketOrderMarginCloseout = None,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = None, reason: MarketOrderReason = None,
+                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class StopLossOrderTransaction(Transaction):
-    """A StopLossOrderTransaction represents the creation of a StopLoss Order in
+    """StopLossOrderTransaction(self, trade_id: TradeID, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=STOP_LOSS_ORDER, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, reason: StopLossOrderReason=None, client_extensions: ClientExtensions=None, order_fill_transaction_id: TransactionID=None, replaces_order_id: OrderID=None, cancelling_transaction_id: TransactionID=None)
+A StopLossOrderTransaction represents the creation of a StopLoss Order in
     the user's Account.
 
     Attributes:
@@ -4036,76 +2801,23 @@ class StopLossOrderTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Create Stop Loss Order {id} ({reason}): Close Trade {tradeID} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Create Stop Loss Order {id} ({reason}): Close Trade {tradeID} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “STOP_LOSS_ORDER” in a
-        # StopLossOrderTransaction.
-        'type': SchemaValue(TransactionType, default='STOP_LOSS_ORDER'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price threshold specified for the StopLoss Order. The associated
-        # Trade will be closed by a market price that is equal to or worse than
-        # this threshold.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the StopLoss Order. Restricted to “GTC”,
-        # “GFD” and “GTD” for StopLoss Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the StopLoss Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Stop Loss Order was initiated
-        'reason': SchemaValue(StopLossOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the OrderFill Transaction that caused this Order to be created
-        # (only provided if this Order was created automatically when another Order
-        # was filled).
-        'orderFillTransactionID': SchemaValue(TransactionID),
-        # The ID of the Order that this Order replaces (only provided if this Order
-        # replaces an existing Order).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Transaction that cancels the replaced Order (only provided
-        # if this Order replaces an existing Order).
-        'cancellingTransactionID': SchemaValue(TransactionID)}
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
+                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
+                 request_id: RequestID = None, type: TransactionType = 'STOP_LOSS_ORDER',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = None,
+                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
+                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
+        super().__init__()
 
 
 class TrailingStopLossOrderTransaction(Transaction):
-    """A TrailingStopLossOrderTransaction represents the creation of a
+    """TrailingStopLossOrderTransaction(self, trade_id: TradeID, distance: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=TRAILING_STOP_LOSS_ORDER, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, reason: TrailingStopLossOrderReason=None, client_extensions: ClientExtensions=None, order_fill_transaction_id: TransactionID=None, replaces_order_id: OrderID=None, cancelling_transaction_id: TransactionID=None)
+A TrailingStopLossOrderTransaction represents the creation of a
     TrailingStopLoss Order in the user's Account.
 
     Attributes:
@@ -4139,74 +2851,23 @@ class TrailingStopLossOrderTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Create Trailing Stop Loss Order {id} ({reason}): Close Trade {tradeID}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Create Trailing Stop Loss Order {id} ({reason}): Close Trade {tradeID}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “TRAILING_STOP_LOSS_ORDER” in
-        # a TrailingStopLossOrderTransaction.
-        'type': SchemaValue(TransactionType, default='TRAILING_STOP_LOSS_ORDER'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price distance specified for the TrailingStopLoss Order.
-        'distance': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the TrailingStopLoss Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for TrailingStopLoss Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the StopLoss Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Trailing Stop Loss Order was initiated
-        'reason': SchemaValue(TrailingStopLossOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the OrderFill Transaction that caused this Order to be created
-        # (only provided if this Order was created automatically when another Order
-        # was filled).
-        'orderFillTransactionID': SchemaValue(TransactionID),
-        # The ID of the Order that this Order replaces (only provided if this Order
-        # replaces an existing Order).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Transaction that cancels the replaced Order (only provided
-        # if this Order replaces an existing Order).
-        'cancellingTransactionID': SchemaValue(TransactionID)}
+    def __init__(self, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
+                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
+                 request_id: RequestID = None, type: TransactionType = 'TRAILING_STOP_LOSS_ORDER',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = None,
+                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
+                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
+        super().__init__()
 
 
 class LimitOrder(Order):
-    """A LimitOrder is an order that is created with a price threshold, and will
+    """LimitOrder(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID=None, create_time: DateTime=None, state: OrderState=None, client_extensions: ClientExtensions=None, type: OrderType=LIMIT, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, filling_transaction_id: TransactionID=None, filled_time: DateTime=None, trade_opened_id: TradeID=None, trade_reduced_id: TradeID=None, trade_closed_i_ds: Array_TradeID=None, cancelling_transaction_id: TransactionID=None, cancelled_time: DateTime=None, replaces_order_id: OrderID=None, replaced_by_order_id: OrderID=None)
+A LimitOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or better than the threshold.
 
     Attributes:
@@ -4264,109 +2925,27 @@ class LimitOrder(Order):
 
         """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} units of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The type of the Order. Always set to “LIMIT” for Limit Orders.
-        'type': SchemaValue(OrderType, default='LIMIT'),
-        # The Limit Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Limit Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the Limit Order. The Limit Order will
-        # only be filled by a market price that is equal to or better than this
-        # price.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the Limit Order.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the Limit Order will be cancelled if its timeInForce
-        # is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # TakeProfitDetails specifies the details of a Take Profit Order to be
-        # created on behalf of a client. This may happen when an Order is filled
-        # that opens a Trade requiring a Take Profit, or when a Trade’s dependent
-        # Take Profit Order is modified directly through the Trade.
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # StopLossDetails specifies the details of a Stop Loss Order to be created
-        # on behalf of a client. This may happen when an Order is filled that opens
-        # a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
-        # Order is modified directly through the Trade.
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # TrailingStopLossDetails specifies the details of a Trailing Stop Loss
-        # Order to be created on behalf of a client. This may happen when an Order
-        # is filled that opens a Trade requiring a Trailing Stop Loss, or when a
-        # Trade’s dependent Trailing Stop Loss Order is modified directly through
-        # the Trade.
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created). Do not set, modify, or delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # ID of the Transaction that filled this Order (only provided when the
-        # Order’s state is FILLED)
-        'fillingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was filled (only provided when the Order’s state
-        # is FILLED)
-        'filledTime': SchemaValue(DateTime),
-        # Trade ID of Trade opened when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was opened as a result of the
-        # fill)
-        'tradeOpenedID': SchemaValue(TradeID),
-        # Trade ID of Trade reduced when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was reduced as a result of the
-        # fill)
-        'tradeReducedID': SchemaValue(TradeID),
-        # Trade IDs of Trades closed when the Order was filled (only provided when
-        # the Order’s state is FILLED and one or more Trades were closed as a
-        # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
-        # ID of the Transaction that cancelled the Order (only provided when the
-        # Order’s state is CANCELLED)
-        'cancellingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was cancelled (only provided when the state of
-        # the Order is CANCELLED)
-        'cancelledTime': SchemaValue(DateTime),
-        # The ID of the Order that was replaced by this Order (only provided if
-        # this Order was created as part of a cancel/replace).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Order that replaced this Order (only provided if this Order
-        # was cancelled as part of a cancel/replace).
-        'replacedByOrderID': SchemaValue(OrderID)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
+                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
+                 type: OrderType = 'LIMIT', time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
+                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
+                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
+                 replaced_by_order_id: OrderID = None):
+        super().__init__()
 
 
 class MarketIfTouchedOrder(Order):
-    """A MarketIfTouchedOrder is an order that is created with a price threshold,
+    """MarketIfTouchedOrder(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID=None, create_time: DateTime=None, state: OrderState=None, client_extensions: ClientExtensions=None, type: OrderType=MARKET_IF_TOUCHED, price_bound: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, initial_market_price: PriceValue=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, filling_transaction_id: TransactionID=None, filled_time: DateTime=None, trade_opened_id: TradeID=None, trade_reduced_id: TradeID=None, trade_closed_i_ds: Array_TradeID=None, cancelling_transaction_id: TransactionID=None, cancelled_time: DateTime=None, replaces_order_id: OrderID=None, replaced_by_order_id: OrderID=None)
+A MarketIfTouchedOrder is an order that is created with a price threshold,
     and will only be filled by a market price that is touches or crosses the
     threshold.
 
@@ -4431,119 +3010,28 @@ class MarketIfTouchedOrder(Order):
 
         """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} units of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The type of the Order. Always set to “MARKET_IF_TOUCHED” for Market If
-        # Touched Orders.
-        'type': SchemaValue(OrderType, default='MARKET_IF_TOUCHED'),
-        # The MarketIfTouched Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the MarketIfTouched Order. A
-        # posititive number of units results in a long Order, and a negative number
-        # of units results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the MarketIfTouched Order. The
-        # MarketIfTouched Order will only be filled by a market price that crosses
-        # this price from the direction of the market price at the time when the
-        # Order was created (the initialMarketPrice). Depending on the value of the
-        # Order’s price and initialMarketPrice, the MarketIfTouchedOrder will
-        # behave like a Limit or a Stop Order.
-        'price': SchemaValue(PriceValue, required=True),
-        # The worst market price that may be used to fill this MarketIfTouched
-        # Order.
-        'priceBound': SchemaValue(PriceValue),
-        # The time-in-force requested for the MarketIfTouched Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for MarketIfTouched Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the MarketIfTouched Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The Market price at the time when the MarketIfTouched Order was created.
-        'initialMarketPrice': SchemaValue(PriceValue),
-        # TakeProfitDetails specifies the details of a Take Profit Order to be
-        # created on behalf of a client. This may happen when an Order is filled
-        # that opens a Trade requiring a Take Profit, or when a Trade’s dependent
-        # Take Profit Order is modified directly through the Trade.
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # StopLossDetails specifies the details of a Stop Loss Order to be created
-        # on behalf of a client. This may happen when an Order is filled that opens
-        # a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
-        # Order is modified directly through the Trade.
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # TrailingStopLossDetails specifies the details of a Trailing Stop Loss
-        # Order to be created on behalf of a client. This may happen when an Order
-        # is filled that opens a Trade requiring a Trailing Stop Loss, or when a
-        # Trade’s dependent Trailing Stop Loss Order is modified directly through
-        # the Trade.
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created). Do not set, modify, or delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # ID of the Transaction that filled this Order (only provided when the
-        # Order’s state is FILLED)
-        'fillingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was filled (only provided when the Order’s state
-        # is FILLED)
-        'filledTime': SchemaValue(DateTime),
-        # Trade ID of Trade opened when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was opened as a result of the
-        # fill)
-        'tradeOpenedID': SchemaValue(TradeID),
-        # Trade ID of Trade reduced when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was reduced as a result of the
-        # fill)
-        'tradeReducedID': SchemaValue(TradeID),
-        # Trade IDs of Trades closed when the Order was filled (only provided when
-        # the Order’s state is FILLED and one or more Trades were closed as a
-        # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
-        # ID of the Transaction that cancelled the Order (only provided when the
-        # Order’s state is CANCELLED)
-        'cancellingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was cancelled (only provided when the state of
-        # the Order is CANCELLED)
-        'cancelledTime': SchemaValue(DateTime),
-        # The ID of the Order that was replaced by this Order (only provided if
-        # this Order was created as part of a cancel/replace).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Order that replaced this Order (only provided if this Order
-        # was cancelled as part of a cancel/replace).
-        'replacedByOrderID': SchemaValue(OrderID)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
+                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
+                 type: OrderType = 'MARKET_IF_TOUCHED', price_bound: PriceValue = None,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 initial_market_price: PriceValue = None, take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
+                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
+                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
+                 replaced_by_order_id: OrderID = None):
+        super().__init__()
 
 
 class StopOrder(Order):
-    """A StopOrder is an order that is created with a price threshold, and will
+    """StopOrder(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID=None, create_time: DateTime=None, state: OrderState=None, client_extensions: ClientExtensions=None, type: OrderType=STOP, price_bound: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, filling_transaction_id: TransactionID=None, filled_time: DateTime=None, trade_opened_id: TradeID=None, trade_reduced_id: TradeID=None, trade_closed_i_ds: Array_TradeID=None, cancelling_transaction_id: TransactionID=None, cancelled_time: DateTime=None, replaces_order_id: OrderID=None, replaced_by_order_id: OrderID=None)
+A StopOrder is an order that is created with a price threshold, and will
     only be filled by a price that is equal to or worse than the threshold.
 
     Attributes:
@@ -4603,113 +3091,27 @@ class StopOrder(Order):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} units of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument} @ {price}'
 
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The type of the Order. Always set to “STOP” for Stop Orders.
-        'type': SchemaValue(OrderType, default='STOP'),
-        # The Stop Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Stop Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the Stop Order. The Stop Order will
-        # only be filled by a market price that is equal to or worse than this
-        # price.
-        'price': SchemaValue(PriceValue, required=True),
-        # The worst market price that may be used to fill this Stop Order. If the
-        # market gaps and crosses through both the price and the priceBound, the
-        # Stop Order will be cancelled instead of being filled.
-        'priceBound': SchemaValue(PriceValue),
-        # The time-in-force requested for the Stop Order.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the Stop Order will be cancelled if its timeInForce is
-        # “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # TakeProfitDetails specifies the details of a Take Profit Order to be
-        # created on behalf of a client. This may happen when an Order is filled
-        # that opens a Trade requiring a Take Profit, or when a Trade’s dependent
-        # Take Profit Order is modified directly through the Trade.
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # StopLossDetails specifies the details of a Stop Loss Order to be created
-        # on behalf of a client. This may happen when an Order is filled that opens
-        # a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
-        # Order is modified directly through the Trade.
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # TrailingStopLossDetails specifies the details of a Trailing Stop Loss
-        # Order to be created on behalf of a client. This may happen when an Order
-        # is filled that opens a Trade requiring a Trailing Stop Loss, or when a
-        # Trade’s dependent Trailing Stop Loss Order is modified directly through
-        # the Trade.
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created). Do not set, modify, or delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # ID of the Transaction that filled this Order (only provided when the
-        # Order’s state is FILLED)
-        'fillingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was filled (only provided when the Order’s state
-        # is FILLED)
-        'filledTime': SchemaValue(DateTime),
-        # Trade ID of Trade opened when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was opened as a result of the
-        # fill)
-        'tradeOpenedID': SchemaValue(TradeID),
-        # Trade ID of Trade reduced when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was reduced as a result of the
-        # fill)
-        'tradeReducedID': SchemaValue(TradeID),
-        # Trade IDs of Trades closed when the Order was filled (only provided when
-        # the Order’s state is FILLED and one or more Trades were closed as a
-        # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
-        # ID of the Transaction that cancelled the Order (only provided when the
-        # Order’s state is CANCELLED)
-        'cancellingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was cancelled (only provided when the state of
-        # the Order is CANCELLED)
-        'cancelledTime': SchemaValue(DateTime),
-        # The ID of the Order that was replaced by this Order (only provided if
-        # this Order was created as part of a cancel/replace).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Order that replaced this Order (only provided if this Order
-        # was cancelled as part of a cancel/replace).
-        'replacedByOrderID': SchemaValue(OrderID)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
+                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
+                 type: OrderType = 'STOP', price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = None, position_fill: OrderPositionFill = 'DEFAULT',
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
+                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
+                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
+                 replaced_by_order_id: OrderID = None):
+        super().__init__()
 
 
 class OrderFillTransaction(Transaction):
-    """An OrderFillTransaction represents the filling of an Order in the client's
+    """OrderFillTransaction(self, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=ORDER_FILL, order_id: OrderID=None, client_order_id: ClientID=None, instrument: InstrumentName=None, units: Unit=None, price: PriceValue=None, full_price: ClientPrice=None, reason: OrderFillReason=None, pl: AccountUnits=None, financing: AccountUnits=None, commission: AccountUnits=None, account_balance: AccountUnits=None, trade_opened: TradeOpen=None, trades_closed: Array_TradeReduce=None, trade_reduced: TradeReduce=None)
+An OrderFillTransaction represents the filling of an Order in the client's
     Account.
 
     Attributes:
@@ -4746,68 +3148,24 @@ class OrderFillTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Fill Order {orderID} ({reason}): {units} of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Fill Order {orderID} ({reason}): {units} of {instrument} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “ORDER_FILL” for an
-        # OrderFillTransaction.
-        'type': SchemaValue(TransactionType, default='ORDER_FILL'),
-        # The ID of the Order filled.
-        'orderID': SchemaValue(OrderID),
-        # The client Order ID of the Order filled (only provided if the client has
-        # assigned one).
-        'clientOrderID': SchemaValue(ClientID),
-        # The name of the filled Order’s instrument.
-        'instrument': SchemaValue(InstrumentName),
-        # The number of units filled by the Order.
-        'units': SchemaValue(Unit),
-        # The average market price that the Order was filled at.
-        'price': SchemaValue(PriceValue),
-        # The price in effect for the account at the time of the Order fill.
-        'fullPrice': SchemaValue(ClientPrice),
-        # The reason that an Order was filled
-        'reason': SchemaValue(OrderFillReason),
-        # The profit or loss incurred when the Order was filled.
-        'pl': SchemaValue(AccountUnits),
-        # The financing paid or collected when the Order was filled.
-        'financing': SchemaValue(AccountUnits),
-        # The commission charged in the Account’s home currency as a result of
-        # filling the Order. The commission is always represented as a positive
-        # quantity of the Account’s home currency, however it reduces the balance
-        # in the Account.
-        'commission': SchemaValue(AccountUnits),
-        # The Account’s balance after the Order was filled.
-        'accountBalance': SchemaValue(AccountUnits),
-        # The Trade that was opened when the Order was filled (only provided if
-        # filling the Order resulted in a new Trade).
-        'tradeOpened': SchemaValue(TradeOpen),
-        # The Trades that were closed when the Order was filled (only provided if
-        # filling the Order resulted in a closing open Trades).
-        'tradesClosed': SchemaValue(Array(TradeReduce)),
-        # The Trade that was reduced when the Order was filled (only provided if
-        # filling the Order resulted in reducing an open Trade).
-        'tradeReduced': SchemaValue(TradeReduce)}
+    def __init__(self, id: TransactionID = None, time: DateTime = None, user_id: int = None,
+                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'ORDER_FILL', order_id: OrderID = None, client_order_id: ClientID = None,
+                 instrument: InstrumentName = None, units: Unit = None, price: PriceValue = None,
+                 full_price: ClientPrice = None, reason: OrderFillReason = None, pl: AccountUnits = None,
+                 financing: AccountUnits = None, commission: AccountUnits = None, account_balance: AccountUnits = None,
+                 trade_opened: TradeOpen = None, trades_closed: Array(TradeReduce) = None,
+                 trade_reduced: TradeReduce = None):
+        super().__init__()
 
 
 class StopLossOrderRejectTransaction(Transaction):
-    """A StopLossOrderRejectTransaction represents the rejection of the creation
+    """StopLossOrderRejectTransaction(self, trade_id: TradeID, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=STOP_LOSS_ORDER_REJECT, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, reason: StopLossOrderReason=None, client_extensions: ClientExtensions=None, order_fill_transaction_id: TransactionID=None, intended_replaces_order_id: OrderID=None, reject_reason: TransactionRejectReason=None)
+A StopLossOrderRejectTransaction represents the rejection of the creation
     of a StopLoss Order.
 
     Attributes:
@@ -4841,75 +3199,23 @@ class StopLossOrderRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject Stop Loss Order ({reason}): Close Trade {tradeID} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject Stop Loss Order ({reason}): Close Trade {tradeID} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “STOP_LOSS_ORDER_REJECT” in a
-        # StopLossOrderRejectTransaction.
-        'type': SchemaValue(TransactionType, default='STOP_LOSS_ORDER_REJECT'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price threshold specified for the StopLoss Order. The associated
-        # Trade will be closed by a market price that is equal to or worse than
-        # this threshold.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the StopLoss Order. Restricted to “GTC”,
-        # “GFD” and “GTD” for StopLoss Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the StopLoss Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Stop Loss Order was initiated
-        'reason': SchemaValue(StopLossOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the OrderFill Transaction that caused this Order to be created
-        # (only provided if this Order was created automatically when another Order
-        # was filled).
-        'orderFillTransactionID': SchemaValue(TransactionID),
-        # The ID of the Order that this Order was intended to replace (only
-        # provided if this Order was intended to replace an existing Order).
-        'intendedReplacesOrderID': SchemaValue(OrderID),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
+                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
+                 request_id: RequestID = None, type: TransactionType = 'STOP_LOSS_ORDER_REJECT',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = None,
+                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
+                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class MarketIfTouchedOrderTransaction(Transaction):
-    """A MarketIfTouchedOrderTransaction represents the creation of a
+    """MarketIfTouchedOrderTransaction(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=MARKET_IF_TOUCHED_ORDER, price_bound: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, reason: MarketIfTouchedOrderReason=None, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, replaces_order_id: OrderID=None, cancelling_transaction_id: TransactionID=None)
+A MarketIfTouchedOrderTransaction represents the creation of a
     MarketIfTouched Order in the user's Account.
 
     Attributes:
@@ -4956,96 +3262,27 @@ class MarketIfTouchedOrderTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Create MIT Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Create MIT Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “MARKET_IF_TOUCHED_ORDER” in a
-        # MarketIfTouchedOrderTransaction.
-        'type': SchemaValue(TransactionType, default='MARKET_IF_TOUCHED_ORDER'),
-        # The MarketIfTouched Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the MarketIfTouched Order. A
-        # posititive number of units results in a long Order, and a negative number
-        # of units results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the MarketIfTouched Order. The
-        # MarketIfTouched Order will only be filled by a market price that crosses
-        # this price from the direction of the market price at the time when the
-        # Order was created (the initialMarketPrice). Depending on the value of the
-        # Order’s price and initialMarketPrice, the MarketIfTouchedOrder will
-        # behave like a Limit or a Stop Order.
-        'price': SchemaValue(PriceValue, required=True),
-        # The worst market price that may be used to fill this MarketIfTouched
-        # Order.
-        'priceBound': SchemaValue(PriceValue),
-        # The time-in-force requested for the MarketIfTouched Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for MarketIfTouched Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the MarketIfTouched Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Market-if-touched Order was initiated
-        'reason': SchemaValue(MarketIfTouchedOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The specification of the Take Profit Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # The specification of the Stop Loss Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # The specification of the Trailing Stop Loss Order that should be created
-        # for a Trade that is opened when the Order is filled (if such a Trade is
-        # created).
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created).  Do not set, modify, delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the Order that this Order replaces (only provided if this Order
-        # replaces an existing Order).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Transaction that cancels the replaced Order (only provided
-        # if this Order replaces an existing Order).
-        'cancellingTransactionID': SchemaValue(TransactionID)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
+                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
+                 batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'MARKET_IF_TOUCHED_ORDER', price_bound: PriceValue = None,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: MarketIfTouchedOrderReason = None, client_extensions: ClientExtensions = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
+                 cancelling_transaction_id: TransactionID = None):
+        super().__init__()
 
 
 class LimitOrderTransaction(Transaction):
-    """A LimitOrderTransaction represents the creation of a Limit Order in the
+    """LimitOrderTransaction(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=LIMIT_ORDER, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, reason: LimitOrderReason=None, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, replaces_order_id: OrderID=None, cancelling_transaction_id: TransactionID=None)
+A LimitOrderTransaction represents the creation of a Limit Order in the
     user's Account.
 
     Attributes:
@@ -5088,89 +3325,26 @@ class LimitOrderTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Create Limit Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Create Limit Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “LIMIT_ORDER” in a
-        # LimitOrderTransaction.
-        'type': SchemaValue(TransactionType, default='LIMIT_ORDER'),
-        # The Limit Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Limit Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the Limit Order. The Limit Order will
-        # only be filled by a market price that is equal to or better than this
-        # price.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the Limit Order.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the Limit Order will be cancelled if its timeInForce
-        # is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Limit Order was initiated
-        'reason': SchemaValue(LimitOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The specification of the Take Profit Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # The specification of the Stop Loss Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # The specification of the Trailing Stop Loss Order that should be created
-        # for a Trade that is opened when the Order is filled (if such a Trade is
-        # created).
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created).  Do not set, modify, delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the Order that this Order replaces (only provided if this Order
-        # replaces an existing Order).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Transaction that cancels the replaced Order (only provided
-        # if this Order replaces an existing Order).
-        'cancellingTransactionID': SchemaValue(TransactionID)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
+                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
+                 batch_id: TransactionID = None, request_id: RequestID = None, type: TransactionType = 'LIMIT_ORDER',
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: LimitOrderReason = None, client_extensions: ClientExtensions = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
+                 cancelling_transaction_id: TransactionID = None):
+        super().__init__()
 
 
 class TakeProfitOrderRejectTransaction(Transaction):
-    """A TakeProfitOrderRejectTransaction represents the rejection of the creation
+    """TakeProfitOrderRejectTransaction(self, trade_id: TradeID, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=TAKE_PROFIT_ORDER_REJECT, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, reason: TakeProfitOrderReason=None, client_extensions: ClientExtensions=None, order_fill_transaction_id: TransactionID=None, intended_replaces_order_id: OrderID=None, reject_reason: TransactionRejectReason=None)
+A TakeProfitOrderRejectTransaction represents the rejection of the creation
     of a TakeProfit Order.
 
     Attributes:
@@ -5204,75 +3378,23 @@ class TakeProfitOrderRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject Take Profit Order ({reason}): Close Trade {tradeID} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject Take Profit Order ({reason}): Close Trade {tradeID} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “TAKE_PROFIT_ORDER_REJECT” in
-        # a TakeProfitOrderRejectTransaction.
-        'type': SchemaValue(TransactionType, default='TAKE_PROFIT_ORDER_REJECT'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price threshold specified for the TakeProfit Order. The associated
-        # Trade will be closed by a market price that is equal to or better than
-        # this threshold.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the TakeProfit Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for TakeProfit Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the TakeProfit Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Take Profit Order was initiated
-        'reason': SchemaValue(TakeProfitOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the OrderFill Transaction that caused this Order to be created
-        # (only provided if this Order was created automatically when another Order
-        # was filled).
-        'orderFillTransactionID': SchemaValue(TransactionID),
-        # The ID of the Order that this Order was intended to replace (only
-        # provided if this Order was intended to replace an existing Order).
-        'intendedReplacesOrderID': SchemaValue(OrderID),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
+                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
+                 request_id: RequestID = None, type: TransactionType = 'TAKE_PROFIT_ORDER_REJECT',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = None,
+                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
+                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class TrailingStopLossOrderRejectTransaction(Transaction):
-    """A TrailingStopLossOrderRejectTransaction represents the rejection of the
+    """TrailingStopLossOrderRejectTransaction(self, trade_id: TradeID, distance: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=TRAILING_STOP_LOSS_ORDER_REJECT, client_trade_id: ClientID=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, trigger_condition: OrderTriggerCondition=DEFAULT, reason: TrailingStopLossOrderReason=None, client_extensions: ClientExtensions=None, order_fill_transaction_id: TransactionID=None, intended_replaces_order_id: OrderID=None, reject_reason: TransactionRejectReason=None)
+A TrailingStopLossOrderRejectTransaction represents the rejection of the
     creation of a TrailingStopLoss Order.
 
     Attributes:
@@ -5305,74 +3427,23 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject Trailing Stop Loss Order ({reason}): Close Trade {tradeID}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject Trailing Stop Loss Order ({reason}): Close Trade {tradeID}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to
-        # “TRAILING_STOP_LOSS_ORDER_REJECT” in a
-        # TrailingStopLossOrderRejectTransaction.
-        'type': SchemaValue(TransactionType, default='TRAILING_STOP_LOSS_ORDER_REJECT'),
-        # The ID of the Trade to close when the price threshold is breached.
-        'tradeID': SchemaValue(TradeID, required=True),
-        # The client ID of the Trade to be closed when the price threshold is
-        # breached.
-        'clientTradeID': SchemaValue(ClientID),
-        # The price distance specified for the TrailingStopLoss Order.
-        'distance': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the TrailingStopLoss Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for TrailingStopLoss Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the StopLoss Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Trailing Stop Loss Order was initiated
-        'reason': SchemaValue(TrailingStopLossOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the OrderFill Transaction that caused this Order to be created
-        # (only provided if this Order was created automatically when another Order
-        # was filled).
-        'orderFillTransactionID': SchemaValue(TransactionID),
-        # The ID of the Order that this Order was intended to replace (only
-        # provided if this Order was intended to replace an existing Order).
-        'intendedReplacesOrderID': SchemaValue(OrderID),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
+                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
+                 request_id: RequestID = None, type: TransactionType = 'TRAILING_STOP_LOSS_ORDER_REJECT',
+                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = None,
+                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
+                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class StopOrderTransaction(Transaction):
-    """A StopOrderTransaction represents the creation of a Stop Order in the
+    """StopOrderTransaction(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=STOP_ORDER, price_bound: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, reason: StopOrderReason=None, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, replaces_order_id: OrderID=None, cancelling_transaction_id: TransactionID=None)
+A StopOrderTransaction represents the creation of a Stop Order in the
     user's Account.
 
     Attributes:
@@ -5417,93 +3488,26 @@ class StopOrderTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Create Stop Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Create Stop Order {id} ({reason}): {units} of {instrument} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “STOP_ORDER” in a
-        # StopOrderTransaction.
-        'type': SchemaValue(TransactionType, default='STOP_ORDER'),
-        # The Stop Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Stop Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the Stop Order. The Stop Order will
-        # only be filled by a market price that is equal to or worse than this
-        # price.
-        'price': SchemaValue(PriceValue, required=True),
-        # The worst market price that may be used to fill this Stop Order. If the
-        # market gaps and crosses through both the price and the priceBound, the
-        # Stop Order will be cancelled instead of being filled.
-        'priceBound': SchemaValue(PriceValue),
-        # The time-in-force requested for the Stop Order.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the Stop Order will be cancelled if its timeInForce is
-        # “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Stop Order was initiated
-        'reason': SchemaValue(StopOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The specification of the Take Profit Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # The specification of the Stop Loss Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # The specification of the Trailing Stop Loss Order that should be created
-        # for a Trade that is opened when the Order is filled (if such a Trade is
-        # created).
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created).  Do not set, modify, delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the Order that this Order replaces (only provided if this Order
-        # replaces an existing Order).
-        'replacesOrderID': SchemaValue(OrderID),
-        # The ID of the Transaction that cancels the replaced Order (only provided
-        # if this Order replaces an existing Order).
-        'cancellingTransactionID': SchemaValue(TransactionID)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
+                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
+                 batch_id: TransactionID = None, request_id: RequestID = None, type: TransactionType = 'STOP_ORDER',
+                 price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: StopOrderReason = None, client_extensions: ClientExtensions = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
+                 cancelling_transaction_id: TransactionID = None):
+        super().__init__()
 
 
 class MarketIfTouchedOrderRejectTransaction(Transaction):
-    """A MarketIfTouchedOrderRejectTransaction represents the rejection of the
+    """MarketIfTouchedOrderRejectTransaction(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=MARKET_IF_TOUCHED_ORDER_REJECT, price_bound: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, reason: MarketIfTouchedOrderReason=None, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, intended_replaces_order_id: OrderID=None, reject_reason: TransactionRejectReason=None)
+A MarketIfTouchedOrderRejectTransaction represents the rejection of the
     creation of a MarketIfTouched Order.
 
     Attributes:
@@ -5549,96 +3553,27 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject MIT Order ({reason}): {units} of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject MIT Order ({reason}): {units} of {instrument} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to
-        # “MARKET_IF_TOUCHED_ORDER_REJECT” in a
-        # MarketIfTouchedOrderRejectTransaction.
-        'type': SchemaValue(TransactionType, default='MARKET_IF_TOUCHED_ORDER_REJECT'),
-        # The MarketIfTouched Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the MarketIfTouched Order. A
-        # posititive number of units results in a long Order, and a negative number
-        # of units results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the MarketIfTouched Order. The
-        # MarketIfTouched Order will only be filled by a market price that crosses
-        # this price from the direction of the market price at the time when the
-        # Order was created (the initialMarketPrice). Depending on the value of the
-        # Order’s price and initialMarketPrice, the MarketIfTouchedOrder will
-        # behave like a Limit or a Stop Order.
-        'price': SchemaValue(PriceValue, required=True),
-        # The worst market price that may be used to fill this MarketIfTouched
-        # Order.
-        'priceBound': SchemaValue(PriceValue),
-        # The time-in-force requested for the MarketIfTouched Order. Restricted to
-        # “GTC”, “GFD” and “GTD” for MarketIfTouched Orders.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the MarketIfTouched Order will be cancelled if its
-        # timeInForce is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Market-if-touched Order was initiated
-        'reason': SchemaValue(MarketIfTouchedOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The specification of the Take Profit Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # The specification of the Stop Loss Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # The specification of the Trailing Stop Loss Order that should be created
-        # for a Trade that is opened when the Order is filled (if such a Trade is
-        # created).
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created).  Do not set, modify, delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the Order that this Order was intended to replace (only
-        # provided if this Order was intended to replace an existing Order).
-        'intendedReplacesOrderID': SchemaValue(OrderID),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
+                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
+                 batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'MARKET_IF_TOUCHED_ORDER_REJECT', price_bound: PriceValue = None,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: MarketIfTouchedOrderReason = None, client_extensions: ClientExtensions = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
+                 reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class LimitOrderRejectTransaction(Transaction):
-    """A LimitOrderRejectTransaction represents the rejection of the creation of a
+    """LimitOrderRejectTransaction(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=LIMIT_ORDER_REJECT, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, reason: LimitOrderReason=None, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, intended_replaces_order_id: OrderID=None, reject_reason: TransactionRejectReason=None)
+A LimitOrderRejectTransaction represents the rejection of the creation of a
     Limit Order.
 
     Attributes:
@@ -5680,88 +3615,26 @@ class LimitOrderRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject Limit Order ({reason}): {units} of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject Limit Order ({reason}): {units} of {instrument} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “LIMIT_ORDER_REJECT” in a
-        # LimitOrderRejectTransaction.
-        'type': SchemaValue(TransactionType, default='LIMIT_ORDER_REJECT'),
-        # The Limit Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Limit Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the Limit Order. The Limit Order will
-        # only be filled by a market price that is equal to or better than this
-        # price.
-        'price': SchemaValue(PriceValue, required=True),
-        # The time-in-force requested for the Limit Order.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the Limit Order will be cancelled if its timeInForce
-        # is “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Limit Order was initiated
-        'reason': SchemaValue(LimitOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The specification of the Take Profit Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # The specification of the Stop Loss Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # The specification of the Trailing Stop Loss Order that should be created
-        # for a Trade that is opened when the Order is filled (if such a Trade is
-        # created).
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created).  Do not set, modify, delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the Order that this Order was intended to replace (only
-        # provided if this Order was intended to replace an existing Order).
-        'intendedReplacesOrderID': SchemaValue(OrderID),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
+                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
+                 batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'LIMIT_ORDER_REJECT', time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = None, position_fill: OrderPositionFill = 'DEFAULT',
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: LimitOrderReason = None,
+                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
+                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
+                 reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class StopOrderRejectTransaction(Transaction):
-    """A StopOrderRejectTransaction represents the rejection of the creation of a
+    """StopOrderRejectTransaction(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID=None, time: DateTime=None, user_id: int=None, account_id: AccountID=None, batch_id: TransactionID=None, request_id: RequestID=None, type: TransactionType=STOP_ORDER_REJECT, price_bound: PriceValue=None, time_in_force: TimeInForce=GTC, gtd_time: DateTime=None, position_fill: OrderPositionFill=DEFAULT, trigger_condition: OrderTriggerCondition=DEFAULT, reason: StopOrderReason=None, client_extensions: ClientExtensions=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, intended_replaces_order_id: OrderID=None, reject_reason: TransactionRejectReason=None)
+A StopOrderRejectTransaction represents the rejection of the creation of a
     Stop Order.
 
     Attributes:
@@ -5805,92 +3678,27 @@ class StopOrderRejectTransaction(Transaction):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = 'Reject Stop Order ({reason}): {units} of {instrument} @ {price}'
 
-    # Format string used when generating a name for this object
     _name_format = 'Reject Stop Order ({reason}): {units} of {instrument} @ {price}'
 
-    _schema = {
-        # The Transaction’s Identifier.
-        'id': SchemaValue(TransactionID),
-        # The date/time when the Transaction was created.
-        'time': SchemaValue(DateTime),
-        # The ID of the user that initiated the creation of the Transaction.
-        'userID': SchemaValue(integer),
-        # The ID of the Account the Transaction was created for.
-        'accountID': SchemaValue(AccountID),
-        # The ID of the “batch” that the Transaction belongs to. Transactions in
-        # the same batch are applied to the Account simultaneously.
-        'batchID': SchemaValue(TransactionID),
-        # The Request ID of the request which generated the transaction.
-        'requestID': SchemaValue(RequestID),
-        # The Type of the Transaction. Always set to “STOP_ORDER_REJECT” in a
-        # StopOrderRejectTransaction.
-        'type': SchemaValue(TransactionType, default='STOP_ORDER_REJECT'),
-        # The Stop Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Stop Order. A positive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The price threshold specified for the Stop Order. The Stop Order will
-        # only be filled by a market price that is equal to or worse than this
-        # price.
-        'price': SchemaValue(PriceValue, required=True),
-        # The worst market price that may be used to fill this Stop Order. If the
-        # market gaps and crosses through both the price and the priceBound, the
-        # Stop Order will be cancelled instead of being filled.
-        'priceBound': SchemaValue(PriceValue),
-        # The time-in-force requested for the Stop Order.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='GTC'),
-        # The date/time when the Stop Order will be cancelled if its timeInForce is
-        # “GTD”.
-        'gtdTime': SchemaValue(DateTime),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Specification of which price component should be used when determining if
-        # an Order should be triggered and filled. This allows Orders to be
-        # triggered based on the bid, ask, mid, default (ask for buy, bid for sell)
-        # or inverse (ask for sell, bid for buy) price depending on the desired
-        # behaviour. Orders are always filled using their default price component.
-        # This feature is only provided through the REST API. Clients who choose to
-        # specify a non-default trigger condition will not see it reflected in any
-        # of OANDA’s proprietary or partner trading platforms, their transaction
-        # history or their account statements. OANDA platforms always assume that
-        # an Order’s trigger condition is set to the default value when indicating
-        # the distance from an Order’s trigger price, and will always provide the
-        # default trigger condition when creating or modifying an Order.
-        'triggerCondition': SchemaValue(OrderTriggerCondition, required=True, default='DEFAULT'),
-        # The reason that the Stop Order was initiated
-        'reason': SchemaValue(StopOrderReason),
-        # Client Extensions to add to the Order (only provided if the Order is
-        # being created with client extensions).
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The specification of the Take Profit Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # The specification of the Stop Loss Order that should be created for a
-        # Trade opened when the Order is filled (if such a Trade is created).
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # The specification of the Trailing Stop Loss Order that should be created
-        # for a Trade that is opened when the Order is filled (if such a Trade is
-        # created).
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created).  Do not set, modify, delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # The ID of the Order that this Order was intended to replace (only
-        # provided if this Order was intended to replace an existing Order).
-        'intendedReplacesOrderID': SchemaValue(OrderID),
-        # The reason that the Reject Transaction was created
-        'rejectReason': SchemaValue(TransactionRejectReason)}
+    def __init__(self, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
+                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
+                 batch_id: TransactionID = None, request_id: RequestID = None,
+                 type: TransactionType = 'STOP_ORDER_REJECT', price_bound: PriceValue = None,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: StopOrderReason = None, client_extensions: ClientExtensions = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
+                 reject_reason: TransactionRejectReason = None):
+        super().__init__()
 
 
 class MarketOrder(Order):
-    """A MarketOrder is an order that is filled immediately upon creation using
+    """MarketOrder(self, instrument: InstrumentName, units: Unit, id: OrderID=None, create_time: DateTime=None, state: OrderState=None, client_extensions: ClientExtensions=None, type: OrderType=MARKET, time_in_force: TimeInForce=FOK, price_bound: PriceValue=None, position_fill: OrderPositionFill=DEFAULT, trade_close: MarketOrderTradeClose=None, long_position_closeout: MarketOrderPositionCloseout=None, short_position_closeout: MarketOrderPositionCloseout=None, margin_closeout: MarketOrderMarginCloseout=None, delayed_trade_close: MarketOrderDelayedTradeClose=None, take_profit_on_fill: TakeProfitDetails=None, stop_loss_on_fill: StopLossDetails=None, trailing_stop_loss_on_fill: TrailingStopLossDetails=None, trade_client_extensions: ClientExtensions=None, filling_transaction_id: TransactionID=None, filled_time: DateTime=None, trade_opened_id: TradeID=None, trade_reduced_id: TradeID=None, trade_closed_i_ds: Array_TradeID=None, cancelling_transaction_id: TransactionID=None, cancelled_time: DateTime=None)
+A MarketOrder is an order that is filled immediately upon creation using
     the current market price.
 
     Attributes:
@@ -5948,291 +3756,22 @@ class MarketOrder(Order):
 
     """
 
-    # Format string used when generating a summary for this object
     _summary_format = '{units} units of {instrument}'
 
-    # Format string used when generating a name for this object
     _name_format = '{units} units of {instrument}'
 
-    _schema = {
-        # The Order’s identifier, unique within the Order’s Account.
-        'id': SchemaValue(OrderID),
-        # The time when the Order was created.
-        'createTime': SchemaValue(DateTime),
-        # The current state of the Order.
-        'state': SchemaValue(OrderState),
-        # The client extensions of the Order. Do not set, modify, or delete
-        # clientExtensions if your account is associated with MT4.
-        'clientExtensions': SchemaValue(ClientExtensions),
-        # The type of the Order. Always set to “MARKET” for Market Orders.
-        'type': SchemaValue(OrderType, default='MARKET'),
-        # The Market Order’s Instrument.
-        'instrument': SchemaValue(InstrumentName, required=True),
-        # The quantity requested to be filled by the Market Order. A posititive
-        # number of units results in a long Order, and a negative number of units
-        # results in a short Order.
-        'units': SchemaValue(Unit, required=True),
-        # The time-in-force requested for the Market Order. Restricted to FOK or
-        # IOC for a MarketOrder.
-        'timeInForce': SchemaValue(TimeInForce, required=True, default='FOK'),
-        # The worst price that the client is willing to have the Market Order
-        # filled at.
-        'priceBound': SchemaValue(PriceValue),
-        # Specification of how Positions in the Account are modified when the Order
-        # is filled.
-        'positionFill': SchemaValue(OrderPositionFill, required=True, default='DEFAULT'),
-        # Details of the Trade requested to be closed, only provided when the
-        # Market Order is being used to explicitly close a Trade.
-        'tradeClose': SchemaValue(MarketOrderTradeClose),
-        # Details of the long Position requested to be closed out, only provided
-        # when a Market Order is being used to explicitly closeout a long Position.
-        'longPositionCloseout': SchemaValue(MarketOrderPositionCloseout),
-        # Details of the short Position requested to be closed out, only provided
-        # when a Market Order is being used to explicitly closeout a short
-        # Position.
-        'shortPositionCloseout': SchemaValue(MarketOrderPositionCloseout),
-        # Details of the Margin Closeout that this Market Order was created for
-        'marginCloseout': SchemaValue(MarketOrderMarginCloseout),
-        # Details of the delayed Trade close that this Market Order was created for
-        'delayedTradeClose': SchemaValue(MarketOrderDelayedTradeClose),
-        # TakeProfitDetails specifies the details of a Take Profit Order to be
-        # created on behalf of a client. This may happen when an Order is filled
-        # that opens a Trade requiring a Take Profit, or when a Trade’s dependent
-        # Take Profit Order is modified directly through the Trade.
-        'takeProfitOnFill': SchemaValue(TakeProfitDetails),
-        # StopLossDetails specifies the details of a Stop Loss Order to be created
-        # on behalf of a client. This may happen when an Order is filled that opens
-        # a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
-        # Order is modified directly through the Trade.
-        'stopLossOnFill': SchemaValue(StopLossDetails),
-        # TrailingStopLossDetails specifies the details of a Trailing Stop Loss
-        # Order to be created on behalf of a client. This may happen when an Order
-        # is filled that opens a Trade requiring a Trailing Stop Loss, or when a
-        # Trade’s dependent Trailing Stop Loss Order is modified directly through
-        # the Trade.
-        'trailingStopLossOnFill': SchemaValue(TrailingStopLossDetails),
-        # Client Extensions to add to the Trade created when the Order is filled
-        # (if such a Trade is created). Do not set, modify, or delete
-        # tradeClientExtensions if your account is associated with MT4.
-        'tradeClientExtensions': SchemaValue(ClientExtensions),
-        # ID of the Transaction that filled this Order (only provided when the
-        # Order’s state is FILLED)
-        'fillingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was filled (only provided when the Order’s state
-        # is FILLED)
-        'filledTime': SchemaValue(DateTime),
-        # Trade ID of Trade opened when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was opened as a result of the
-        # fill)
-        'tradeOpenedID': SchemaValue(TradeID),
-        # Trade ID of Trade reduced when the Order was filled (only provided when
-        # the Order’s state is FILLED and a Trade was reduced as a result of the
-        # fill)
-        'tradeReducedID': SchemaValue(TradeID),
-        # Trade IDs of Trades closed when the Order was filled (only provided when
-        # the Order’s state is FILLED and one or more Trades were closed as a
-        # result of the fill)
-        'tradeClosedIDs': SchemaValue(Array(TradeID)),
-        # ID of the Transaction that cancelled the Order (only provided when the
-        # Order’s state is CANCELLED)
-        'cancellingTransactionID': SchemaValue(TransactionID),
-        # Date/time when the Order was cancelled (only provided when the state of
-        # the Order is CANCELLED)
-        'cancelledTime': SchemaValue(DateTime)}
-
-
-class Account(AccountSummary):
-    """The full details of a client's Account. This includes full open Trade, open
-    Position and pending Order representation.
-
-    Attributes:
-        id: -- The Account's identifier
-        alias: -- Client-assigned alias for the Account. Only provided
-            if the Account has an alias set
-        currency: -- The home currency of the Account
-        balance: -- The current balance of the Account. Represented in the Account's home currency.
-        created_by_user_id: -- ID of the user that created the Account.
-        created_time: -- The date/time when the Account was created.
-        pl: -- The total profit/loss realized over the lifetime of
-            the Account. Represented in the Account's home currency.
-        resettable_pl: -- The total realized profit/loss for the Account since it was
-            last reset by the client. Represented in the Account's home currency.
-        resettabled_pl_time: -- The date/time that the Account's resettablePL was last reset.
-        commission: -- The total amount of commission paid over the lifetime
-            of the Account. Represented in the Account's home currency.
-        margin_rate: -- Client-provided margin rate override for the Account. The effective margin rate of the Account
-            is the lesser of this value and
-            the OANDA margin rate for the Account's division. This value is only provided if a margin rate override
-            exists for the Account.
-        margin_call_enter_time: -- The date/time when the Account entered a margin call state.
-            Only provided if the Account is in a margin call.
-        margin_call_extension_count: -- The number of times that the Account's current margin call was extended.
-        last_margin_call_extension_time: -- The date/time of the Account's last margin call extension.
-        open_trade_count: -- The number of Trades currently open in the Account.
-        open_position_count: -- The number of Positions currently open in the Account.
-        pending_order_count: -- The number of Orders currently pending in the Account.
-        hedging_enabled: -- Flag indicating that the Account has hedging enabled.
-        unrealized_pl: -- The total unrealized profit/loss for all Trades currently open
-            in the Account. Represented in the Account's home currency.
-        nav: -- The net asset value of the Account. Equal to
-            Account balance + unrealizedPL. Represented in the Account's home currency.
-        margin_used: -- Margin currently used for the Account.
-            Represented in the Account's home currency.
-        margin_available: -- Margin available for Account. Represented in the Account's home currency.
-        position_value: -- The value of the Account's open
-            positions represented in the Account's home currency.
-        margin_closeout_unrealized_pl: -- The Account's margin closeout unrealized PL.
-        margin_closeout_nav: -- The Account's margin closeout NAV.
-        margin_closeout_margin_used: -- The Account's margin closeout margin used.
-        margin_closeout_percent: -- The Account's margin closeout percentage. When this value is 1.0
-            or above the Account is in a margin closeout situation.
-        margin_closeout_position_value: -- The value of the Account's open positions as used
-            for margin closeout calculations represented in the Account's home currency.
-        withdrawal_limit: -- The current WithdrawalLimit for the account which will be zero or
-            a positive value indicating how much can be withdrawn from the account.
-        margin_call_margin_used: -- The Account's margin call margin used.
-        margin_call_percent: -- The Account's margin call percentage. When this value is 1.0
-            or above the Account is in a margin call situation.
-        last_transaction_id: -- The ID of the last Transaction created for the Account.
-        trades: -- The details of the Trades currently open in the Account.
-        positions: -- The details all Account Positions.
-        orders: -- The details of the Orders currently pending in the Account.
-
-    """
-
-    # Format string used when generating a summary for this object
-    _summary_format = 'Account {id}'
-
-    _schema = {
-        # The Account’s identifier
-        'id': SchemaValue(AccountID),
-        # Client-assigned alias for the Account. Only provided if the Account has
-        # an alias set
-        'alias': SchemaValue(string),
-        # The home currency of the Account
-        'currency': SchemaValue(Currency),
-        # The current balance of the Account. Represented in the Account’s home
-        # currency.
-        'balance': SchemaValue(AccountUnits),
-        # ID of the user that created the Account.
-        'createdByUserID': SchemaValue(integer),
-        # The date/time when the Account was created.
-        'createdTime': SchemaValue(DateTime),
-        # The total profit/loss realized over the lifetime of the Account.
-        # Represented in the Account’s home currency.
-        'pl': SchemaValue(AccountUnits),
-        # The total realized profit/loss for the Account since it was last reset by
-        # the client. Represented in the Account’s home currency.
-        'resettablePL': SchemaValue(AccountUnits),
-        # The date/time that the Account’s resettablePL was last reset.
-        'resettabledPLTime': SchemaValue(DateTime),
-        # The total amount of commission paid over the lifetime of the Account.
-        # Represented in the Account’s home currency.
-        'commission': SchemaValue(AccountUnits),
-        # Client-provided margin rate override for the Account. The effective
-        # margin rate of the Account is the lesser of this value and the OANDA
-        # margin rate for the Account’s division. This value is only provided if a
-        # margin rate override exists for the Account.
-        'marginRate': SchemaValue(DecimalNumber),
-        # The date/time when the Account entered a margin call state. Only provided
-        # if the Account is in a margin call.
-        'marginCallEnterTime': SchemaValue(DateTime),
-        # The number of times that the Account’s current margin call was extended.
-        'marginCallExtensionCount': SchemaValue(integer),
-        # The date/time of the Account’s last margin call extension.
-        'lastMarginCallExtensionTime': SchemaValue(DateTime),
-        # The number of Trades currently open in the Account.
-        'openTradeCount': SchemaValue(integer),
-        # The number of Positions currently open in the Account.
-        'openPositionCount': SchemaValue(integer),
-        # The number of Orders currently pending in the Account.
-        'pendingOrderCount': SchemaValue(integer),
-        # Flag indicating that the Account has hedging enabled.
-        'hedgingEnabled': SchemaValue(boolean),
-        # The total unrealized profit/loss for all Trades currently open in the
-        # Account. Represented in the Account’s home currency.
-        'unrealizedPL': SchemaValue(AccountUnits),
-        # The net asset value of the Account. Equal to Account balance +
-        # unrealizedPL. Represented in the Account’s home currency.
-        'NAV': SchemaValue(AccountUnits),
-        # Margin currently used for the Account. Represented in the Account’s home
-        # currency.
-        'marginUsed': SchemaValue(AccountUnits),
-        # Margin available for Account. Represented in the Account’s home currency.
-        'marginAvailable': SchemaValue(AccountUnits),
-        # The value of the Account’s open positions represented in the Account’s
-        # home currency.
-        'positionValue': SchemaValue(AccountUnits),
-        # The Account’s margin closeout unrealized PL.
-        'marginCloseoutUnrealizedPL': SchemaValue(AccountUnits),
-        # The Account’s margin closeout NAV.
-        'marginCloseoutNAV': SchemaValue(AccountUnits),
-        # The Account’s margin closeout margin used.
-        'marginCloseoutMarginUsed': SchemaValue(AccountUnits),
-        # The Account’s margin closeout percentage. When this value is 1.0 or above
-        # the Account is in a margin closeout situation.
-        'marginCloseoutPercent': SchemaValue(DecimalNumber),
-        # The value of the Account’s open positions as used for margin closeout
-        # calculations represented in the Account’s home currency.
-        'marginCloseoutPositionValue': SchemaValue(DecimalNumber),
-        # The current WithdrawalLimit for the account which will be zero or a
-        # positive value indicating how much can be withdrawn from the account.
-        'withdrawalLimit': SchemaValue(AccountUnits),
-        # The Account’s margin call margin used.
-        'marginCallMarginUsed': SchemaValue(AccountUnits),
-        # The Account’s margin call percentage. When this value is 1.0 or above the
-        # Account is in a margin call situation.
-        'marginCallPercent': SchemaValue(DecimalNumber),
-        # The ID of the last Transaction created for the Account.
-        'lastTransactionID': SchemaValue(TransactionID),
-        # The details of the Trades currently open in the Account.
-        'trades': SchemaValue(Array(TradeSummary)),
-        # The details all Account Positions.
-        'positions': SchemaValue(Array(Position)),
-        # The details of the Orders currently pending in the Account.
-        'orders': SchemaValue(Array(Order)),
-        # TODO: This attribute isn't documented in OANDA's website
-        'financing': SchemaValue(DecimalNumber)
-    }
-
-
-class AccountChanges(Model):
-    """An AccountChanges Object is used to represent the changes to an Account's
-    Orders, Trades and Positions since a specified Account TransactionID in the
-    past.
-
-    Attributes:
-        orders_created: -- The Orders created. These Orders may have been
-            filled, cancelled or triggered in the same period.
-        orders_cancelled: -- The Orders cancelled.
-        orders_filled: -- The Orders filled.
-        orders_triggered: -- The Orders triggered.
-        trades_opened: -- The Trades opened.
-        trades_reduced: -- The Trades reduced.
-        trades_closed: -- The Trades closed.
-        positions: -- The Positions changed.
-        transactions: -- The Transactions that have been generated.
-
-    """
-
-    _schema = {
-        # The Orders created. These Orders may have been filled, cancelled or
-        # triggered in the same period.
-        'ordersCreated': SchemaValue(Array(Order)),
-        # The Orders cancelled.
-        'ordersCancelled': SchemaValue(Array(Order)),
-        # The Orders filled.
-        'ordersFilled': SchemaValue(Array(Order)),
-        # The Orders triggered.
-        'ordersTriggered': SchemaValue(Array(Order)),
-        # The Trades opened.
-        'tradesOpened': SchemaValue(Array(TradeSummary)),
-        # The Trades reduced.
-        'tradesReduced': SchemaValue(Array(TradeSummary)),
-        # The Trades closed.
-        'tradesClosed': SchemaValue(Array(TradeSummary)),
-        # The Positions changed.
-        'positions': SchemaValue(Array(Position)),
-        # The Transactions that have been generated.
-        'transactions': SchemaValue(Array(Transaction))
-    }
+    def __init__(self, instrument: InstrumentName, units: Unit, id: OrderID = None, create_time: DateTime = None,
+                 state: OrderState = None, client_extensions: ClientExtensions = None, type: OrderType = 'MARKET',
+                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
+                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = None,
+                 long_position_closeout: MarketOrderPositionCloseout = None,
+                 short_position_closeout: MarketOrderPositionCloseout = None,
+                 margin_closeout: MarketOrderMarginCloseout = None,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = None,
+                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                 trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
+                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
+                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                 cancelled_time: DateTime = None):
+        super().__init__()

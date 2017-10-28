@@ -11,6 +11,14 @@ class Model(metaclass=ORM):
     _delimiter = '_'
     _derived = None
 
+    # Format string used when generating a summary for this object
+    _summary_format = ''
+
+    # Format string used when generating a name for this object
+    _name_format = ''
+
+
+
     # More info about this code be found in PEP 487 https://www.python.org/dev/peps/pep-0487/
     def __init_subclass__(cls, **kwargs):
         # When creating a new class we need to update the _dispatch attribute.
@@ -36,18 +44,18 @@ class Model(metaclass=ORM):
             cls._derived = cls
 
 
-    def __new__(cls, *args, **kwargs):
-        if cls._dispatch:
-            args, kwargs, typ = parse_args_for_typ(cls, args, kwargs)
-
-            if typ and cls._dispatch:
-                cls = cls._dispatch[typ]
-            else:
-                msg = f"{cls.__name__}.__new__() missing required keyword argument: 'type'. \n" \
-                      f"Possible values are: {', '.join(cls._dispatch)}"
-                raise TypeError(msg)
-
-        return super().__new__(cls)
+    # def __new__(cls, *args, **kwargs):
+    #     if cls._dispatch:
+    #         args, kwargs, typ = parse_args_for_typ(cls, args, kwargs)
+    #
+    #         if typ and cls._dispatch:
+    #             cls = cls._dispatch[typ]
+    #         else:
+    #             msg = f"{cls.__name__}.__new__() missing required keyword argument: 'type'. \n" \
+    #                   f"Possible values are: {', '.join(cls._dispatch)}"
+    #             raise TypeError(msg)
+    #
+    #     return super().__new__(cls)
 
     def __repr__(self):
         return self.__class__.__name__

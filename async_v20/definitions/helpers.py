@@ -118,7 +118,9 @@ from itertools import chain
 
 
 def combine_signature(*cls):
-    parameters = {parameter.name: parameter.replace(default=None, kind=Parameter.POSITIONAL_OR_KEYWORD)
+    parameters = {parameter.name:
+                      parameter.replace(default=None, kind=Parameter.POSITIONAL_OR_KEYWORD)
+                      if parameter.name != 'self' else parameter
                   for parameter
                   in chain.from_iterable(map(lambda x: x.__init__.__signature__.parameters.values(), cls))}
     return _create_signature_from_parameters(parameters.values())
