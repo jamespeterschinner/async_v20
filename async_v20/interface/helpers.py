@@ -1,16 +1,7 @@
 from functools import partial
-from inspect import Signature, _empty, Parameter
-from ..definitions.helpers import create_attribute
-from ..definitions.base import Model
+from inspect import _empty
 
-def make_args_optional(signature):
-    sig = Signature([param.replace(default=None)
-                     if param.default == _empty
-                        and param.name != 'self'
-                        and param.kind not in  (Parameter.VAR_KEYWORD, Parameter.VAR_POSITIONAL)
-                     else param
-                     for param in signature.parameters.values()])
-    return sig
+from ..definitions.helpers import create_attribute
 
 
 def create_annotation_lookup(signature, bound_arguments):
@@ -87,10 +78,12 @@ header_params = partial(_create_request_params, param_location='header')
 
 query_params = partial(_create_request_params, param_location='query')
 
+
 def construct_arguments(annotation_lookup: dict):
     """Construct passed arguments into corresponding objects"""
     annotation_lookup.pop(_empty)  # Remove self parameter
-    return {annotation: create_attribute(annotation, value) for annotation,value in annotation_lookup.items()}
+    return {annotation: create_attribute(annotation, value) for annotation, value in annotation_lookup.items()}
+
 
 def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Format arguments to be passed to an aiohttp request"""

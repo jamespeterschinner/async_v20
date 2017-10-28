@@ -4,7 +4,7 @@ from functools import wraps
 from inspect import signature
 
 from .helpers import create_request_kwargs
-from .helpers import make_args_optional
+# from .helpers import make_args_optional
 from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
 
@@ -28,7 +28,7 @@ def endpoint(endpoint, serial=False):
 
         method.endpoint = endpoint
 
-        sig = make_args_optional(signature(method))
+        sig = signature(method)
 
         method.__doc__ = create_doc_signature(method, sig)
 

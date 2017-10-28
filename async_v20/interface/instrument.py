@@ -18,17 +18,17 @@ __all__ = ['InstrumentInterface']
 class InstrumentInterface(object):
     @endpoint(GETInstrumentsCandles)
     def get_candles(self,
-                    instrument: InstrumentName,
-                    price: Price,
-                    granularity: CandlestickGranularity,
-                    count: Count,
-                    from_time: FromTime,
-                    to_time: ToTime,
-                    smooth: Smooth,
-                    include_first: includeFirst,
-                    daily_alignment: DailyAlignment,
-                    alignment_timezone: AlignmentTimezone,
-                    weekly_alignment: WeeklyAlignment,
+                    instrument: InstrumentName=None,
+                    price: Price=None,
+                    granularity: CandlestickGranularity=None,
+                    count: Count=None,
+                    from_time: FromTime=None,
+                    to_time: ToTime=None,
+                    smooth: Smooth=None,
+                    include_first: includeFirst=None,
+                    daily_alignment: DailyAlignment=None,
+                    alignment_timezone: AlignmentTimezone=None,
+                    weekly_alignment: WeeklyAlignment=None,
                     ):
         """
         Fetch candlestick data for an instrument.

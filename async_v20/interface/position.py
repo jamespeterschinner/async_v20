@@ -42,7 +42,7 @@ class PositionInterface(object):
         pass
 
     @endpoint(GETPositionsInstrument)
-    def get_positions(self, instrument: InstrumentName):
+    def get_positions(self, instrument: InstrumentName=None):
         """
         Get the details of a single Instrument's Position in an Account. The
         Position may by open or not.
@@ -59,9 +59,12 @@ class PositionInterface(object):
         pass
 
     @endpoint(PUTPositionsInstrumentClose)
-    def close_position(self, instrument: InstrumentName, long_units: LongUnits,
-                       long_client_extensions: LongClientExtensions,
-                       short_units: ShortUnits, short_client_extensions: ShortClientExtensions):
+    def close_position(self,
+                       instrument: InstrumentName=None,
+                       long_units: LongUnits=None,
+                       long_client_extensions: LongClientExtensions=None,
+                       short_units: ShortUnits=None,
+                       short_client_extensions: ShortClientExtensions=None):
         """
         Closeout the open Position for a specific instrument in an Account.
 

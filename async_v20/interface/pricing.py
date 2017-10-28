@@ -7,7 +7,10 @@ __all__ = ['PricingInterface']
 
 class PricingInterface(object):
     @endpoint(GETPricing)
-    def get_pricing(self, instruments: Instruments, since: DateTime, include_units_available: IncludeUnitsAvailable):
+    def get_pricing(self,
+                    instruments: Instruments=None,
+                    since: DateTime=None,
+                    include_units_available: IncludeUnitsAvailable=None):
         """
         Get pricing information for a specified list of Instruments within an
         Account.
@@ -30,7 +33,9 @@ class PricingInterface(object):
         pass
 
     @endpoint(GETPricingStream)
-    def stream_pricing(self, instruments: Instruments, snapshot: Snapshot):
+    def stream_pricing(self,
+                       instruments: Instruments=None,
+                       snapshot: Snapshot=None):
         """
         Get a stream of Account Prices starting from when the request is made.
         This pricing stream does not include every single price created for the

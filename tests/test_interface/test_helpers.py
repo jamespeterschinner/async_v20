@@ -1,23 +1,23 @@
 import inspect
 from inspect import Parameter
+
 import pytest
+from hypothesis.strategies import text, sampled_from
+
 from async_v20 import endpoints
 from async_v20 import interface
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
-from async_v20.definitions.types import StopLossOrderRequest
 from async_v20.definitions.types import AccountID, OrderRequest
-from async_v20.endpoints.annotations import Authorization
+from async_v20.definitions.types import StopLossOrderRequest
 from async_v20.endpoints import POSTOrders
+from async_v20.endpoints.annotations import Authorization
 from async_v20.interface.helpers import _arguments
 from async_v20.interface.helpers import _create_request_params
-from async_v20.interface.helpers import create_url
 from async_v20.interface.helpers import create_annotation_lookup
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import create_request_kwargs
-from async_v20.interface.helpers import make_args_optional
-from hypothesis.strategies import text, sampled_from
-
+from async_v20.interface.helpers import create_url
 from .helpers import order_dict
 from ..data.json_data import GETAccountID_response
 
@@ -38,23 +38,6 @@ def client():
     client.default_parameters = {}
     yield client
     del client
-
-
-@pytest.mark.parametrize('method', client_methods)
-def test_make_args_optional(method):
-    """Ensure that all arguments passed to endpoint's are optional
-    """
-    result = make_args_optional(inspect.signature(method))
-
-    def check_valid_param(param):
-        if param.default != inspect._empty \
-            or param.name == 'self' \
-            or param.kind in (Parameter.VAR_POSITIONAL, Parameter.VAR_KEYWORD):
-            return True
-        else:
-            print(param)
-
-    assert all(map(check_valid_param, result.parameters.values()))
 
 
 text_gen = text()
@@ -120,7 +103,8 @@ async def test_create_request_params(client, interface_method):
         print(location, ': ', result)
         total_params.extend(result)
 
-    assert len(total_params) == len(arguments) - len(list(endpoint.request_schema)) -1  #-1 removes 'self'
+    assert len(total_params) == len(arguments) - len(list(endpoint.request_schema)) - 1  # -1 removes 'self'
+
 
 @pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])
 def test_create_url(client, endpoint):
@@ -134,6 +118,7 @@ def test_create_url(client, endpoint):
         assert value in path
         path = path[path.index(value):]
 
+
 @pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
                                               for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
 def test_create_request_kwargs(client, interface_method):
@@ -142,15 +127,15 @@ def test_create_request_kwargs(client, interface_method):
     args = list(map(lambda x: str(x), (range(len(interface_method.__signature__.parameters)))))[1:]
     print(interface_method.__name__)
     if interface_method.__name__ == 'create_order':
-        args = ((1, 1,'STOP_LOSS',),)
+        args = ((1, 1, 'STOP_LOSS',),)
     elif interface_method.__name__ == 'replace_order':
-        args = (12, (1, 1,'STOP_LOSS'))
+        args = (12, (1, 1, 'STOP_LOSS'))
 
     request_kwargs = create_request_kwargs(client,
                                            interface_method.endpoint,
                                            interface_method.__signature__,
                                            *args)
-    print("('",request_kwargs['method'], "', '", request_kwargs['url'].path, "')")
+    print("('", request_kwargs['method'], "', '", request_kwargs['url'].path, "')")
 
     assert 'method' in request_kwargs
     assert 'url' in request_kwargs
@@ -167,7 +152,7 @@ async def test_request_body_is_constructed_correctly(stop_loss_order):
     result = create_body(POSTOrders.request_schema,
                          {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
     correct = {'order': {'tradeID': 1234, 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
-                                'triggerCondition': 'DEFAULT'}}
+                         'triggerCondition': 'DEFAULT'}}
     print('RESULT: \n', result)
     print('CORRECT: \n', correct)
     assert result == correct

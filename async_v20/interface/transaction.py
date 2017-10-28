@@ -13,8 +13,11 @@ __all__ = ['TransactionInterface']
 
 class TransactionInterface(object):
     @endpoint(GETTransactions)
-    def list_transactions(self, from_time: FromTime, to_time: ToTime, page_size: PageSize,
-                          type_: Type):
+    def list_transactions(self,
+                          from_time: FromTime=None,
+                          to_time: ToTime=None,
+                          page_size: PageSize=None,
+                          type_: Type=None):
         """
         Get a list of Transactions pages that satisfy a time-based Transaction
         query.
@@ -39,7 +42,7 @@ class TransactionInterface(object):
         pass
 
     @endpoint(GETTransactionID)
-    def get_transactions(self, transaction_id: TransactionID):
+    def get_transactions(self, transaction_id: TransactionID=None):
         """
         Get the details of a single Account Transaction.
 
@@ -54,7 +57,10 @@ class TransactionInterface(object):
         pass
 
     @endpoint(GETIDrange)
-    def transaction_range(self, from_transaction: FromTransactionID, to_transaction: ToTransactionID, type_: Type):
+    def transaction_range(self,
+                          from_transaction: FromTransactionID=None,
+                          to_transaction: ToTransactionID=None,
+                          type_: Type=None):
         """
         Get a range of Transactions for an Account based on the Transaction
         IDs.
@@ -75,7 +81,7 @@ class TransactionInterface(object):
         pass
 
     @endpoint(GETSinceID)
-    def since_transaction(self, transaction_id: TransactionID):
+    def since_transaction(self, transaction_id: TransactionID=None):
         """
         Get a range of Transactions for an Account starting at (but not
         including) a provided Transaction ID.

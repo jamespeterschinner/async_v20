@@ -23,7 +23,7 @@ __all__ = ['OrderInterface']
 
 class OrderInterface(object):
     @endpoint(POSTOrders)
-    def create_order(self, order: OrderRequest, **kwargs):
+    def create_order(self, order: OrderRequest=None):
         """
         Create an Order for an Account
 
@@ -39,8 +39,12 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrders)
-    def list_orders(self, ids: Ids, state: OrderStateFilter, instrument: InstrumentName, count: Count,
-                    before_id: OrderID):
+    def list_orders(self,
+                    ids: Ids=None,
+                    state: OrderStateFilter=None,
+                    instrument: InstrumentName=None,
+                    count: Count=None,
+                    before_id: OrderID=None):
         """
         Get a list of Orders for an Account
 
@@ -79,7 +83,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrderSpecifier)
-    def get_order(self, order_specifier: OrderSpecifier):
+    def get_order(self, order_specifier: OrderSpecifier=None):
         """
         Get details for a single Order in an Account
 
@@ -95,7 +99,9 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifier)
-    def replace_order(self, order_specifier: OrderSpecifier, order: OrderRequest):
+    def replace_order(self,
+                      order_specifier: OrderSpecifier=None,
+                      order: OrderRequest=None):
         """
         Replace an Order in an Account by simultaneously cancelling it and
         creating a replacement Order
@@ -114,7 +120,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifierCancel)
-    def cancel_order(self, order_specifier: OrderSpecifier):
+    def cancel_order(self, order_specifier: OrderSpecifier=None):
         """
         Cancel a pending Order in an Account
 
@@ -130,8 +136,10 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTClientExtensions)
-    def set_client_extensions(self, order_specifier: OrderSpecifier, client_extensions: ClientExtensions,
-                              trade_client_extensions: TradeClientExtensions):
+    def set_client_extensions(self,
+                              order_specifier: OrderSpecifier=None,
+                              client_extensions: ClientExtensions=None,
+                              trade_client_extensions: TradeClientExtensions=None):
         """
         Update the Client Extensions for an Order in an Account. Do not set,
         modify, or delete clientExtensions if your account is associated with
