@@ -1,5 +1,5 @@
 import ujson as json
-
+from .helpers import flatten_dict
 import pandas as pd
 
 from .metaclass import *

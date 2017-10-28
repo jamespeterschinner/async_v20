@@ -1,7 +1,6 @@
 from inspect import Signature, Parameter, _empty
-from itertools import starmap
-
-from inflection import underscore
+from itertools import starmap, chain
+# from inflection import underscore
 
 from .descriptors.base import Descriptor
 
@@ -69,15 +68,6 @@ def create_doc_signature(cls, sig):
     return f'{cls.__name__}({arguments})\n{cls.__doc__}'
 
 
-def create_instance_attributes(cls):
-    instance_attributes = {key: underscore(key) for key in cls._schema}
-    instance_attributes.update({value: value for value in instance_attributes.values()})
-    return instance_attributes
-
-
-def create_json_attributes(cls):
-    return {underscore(key): key for key in cls._schema}
-
 
 def assign_descriptors(cls):
     for attr, schema_value in cls._schema.items():
@@ -97,30 +87,3 @@ def create_attribute(typ, data):
         result = typ(data)
     return result
 
-
-def parse_args_for_typ(cls, args, kwargs):
-    """See if a type was given in the arguments"""
-    none = {None}  # default type argument
-
-    def search_args(args):
-        typ = sorted(none.union(set(args)).intersection(none.union(cls._dispatch)),
-                     key=lambda x: False if x else True)[0]
-        if typ is not None:
-            args = tuple(arg for arg in args if arg != typ)
-        return args, typ
-
-    args, typ = search_args(args)
-    typ = kwargs.pop('type', typ)
-    return args, kwargs, typ
-
-
-from itertools import chain
-
-
-def combine_signature(*cls):
-    parameters = {parameter.name:
-                      parameter.replace(default=None, kind=Parameter.POSITIONAL_OR_KEYWORD)
-                      if parameter.name != 'self' else parameter
-                  for parameter
-                  in chain.from_iterable(map(lambda x: x.__init__.__signature__.parameters.values(), cls))}
-    return _create_signature_from_parameters(parameters.values())

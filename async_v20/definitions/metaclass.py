@@ -1,14 +1,10 @@
 from functools import wraps
 from inspect import signature
 from .helpers import assign_descriptors
-from .helpers import combine_signature
+from .attributes import instance_attributes
+from .attributes import json_attributes
 from .helpers import create_attribute
 from .helpers import create_doc_signature
-from .helpers import create_instance_attributes
-from .helpers import create_json_attributes
-from .helpers import create_signature
-from .helpers import flatten_dict
-from .helpers import parse_args_for_typ
 
 
 class JSONArray(object):
@@ -103,8 +99,8 @@ class ORM(type):
         # To achieve this these two dictionary's are created:
         #   instance_attributes :- camelCase & snake_case keys -> snake_case values
         #   json_attributes :- snake_case keys -> camelCase values
-        mcs.instance_attributes.update(create_instance_attributes(class_obj))
-        mcs.json_attributes.update(create_json_attributes(class_obj))
+        mcs.instance_attributes = instance_attributes
+        mcs.json_attributes = json_attributes
 
         # Instrument the class' with descriptors corresponding to OANDA's definitions
         class_obj = assign_descriptors(class_obj)
