@@ -123,7 +123,7 @@ class PUTTradeSpecifierClose(EndPoint):
 
     # TODO test to default to 'ALL'
     # json schema representation
-    request_schema = {'units': Units}
+    request_schema = {Units: 'units'}
 
 
 class PUTTradeSpecifierClientExtensions(EndPoint):
@@ -160,7 +160,7 @@ class PUTTradeSpecifierClientExtensions(EndPoint):
     error = (401, 405)
 
     # json schema representation
-    request_schema = {'clientExtensions': ClientExtensions}
+    request_schema = {ClientExtensions: 'clientExtensions'}
 
 
 class PUTTradesSpecifierOrders(EndPoint):
@@ -208,5 +208,5 @@ class PUTTradesSpecifierOrders(EndPoint):
     error = (401, 404, 405)
 
     # json schema representation
-    request_schema = {'takeProfit': TakeProfitDetails, 'stopLoss': StopLossDetails,
-                      'trailingStopLoss': TrailingStopLossDetails}
+    request_schema = {TakeProfitDetails: 'takeProfit', StopLossDetails: 'stopLoss',
+                       TrailingStopLossDetails: 'trailingStopLoss'}

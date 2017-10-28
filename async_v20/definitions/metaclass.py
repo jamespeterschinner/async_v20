@@ -28,20 +28,6 @@ class Array(type):
         return super().__new__(mcs, f'Array_{typ.__name__}', (JSONArray,), {'typ': typ})
 
 
-class Dispatch(dict):
-    """Keep track of the parent class a subclass is derived from"""
-
-    def __init__(self, derived, **kwargs):
-        # derived is the parent class
-        self.derived = derived
-        super().__init__(self, **kwargs)
-        self.name = self.__class__.__name__
-
-    def update(self, *args):
-        for cls in args[0].values():
-            cls._derived = self.derived
-        super().update(*args)
-
 
 def auto_assign(func, signature):
     @wraps(func)
@@ -70,7 +56,6 @@ def auto_assign(func, signature):
         # Instantiate annotations with value and assign to instance
         for name, annotation, value in arguments:
             self._fields.append(name)
-            print(annotation, value)
             attribute_value = create_attribute(annotation, value)
             setattr(self, name, attribute_value)
 
@@ -114,13 +99,5 @@ class ORM(type):
         # like objects have same length Series allowing for them to be passed into a dataframe
         class_obj.template = dict.fromkeys(sig.parameters)
 
-        # This attribute is used to keep track of subclasses for specialized creation
-        class_obj._dispatch = Dispatch(class_obj)
-
-        # If the new class is derived from a base class we want to
-        # add the derived class as an attribute to the bass class for easier access.
-        if class_obj._derived:
-            # Add the subclass to the parent for easier access
-            setattr(class_obj._derived, class_obj.__name__, class_obj)
 
         return class_obj

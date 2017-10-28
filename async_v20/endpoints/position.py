@@ -119,5 +119,5 @@ class PUTPositionsInstrumentClose(EndPoint):
 
     # TODO test longunits and short units need to default to 'ALL'
     # json schema representation
-    request_schema = {'longUnits': LongUnits, 'longClientExtensions': ClientExtensions, 'shortUnits': ShortUnits,
-                      'shortClientExtensions': ClientExtensions}
+    request_schema = {LongUnits: 'longUnits', LongClientExtensions:'longClientExtensions',  ShortUnits: 'shortUnits',
+                       ShortClientExtensions: 'shortClientExtensions'}

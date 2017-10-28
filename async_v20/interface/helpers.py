@@ -1,6 +1,7 @@
 from functools import partial
 from inspect import Signature, _empty, Parameter
 from ..definitions.helpers import create_attribute
+from ..definitions.base import Model
 
 def make_args_optional(signature):
     sig = Signature([param.replace(default=None)
@@ -53,21 +54,33 @@ def create_url(self, endpoint, arguments):
 
 
 def create_body(request_schema, arguments):
+    """Create the JSON body to add to the HTTP request
+
+    Args:
+        request_schema: -- the endpoints request schema
+        arguments: -- dict of user supplied arguments
+
+    Returns:
+        Dict containing the formatted data
+    """
+
     # Reverse the request schema to allow for lookups
-    lookup = {value: key for key, value in request_schema.items()}
 
     def dumps():
         """Iterate over the arguments returning json_dicts of matching objects"""
-        for argument in arguments.values():
+        for key, value in arguments.items():
             try:
-                key = lookup.get(argument._derived, None)
-            except AttributeError:
+                key = request_schema[key]
+            except KeyError:
                 continue
             else:
-                if key:
-                    yield (key, argument.json_dict())
+                try:
+                    value = value.json_dict()
+                except AttributeError:
+                    pass
+                yield key, value
 
-    return dict([json_data for json_data in dumps()])
+    return dict(tuple(dumps()))
 
 
 header_params = partial(_create_request_params, param_location='header')

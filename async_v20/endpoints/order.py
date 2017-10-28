@@ -40,7 +40,7 @@ class POSTOrders(EndPoint):
     error = (401, 403, 405)
 
     # json schema representation
-    request_schema = {'order': OrderRequest}
+    request_schema = {OrderRequest: 'order'}
 
 
 class GETOrders(EndPoint):
@@ -159,7 +159,7 @@ class PUTOrderSpecifier(EndPoint):
     error = (401, 405)
 
     # json schema representation
-    request_schema = {'order': OrderRequest}
+    request_schema = {OrderRequest: 'order'}
 
 
 class PUTOrderSpecifierCancel(EndPoint):
@@ -226,4 +226,4 @@ class PUTClientExtensions(EndPoint):
     error = (401, 405)
 
     # json schema representation
-    request_schema = {'clientExtensions': ClientExtensions, 'tradeClientExtensions': ClientExtensions}
+    request_schema = {'clientExtensions': ClientExtensions, 'tradeClientExtensions': TradeClientExtensions}

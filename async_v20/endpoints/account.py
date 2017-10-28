@@ -138,7 +138,7 @@ class PATCHAccountIDConfiguration(EndPoint):
     error = (401, 404, 405)
 
     # json schema representation
-    request_schema = {'alias': Alias, 'marginRate': DecimalNumber}
+    request_schema = {Alias: 'alias', DecimalNumber: 'marginRate'}
 
 
 class GETAccountIDChanges(EndPoint):

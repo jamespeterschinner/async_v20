@@ -6,7 +6,7 @@ from async_v20 import interface
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import StopLossOrderRequest
-from async_v20.definitions.types import AccountID
+from async_v20.definitions.types import AccountID, OrderRequest
 from async_v20.endpoints.annotations import Authorization
 from async_v20.endpoints import POSTOrders
 from async_v20.interface.helpers import _arguments
@@ -100,6 +100,8 @@ test_arguments_arguments = [(getattr(endpoints, cls), location.example(),) for c
                                               for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
 @pytest.mark.asyncio
 async def test_create_request_params(client, interface_method):
+    """Test that all every argument supplied to an endpoint goes into the HTTP request"""
+
     endpoint = interface_method.endpoint
     sig = interface_method.__signature__
     print(interface_method.__name__)
@@ -163,10 +165,12 @@ def test_create_request_kwargs(client, interface_method):
 @pytest.mark.asyncio
 async def test_request_body_is_constructed_correctly(stop_loss_order):
     result = create_body(POSTOrders.request_schema,
-                         {'irrelevant': stop_loss_order, 'test': Account(), 'arg': 'random_string'})
-    print(result)
-    assert result == {'order': {'tradeID': 1234, 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
+                         {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
+    correct = {'order': {'tradeID': 1234, 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
                                 'triggerCondition': 'DEFAULT'}}
+    print('RESULT: \n', result)
+    print('CORRECT: \n', correct)
+    assert result == correct
 
 
 @pytest.mark.asyncio
