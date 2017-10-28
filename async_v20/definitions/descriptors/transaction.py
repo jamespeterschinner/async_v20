@@ -1,4 +1,4 @@
-from .base import Descriptor
+from .helpers import domain_check
 
 __all__ = ['ClientComment', 'ClientID', 'ClientTag', 'FundingReason', 'LimitOrderReason', 'MarketIfTouchedOrderReason',
            'MarketOrderMarginCloseoutReason', 'MarketOrderReason', 'OrderCancelReason', 'OrderFillReason', 'RequestID',
@@ -6,49 +6,45 @@ __all__ = ['ClientComment', 'ClientID', 'ClientTag', 'FundingReason', 'LimitOrde
            'TransactionFilter', 'TransactionID', 'TransactionRejectReason', 'TransactionType']
 
 
-class ClientComment(Descriptor):
+class ClientComment(str):
     """A client-provided comment that can contain any data and may be assigned to their Orders or
     Trades. Comments are typically used to provide extra context or meaning to an Order or Trade.
     """
 
-    # Type checking
-    typ = str
-
     # Example of correct format
-    example = 'This is a client comment'
+    #example = 'This is a client comment'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
 
-class ClientID(Descriptor):
+class ClientID(str):
     """A client-provided identifier, used by clients to refer to their
     Orders or Trades with an identifier that they have provided.
     """
 
-    # Type checking
-    typ = str
-
-    # TODO: you need to handle these examples better. Maybe just use them for documentation
     # Example of correct format
-    #example = 'my_order_id'
+    # example = 'my_order_id'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
 
-class ClientTag(Descriptor):
+class ClientTag(str):
     """A client-provided tag that can contain any data and may be assigned to their
     Orders or Trades. Tags are typically used to associate groups of Trades and/or Orders together.
     """
 
-    # Type checking
-    typ = str
-
     # Example of correct format
-    example = 'client_tag_1'
+    #example = 'client_tag_1'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
 
-class FundingReason(Descriptor):
+class FundingReason(str):
     """The reason that an Account is being funded.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -59,13 +55,13 @@ class FundingReason(Descriptor):
         'ADJUSTMENT': 'Funds are being transfered as part of an Account adjustment'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class LimitOrderReason(Descriptor):
+class LimitOrderReason(str):
     """The reason that the Limit Order was initiated
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -73,13 +69,14 @@ class LimitOrderReason(Descriptor):
         'REPLACEMENT': 'The Limit Order was initiated as a replacement for an existing Order'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class MarketIfTouchedOrderReason(Descriptor):
+
+class MarketIfTouchedOrderReason(str):
     """The reason that the Market-if-touched Order was initiated
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -87,8 +84,11 @@ class MarketIfTouchedOrderReason(Descriptor):
         'REPLACEMENT': 'The Market-if-touched Order was initiated as a replacement for an existing Order'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class MarketOrderMarginCloseoutReason(Descriptor):
+class MarketOrderMarginCloseoutReason(str):
     """The reason that the Market Order was created to perform a margin closeout
     """
 
@@ -102,13 +102,14 @@ class MarketOrderMarginCloseoutReason(Descriptor):
                                             'regulatory conditions placed on the Account’s margin call'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class MarketOrderReason(Descriptor):
+
+class MarketOrderReason(str):
     """The reason that the Market Order was created
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -119,13 +120,14 @@ class MarketOrderReason(Descriptor):
         'DELAYED_TRADE_CLOSE': 'The Market Order was created to close a trade marked for delayed closure'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class OrderCancelReason(Descriptor):
+
+class OrderCancelReason(str):
     """The reason that an Order was cancelled.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -180,13 +182,14 @@ class OrderCancelReason(Descriptor):
                                   'being exceeded for the Order’s instrument.'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class OrderFillReason(Descriptor):
+
+class OrderFillReason(str):
     """The reason that an Order was filled
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -203,21 +206,22 @@ class OrderFillReason(Descriptor):
         'MARKET_ORDER_DELAYED_TRADE_CLOSE': 'The Order filled was a Market Order used for a delayed Trade close'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class RequestID(Descriptor):
+
+class RequestID(str):
     """The request identifier.
     """
+    # TODO is this nesessary?
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
-    # Type checking
-    typ = str
 
-
-class StopLossOrderReason(Descriptor):
+class StopLossOrderReason(str):
     """The reason that the Stop Loss Order was initiated
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -227,13 +231,14 @@ class StopLossOrderReason(Descriptor):
                    'requiring a Stop Loss Order.'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class StopOrderReason(Descriptor):
+
+class StopOrderReason(str):
     """The reason that the Stop Order was initiated
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -241,13 +246,14 @@ class StopOrderReason(Descriptor):
         'REPLACEMENT': 'The Stop Order was initiated as a replacement for an existing Order'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class TakeProfitOrderReason(Descriptor):
+
+class TakeProfitOrderReason(str):
     """The reason that the Take Profit Order was initiated
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -257,13 +263,14 @@ class TakeProfitOrderReason(Descriptor):
                    'requiring a Take Profit Order.'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class TrailingStopLossOrderReason(Descriptor):
+
+class TrailingStopLossOrderReason(str):
     """The reason that the Trailing Stop Loss Order was initiated
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -272,13 +279,14 @@ class TrailingStopLossOrderReason(Descriptor):
         'ON_FILL': 'The Trailing Stop Loss Order was initiated automatically when an Order was filled that opened a '
                    'new Trade requiring a Trailing Stop Loss Order.'}
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class TransactionFilter(Descriptor):
+
+class TransactionFilter(str):
     """A filter that can be used when fetching Transactions
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -324,26 +332,26 @@ class TransactionFilter(Descriptor):
         'RESET_RESETTABLE_PL': 'Reset Resettable PL Transaction'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class TransactionID(Descriptor):
+class TransactionID(str):
     """The unique Transaction identifier within each Account.
     """
-
-    # Type checking
-    typ = str
 
     # Correct syntax of value
     format_syntax = 'String representation of the numerical OANDA-assigned TransactionID'
     # Example of correct format
-    # example = '1523'
+    #example = '1523'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
 
-class TransactionRejectReason(Descriptor):
+class TransactionRejectReason(str):
     """The reason that a Transaction was rejected.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -510,13 +518,14 @@ class TransactionRejectReason(Descriptor):
                                       'replaced.'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class TransactionType(Descriptor):
+
+class TransactionType(str):
     """The possible types of a Transaction
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -555,3 +564,7 @@ class TransactionType(Descriptor):
         'DAILY_FINANCING': 'Daily Financing Transaction',
         'RESET_RESETTABLE_PL': 'Reset Resettable PL Transaction'
     }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)

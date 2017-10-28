@@ -1,6 +1,7 @@
 from ..definitions.types import ClientExtensions, ClientID, ClientComment, ClientTag
 from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
+from ..definitions.base import Model
 
 class Bool(object):
     def __new__(cls, arg):
@@ -84,17 +85,17 @@ class ToTime(DateTime):
 
 class TradeClientExtensions(ClientExtensions):
     def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
-        return ClientExtensions.__new__(**locals())
+        return Model.__new__(**locals())
 
 
 class LongClientExtensions(ClientExtensions):
     def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
-        return ClientExtensions.__new__(**locals())
+        return Model.__new__(**locals())
 
 
 class ShortClientExtensions(ClientExtensions):
     def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
-        return ClientExtensions.__new__(**locals())
+        return Model.__new__(**locals())
 
 
 class Units(str):

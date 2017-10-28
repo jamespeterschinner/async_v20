@@ -1,9 +1,9 @@
-from .base import Descriptor
+from .helpers import domain_check
 
 __all__ = ['CandlestickGranularity', 'WeeklyAlignment']
 
 
-class CandlestickGranularity(Descriptor):
+class CandlestickGranularity(str):
     """The granularity of a candlestick
     """
 
@@ -35,13 +35,14 @@ class CandlestickGranularity(Descriptor):
         'M': '1 month candlesticks, aligned to first day of the month'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class WeeklyAlignment(Descriptor):
+
+class WeeklyAlignment(str):
     """The day of the week to use for candlestick granularities with weekly alignment.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -53,3 +54,7 @@ class WeeklyAlignment(Descriptor):
         'Saturday': 'Saturday',
         'Sunday': 'Sunday'
     }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)

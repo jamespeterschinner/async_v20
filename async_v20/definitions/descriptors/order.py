@@ -1,15 +1,12 @@
-from .base import Descriptor
+from .helpers import domain_check
 
 __all__ = ['CancellableOrderType', 'OrderID', 'OrderPositionFill', 'OrderSpecifier', 'OrderState', 'OrderStateFilter',
            'OrderTriggerCondition', 'OrderType', 'TimeInForce']
 
 
-class CancellableOrderType(Descriptor):
+class CancellableOrderType(str):
     """The type of the Order.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -21,8 +18,12 @@ class CancellableOrderType(Descriptor):
         'TRAILING_STOP_LOSS': 'A Trailing Stop Loss Order'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class OrderID(Descriptor):
+
+class OrderID(int):
     """The Order’s identifier, unique within the Order’s Account.
     """
 
@@ -36,14 +37,14 @@ class OrderID(Descriptor):
     # # Example of correct format
     # example = '1523'
 
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
-class OrderPositionFill(Descriptor):
+
+class OrderPositionFill(str):
     """Specification of how Positions in the Account
     are modified when the Order is filled.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -54,15 +55,16 @@ class OrderPositionFill(Descriptor):
         'DEFAULT': 'When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, '
                    'and OPEN_ONLY behaviour for client hedging Accounts.'
     }
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
 
-class OrderSpecifier(Descriptor):
+class OrderSpecifier(str):
     """The specification of an Order as referred to by clients
     """
 
     # TODO Check with OANDA. spec = int. I believe it should be a str
-    # Type checking
-    typ = str
 
     # Correct syntax of value
     format_syntax = 'Either the Order’s OANDA-assigned OrderID or the Order’s client-provided ' \
@@ -70,13 +72,13 @@ class OrderSpecifier(Descriptor):
     # Example of correct format
     # example = '1523'
 
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
-class OrderState(Descriptor):
+
+class OrderState(str):
     """The current state of the Order.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -86,13 +88,14 @@ class OrderState(Descriptor):
         'CANCELLED': 'The Order has been cancelled'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class OrderStateFilter(Descriptor):
+
+class OrderStateFilter(str):
     """The state to filter the requested Orders by.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -103,8 +106,11 @@ class OrderStateFilter(Descriptor):
         'ALL': 'The Orders that are in any of the possible states listed above'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class OrderTriggerCondition(Descriptor):
+class OrderTriggerCondition(str):
     """Specification of which price component should be used when determining if an
     Order should be triggered and filled. This allows Orders to be triggered based
     on the bid, ask, mid, default (ask for buy, bid for sell) or inverse (
@@ -118,9 +124,6 @@ class OrderTriggerCondition(Descriptor):
     when creating or modifying an Order.
     """
 
-    # Type checking
-    typ = str
-
     # Valid values
     values = {
         'DEFAULT': 'Trigger an Order the “natural” way: '
@@ -132,13 +135,13 @@ class OrderTriggerCondition(Descriptor):
         'MID': 'Trigger an Order by comparing its price to the midpoint regardless of whether it is long or short.'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class OrderType(Descriptor):
+class OrderType(str):
     """The type of the Order.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -150,15 +153,15 @@ class OrderType(Descriptor):
         'STOP_LOSS': 'A Stop Loss Order',
         'TRAILING_STOP_LOSS': 'A Trailing Stop Loss Order'
     }
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
 
-class TimeInForce(Descriptor):
+class TimeInForce(str):
     """The time-in-force of an Order. TimeInForce describes how long an Order
     should remain pending before being automatically cancelled by the execution system.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -168,3 +171,6 @@ class TimeInForce(Descriptor):
         'FOK': 'The Order must be immediately “Filled Or Killed”',
         'IOC': 'The Order must be “Immediatedly paritally filled Or Cancelled”'
     }
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)

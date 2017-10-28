@@ -3,8 +3,6 @@ import inspect
 import pytest
 
 from async_v20.definitions import types
-from async_v20.definitions.descriptors.base import Descriptor
-from async_v20.definitions.helpers import assign_descriptors
 from async_v20.definitions.helpers import create_signature
 from async_v20.definitions.helpers import flatten_dict
 
@@ -52,13 +50,3 @@ def test_create_signature(cls):
     assert all(map(lambda x: bound.arguments[x[0]] == x[1], required_parameters.items()))
 
 
-@pytest.mark.parametrize('cls', map(lambda x: getattr(types, x), types.__all__))
-def test_assign_descriptors(cls):
-    descriptors = dict([(cls.instance_attributes[attr], schema_value.typ)
-                        for attr, schema_value
-                        in cls._schema.items()
-                        if issubclass(schema_value.typ, Descriptor)])
-    cls = assign_descriptors(cls)
-
-    assert all(map(lambda x: hasattr(cls, x), descriptors.keys()))
-    assert all(map(lambda x: type(getattr(cls, x[0])) == x[1], descriptors.items()))

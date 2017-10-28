@@ -8,7 +8,7 @@ class Response(dict):
                 # If value is an Model object
                 result = value.json_dict()
             except AttributeError:
-                if isinstance(value, list):
+                if isinstance(value, tuple):
                     # If value is an Array of Model objects
                     result = [obj.json_dict() for obj in value]
                 else:

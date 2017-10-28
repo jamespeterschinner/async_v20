@@ -2,7 +2,6 @@ from inspect import Signature, Parameter, _empty
 from itertools import starmap, chain
 # from inflection import underscore
 
-from .descriptors.base import Descriptor
 
 
 def flatten_dict(dictionary, delimiter='_'):
@@ -69,17 +68,7 @@ def create_doc_signature(cls, sig):
 
 
 
-def assign_descriptors(cls):
-    for attr, schema_value in cls._schema.items():
-        typ = schema_value.typ
-        if issubclass(typ, Descriptor):
-            attr = cls.instance_attributes[attr]
-            setattr(cls, attr, typ(name='_' + attr))
-    return cls
-
-
 def create_attribute(typ, data):
-    print('TYPE:', typ, data)
     if isinstance(data, dict):
         result = typ(**data)
     elif isinstance(data, tuple):

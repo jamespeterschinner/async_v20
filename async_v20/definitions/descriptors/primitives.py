@@ -1,16 +1,13 @@
-from .base import Descriptor
+from .helpers import domain_check
 
 __all__ = ['AcceptDatetimeFormat', 'AccountUnits', 'Currency', 'DateTime', 'DecimalNumber',
            'Unit', 'Direction',
            'InstrumentName', 'InstrumentType']
 
 
-class AcceptDatetimeFormat(Descriptor):
+class AcceptDatetimeFormat(str):
     """DateTime header
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -19,9 +16,12 @@ class AcceptDatetimeFormat(Descriptor):
         'RFC3339': 'If “RFC3339” is specified DateTime will be specified or '
                    'returned in “YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ” format.'
     }
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
 
-class AccountUnits(Descriptor):
+class AccountUnits(float):
     """The string representation of a quantity of an Account’s home currency.
     """
 
@@ -30,73 +30,64 @@ class AccountUnits(Descriptor):
     # Though it makes more sense for it to be a float
     # floats automatically get converted to to strings anyway
     # when serialized into JSON
-    typ = float
 
     # Correct syntax of value
     format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
                     'provided depends on the Account’s home currency.'
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
 
-class Currency(Descriptor):
+class Currency(str):
     """Currency name identifier. Used by clients to refer to currencies.
     """
-
-    # Type checking
-    typ = str
 
     # Correct syntax of value
     format_syntax = 'A string containing an ISO 4217 currency'
 
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
-class DateTime(Descriptor):
+
+class DateTime(str):
     """A date and time value using either RFC3339 or UNIX time representation.
     """
-
-    # Type checking
-    typ = str
 
     # Correct syntax of value
     format_syntax = 'The RFC 3339 representation is a string conforming to'
 
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
-class DecimalNumber(Descriptor):
+
+class DecimalNumber(float):
     """The string representation of a decimal number.
     """
 
-    # Type checking
-    typ = float
-
     # Correct syntax of value
     format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
                     'provided depends on what the number represents.'
 
-    def __set__(self, instance, value):
-        value = super().type_check(value)
-        super().__set__(instance, round(value, 5))
+    def __new__(cls, value):
+        return super().__new__(cls, round(float(value),5))
 
-class Unit(Descriptor):
+
+class Unit(float):
     """A unit is a standard allotment of a currency
     """
 
-    # Type checking
-    typ = float
-
     # Correct syntax of value
     format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
                     'provided depends on what the number represents.'
 
-    def __set__(self, instance, value):
-        value = super().type_check(value)
-        super().__set__(instance, round(value, 0))
+    def __new__(cls, value):
+        return super().__new__(cls, round(float(value),0))
 
 
-class Direction(Descriptor):
+class Direction(str):
     """In the context of an Order or a
     Trade, defines whether the units are positive or negative.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -106,19 +97,23 @@ class Direction(Descriptor):
                  'A Trade is short when it has sold units of an Instrument.'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class InstrumentName(Descriptor):
+
+class InstrumentName(str):
     """Instrument name identifier. Used by clients to refer to an Instrument.
     """
-
-    # Type checking
-    typ = str
 
     # Correct syntax of value
     format_syntax = 'A string containing the base currency and quote currency delimited by a “_”.'
 
+    def __new__(cls, value):
+        return super().__new__(cls, value)
 
-class InstrumentType(Descriptor):
+
+class InstrumentType(str):
     """The type of an Instrument.
     """
 
@@ -131,3 +126,7 @@ class InstrumentType(Descriptor):
         'CFD': 'Contract For Difference',
         'METAL': 'Metal'
     }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)

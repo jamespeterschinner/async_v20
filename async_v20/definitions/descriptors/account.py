@@ -1,14 +1,14 @@
-from .base import Descriptor
+from .helpers import domain_check
 
 __all__ = ['AccountFinancingMode', 'AccountID', 'PositionAggregationMode']
 
 
-class AccountFinancingMode(Descriptor):
+class AccountFinancingMode(str):
     """The financing mode of an Account
     """
 
-    # Type checking
-    typ = str
+    # # Type checking
+    # typ = str
 
     # Valid values
     values = {
@@ -19,8 +19,12 @@ class AccountFinancingMode(Descriptor):
                  'daily at 5pm New York time'
     }
 
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
 
-class AccountID(Descriptor):
+
+class AccountID(str):
     """The string representation of an Account Identifier.
     """
 
@@ -32,8 +36,12 @@ class AccountID(Descriptor):
     # Example of correct format
     example = '001-011-5838423-001'
 
+    def __new__(cls, value):
+        assert domain_check(value, example=cls.example)
+        return super().__new__(cls, value)
 
-class PositionAggregationMode(Descriptor):
+
+class PositionAggregationMode(str):
     """The way that position values for an Account are calculated and aggregated.
     """
 
@@ -51,3 +59,7 @@ class PositionAggregationMode(Descriptor):
                    'together and the resulting value (long or short) is used to compute '
                    'the Position value or margin.'
     }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)

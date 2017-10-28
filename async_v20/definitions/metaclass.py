@@ -11,7 +11,7 @@ class JSONArray(object):
 
     def __new__(cls, data):
         try:
-            return [create_attribute(cls.typ, obj) for obj in data]
+            return tuple(create_attribute(cls.typ, obj) for obj in data)
         except TypeError as e:
             msg = f'FAILED TO CREATE OBJECT: {cls.typ} FROM DATA: {data} DATA TYPE: {type(data)}'
             print(e.args)
@@ -31,7 +31,6 @@ def format_args(new):
     def wrap(self, *args, **kwargs):
         formatted = {instance_attributes[name]: value for name, value in kwargs.items()
                      if name not in ['__class__']}
-        print('ARGUMENTS:,', formatted)
         return new(self, *args, **formatted)
     return wrap
 
