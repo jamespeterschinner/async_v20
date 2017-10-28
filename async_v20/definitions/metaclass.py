@@ -47,15 +47,16 @@ class Dispatch(dict):
         super().update(*args)
 
 
-def auto_assign(func, signature):
+def auto_assign(func):
     @wraps(func)
     def __init__(self, *args, **kwargs):
+        signature = self.__init__.__signature__
         self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
 
-        # When a bass class is called with a 'type' argument, the argument gets passed to the init
-        # The argument must be removed
-        if self.__class__._derived:
-            args, kwargs, typ = parse_args_for_typ(self.__class__._derived, args, kwargs)
+        # # When a bass class is called with a 'type' argument, the argument gets passed to the init
+        # # The argument must be removed
+        # if self.__class__._derived:
+        #     args, kwargs, typ = parse_args_for_typ(self.__class__._derived, args, kwargs)
 
         # This dict allow for camelCase and snake_case to be passed without error
         kwargs = {self.__class__.instance_attributes[key]: value for key, value in kwargs.items()}
@@ -80,7 +81,6 @@ def auto_assign(func, signature):
             setattr(self, name, attribute_value)
 
     # Update the signature of the class __init__
-    __init__.__signature__ = signature
     return __init__
 
 
@@ -111,10 +111,13 @@ class ORM(type):
 
         # Instrument the class' with descriptors corresponding to OANDA's definitions
         class_obj = assign_descriptors(class_obj)
+        # assign the standard __init__ to correctly initialize objects from json
+        class_obj.__init__ = auto_assign(class_obj.__init__)
         # Create class signature
         sig = create_signature(class_obj)
-        # assign the standard __init__ to correctly initialize objects from json
-        class_obj.__init__ = auto_assign(class_obj.__init__, sig)
+        # Assigning the signature after the init has been constructed,
+        # Allows for updating of the signature later on
+        class_obj.__init__.__signature__ = sig
         # Create a pretty signature for documentation
         class_obj.__doc__ = create_doc_signature(class_obj, sig)
         # This dictionary is used to create pandas.Series objects. The template ensures that all
@@ -128,7 +131,10 @@ class ORM(type):
         # - Add the signature to the base class
         # - Add the derived class as an attribute to the bass class for easier access.
         if class_obj._derived:
-            # Update the bass class signature
+            # Update the bass class signature.
+            # By updating the derived class' init signature we are dynamically
+            # changing how the arguments are passed. This means that all subtypes can be constructed from
+            # there base by supplying the correct arguments
             class_obj._derived.__init__.__signature__ = combine_signature(class_obj._derived, class_obj)
 
             # Add the subclass to the parent for easier access
