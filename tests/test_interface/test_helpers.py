@@ -140,9 +140,9 @@ def test_create_request_kwargs(client, interface_method):
     args = list(map(lambda x: str(x), (range(len(interface_method.__signature__.parameters)))))[1:]
     print(interface_method.__name__)
     if interface_method.__name__ == 'create_order':
-        args = (('STOP_LOSS', 1, 1),)
+        args = ((1, 1,'STOP_LOSS',),)
     elif interface_method.__name__ == 'replace_order':
-        args = (12, ('STOP_LOSS', 1, 1))
+        args = (12, (1, 1,'STOP_LOSS'))
 
     request_kwargs = create_request_kwargs(client,
                                            interface_method.endpoint,
