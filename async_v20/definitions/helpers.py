@@ -1,7 +1,5 @@
-from inspect import Signature, Parameter, _empty
+from inspect import _empty
 from itertools import starmap, chain
-# from inflection import underscore
-
 
 
 def flatten_dict(dictionary, delimiter='_'):
@@ -27,45 +25,13 @@ def flatten_dict(dictionary, delimiter='_'):
     return dictionary
 
 
-def _sig_sort_key(param):
-    default = False
-    if param.default != _empty:
-        default = True
-    return default
-
-
-def _create_signature_from_parameters(parameters):
-    return Signature(sorted(parameters, key=_sig_sort_key))
-
-
-def create_signature(cls):
-    schema = cls._schema
-
-    def create_parameter(key, schema_value):
-        name = cls.instance_attributes[key]
-        annotation = schema_value.typ
-        default = schema_value.default
-        if default == _empty and schema_value.required is False:
-            default = None
-        return Parameter(name=name, annotation=annotation, default=default, kind=Parameter.POSITIONAL_OR_KEYWORD)
-
-    def parameters(schema):
-        yield Parameter(name='self', kind=Parameter.POSITIONAL_ONLY)
-        for key, value in schema.items():
-            yield create_parameter(key, value)
-
-    return _create_signature_from_parameters(parameters(schema))
-
-
 def create_doc_signature(cls, sig):
     names = list(sig.parameters.keys())
-    annotations = list(map(lambda x: '' if x.annotation == _empty else ': ' + x.annotation.__name__
-                           , sig.parameters.values()))
-
+    annotations = list(
+        map(lambda x: '' if x.annotation == _empty else ': ' + x.annotation.__name__, sig.parameters.values()))
     defaults = list(map(lambda x: '' if x.default == _empty else '=' + str(x.default), sig.parameters.values()))
     arguments = ', '.join(''.join(argument) for argument in zip(names, annotations, defaults))
     return f'{cls.__name__}({arguments})\n{cls.__doc__}'
-
 
 
 def create_attribute(typ, data):
@@ -76,4 +42,3 @@ def create_attribute(typ, data):
     else:
         result = typ(data)
     return result
-

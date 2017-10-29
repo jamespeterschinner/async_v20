@@ -4,7 +4,6 @@ from functools import wraps
 from inspect import signature
 
 from .helpers import create_request_kwargs
-# from .helpers import make_args_optional
 from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
 
@@ -72,7 +71,7 @@ def endpoint(endpoint, serial=False):
 
 
 def add_signature(class_obj):
-    sig = signature(class_obj.__init__)
+    sig = signature(class_obj.__new__)
 
     def wrapper(func):
         @wraps(func)

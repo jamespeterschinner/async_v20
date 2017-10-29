@@ -12,9 +12,8 @@ class JSONArray(object):
     def __new__(cls, data):
         try:
             return tuple(create_attribute(cls.typ, obj) for obj in data)
-        except TypeError as e:
+        except TypeError:
             msg = f'FAILED TO CREATE OBJECT: {cls.typ} FROM DATA: {data} DATA TYPE: {type(data)}'
-            print(e.args)
             raise Exception(msg)
 
 
@@ -29,9 +28,13 @@ class Array(type):
 def format_args(new):
     wraps(new)
     def wrap(self, *args, **kwargs):
-        formatted = {instance_attributes[name]: value for name, value in kwargs.items()
-                     if name not in ['__class__']}
-        return new(self, *args, **formatted)
+        def format():
+            for name, value in kwargs.items():
+                try:
+                    yield instance_attributes[name], value
+                except KeyError:
+                    continue
+        return new(self, *args, **dict(format()))
     return wrap
 
 
@@ -55,6 +58,7 @@ class ORM(type):
 
         # Update
         class_obj.__new__.__signature__ = sig
+
         # Create a pretty signature for documentation
         class_obj.__doc__ = create_doc_signature(class_obj, sig)
 

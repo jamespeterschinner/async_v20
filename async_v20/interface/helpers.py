@@ -5,7 +5,6 @@ from ..definitions.helpers import create_attribute
 
 
 def create_annotation_lookup(signature, bound_arguments):
-    print('supplied SIGNATURE', signature)
     """Combine the signatures annotations with bound arguments to create a lookup dict
     for subsequent functions to identify arguments they need to use"""
     annotations_lookup = {param.name: param.annotation for param in signature.parameters.values()}
@@ -20,23 +19,19 @@ def _arguments(endpoint, param_location):
 def _create_request_params(self, endpoint, arguments: dict, param_location: str):
     possible_arguments = _arguments(endpoint, param_location)
 
-    def lookup(typ):
-        result = None
-        try:
-            result = arguments[typ]
-        except KeyError:
+    def lookup():
+        for name, typ in possible_arguments:
             try:
-                result = self.default_parameters[typ]
-            except TypeError:
-                # TODO create exception module
-                raise Exception('No default parameters provided')
+                result = arguments[typ]
             except KeyError:
-                print(f"WARNING: missing {typ.__name__} in {param_location}")
-                pass  # TODO: This Should raise a warning that not all header parameters were created
-        return result
+                try:
+                    result = self.default_parameters[typ]
+                except KeyError:
+                    print(f"WARNING: missing {typ.__name__} in {param_location}")
+                    continue
+            yield name, result
 
-    parameters = ((name, lookup(typ)) for name, typ in possible_arguments)
-    return {name: value for name, value in parameters if value is not None}
+    return dict(lookup())
 
 
 def create_url(self, endpoint, arguments):
@@ -83,10 +78,9 @@ query_params = partial(_create_request_params, param_location='query')
 def construct_arguments(annotation_lookup: dict):
     """Construct passed arguments into corresponding objects"""
     annotation_lookup.pop(_empty)  # Remove self parameter
-    print('ANNOTATION LOOKUP: ', annotation_lookup)
     result = {annotation: create_attribute(annotation, value) for annotation, value in annotation_lookup.items()}
-    print('RESULT', result)
     return result
+
 
 def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Format arguments to be passed to an aiohttp request"""
