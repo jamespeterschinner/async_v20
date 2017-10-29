@@ -3,7 +3,7 @@ from .helpers import domain_check
 __all__ = ['ClientComment', 'ClientID', 'ClientTag', 'FundingReason', 'LimitOrderReason', 'MarketIfTouchedOrderReason',
            'MarketOrderMarginCloseoutReason', 'MarketOrderReason', 'OrderCancelReason', 'OrderFillReason', 'RequestID',
            'StopLossOrderReason', 'StopOrderReason', 'TakeProfitOrderReason', 'TrailingStopLossOrderReason',
-           'TransactionFilter', 'TransactionID', 'TransactionRejectReason', 'TransactionType']
+           'TransactionFilter', 'TransactionID', 'TransactionRejectReason', 'TransactionType', 'Reason']
 
 
 class ClientComment(str):
@@ -59,6 +59,7 @@ class FundingReason(str):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
 
+
 class LimitOrderReason(str):
     """The reason that the Limit Order was initiated
     """
@@ -66,7 +67,8 @@ class LimitOrderReason(str):
     # Valid values
     values = {
         'CLIENT_ORDER': 'The Limit Order was initiated at the request of a client',
-        'REPLACEMENT': 'The Limit Order was initiated as a replacement for an existing Order'
+        'REPLACEMENT': 'The Limit Order was initiated as a replacement for an existing Order',
+        'STOP_LOSS_ORDER': None  # TODO: check what is up with this???
     }
 
     def __new__(cls, value):
@@ -81,12 +83,14 @@ class MarketIfTouchedOrderReason(str):
     # Valid values
     values = {
         'CLIENT_ORDER': 'The Market-if-touched Order was initiated at the request of a client',
-        'REPLACEMENT': 'The Market-if-touched Order was initiated as a replacement for an existing Order'
+        'REPLACEMENT': 'The Market-if-touched Order was initiated as a replacement for an existing Order',
+        'STOP_LOSS_ORDER': None  # TODO: check what is up with this???
     }
 
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
+
 
 class MarketOrderMarginCloseoutReason(str):
     """The reason that the Market Order was created to perform a margin closeout
@@ -211,6 +215,7 @@ class OrderFillReason(str):
 class RequestID(str):
     """The request identifier.
     """
+
     # TODO is this nesessary, NO! I guess it's about consistency
     def __new__(cls, value):
         return super().__new__(cls, value)
@@ -240,7 +245,7 @@ class StopOrderReason(str):
     # Valid values
     values = {
         'CLIENT_ORDER': 'The Stop Order was initiated at the request of a client',
-        'REPLACEMENT': 'The Stop Order was initiated as a replacement for an existing Order'
+        'REPLACEMENT': 'The Stop Order was initiated as a replacement for an existing Order',
     }
 
     def __new__(cls, value):
@@ -332,6 +337,7 @@ class TransactionFilter(str):
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
+
 
 class TransactionID(str):
     """The unique Transaction identifier within each Account.
@@ -561,6 +567,28 @@ class TransactionType(str):
         'DAILY_FINANCING': 'Daily Financing Transaction',
         'RESET_RESETTABLE_PL': 'Reset Resettable PL Transaction'
     }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class Reason(str):
+    """Generic reason for any transaction that may occur"""
+
+    values = dict(tuple(set.union(*(set(value.items()) for value in
+                  (FundingReason.values,
+                   LimitOrderReason.values,
+                   MarketIfTouchedOrderReason.values,
+                   MarketOrderMarginCloseoutReason.values,
+                   MarketOrderReason.values,
+                   OrderCancelReason.values,
+                   OrderFillReason.values,
+                   StopLossOrderReason.values,
+                   StopOrderReason.values,
+                   TakeProfitOrderReason.values,
+                   TrailingStopLossOrderReason.values,
+                   TransactionRejectReason.values)))))
 
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)

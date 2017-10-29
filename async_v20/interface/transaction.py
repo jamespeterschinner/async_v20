@@ -58,8 +58,8 @@ class TransactionInterface(object):
 
     @endpoint(GETIDrange)
     def transaction_range(self,
-                          from_transaction: FromTransactionID=None,
-                          to_transaction: ToTransactionID=None,
+                          from_transaction: FromTransactionID,
+                          to_transaction: ToTransactionID, # TODO make this default to now
                           type_: Type=None):
         """
         Get a range of Transactions for an Account based on the Transaction

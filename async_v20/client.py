@@ -8,6 +8,7 @@ from .endpoints.annotations import Authorization
 from .helpers import request_limiter, initializer
 from .interface import *
 from .interface.account import AccountInterface
+
 version = '2.0.0a0'
 
 
@@ -24,6 +25,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         rest_port: -- The port of the v20 REST server
         stream_host: -- The hostname of the v20 REST server
         stream_port: -- The port of the v20 REST server
+        rest_scheme: -- The scheme of the connection. Defaults to 'https'
+        stream_scheme: -- The scheme of the connection. Defaults to 'https'
         application: Optional name of the application using the v20 bindings
         datetime_format: -- The format to request when dealing with times
         poll_timeout: -- The timeout to use when making a polling request with
@@ -43,10 +46,10 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     loop = None
 
-    def __init__(self, token=None, rest_host='api-fxpractice.oanda.com', rest_port=443,
-                 stream_host='stream-fxpractice.oanda.com', stream_port=None, application='async_v20',
-                 datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99, max_simultaneous_connections=10):
-
+    def __init__(self, token=None, rest_host='api-fxpractice.oanda.com', rest_port=443, rest_scheme='https',
+                 stream_host='stream-fxpractice.oanda.com', stream_port=None, stream_scheme='https',
+                 application='async_v20', datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99,
+                 max_simultaneous_connections=10):
         # TODO: add poll timeout
         self.version = version
 
@@ -56,10 +59,10 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         self.application = application
 
         # V20 REST API URL
-        rest_host = partial(URL.build, host=rest_host, port=rest_port, scheme='https')
+        rest_host = partial(URL.build, host=rest_host, port=rest_port, scheme=rest_scheme)
 
         # v20 STREAM API URL
-        stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme='https')
+        stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme=rest_scheme)
 
         self.hosts = {'REST': rest_host, 'STREAM': stream_host}
 
@@ -106,4 +109,3 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     def close(self):
         self.session.close()
-

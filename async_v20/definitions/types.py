@@ -1020,7 +1020,7 @@ The base Transaction specification. Specifies properties that are common
                 type: TransactionType = None, extension_number: int = None, division_id: int = None,
                 site_id: int = None, account_user_id: int = None, account_number: int = None,
                 home_currency: Currency = None, alias: str = None, margin_rate: DecimalNumber = None,
-                reason: StopOrderReason = None, trade_i_ds: TradeID = None, order_id: OrderID = None,
+                reason: Reason = None, trade_i_ds: TradeID = None, order_id: OrderID = None,
                 client_order_id: ClientID = None, replaced_by_order_id: OrderID = None,
                 closed_trade_id: OrderID = None, trade_close_transaction_id: TransactionID = None,
                 client_extensions_modify: ClientExtensions = None,

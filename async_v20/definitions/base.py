@@ -172,7 +172,9 @@ class Model(tuple, metaclass=ORM):
 
 
 def create_attribute(typ, data):
-    if isinstance(data, Model):
+    if typ is None:
+        return
+    elif isinstance(data, Model):
         result = data
     elif isinstance(data, dict):
         result = typ(**data)

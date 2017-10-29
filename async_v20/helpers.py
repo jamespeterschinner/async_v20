@@ -33,8 +33,9 @@ async def initializer(self):
 
     print('Initializing')
 
-    self.initialized = 1
+    # self.initialized = 1
 
+    # Initialize the request limiter coroutine
     await self.request.asend(None)
 
     conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
@@ -58,8 +59,8 @@ async def initializer(self):
 
     # Get the list of all available instruments for this account
     response = await self.account_instruments()
-    self.account_instruments = response['instruments']
-    self.initialized = 2
+    self.available_instruments = response['instruments']
+    # self.initialized = 2
     print('initialize complete')
 
     while True:

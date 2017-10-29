@@ -1,3 +1,4 @@
+from ..definitions.base import Model
 
 class Response(dict):
 
@@ -8,7 +9,7 @@ class Response(dict):
                 # If value is an Model object
                 result = value.json_dict()
             except AttributeError:
-                if isinstance(value, tuple):
+                if isinstance(value, Model):
                     # If value is an Array of Model objects
                     result = [obj.json_dict() for obj in value]
                 else:
