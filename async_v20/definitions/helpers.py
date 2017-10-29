@@ -1,7 +1,6 @@
 from inspect import _empty
 from itertools import starmap, chain
 
-
 def flatten_dict(dictionary, delimiter='_'):
     """Flatten a nested dictionary structure"""
 
@@ -34,11 +33,3 @@ def create_doc_signature(cls, sig):
     return f'{cls.__name__}({arguments})\n{cls.__doc__}'
 
 
-def create_attribute(typ, data):
-    if isinstance(data, dict):
-        result = typ(**data)
-    elif isinstance(data, tuple):
-        result = typ(*data)
-    else:
-        result = typ(data)
-    return result

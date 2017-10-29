@@ -1,7 +1,7 @@
 from functools import partial
 from inspect import _empty
 
-from ..definitions.helpers import create_attribute
+from ..definitions.base import create_attribute
 
 
 def create_annotation_lookup(signature, bound_arguments):
@@ -77,7 +77,7 @@ query_params = partial(_create_request_params, param_location='query')
 
 def construct_arguments(annotation_lookup: dict):
     """Construct passed arguments into corresponding objects"""
-    annotation_lookup.pop(_empty)  # Remove self parameter
+    annotation_lookup.pop(_empty, None)  # Remove self parameter
     result = {annotation: create_attribute(annotation, value) for annotation, value in annotation_lookup.items()}
     return result
 

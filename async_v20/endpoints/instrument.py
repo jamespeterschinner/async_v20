@@ -1,7 +1,7 @@
 from .annotations import *
 from .base import EndPoint, Path
 from ..definitions.primitives import *
-from ..definitions.metaclass import Array
+from ..definitions.base import Array
 from ..definitions.types import *
 
 __all__ = ['GETInstrumentsCandles', 'GETInstrumentOrderBook', 'GETInstrumentsPositionBook']

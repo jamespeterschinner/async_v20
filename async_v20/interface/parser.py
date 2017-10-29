@@ -1,7 +1,7 @@
 import ujson as json
 
 from .response import Response
-from ..definitions.helpers import create_attribute
+from ..definitions.base import create_attribute
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.other_responses import other_responses
 
