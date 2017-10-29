@@ -165,8 +165,8 @@ class Model(tuple, metaclass=ORM):
                     try:
                         value = int(value)
                     except ValueError:
-                        continue
-                    yield key, value
+                        pass
+                yield key, value
 
         return pd.Series(dict(self.template, **dict(create_data())))
 
