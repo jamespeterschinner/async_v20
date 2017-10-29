@@ -84,14 +84,12 @@ class Model(tuple, metaclass=ORM):
         return flatten_dict(self.json_dict(float_to_string), self._delimiter)
 
     def series(self):
-
-        def str_to_int(value):
-            try:
-                value = int(value)
-            except ValueError:
-                pass
-            return value
-
-        data = {key: str_to_int(value) if isinstance(value, str) else value
-                for key, value in self.data(float_to_string=False).items()}
-        return pd.Series(dict(self.template, **data))
+        def create_data():
+            for key, value in self.data(float_to_string=False).items():
+                if isinstance(value, str):
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        continue
+                    yield key, value
+        return pd.Series(dict(self.template, **dict(create_data())))
