@@ -118,16 +118,11 @@ arguments when being constructed
 `objects` store there attributes as `snake_case` (as python programmers would expect),
 which adds a further requirement to convert these into `camelCase` when being serialized.
 
-To solve this the :term:`metaclass`:
+To solve this the `attributes` module:
 
-   .. autoclass:: async_v20.definitions.metaclass.ORM
+   .. automodule:: async_v20.definitions.attributes
 
-    **for** `async_v20.definitions.types.base`. **Model**
-    constructs two dictionary's
-
-       .. literalinclude:: ../../async_v20/definitions/metaclass.py
-          :lines: 93,94
-          :emphasize-lines: 1,2
+        contains two dictionaries
 
 - When creating objects, arguments are passed through `instance_attributes` dictionary
 - When serializing objects, attributes are passed through `json_attributes` dictionary
