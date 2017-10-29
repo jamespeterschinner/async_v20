@@ -1,6 +1,6 @@
 import inspect
 from inspect import Parameter
-
+from ..test_definitions.test_primitives.helpers import get_valid_primitive_data
 import pytest
 from hypothesis.strategies import text, sampled_from
 
@@ -124,7 +124,13 @@ def test_create_url(client, endpoint):
 def test_create_request_kwargs(client, interface_method):
     client.default_parameters.update({AccountID: 'TEST_ID',
                                       Authorization: 'TEST_AUTH'})
-    args = list(map(lambda x: str(x), (range(len(interface_method.__signature__.parameters)))))[1:]
+
+    args = []
+    for param in interface_method.__signature__.parameters.values():
+            args.append(get_valid_primitive_data(param.annotation))
+
+    args = args[1:]
+
     print(interface_method.__name__)
     if interface_method.__name__ == 'create_order':
         args = ((1, 1, 'STOP_LOSS',),)

@@ -1,4 +1,4 @@
 from .types import *
-from .descriptors import *
+from .primitives import *
 
-__all__ = (types.__all__ + descriptors.__all__)
+__all__ = (types.__all__ + primitives.__all__)

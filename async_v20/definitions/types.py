@@ -1,5 +1,5 @@
 from .base import *
-from .descriptors import *
+from .primitives import *
 
 __all__ = ['OrderRequest', 'UnitsAvailableDetails',
            'UnitsAvailable', 'LiquidityRegenerationScheduleStep',

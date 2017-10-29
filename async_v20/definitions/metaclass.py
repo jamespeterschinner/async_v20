@@ -48,9 +48,6 @@ class ORM(type):
         mcs.instance_attributes = instance_attributes
         mcs.json_attributes = json_attributes
 
-        # # Instrument the class' with descriptors corresponding to OANDA's definitions
-        # class_obj = assign_descriptors(class_obj)
-
         # Create class signature
         sig = signature(class_obj)
 

@@ -1,6 +1,6 @@
 from .decorators import endpoint
 from ..definitions.types import CandlestickGranularity
-from ..definitions.descriptors.primitives import InstrumentName
+from ..definitions.primitives.primitives import InstrumentName
 from ..definitions.types import Price
 from ..definitions.types import WeeklyAlignment
 from ..endpoints.annotations import AlignmentTimezone
