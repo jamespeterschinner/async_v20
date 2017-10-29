@@ -12,7 +12,7 @@ class ClientComment(str):
     """
 
     # Example of correct format
-    #example = 'This is a client comment'
+    example = 'This is a client comment'
 
     def __new__(cls, value):
         return super().__new__(cls, value)
@@ -24,7 +24,7 @@ class ClientID(str):
     """
 
     # Example of correct format
-    # example = 'my_order_id'
+    example = 'my_order_id'
 
     def __new__(cls, value):
         return super().__new__(cls, value)
@@ -36,7 +36,7 @@ class ClientTag(str):
     """
 
     # Example of correct format
-    #example = 'client_tag_1'
+    example = 'client_tag_1'
 
     def __new__(cls, value):
         return super().__new__(cls, value)
@@ -91,9 +91,6 @@ class MarketIfTouchedOrderReason(str):
 class MarketOrderMarginCloseoutReason(str):
     """The reason that the Market Order was created to perform a margin closeout
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
@@ -214,7 +211,7 @@ class OrderFillReason(str):
 class RequestID(str):
     """The request identifier.
     """
-    # TODO is this nesessary?
+    # TODO is this nesessary, NO! I guess it's about consistency
     def __new__(cls, value):
         return super().__new__(cls, value)
 
@@ -343,7 +340,7 @@ class TransactionID(str):
     # Correct syntax of value
     format_syntax = 'String representation of the numerical OANDA-assigned TransactionID'
     # Example of correct format
-    #example = '1523'
+    example = '1523'
 
     def __new__(cls, value):
         return super().__new__(cls, value)

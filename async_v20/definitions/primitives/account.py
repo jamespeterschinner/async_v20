@@ -7,9 +7,6 @@ class AccountFinancingMode(str):
     """The financing mode of an Account
     """
 
-    # # Type checking
-    # typ = str
-
     # Valid values
     values = {
         'NO_FINANCING': 'No financing is paid/charged for open Trades in the Account',
@@ -28,9 +25,6 @@ class AccountID(str):
     """The string representation of an Account Identifier.
     """
 
-    # Type checking
-    typ = str
-
     # Correct syntax of value
     format_syntax = '“-“-delimited string with format “{siteID}-{divisionID}-{userID}-{accountNumber}”'
     # Example of correct format
@@ -44,9 +38,6 @@ class AccountID(str):
 class PositionAggregationMode(str):
     """The way that position values for an Account are calculated and aggregated.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {

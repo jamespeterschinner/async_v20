@@ -27,15 +27,13 @@ class OrderID(int):
     """The Order’s identifier, unique within the Order’s Account.
     """
 
-    # Type checking
-    typ = int
-
     # Correct syntax of value
     format_syntax = 'The string representation of the OANDA-assigned OrderID. ' \
                     'OANDA-assigned OrderIDs are positive integers, and are derived from the ' \
                     'TransactionID of the Transaction that created the Order.'
-    # # Example of correct format
-    # example = '1523'
+
+    # Example of correct format
+    example = '1523'
 
     def __new__(cls, value):
         return super().__new__(cls, value)
@@ -55,6 +53,7 @@ class OrderPositionFill(str):
         'DEFAULT': 'When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, '
                    'and OPEN_ONLY behaviour for client hedging Accounts.'
     }
+
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
@@ -64,13 +63,11 @@ class OrderSpecifier(str):
     """The specification of an Order as referred to by clients
     """
 
-    # TODO Check with OANDA. spec = int. I believe it should be a str
-
     # Correct syntax of value
     format_syntax = 'Either the Order’s OANDA-assigned OrderID or the Order’s client-provided ' \
                     'ClientID prefixed by the “@” symbol'
     # Example of correct format
-    # example = '1523'
+    example = '1523'
 
     def __new__(cls, value):
         return super().__new__(cls, value)

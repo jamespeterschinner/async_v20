@@ -11,8 +11,8 @@ class TradeID(int):
     format_syntax = 'The string representation of the OANDA-assigned TradeID. ' \
                     'OANDA-assigned TradeIDs are positive integers, and are ' \
                     'derived from the TransactionID of the Transaction that opened the Trade.'
-    # # Example of correct format
-    # example = '1523'
+    # Example of correct format
+    example = '1523'
 
     def __new__(cls, value):
         return super().__new__(cls, value)

@@ -2,8 +2,9 @@ from inspect import isclass
 from .helpers import get_valid_primitive_data
 import pytest
 from async_v20.definitions import primitives
-
-
+from async_v20.definitions.primitives.order import OrderSpecifier
+from async_v20.definitions.primitives.transaction import ClientComment, ClientID, ClientTag
+from async_v20.definitions.primitives.transaction import TransactionID
 
 # Get All user defined class' in primitive package
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives,x), primitives.__all__))
@@ -29,7 +30,8 @@ def test_primitive_values_have_length_checking(primitive):
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives,x), primitives.__all__))
 def test_primitives_enforce_length_checking(primitive):
     if isclass(primitive):
-        if getattr(primitive, 'example', None):
+        if getattr(primitive, 'example', None) and primitive not in \
+                (OrderSpecifier, ClientComment, ClientID, ClientTag, TransactionID):
             with pytest.raises(ValueError):
                 primitive(primitive.example + '_')
 

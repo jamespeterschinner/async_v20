@@ -7,9 +7,6 @@ class CandlestickGranularity(str):
     """The granularity of a candlestick
     """
 
-    # Type checking
-    typ = str
-
     # Valid values
     values = {
         'S5': '5 second candlesticks, minute alignment',

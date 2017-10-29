@@ -16,6 +16,7 @@ class AcceptDatetimeFormat(str):
         'RFC3339': 'If “RFC3339” is specified DateTime will be specified or '
                    'returned in “YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ” format.'
     }
+
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
@@ -25,7 +26,6 @@ class AccountUnits(float):
     """The string representation of a quantity of an Account’s home currency.
     """
 
-    # Type checking
     # TODO keep an eye on this. OANDA specifies this as a str.
     # Though it makes more sense for it to be a float
     # floats automatically get converted to to strings anyway
@@ -34,6 +34,7 @@ class AccountUnits(float):
     # Correct syntax of value
     format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
                     'provided depends on the Account’s home currency.'
+
     def __new__(cls, value):
         return super().__new__(cls, value)
 
@@ -116,9 +117,6 @@ class InstrumentName(str):
 class InstrumentType(str):
     """The type of an Instrument.
     """
-
-    # Type checking
-    typ = str
 
     # Valid values
     values = {
