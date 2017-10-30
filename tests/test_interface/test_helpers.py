@@ -23,6 +23,10 @@ from ..data.json_data import GETAccountID_response
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
+def test_order_dict():
+    first = {'a':1, 'b':2, 'c':{'d':3, 'e':4, 'f':{'e':5, 'g':6}}}
+    second = {'c':{'f':{'g':6, 'e':5},'e':4, 'd':3},'b':2, 'a':1}
+    assert order_dict(first) == order_dict(second)
 
 @pytest.fixture
 def stop_loss_order():

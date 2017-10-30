@@ -6,6 +6,12 @@ from async_v20.definitions.primitives.order import OrderSpecifier
 from async_v20.definitions.primitives.transaction import ClientComment, ClientID, ClientTag
 from async_v20.definitions.primitives.transaction import TransactionID
 
+
+@pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives,x), primitives.__all__))
+def test_get_valid_primitive_data(primitive):
+    """Test the helper function can provide valid data for all primitives"""
+    assert type(primitive(get_valid_primitive_data(primitive))) == primitive
+
 # Get All user defined class' in primitive package
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives,x), primitives.__all__))
 def test_all_incorrect_primitive_values_cannot_be_assigned(primitive):

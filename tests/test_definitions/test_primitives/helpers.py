@@ -1,3 +1,4 @@
+
 def get_valid_primitive_data(primitive):
     data = None
     if {float, str, int}.intersection(set(primitive.__bases__)):

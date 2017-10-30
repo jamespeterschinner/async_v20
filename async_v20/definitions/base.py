@@ -1,8 +1,9 @@
 import ujson as json
+from collections import OrderedDict
 from functools import wraps
 from inspect import signature
 from operator import itemgetter
-from collections import OrderedDict
+
 import pandas as pd
 
 from .attributes import instance_attributes
@@ -85,7 +86,6 @@ class ORM(type):
 
 
 class Model(tuple, metaclass=ORM):
-
     # Make attribute assignment impossible
     __slots__ = ()
 
@@ -126,7 +126,6 @@ class Model(tuple, metaclass=ORM):
 
         result = tuple.__new__(cls, tuple(construct_object_data()))
         return result
-
 
     def json_dict(self, float_to_string=True):
         def fields():
