@@ -1,6 +1,6 @@
 from .decorators import endpoint
-from ..definitions.types import CandlestickGranularity
 from ..definitions.primitives.primitives import InstrumentName
+from ..definitions.types import CandlestickGranularity
 from ..definitions.types import Price
 from ..definitions.types import WeeklyAlignment
 from ..endpoints.annotations import AlignmentTimezone
@@ -19,16 +19,16 @@ class InstrumentInterface(object):
     @endpoint(GETInstrumentsCandles)
     def get_candles(self,
                     instrument: InstrumentName,
-                    price: Price=None,
-                    granularity: CandlestickGranularity=None,
-                    count: Count=None,
-                    from_time: FromTime=None,
-                    to_time: ToTime=None,
-                    smooth: Smooth=None,
-                    include_first: includeFirst=None,
-                    daily_alignment: DailyAlignment=None,
-                    alignment_timezone: AlignmentTimezone=None,
-                    weekly_alignment: WeeklyAlignment=None,
+                    price: Price = None,
+                    granularity: CandlestickGranularity = None,
+                    count: Count = None,
+                    from_time: FromTime = None,
+                    to_time: ToTime = None,
+                    smooth: Smooth = None,
+                    include_first: includeFirst = None,
+                    daily_alignment: DailyAlignment = None,
+                    alignment_timezone: AlignmentTimezone = None,
+                    weekly_alignment: WeeklyAlignment = None,
                     ):
         """
         Fetch candlestick data for an instrument.

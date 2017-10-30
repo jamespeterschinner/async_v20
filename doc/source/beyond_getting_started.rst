@@ -37,7 +37,7 @@ All methods exposed by *async_v20*. **OandaClient** are written in a declarative
 Lets take at look at an example:
 
 .. literalinclude:: ../../async_v20/interface/instrument.py
-    :lines: 20-33
+    :lines: 19-32
 
 .. Note::
 
@@ -48,7 +48,7 @@ Lets take at look at an example:
    - We define the endpoint:
 
     .. literalinclude:: ../../async_v20/interface/instrument.py
-        :lines: 20
+        :lines: 19
         :emphasize-lines: 1
 
 **Then**
@@ -56,7 +56,7 @@ Lets take at look at an example:
 
 
     .. literalinclude:: ../../async_v20/interface/instrument.py
-        :lines: 21-33
+        :lines: 20-32
         :emphasize-lines: 2-12
 
 
