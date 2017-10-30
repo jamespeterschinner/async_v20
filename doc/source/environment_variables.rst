@@ -31,9 +31,17 @@ Ubuntu
 What is an environment variable?
 --------------------------------
 
-For our requirements, we will think of environment variables,
+For our requirements, we will think of an environment variable,
 as variables stored outside the scope of the application.
 
 Python programs can access these variables via the *os* module
 
+Why store the token in an environment variable?
+_______________________________________________
+
+There are a couple of reason. Primarily:
+
+ - Convenience, create a client with `OandaClient()` not `OandaClient(token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)`
+ - Secure, prevents you from uploading the token to an online repository
+ - May simplify deployment of your trading program
 
