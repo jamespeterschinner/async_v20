@@ -64,10 +64,10 @@ or have some suggestion in order to improve the library.
 Dependencies
 ------------
 
+- **python 3.6**
 - aiohttp >= 2.2.5
 - ujson >= 1.35'
 - yarl >= 0.12.0'
-- inflection >= 0.3.1'
 
 It is recommend to also install :term:`pandas` to enable full functionally of :term:`async_v20`
 
