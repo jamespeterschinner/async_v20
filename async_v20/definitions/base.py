@@ -2,7 +2,7 @@ import ujson as json
 from functools import wraps
 from inspect import signature
 from operator import itemgetter
-
+from collections import OrderedDict
 import pandas as pd
 
 from .attributes import instance_attributes
@@ -34,7 +34,7 @@ class Array(type):
 def format_args(new):
     wraps(new)
 
-    def wrap(self, *args, **kwargs):
+    def wrap(cls, *args, **kwargs):
         def format():
             for name, value in kwargs.items():
                 try:
@@ -42,8 +42,9 @@ def format_args(new):
                 except KeyError:
                     continue
 
-        return new(self, *args, **dict(format()))
+        return new(cls, *args, **dict(format()))
 
+    wrap.__annotations__ = new.__annotations__
     return wrap
 
 
@@ -71,10 +72,13 @@ class ORM(type):
         # Create a pretty signature for documentation
         class_obj.__doc__ = create_doc_signature(class_obj, sig)
 
-        # This dictionary is used to create pandas.Series objects. The template ensures that all
-        # like objects have same length Series allowing for them to be passed into a dataframe
-        class_obj.template = dict.fromkeys(sig.parameters)
+        # This is the overall template of the object.
+        # Because Model objects are tuples the order of attributes
+        # is important. As can been seen the order of attributes is
+        # defined by the order of arguments in the signature
+        class_obj.template = OrderedDict.fromkeys(sig.parameters)
 
+        # Create getters for each attribute
         for index, attr in enumerate(class_obj.template):
             setattr(class_obj, attr, property(itemgetter(index)))
 
@@ -82,10 +86,9 @@ class ORM(type):
 
 
 class Model(tuple, metaclass=ORM):
-    _schema = {}
-    _fields = []
+
+    # The delimiter to use when flattening dictionaries
     _delimiter = '_'
-    _derived = None
 
     # Format string used when generating a summary for this object
     _summary_format = ''
@@ -93,40 +96,22 @@ class Model(tuple, metaclass=ORM):
     # Format string used when generating a name for this object
     _name_format = ''
 
-    def __init__(self, *args, **kwargs):
-        super().__init__()
+    def __new__(cls, *args, **kwargs):
 
-    def __new__(self, *args, **kwargs):
-        sig = self.__new__.__signature__
-        self._fields = []  # Would normally place this is the class. Didn't segment instance attrs though
+        # contains all the attributes the class contains
+        cls._fields = []
 
-        # This dict allow for camelCase and snake_case to be passed without error
-        kwargs = {self.__class__.instance_attributes[key]: value for key, value in kwargs.items()}
-        bound = sig.bind(*args, **kwargs)
-        bound.apply_defaults()
+        arguments = ((attr, cls.__new__.__annotations__[attr], kwargs[attr]) for attr in cls.template)
 
-        # When assigning attrs to the instance. The passed value is then passed to the argument's annotation
-        # Which is basically type checking. In order to do this, we need a list of tuples with:
-        # name :- name of attribute
-        # annotation :- signature annotation
-        # value :- passed value
-        annotations = {attr: sig.parameters[attr].annotation for attr in self.template}
-        arguments = [(attr, annotations[attr], value) for attr, value in bound.arguments.items()]
+        def construct_object_data():
+            for name, annotation, value in arguments:
+                cls._fields.append(name)
+                yield create_attribute(annotation, value) if value else value
 
-        # Instantiate annotations with value and assign to instance
-        data = []
-        for name, annotation, value in arguments:
-            self._fields.append(name)
-            attribute_value = create_attribute(annotation, value) if value else value
-            data.append(attribute_value)
-        data = tuple(data)
-        result = tuple.__new__(self, data)
+        result = tuple.__new__(cls, tuple(construct_object_data()))
         return result
 
-    # def __repr__(self):
-    #     return self.__class__.__name__
 
-    # Recursion might be an issue
     def json_dict(self, float_to_string=True):
         def fields():
             for field in self._fields:

@@ -20,11 +20,8 @@ async def _rest_response(self, response, endpoint):
         headers = resp.raw_headers
         json_body = await resp.json()
 
-    print(f'RESPONSE STATUS: {status}')
-
     # Update client headers. Such as lastTransactionID and the like
     self.default_parameters.update(headers)
-    print(json_body)
     last_transaction_id = json_body.get('lastTransactionID', None)
     if last_transaction_id:
         self.default_parameters.update({LastTransactionID: last_transaction_id})

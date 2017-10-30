@@ -43,11 +43,13 @@ async def initializer(self):
     headers = {'Content-Type': 'application/json', 'Connection': 'keep-alive',
                'OANDA-Agent': self.application}
 
-    self.session = aiohttp.ClientSession(json_serialize=json.dumps, headers=headers, connector=conn)
+    self.session = aiohttp.ClientSession(
+        json_serialize=json.dumps,
+        headers=headers,
+        connector=conn)
 
     # Get the first account listed in in accounts
     response = await self.list_accounts()
-    print(response)
     # Get the corresponding AccountID for the provided token
     self.default_parameters.update({AccountID: response['accounts'][0].id})
 

@@ -84,17 +84,17 @@ class ToTime(DateTime):
 
 
 class TradeClientExtensions(ClientExtensions):
-    def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
+    def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
         return Model.__new__(**locals())
 
 
 class LongClientExtensions(ClientExtensions):
-    def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
+    def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
         return Model.__new__(**locals())
 
 
 class ShortClientExtensions(ClientExtensions):
-    def __new__(self, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
+    def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
         return Model.__new__(**locals())
 
 
