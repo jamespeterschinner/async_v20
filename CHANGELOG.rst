@@ -92,3 +92,11 @@
 =======
    Bug fixes:
         - Issue with object serialization not working with lists of Type[str, float, int]
+
+2.0.0a0
+=======
+    Improvements:
+        - async_v20 objects are now immutable (greatly reducing complexity)
+        - Objects now have a repr
+        - removed inflection as a dependency
+        - tests run faster

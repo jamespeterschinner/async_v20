@@ -2,7 +2,6 @@ import inspect
 from inspect import Parameter
 from ..test_definitions.test_primitives.helpers import get_valid_primitive_data
 import pytest
-from hypothesis.strategies import text, sampled_from
 
 from async_v20 import endpoints
 from async_v20 import interface
@@ -40,13 +39,11 @@ def client():
     del client
 
 
-text_gen = text()
 client_signatures = [inspect.signature(method) for method in client_methods]
 
 
 def bound_args(sig):
-    args = [text_gen.example() for param in sig.parameters.values()
-            if param.kind not in (Parameter.VAR_KEYWORD, Parameter.VAR_POSITIONAL)]
+    args = [str(i) for i in  range(len(sig.parameters))]
     bound = sig.bind(*args)
     return sig, bound.arguments, args
 
@@ -64,9 +61,9 @@ async def test_create_annotation_lookup(signature, bound_arguments, args):
     assert all(map(lambda x: result[x[0]] == x[1], correct))
 
 
-param_locations = ['header', 'path', 'query']
-location = sampled_from(param_locations)
-test_arguments_arguments = [(getattr(endpoints, cls), location.example()) for cls in endpoints.__all__]
+locations = ['header', 'path', 'query']
+test_arguments_arguments = [(getattr(endpoints, cls), location)
+                            for location in locations for cls in endpoints.__all__]
 
 
 @pytest.mark.parametrize('endpoint, param_location', test_arguments_arguments)
@@ -75,8 +72,6 @@ def test_arguments(endpoint, param_location):
     correct = list(filter(lambda x: x['located'] == param_location, endpoint.parameters))
     assert len(list(result)) == len(list(correct))
 
-
-test_arguments_arguments = [(getattr(endpoints, cls), location.example(),) for cls in endpoints.__all__]
 
 
 @pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
@@ -94,7 +89,7 @@ async def test_create_request_params(client, interface_method):
     arguments = create_annotation_lookup(sig, bound)
     total_params = []
     print(endpoint.request_schema)
-    for location in param_locations:
+    for location in locations:
         print('Endpoint: ', endpoint)
         print('Arguments: ', arguments)
         print('Location: ', location)

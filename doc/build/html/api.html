@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>OandaClient API &#8212; async_v20 1.1.6a0 documentation</title>
+    <title>OandaClient API &#8212; async_v20 2.0.0a0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.1.6a0',
+        VERSION:     '2.0.0a0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -56,7 +56,7 @@ if no token is passed</p>
 <span id="id1"></span><h2>OandaClient<a class="headerlink" href="#oandaclient" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="async_v20.OandaClient">
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -68,6 +68,8 @@ if no token is passed</p>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -86,7 +88,7 @@ the v20 REST server</li>
 <h2>Account<a class="headerlink" href="#account" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -98,6 +100,8 @@ the v20 REST server</li>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -230,7 +234,7 @@ request</td>
 <h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -242,6 +246,8 @@ request</td>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -307,7 +313,7 @@ request</p>
 <h2>Order<a class="headerlink" href="#order" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -319,6 +325,8 @@ request</p>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -383,7 +391,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.limit_order">
-<code class="descname">limit_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=LIMIT</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">limit_order</code><span class="sig-paren">(</span><em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=LIMIT</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Limit Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -400,7 +408,7 @@ the request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.limit_replace_order">
-<code class="descname">limit_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=LIMIT</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">limit_replace_order</code><span class="sig-paren">(</span><em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=LIMIT</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to replace a pending Limit Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -464,7 +472,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_if_touched_order">
-<code class="descname">market_if_touched_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=MARKET_IF_TOUCHED</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">market_if_touched_order</code><span class="sig-paren">(</span><em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=MARKET_IF_TOUCHED</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a MarketIfTouched Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -481,7 +489,7 @@ the request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_if_touched_replace_order">
-<code class="descname">market_if_touched_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=MARKET_IF_TOUCHED</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">market_if_touched_replace_order</code><span class="sig-paren">(</span><em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=MARKET_IF_TOUCHED</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to replace a pending MarketIfTouched Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -503,7 +511,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_order">
-<code class="descname">market_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>type: OrderType=MARKET</em>, <em>time_in_force: TimeInForce=FOK</em>, <em>price_bound: PriceValue=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">market_order</code><span class="sig-paren">(</span><em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>type: OrderType=MARKET</em>, <em>time_in_force: TimeInForce=FOK</em>, <em>price_bound: PriceValue=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Market Order in an Account
 MarketOrderRequest
 :param kwargs: The arguments to create a MarketOrderRequest</p>
@@ -572,7 +580,7 @@ request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_loss_order">
-<code class="descname">stop_loss_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=STOP</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stop_loss_order</code><span class="sig-paren">(</span><em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=STOP</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Stop Loss Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -589,7 +597,7 @@ the request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_loss_replace_order">
-<code class="descname">stop_loss_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stop_loss_replace_order</code><span class="sig-paren">(</span><em>cls</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to replace a pending Stop Loss Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -611,7 +619,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_order">
-<code class="descname">stop_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=STOP</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stop_order</code><span class="sig-paren">(</span><em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=STOP</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Stop Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -628,7 +636,7 @@ the request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_replace_order">
-<code class="descname">stop_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=STOP</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stop_replace_order</code><span class="sig-paren">(</span><em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>type: OrderType=STOP</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to replace a pending Stop Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -650,7 +658,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.take_profit_order">
-<code class="descname">take_profit_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>type: OrderType=TAKE_PROFIT</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">take_profit_order</code><span class="sig-paren">(</span><em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>type: OrderType=TAKE_PROFIT</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Take Profit Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -667,7 +675,7 @@ the request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.take_profit_replace_order">
-<code class="descname">take_profit_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>type: OrderType=TAKE_PROFIT</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">take_profit_replace_order</code><span class="sig-paren">(</span><em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>type: OrderType=TAKE_PROFIT</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to replace a pending Take Profit Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -689,7 +697,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.trailing_stop_loss_order">
-<code class="descname">trailing_stop_loss_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>distance: PriceValue</em>, <em>type: OrderType=TRAILING_STOP_LOSS</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">trailing_stop_loss_order</code><span class="sig-paren">(</span><em>trade_id: TradeID</em>, <em>distance: PriceValue</em>, <em>type: OrderType=TRAILING_STOP_LOSS</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Trailing Stop Loss Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -706,7 +714,7 @@ the request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.trailing_stop_loss_replace_order">
-<code class="descname">trailing_stop_loss_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>distance: PriceValue</em>, <em>type: OrderType=TRAILING_STOP_LOSS</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">trailing_stop_loss_replace_order</code><span class="sig-paren">(</span><em>trade_id: TradeID</em>, <em>distance: PriceValue</em>, <em>type: OrderType=TRAILING_STOP_LOSS</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to replace a pending Trailing Stop Loss Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -733,7 +741,7 @@ the request</p>
 <h2>Position<a class="headerlink" href="#position" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -745,6 +753,8 @@ the request</p>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -851,7 +861,7 @@ request</td>
 <h2>Pricing<a class="headerlink" href="#pricing" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -863,6 +873,8 @@ request</td>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -941,7 +953,7 @@ request</p>
 <h2>Trade<a class="headerlink" href="#trade" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -953,6 +965,8 @@ request</p>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -1125,7 +1139,7 @@ request</p>
 <h2>Transaction<a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1137,6 +1151,8 @@ request</p>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -1231,7 +1247,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.transaction_range">
-<code class="descname">transaction_range</code><span class="sig-paren">(</span><em>self</em>, <em>from_transaction: FromTransactionID=None</em>, <em>to_transaction: ToTransactionID=None</em>, <em>type_: Type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.transaction_range" title="Permalink to this definition">¶</a></dt>
+<code class="descname">transaction_range</code><span class="sig-paren">(</span><em>self</em>, <em>from_transaction: FromTransactionID</em>, <em>to_transaction: ToTransactionID</em>, <em>type_: Type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.transaction_range" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a range of Transactions for an Account based on the Transaction
 IDs.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1261,7 +1277,7 @@ request</p>
 <h2>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1273,6 +1289,8 @@ request</p>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
 <li><strong>application</strong> – Optional name of the application using the v20 bindings</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>poll_timeout</strong> – – The timeout to use when making a polling request with
@@ -1286,7 +1304,7 @@ the v20 REST server</li>
 </table>
 <dl class="method">
 <dt id="async_v20.OandaClient.get_external_user_info">
-<code class="descname">get_external_user_info</code><span class="sig-paren">(</span><em>self</em>, <em>user_specifier: UserSpecifier=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_external_user_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_external_user_info</code><span class="sig-paren">(</span><em>self</em>, <em>user_specifier: UserSpecifier</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_external_user_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the externally-available user information for the specified user.
 This endpoint is intended to be used by 3rd parties that have been
 authorized by a user to view their personal information.</p>
@@ -1305,7 +1323,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_user_info">
-<code class="descname">get_user_info</code><span class="sig-paren">(</span><em>self</em>, <em>user_specifier: UserSpecifier=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_user_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_user_info</code><span class="sig-paren">(</span><em>self</em>, <em>user_specifier: UserSpecifier</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_user_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the user information for the specified user. This endpoint is
 intended to be used by the user thyself to obtain their own
 information.</p>
@@ -1390,7 +1408,7 @@ request</td>
       &copy;2017, James Peter Schinner.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
