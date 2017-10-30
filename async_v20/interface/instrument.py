@@ -18,7 +18,7 @@ __all__ = ['InstrumentInterface']
 class InstrumentInterface(object):
     @endpoint(GETInstrumentsCandles)
     def get_candles(self,
-                    instrument: InstrumentName=None,
+                    instrument: InstrumentName,
                     price: Price=None,
                     granularity: CandlestickGranularity=None,
                     count: Count=None,
