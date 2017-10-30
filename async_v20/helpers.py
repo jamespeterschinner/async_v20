@@ -31,10 +31,6 @@ async def request_limiter(self):
 
 async def initializer(self):
 
-    print('Initializing')
-
-    # self.initialized = 1
-
     # Initialize the request limiter coroutine
     await self.request.asend(None)
 
@@ -62,8 +58,6 @@ async def initializer(self):
     # Get the list of all available instruments for this account
     response = await self.account_instruments()
     self.available_instruments = response['instruments']
-    # self.initialized = 2
-    print('initialize complete')
 
     while True:
         yield True

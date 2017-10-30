@@ -4,11 +4,10 @@ import os
 import re
 from async_v20.endpoints.annotations import Authorization
 from .echo_server.server import server
-# @pytest.fixture
-# @pytest.mark.asyncio
-# async def server(event_loop):
-#     web.run_app(test_server, host='127.0.0.1', port=8080)
-#     yield
+from async_v20 import AccountID
+
+#prevent pycharm from removing the import
+server = server
 
 def test_server_works(server):
     print(server)
@@ -52,3 +51,4 @@ def test_oanda_client_constructs_url(client):
 @pytest.mark.asyncio
 async def test_client_initializes(client, server):
     await client.initialize()
+    assert client.default_parameters[AccountID] == AccountID('123-123-1234567-123')
