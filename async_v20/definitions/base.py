@@ -102,7 +102,7 @@ class Model(tuple, metaclass=ORM):
             for attribute in ('amount', 'financing', 'id', 'instrument', 'pl', 'price', 'reason', 'time', 'units'):
                 try:
                     value = getattr(self, attribute)
-                except IndexError:
+                except (IndexError, AttributeError):
                     continue
                 if value is not None:
                     yield f'{attribute}={value}'
