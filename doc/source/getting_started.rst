@@ -45,7 +45,7 @@ Lets first take a look at this code example, then go though it line by line.
     :lines: 1-16
 
 
-First we need to import :term:`asyncio` this allows up to run our :term:`coroutine`
+First we need to import :term:`asyncio` this allows us to run our :term:`coroutine`
 
 .. literalinclude:: ../../bin/account_information.py
     :lines: 1

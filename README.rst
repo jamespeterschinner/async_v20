@@ -119,7 +119,7 @@ Lets first take a look at this code example, then go though it line by line.
     print(response['account'].series())
 
 
-First we need to import *asyncio* this allows up to run our *coroutine*
+First we need to import *asyncio* this allows us to run our *coroutine*
 
 .. code-block:: python
 
