@@ -54,7 +54,6 @@ class ORM(type):
 
     def __init__(self, *args, **kwargs):
         super().__init__(self)
-        pass
 
     def __new__(mcs, *args, **kwargs):
         class_obj = super().__new__(mcs, *args, **kwargs)
@@ -87,14 +86,31 @@ class ORM(type):
 
 class Model(tuple, metaclass=ORM):
 
+    # Make attribute assignment impossible
+    __slots__ = ()
+
     # The delimiter to use when flattening dictionaries
     _delimiter = '_'
 
-    # Format string used when generating a summary for this object
-    _summary_format = ''
+    # Representation string used when generating a summary for this object
+    _repr_format = ''
 
     # Format string used when generating a name for this object
-    _name_format = ''
+
+    def __repr__(self):
+        def information():
+            for attribute in ('amount', 'financing', 'id', 'instrument', 'pl', 'price', 'reason', 'time', 'units'):
+                try:
+                    value = getattr(self, attribute)
+                except IndexError:
+                    continue
+                if value is not None:
+                    yield f'{attribute}={value}'
+
+        return f'<{self.__class__.__name__}: {", ".join(information())}>'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__()
 
     def __new__(cls, *args, **kwargs):
 

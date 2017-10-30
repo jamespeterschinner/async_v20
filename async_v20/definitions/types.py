@@ -40,10 +40,6 @@ class ClientExtensions(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
         return Model.__new__(**locals())
 
@@ -62,10 +58,6 @@ class TakeProfitDetails(Model):
         client_extensions: -- The Client Extensions to add to the Take Profit Order when created.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, price: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
                 client_extensions: ClientExtensions = None):
@@ -86,10 +78,6 @@ class StopLossDetails(Model):
         client_extensions: -- The Client Extensions to add to the Stop Loss Order when created.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, price: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
                 client_extensions: ClientExtensions = None):
@@ -113,10 +101,6 @@ class TrailingStopLossDetails(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, distance: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
                 client_extensions: ClientExtensions = None):
         return Model.__new__(**locals())
@@ -130,13 +114,6 @@ class OrderRequest(Model):
     Attributes:
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
-
-    def __init__(self, *args, **kwargs):
-        pass
 
     def __new__(cls, trade_id: TradeID = None, price: PriceValue = None, type: OrderType = None,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
@@ -158,10 +135,6 @@ class UnitsAvailableDetails(Model):
         short: -- The units available for short Orders.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, long: Unit = None, short: Unit = None):
         return Model.__new__(**locals())
@@ -185,10 +158,6 @@ class UnitsAvailable(Model):
 
         """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, default: UnitsAvailableDetails = None, reduce_first: UnitsAvailableDetails = None,
                 reduce_only: UnitsAvailableDetails = None, open_only: UnitsAvailableDetails = None):
         return Model.__new__(**locals())
@@ -205,10 +174,6 @@ class LiquidityRegenerationScheduleStep(Model):
         ask_liquidity_used: -- The amount of ask liquidity used at this step in the schedule.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, timestamp: DateTime = None, bid_liquidity_used: DecimalNumber = None,
                 ask_liquidity_used: DecimalNumber = None):
@@ -227,10 +192,6 @@ class LiquidityRegenerationSchedule(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, steps: Array(LiquidityRegenerationScheduleStep) = None):
         return Model.__new__(**locals())
 
@@ -246,10 +207,6 @@ class CandlestickData(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, o: PriceValue = None, h: PriceValue = None, l: PriceValue = None, c: PriceValue = None):
         return Model.__new__(**locals())
 
@@ -263,10 +220,6 @@ class OrderIdentifier(Model):
         client_order_id: -- The client-provided client Order ID
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, order_id: OrderID = None, client_order_id: ClientID = None):
         return Model.__new__(**locals())
@@ -288,10 +241,6 @@ class QuoteHomeConversionFactors(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, positive_units: DecimalNumber = None, negative_units: DecimalNumber = None):
         return Model.__new__(**locals())
 
@@ -304,10 +253,6 @@ class MarketOrderMarginCloseout(Model):
         reason: -- The reason the Market Order was created to perform a margin closeout
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, reason: MarketOrderMarginCloseoutReason = None):
         return Model.__new__(**locals())
@@ -325,10 +270,6 @@ class InstrumentCommission(Model):
             is charged when an Order is filled for this instrument.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, instrument: InstrumentName = None, commission: DecimalNumber = None, units_traded: Unit = None,
                 minimum_commission: DecimalNumber = None):
@@ -348,10 +289,6 @@ class OrderBookBucket(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, price: PriceValue = None, long_count_percent: DecimalNumber = None,
                 short_count_percent: DecimalNumber = None):
         return Model.__new__(**locals())
@@ -369,10 +306,6 @@ class PositionBookBucket(Model):
             represented by the short positions found in this bucket.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, price: PriceValue = None, long_count_percent: DecimalNumber = None,
                 short_count_percent: DecimalNumber = None):
@@ -396,10 +329,6 @@ class DynamicOrderState(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, id: OrderID = None, trailing_stop_value: PriceValue = None, trigger_distance: PriceValue = None,
                 is_trigger_distance_exact: bool = None):
         return Model.__new__(**locals())
@@ -415,10 +344,6 @@ class CalculatedPositionState(Model):
         short_unrealized_pl: -- The unrealized profit/loss of the Position's short open Trades
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, instrument: InstrumentName = None, net_unrealized_pl: AccountUnits = None,
                 long_unrealized_pl: AccountUnits = None, short_unrealized_pl: AccountUnits = None):
@@ -440,10 +365,6 @@ class PositionSide(Model):
             Account's resettablePL was last reset by the client.
 
     """
-
-    _summary_format = '{units} @ {averagePrice}, {pl} PL {unrealizedPL} UPL'
-
-    _name_format = ''
 
     def __new__(cls, units: Unit = None, average_price: PriceValue = None, trade_i_ds: Array(TradeID) = None,
                 pl: AccountUnits = None, unrealized_pl: AccountUnits = None, resettable_pl: AccountUnits = None,
@@ -467,10 +388,6 @@ class Position(Model):
 
     """
 
-    _summary_format = '{instrument}, {pl} PL {unrealizedPL} UPL'
-
-    _name_format = '{instrument}, {pl} PL {unrealizedPL} UPL'
-
     def __new__(cls, instrument: InstrumentName = None, pl: AccountUnits = None, unrealized_pl: AccountUnits = None,
                 resettable_pl: AccountUnits = None, commission: AccountUnits = None, long: PositionSide = None,
                 short: PositionSide = None, financing: DecimalNumber = None):
@@ -485,10 +402,6 @@ class PriceBucket(Model):
         liquidity: -- The amount of liquidity offered by the PriceBucket
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, price: PriceValue = None, liquidity: int = None):
         return Model.__new__(**locals())
@@ -512,10 +425,6 @@ class ClientPrice(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, bids: Array(PriceBucket) = None, asks: Array(PriceBucket) = None,
                 closeout_bid: PriceValue = None, closeout_ask: PriceValue = None, timestamp: DateTime = None):
         return Model.__new__(**locals())
@@ -531,10 +440,6 @@ class PricingHeartbeat(Model):
 
     """
 
-    _summary_format = 'Pricing Heartbeat {time}'
-
-    _name_format = ''
-
     def __new__(cls, type: str = None, time: DateTime = None):
         return Model.__new__(**locals())
 
@@ -547,10 +452,6 @@ class CalculatedTradeState(Model):
         unrealized_pl: -- The Trade's unrealized profit/loss.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, id: TradeID = None, unrealized_pl: AccountUnits = None):
         return Model.__new__(**locals())
@@ -569,10 +470,6 @@ class MarketOrderDelayedTradeClose(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, trade_id: TradeID = None, client_trade_id: TradeID = None,
                 source_transaction_id: TransactionID = None):
         return Model.__new__(**locals())
@@ -590,10 +487,6 @@ class MarketOrderPositionCloseout(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, instrument: InstrumentName = None, units: str = None):
         return Model.__new__(**locals())
 
@@ -610,10 +503,6 @@ class MarketOrderTradeClose(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, trade_id: TradeID = None, client_trade_id: str = None, units: str = None):
         return Model.__new__(**locals())
 
@@ -627,10 +516,6 @@ class OpenTradeFinancing(Model):
         financing: -- The amount of financing paid/collected for the Trade.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, trade_id: TradeID = None, financing: AccountUnits = None):
         return Model.__new__(**locals())
@@ -646,10 +531,6 @@ class PositionFinancing(Model):
         open_trade_financings: -- The financing paid/collecte for each open Trade within the Position.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, instrument: InstrumentName = None, financing: AccountUnits = None,
                 open_trade_financings: Array(OpenTradeFinancing) = None):
@@ -668,10 +549,6 @@ class TradeOpen(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, trade_id: TradeID = None, units: Unit = None, client_extensions: ClientExtensions = None):
         return Model.__new__(**locals())
 
@@ -686,10 +563,6 @@ class VWAPReceipt(Model):
         price: -- The price at which the units were filled
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, units: Unit = None, price: PriceValue = None):
         return Model.__new__(**locals())
@@ -706,11 +579,8 @@ class UserInfo(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
     # TODO CHECK THIS
-    def __new__(cls, username: str=None, user_id: str=None, country: str=None, email_address: str=None):
+    def __new__(cls, username: str = None, user_id: str = None, country: str = None, email_address: str = None):
         return Model.__new__(**locals())
 
 
@@ -724,10 +594,6 @@ class AccountProperties(Model):
         tags: -- The Account's tags
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, id: AccountID = None, mt4_account_id: int = None, tags: Array(str) = None):
         return Model.__new__(**locals())
@@ -751,10 +617,6 @@ class Candlestick(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, time: DateTime = None, bid: CandlestickData = None, ask: CandlestickData = None,
                 mid: CandlestickData = None, volume: int = None, complete: bool = None):
         return Model.__new__(**locals())
@@ -774,10 +636,6 @@ class OrderBook(Model):
             buckets are only provided for price ranges which actually contain order or position data.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
                 bucket_width: PriceValue = None, buckets: Array(OrderBookBucket) = None):
@@ -799,10 +657,6 @@ class PositionBook(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
                 bucket_width: PriceValue = None, buckets: Array(PositionBookBucket) = None):
         return Model.__new__(**locals())
@@ -820,10 +674,6 @@ class Order(Model):
             or delete clientExtensions if your account is associated with MT4.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, id: OrderID = None, create_time: DateTime = None, state: OrderState = None,
                 client_extensions: ClientExtensions = None, trade_id: TradeID = None, price: PriceValue = None,
@@ -860,10 +710,6 @@ class TradeReduce(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, trade_id: TradeID = None, units: Unit = None, realized_pl: AccountUnits = None,
                 financing: AccountUnits = None):
         return Model.__new__(**locals())
@@ -880,10 +726,6 @@ class TransactionHeartbeat(Model):
 
     """
 
-    _summary_format = 'Transaction Heartbeat {time}'
-
-    _name_format = ''
-
     def __new__(cls, type: str = None, last_transaction_id: TransactionID = None, time: DateTime = None):
         return Model.__new__(**locals())
 
@@ -898,10 +740,6 @@ class UserInfoExternal(Model):
         fifo: -- Flag indicating if the the user's Accounts adhere to FIFO execution rules.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, ):
         return Model.__new__(**locals())
@@ -937,10 +775,6 @@ class TradeSummary(Model):
 
     """
 
-    _summary_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
-
-    _name_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
-
     def __new__(cls, id: TradeID = None, instrument: InstrumentName = None, price: PriceValue = None,
                 open_time: DateTime = None, state: TradeState = None, initial_units: Unit = None,
                 current_units: Unit = None, realized_pl: AccountUnits = None, unrealized_pl: AccountUnits = None,
@@ -965,10 +799,6 @@ class Transaction(Model):
         request_id: -- The Request ID of the request which generated the transaction.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1021,10 +851,6 @@ class AccountChanges(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, orders_created: Array(Order) = None, orders_cancelled: Array(Order) = None,
                 orders_filled: Array(Order) = None, orders_triggered: Array(Order) = None,
                 trades_opened: Array(TradeSummary) = None, trades_reduced: Array(TradeSummary) = None,
@@ -1060,10 +886,6 @@ class Instrument(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, name: InstrumentName = None, type: InstrumentType = None, display_name: str = None,
                 pip_location: int = None, display_precision: int = None, trade_units_precision: int = None,
                 minimum_trade_size: Unit = None, maximum_trailing_stop_distance: Unit = None,
@@ -1071,7 +893,6 @@ class Instrument(Model):
                 maximum_order_units: Unit = None, margin_rate: DecimalNumber = None,
                 commission: InstrumentCommission = None):
         return Model.__new__(**locals())
-
 
 
 class AccountChangesState(Model):
@@ -1107,10 +928,6 @@ class AccountChangesState(Model):
         positions: -- The price-dependent state for each open Position in the Account.
 
     """
-
-    _summary_format = ''
-
-    _name_format = ''
 
     def __new__(cls, unrealized_pl: AccountUnits = None, nav: AccountUnits = None, margin_used: AccountUnits = None,
                 margin_available: AccountUnits = None, position_value: AccountUnits = None,
@@ -1149,10 +966,6 @@ class Price(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, type: str = None, instrument: InstrumentName = None, time: DateTime = None,
                 status: PriceStatus = None, tradeable: bool = None, bids: Array(PriceBucket) = None,
                 asks: Array(PriceBucket) = None, closeout_bid: PriceValue = None, closeout_ask: PriceValue = None,
@@ -1175,10 +988,6 @@ class CloseTransaction(Transaction):
         type: -- The Type of the Transaction. Always set to "CLOSE" in a CloseTransaction.
 
     """
-
-    _summary_format = 'Close Account {accountID}'
-
-    _name_format = 'Close Account {accountID}'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1203,10 +1012,6 @@ class MarginCallEnterTransaction(Transaction):
 
     """
 
-    _summary_format = 'Margin Call Enter'
-
-    _name_format = 'Margin Call Enter'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'MARGIN_CALL_ENTER'):
@@ -1229,10 +1034,6 @@ class MarginCallExitTransaction(Transaction):
             set to "MARGIN_CALL_EXIT" for an MarginCallExitTransaction.
 
     """
-
-    _summary_format = 'Margin Call Exit'
-
-    _name_format = 'Margin Call Exit'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1259,10 +1060,6 @@ class MarginCallExtendTransaction(Transaction):
 
     """
 
-    _summary_format = 'Margin Call Enter'
-
-    _name_format = 'Margin Call Enter'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'MARGIN_CALL_EXTEND', extension_number: int = None):
@@ -1283,10 +1080,6 @@ class ReopenTransaction(Transaction):
         type: -- The Type of the Transaction. Always set to "REOPEN" in a ReopenTransaction.
 
     """
-
-    _summary_format = 'Reopen Account {accountID}'
-
-    _name_format = 'Reopen Account {accountID}'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1310,10 +1103,6 @@ class ResetResettablePLTransaction(Transaction):
             set to "RESET_RESETTABLE_PL" for a ResetResettablePLTransaction.
 
     """
-
-    _summary_format = 'PL Reset'
-
-    _name_format = 'PL Reset'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1343,10 +1132,6 @@ class StopLossOrderRequest(OrderRequest):
 
     """
 
-    _summary_format = 'Stop Loss for Trade {tradeID} @ {price}'
-
-    _name_format = 'Stop Loss for Trade {tradeID} @ {price}'
-
     def __new__(cls, trade_id: TradeID, price: PriceValue, type: OrderType = 'STOP_LOSS',
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
@@ -1375,10 +1160,6 @@ class TakeProfitOrderRequest(OrderRequest):
 
     """
 
-    _summary_format = 'Take Profit for Trade {tradeID} @ {price}'
-
-    _name_format = 'Take Profit for Trade {tradeID} @ {price}'
-
     def __new__(cls, trade_id: TradeID, price: PriceValue, type: OrderType = 'TAKE_PROFIT',
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
@@ -1406,10 +1187,6 @@ class TrailingStopLossOrderRequest(OrderRequest):
 
     """
 
-    _summary_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
-
-    _name_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
-
     def __new__(cls, trade_id: TradeID, distance: PriceValue, type: OrderType = 'TRAILING_STOP_LOSS',
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
@@ -1436,10 +1213,6 @@ class CreateTransaction(Transaction):
 
     """
 
-    _summary_format = 'Create Account {accountID}'
-
-    _name_format = 'Create Account {accountID}'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'CREATE', division_id: int = None, site_id: int = None,
@@ -1465,10 +1238,6 @@ class ClientConfigureTransaction(Transaction):
         margin_rate: -- The margin rate override for the Account.
 
     """
-
-    _summary_format = 'Client Configure'
-
-    _name_format = 'Client Configure'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1498,10 +1267,6 @@ class DelayedTradeClosureTransaction(Transaction):
             will be closed when their respective instruments become tradeable
 
     """
-
-    _summary_format = 'Delayed Trade Closure'
-
-    _name_format = 'Delayed Trade Closure'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1533,10 +1298,6 @@ class OrderCancelTransaction(Transaction):
 
     """
 
-    _summary_format = 'Cancel Order {orderID}'
-
-    _name_format = 'Cancel Order {orderID}'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'ORDER_CANCEL', order_id: OrderID = None, client_order_id: OrderID = None,
@@ -1565,10 +1326,6 @@ class OrderClientExtensionsModifyTransaction(Transaction):
         trade_client_extensions_modify: -- The new Client Extensions for the Order's Trade on fill.
 
     """
-
-    _summary_format = 'Modify Order {orderID} Client Extensions'
-
-    _name_format = 'Modify Order {orderID} Client Extensions'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1599,10 +1356,6 @@ class DailyFinancingTransaction(Transaction):
 
     """
 
-    _summary_format = 'Daily Account Financing ({financing})'
-
-    _name_format = 'Daily Account Financing ({financing})'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'DAILY_FINANCING', financing: AccountUnits = None,
@@ -1630,10 +1383,6 @@ class TradeClientExtensionsModifyTransaction(Transaction):
         trade_client_extensions_modify: -- The new Client Extensions for the Trade.
 
     """
-
-    _summary_format = 'Modify Trade {tradeID} Client Extensions'
-
-    _name_format = 'Modify Trade {tradeID} Client Extensions'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -1698,10 +1447,6 @@ class AccountSummary(Model):
 
     """
 
-    _summary_format = ''
-
-    _name_format = ''
-
     def __new__(cls, id: AccountID = None, alias: str = None, currency: Currency = None, balance: AccountUnits = None,
                 created_by_user_id: int = None, created_time: DateTime = None, pl: AccountUnits = None,
                 resettable_pl: AccountUnits = None, resettabled_pl_time: DateTime = None,
@@ -1755,10 +1500,6 @@ class MarketOrderRequest(OrderRequest):
 
     """
 
-    _summary_format = '{units} units of {instrument}'
-
-    _name_format = '{units} units of {instrument}'
-
     def __new__(cls, instrument: InstrumentName, units: Unit, type: OrderType = 'MARKET',
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
                 position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = None,
@@ -1803,10 +1544,6 @@ class TakeProfitOrderTransaction(Transaction):
             Order (only provided if this Order replaces an existing Order).
 
     """
-
-    _summary_format = 'Create Take Profit Order {id} ({reason}): Close Trade {tradeID} @ {price}'
-
-    _name_format = 'Create Take Profit Order {id} ({reason}): Close Trade {tradeID} @ {price}'
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -1862,10 +1599,6 @@ class TakeProfitOrder(Order):
 
     """
 
-    _summary_format = 'Take Profit for Trade {tradeID} @ {price}'
-
-    _name_format = 'Take Profit for Trade {tradeID} @ {price}'
-
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
                 state: OrderState = None, client_extensions: ClientExtensions = None, type: OrderType = 'TAKE_PROFIT',
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
@@ -1920,10 +1653,6 @@ class StopLossOrder(Order):
             provided if this Order was cancelled as part of a cancel/replace).
 
         """
-
-    _summary_format = 'Stop Loss for Trade {tradeID} @ {price}'
-
-    _name_format = 'Stop Loss for Trade {tradeID} @ {price}'
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
                 state: OrderState = None, client_extensions: ClientExtensions = None, type: OrderType = 'STOP_LOSS',
@@ -1988,10 +1717,6 @@ class TrailingStopLossOrder(Order):
 
     """
 
-    _summary_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
-
-    _name_format = 'Trailing Stop Loss for Trade {tradeID} @ {trailingStopValue}'
-
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: OrderID = None, create_time: DateTime = None,
                 state: OrderState = None, client_extensions: ClientExtensions = None,
                 type: OrderType = 'TRAILING_STOP_LOSS', client_trade_id: ClientID = None,
@@ -2038,10 +1763,6 @@ class Trade(Model):
 
     """
 
-    _summary_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
-
-    _name_format = '{currentUnits} ({initialUnits}) of {instrument} @ {price}'
-
     def __new__(cls, id: TradeID = None, instrument: InstrumentName = None, price: PriceValue = None,
                 open_time: DateTime = None, state: TradeState = None, initial_units: DecimalNumber = None,
                 current_units: DecimalNumber = None, realized_pl: AccountUnits = None,
@@ -2073,10 +1794,6 @@ class ClientConfigureRejectTransaction(Transaction):
 
     """
 
-    _summary_format = 'Client Configure Reject'
-
-    _name_format = 'Client Configure Reject'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'CLIENT_CONFIGURE_REJECT', alias: str = None,
@@ -2105,10 +1822,6 @@ class OrderCancelRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
-
-    _summary_format = 'Order Cancel Reject {orderID}'
-
-    _name_format = 'Order Cancel Reject {orderID}'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -2140,10 +1853,6 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
 
     """
 
-    _summary_format = 'Reject Modify Order {orderID} Client Extensions'
-
-    _name_format = 'Reject Modify Order {orderID} Client Extensions'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT', order_id: OrderID = None,
@@ -2173,10 +1882,6 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
-
-    _summary_format = 'Reject Modify Trade {tradeID} Client Extensions'
-
-    _name_format = 'Reject Modify Trade {tradeID} Client Extensions'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -2208,10 +1913,6 @@ class TransferFundsTransaction(Transaction):
 
     """
 
-    _summary_format = 'Account Transfer of {amount}'
-
-    _name_format = 'Account Transfer of {amount}'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'TRANSFER_FUNDS', amount: AccountUnits = None,
@@ -2240,10 +1941,6 @@ class TransferFundsRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
-
-    _summary_format = 'Account Reject Transfer of {amount}'
-
-    _name_format = 'Account Reject Transfer of {amount}'
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -2291,10 +1988,6 @@ class LimitOrderRequest(OrderRequest):
             MT4.
 
     """
-
-    _summary_format = '{units} units of {instrument} @ {price}'
-
-    _name_format = '{units} units of {instrument} @ {price}'
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType = 'LIMIT',
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
@@ -2348,10 +2041,6 @@ class MarketIfTouchedOrderRequest(OrderRequest):
 
         """
 
-    _summary_format = '{units} units of {instrument} @ {price}'
-
-    _name_format = '{units} units of {instrument} @ {price}'
-
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
                 type: OrderType = 'MARKET_IF_TOUCHED', price_bound: PriceValue = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
@@ -2402,10 +2091,6 @@ class StopOrderRequest(OrderRequest):
             MT4.
 
     """
-
-    _summary_format = '{units} units of {instrument} @ {price}'
-
-    _name_format = '{units} units of {instrument} @ {price}'
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType = 'STOP',
                 price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
@@ -2475,10 +2160,6 @@ class Account(AccountSummary):
 
     """
 
-    _summary_format = 'Account {id}'
-
-    _name_format = ''
-
     def __new__(cls, id: AccountID = None, alias: str = None, currency: Currency = None, balance: AccountUnits = None,
                 created_by_user_id: int = None, created_time: DateTime = None, pl: AccountUnits = None,
                 resettable_pl: AccountUnits = None, resettabled_pl_time: DateTime = None,
@@ -2494,7 +2175,6 @@ class Account(AccountSummary):
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
                 last_transaction_id: TransactionID = None, trades: Array(TradeSummary) = None,
                 positions: Array(Position) = None, orders: Array(Order) = None, financing: DecimalNumber = None):
-
         return Model.__new__(**locals())
 
 
@@ -2544,10 +2224,6 @@ class MarketOrderTransaction(Transaction):
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
 
     """
-
-    _summary_format = 'Create Market Order {id} ({reason}): {units} of {instrument}'
-
-    _name_format = 'Create Market Order {id} ({reason}): {units} of {instrument}'
 
     def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -2609,10 +2285,6 @@ class MarketOrderRejectTransaction(Transaction):
 
     """
 
-    _summary_format = 'Reject Market Order ({reason}): {units} of {instrument}'
-
-    _name_format = 'Reject Market Order ({reason}): {units} of {instrument}'
-
     def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
                 request_id: RequestID = None, type: TransactionType = 'MARKET_ORDER_REJECT',
@@ -2664,10 +2336,6 @@ class StopLossOrderTransaction(Transaction):
 
     """
 
-    _summary_format = 'Create Stop Loss Order {id} ({reason}): Close Trade {tradeID} @ {price}'
-
-    _name_format = 'Create Stop Loss Order {id} ({reason}): Close Trade {tradeID} @ {price}'
-
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
                 request_id: RequestID = None, type: TransactionType = 'STOP_LOSS_ORDER',
@@ -2712,10 +2380,6 @@ class TrailingStopLossOrderTransaction(Transaction):
             Order (only provided if this Order replaces an existing Order).
 
     """
-
-    _summary_format = 'Create Trailing Stop Loss Order {id} ({reason}): Close Trade {tradeID}'
-
-    _name_format = 'Create Trailing Stop Loss Order {id} ({reason}): Close Trade {tradeID}'
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -2785,10 +2449,6 @@ class LimitOrder(Order):
             provided if this Order was cancelled as part of a cancel/replace).
 
         """
-
-    _summary_format = '{units} units of {instrument} @ {price}'
-
-    _name_format = '{units} units of {instrument} @ {price}'
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
@@ -2870,10 +2530,6 @@ class MarketIfTouchedOrder(Order):
 
         """
 
-    _summary_format = '{units} units of {instrument} @ {price}'
-
-    _name_format = '{units} units of {instrument} @ {price}'
-
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
                 type: OrderType = 'MARKET_IF_TOUCHED', price_bound: PriceValue = None,
@@ -2950,10 +2606,6 @@ class StopOrder(Order):
 
     """
 
-    _summary_format = '{units} units of {instrument} @ {price}'
-
-    _name_format = '{units} units of {instrument} @ {price}'
-
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
                 type: OrderType = 'STOP', price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC',
@@ -3006,10 +2658,6 @@ class OrderFillTransaction(Transaction):
 
     """
 
-    _summary_format = 'Fill Order {orderID} ({reason}): {units} of {instrument} @ {price}'
-
-    _name_format = 'Fill Order {orderID} ({reason}): {units} of {instrument} @ {price}'
-
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 type: TransactionType = 'ORDER_FILL', order_id: OrderID = None, client_order_id: ClientID = None,
@@ -3055,10 +2703,6 @@ class StopLossOrderRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
-
-    _summary_format = 'Reject Stop Loss Order ({reason}): Close Trade {tradeID} @ {price}'
-
-    _name_format = 'Reject Stop Loss Order ({reason}): Close Trade {tradeID} @ {price}'
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -3118,10 +2762,6 @@ class MarketIfTouchedOrderTransaction(Transaction):
 
     """
 
-    _summary_format = 'Create MIT Order {id} ({reason}): {units} of {instrument} @ {price}'
-
-    _name_format = 'Create MIT Order {id} ({reason}): {units} of {instrument} @ {price}'
-
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
                 batch_id: TransactionID = None, request_id: RequestID = None,
@@ -3180,10 +2820,6 @@ class LimitOrderTransaction(Transaction):
 
     """
 
-    _summary_format = 'Create Limit Order {id} ({reason}): {units} of {instrument} @ {price}'
-
-    _name_format = 'Create Limit Order {id} ({reason}): {units} of {instrument} @ {price}'
-
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
                 batch_id: TransactionID = None, request_id: RequestID = None, type: TransactionType = 'LIMIT_ORDER',
@@ -3232,10 +2868,6 @@ class TakeProfitOrderRejectTransaction(Transaction):
 
     """
 
-    _summary_format = 'Reject Take Profit Order ({reason}): Close Trade {tradeID} @ {price}'
-
-    _name_format = 'Reject Take Profit Order ({reason}): Close Trade {tradeID} @ {price}'
-
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
                 request_id: RequestID = None, type: TransactionType = 'TAKE_PROFIT_ORDER_REJECT',
@@ -3279,10 +2911,6 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
-
-    _summary_format = 'Reject Trailing Stop Loss Order ({reason}): Close Trade {tradeID}'
-
-    _name_format = 'Reject Trailing Stop Loss Order ({reason}): Close Trade {tradeID}'
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -3339,10 +2967,6 @@ class StopOrderTransaction(Transaction):
             Order (only provided if this Order replaces an existing Order).
 
     """
-
-    _summary_format = 'Create Stop Order {id} ({reason}): {units} of {instrument} @ {price}'
-
-    _name_format = 'Create Stop Order {id} ({reason}): {units} of {instrument} @ {price}'
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -3404,10 +3028,6 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
 
     """
 
-    _summary_format = 'Reject MIT Order ({reason}): {units} of {instrument} @ {price}'
-
-    _name_format = 'Reject MIT Order ({reason}): {units} of {instrument} @ {price}'
-
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
                 batch_id: TransactionID = None, request_id: RequestID = None,
@@ -3464,10 +3084,6 @@ class LimitOrderRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
-
-    _summary_format = 'Reject Limit Order ({reason}): {units} of {instrument} @ {price}'
-
-    _name_format = 'Reject Limit Order ({reason}): {units} of {instrument} @ {price}'
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -3526,10 +3142,6 @@ class StopOrderRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
-
-    _summary_format = 'Reject Stop Order ({reason}): {units} of {instrument} @ {price}'
-
-    _name_format = 'Reject Stop Order ({reason}): {units} of {instrument} @ {price}'
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -3603,10 +3215,6 @@ class MarketOrder(Order):
             when the state of the Order is CANCELLED)
 
     """
-
-    _summary_format = '{units} units of {instrument}'
-
-    _name_format = '{units} units of {instrument}'
 
     def __new__(cls, instrument: InstrumentName, units: Unit, id: OrderID = None, create_time: DateTime = None,
                 state: OrderState = None, client_extensions: ClientExtensions = None, type: OrderType = 'MARKET',
