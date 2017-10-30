@@ -40,4 +40,4 @@ class Response(dict):
 
     def json(self):
         """Return the json equivalent of the response"""
-        return json.loads(self.json_dict())
+        return json.dumps(self.json_dict())

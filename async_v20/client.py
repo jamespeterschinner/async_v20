@@ -101,11 +101,14 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     def __enter__(self):
         # TODO Make this print in red
-        print('Warning: `with` used rather than `async with`')
+        print('Warning: <with> used rather than <async with>')
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.close()
+        try:
+            self.close()
+        except AttributeError: # In case the client was never initialized
+            pass
 
     def close(self):
         self.session.close()

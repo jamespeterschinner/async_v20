@@ -5,6 +5,9 @@ import re
 from async_v20.endpoints.annotations import Authorization
 from .echo_server.server import server
 from async_v20 import AccountID
+from .echo_server.static import list_accounts_response
+from .echo_server.static import get_account_details_response
+from .echo_server.static import get_pricing_response
 
 #prevent pycharm from removing the import
 server = server
@@ -50,5 +53,51 @@ def test_oanda_client_constructs_url(client):
 
 @pytest.mark.asyncio
 async def test_client_initializes(client, server):
-    await client.initialize()
-    assert client.default_parameters[AccountID] == AccountID('123-123-1234567-123')
+    try:
+        await client.initialize()
+        assert client.default_parameters[AccountID] == AccountID('123-123-1234567-123')
+    except:
+        assert 0
+    finally:
+        client.close()
+        assert client.session.closed == True
+
+@pytest.mark.asyncio
+async def test_aenter_and_aexit(client, server):
+    async with client as client:
+        assert client.session.closed == False
+    assert client.session.closed == True
+
+@pytest.mark.asyncio
+async def test_async_with_initializes(client, server):
+    async with client as client:
+        assert client.default_parameters[AccountID] == AccountID('123-123-1234567-123')
+
+@pytest.mark.asyncio
+async def test_response_boolean_evaluation(client, server):
+    async with client as client:
+        response = await client.list_accounts()
+    assert bool(response) == True
+
+def remove_whitespace(text):
+    return text.replace(' ', '')
+
+def test_remove_white_space():
+    assert remove_whitespace('J a m   e  s ') == 'James'
+
+@pytest.mark.asyncio
+async def test_response_returns_json(client, server):
+    async with client as client:
+        accounts = await client.list_accounts()
+        account_details = await client.get_account_details()
+        pricing = await client.get_pricing()
+
+    assert remove_whitespace(accounts.json()) == remove_whitespace(list_accounts_response)
+    assert remove_whitespace(account_details.json()) == remove_whitespace(get_account_details_response)
+    assert remove_whitespace(pricing.json()) == remove_whitespace(get_pricing_response)
+
+
+@pytest.mark.asyncio
+async def test_enter_causes_warning(client, server, capsys):
+    with client as client:
+        assert capsys.readouterr()[0] == 'Warning: <with> used rather than <async with>\n'
