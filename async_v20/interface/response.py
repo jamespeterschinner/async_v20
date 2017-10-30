@@ -1,6 +1,27 @@
-from ..definitions.base import Model
+import ujson as json
 
 class Response(dict):
+    """A response from OANDA.
+
+    Data is accessed as per a standard dictionary
+    """
+
+
+    def __init__(self, data, status,  bool):
+        super().__init__(data)
+        self.status = status
+        self.bool = bool
+
+
+    def __bool__(self):
+        """Returns True if response contains data as per the OANDA spec.
+
+        Returns false if a status code not defined in the endpoint spec was returned
+        """
+        return self.bool
+
+    def __repr__(self):
+        return f'<Response [{self.status}]>'
 
     def json_dict(self):
 
@@ -16,3 +37,7 @@ class Response(dict):
             return result
 
         return {key: value_to_json_dict(value) for key, value in self.items()}
+
+    def json(self):
+        """Return the json equivalent of the response"""
+        return json.loads(self.json_dict())

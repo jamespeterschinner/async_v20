@@ -142,11 +142,11 @@ async def test_rest_response_updates_client_default_parameters(client_instance, 
     assert client_instance.default_parameters[LastTransactionID] == str(14)
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('json_body, schema', [(GETInstrumentsCandles_response, GETInstrumentsCandles.responses[200]),
-                                               (GETAccounts_response, GETAccounts.responses[200]),
-                                               (GETAccountIDSummary_response, GETAccountIDSummary.responses[200])])
-async def test_conversion_from_server_json_to_response_object_to_json_equal(json_body, schema):
-    response = await _create_response(json_body, schema)
+@pytest.mark.parametrize('json_body, endpoint', [(GETInstrumentsCandles_response, GETInstrumentsCandles),
+                                               (GETAccounts_response, GETAccounts),
+                                               (GETAccountIDSummary_response, GETAccountIDSummary)])
+async def test_conversion_from_server_json_to_response_object_to_json_equal(json_body, endpoint):
+    response = await _create_response(json_body, endpoint, 200)
     response_json = response.json_dict()
     pretty_json_body = order_dict(json_body)
     pretty_response_json = order_dict(response_json)
