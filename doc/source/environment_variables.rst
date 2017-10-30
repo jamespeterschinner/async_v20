@@ -41,7 +41,8 @@ _______________________________________________
 
 There are a couple of reason. Primarily:
 
- - Convenience, create a client with `OandaClient()` not `OandaClient(token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)`
+ - Convenience, create a client with `OandaClient()` not
+   `OandaClient(xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)`
  - Secure, prevents you from uploading the token to an online repository
  - May simplify deployment of your trading program
 
