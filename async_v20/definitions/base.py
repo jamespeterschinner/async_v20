@@ -2,6 +2,7 @@ import ujson as json
 from collections import OrderedDict
 from functools import wraps
 from inspect import signature
+from itertools import chain
 from operator import itemgetter
 
 import pandas as pd
@@ -32,10 +33,10 @@ class Array(type):
         return super().__new__(mcs, f'Array_{typ.__name__}', (JSONArray,), {'typ': typ})
 
 
-def format_args(new):
+def arg_parse(new):
     wraps(new)
 
-    def wrap(cls, *args, **kwargs):
+    def wrap(*args, **kwargs):
         def format():
             for name, value in kwargs.items():
                 try:
@@ -43,7 +44,7 @@ def format_args(new):
                 except KeyError:
                     continue
 
-        return new(cls, *args, **dict(format()))
+        return new(*args, **dict(format()))
 
     wrap.__annotations__ = new.__annotations__
     return wrap
@@ -64,7 +65,11 @@ class ORM(type):
         # Create class signature
         sig = signature(class_obj)
 
-        class_obj.__new__ = format_args(class_obj.__new__)
+        # Only add the argument parser to objects that derive from Model
+        # Model should never be instantiated on it's own so arguments
+        # should already be parsed by models subclasses
+        if not class_obj.__name__ == 'Model':
+            class_obj.__new__ = arg_parse(class_obj.__new__)
 
         # Update
         class_obj.__new__.__signature__ = sig
@@ -112,12 +117,16 @@ class Model(tuple, metaclass=ORM):
     def __init__(self, *args, **kwargs):
         super().__init__()
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(cls, *args, preset=None, **kwargs):
 
         # contains all the attributes the class contains
         cls._fields = []
 
         arguments = ((attr, cls.__new__.__annotations__[attr], kwargs[attr]) for attr in cls.template)
+
+        if preset:
+            print(preset)
+            arguments = chain((preset,), arguments)
 
         def construct_object_data():
             for name, annotation, value in arguments:
