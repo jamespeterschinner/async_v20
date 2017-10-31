@@ -8,7 +8,8 @@ from async_v20 import AccountID
 from .echo_server.static import list_accounts_response
 from .echo_server.static import get_account_details_response
 from .echo_server.static import get_pricing_response
-
+from .test_interface.helpers import order_dict
+import ujson as json
 #prevent pycharm from removing the import
 server = server
 
@@ -79,11 +80,11 @@ async def test_response_boolean_evaluation(client, server):
         response = await client.list_accounts()
     assert bool(response) == True
 
-def remove_whitespace(text):
-    return text.replace(' ', '')
-
-def test_remove_white_space():
-    assert remove_whitespace('J a m   e  s ') == 'James'
+# def remove_whitespace(text):
+#     return text.replace(' ', '')
+#
+# def test_remove_white_space():
+#     assert remove_whitespace('J a m   e  s ') == 'James'
 
 @pytest.mark.asyncio
 async def test_response_returns_json(client, server):
@@ -92,9 +93,9 @@ async def test_response_returns_json(client, server):
         account_details = await client.get_account_details()
         pricing = await client.get_pricing()
 
-    assert remove_whitespace(accounts.json()) == remove_whitespace(list_accounts_response)
-    assert remove_whitespace(account_details.json()) == remove_whitespace(get_account_details_response)
-    assert remove_whitespace(pricing.json()) == remove_whitespace(get_pricing_response)
+    assert order_dict(accounts.json_dict()) == order_dict(json.loads(list_accounts_response))
+    assert order_dict(account_details.json_dict()) == order_dict(json.loads(get_account_details_response))
+    assert order_dict(pricing.json_dict()) == order_dict(json.loads(get_pricing_response))
 
 
 @pytest.mark.asyncio

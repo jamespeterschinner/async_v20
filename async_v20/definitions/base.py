@@ -2,7 +2,6 @@ import ujson as json
 from collections import OrderedDict
 from functools import wraps
 from inspect import signature
-from itertools import chain
 from operator import itemgetter
 
 import pandas as pd
@@ -36,7 +35,7 @@ class Array(type):
 def arg_parse(new):
     wraps(new)
 
-    def wrap(*args, **kwargs):
+    def wrap(cls, *args, **kwargs):
         def format():
             for name, value in kwargs.items():
                 try:
@@ -44,7 +43,7 @@ def arg_parse(new):
                 except KeyError:
                     continue
 
-        return new(*args, **dict(format()))
+        return new(cls, *args, **dict(format()))
 
     wrap.__annotations__ = new.__annotations__
     return wrap
@@ -68,8 +67,7 @@ class ORM(type):
         # Only add the argument parser to objects that derive from Model
         # Model should never be instantiated on it's own so arguments
         # should already be parsed by models subclasses
-        if not class_obj.__name__ == 'Model':
-            class_obj.__new__ = arg_parse(class_obj.__new__)
+        class_obj.__new__ = arg_parse(class_obj.__new__)
 
         # Update
         class_obj.__new__.__signature__ = sig
@@ -77,15 +75,28 @@ class ORM(type):
         # Create a pretty signature for documentation
         class_obj.__doc__ = create_doc_signature(class_obj, sig)
 
-        # This is the overall template of the object.
-        # Because Model objects are tuples the order of attributes
-        # is important. As can been seen the order of attributes is
-        # defined by the order of arguments in the signature
-        class_obj.template = OrderedDict.fromkeys(sig.parameters)
+        try:
+            if Model in class_obj.__bases__:
+                pass
 
-        # Create getters for each attribute
-        for index, attr in enumerate(class_obj.template):
-            setattr(class_obj, attr, property(itemgetter(index)))
+            if class_obj.__bases__[0] == Model:
+                # This is the overall template of the object.
+                # Because Model objects are tuples the order of attributes
+                # is important. The order of attributes is
+                # defined by the order of arguments in the signature
+                # Only objects that derive directly from model get a template
+                # This means that all derived class' have the same length tuple
+                # there base. (good for pandas.Dataframe)
+                class_obj.template = OrderedDict.fromkeys(sig.parameters)
+
+                # Create getters for each attribute
+                for index, attr in enumerate(class_obj.template):
+                    setattr(class_obj, attr, property(itemgetter(index)))
+
+                class_obj.__annotations__ = class_obj.__new__.__annotations__
+
+        except NameError:
+            pass  # Means Model has not been created yet
 
         return class_obj
 
@@ -117,16 +128,12 @@ class Model(tuple, metaclass=ORM):
     def __init__(self, *args, **kwargs):
         super().__init__()
 
-    def __new__(cls, *args, preset=None, **kwargs):
+    def __new__(cls, *args, **kwargs):
 
         # contains all the attributes the class contains
         cls._fields = []
 
-        arguments = ((attr, cls.__new__.__annotations__[attr], kwargs[attr]) for attr in cls.template)
-
-        if preset:
-            print(preset)
-            arguments = chain((preset,), arguments)
+        arguments = ((attr, cls.__annotations__[attr], kwargs[attr]) for attr in cls.template)
 
         def construct_object_data():
             for name, annotation, value in arguments:

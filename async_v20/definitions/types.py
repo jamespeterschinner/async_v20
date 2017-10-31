@@ -990,9 +990,9 @@ class CloseTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'CLOSE'):
-        return Model.__new__(**locals())
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+        return super().__new__(type=TransactionType('CLOSE'), **locals())
+
 
 
 class MarginCallEnterTransaction(Transaction):
@@ -1013,9 +1013,9 @@ class MarginCallEnterTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'MARGIN_CALL_ENTER'):
-        return Model.__new__(**locals())
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+        return super().__new__(type=TransactionType('MARGIN_CALL_ENTER'), **locals())
+
 
 
 class MarginCallExitTransaction(Transaction):
@@ -1036,9 +1036,9 @@ class MarginCallExitTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'MARGIN_CALL_EXIT'):
-        return Model.__new__(**locals())
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+        return super().__new__(type=TransactionType('MARGIN_CALL_EXIT'), **locals())
+
 
 
 class MarginCallExtendTransaction(Transaction):
@@ -1061,9 +1061,9 @@ class MarginCallExtendTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'MARGIN_CALL_EXTEND', extension_number: int = None):
-        return Model.__new__(**locals())
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, extension_number: int = None):
+        return super().__new__(type=TransactionType('MARGIN_CALL_EXTEND'), **locals())
+
 
 
 class ReopenTransaction(Transaction):
@@ -1082,9 +1082,9 @@ class ReopenTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'REOPEN'):
-        return Model.__new__(**locals())
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+        return super().__new__(type=TransactionType('REOPEN'), **locals())
+
 
 
 class ResetResettablePLTransaction(Transaction):
@@ -1105,9 +1105,9 @@ class ResetResettablePLTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'RESET_RESETTABLE_PL'):
-        return Model.__new__(**locals())
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+        return super().__new__(type=TransactionType('RESET_RESETTABLE_PL'), **locals())
+
 
 
 class StopLossOrderRequest(OrderRequest):
@@ -1132,10 +1132,11 @@ class StopLossOrderRequest(OrderRequest):
 
     """
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, type: OrderType = 'STOP_LOSS',
+    def __new__(cls, trade_id: TradeID, price: PriceValue,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('STOP_LOSS'), **locals())
+
 
 
 class TakeProfitOrderRequest(OrderRequest):
@@ -1160,10 +1161,11 @@ class TakeProfitOrderRequest(OrderRequest):
 
     """
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, type: OrderType = 'TAKE_PROFIT',
+    def __new__(cls, trade_id: TradeID, price: PriceValue,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('TAKE_PROFIT'), **locals())
+
 
 
 class TrailingStopLossOrderRequest(OrderRequest):
@@ -1187,10 +1189,11 @@ class TrailingStopLossOrderRequest(OrderRequest):
 
     """
 
-    def __new__(cls, trade_id: TradeID, distance: PriceValue, type: OrderType = 'TRAILING_STOP_LOSS',
+    def __new__(cls, trade_id: TradeID, distance: PriceValue,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('TRAILING_STOP_LOSS'), **locals())
+
 
 
 class CreateTransaction(Transaction):
@@ -1214,10 +1217,10 @@ class CreateTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'CREATE', division_id: int = None, site_id: int = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, division_id: int = None, site_id: int = None,
                 account_user_id: int = None, account_number: int = None, home_currency: Currency = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('CREATE'), **locals())
+
 
 
 class ClientConfigureTransaction(Transaction):
@@ -1240,9 +1243,9 @@ class ClientConfigureTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'CLIENT_CONFIGURE', alias: str = None, margin_rate: DecimalNumber = None):
-        return Model.__new__(**locals())
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, alias: str = None, margin_rate: DecimalNumber = None):
+        return super().__new__(type=TransactionType('CLIENT_CONFIGURE'), **locals())
+
 
 
 class DelayedTradeClosureTransaction(Transaction):
@@ -1269,10 +1272,10 @@ class DelayedTradeClosureTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'DELAYED_TRADE_CLOSURE', reason: MarketOrderReason = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, reason: MarketOrderReason = None,
                 trade_i_ds: TradeID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('DELAYED_TRADE_CLOSURE'), **locals())
+
 
 
 class OrderCancelTransaction(Transaction):
@@ -1299,11 +1302,11 @@ class OrderCancelTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'ORDER_CANCEL', order_id: OrderID = None, client_order_id: OrderID = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, order_id: OrderID = None, client_order_id: OrderID = None,
                 reason: OrderCancelReason = None, replaced_by_order_id: OrderID = None,
                 closed_trade_id: OrderID = None, trade_close_transaction_id: TransactionID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('ORDER_CANCEL'), **locals())
+
 
 
 class OrderClientExtensionsModifyTransaction(Transaction):
@@ -1328,11 +1331,11 @@ class OrderClientExtensionsModifyTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'ORDER_CLIENT_EXTENSIONS_MODIFY', order_id: OrderID = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, order_id: OrderID = None,
                 client_order_id: ClientID = None, client_extensions_modify: ClientExtensions = None,
                 trade_client_extensions_modify: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY'), **locals())
+
 
 
 class DailyFinancingTransaction(Transaction):
@@ -1357,11 +1360,11 @@ class DailyFinancingTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'DAILY_FINANCING', financing: AccountUnits = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, financing: AccountUnits = None,
                 account_balance: AccountUnits = None, account_financing_mode: AccountFinancingMode = None,
                 position_financings: Array(PositionFinancing) = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('DAILY_FINANCING'), **locals())
+
 
 
 class TradeClientExtensionsModifyTransaction(Transaction):
@@ -1385,10 +1388,10 @@ class TradeClientExtensionsModifyTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'TRADE_CLIENT_EXTENSIONS_MODIFY', trade_id: TradeID = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, trade_id: TradeID = None,
                 client_trade_id: ClientID = None, trade_client_extensions_modify: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY'), **locals())
+
 
 
 class AccountSummary(Model):
@@ -1500,13 +1503,14 @@ class MarketOrderRequest(OrderRequest):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, type: OrderType = 'MARKET',
+    def __new__(cls, instrument: InstrumentName, units: Unit,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
                 position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = None,
                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('MARKET'), **locals())
+
 
 
 class TakeProfitOrderTransaction(Transaction):
@@ -1547,12 +1551,13 @@ class TakeProfitOrderTransaction(Transaction):
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None, type: TransactionType = 'TAKE_PROFIT_ORDER',
+                request_id: RequestID = None,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('TAKE_PROFIT_ORDER'), **locals())
+
 
 
 class TakeProfitOrder(Order):
@@ -1600,14 +1605,15 @@ class TakeProfitOrder(Order):
     """
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
-                state: OrderState = None, client_extensions: ClientExtensions = None, type: OrderType = 'TAKE_PROFIT',
+                state: OrderState = None, client_extensions: ClientExtensions = None,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = None,
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('TAKE_PROFIT'), **locals())
+
 
 
 class StopLossOrder(Order):
@@ -1718,8 +1724,7 @@ class TrailingStopLossOrder(Order):
     """
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: OrderID = None, create_time: DateTime = None,
-                state: OrderState = None, client_extensions: ClientExtensions = None,
-                type: OrderType = 'TRAILING_STOP_LOSS', client_trade_id: ClientID = None,
+                state: OrderState = None, client_extensions: ClientExtensions = None, client_trade_id: ClientID = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = None,
                 filling_transaction_id: TransactionID = None, filled_time: DateTime = None,
@@ -1727,7 +1732,8 @@ class TrailingStopLossOrder(Order):
                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('TRAILING_STOP_LOSS'), **locals())
+
 
 
 class Trade(Model):
@@ -1795,10 +1801,10 @@ class ClientConfigureRejectTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'CLIENT_CONFIGURE_REJECT', alias: str = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, alias: str = None,
                 margin_rate: DecimalNumber = None, reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('CLIENT_CONFIGURE_REJECT'), **locals())
+
 
 
 class OrderCancelRejectTransaction(Transaction):
@@ -1824,11 +1830,11 @@ class OrderCancelRejectTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'ORDER_CANCEL_REJECT', order_id: OrderID = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, order_id: OrderID = None,
                 client_order_id: OrderID = None, reason: OrderCancelReason = None,
                 reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('ORDER_CANCEL_REJECT'), **locals())
+
 
 
 class OrderClientExtensionsModifyRejectTransaction(Transaction):
@@ -1854,12 +1860,12 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT', order_id: OrderID = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, order_id: OrderID = None,
                 client_order_id: ClientID = None, client_extensions_modify: ClientExtensions = None,
                 trade_client_extensions_modify: ClientExtensions = None,
                 reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT'), **locals())
+
 
 
 class TradeClientExtensionsModifyRejectTransaction(Transaction):
@@ -1884,11 +1890,11 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT', trade_id: TradeID = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, trade_id: TradeID = None,
                 client_trade_id: ClientID = None, trade_client_extensions_modify: ClientExtensions = None,
                 reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT'), **locals())
+
 
 
 class TransferFundsTransaction(Transaction):
@@ -1914,10 +1920,10 @@ class TransferFundsTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'TRANSFER_FUNDS', amount: AccountUnits = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, amount: AccountUnits = None,
                 funding_reason: FundingReason = None, comment: str = None, account_balance: AccountUnits = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('TRANSFER_FUNDS'), **locals())
+
 
 
 class TransferFundsRejectTransaction(Transaction):
@@ -1943,11 +1949,11 @@ class TransferFundsRejectTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'TRANSFER_FUNDS_REJECT', amount: AccountUnits = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, amount: AccountUnits = None,
                 funding_reason: FundingReason = None, comment: str = None,
                 reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('TRANSFER_FUNDS_REJECT'), **locals())
+
 
 
 class LimitOrderRequest(OrderRequest):
@@ -1989,13 +1995,14 @@ class LimitOrderRequest(OrderRequest):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType = 'LIMIT',
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('LIMIT'), **locals())
+
 
 
 class MarketIfTouchedOrderRequest(OrderRequest):
@@ -2041,14 +2048,14 @@ class MarketIfTouchedOrderRequest(OrderRequest):
 
         """
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
-                type: OrderType = 'MARKET_IF_TOUCHED', price_bound: PriceValue = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, price_bound: PriceValue = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('MARKET_IF_TOUCHED'), **locals())
+
 
 
 class StopOrderRequest(OrderRequest):
@@ -2092,13 +2099,14 @@ class StopOrderRequest(OrderRequest):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, type: OrderType = 'STOP',
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
                 price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('STOP'), **locals())
+
 
 
 class Account(AccountSummary):
@@ -2287,7 +2295,7 @@ class MarketOrderRejectTransaction(Transaction):
 
     def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None, type: TransactionType = 'MARKET_ORDER_REJECT',
+                request_id: RequestID = None,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = None,
                 long_position_closeout: MarketOrderPositionCloseout = None,
@@ -2297,7 +2305,8 @@ class MarketOrderRejectTransaction(Transaction):
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('MARKET_ORDER_REJECT'), **locals())
+
 
 
 class StopLossOrderTransaction(Transaction):
@@ -2338,12 +2347,13 @@ class StopLossOrderTransaction(Transaction):
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None, type: TransactionType = 'STOP_LOSS_ORDER',
+                request_id: RequestID = None,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('STOP_LOSS_ORDER'), **locals())
+
 
 
 class TrailingStopLossOrderTransaction(Transaction):
@@ -2383,12 +2393,13 @@ class TrailingStopLossOrderTransaction(Transaction):
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None, type: TransactionType = 'TRAILING_STOP_LOSS_ORDER',
+                request_id: RequestID = None,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('TRAILING_STOP_LOSS_ORDER'), **locals())
+
 
 
 class LimitOrder(Order):
@@ -2451,8 +2462,7 @@ class LimitOrder(Order):
         """
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
-                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
-                type: OrderType = 'LIMIT', time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
@@ -2461,7 +2471,8 @@ class LimitOrder(Order):
                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('LIMIT'), **locals())
+
 
 
 class MarketIfTouchedOrder(Order):
@@ -2531,8 +2542,7 @@ class MarketIfTouchedOrder(Order):
         """
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
-                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
-                type: OrderType = 'MARKET_IF_TOUCHED', price_bound: PriceValue = None,
+                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None, price_bound: PriceValue = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 initial_market_price: PriceValue = None, take_profit_on_fill: TakeProfitDetails = None,
@@ -2542,7 +2552,8 @@ class MarketIfTouchedOrder(Order):
                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('MARKET_IF_TOUCHED'), **locals())
+
 
 
 class StopOrder(Order):
@@ -2607,8 +2618,7 @@ class StopOrder(Order):
     """
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
-                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
-                type: OrderType = 'STOP', price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC',
+                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None, price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC',
                 gtd_time: DateTime = None, position_fill: OrderPositionFill = 'DEFAULT',
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
@@ -2617,7 +2627,8 @@ class StopOrder(Order):
                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('STOP'), **locals())
+
 
 
 class OrderFillTransaction(Transaction):
@@ -2659,14 +2670,14 @@ class OrderFillTransaction(Transaction):
     """
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'ORDER_FILL', order_id: OrderID = None, client_order_id: ClientID = None,
+                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None, order_id: OrderID = None, client_order_id: ClientID = None,
                 instrument: InstrumentName = None, units: Unit = None, price: PriceValue = None,
                 full_price: ClientPrice = None, reason: OrderFillReason = None, pl: AccountUnits = None,
                 financing: AccountUnits = None, commission: AccountUnits = None, account_balance: AccountUnits = None,
                 trade_opened: TradeOpen = None, trades_closed: Array(TradeReduce) = None,
                 trade_reduced: TradeReduce = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('ORDER_FILL'), **locals())
+
 
 
 class StopLossOrderRejectTransaction(Transaction):
@@ -2706,12 +2717,13 @@ class StopLossOrderRejectTransaction(Transaction):
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None, type: TransactionType = 'STOP_LOSS_ORDER_REJECT',
+                request_id: RequestID = None,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('STOP_LOSS_ORDER_REJECT'), **locals())
+
 
 
 class MarketIfTouchedOrderTransaction(Transaction):
@@ -2764,8 +2776,7 @@ class MarketIfTouchedOrderTransaction(Transaction):
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'MARKET_IF_TOUCHED_ORDER', price_bound: PriceValue = None,
+                batch_id: TransactionID = None, request_id: RequestID = None, price_bound: PriceValue = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 reason: MarketIfTouchedOrderReason = None, client_extensions: ClientExtensions = None,
@@ -2773,7 +2784,8 @@ class MarketIfTouchedOrderTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
                 cancelling_transaction_id: TransactionID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('MARKET_IF_TOUCHED_ORDER'), **locals())
+
 
 
 class LimitOrderTransaction(Transaction):
@@ -2822,7 +2834,7 @@ class LimitOrderTransaction(Transaction):
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None, type: TransactionType = 'LIMIT_ORDER',
+                batch_id: TransactionID = None, request_id: RequestID = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 reason: LimitOrderReason = None, client_extensions: ClientExtensions = None,
@@ -2830,7 +2842,8 @@ class LimitOrderTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
                 cancelling_transaction_id: TransactionID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('LIMIT_ORDER'), **locals())
+
 
 
 class TakeProfitOrderRejectTransaction(Transaction):
@@ -2870,12 +2883,13 @@ class TakeProfitOrderRejectTransaction(Transaction):
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None, type: TransactionType = 'TAKE_PROFIT_ORDER_REJECT',
+                request_id: RequestID = None,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('TAKE_PROFIT_ORDER_REJECT'), **locals())
+
 
 
 class TrailingStopLossOrderRejectTransaction(Transaction):
@@ -2914,12 +2928,13 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None, type: TransactionType = 'TRAILING_STOP_LOSS_ORDER_REJECT',
+                request_id: RequestID = None,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('TRAILING_STOP_LOSS_ORDER_REJECT'), **locals())
+
 
 
 class StopOrderTransaction(Transaction):
@@ -2970,7 +2985,7 @@ class StopOrderTransaction(Transaction):
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None, type: TransactionType = 'STOP_ORDER',
+                batch_id: TransactionID = None, request_id: RequestID = None,
                 price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 reason: StopOrderReason = None, client_extensions: ClientExtensions = None,
@@ -2978,7 +2993,8 @@ class StopOrderTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
                 cancelling_transaction_id: TransactionID = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('STOP_ORDER'), **locals())
+
 
 
 class MarketIfTouchedOrderRejectTransaction(Transaction):
@@ -3030,8 +3046,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'MARKET_IF_TOUCHED_ORDER_REJECT', price_bound: PriceValue = None,
+                batch_id: TransactionID = None, request_id: RequestID = None, price_bound: PriceValue = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 reason: MarketIfTouchedOrderReason = None, client_extensions: ClientExtensions = None,
@@ -3039,7 +3054,8 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
                 reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('MARKET_IF_TOUCHED_ORDER_REJECT'), **locals())
+
 
 
 class LimitOrderRejectTransaction(Transaction):
@@ -3087,15 +3103,15 @@ class LimitOrderRejectTransaction(Transaction):
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'LIMIT_ORDER_REJECT', time_in_force: TimeInForce = 'GTC',
+                batch_id: TransactionID = None, request_id: RequestID = None, time_in_force: TimeInForce = 'GTC',
                 gtd_time: DateTime = None, position_fill: OrderPositionFill = 'DEFAULT',
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: LimitOrderReason = None,
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
                 reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('LIMIT_ORDER_REJECT'), **locals())
+
 
 
 class StopOrderRejectTransaction(Transaction):
@@ -3145,8 +3161,7 @@ class StopOrderRejectTransaction(Transaction):
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = 'STOP_ORDER_REJECT', price_bound: PriceValue = None,
+                batch_id: TransactionID = None, request_id: RequestID = None, price_bound: PriceValue = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 reason: StopOrderReason = None, client_extensions: ClientExtensions = None,
@@ -3154,7 +3169,8 @@ class StopOrderRejectTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
                 reject_reason: TransactionRejectReason = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=TransactionType('STOP_ORDER_REJECT'), **locals())
+
 
 
 class MarketOrder(Order):
@@ -3217,7 +3233,7 @@ class MarketOrder(Order):
     """
 
     def __new__(cls, instrument: InstrumentName, units: Unit, id: OrderID = None, create_time: DateTime = None,
-                state: OrderState = None, client_extensions: ClientExtensions = None, type: OrderType = 'MARKET',
+                state: OrderState = None, client_extensions: ClientExtensions = None,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = None,
                 long_position_closeout: MarketOrderPositionCloseout = None,
@@ -3230,4 +3246,5 @@ class MarketOrder(Order):
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
                 trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None):
-        return Model.__new__(**locals())
+        return super().__new__(type=OrderType('MARKET'), **locals())
+
