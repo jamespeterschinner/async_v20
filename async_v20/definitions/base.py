@@ -64,10 +64,11 @@ class ORM(type):
         # Create class signature
         sig = signature(class_obj)
 
-        # Only add the argument parser to objects that derive from Model
-        # Model should never be instantiated on it's own so arguments
-        # should already be parsed by models subclasses
-        class_obj.__new__ = arg_parse(class_obj.__new__)
+        if not class_obj == 'Model':
+            # Only add the argument parser to objects that derive from Model
+            # Model should never be instantiated on it's own so arguments
+            # should already be parsed by models subclasses
+            class_obj.__new__ = arg_parse(class_obj.__new__)
 
         # Update
         class_obj.__new__.__signature__ = sig
@@ -75,28 +76,29 @@ class ORM(type):
         # Create a pretty signature for documentation
         class_obj.__doc__ = create_doc_signature(class_obj, sig)
 
-        try:
-            if Model in class_obj.__bases__:
-                pass
 
-            if class_obj.__bases__[0] == Model:
-                # This is the overall template of the object.
-                # Because Model objects are tuples the order of attributes
-                # is important. The order of attributes is
-                # defined by the order of arguments in the signature
-                # Only objects that derive directly from model get a template
-                # This means that all derived class' have the same length tuple
-                # there base. (good for pandas.Dataframe)
-                class_obj.template = OrderedDict.fromkeys(sig.parameters)
+        if class_obj.__bases__[0].__name__ == 'Model':
 
-                # Create getters for each attribute
-                for index, attr in enumerate(class_obj.template):
-                    setattr(class_obj, attr, property(itemgetter(index)))
+            # This is the overall template of the object.
+            # Because Model objects are tuples the order of attributes
+            # is important. This order is
+            # defined by the order of arguments in the signature.
+            # Only objects that derive directly from model get a template.
+            # This means class' derived further down the inheritance tree
+            # have the same data structure.
+            # Which is nice because object attributes can then use the same itemgetter
+            # And
+            # All objects derived from the same type will have a the columns aligning
+            # when the .series method is called.
+            class_obj.template = OrderedDict.fromkeys(sig.parameters)
 
-                class_obj.__annotations__ = class_obj.__new__.__annotations__
+            # Create getters for each attribute
+            for index, attr in enumerate(class_obj.template):
+                setattr(class_obj, attr, property(itemgetter(index)))
 
-        except NameError:
-            pass  # Means Model has not been created yet
+            # Model.__new__ uses this class attribute to
+            class_obj.__annotations__ = class_obj.__new__.__annotations__
+
 
         return class_obj
 
@@ -115,7 +117,10 @@ class Model(tuple, metaclass=ORM):
 
     def __repr__(self):
         def information():
-            for attribute in ('amount', 'financing', 'id', 'instrument', 'pl', 'price', 'reason', 'time', 'units'):
+
+            # These attributes seem to be the most important to users
+            for attribute in ('amount', 'financing', 'id', 'instrument',
+                              'pl', 'price', 'reason', 'time', 'units'):
                 try:
                     value = getattr(self, attribute)
                 except (IndexError, AttributeError):
