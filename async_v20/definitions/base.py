@@ -4,7 +4,10 @@ from functools import wraps
 from inspect import signature
 from operator import itemgetter
 
-import pandas as pd
+try:
+    import pandas as pd
+except ImportError:
+    pass  # not installed
 
 from .attributes import instance_attributes
 from .attributes import json_attributes
@@ -32,9 +35,8 @@ class Array(type):
         return super().__new__(mcs, f'Array_{typ.__name__}', (JSONArray,), {'typ': typ})
 
 
-def arg_parse(new):
-    wraps(new)
-
+def arg_parse(new: classmethod):
+    @wraps(new)
     def wrap(cls, *args, **kwargs):
         def format():
             for name, value in kwargs.items():
@@ -46,8 +48,15 @@ def arg_parse(new):
         return new(cls, *args, **dict(format()))
 
     wrap.__annotations__ = new.__annotations__
+    # wrap.__signature__ = new.__signature__
     return wrap
 
+def tool_tip(init, signature):
+    @wraps(init)
+    def wrap(*args, **kwargs):
+        return init(*args, **kwargs)
+    wrap.__signature__ = signature
+    return wrap
 
 class ORM(type):
     instance_attributes = {}
@@ -61,8 +70,16 @@ class ORM(type):
         mcs.instance_attributes = instance_attributes
         mcs.json_attributes = json_attributes
 
-        # Create class signature
-        sig = signature(class_obj)
+        # This signature defines the data structure of the objects
+        # (providing the object is derived directly from Model)
+        # This signature has no 'self' parameter
+        template_signature = signature(class_obj)
+
+        # This signature does have a 'self' parameter
+        pretty_signature = signature(class_obj.__new__)
+
+        # This is for tool tips in IDE's (only tested in PyCharm)
+        class_obj.__init__ = tool_tip(class_obj.__init__, pretty_signature)
 
         if not class_obj == 'Model':
             # Only add the argument parser to objects that derive from Model
@@ -70,12 +87,8 @@ class ORM(type):
             # should already be parsed by models subclasses
             class_obj.__new__ = arg_parse(class_obj.__new__)
 
-        # Update
-        class_obj.__new__.__signature__ = sig
-
         # Create a pretty signature for documentation
-        class_obj.__doc__ = create_doc_signature(class_obj, sig)
-
+        class_obj.__doc__ = create_doc_signature(class_obj, pretty_signature)
 
         if class_obj.__bases__[0].__name__ == 'Model':
 
@@ -90,7 +103,7 @@ class ORM(type):
             # And
             # All objects derived from the same type will have a the columns aligning
             # when the .series method is called.
-            class_obj.template = OrderedDict.fromkeys(sig.parameters)
+            class_obj.template = OrderedDict.fromkeys(template_signature.parameters)
 
             # Create getters for each attribute
             for index, attr in enumerate(class_obj.template):
@@ -98,7 +111,6 @@ class ORM(type):
 
             # Model.__new__ uses this class attribute to
             class_obj.__annotations__ = class_obj.__new__.__annotations__
-
 
         return class_obj
 
