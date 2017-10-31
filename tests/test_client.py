@@ -26,7 +26,7 @@ def client():
 
 def test_oanda_client_has_correct_version(client):
     try:
-        path = os.path.abspath(r'../../async_v20/setup.py')
+        path = r'C:\Users\James\PycharmProjects\async_v20\setup.py'
         print(path)
         with open(path, 'r') as f:
             setup = f.read()
@@ -80,11 +80,6 @@ async def test_response_boolean_evaluation(client, server):
         response = await client.list_accounts()
     assert bool(response) == True
 
-# def remove_whitespace(text):
-#     return text.replace(' ', '')
-#
-# def test_remove_white_space():
-#     assert remove_whitespace('J a m   e  s ') == 'James'
 
 @pytest.mark.asyncio
 async def test_response_returns_json(client, server):
