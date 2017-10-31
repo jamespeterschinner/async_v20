@@ -1,11 +1,12 @@
 """Module that defines the behaviour of the exposed client method calls by using decorators
 """
 from functools import wraps
-from inspect import signature
+from inspect import Signature, signature, Parameter
 
 from .helpers import create_request_kwargs
 from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
+
 
 async def _serial_request_async_generator():
     self, request_args, endpoint = yield
@@ -71,7 +72,10 @@ def endpoint(endpoint, serial=False):
 
 
 def add_signature(class_obj):
-    sig = signature(class_obj.__new__)
+    """Add the signature of an object to the function"""
+    parameters = {'self': Parameter(name='self', kind=1)}
+    parameters.update(dict(signature(class_obj).parameters))
+    sig = Signature(parameters.values())
 
     def wrapper(func):
         @wraps(func)

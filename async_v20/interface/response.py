@@ -21,7 +21,7 @@ class Response(dict):
         return self.bool
 
     def __repr__(self):
-        return f'<Response [{self.status}]>'
+        return f'<Status [{self.status}]>'
 
     def json_dict(self):
 
