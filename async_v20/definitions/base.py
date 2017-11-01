@@ -1,7 +1,7 @@
 import ujson as json
 from collections import OrderedDict
 from functools import wraps
-from inspect import signature
+from inspect import signature, Signature
 from operator import itemgetter
 
 try:
@@ -35,7 +35,7 @@ class Array(type):
         return super().__new__(mcs, f'Array_{typ.__name__}', (JSONArray,), {'typ': typ})
 
 
-def arg_parse(new: classmethod) -> classmethod:
+def arg_parse(new: classmethod, signature=Signature) -> classmethod:
     """Wrapper to convert camelCase arguments to snake_case """
 
     @wraps(new)
@@ -56,6 +56,7 @@ def arg_parse(new: classmethod) -> classmethod:
 
         return new(cls, *args, **dict(format()))
 
+    wrap.__signature__ = signature
     wrap.__annotations__ = new.__annotations__
     return wrap
 
@@ -97,7 +98,7 @@ class ORM(type):
             # Only add the argument parser to objects that derive from Model
             # Model should never be instantiated on it's own so arguments
             # should already be parsed by models subclasses
-            class_obj.__new__ = arg_parse(class_obj.__new__)
+            class_obj.__new__ = arg_parse(class_obj.__new__, pretty_signature)
 
         # Create a pretty signature for documentation
         class_obj.__doc__ = create_doc_signature(class_obj, pretty_signature)
