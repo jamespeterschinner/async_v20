@@ -193,19 +193,19 @@ class OrderInterface(object):
         return self.create_order(order=LimitOrderRequest(*args, **kwargs))
 
     @add_signature(LimitOrderRequest)
-    def limit_replace_order(self, order_id, *args, **kwargs):
+    def limit_replace_order(self, order_specifier: OrderSpecifier, *args, **kwargs):
         """
         Shortcut to replace a pending Limit Order in an Account
 
         Args:
-            order_id : The ID of the Limit Order to replace
+            order_specifier : The ID of the Limit Order to replace
             kwargs : The arguments to create a LimitOrderRequest
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.replace_order(order_id, order=LimitOrderRequest(*args, **kwargs))
+        return self.replace_order(order_specifier, order=LimitOrderRequest(*args, **kwargs))
 
     @add_signature(StopOrderRequest)
     def stop_order(self, *args, **kwargs):
@@ -222,19 +222,19 @@ class OrderInterface(object):
         return self.create_order(order=StopOrderRequest(*args, **kwargs))
 
     @add_signature(StopOrderRequest)
-    def stop_replace_order(self, order_id, *args, **kwargs):
+    def stop_replace_order(self, order_specifier: OrderSpecifier, *args, **kwargs):
         """
         Shortcut to replace a pending Stop Order in an Account
 
         Args:
-            order_id : The ID of the Stop Order to replace
+            order_specifier : The ID of the Stop Order to replace
             kwargs : The arguments to create a StopOrderRequest
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.replace_order(order_id, order=StopOrderRequest(*args, **kwargs))
+        return self.replace_order(order_specifier, order=StopOrderRequest(*args, **kwargs))
 
     @add_signature(MarketIfTouchedOrderRequest)
     def market_if_touched_order(self, *args, **kwargs):
@@ -251,19 +251,19 @@ class OrderInterface(object):
         return self.create_order(order=MarketIfTouchedOrderRequest(*args, **kwargs))
 
     @add_signature(MarketIfTouchedOrderRequest)
-    def market_if_touched_replace_order(self, order_id, *args, **kwargs):
+    def market_if_touched_replace_order(self, order_specifier: OrderSpecifier, *args, **kwargs):
         """
         Shortcut to replace a pending MarketIfTouched Order in an Account
 
         Args:
-            order_id : The ID of the MarketIfTouched Order to replace
+            order_specifier : The ID of the MarketIfTouched Order to replace
             kwargs : The arguments to create a MarketIfTouchedOrderRequest
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.replace_order(order_id, order=MarketIfTouchedOrderRequest(*args, **kwargs))
+        return self.replace_order(order_specifier, order=MarketIfTouchedOrderRequest(*args, **kwargs))
 
     @add_signature(TakeProfitOrderRequest)
     def take_profit_order(self, *args, **kwargs):
@@ -280,19 +280,19 @@ class OrderInterface(object):
         return self.create_order(order=TakeProfitOrderRequest(*args, **kwargs))
 
     @add_signature(TakeProfitOrderRequest)
-    def take_profit_replace_order(self, order_id, *args, **kwargs):
+    def take_profit_replace_order(self, order_specifier, *args, **kwargs):
         """
         Shortcut to replace a pending Take Profit Order in an Account
 
         Args:
-            order_id : The ID of the Take Profit Order to replace
+            order_specifier : The ID of the Take Profit Order to replace
             kwargs : The arguments to create a TakeProfitOrderRequest
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.replace_order(order_id, order=TakeProfitOrderRequest(*args, **kwargs))
+        return self.replace_order(order_specifier, order=TakeProfitOrderRequest(*args, **kwargs))
 
     @add_signature(StopOrderRequest)
     def stop_loss_order(self, *args, **kwargs):
@@ -309,19 +309,19 @@ class OrderInterface(object):
         return self.create_order(order=StopLossOrderRequest(*args, **kwargs))
 
     @add_signature(StopLossOrderReason)
-    def stop_loss_replace_order(self, order_id, *args, **kwargs):
+    def stop_loss_replace_order(self, order_specifier: OrderSpecifier, *args, **kwargs):
         """
         Shortcut to replace a pending Stop Loss Order in an Account
 
         Args:
-            order_id : The ID of the Stop Loss Order to replace
+            order_specifier : The ID of the Stop Loss Order to replace
             kwargs : The arguments to create a StopLossOrderRequest
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.replace_order(order_id, order=StopLossOrderRequest(*args, **kwargs))
+        return self.replace_order(order_specifier, order=StopLossOrderRequest(*args, **kwargs))
 
     @add_signature(TrailingStopLossOrderRequest)
     def trailing_stop_loss_order(self, *args, **kwargs):
@@ -338,16 +338,16 @@ class OrderInterface(object):
         return self.create_order(order=TrailingStopLossOrderRequest(*args, **kwargs))
 
     @add_signature(TrailingStopLossOrderRequest)
-    def trailing_stop_loss_replace_order(self, order_id, *args, **kwargs):
+    def trailing_stop_loss_replace_order(self, order_specifier, *args, **kwargs):
         """
         Shortcut to replace a pending Trailing Stop Loss Order in an Account
 
         Args:
-            order_id : The ID of the Take Profit Order to replace
+            order_specifier : The ID of the Take Profit Order to replace
             kwargs : The arguments to create a TrailingStopLossOrderRequest
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.replace_order(order_id, order=TrailingStopLossOrderRequest(*args, **kwargs))
+        return self.replace_order(order_specifier, order=TrailingStopLossOrderRequest(*args, **kwargs))

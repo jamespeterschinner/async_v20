@@ -1,7 +1,7 @@
 from .decorators import endpoint
 from ..definitions.primitives.primitives import InstrumentName
 from ..definitions.types import CandlestickGranularity
-from ..definitions.types import Price
+from ..definitions.types import PriceComponent
 from ..definitions.types import WeeklyAlignment
 from ..endpoints.annotations import AlignmentTimezone
 from ..endpoints.annotations import Count
@@ -19,7 +19,7 @@ class InstrumentInterface(object):
     @endpoint(GETInstrumentsCandles)
     def get_candles(self,
                     instrument: InstrumentName,
-                    price: Price = None,
+                    price: PriceComponent = None,
                     granularity: CandlestickGranularity = None,
                     count: Count = None,
                     from_time: FromTime = None,

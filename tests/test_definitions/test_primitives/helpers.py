@@ -9,9 +9,9 @@ def get_valid_primitive_data(primitive):
                 if attr in primitive.__new__.__signature__.parameters}
 
     if issubclass(primitive, (float)):
-        data = '14.0'
+        data = 14.0
     elif issubclass(primitive, (int)):
-        data = '123456789'
+        data = 123456789
     elif issubclass(primitive, (str)):
         try:
             data = primitive.example
@@ -19,6 +19,6 @@ def get_valid_primitive_data(primitive):
             try:
                 data = next(iter(primitive.values))
             except AttributeError:
-                data = 1
+                data = '1'
 
     return data

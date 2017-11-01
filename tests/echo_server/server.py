@@ -44,14 +44,17 @@ routes = {
     ('GET', '/v3/users/123-123-1234567-123'): None,
     ('GET', '/v3/users/123-123-1234567-123/externalInfo'): None}
 
+received = None
 
 async def handler(request):
     print(request)
     method = request.method
     path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
     data = routes[(method, path)]
+    global received
+    received = await request.read()
     if data is None:
-        data = await request.read()
+        data = "null"
     return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers)
 
 
@@ -59,8 +62,12 @@ async def handler(request):
 @pytest.mark.asyncio
 async def server(event_loop):
     server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
+    global received
+    server.received = received
     yield server
     server.close()
+
+
 
 
 if __name__ == '__main__':

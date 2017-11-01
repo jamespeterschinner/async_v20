@@ -5,7 +5,7 @@ from ..definitions.base import Model
 
 class Bool(object):
     def __new__(cls, arg):
-        return bool(arg)
+        return str(bool(arg))
 
 class Authorization(str):
     pass
@@ -19,7 +19,7 @@ class Alias(str):
     pass
 
 
-class Count(int):
+class Count(str):
     pass
 
 
@@ -31,7 +31,11 @@ class includeFirst(Bool):
     pass  # bool
 
 
-class DailyAlignment(int):
+class DailyAlignment(str):
+
+    # valid values
+    # TODO: Identify all annotations that don't return string
+    # and get placed in  the http query
     pass
 
 

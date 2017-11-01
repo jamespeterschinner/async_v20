@@ -1,6 +1,6 @@
 from .helpers import domain_check
 
-__all__ = ['CandlestickGranularity', 'WeeklyAlignment']
+__all__ = ['CandlestickGranularity', 'WeeklyAlignment', 'PriceComponent']
 
 
 class CandlestickGranularity(str):
@@ -51,6 +51,18 @@ class WeeklyAlignment(str):
         'Saturday': 'Saturday',
         'Sunday': 'Sunday'
     }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class PriceComponent(str):
+
+    # Valid values
+    values = {'M': 'midpoint candles',
+              'B': 'bid candles',
+              'A': 'ask candles'}
 
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)

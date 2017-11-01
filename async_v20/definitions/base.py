@@ -221,7 +221,7 @@ def create_attribute(typ, data):
     if typ is None:
         return
     elif isinstance(data, Model):
-        if not type(data) == typ:
+        if not issubclass(type(data), typ):
             raise TypeError(f'{data} must be of type {typ}')
         result = data
     elif isinstance(data, dict):
