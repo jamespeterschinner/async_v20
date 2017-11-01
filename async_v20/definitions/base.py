@@ -35,9 +35,18 @@ class Array(type):
         return super().__new__(mcs, f'Array_{typ.__name__}', (JSONArray,), {'typ': typ})
 
 
-def arg_parse(new: classmethod):
+def arg_parse(new: classmethod) -> classmethod:
+    """Wrapper to convert camelCase arguments to snake_case """
+
     @wraps(new)
-    def wrap(cls, *args, **kwargs):
+    def wrap(cls, *args, args_have_been_formatted=False, **kwargs):
+        # Don't format arguments twice
+        if args_have_been_formatted:
+            # locals() returns __class__
+            # If it exists remove it.
+            kwargs.pop('__class__', None)
+            return new(cls, **kwargs)
+
         def format():
             for name, value in kwargs.items():
                 try:
@@ -48,15 +57,17 @@ def arg_parse(new: classmethod):
         return new(cls, *args, **dict(format()))
 
     wrap.__annotations__ = new.__annotations__
-    # wrap.__signature__ = new.__signature__
     return wrap
+
 
 def tool_tip(init, signature):
     @wraps(init)
     def wrap(*args, **kwargs):
         return init(*args, **kwargs)
+
     wrap.__signature__ = signature
     return wrap
+
 
 class ORM(type):
     instance_attributes = {}
@@ -66,6 +77,7 @@ class ORM(type):
         super().__init__(self)
 
     def __new__(mcs, *args, **kwargs):
+
         class_obj = super().__new__(mcs, *args, **kwargs)
         mcs.instance_attributes = instance_attributes
         mcs.json_attributes = json_attributes
