@@ -73,9 +73,8 @@ def endpoint(endpoint, serial=False):
 
 def add_signature(class_obj):
     """Add the signature of an object to the function"""
-    parameters = {'self': Parameter(name='self', kind=1)}
-    parameters.update(dict(signature(class_obj).parameters))
-    sig = Signature(parameters.values())
+
+    sig = signature(class_obj.__new__)
 
     def wrapper(func):
         @wraps(func)
