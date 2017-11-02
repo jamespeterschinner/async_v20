@@ -114,7 +114,7 @@ class PageSize(int):
 
     def __new__(cls, value=100):
         if not 0 < value <= 1000:
-            raise ValueError(f'PageSize: Must be within range(1,1001). Supplied: {value}')
+            raise ValueError(f'PageSize: Must be within range(). Supplied: {value}')
         return int(value)
 
 

@@ -741,7 +741,7 @@ class UserInfoExternal(Model):
 
     """
 
-    def __new__(cls, ):
+    def __new__(cls, user_id: str = None, country: str=None, fifo: str= None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -2171,6 +2171,7 @@ class Account(AccountSummary):
     def __new__(cls, id: AccountID = None, alias: str = None, currency: Currency = None, balance: AccountUnits = None,
                 created_by_user_id: int = None, created_time: DateTime = None, pl: AccountUnits = None,
                 resettable_pl: AccountUnits = None, resettabled_pl_time: DateTime = None,
+                financing: DecimalNumber = None,
                 commission: AccountUnits = None, margin_rate: DecimalNumber = None,
                 margin_call_enter_time: DateTime = None, margin_call_extension_count: int = None,
                 last_margin_call_extension_time: DateTime = None, open_trade_count: int = None,
@@ -2182,7 +2183,7 @@ class Account(AccountSummary):
                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
                 last_transaction_id: TransactionID = None, trades: Array(TradeSummary) = None,
-                positions: Array(Position) = None, orders: Array(Order) = None, financing: DecimalNumber = None):
+                positions: Array(Position) = None, orders: Array(Order) = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 

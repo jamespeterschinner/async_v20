@@ -17,13 +17,7 @@ def test_class_annotations_match_the_parents_class_annotations(cls):
 
 
 @pytest.mark.parametrize('cls', [getattr(types, typ) for typ in types.__all__])
-def test_all_types_can_be_instantiated(cls):
-    try:
+def test_all_types_can_be_instantiated_from_dict(cls):
         arguments = get_valid_primitive_data(cls)
-        print(arguments)
-        new_object = cls(**arguments)
-    except:
-        print(arguments)
-        assert False
-    else:
-        assert True
+        assert cls(**arguments)
+

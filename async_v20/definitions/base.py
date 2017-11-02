@@ -168,6 +168,7 @@ class Model(tuple, metaclass=ORM):
         def construct_object_data():
             for name, annotation, value in arguments:
                 cls._fields.append(name)
+                print('ASSIGNING', name)
                 yield create_attribute(annotation, value) if value else value
 
         result = tuple.__new__(cls, tuple(construct_object_data()))
@@ -227,5 +228,6 @@ def create_attribute(typ, data):
     elif isinstance(data, tuple):
         result = typ(*data)
     else:
+        print(typ, data)
         result = typ(data)
     return result
