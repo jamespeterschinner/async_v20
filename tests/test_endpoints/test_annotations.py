@@ -24,7 +24,7 @@ def test_daily_alignment_only_allows_valid_data():
     with pytest.raises(ValueError):
         annotations.DailyAlignment(24)
 
-    assert annotations.Count(random.randrange(24))
+    assert annotations.Count(random.randrange(1,23))
 
     assert int(annotations.DailyAlignment()) == 17
 
