@@ -3,7 +3,7 @@ def domain_check(value, example=None, possible_values=None):
     if example:
         try:
             assert len(example) == len(value)
-        except AssertionError:
+        except (AssertionError, TypeError):
             msg = f'{value} does not match length of example {example}'
             raise ValueError(msg)
 
