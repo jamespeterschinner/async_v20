@@ -1,11 +1,13 @@
+from ..definitions.base import Model
 from ..definitions.types import ClientExtensions, ClientID, ClientComment, ClientTag
 from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
-from ..definitions.base import Model
+
 
 class Bool(object):
     def __new__(cls, arg):
         return str(bool(arg))
+
 
 class Authorization(str):
     pass
@@ -19,8 +21,17 @@ class Alias(str):
     pass
 
 
-class Count(str):
-    pass
+class Count(int):
+    """The number of candlesticks to return in the reponse.
+    Count should not be specified if both the start and end
+    parameters are provided, as the time range combined
+    with the graularity will determine the number of
+    candlesticks to return. [default=500, maximum=5000]"""
+
+    def __new__(cls, value):
+        if not 0 < value <= 5000:
+            raise ValueError(f'Count value {value} is NOT within range(1,5001)')
+        return super().__new__(cls, value)
 
 
 class Smooth(Bool):
@@ -32,7 +43,6 @@ class includeFirst(Bool):
 
 
 class DailyAlignment(str):
-
     # valid values
     # TODO: Identify all annotations that don't return string
     # and get placed in  the http query
@@ -109,8 +119,10 @@ class Units(str):
 class LastTransactionID(TransactionID):
     pass
 
+
 class FromTransactionID(TransactionID):
     pass
+
 
 class ToTransactionID(TransactionID):
     pass
