@@ -17,7 +17,7 @@ async def test_client_methods_send_correct_data(api_method, server, client):
     async with client as client:
         data = tuple(get_valid_primitive_data(annotation) for annotation
                      in api_method[1].__annotations__.values())
-        print(data)
+        print('CALLING METHOD WITH: ', data)
         try:
             resp = await getattr(client, api_method[0])(*data)
         except (KeyError, ServerDisconnectedError, ContentTypeError, AttributeError):

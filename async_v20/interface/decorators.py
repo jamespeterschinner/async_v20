@@ -70,21 +70,3 @@ def endpoint(endpoint, serial=False):
         return {True: serial_wrap, False: parallel_wrap}[serial]
 
     return wrapper
-
-
-def add_signature(class_obj):
-    """Add the signature of an object to the function"""
-
-    def wrapper(func):
-        @wraps(func)
-        def wrap(*args, **kwargs):
-            return func(*args, **kwargs)
-
-        new_sig = Signature(chain(filter(lambda x: x.kind == 1, signature(func).parameters.values()),
-                                  signature(class_obj.__new__).parameters.values()))
-        wrap.__annotations__ = class_obj.__new__.__annotations__
-        wrap.__signature__ = new_sig
-        wrap.__doc__ = create_doc_signature(func, new_sig)
-        return wrap
-
-    return wrapper

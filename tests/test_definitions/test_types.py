@@ -20,6 +20,7 @@ def test_class_annotations_match_the_parents_class_annotations(cls):
 def test_all_types_can_be_instantiated(cls):
     try:
         arguments = get_valid_primitive_data(cls)
+        print(arguments)
         new_object = cls(**arguments)
     except:
         print(arguments)
