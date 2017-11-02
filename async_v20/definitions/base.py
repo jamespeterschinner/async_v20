@@ -218,9 +218,7 @@ class Model(tuple, metaclass=ORM):
 
 
 def create_attribute(typ, data):
-    if typ is None:
-        return
-    elif isinstance(data, Model):
+    if isinstance(data, Model):
         if not issubclass(type(data), typ):
             raise TypeError(f'{data} must be of type {typ}')
         result = data

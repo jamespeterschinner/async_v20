@@ -24,7 +24,7 @@ routes = {
     ('PUT', '/v3/accounts/123-123-1234567-123/orders/123-123-1234567-123/'): None,
     ('PUT', '/v3/accounts/123-123-1234567-123/orders/123-123-1234567-123/cancel'): None,
     ('PUT', '/v3/accounts/123-123-1234567-123/orders/123-123-1234567-123/clientExtensions'): None,
-    ('GET', '/v3/accounts/123-123-1234567-123/positions'): get_positions_response,
+    ('GET', '/v3/accounts/123-123-1234567-123/positions'): list_positions_response,
     ('GET', '/v3/accounts/123-123-1234567-123/openPositions'): None,
     ('GET', '/v3/accounts/123-123-1234567-123/positions/123-123-1234567-123/'): None,
     ('PUT', '/v3/accounts/123-123-1234567-123/positions/123-123-1234567-123/close'): None,
