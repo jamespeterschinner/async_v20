@@ -20,7 +20,7 @@ class JSONArray(tuple):
 
     def __new__(cls, data):
         try:
-            super().__new__(cls, tuple(create_attribute(cls.typ, obj) for obj in data))
+            return super().__new__(cls, tuple(create_attribute(cls.typ, obj) for obj in data))
         except TypeError:
             msg = f'FAILED TO CREATE OBJECT: {cls.typ} FROM DATA: {data} DATA TYPE: {type(data)}'
             raise Exception(msg)
@@ -222,11 +222,12 @@ def create_attribute(typ, data):
         if not issubclass(type(data), typ):
             raise TypeError(f'{data} must be of type {typ}')
         result = data
+    elif isinstance(data, JSONArray): # TO
+        result = data
     elif isinstance(data, dict):
         result = typ(**data)
     elif isinstance(data, tuple):
         result = typ(*data)
     else:
-        print(typ)
         result = typ(data)
     return result
