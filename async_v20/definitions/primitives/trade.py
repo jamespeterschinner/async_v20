@@ -14,8 +14,9 @@ class TradeID(int):
     # Example of correct format
     example = '1523'
 
+    # TODO replace with super() call when possible
     def __new__(cls, value):
-        return super().__new__(cls, value)
+        return int(value)
 
 class TradePL(str):
     """The classification of TradePLs.

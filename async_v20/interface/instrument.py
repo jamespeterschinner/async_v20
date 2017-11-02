@@ -19,16 +19,16 @@ class InstrumentInterface(object):
     @endpoint(GETInstrumentsCandles)
     def get_candles(self,
                     instrument: InstrumentName,
-                    price: PriceComponent = None,
-                    granularity: CandlestickGranularity = None,
+                    price: PriceComponent = 'M',
+                    granularity: CandlestickGranularity = 'S5',
                     count: Count = 500,
                     from_time: FromTime = None,
                     to_time: ToTime = None,
-                    smooth: Smooth = None,
+                    smooth: Smooth = False,
                     include_first_query: IncludeFirstQuery = True,
-                    daily_alignment: DailyAlignment = None,
-                    alignment_timezone: AlignmentTimezone = None,
-                    weekly_alignment: WeeklyAlignment = None,
+                    daily_alignment: DailyAlignment = 17,
+                    alignment_timezone: AlignmentTimezone = 'America/New_York',
+                    weekly_alignment: WeeklyAlignment = 'Friday',
                     ):
         """
         Fetch candlestick data for an instrument.

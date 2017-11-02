@@ -35,13 +35,19 @@ class Count(int):
 
     def __new__(cls, value=500):
         if not 0 < value <= 5000:
-            raise ValueError(f'Count value {value} is NOT within range(1,5001)')
-        return super().__new__(cls, value)
+            raise ValueError(f'Count: MUST be within range(1,5001). Supplied {value}')
+        return int(value)
 
 
 class Smooth(Bool):
-    pass
+    """A flag that controls whether the candlestick is
+    'smoothed' or not. A smoothed candlestick uses the
+    previous candle’s close price as its open price,
+    while an unsmoothed candlestick uses the first price
+    from its time range as its open price. [default=False]"""
 
+    def __new__(cls, value=False):
+        return super().__new__(cls, value)
 
 class IncludeFirstQuery(Bool):
     """A flag that controls whether the candlestick that is covered by the
@@ -54,15 +60,28 @@ class IncludeFirstQuery(Bool):
         return super().__new__(cls, value)
 
 
-class DailyAlignment(str):
-    # valid values
-    # TODO: Identify all annotations that don't return string
-    # and get placed in  the http query
-    pass
+class DailyAlignment(int):
+    """The hour of the day (in the specified timezone)
+    to use for granularities that have daily alignments.
+    [default=17, minimum=0, maximum=23]"""
+
+    def __new__(cls, value=17):
+        if not 0 <= value <= 23:
+            raise ValueError(f'DailyAlignment: Must be within range(24). Supplied: {value}')
+        return int(value)
 
 
 class AlignmentTimezone(str):
-    pass
+    """The timezone to use for the dailyAlignment parameter.
+    Candlesticks with daily alignment will be aligned to the
+    dailyAlignment hour within the alignmentTimezone.
+    [default=America/New_York]"""
+
+    # TODO find out what are the valid time zones
+
+    def __new__(cls, value='America/New_York'):
+        return super().__new__(cls, value)
+
 
 
 class Ids(str):
@@ -90,7 +109,14 @@ class Snapshot(Bool):
 
 
 class PageSize(int):
-    pass
+    """The number of Transactions to include in each page
+    of the results. [default=100, maximum=1000]"""
+
+    def __new__(cls, value=100):
+        if not 0 < value <= 1000:
+            raise ValueError(f'PageSize: Must be within range(1,1001). Supplied: {value}')
+        return int(value)
+
 
 
 class Type(str):

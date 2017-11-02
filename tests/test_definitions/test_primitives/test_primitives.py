@@ -5,12 +5,13 @@ from async_v20.definitions import primitives
 from async_v20.definitions.primitives.order import OrderSpecifier
 from async_v20.definitions.primitives.transaction import ClientComment, ClientID, ClientTag
 from async_v20.definitions.primitives.transaction import TransactionID
+from async_v20.definitions.primitives import OrderID, TradeID
 
 
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives,x), primitives.__all__))
 def test_get_valid_primitive_data(primitive):
     """Test the helper function can provide valid data for all primitives"""
-    assert type(primitive(get_valid_primitive_data(primitive))) == primitive
+    assert get_valid_primitive_data(primitive)
 
 # Get All user defined class' in primitive package
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives,x), primitives.__all__))
@@ -44,8 +45,12 @@ def test_primitives_enforce_length_checking(primitive):
 
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives,x), primitives.__all__))
 def test_primitives_return_correct_type_when_initialized_with_value(primitive):
-    data = get_valid_primitive_data(primitive)
-    assert type(primitive(data)) == primitive
+    if primitive in (OrderID, TradeID):
+        # Cannot pass subclass of int to yarl # issue 129
+        assert type(primitive(get_valid_primitive_data(primitive))) == int
+    else:
+        assert type(primitive(get_valid_primitive_data(primitive))) == primitive
+
 
 def test_PriceValue_rounds_floats_to_the_correct_accuracy():
     assert primitives.PriceValue(0.123456) == 0.12346

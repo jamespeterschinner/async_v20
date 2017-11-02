@@ -14,9 +14,9 @@ __all__ = ['TransactionInterface']
 class TransactionInterface(object):
     @endpoint(GETTransactions)
     def list_transactions(self,
-                          from_time: FromTime=None,
-                          to_time: ToTime=None,
-                          page_size: PageSize=None,
+                          from_time: FromTime=None,  # TODO should default to account creation time
+                          to_time: ToTime=None, # TODO should default to request time
+                          page_size: PageSize=100,
                           type_: Type=None):
         """
         Get a list of Transactions pages that satisfy a time-based Transaction

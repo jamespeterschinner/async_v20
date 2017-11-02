@@ -23,7 +23,7 @@ class GETInstrumentsCandles(EndPoint):
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'price', 'located': 'query', 'type': Price, 'description': 'str'},
+        {'name': 'price', 'located': 'query', 'type': PriceComponent, 'description': 'str'},
         {'name': 'granularity', 'located': 'query', 'type': CandlestickGranularity,
          'description': 'CandlestickGranularity'},
         {'name': 'count', 'located': 'query', 'type': Count, 'description': 'int'},

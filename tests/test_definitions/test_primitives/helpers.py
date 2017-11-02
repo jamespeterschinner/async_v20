@@ -11,7 +11,12 @@ def get_valid_primitive_data(primitive):
     if issubclass(primitive, (float)):
         data = 14.0
     elif issubclass(primitive, (int)):
-        data = 123456789
+        try:
+            data = primitive() # See if the annotation has a default value
+        except TypeError:
+            pass
+        if not data:
+            data = 123456789
     elif issubclass(primitive, (str)):
         try:
             data = primitive.example

@@ -22,7 +22,7 @@ class TradeInterface(object):
                     state: TradeStateFilter=None,
                     instrument: InstrumentName=None,
                     count: Count=None,
-                    before_id: TradeID=None):
+                    trade_id: TradeID=None):
         """
         Get a list of Trades for an Account
 
