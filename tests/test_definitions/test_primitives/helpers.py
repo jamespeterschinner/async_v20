@@ -29,7 +29,6 @@ def get_valid_primitive_data(primitive):
             data = primitive.example
         except AttributeError:
             try:
-                print('CREATING DATA', primitive)
                 data = next(iter(primitive.values))
             except AttributeError:
                 data = '1'
