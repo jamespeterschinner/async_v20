@@ -9,7 +9,7 @@ from ..endpoints.annotations import DailyAlignment
 from ..endpoints.annotations import FromTime
 from ..endpoints.annotations import Smooth
 from ..endpoints.annotations import ToTime
-from ..endpoints.annotations import includeFirst
+from ..endpoints.annotations import IncludeFirstQuery
 from ..endpoints.instrument import *
 
 __all__ = ['InstrumentInterface']
@@ -21,11 +21,11 @@ class InstrumentInterface(object):
                     instrument: InstrumentName,
                     price: PriceComponent = None,
                     granularity: CandlestickGranularity = None,
-                    count: Count = None,
+                    count: Count = 500,
                     from_time: FromTime = None,
                     to_time: ToTime = None,
                     smooth: Smooth = None,
-                    include_first: includeFirst = None,
+                    include_first_query: IncludeFirstQuery = True,
                     daily_alignment: DailyAlignment = None,
                     alignment_timezone: AlignmentTimezone = None,
                     weekly_alignment: WeeklyAlignment = None,

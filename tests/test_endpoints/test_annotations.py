@@ -13,3 +13,5 @@ def test_count_only_allows_valid_data():
         annotations.Count(5001)
 
     assert annotations.Count(random.randrange(1, 5001))
+
+    assert int(annotations.Count()) == 500

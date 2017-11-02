@@ -3,6 +3,11 @@ from ..definitions.types import ClientExtensions, ClientID, ClientComment, Clien
 from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
 
+__all__ = ['Alias', 'AlignmentTimezone', 'Authorization', 'Count', 'DailyAlignment', 'FromTime',
+           'FromTransactionID', 'Ids', 'IncludeFirstQuery', 'IncludeUnitsAvailable', 'Instruments', 'LastTransactionID',
+           'LongClientExtensions', 'LongUnits', 'PageSize', 'ShortClientExtensions', 'ShortUnits', 'Smooth', 'Snapshot',
+           'ToTime', 'ToTransactionID', 'TradeClientExtensions', 'Type', 'Units', 'UserSpecifier']
+
 
 class Bool(object):
     def __new__(cls, arg):
@@ -28,7 +33,7 @@ class Count(int):
     with the graularity will determine the number of
     candlesticks to return. [default=500, maximum=5000]"""
 
-    def __new__(cls, value):
+    def __new__(cls, value=500):
         if not 0 < value <= 5000:
             raise ValueError(f'Count value {value} is NOT within range(1,5001)')
         return super().__new__(cls, value)
@@ -38,8 +43,15 @@ class Smooth(Bool):
     pass
 
 
-class includeFirst(Bool):
-    pass  # bool
+class IncludeFirstQuery(Bool):
+    """A flag that controls whether the candlestick that is covered by the
+    from time should be included in the results. This flag enables clients
+    to use the timestamp of the last completed candlestick received to poll
+    for future candlesticks but avoid receiving the previous candlestick
+    repeatedly. [default=True]"""
+
+    def __new__(cls, value=True):
+        return super().__new__(cls, value)
 
 
 class DailyAlignment(str):

@@ -30,7 +30,7 @@ class GETInstrumentsCandles(EndPoint):
         {'name': 'from', 'located': 'query', 'type': FromTime, 'description': 'DateTime'},
         {'name': 'to', 'located': 'query', 'type': ToTime, 'description': 'DateTime'},
         {'name': 'smooth', 'located': 'query', 'type': Smooth, 'description': 'boolean'},
-        {'name': 'includeFirst', 'located': 'query', 'type': includeFirst, 'description': 'boolean'},
+        {'name': 'includeFirst', 'located': 'query', 'type': IncludeFirstQuery, 'description': 'boolean'},
         {'name': 'dailyAlignment', 'located': 'query', 'type': DailyAlignment, 'description': 'int'},
         {'name': 'alignmentTimezone', 'located': 'query', 'type': AlignmentTimezone, 'description': 'str'},
         {'name': 'weeklyAlignment', 'located': 'query', 'type': WeeklyAlignment,
