@@ -120,7 +120,6 @@ class PUTTradeSpecifierClose(EndPoint):
     # error msgs'
     error = (401, 405)
 
-    # TODO test to default to 'ALL'
     # json schema representation
     request_schema = {Units: 'units'}
 
@@ -208,4 +207,4 @@ class PUTTradesSpecifierOrders(EndPoint):
 
     # json schema representation
     request_schema = {TakeProfitDetails: 'takeProfit', StopLossDetails: 'stopLoss',
-                       TrailingStopLossDetails: 'trailingStopLoss'}
+                      TrailingStopLossDetails: 'trailingStopLoss'}

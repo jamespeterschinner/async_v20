@@ -35,7 +35,6 @@ class OrderID(int):
     # Example of correct format
     example = '1523'
 
-    # TODO: replace with super(). If yarl issue 129 is fixed
     def __new__(cls, value):
         return int(value)
 

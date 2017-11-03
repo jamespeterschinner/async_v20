@@ -3,11 +3,11 @@ from async_v20.client import OandaClient
 import os
 import re
 from async_v20.endpoints.annotations import Authorization
-from .echo_server.server import server
+from .server.server import server
 from async_v20 import AccountID
-from .echo_server.static import list_accounts_response
-from .echo_server.static import get_account_details_response
-from .echo_server.static import get_pricing_response
+from .server.static import list_accounts_response
+from .server.static import get_account_details_response
+from .server.static import get_pricing_response
 from .test_interface.helpers import order_dict
 import ujson as json
 #prevent pycharm from removing the import

@@ -1,5 +1,4 @@
-from ..definitions.base import Model
-from ..definitions.types import ClientExtensions, ClientID, ClientComment, ClientTag
+from ..definitions.types import ClientExtensions
 from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
 
@@ -49,6 +48,7 @@ class Smooth(Bool):
     def __new__(cls, value=False):
         return super().__new__(cls, value)
 
+
 class IncludeFirstQuery(Bool):
     """A flag that controls whether the candlestick that is covered by the
     from time should be included in the results. This flag enables clients
@@ -83,22 +83,31 @@ class AlignmentTimezone(str):
         return super().__new__(cls, value)
 
 
-
 class Ids(str):
     pass
 
 
 class LongUnits(str):
-    pass
+    """Indication of how much of the long Position to closeout. Either the
+    string “ALL”, the string “NONE”, or a DecimalNumber representing how many
+    units of the long position to close using a PositionCloseout MarketOrder.
+    The units specified must always be positive.
+    """
 
+    def __new__(cls, value='ALL'):
+        return super().__new__(cls, value)
 
-# this needs to default to 'ALL'
 
 class ShortUnits(str):
-    pass
+    """ Indication of how much of the short Position to closeout. Either the
+    string “ALL”, the string “NONE”, or a DecimalNumber representing how many
+    units of the short position to close using a PositionCloseout
+    MarketOrder. The units specified must always be positive.
+    """
 
+    def __new__(cls, value='ALL'):
+        return super().__new__(cls, value)
 
-# this also needs to default to 'ALL'
 
 class IncludeUnitsAvailable(Bool):
     pass  # bool
@@ -118,7 +127,6 @@ class PageSize(int):
         return int(value)
 
 
-
 class Type(str):
     pass
 
@@ -136,22 +144,33 @@ class ToTime(DateTime):
 
 
 class TradeClientExtensions(ClientExtensions):
-    def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
-        return Model.__new__(**locals())
+    pass
 
 
 class LongClientExtensions(ClientExtensions):
-    def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
-        return Model.__new__(**locals())
+    """The client extensions to add to the MarketOrder used to close the long
+    position
+    """
+    pass
 
 
 class ShortClientExtensions(ClientExtensions):
-    def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
-        return Model.__new__(**locals())
+    """The client extensions to add to the MarketOrder used to close the short
+    position"""
+    pass
 
 
 class Units(str):
-    pass
+    """Indication of how much of the Trade to close. Either the string “ALL”
+    (indicating that all of the Trade should be closed), or a DecimalNumber
+    representing the number of units of the open Trade to Close using a
+    TradeClose MarketOrder. The units specified must always be positive, and
+    the magnitude of the value cannot exceed the magnitude of the Trade’s
+    open units
+    """
+
+    def __new__(cls, value='ALL'):
+        return super().__new__(cls, value)
 
 
 class LastTransactionID(TransactionID):

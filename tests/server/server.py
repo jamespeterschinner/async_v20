@@ -1,5 +1,5 @@
 import asyncio
-from tests.echo_server.static import *
+from tests.server.static import *
 from aiohttp import web
 import gzip
 import pytest

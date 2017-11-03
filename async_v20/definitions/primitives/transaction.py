@@ -68,7 +68,6 @@ class LimitOrderReason(str):
     values = {
         'CLIENT_ORDER': 'The Limit Order was initiated at the request of a client',
         'REPLACEMENT': 'The Limit Order was initiated as a replacement for an existing Order',
-        'STOP_LOSS_ORDER': None  # TODO: check what is up with this???
     }
 
     def __new__(cls, value):
@@ -84,7 +83,6 @@ class MarketIfTouchedOrderReason(str):
     values = {
         'CLIENT_ORDER': 'The Market-if-touched Order was initiated at the request of a client',
         'REPLACEMENT': 'The Market-if-touched Order was initiated as a replacement for an existing Order',
-        'STOP_LOSS_ORDER': None  # TODO: check what is up with this???
     }
 
     def __new__(cls, value):
@@ -216,7 +214,7 @@ class RequestID(str):
     """The request identifier.
     """
 
-    # TODO is this nesessary, NO! I guess it's about consistency
+    # Is this necessary, NO! I guess it's about consistency
     def __new__(cls, value):
         return super().__new__(cls, value)
 
@@ -577,18 +575,18 @@ class Reason(str):
     """Generic reason for any transaction that may occur"""
 
     values = dict(tuple(set.union(*(set(value.items()) for value in
-                  (FundingReason.values,
-                   LimitOrderReason.values,
-                   MarketIfTouchedOrderReason.values,
-                   MarketOrderMarginCloseoutReason.values,
-                   MarketOrderReason.values,
-                   OrderCancelReason.values,
-                   OrderFillReason.values,
-                   StopLossOrderReason.values,
-                   StopOrderReason.values,
-                   TakeProfitOrderReason.values,
-                   TrailingStopLossOrderReason.values,
-                   TransactionRejectReason.values)))))
+                                    (FundingReason.values,
+                                     LimitOrderReason.values,
+                                     MarketIfTouchedOrderReason.values,
+                                     MarketOrderMarginCloseoutReason.values,
+                                     MarketOrderReason.values,
+                                     OrderCancelReason.values,
+                                     OrderFillReason.values,
+                                     StopLossOrderReason.values,
+                                     StopOrderReason.values,
+                                     TakeProfitOrderReason.values,
+                                     TrailingStopLossOrderReason.values,
+                                     TransactionRejectReason.values)))))
 
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)

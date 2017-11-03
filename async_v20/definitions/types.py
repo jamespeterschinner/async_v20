@@ -641,7 +641,6 @@ class UserInfo(Model):
 
     """
 
-    # TODO CHECK THIS
     def __new__(cls, username: str = None, user_id: str = None, country: str = None, email_address: str = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 

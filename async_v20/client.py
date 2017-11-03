@@ -70,11 +70,9 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # v20 REST server
         self.poll_timeout = poll_timeout
 
-        # TODO limit this to > 0
         # Limit new requests to a certain rate
         self.max_requests_per_second = max_requests_per_second
 
-        # TODO limit this to > 0
         # Limit concurrent connections
         self.max_simultaneous_connections = max_simultaneous_connections
 
