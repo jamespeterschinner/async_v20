@@ -18,6 +18,33 @@ from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETInstrumentsCandles_response
 from tests.data.stream_data import price_bytes
 from .helpers import order_dict
+from ..test_client import client
+
+from ..server.server import routes, headers
+from aiohttp import web
+import gzip
+
+client = client
+
+status = 200
+async def handler(request):
+    print(request)
+    method = request.method
+    path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
+    data = routes[(method, path)]
+    global received
+    received = method
+    if data is None:
+        data = "null"
+    return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers, status=status)
+
+
+@pytest.fixture
+@pytest.mark.asyncio
+async def server(event_loop):
+    server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
+    yield server
+    server.close()
 
 
 @pytest.fixture
@@ -154,3 +181,14 @@ async def test_conversion_from_server_json_to_response_object_to_json_equal(json
     print('SERVER JSON:\n', pretty_json_body)
     print('Response JSON:\n', pretty_response_json)
     assert response_json == json_body
+
+@pytest.mark.asyncio
+async def test_parser_returns_correct_boolean_for_response(client, server):
+    global status
+    async with client as client:
+        status = 400 # make this response bad
+        response = await client.get_account_details()
+        assert bool(response) == False
+        status = 200  # make this response good
+        response = await client.get_account_details()
+        assert bool(response) == True

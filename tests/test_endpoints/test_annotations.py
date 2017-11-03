@@ -29,6 +29,17 @@ def test_daily_alignment_only_allows_valid_data():
     assert int(annotations.DailyAlignment()) == 17
 
 
+def test_page_size_only_allows_valid_data():
+    with pytest.raises(ValueError):
+        annotations.PageSize(-1)
+
+    with pytest.raises(ValueError):
+        annotations.PageSize(1001)
+
+    assert annotations.Count(random.randrange(1, 1000))
+
+    assert int(annotations.PageSize()) == 100
+
 def test_alignment_time_zone_only_allows_valid_data():
     assert annotations.AlignmentTimezone() == 'America/New_York'
 

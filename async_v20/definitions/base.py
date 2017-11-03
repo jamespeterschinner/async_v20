@@ -214,17 +214,25 @@ class Model(tuple, metaclass=ORM):
 
 
 def create_attribute(typ, data):
-    if isinstance(data, (Model, Array, Primitive)):
-        if not issubclass(type(data), typ):
-            print(type(data))
-            raise TypeError(f'{data} must be of type {typ}')
-        result = data
-
-    elif isinstance(data, dict):
-        result = typ(**data)
-    elif isinstance(data, (tuple, list)):
-        result = typ(*data)
+    try:
+        if isinstance(data, (Model, Array, Primitive)):
+            if not issubclass(type(data), typ):
+                print(type(data))
+                raise TypeError(f'{data} must be of type {typ}')
+            result = data
+        elif isinstance(data, dict):
+            result = typ(**data)
+        elif isinstance(data, (tuple, list)):
+            result = typ(*data)
+        else:
+            result = typ(data)
+    except TypeError as e:
+        # This error handling is required when there is no
+        # schema available to parse the data. Typically
+        # when an error code has been returned
+        # A none value should be returned if this is the case
+        if typ is not None:
+            raise TypeError(e)
     else:
-        result = typ(data)
-    return result
+        return result
 

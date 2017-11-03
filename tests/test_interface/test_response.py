@@ -1,10 +1,10 @@
-from ..test_client import client, server
+
 import pytest
 from ..server.static import get_account_details_response, get_pricing_response, list_accounts_response
+from ..test_client import client, server
 
 client = client
 server = server
-
 @pytest.mark.asyncio
 async def test_response_creates_correct_json(client, server):
     async with client as client:

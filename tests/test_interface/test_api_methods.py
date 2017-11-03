@@ -9,7 +9,6 @@ from ..server.server import routes, headers
 from ..test_client import client
 from ..test_definitions.test_primitives.helpers import get_valid_primitive_data
 
-# Prevent pycharm from removing imports
 client = client
 
 
