@@ -38,9 +38,11 @@ def test_all_types_can_be_instantiated_from_tuple(cls):
     arguments = get_valid_primitive_data(cls).values()
     # make sure the arguments are in the correct order
     arguments = tuple(arguments)
-    assert cls(*arguments)
+    obj = cls(*arguments)
+    obj_json = obj.json()
+    assert obj
     for index, argument in enumerate(arguments):
         if isinstance(argument, dict):
             args = list(arguments)
             args[index] = tuple(argument.values())
-            assert cls(*args)
+            assert cls(*args).json() == obj_json

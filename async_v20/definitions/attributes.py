@@ -153,7 +153,9 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'short_position_closeout': 'short_position_closeout', 'margin_closeout': 'margin_closeout',
                        'delayed_trade_close': 'delayed_trade_close', 'initial_market_price': 'initial_market_price',
                        'full_price': 'full_price', 'trade_opened': 'trade_opened', 'trade_reduced': 'trade_reduced',
-                       'intended_replaces_order_id': 'intended_replaces_order_id'}
+                       'intended_replaces_order_id': 'intended_replaces_order_id', 'username': 'username',
+                       'country': 'country', 'emailAddress': 'email_address', 'email_address': 'email_address',
+                       'FIFO': 'fifo', 'fifo': 'fifo'}
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
                    'reduce_only': 'reduceOnly', 'open_only': 'openOnly', 'timestamp': 'timestamp',
@@ -234,4 +236,5 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'margin_closeout': 'marginCloseout', 'delayed_trade_close': 'delayedTradeClose',
                    'initial_market_price': 'initialMarketPrice', 'full_price': 'fullPrice',
                    'trade_opened': 'tradeOpened', 'trade_reduced': 'tradeReduced',
-                   'intended_replaces_order_id': 'intendedReplacesOrderID'}
+                   'intended_replaces_order_id': 'intendedReplacesOrderID', 'username': 'username',
+                   'country': 'country', 'email_address': 'emailAddress', 'fifo': 'FIFO'}

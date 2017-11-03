@@ -69,7 +69,7 @@ def test_json_dict_returns_correct_data_structure(account):
                 float(value)
 
 def test_json_data(account):
-    result = account.json_data()
+    result = account.json()
     assert type(result) == str
     assert json.loads(result) == account.json_dict(float_to_string=True)
 

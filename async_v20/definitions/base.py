@@ -126,7 +126,7 @@ class ORM(type):
 
 class Model(tuple, metaclass=ORM):
     # Make attribute assignment impossible
-    # __slots__ = ()
+    __slots__ = ()
 
     # The delimiter to use when flattening dictionaries
     _delimiter = '_'
@@ -194,7 +194,7 @@ class Model(tuple, metaclass=ORM):
 
         return {self.__class__.json_attributes[field]: attr for field, attr in fields()}
 
-    def json_data(self):
+    def json(self):
         return json.dumps(self.json_dict(float_to_string=True))
 
     def data(self, float_to_string=False):
