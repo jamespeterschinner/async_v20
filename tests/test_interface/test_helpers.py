@@ -1,6 +1,6 @@
 import inspect
 from inspect import Parameter
-from ..test_definitions.test_primitives.helpers import get_valid_primitive_data
+
 import pytest
 
 from async_v20 import endpoints
@@ -17,6 +17,7 @@ from async_v20.interface.helpers import create_annotation_lookup
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import create_request_kwargs
 from async_v20.interface.helpers import create_url
+from tests.test_definitions.helpers import get_valid_primitive_data
 from .helpers import order_dict
 from ..data.json_data import GETAccountID_response
 

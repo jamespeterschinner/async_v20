@@ -3,7 +3,7 @@ import pytest
 from async_v20.definitions import types
 from async_v20.definitions.base import Model
 from async_v20.definitions.base import create_attribute
-from .test_primitives.helpers import get_valid_primitive_data, create_cls_annotations
+from tests.test_definitions.helpers import get_valid_primitive_data, create_cls_annotations
 
 model_classes = [cls for cls in (getattr(types, typ) for typ in types.__all__) if
                  issubclass(cls, Model)]
@@ -32,3 +32,15 @@ def test_all_types_can_be_instantiated_from_annotation(cls):
                  for k, v in arguments.items()}
     print(arguments)
     assert cls(**arguments)
+
+@pytest.mark.parametrize('cls', model_classes)
+def test_all_types_can_be_instantiated_from_tuple(cls):
+    arguments = get_valid_primitive_data(cls).values()
+    # make sure the arguments are in the correct order
+    arguments = tuple(arguments)
+    assert cls(*arguments)
+    for index, argument in enumerate(arguments):
+        if isinstance(argument, dict):
+            args = list(arguments)
+            args[index] = tuple(argument.values())
+            assert cls(*args)

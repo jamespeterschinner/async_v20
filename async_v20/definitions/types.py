@@ -1560,7 +1560,7 @@ class AccountSummary(Model):
                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
                 last_transaction_id: TransactionID = None, trades: ArrayTradeSummary = None,
-                positions: ArrayPosition = None, orders: ArrayOrder = None, financing: DecimalNumber = None,):
+                positions: ArrayPosition = None, orders: ArrayOrder = None, financing: DecimalNumber = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 

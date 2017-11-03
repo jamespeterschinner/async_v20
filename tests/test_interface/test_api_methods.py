@@ -1,13 +1,14 @@
-import inspect
 import gzip
+import inspect
+
 import pytest
 from aiohttp import web
 from aiohttp.client_exceptions import ServerDisconnectedError, ContentTypeError
 
 from async_v20 import OandaClient
+from tests.test_definitions.helpers import get_valid_primitive_data
 from ..server.server import routes, headers
 from ..test_client import client
-from ..test_definitions.test_primitives.helpers import get_valid_primitive_data
 
 client = client
 

@@ -1,11 +1,12 @@
 from inspect import isclass
-from .helpers import get_valid_primitive_data
+
 import pytest
+
 from async_v20.definitions import primitives
-from async_v20.definitions.primitives import OrderSpecifier
 from async_v20.definitions.primitives import ClientComment, ClientID, ClientTag
+from async_v20.definitions.primitives import OrderSpecifier
 from async_v20.definitions.primitives import TransactionID
-from async_v20.definitions.primitives import OrderID, TradeID
+from tests.test_definitions.helpers import get_valid_primitive_data
 
 
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives,x), primitives.__all__))

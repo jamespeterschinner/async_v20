@@ -12,8 +12,8 @@ def get_valid_primitive_data(primitive):
         return (get_valid_primitive_data(primitive._contains),)
     elif issubclass(primitive, Model):
         return {attr: get_valid_primitive_data(create_cls_annotations(primitive)[attr])
-                for attr in primitive.template
-                if attr in primitive.__new__.__signature__.parameters}
+                for attr in primitive.__new__.__signature__.parameters if
+                attr not in 'cls'}
 
     if issubclass(primitive, (float)):
         data = 14.0
