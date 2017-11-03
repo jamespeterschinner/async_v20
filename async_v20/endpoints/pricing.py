@@ -1,7 +1,6 @@
 from .annotations import *
 from .base import EndPoint, Path
 from ..definitions.primitives import *
-from ..definitions.base import Array
 from ..definitions.types import *
 
 __all__ = ['GETPricing', 'GETPricingStream']
@@ -30,7 +29,7 @@ class GETPricing(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'prices': Array(Price), 'time': DateTime}}
+    responses = {200: {'prices': ArrayPrice, 'time': DateTime}}
 
     # error msgs'
     error = (400, 401, 404, 405)

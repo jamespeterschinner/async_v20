@@ -15,24 +15,21 @@ from .helpers import create_doc_signature
 from .helpers import flatten_dict
 
 
-class JSONArray(tuple):
-    typ = None
 
-    def __new__(cls, data):
-        try:
-            return super().__new__(cls, tuple(create_attribute(cls.typ, obj) for obj in data))
-        except TypeError:
-            msg = f'FAILED TO CREATE OBJECT: {cls.typ} FROM DATA: {data} DATA TYPE: {type(data)}'
-            raise Exception(msg)
-
-
-class Array(type):
-    """Used to denote objects that are sent from OANDA in an array.
+class Array(tuple):
+    """Mixin to denote objects that are sent from OANDA in an array.
     Also used to correctly serialize objects.
     """
 
-    def __new__(mcs, typ):
-        return super().__new__(mcs, f'Array_{typ.__name__}', (JSONArray,), {'typ': typ})
+    # Denotes the type the Array contains
+    _contains = None
+
+    def __new__(cls, *data):
+        try:
+            return super().__new__(cls, (create_attribute(cls._contains, obj) for obj in data))
+        except TypeError:
+            msg = f'FAILED TO CREATE OBJECT: {cls.__name__} FROM DATA: {data} DATA TYPE: {type(data)}'
+            raise Exception(msg)
 
 
 def arg_parse(new: classmethod, signature=Signature) -> classmethod:
@@ -130,7 +127,7 @@ class ORM(type):
 
 class Model(tuple, metaclass=ORM):
     # Make attribute assignment impossible
-    __slots__ = ()
+    # __slots__ = ()
 
     # The delimiter to use when flattening dictionaries
     _delimiter = '_'
@@ -170,7 +167,7 @@ class Model(tuple, metaclass=ORM):
                 cls._fields.append(name)
                 yield create_attribute(annotation, value) if value else value
 
-        result = tuple.__new__(cls, tuple(construct_object_data()))
+        result = super().__new__(cls, tuple(construct_object_data()))
         return result
 
     def json_dict(self, float_to_string=True):
@@ -218,15 +215,15 @@ class Model(tuple, metaclass=ORM):
 
 
 def create_attribute(typ, data):
-    if isinstance(data, Model):
+    if isinstance(data, (Model, Array)):
         if not issubclass(type(data), typ):
             raise TypeError(f'{data} must be of type {typ}')
         result = data
-    elif isinstance(data, JSONArray): # TO
-        result = data
+    # elif issubclass(typ, Array):
+    #     result = typ(data)
     elif isinstance(data, dict):
         result = typ(**data)
-    elif isinstance(data, tuple):
+    elif isinstance(data, (tuple, list)):
         result = typ(*data)
     else:
         result = typ(data)

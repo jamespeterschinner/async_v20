@@ -29,11 +29,11 @@ class POSTOrders(EndPoint):
     # valid responses
     responses = {201: {'orderCreateTransaction': Transaction, 'orderFillTransaction': OrderFillTransaction,
                        'orderCancelTransaction': OrderCancelTransaction, 'orderReissueTransaction': Transaction,
-                       'orderReissueRejectTransaction': Transaction, 'relatedTransactionIDs': Array(TransactionID),
+                       'orderReissueRejectTransaction': Transaction, 'relatedTransactionIDs': ArrayTransactionID,
                        'lastTransactionID': TransactionID},
-                 400: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array(TransactionID),
+                 400: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': ArrayTransactionID,
                        'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
-                 404: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array(TransactionID),
+                 404: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': ArrayTransactionID,
                        'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
@@ -68,7 +68,7 @@ class GETOrders(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'orders': Array(Order), 'lastTransactionID': TransactionID}}
+    responses = {200: {'orders': ArrayOrder, 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (400, 404, 405)
@@ -93,7 +93,7 @@ class GETPendingOrders(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'orders': Array(Order), 'lastTransactionID': TransactionID}}
+    responses = {200: {'orders': ArrayOrder, 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (401, 404, 405)
@@ -149,10 +149,10 @@ class PUTOrderSpecifier(EndPoint):
                        'orderFillTransaction': OrderFillTransaction, 'orderReissueTransaction': Transaction,
                        'orderReissueRejectTransaction': Transaction,
                        'replacingOrderCancelTransaction': OrderCancelTransaction,
-                       'relatedTransactionIDs': Array(TransactionID), 'lastTransactionID': TransactionID},
-                 400: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': Array(TransactionID),
+                       'relatedTransactionIDs': ArrayTransactionID, 'lastTransactionID': TransactionID},
+                 400: {'orderRejectTransaction': Transaction, 'relatedTransactionIDs': ArrayTransactionID,
                        'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str},
-                 404: {'orderCancelRejectTransaction': Transaction, 'relatedTransactionIDs': Array(TransactionID),
+                 404: {'orderCancelRejectTransaction': Transaction, 'relatedTransactionIDs': ArrayTransactionID,
                        'lastTransactionID': TransactionID, 'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
@@ -182,10 +182,10 @@ class PUTOrderSpecifierCancel(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'orderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': Array(TransactionID),
+    responses = {200: {'orderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': ArrayTransactionID,
                        'lastTransactionID': TransactionID},
                  400: {'orderCancelRejectTransaction': OrderCancelRejectTransaction,
-                       'relatedTransactionIDs': Array(TransactionID), 'lastTransactionID': TransactionID,
+                       'relatedTransactionIDs': ArrayTransactionID, 'lastTransactionID': TransactionID,
                        'errorCode': str, 'errorMessage': str}}
 
     # error msgs'
@@ -214,12 +214,12 @@ class PUTClientExtensions(EndPoint):
 
     # valid responses
     responses = {200: {'orderClientExtensionsModifyTransaction': OrderClientExtensionsModifyTransaction,
-                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array(TransactionID)},
+                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': ArrayTransactionID},
                  400: {'orderClientExtensionsModifyRejectTransaction': OrderClientExtensionsModifyRejectTransaction,
-                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array(TransactionID),
+                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': ArrayTransactionID,
                        'errorCode': str, 'errorMessage': str},
                  404: {'orderClientExtensionsModifyRejectTransaction': OrderClientExtensionsModifyRejectTransaction,
-                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': Array(TransactionID),
+                       'lastTransactionID': TransactionID, 'relatedTransactionIDs': ArrayTransactionID,
                        'errorCode': str, 'errorMessage': str}}
 
     # error msgs'

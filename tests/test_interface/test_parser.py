@@ -10,6 +10,7 @@ from async_v20.endpoints.pricing import GETPricingStream
 from async_v20.interface.parser import _create_response
 from async_v20.interface.parser import _rest_response
 from async_v20.interface.parser import _stream_parser
+from async_v20.definitions.base import Array
 
 from tests.data.json_data import GETAccountIDSummary_response
 from tests.data.json_data import GETAccountID_response
@@ -119,8 +120,8 @@ async def test_rest_response_builds_account_summary_from_json_response(client_in
 
 def test_array_object_creates_tuple_of_objects():
     array = GETAccounts.responses[200]['accounts']
-    result = array(GETAccounts_response['accounts'])
-    # assert type(result) == tuple # TODO Fix this
+    result = array(*GETAccounts_response['accounts'])
+    assert isinstance(result, Array)
     assert type(result[0]) == AccountProperties
     assert hasattr(result[0], 'id')
 

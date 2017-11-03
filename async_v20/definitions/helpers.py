@@ -32,4 +32,3 @@ def create_doc_signature(cls, sig):
     arguments = ', '.join(''.join(argument) for argument in zip(names, annotations, defaults))
     return f'{cls.__name__}({arguments})\n{cls.__doc__}'
 
-

@@ -1,4 +1,4 @@
-from async_v20.definitions.base import JSONArray, Model
+from async_v20.definitions.base import Model, Array
 from inspect import signature
 
 def create_cls_annotations(cls):
@@ -8,8 +8,8 @@ def create_cls_annotations(cls):
 
 def get_valid_primitive_data(primitive):
     data = None
-    if issubclass(primitive, JSONArray):
-        return [get_valid_primitive_data(primitive.typ)]
+    if issubclass(primitive, Array):
+        return (get_valid_primitive_data(primitive._contains),)
     elif issubclass(primitive, Model):
         return {attr: get_valid_primitive_data(create_cls_annotations(primitive)[attr])
                 for attr in primitive.template

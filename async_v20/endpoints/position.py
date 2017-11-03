@@ -1,7 +1,6 @@
 from .annotations import *
 from .base import EndPoint, Path
 from ..definitions.primitives import *
-from ..definitions.base import Array
 from ..definitions.types import *
 
 __all__ = ['GETPositions', 'GETOpenPositions', 'GETPositionsInstrument', 'PUTPositionsInstrumentClose']
@@ -25,7 +24,7 @@ class GETPositions(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'positions': Array(Position), 'lastTransactionID': TransactionID}}
+    responses = {200: {'positions': ArrayPosition, 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (401, 404, 405)
@@ -49,7 +48,7 @@ class GETOpenPositions(EndPoint):
     ]
 
     # valid responses
-    responses = {200: {'positions': Array(Position), 'lastTransactionID': TransactionID}}
+    responses = {200: {'positions': ArrayPosition, 'lastTransactionID': TransactionID}}
 
     # error msgs'
     error = (401, 404, 405)
@@ -103,15 +102,15 @@ class PUTPositionsInstrumentClose(EndPoint):
         200: {'longOrderCreateTransaction': MarketOrderTransaction, 'longOrderFillTransaction': OrderFillTransaction,
               'longOrderCancelTransaction': OrderCancelTransaction,
               'shortOrderCreateTransaction': MarketOrderTransaction, 'shortOrderFillTransaction': OrderFillTransaction,
-              'shortOrderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': Array(TransactionID),
+              'shortOrderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': ArrayTransactionID,
               'lastTransactionID': TransactionID},
         400: {'longOrderRejectTransaction': MarketOrderRejectTransaction,
               'shortOrderRejectTransaction': MarketOrderRejectTransaction,
-              'relatedTransactionIDs': Array(TransactionID), 'lastTransactionID': TransactionID, 'errorCode': str,
+              'relatedTransactionIDs': ArrayTransactionID, 'lastTransactionID': TransactionID, 'errorCode': str,
               'errorMessage': str},
         404: {'longOrderRejectTransaction': MarketOrderRejectTransaction,
               'shortOrderRejectTransaction': MarketOrderRejectTransaction,
-              'relatedTransactionIDs': Array(TransactionID), 'lastTransactionID': TransactionID, 'errorCode': str,
+              'relatedTransactionIDs': ArrayTransactionID, 'lastTransactionID': TransactionID, 'errorCode': str,
               'errorMessage': str}}
 
     # error msgs'
@@ -119,5 +118,5 @@ class PUTPositionsInstrumentClose(EndPoint):
 
     # TODO test longunits and short units need to default to 'ALL'
     # json schema representation
-    request_schema = {LongUnits: 'longUnits', LongClientExtensions:'longClientExtensions',  ShortUnits: 'shortUnits',
-                       ShortClientExtensions: 'shortClientExtensions'}
+    request_schema = {LongUnits: 'longUnits', LongClientExtensions: 'longClientExtensions', ShortUnits: 'shortUnits',
+                      ShortClientExtensions: 'shortClientExtensions'}

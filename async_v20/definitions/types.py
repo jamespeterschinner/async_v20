@@ -1,31 +1,53 @@
 from .base import *
 from .primitives import *
 
-__all__ = ['OrderRequest', 'UnitsAvailableDetails',
-           'UnitsAvailable', 'LiquidityRegenerationScheduleStep',
-           'LiquidityRegenerationSchedule', 'CandlestickData', 'OrderIdentifier', 'QuoteHomeConversionFactors',
-           'MarketOrderMarginCloseout', 'InstrumentCommission', 'OrderBookBucket', 'PositionBookBucket',
-           'DynamicOrderState', 'CalculatedPositionState', 'PositionSide', 'Position', 'PriceBucket', 'ClientPrice',
-           'PricingHeartbeat', 'CalculatedTradeState', 'MarketOrderDelayedTradeClose', 'MarketOrderPositionCloseout',
-           'MarketOrderTradeClose', 'OpenTradeFinancing', 'PositionFinancing', 'ClientExtensions', 'TradeOpen',
-           'VWAPReceipt', 'UserInfo', 'AccountProperties', 'Candlestick', 'OrderBook', 'PositionBook', 'Order',
-           'StopLossDetails', 'TakeProfitDetails', 'TradeReduce', 'TrailingStopLossDetails', 'TransactionHeartbeat',
-           'UserInfoExternal', 'TradeSummary', 'Transaction', 'AccountChanges', 'Instrument', 'AccountChangesState',
-           'Price', 'CloseTransaction', 'MarginCallEnterTransaction', 'MarginCallExitTransaction',
-           'MarginCallExtendTransaction', 'ReopenTransaction', 'ResetResettablePLTransaction', 'StopLossOrderRequest',
-           'TakeProfitOrderRequest', 'TrailingStopLossOrderRequest', 'CreateTransaction', 'ClientConfigureTransaction',
-           'DelayedTradeClosureTransaction', 'OrderCancelTransaction', 'OrderClientExtensionsModifyTransaction',
-           'DailyFinancingTransaction', 'TradeClientExtensionsModifyTransaction', 'AccountSummary',
-           'MarketOrderRequest', 'TakeProfitOrderTransaction', 'TakeProfitOrder', 'StopLossOrder',
-           'TrailingStopLossOrder', 'Trade', 'ClientConfigureRejectTransaction', 'OrderCancelRejectTransaction',
-           'OrderClientExtensionsModifyRejectTransaction', 'TradeClientExtensionsModifyRejectTransaction',
-           'TransferFundsTransaction', 'TransferFundsRejectTransaction', 'LimitOrderRequest',
-           'MarketIfTouchedOrderRequest', 'StopOrderRequest', 'Account', 'MarketOrderTransaction',
-           'MarketOrderRejectTransaction', 'StopLossOrderTransaction', 'TrailingStopLossOrderTransaction', 'LimitOrder',
-           'MarketIfTouchedOrder', 'StopOrder', 'OrderFillTransaction', 'StopLossOrderRejectTransaction',
-           'MarketIfTouchedOrderTransaction', 'LimitOrderTransaction', 'TakeProfitOrderRejectTransaction',
-           'TrailingStopLossOrderRejectTransaction', 'StopOrderTransaction', 'MarketIfTouchedOrderRejectTransaction',
-           'LimitOrderRejectTransaction', 'StopOrderRejectTransaction', 'MarketOrder']
+__all__ = ['Account', 'AccountChanges', 'AccountChangesState', 'AccountProperties', 'AccountSummary',
+           'ArrayAccountProperties', 'ArrayCalculatedPositionState', 'ArrayCalculatedTradeState', 'ArrayCandlestick',
+           'ArrayDynamicOrderState', 'ArrayInstrument', 'ArrayLiquidityRegenerationScheduleStep',
+           'ArrayOpenTradeFinancing', 'ArrayOrder', 'ArrayOrderBookBucket', 'ArrayPosition', 'ArrayPositionBookBucket',
+           'ArrayPositionFinancing', 'ArrayPrice', 'ArrayPriceBucket', 'ArrayStr', 'ArrayTrade', 'ArrayTradeID',
+           'ArrayTradeReduce', 'ArrayTradeSummary', 'ArrayTransaction', 'ArrayTransactionFilter', 'ArrayTransactionID',
+           'CalculatedPositionState', 'CalculatedTradeState', 'Candlestick', 'CandlestickData',
+           'ClientConfigureRejectTransaction', 'ClientConfigureTransaction', 'ClientExtensions', 'ClientPrice',
+           'CloseTransaction', 'CreateTransaction', 'DailyFinancingTransaction', 'DelayedTradeClosureTransaction',
+           'DynamicOrderState', 'Instrument', 'InstrumentCommission', 'LimitOrder', 'LimitOrderRejectTransaction',
+           'LimitOrderRequest', 'LimitOrderTransaction', 'LiquidityRegenerationSchedule',
+           'LiquidityRegenerationScheduleStep', 'MarginCallEnterTransaction', 'MarginCallExitTransaction',
+           'MarginCallExtendTransaction', 'MarketIfTouchedOrder', 'MarketIfTouchedOrderRejectTransaction',
+           'MarketIfTouchedOrderRequest', 'MarketIfTouchedOrderTransaction', 'MarketOrder',
+           'MarketOrderDelayedTradeClose', 'MarketOrderMarginCloseout', 'MarketOrderPositionCloseout',
+           'MarketOrderRejectTransaction', 'MarketOrderRequest', 'MarketOrderTradeClose', 'MarketOrderTransaction',
+           'OpenTradeFinancing', 'Order', 'OrderBook', 'OrderBookBucket', 'OrderCancelRejectTransaction',
+           'OrderCancelTransaction', 'OrderClientExtensionsModifyRejectTransaction',
+           'OrderClientExtensionsModifyTransaction', 'OrderFillTransaction', 'OrderIdentifier', 'OrderRequest',
+           'Position', 'PositionBook', 'PositionBookBucket', 'PositionFinancing', 'PositionSide', 'Price',
+           'PriceBucket', 'PricingHeartbeat', 'QuoteHomeConversionFactors', 'ReopenTransaction',
+           'ResetResettablePLTransaction', 'StopLossDetails', 'StopLossOrder', 'StopLossOrderRejectTransaction',
+           'StopLossOrderRequest', 'StopLossOrderTransaction', 'StopOrder', 'StopOrderRejectTransaction',
+           'StopOrderRequest', 'StopOrderTransaction', 'TakeProfitDetails', 'TakeProfitOrder',
+           'TakeProfitOrderRejectTransaction', 'TakeProfitOrderRequest', 'TakeProfitOrderTransaction', 'Trade',
+           'TradeClientExtensionsModifyRejectTransaction', 'TradeClientExtensionsModifyTransaction', 'TradeOpen',
+           'TradeReduce', 'TradeSummary', 'TrailingStopLossDetails', 'TrailingStopLossOrder',
+           'TrailingStopLossOrderRejectTransaction', 'TrailingStopLossOrderRequest', 'TrailingStopLossOrderTransaction',
+           'Transaction', 'TransactionHeartbeat', 'TransferFundsRejectTransaction', 'TransferFundsTransaction',
+           'UnitsAvailable', 'UnitsAvailableDetails', 'UserInfo', 'UserInfoExternal', 'VWAPReceipt']
+
+
+###  PRIMITIVE ARRAYS ###
+class ArrayStr(Array):
+    _contains = str
+
+
+class ArrayTradeID(Array):
+    _contains = TradeID
+
+
+class ArrayTransactionFilter(Array):
+    _contains = TransactionFilter
+
+
+class ArrayTransactionID(Array):
+    _contains = TransactionID
 
 
 class ClientExtensions(Model):
@@ -180,6 +202,10 @@ class LiquidityRegenerationScheduleStep(Model):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
+class ArrayLiquidityRegenerationScheduleStep(Array):
+    _contains = LiquidityRegenerationScheduleStep
+
+
 class LiquidityRegenerationSchedule(Model):
     """A LiquidityRegenerationSchedule indicates how liquidity that is used when
     filling an Order for an instrument is regenerated following the fill.  A
@@ -192,7 +218,7 @@ class LiquidityRegenerationSchedule(Model):
 
     """
 
-    def __new__(cls, steps: Array(LiquidityRegenerationScheduleStep) = None):
+    def __new__(cls, steps: ArrayLiquidityRegenerationScheduleStep = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -294,6 +320,10 @@ class OrderBookBucket(Model):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
+class ArrayOrderBookBucket(Array):
+    _contains = OrderBookBucket
+
+
 class PositionBookBucket(Model):
     """The position book data for a partition of the instrument's prices.
 
@@ -310,6 +340,10 @@ class PositionBookBucket(Model):
     def __new__(cls, price: PriceValue = None, long_count_percent: DecimalNumber = None,
                 short_count_percent: DecimalNumber = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayPositionBookBucket(Array):
+    _contains = PositionBookBucket
 
 
 class DynamicOrderState(Model):
@@ -334,6 +368,10 @@ class DynamicOrderState(Model):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
+class ArrayDynamicOrderState(Array):
+    _contains = DynamicOrderState
+
+
 class CalculatedPositionState(Model):
     """The dynamic (calculated) state of a Position
 
@@ -348,6 +386,10 @@ class CalculatedPositionState(Model):
     def __new__(cls, instrument: InstrumentName = None, net_unrealized_pl: AccountUnits = None,
                 long_unrealized_pl: AccountUnits = None, short_unrealized_pl: AccountUnits = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayCalculatedPositionState(Array):
+    _contains = CalculatedPositionState
 
 
 class PositionSide(Model):
@@ -366,7 +408,7 @@ class PositionSide(Model):
 
     """
 
-    def __new__(cls, units: Unit = None, average_price: PriceValue = None, trade_i_ds: Array(TradeID) = None,
+    def __new__(cls, units: Unit = None, average_price: PriceValue = None, trade_i_ds: ArrayTradeID = None,
                 pl: AccountUnits = None, unrealized_pl: AccountUnits = None, resettable_pl: AccountUnits = None,
                 financing: DecimalNumber = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
@@ -394,6 +436,10 @@ class Position(Model):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
+class ArrayPosition(Array):
+    _contains = Position
+
+
 class PriceBucket(Model):
     """A Price Bucket represents a price available for an amount of liquidity
 
@@ -405,6 +451,10 @@ class PriceBucket(Model):
 
     def __new__(cls, price: PriceValue = None, liquidity: int = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayPriceBucket(Array):
+    _contains = PriceBucket
 
 
 class ClientPrice(Model):
@@ -425,7 +475,7 @@ class ClientPrice(Model):
 
     """
 
-    def __new__(cls, bids: Array(PriceBucket) = None, asks: Array(PriceBucket) = None,
+    def __new__(cls, bids: ArrayPriceBucket = None, asks: ArrayPriceBucket = None,
                 closeout_bid: PriceValue = None, closeout_ask: PriceValue = None, timestamp: DateTime = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
@@ -455,6 +505,10 @@ class CalculatedTradeState(Model):
 
     def __new__(cls, id: TradeID = None, unrealized_pl: AccountUnits = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayCalculatedTradeState(Array):
+    _contains = CalculatedTradeState
 
 
 class MarketOrderDelayedTradeClose(Model):
@@ -521,6 +575,10 @@ class OpenTradeFinancing(Model):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
+class ArrayOpenTradeFinancing(Array):
+    _contains = OpenTradeFinancing
+
+
 class PositionFinancing(Model):
     """OpenTradeFinancing is used to pay/collect daily financing charge for a
     Position within an Account
@@ -533,8 +591,12 @@ class PositionFinancing(Model):
     """
 
     def __new__(cls, instrument: InstrumentName = None, financing: AccountUnits = None,
-                open_trade_financings: Array(OpenTradeFinancing) = None):
+                open_trade_financings: ArrayOpenTradeFinancing = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayPositionFinancing(Array):
+    _contains = PositionFinancing
 
 
 class TradeOpen(Model):
@@ -595,8 +657,12 @@ class AccountProperties(Model):
 
     """
 
-    def __new__(cls, id: AccountID = None, mt4_account_id: int = None, tags: Array(str) = None):
+    def __new__(cls, id: AccountID = None, mt4_account_id: int = None, tags: ArrayStr = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayAccountProperties(Array):
+    _contains = AccountProperties
 
 
 class Candlestick(Model):
@@ -622,6 +688,10 @@ class Candlestick(Model):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
+class ArrayCandlestick(Array):
+    _contains = Candlestick
+
+
 class OrderBook(Model):
     """The representation of an instrument's order book at a point in time
 
@@ -638,7 +708,7 @@ class OrderBook(Model):
     """
 
     def __new__(cls, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
-                bucket_width: PriceValue = None, buckets: Array(OrderBookBucket) = None):
+                bucket_width: PriceValue = None, buckets: ArrayOrderBookBucket = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -658,7 +728,7 @@ class PositionBook(Model):
     """
 
     def __new__(cls, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
-                bucket_width: PriceValue = None, buckets: Array(PositionBookBucket) = None):
+                bucket_width: PriceValue = None, buckets: ArrayPositionBookBucket = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -681,7 +751,7 @@ class Order(Model):
                 gtd_time: DateTime = None, trigger_condition: OrderTriggerCondition = None,
                 filling_transaction_id: TransactionID = None, filled_time: DateTime = None,
                 trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None, distance: PriceValue = None,
                 trailing_stop_value: PriceValue = None, instrument: InstrumentName = None, units: Unit = None,
@@ -694,6 +764,10 @@ class Order(Model):
                 margin_closeout: MarketOrderMarginCloseout = None,
                 delayed_trade_close: MarketOrderDelayedTradeClose = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayOrder(Array):
+    _contains = Order
 
 
 class TradeReduce(Model):
@@ -713,6 +787,10 @@ class TradeReduce(Model):
     def __new__(cls, trade_id: TradeID = None, units: Unit = None, realized_pl: AccountUnits = None,
                 financing: AccountUnits = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayTradeReduce(Array):
+    _contains = TradeReduce
 
 
 class TransactionHeartbeat(Model):
@@ -741,7 +819,7 @@ class UserInfoExternal(Model):
 
     """
 
-    def __new__(cls, user_id: str = None, country: str=None, fifo: str= None):
+    def __new__(cls, user_id: str = None, country: str = None, fifo: str = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -778,11 +856,15 @@ class TradeSummary(Model):
     def __new__(cls, id: TradeID = None, instrument: InstrumentName = None, price: PriceValue = None,
                 open_time: DateTime = None, state: TradeState = None, initial_units: Unit = None,
                 current_units: Unit = None, realized_pl: AccountUnits = None, unrealized_pl: AccountUnits = None,
-                average_close_price: PriceValue = None, closing_transaction_i_ds: Array(TransactionID) = None,
+                average_close_price: PriceValue = None, closing_transaction_i_ds: ArrayTransactionID = None,
                 financing: AccountUnits = None, close_time: DateTime = None,
                 client_extensions: ClientExtensions = None, take_profit_order_id: OrderID = None,
                 stop_loss_order_id: OrderID = None, trailing_stop_loss_order_id: OrderID = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayTradeSummary(Array):
+    _contains = TradeSummary
 
 
 class Transaction(Model):
@@ -811,7 +893,7 @@ class Transaction(Model):
                 client_extensions_modify: ClientExtensions = None,
                 trade_client_extensions_modify: ClientExtensions = None, financing: AccountUnits = None,
                 account_balance: AccountUnits = None, account_financing_mode: AccountFinancingMode = None,
-                position_financings: Array(PositionFinancing) = None, trade_id: TradeID = None,
+                position_financings: ArrayPositionFinancing = None, trade_id: TradeID = None,
                 client_trade_id: ClientID = None, price: PriceValue = None, time_in_force: TimeInForce = None,
                 gtd_time: DateTime = None, trigger_condition: OrderTriggerCondition = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
@@ -827,9 +909,13 @@ class Transaction(Model):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, distance: PriceValue = None,
                 full_price: ClientPrice = None, pl: AccountUnits = None, commission: AccountUnits = None,
-                trade_opened: TradeOpen = None, trades_closed: Array(TradeReduce) = None,
+                trade_opened: TradeOpen = None, trades_closed: ArrayTradeReduce = None,
                 trade_reduced: TradeReduce = None, intended_replaces_order_id: OrderID = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayTransaction(Array):
+    _contains = Transaction
 
 
 class AccountChanges(Model):
@@ -851,11 +937,11 @@ class AccountChanges(Model):
 
     """
 
-    def __new__(cls, orders_created: Array(Order) = None, orders_cancelled: Array(Order) = None,
-                orders_filled: Array(Order) = None, orders_triggered: Array(Order) = None,
-                trades_opened: Array(TradeSummary) = None, trades_reduced: Array(TradeSummary) = None,
-                trades_closed: Array(TradeSummary) = None, positions: Array(Position) = None,
-                transactions: Array(Transaction) = None):
+    def __new__(cls, orders_created: ArrayOrder = None, orders_cancelled: ArrayOrder = None,
+                orders_filled: ArrayOrder = None, orders_triggered: ArrayOrder = None,
+                trades_opened: ArrayTradeSummary = None, trades_reduced: ArrayTradeSummary = None,
+                trades_closed: ArrayTradeSummary = None, positions: ArrayPosition = None,
+                transactions: ArrayTransaction = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -893,6 +979,10 @@ class Instrument(Model):
                 maximum_order_units: Unit = None, margin_rate: DecimalNumber = None,
                 commission: InstrumentCommission = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayInstrument(Array):
+    _contains = Instrument
 
 
 class AccountChangesState(Model):
@@ -935,8 +1025,8 @@ class AccountChangesState(Model):
                 margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
-                orders: Array(DynamicOrderState) = None, trades: Array(CalculatedTradeState) = None,
-                positions: Array(CalculatedPositionState) = None):
+                orders: ArrayDynamicOrderState = None, trades: ArrayCalculatedTradeState = None,
+                positions: ArrayCalculatedPositionState = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -967,11 +1057,15 @@ class Price(Model):
     """
 
     def __new__(cls, type: str = None, instrument: InstrumentName = None, time: DateTime = None,
-                status: PriceStatus = None, tradeable: bool = None, bids: Array(PriceBucket) = None,
-                asks: Array(PriceBucket) = None, closeout_bid: PriceValue = None, closeout_ask: PriceValue = None,
+                status: PriceStatus = None, tradeable: bool = None, bids: ArrayPriceBucket = None,
+                asks: ArrayPriceBucket = None, closeout_bid: PriceValue = None, closeout_ask: PriceValue = None,
                 quote_home_conversion_factors: QuoteHomeConversionFactors = None,
                 units_available: UnitsAvailable = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayPrice(Array):
+    _contains = Price
 
 
 class CloseTransaction(Transaction):
@@ -1362,7 +1456,7 @@ class DailyFinancingTransaction(Transaction):
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 financing: AccountUnits = None,
                 account_balance: AccountUnits = None, account_financing_mode: AccountFinancingMode = None,
-                position_financings: Array(PositionFinancing) = None):
+                position_financings: ArrayPositionFinancing = None):
         return super().__new__(type=TransactionType('DAILY_FINANCING'), **locals(),
                                **{'args_have_been_formatted': True})
 
@@ -1465,7 +1559,7 @@ class AccountSummary(Model):
                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
                 last_transaction_id: TransactionID = None, financing: DecimalNumber = None,
-                trades: Array(TradeSummary) = None, positions: Array(Position) = None, orders: Array(Order) = None):
+                trades: ArrayTradeSummary = None, positions: ArrayPosition = None, orders: ArrayOrder = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -1609,7 +1703,7 @@ class TakeProfitOrder(Order):
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = None,
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
         return super().__new__(type=OrderType('TAKE_PROFIT'), **locals(), **{'args_have_been_formatted': True})
@@ -1664,7 +1758,7 @@ class StopLossOrder(Order):
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = None,
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
         return super().__new__(type=OrderType('STOP_LOSS'), **locals(), **{'args_have_been_formatted': True})
@@ -1728,7 +1822,7 @@ class TrailingStopLossOrder(Order):
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = None,
                 filling_transaction_id: TransactionID = None, filled_time: DateTime = None,
                 trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
         return super().__new__(type=OrderType('TRAILING_STOP_LOSS'), **locals(), **{'args_have_been_formatted': True})
@@ -1771,11 +1865,15 @@ class Trade(Model):
                 open_time: DateTime = None, state: TradeState = None, initial_units: DecimalNumber = None,
                 current_units: DecimalNumber = None, realized_pl: AccountUnits = None,
                 unrealized_pl: AccountUnits = None, average_close_price: PriceValue = None,
-                closing_transaction_i_ds: Array(TransactionID) = None, financing: AccountUnits = None,
+                closing_transaction_i_ds: ArrayTransactionID = None, financing: AccountUnits = None,
                 close_time: DateTime = None, client_extensions: ClientExtensions = None,
                 take_profit_order: TakeProfitOrder = None, stop_loss_order: StopLossOrder = None,
                 trailing_stop_loss_order: TrailingStopLossOrder = None):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+
+
+class ArrayTrade(Array):
+    _contains = Trade
 
 
 class ClientConfigureRejectTransaction(Transaction):
@@ -2182,9 +2280,9 @@ class Account(AccountSummary):
                 margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
-                last_transaction_id: TransactionID = None, trades: Array(TradeSummary) = None,
-                positions: Array(Position) = None, orders: Array(Order) = None):
-        return Model.__new__(**locals(), **{'args_have_been_formatted': True})
+                last_transaction_id: TransactionID = None, trades: ArrayTradeSummary = None,
+                positions: ArrayPosition = None, orders: ArrayOrder = None):
+        return super().__new__(**locals(), **{'args_have_been_formatted': True})
 
 
 class MarketOrderTransaction(Transaction):
@@ -2470,7 +2568,7 @@ class LimitOrder(Order):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
         return super().__new__(type=OrderType('LIMIT'), **locals(), **{'args_have_been_formatted': True})
@@ -2551,7 +2649,7 @@ class MarketIfTouchedOrder(Order):
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
         return super().__new__(type=OrderType('MARKET_IF_TOUCHED'), **locals(), **{'args_have_been_formatted': True})
@@ -2626,7 +2724,7 @@ class StopOrder(Order):
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
         return super().__new__(type=OrderType('STOP'), **locals(), **{'args_have_been_formatted': True})
@@ -2676,7 +2774,7 @@ class OrderFillTransaction(Transaction):
                 instrument: InstrumentName = None, units: Unit = None, price: PriceValue = None,
                 full_price: ClientPrice = None, reason: OrderFillReason = None, pl: AccountUnits = None,
                 financing: AccountUnits = None, commission: AccountUnits = None, account_balance: AccountUnits = None,
-                trade_opened: TradeOpen = None, trades_closed: Array(TradeReduce) = None,
+                trade_opened: TradeOpen = None, trades_closed: ArrayTradeReduce = None,
                 trade_reduced: TradeReduce = None):
         return super().__new__(type=TransactionType('ORDER_FILL'), **locals(), **{'args_have_been_formatted': True})
 
@@ -3243,6 +3341,6 @@ class MarketOrder(Order):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: Array(TradeID) = None, cancelling_transaction_id: TransactionID = None,
+                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None):
         return super().__new__(type=OrderType('MARKET'), **locals(), **{'args_have_been_formatted': True})

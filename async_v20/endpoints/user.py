@@ -1,7 +1,6 @@
-from .annotations import *
+from .annotations import UserSpecifier, Authorization
 from .base import EndPoint, Path
 from ..definitions.types import *
-from .annotations import UserSpecifier, Authorization
 
 __all__ = ['GETUserSpecifier', 'GETExternalInfo']
 
