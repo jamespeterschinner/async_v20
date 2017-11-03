@@ -1,9 +1,9 @@
 .. _async_v20-home:
 
 .. async_v20 documentation master file, created by
-   sphinx-quickstart on Sat Oct 21 19:19:01 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+sphinx-quickstart on Sat Oct 21 19:19:01 2017.
+You can adapt this file completely to your liking, but it should at least
+contain the root `toctree` directive.
 
 
 
@@ -68,13 +68,7 @@ Dependencies
 - aiohttp >= 2.2.5
 - ujson >= 1.35'
 - yarl >= 0.12.0'
-
-It is recommend to also install :term:`pandas` to enable full functionally of :term:`async_v20`
-
-.. code-block:: bash
-
-   $ pip install pandas
-
+- pandas
 
 Contents
 --------

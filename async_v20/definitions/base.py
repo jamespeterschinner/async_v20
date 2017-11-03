@@ -4,16 +4,12 @@ from functools import wraps
 from inspect import signature, Signature
 from operator import itemgetter
 
-try:
-    import pandas as pd
-except ImportError:
-    pass  # not installed
+import pandas as pd
 
 from .attributes import instance_attributes
 from .attributes import json_attributes
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
-
 
 
 class Array(tuple):
@@ -27,9 +23,9 @@ class Array(tuple):
     def __new__(cls, *data):
         try:
             return super().__new__(cls, (create_attribute(cls._contains, obj) for obj in data))
-        except TypeError:
+        except (TypeError, ValueError):
             msg = f'FAILED TO CREATE OBJECT: {cls.__name__} FROM DATA: {data} DATA TYPE: {type(data)}'
-            raise Exception(msg)
+            raise ValueError(msg)
 
 
 def arg_parse(new: classmethod, signature=Signature) -> classmethod:

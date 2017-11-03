@@ -1,7 +1,8 @@
 import pytest
-from async_v20.definitions.base import Model
-from async_v20.definitions.types import Account
+from async_v20.definitions.base import Model, Array, create_attribute
+from async_v20.definitions.types import Account, ArrayStr
 from async_v20.definitions.helpers import flatten_dict
+from async_v20.definitions.primitives import TradeID, AccountID
 
 from ..data.json_data import GETAccountID_response
 
@@ -96,3 +97,16 @@ def test_series(account):
             with pytest.raises(ValueError):
                 float(value)
 
+def test_array_returns_type_error():
+    class ArrayTest(Array):
+        _contains = int
+
+    with pytest.raises(ValueError):
+        ArrayTest('ABC', 'DEF')
+
+def create_attribute_returns_type_error():
+    with pytest.raises(TypeError):
+        create_attribute(AccountID, TradeID(123))
+
+    with pytest.raises(TypeError):
+        create_attribute(ArrayStr, TradeID(123))
