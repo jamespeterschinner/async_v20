@@ -1559,8 +1559,8 @@ class AccountSummary(Model):
                 margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
-                last_transaction_id: TransactionID = None, financing: DecimalNumber = None,
-                trades: ArrayTradeSummary = None, positions: ArrayPosition = None, orders: ArrayOrder = None):
+                last_transaction_id: TransactionID = None, trades: ArrayTradeSummary = None,
+                positions: ArrayPosition = None, orders: ArrayOrder = None, financing: DecimalNumber = None,):
         return Model.__new__(**locals(), **{'args_have_been_formatted': True})
 
 
@@ -1926,6 +1926,7 @@ class OrderCancelRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
+
     # TODO wait for OANDA to confirm client_order_id: ClientID
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
@@ -2271,7 +2272,6 @@ class Account(AccountSummary):
     def __new__(cls, id: AccountID = None, alias: str = None, currency: Currency = None, balance: AccountUnits = None,
                 created_by_user_id: int = None, created_time: DateTime = None, pl: AccountUnits = None,
                 resettable_pl: AccountUnits = None, resettabled_pl_time: DateTime = None,
-                financing: DecimalNumber = None,
                 commission: AccountUnits = None, margin_rate: DecimalNumber = None,
                 margin_call_enter_time: DateTime = None, margin_call_extension_count: int = None,
                 last_margin_call_extension_time: DateTime = None, open_trade_count: int = None,
@@ -2283,7 +2283,7 @@ class Account(AccountSummary):
                 margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
                 last_transaction_id: TransactionID = None, trades: ArrayTradeSummary = None,
-                positions: ArrayPosition = None, orders: ArrayOrder = None):
+                positions: ArrayPosition = None, orders: ArrayOrder = None, financing: DecimalNumber = None):
         return super().__new__(**locals(), **{'args_have_been_formatted': True})
 
 
