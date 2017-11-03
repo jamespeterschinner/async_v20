@@ -91,7 +91,9 @@ def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
 
     headers = header_params(self, endpoint, arguments)
     url = create_url(self, endpoint, arguments)
-    parameters = query_params(self, endpoint, arguments)
+
+    # yarl doesn't accept int subclass'
+    parameters = {k: str(v) for k,v in query_params(self, endpoint, arguments).items()}
 
     request_kwargs = {
         'method': endpoint.method,

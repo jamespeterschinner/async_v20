@@ -11,6 +11,9 @@ from .attributes import json_attributes
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
 
+class Primitive(object):
+    """Mixin class to denote primitive type"""
+    pass
 
 class Array(tuple):
     """Mixin to denote objects that are sent from OANDA in an array.
@@ -211,12 +214,12 @@ class Model(tuple, metaclass=ORM):
 
 
 def create_attribute(typ, data):
-    if isinstance(data, (Model, Array)):
+    if isinstance(data, (Model, Array, Primitive)):
         if not issubclass(type(data), typ):
+            print(type(data))
             raise TypeError(f'{data} must be of type {typ}')
         result = data
-    # elif issubclass(typ, Array):
-    #     result = typ(data)
+
     elif isinstance(data, dict):
         result = typ(**data)
     elif isinstance(data, (tuple, list)):
@@ -224,3 +227,4 @@ def create_attribute(typ, data):
     else:
         result = typ(data)
     return result
+

@@ -104,7 +104,7 @@ def test_array_returns_type_error():
     with pytest.raises(ValueError):
         ArrayTest('ABC', 'DEF')
 
-def create_attribute_returns_type_error():
+def test_create_attribute_returns_type_error():
     with pytest.raises(TypeError):
         create_attribute(AccountID, TradeID(123))
 

@@ -68,7 +68,7 @@ class DailyAlignment(int):
     def __new__(cls, value=17):
         if not 0 <= value <= 23:
             raise ValueError(f'DailyAlignment: Must be within range(24). Supplied: {value}')
-        return int(value)
+        return super().__new__(cls, value)
 
 
 class AlignmentTimezone(str):
@@ -124,7 +124,7 @@ class PageSize(int):
     def __new__(cls, value=100):
         if not 0 < value <= 1000:
             raise ValueError(f'PageSize: Must be within range(). Supplied: {value}')
-        return int(value)
+        return super().__new__(cls, value)
 
 
 class Type(str):

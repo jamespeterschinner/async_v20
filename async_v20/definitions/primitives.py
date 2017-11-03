@@ -1,12 +1,548 @@
+from .base import Primitive
 from .helpers import domain_check
 
-__all__ = ['ClientComment', 'ClientID', 'ClientTag', 'FundingReason', 'LimitOrderReason', 'MarketIfTouchedOrderReason',
-           'MarketOrderMarginCloseoutReason', 'MarketOrderReason', 'OrderCancelReason', 'OrderFillReason', 'RequestID',
-           'StopLossOrderReason', 'StopOrderReason', 'TakeProfitOrderReason', 'TrailingStopLossOrderReason',
-           'TransactionFilter', 'TransactionID', 'TransactionRejectReason', 'TransactionType', 'Reason']
+__all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'AccountUnits', 'CancellableOrderType',
+           'CandlestickGranularity', 'ClientComment', 'ClientID', 'ClientTag', 'Currency', 'DateTime', 'DecimalNumber',
+           'Direction', 'FundingReason', 'InstrumentName', 'InstrumentType', 'LimitOrderReason',
+           'MarketIfTouchedOrderReason', 'MarketOrderMarginCloseoutReason', 'MarketOrderReason', 'OrderCancelReason',
+           'OrderFillReason', 'OrderID', 'OrderPositionFill', 'OrderSpecifier', 'OrderState', 'OrderStateFilter',
+           'OrderTriggerCondition', 'OrderType', 'PositionAggregationMode', 'PriceComponent', 'PriceStatus',
+           'PriceValue', 'Reason', 'RequestID', 'StopLossOrderReason', 'StopOrderReason', 'TakeProfitOrderReason',
+           'TimeInForce', 'TradeID', 'TradePL', 'TradeSpecifier', 'TradeState', 'TradeStateFilter',
+           'TrailingStopLossOrderReason', 'TransactionFilter', 'TransactionID', 'TransactionRejectReason',
+           'TransactionType', 'Unit', 'WeeklyAlignment']
 
 
-class ClientComment(str):
+class AccountFinancingMode(str, Primitive):
+    """The financing mode of an Account
+    """
+
+    # Valid values
+    values = {
+        'NO_FINANCING': 'No financing is paid/charged for open Trades in the Account',
+        'SECOND_BY_SECOND': 'Second-by-second financing is paid/charged for open Trades in the Account, '
+                            'both daily and when the the Trade is closed',
+        'DAILY': 'A full day’s worth of financing is paid/charged for open Trades in the Account '
+                 'daily at 5pm New York time'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class AccountID(str, Primitive):
+    """The string representation of an Account Identifier.
+    """
+
+    # Correct syntax of value
+    format_syntax = '“-“-delimited string with format “{siteID}-{divisionID}-{userID}-{accountNumber}”'
+    # Example of correct format
+    example = '001-011-5838423-001'
+
+    def __new__(cls, value):
+        assert domain_check(value, example=cls.example)
+        return super().__new__(cls, value)
+
+
+class PositionAggregationMode(str, Primitive):
+    """The way that position values for an Account are calculated and aggregated.
+    """
+
+    # Valid values
+    values = {
+        'ABSOLUTE_SUM': 'The Position value or margin for each side (long and short) of '
+                        'the Position are computed independently and added together.',
+        'MAXIMAL_SIDE': 'The Position value or margin for each side (long and short) '
+                        'of the Position are computed independently. The Position value or '
+                        'margin chosen is the maximal absolute value of the two.',
+        'NET_SUM': 'The units for each side (long and short) of the Position are netted '
+                   'together and the resulting value (long or short) is used to compute '
+                   'the Position value or margin.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class CandlestickGranularity(str, Primitive):
+    """The granularity of a candlestick
+    """
+
+    # Valid values
+    values = {
+        'S5': '5 second candlesticks, minute alignment',
+        'S10': '10 second candlesticks, minute alignment',
+        'S15': '15 second candlesticks, minute alignment',
+        'S30': '30 second candlesticks, minute alignment',
+        'M1': '1 minute candlesticks, minute alignment',
+        'M2': '2 minute candlesticks, hour alignment',
+        'M4': '4 minute candlesticks, hour alignment',
+        'M5': '5 minute candlesticks, hour alignment',
+        'M10': '10 minute candlesticks, hour alignment',
+        'M15': '15 minute candlesticks, hour alignment',
+        'M30': '30 minute candlesticks, hour alignment',
+        'H1': '1 hour candlesticks, hour alignment',
+        'H2': '2 hour candlesticks, day alignment',
+        'H3': '3 hour candlesticks, day alignment',
+        'H4': '4 hour candlesticks, day alignment',
+        'H6': '6 hour candlesticks, day alignment',
+        'H8': '8 hour candlesticks, day alignment',
+        'H12': '12 hour candlesticks, day alignment',
+        'D': '1 day candlesticks, day alignment',
+        'W': '1 week candlesticks, aligned to start of week',
+        'M': '1 month candlesticks, aligned to first day of the month'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class WeeklyAlignment(str, Primitive):
+    """The day of the week to use for candlestick granularities with weekly alignment.
+    """
+
+    # Valid values
+    values = {
+        'Monday': 'Monday',
+        'Tuesday': 'Tuesday',
+        'Wednesday': 'Wednesday',
+        'Thursday': 'Thursday',
+        'Friday': 'Friday',
+        'Saturday': 'Saturday',
+        'Sunday': 'Sunday'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class PriceComponent(str, Primitive):
+    # Valid values
+    values = {'M': 'midpoint candles',
+              'B': 'bid candles',
+              'A': 'ask candles'}
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class CancellableOrderType(str, Primitive):
+    """The type of the Order.
+    """
+
+    # Valid values
+    values = {
+        'LIMIT': 'A Limit Order',
+        'STOP': 'A Stop Order',
+        'MARKET_IF_TOUCHED': 'A Market-if-touched Order',
+        'TAKE_PROFIT': 'A Take Profit Order',
+        'STOP_LOSS': 'A Stop Loss Order',
+        'TRAILING_STOP_LOSS': 'A Trailing Stop Loss Order'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class OrderID(int, Primitive):
+    """The Order’s identifier, unique within the Order’s Account.
+    """
+
+    # Correct syntax of value
+    format_syntax = 'The string representation of the OANDA-assigned OrderID. ' \
+                    'OANDA-assigned OrderIDs are positive integers, and are derived from the ' \
+                    'TransactionID of the Transaction that created the Order.'
+
+    # Example of correct format
+    example = '1523'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
+
+
+class OrderPositionFill(str, Primitive):
+    """Specification of how Positions in the Account
+    are modified when the Order is filled.
+    """
+
+    # Valid values
+    values = {
+        'OPEN_ONLY': 'When the Order is filled, only allow Positions to be opened or extended.',
+        'REDUCE_FIRST': 'When the Order is filled, always fully reduce an existing Position '
+                        'before opening a new Position.',
+        'REDUCE_ONLY': 'When the Order is filled, only reduce an existing Position.',
+        'DEFAULT': 'When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, '
+                   'and OPEN_ONLY behaviour for client hedging Accounts.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class OrderSpecifier(str, Primitive):
+    """The specification of an Order as referred to by clients
+    """
+
+    # Correct syntax of value
+    format_syntax = 'Either the Order’s OANDA-assigned OrderID or the Order’s client-provided ' \
+                    'ClientID prefixed by the “@” symbol'
+    # Example of correct format
+    example = '1523'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
+
+
+class OrderState(str, Primitive):
+    """The current state of the Order.
+    """
+
+    # Valid values
+    values = {
+        'PENDING': 'The Order is currently pending execution',
+        'FILLED': 'The Order has been filled',
+        'TRIGGERED': 'The Order has been triggered',
+        'CANCELLED': 'The Order has been cancelled'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class OrderStateFilter(str, Primitive):
+    """The state to filter the requested Orders by.
+    """
+
+    # Valid values
+    values = {
+        'PENDING': 'The Orders that are currently pending execution',
+        'FILLED': 'The Orders that have been filled',
+        'TRIGGERED': 'The Orders that have been triggered',
+        'CANCELLED': 'The Orders that have been cancelled',
+        'ALL': 'The Orders that are in any of the possible states listed above'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class OrderTriggerCondition(str, Primitive):
+    """Specification of which price component should be used when determining if an
+    Order should be triggered and filled. This allows Orders to be triggered based
+    on the bid, ask, mid, default (ask for buy, bid for sell) or inverse (
+    ask for sell, bid for buy) price depending on the desired behaviour. Orders are
+    always filled using their default price component. This feature is only provided
+    through the REST API. Clients who choose to specify a non-default trigger condition
+    will not see it reflected in any of OANDA’s proprietary or partner trading platforms,
+    their transaction history or their account statements. OANDA platforms always assume
+    that an Order’s trigger condition is set to the default value when indicating the distance
+    from an Order’s trigger price, and will always provide the default trigger condition
+    when creating or modifying an Order.
+    """
+
+    # Valid values
+    values = {
+        'DEFAULT': 'Trigger an Order the “natural” way: '
+                   'compare its price to the ask for long Orders and bid for short Orders.',
+        'INVERSE': 'Trigger an Order the opposite of the “natural” way: '
+                   'compare its price the bid for long Orders and ask for short Orders.',
+        'BID': 'Trigger an Order by comparing its price to the bid regardless of whether it is long or short.',
+        'ASK': 'Trigger an Order by comparing its price to the ask regardless of whether it is long or short.',
+        'MID': 'Trigger an Order by comparing its price to the midpoint regardless of whether it is long or short.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class OrderType(str, Primitive):
+    """The type of the Order.
+    """
+
+    # Valid values
+    values = {
+        'MARKET': 'A Market Order',
+        'LIMIT': 'A Limit Order',
+        'STOP': 'A Stop Order',
+        'MARKET_IF_TOUCHED': 'A Market-if-touched Order',
+        'TAKE_PROFIT': 'A Take Profit Order',
+        'STOP_LOSS': 'A Stop Loss Order',
+        'TRAILING_STOP_LOSS': 'A Trailing Stop Loss Order'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class TimeInForce(str, Primitive):
+    """The time-in-force of an Order. TimeInForce describes how long an Order
+    should remain pending before being automatically cancelled by the execution system.
+    """
+
+    # Valid values
+    values = {
+        'GTC': 'The Order is “Good unTil Cancelled”',
+        'GTD': 'The Order is “Good unTil Date” and will be cancelled at the provided time',
+        'GFD': 'The Order is “Good For Day” and will be cancelled at 5pm New York time',
+        'FOK': 'The Order must be immediately “Filled Or Killed”',
+        'IOC': 'The Order must be “Immediatedly paritally filled Or Cancelled”'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class PriceStatus(str, Primitive):
+    """The status of the Price.
+    """
+
+    # Valid values
+    values = {
+        'tradeable': 'The Instrument’s price is tradeable.',
+        'non-tradeable': 'The Instrument’s price is not tradeable.',
+        'invalid': 'The Instrument of the price is invalid or there is no valid Price for the Instrument.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class PriceValue(float, Primitive):
+    """The string representation of a Price for an Instrument.
+    """
+
+    # Correct syntax of value
+    format_syntax = 'A decimal number encodes as a string. The amount of precision ' \
+                    'provided depends on the Price’s Instrument.'
+
+    def __new__(cls, value):
+        return super().__new__(cls, round(float(value), 5))
+
+
+class AcceptDatetimeFormat(str, Primitive):
+    """DateTime header
+    """
+
+    # Valid values
+    values = {
+        'UNIX': 'If “UNIX” is specified DateTime fields will be specified or '
+                'returned in the “12345678.000000123” format.',
+        'RFC3339': 'If “RFC3339” is specified DateTime will be specified or '
+                   'returned in “YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ” format.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class AccountUnits(float, Primitive):
+    """The string representation of a quantity of an Account’s home currency.
+    """
+
+    # TODO keep an eye on this. OANDA specifies this as a str.
+    # Though it makes more sense for it to be a float
+    # floats automatically get converted to to strings anyway
+    # when serialized into JSON
+
+    # Correct syntax of value
+    format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
+                    'provided depends on the Account’s home currency.'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
+
+
+class Currency(str, Primitive):
+    """Currency name identifier. Used by clients to refer to currencies.
+    """
+
+    # Correct syntax of value
+    format_syntax = 'A string containing an ISO 4217 currency'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
+
+
+class DateTime(str, Primitive):
+    """A date and time value using either RFC3339 or UNIX time representation.
+    """
+
+    # Correct syntax of value
+    format_syntax = 'The RFC 3339 representation is a string conforming to'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
+
+
+class DecimalNumber(float, Primitive):
+    """The string representation of a decimal number.
+    """
+
+    # Correct syntax of value
+    format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
+                    'provided depends on what the number represents.'
+
+    def __new__(cls, value):
+        return super().__new__(cls, round(float(value), 5))
+
+
+class Unit(float, Primitive):
+    """A unit is a standard allotment of a currency
+    """
+
+    # Correct syntax of value
+    format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
+                    'provided depends on what the number represents.'
+
+    def __new__(cls, value):
+        return super().__new__(cls, round(float(value), 0))
+
+
+class Direction(str, Primitive):
+    """In the context of an Order or a
+    Trade, defines whether the units are positive or negative.
+    """
+
+    # Valid values
+    values = {
+        'LONG': 'A long Order is used to to buy units of an Instrument. '
+                'A Trade is long when it has bought units of an Instrument.',
+        'SHORT': 'A short Order is used to to sell units of an Instrument.'
+                 'A Trade is short when it has sold units of an Instrument.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class InstrumentName(str, Primitive):
+    """Instrument name identifier. Used by clients to refer to an Instrument.
+    """
+
+    # Correct syntax of value
+    format_syntax = 'A string containing the base currency and quote currency delimited by a “_”.'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
+
+
+class InstrumentType(str, Primitive):
+    """The type of an Instrument.
+    """
+
+    # Valid values
+    values = {
+        'CURRENCY': 'Currency',
+        'CFD': 'Contract For Difference',
+        'METAL': 'Metal'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class TradeID(int, Primitive):
+    """The Trade’s identifier, unique within the Trade’s Account.
+    """
+
+    # Correct syntax of value
+    format_syntax = 'The string representation of the OANDA-assigned TradeID. ' \
+                    'OANDA-assigned TradeIDs are positive integers, and are ' \
+                    'derived from the TransactionID of the Transaction that opened the Trade.'
+    # Example of correct format
+    example = '1523'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
+
+
+class TradePL(str, Primitive):
+    """The classification of TradePLs.
+    """
+
+    # Valid values
+    values = {
+        'POSITIVE': 'An open Trade currently has a positive (profitable) unrealized P/L, '
+                    'or a closed Trade realized a positive amount of P/L.',
+        'NEGATIVE': 'An open Trade currently has a negative (losing) unrealized P/L, '
+                    'or a closed Trade realized a negative amount of P/L.',
+        'ZERO': 'An open Trade currently has unrealized P/L of zero (neither profitable nor losing),'
+                ' or a closed Trade realized a P/L amount of zero.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class TradeSpecifier(str, Primitive):
+    """The identification of a Trade as referred to by clients
+    """
+
+    # Correct syntax of value
+    format_syntax = 'Either the Trade’s OANDA-assigned TradeID or the Trade’s client-provided ' \
+                    'ClientID prefixed by the “@” symbol'
+    # Example of correct format
+    example = '@my_trade_id'
+
+    def __new__(cls, value):
+        assert domain_check(value, example=cls.example)
+        return super().__new__(cls, value)
+
+
+class TradeState(str, Primitive):
+    """The current state of the Trade.
+    """
+
+    # Valid values
+    values = {
+        'OPEN': 'The Trade is currently open',
+        'CLOSED': 'The Trade has been fully closed',
+        'CLOSE_WHEN_TRADEABLE': 'The Trade will be closed as soon as the trade’s instrument becomes tradeable'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class TradeStateFilter(str, Primitive):
+    """The state to filter the Trades by
+    """
+
+    # Type checking
+    typ = str
+
+    # Valid values
+    values = {
+        'OPEN': 'The Trades that are currently open',
+        'CLOSED': 'The Trades that have been fully closed',
+        'CLOSE_WHEN_TRADEABLE': 'The Trades  that will be closed as soon as the trades’ instrument becomes tradeable',
+        'ALL': 'The Trades that are in any of the possible states listed above.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
+
+
+class ClientComment(str, Primitive):
     """A client-provided comment that can contain any data and may be assigned to their Orders or
     Trades. Comments are typically used to provide extra context or meaning to an Order or Trade.
     """
@@ -18,7 +554,7 @@ class ClientComment(str):
         return super().__new__(cls, value)
 
 
-class ClientID(str):
+class ClientID(str, Primitive):
     """A client-provided identifier, used by clients to refer to their
     Orders or Trades with an identifier that they have provided.
     """
@@ -30,7 +566,7 @@ class ClientID(str):
         return super().__new__(cls, value)
 
 
-class ClientTag(str):
+class ClientTag(str, Primitive):
     """A client-provided tag that can contain any data and may be assigned to their
     Orders or Trades. Tags are typically used to associate groups of Trades and/or Orders together.
     """
@@ -41,8 +577,21 @@ class ClientTag(str):
     def __new__(cls, value):
         return super().__new__(cls, value)
 
+class Reason(Primitive, str):
+    """Generic reason for any transaction that may occur"""
+    values = {}
 
-class FundingReason(str):
+    def __init_subclass__(cls, **kwargs):
+        Reason.values.update(cls.values)
+
+    def __new__(cls, value, possible_values=None):
+        if possible_values:
+            assert domain_check(value, possible_values=possible_values)
+        else:
+            assert domain_check(value, possible_values=Reason.values)
+        return str.__new__(cls, value)
+
+class FundingReason(Reason):
     """The reason that an Account is being funded.
     """
 
@@ -56,11 +605,10 @@ class FundingReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class LimitOrderReason(str):
+class LimitOrderReason(Reason):
     """The reason that the Limit Order was initiated
     """
 
@@ -71,11 +619,10 @@ class LimitOrderReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class MarketIfTouchedOrderReason(str):
+class MarketIfTouchedOrderReason(Reason):
     """The reason that the Market-if-touched Order was initiated
     """
 
@@ -86,11 +633,10 @@ class MarketIfTouchedOrderReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class MarketOrderMarginCloseoutReason(str):
+class MarketOrderMarginCloseoutReason(Reason):
     """The reason that the Market Order was created to perform a margin closeout
     """
 
@@ -102,11 +648,10 @@ class MarketOrderMarginCloseoutReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class MarketOrderReason(str):
+class MarketOrderReason(Reason):
     """The reason that the Market Order was created
     """
 
@@ -120,11 +665,10 @@ class MarketOrderReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class OrderCancelReason(str):
+class OrderCancelReason(Reason):
     """The reason that an Order was cancelled.
     """
 
@@ -182,11 +726,10 @@ class OrderCancelReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class OrderFillReason(str):
+class OrderFillReason(Reason):
     """The reason that an Order was filled
     """
 
@@ -206,11 +749,10 @@ class OrderFillReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class RequestID(str):
+class RequestID(str, Primitive):
     """The request identifier.
     """
 
@@ -219,7 +761,7 @@ class RequestID(str):
         return super().__new__(cls, value)
 
 
-class StopLossOrderReason(str):
+class StopLossOrderReason(Reason):
     """The reason that the Stop Loss Order was initiated
     """
 
@@ -232,11 +774,10 @@ class StopLossOrderReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class StopOrderReason(str):
+class StopOrderReason(Reason):
     """The reason that the Stop Order was initiated
     """
 
@@ -247,11 +788,10 @@ class StopOrderReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class TakeProfitOrderReason(str):
+class TakeProfitOrderReason(Reason):
     """The reason that the Take Profit Order was initiated
     """
 
@@ -264,11 +804,10 @@ class TakeProfitOrderReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class TrailingStopLossOrderReason(str):
+class TrailingStopLossOrderReason(Reason):
     """The reason that the Trailing Stop Loss Order was initiated
     """
 
@@ -280,11 +819,10 @@ class TrailingStopLossOrderReason(str):
                    'new Trade requiring a Trailing Stop Loss Order.'}
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class TransactionFilter(str):
+class TransactionFilter(str, Primitive):
     """A filter that can be used when fetching Transactions
     """
 
@@ -337,7 +875,7 @@ class TransactionFilter(str):
         return super().__new__(cls, value)
 
 
-class TransactionID(str):
+class TransactionID(str, Primitive):
     """The unique Transaction identifier within each Account.
     """
 
@@ -350,7 +888,7 @@ class TransactionID(str):
         return super().__new__(cls, value)
 
 
-class TransactionRejectReason(str):
+class TransactionRejectReason(Reason):
     """The reason that a Transaction was rejected.
     """
 
@@ -520,11 +1058,10 @@ class TransactionRejectReason(str):
     }
 
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)
+        return super().__new__(cls, value, possible_values=cls.values)
 
 
-class TransactionType(str):
+class TransactionType(str, Primitive):
     """The possible types of a Transaction
     """
 
@@ -571,23 +1108,4 @@ class TransactionType(str):
         return super().__new__(cls, value)
 
 
-class Reason(str):
-    """Generic reason for any transaction that may occur"""
 
-    values = dict(tuple(set.union(*(set(value.items()) for value in
-                                    (FundingReason.values,
-                                     LimitOrderReason.values,
-                                     MarketIfTouchedOrderReason.values,
-                                     MarketOrderMarginCloseoutReason.values,
-                                     MarketOrderReason.values,
-                                     OrderCancelReason.values,
-                                     OrderFillReason.values,
-                                     StopLossOrderReason.values,
-                                     StopOrderReason.values,
-                                     TakeProfitOrderReason.values,
-                                     TrailingStopLossOrderReason.values,
-                                     TransactionRejectReason.values)))))
-
-    def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
-        return super().__new__(cls, value)

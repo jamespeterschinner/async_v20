@@ -1392,9 +1392,11 @@ class OrderCancelTransaction(Transaction):
 
     """
 
+    # TODO wait for OANDA to confirm client_order_id: ClientID
+
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                order_id: OrderID = None, client_order_id: OrderID = None,
+                order_id: OrderID = None, client_order_id: ClientID = None,
                 reason: OrderCancelReason = None, replaced_by_order_id: OrderID = None,
                 closed_trade_id: OrderID = None, trade_close_transaction_id: TransactionID = None):
         return super().__new__(type=TransactionType('ORDER_CANCEL'), **locals(), **{'args_have_been_formatted': True})
@@ -1924,11 +1926,12 @@ class OrderCancelRejectTransaction(Transaction):
         reject_reason: -- The reason that the Reject Transaction was created
 
     """
+    # TODO wait for OANDA to confirm client_order_id: ClientID
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 order_id: OrderID = None,
-                client_order_id: OrderID = None, reason: OrderCancelReason = None,
+                client_order_id: ClientID = None, reason: OrderCancelReason = None,
                 reject_reason: TransactionRejectReason = None):
         return super().__new__(type=TransactionType('ORDER_CANCEL_REJECT'), **locals(),
                                **{'args_have_been_formatted': True})

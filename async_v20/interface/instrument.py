@@ -1,5 +1,5 @@
 from .decorators import endpoint
-from ..definitions.primitives.primitives import InstrumentName
+from ..definitions.primitives import InstrumentName
 from ..definitions.types import CandlestickGranularity
 from ..definitions.types import PriceComponent
 from ..definitions.types import WeeklyAlignment
