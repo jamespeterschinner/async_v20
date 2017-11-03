@@ -25,7 +25,6 @@ async def _create_response(json_body, endpoint, status):
     # Here we iterate through all the json objects returned in the response
     # and construct the corresponding async_v20 type as determined by the endpoints
     # Schema
-    print("JSON_BODY", json_body)
     def create_data():
         for json_object, json_field in json_body.items():
             yield json_object, create_attribute(schema.get(json_object), json_field)
