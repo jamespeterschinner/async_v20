@@ -97,7 +97,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        self.close()
+        await self.aclose()
 
     def __enter__(self):
         # TODO Make this print in red
@@ -107,8 +107,13 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     def __exit__(self, exc_type, exc_val, exc_tb):
         try:
             self.close()
-        except AttributeError: # In case the client was never initialized
+        except AttributeError:  # In case the client was never initialized
             pass
 
     def close(self):
         self.session.close()
+
+    async def aclose(self):
+        self.close()
+        await self.initialize_client.aclose()
+        await self.request.aclose()
