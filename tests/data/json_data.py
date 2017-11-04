@@ -94,8 +94,13 @@ GETInstrumentsCandles_response = {'instrument': 'AUD_USD', 'granularity': 'S5', 
      'complete': True}]}
 
 position_response = {'instrument': 'AUD_USD', 'pl': -1290.1203, 'unrealizedPL': -0.0219, 'resettablePL': -1290.1203,
-            'commission': 0.0,
-            'long': {'units': 12.0, 'averagePrice': 0.77079, 'tradeIDs': [4853, 4855, 4857], 'pl': -1086.1652,
-                     'unrealizedPL': -0.0219, 'resettablePL': -1086.1652, 'financing': -1.4693},
-            'short': {'units': 0.0, 'pl': -203.9551, 'unrealizedPL': 0.0, 'resettablePL': -203.9551,
-                      'financing': -0.643}, 'financing': -2.1123}
+                     'commission': 0.0,
+                     'long': {'units': 12.0, 'averagePrice': 0.77079, 'tradeIDs': [4853, 4855, 4857], 'pl': -1086.1652,
+                              'unrealizedPL': -0.0219, 'resettablePL': -1086.1652, 'financing': -1.4693},
+                     'short': {'units': 0.0, 'pl': -203.9551, 'unrealizedPL': 0.0, 'resettablePL': -203.9551,
+                               'financing': -0.643}, 'financing': -2.1123}
+
+order_cancel_transaction_json_dict = {'type': 'ORDER_CANCEL', 'orderID': '4934', 'reason': 'MARKET_HALTED',
+                                      'id': '4935', 'userID': 6557245, 'accountID': '101-011-6557245-001',
+                                      'batchID': '4934', 'requestID': '42361333491077232',
+                                      'time': '1509794347.333636884'}
