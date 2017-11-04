@@ -71,8 +71,6 @@ def tool_tip(init, signature):
 
 
 class ORM(type):
-    instance_attributes = {}
-    json_attributes = {}
 
     def __init__(self, *args, **kwargs):
         super().__init__(self)
@@ -80,8 +78,6 @@ class ORM(type):
     def __new__(mcs, *args, **kwargs):
 
         class_obj = super().__new__(mcs, *args, **kwargs)
-        mcs.instance_attributes = instance_attributes
-        mcs.json_attributes = json_attributes
 
         # This signature defines the data structure of the objects
         # (providing the object is derived directly from Model)
@@ -200,7 +196,7 @@ class Model(tuple, metaclass=ORM):
                     attr = str(attr)
                 yield field, attr
 
-        return {self.__class__.json_attributes[field]: attr for field, attr in fields()}
+        return {json_attributes[field]: attr for field, attr in fields()}
 
     def json(self):
         return json.dumps(self.json_dict(float_to_string=True))
