@@ -4,17 +4,17 @@ from inspect import _empty
 from ..definitions.base import create_attribute
 
 
-def create_annotation_lookup(signature, bound_arguments):
-    """Combine the signatures annotations with bound arguments to create a lookup dict
-    for subsequent functions to identify arguments they need to use"""
-    # annotations_lookup = {param.name: param.annotation for param in signature.parameters.values()}
-    def yield_annotations():
-        for name, value in bound_arguments.items():
-            annotation = signature.parameters[name].annotation
-            if not annotation == _empty:
-                yield annotation, value
-
-    return dict(yield_annotations())
+# def create_annotation_lookup(signature, bound_arguments):
+#     """Combine the signatures annotations with bound arguments to create a lookup dict
+#     for subsequent functions to identify arguments they need to use"""
+#     # annotations_lookup = {param.name: param.annotation for param in signature.parameters.values()}
+#     def yield_annotations():
+#         for name, value in bound_arguments.items():
+#             annotation = signature.parameters[name].annotation
+#             if not annotation == _empty:
+#                 yield annotation, value
+#
+#     return dict(yield_annotations())
 
 
 
@@ -82,17 +82,32 @@ header_params = partial(_create_request_params, param_location='header')
 query_params = partial(_create_request_params, param_location='query')
 
 
-def construct_arguments(annotation_lookup: dict):
-    """Construct passed arguments into corresponding objects"""
-    annotation_lookup.pop(_empty, None)  # Remove self parameter
-    result = {annotation: create_attribute(annotation, value) for annotation, value in annotation_lookup.items()}
-    return result
+def construct_arguments(signature, bound_arguments):
+    """Construct passed arguments into corresponding objects
+
+    args:
+
+        signature: -- Signature of api method
+        bound_arguments:
+
+    Returns:
+        dict with annotation with as keys and annotation instances as values
+        """
+
+    def yield_annotations():
+        for name, value in bound_arguments.items():
+            annotation = signature.parameters[name].annotation
+            if not annotation == _empty:
+                yield annotation, create_attribute(annotation, value)
+
+    return dict(yield_annotations())
+
 
 
 def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Format arguments to be passed to an aiohttp request"""
     arguments = sig.bind(self, *args, **kwargs).arguments
-    arguments = construct_arguments(create_annotation_lookup(sig, arguments))
+    arguments = construct_arguments(sig, arguments)
 
     json = create_body(endpoint.request_schema, arguments)
 

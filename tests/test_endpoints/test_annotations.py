@@ -44,4 +44,4 @@ def test_alignment_time_zone_only_allows_valid_data():
     assert annotations.AlignmentTimezone() == 'America/New_York'
 
 def test_smooth_returns_correct_default_data():
-    assert annotations.Smooth() == 'False'
+    assert annotations.Smooth() == False

@@ -10,7 +10,7 @@ __all__ = ['Alias', 'AlignmentTimezone', 'Authorization', 'Count', 'DailyAlignme
 
 class Bool(object):
     def __new__(cls, arg):
-        return str(bool(arg))
+        return bool(arg)
 
 
 class Authorization(str):
@@ -35,7 +35,7 @@ class Count(int):
     def __new__(cls, value=500):
         if not 0 < value <= 5000:
             raise ValueError(f'Count: MUST be within range(1,5001). Supplied {value}')
-        return int(value)
+        return super().__new__(cls, value)
 
 
 class Smooth(Bool):

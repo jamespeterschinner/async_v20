@@ -13,13 +13,15 @@ from async_v20.endpoints import POSTOrders
 from async_v20.endpoints.annotations import Authorization
 from async_v20.interface.helpers import _arguments
 from async_v20.interface.helpers import _create_request_params
-from async_v20.interface.helpers import create_annotation_lookup
+from async_v20.interface.helpers import construct_arguments
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import create_request_kwargs
 from async_v20.interface.helpers import create_url
 from tests.test_definitions.helpers import get_valid_primitive_data
 from .helpers import order_dict
 from ..data.json_data import GETAccountID_response
+from ..test_definitions.helpers import get_valid_primitive_data
+from async_v20.endpoints.annotations import Bool
 
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
@@ -48,7 +50,7 @@ client_signatures = [inspect.signature(method) for method in client_methods]
 
 
 def bound_args(sig):
-    args = {name: index for index, name in enumerate(sig.parameters)}
+    args = {name: get_valid_primitive_data(param.annotation) for name, param in sig.parameters.items()}
     bound = sig.bind(**args)
     return sig, bound.arguments, tuple(args.values())
 
@@ -58,14 +60,14 @@ annotation_lookup_arguments = [bound_args(sig) for sig in client_signatures]
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('signature, bound_arguments, args', annotation_lookup_arguments)
-async def test_create_annotation_lookup(signature, bound_arguments, args):
+async def test_construct_arguments(signature, bound_arguments, args):
     """Ensure that the annotation lookup dictionary is built correctly"""
-    result = create_annotation_lookup(signature, bound_arguments)
-    annotations = [param.annotation for param in signature.parameters.values()]
-    correct = dict(zip(annotations, args))
-    print(result)
-    print(correct)
-    assert all(map(lambda x: correct[x] == result[x], result))
+    result = construct_arguments(signature, bound_arguments)
+    for annotation, instance in result.items():
+        if isinstance(instance, bool):
+            assert issubclass(annotation, Bool)
+        else:
+            assert type(instance) == annotation
 
 
 locations = ['header', 'path', 'query']
@@ -90,10 +92,10 @@ async def test_create_request_params(client, interface_method):
     endpoint = interface_method.endpoint
     sig = interface_method.__signature__
     print(interface_method.__name__)
-    args = tuple(range(len([param for param in sig.parameters.values()
-                            if param.kind not in (Parameter.VAR_KEYWORD, Parameter.VAR_POSITIONAL)])))
+    args = tuple(get_valid_primitive_data(param.annotation)
+                 for param in sig.parameters.values() if param.kind == 1)
     bound = dict(sig.bind(*args).arguments)
-    arguments = create_annotation_lookup(sig, bound)
+    arguments = construct_arguments(sig, bound)
     total_params = []
     print(endpoint.request_schema)
     for location in locations:
@@ -105,7 +107,7 @@ async def test_create_request_params(client, interface_method):
         print(location, ': ', result)
         total_params.extend(result)
 
-    assert len(total_params) == len(arguments) - len(list(endpoint.request_schema)) # -1 removes 'self'
+    assert len(total_params) == len(arguments) - len(list(endpoint.request_schema))
 
 
 @pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])
