@@ -48,9 +48,9 @@ client_signatures = [inspect.signature(method) for method in client_methods]
 
 
 def bound_args(sig):
-    args = [str(i) for i in  range(len(sig.parameters))]
-    bound = sig.bind(*args)
-    return sig, bound.arguments, args
+    args = {name: index for index, name in enumerate(sig.parameters)}
+    bound = sig.bind(**args)
+    return sig, bound.arguments, tuple(args.values())
 
 
 annotation_lookup_arguments = [bound_args(sig) for sig in client_signatures]
@@ -62,8 +62,10 @@ async def test_create_annotation_lookup(signature, bound_arguments, args):
     """Ensure that the annotation lookup dictionary is built correctly"""
     result = create_annotation_lookup(signature, bound_arguments)
     annotations = [param.annotation for param in signature.parameters.values()]
-    correct = zip(annotations, args)
-    assert all(map(lambda x: result[x[0]] == x[1], correct))
+    correct = dict(zip(annotations, args))
+    print(result)
+    print(correct)
+    assert all(map(lambda x: correct[x] == result[x], result))
 
 
 locations = ['header', 'path', 'query']
@@ -103,7 +105,7 @@ async def test_create_request_params(client, interface_method):
         print(location, ': ', result)
         total_params.extend(result)
 
-    assert len(total_params) == len(arguments) - len(list(endpoint.request_schema)) - 1  # -1 removes 'self'
+    assert len(total_params) == len(arguments) - len(list(endpoint.request_schema)) # -1 removes 'self'
 
 
 @pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])

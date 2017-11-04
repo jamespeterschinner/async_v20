@@ -7,8 +7,15 @@ from ..definitions.base import create_attribute
 def create_annotation_lookup(signature, bound_arguments):
     """Combine the signatures annotations with bound arguments to create a lookup dict
     for subsequent functions to identify arguments they need to use"""
-    annotations_lookup = {param.name: param.annotation for param in signature.parameters.values()}
-    return {annotations_lookup[name]: value for name, value in bound_arguments.items()}
+    # annotations_lookup = {param.name: param.annotation for param in signature.parameters.values()}
+    def yield_annotations():
+        for name, value in bound_arguments.items():
+            annotation = signature.parameters[name].annotation
+            if not annotation == _empty:
+                yield annotation, value
+
+    return dict(yield_annotations())
+
 
 
 def _arguments(endpoint, param_location):
