@@ -23,7 +23,7 @@ __all__ = ['OrderInterface']
 
 class OrderInterface(object):
     @endpoint(POSTOrders)
-    def create_order(self, order: OrderRequest = None):
+    def create_order(self, order_request: OrderRequest = None):
         """
         Create an Order for an Account
 

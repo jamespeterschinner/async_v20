@@ -8,7 +8,7 @@ client = OandaClient()
 async def poll_account(poll_interval=6, client=client):
     while True:
         result = await client.account_changes()
-        print(result)
+        print(result['changes'].json_dict())
         await asyncio.sleep(poll_interval)
 
 

@@ -43,6 +43,10 @@ def arg_parse(new: classmethod, signature=Signature) -> classmethod:
             kwargs.pop('__class__', None)
             return new(cls, **kwargs)
 
+        # Remove preset arguments this class defines from kwargs
+        for argument in cls._preset_arguments:
+            kwargs.pop(argument, None)
+
         def format():
             for name, value in kwargs.items():
                 try:
@@ -134,7 +138,11 @@ class Model(tuple, metaclass=ORM):
     # Representation string used when generating a summary for this object
     _repr_format = ''
 
-    # Format string used when generating a name for this object
+    # Arguments the base class defines
+    # But the derived class require they are fixed.
+    # Any arguments passed, that match names in `_preset_arguments`
+    # will be removed. Prior to calling new.
+    _preset_arguments = ()
 
     def __repr__(self):
         def information():
@@ -221,6 +229,8 @@ def create_attribute(typ, data):
                 raise TypeError(f'{data} must be of type {typ}')
             result = data
         elif isinstance(data, dict):
+            print(typ)
+            print(data)
             result = typ(**data)
         elif isinstance(data, (tuple, list)):
             result = typ(*data)
@@ -232,6 +242,9 @@ def create_attribute(typ, data):
         # when an error code has been returned
         # A none value should be returned if this is the case
         if typ is not None:
+            print(type(typ))
+            print(typ)
+            print(data)
             raise TypeError(e)
     else:
         return result
