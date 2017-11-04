@@ -10,11 +10,11 @@ from ..definitions.helpers import create_doc_signature
 
 
 async def _serial_request_async_generator():
-    self, request_args, endpoint = yield
+    self, request_args, endpoint, predicate = yield
     while True:
         request = await self.request.asend(None)
         response = request(**request_args)
-        self, request_args, endpoint = yield await parse_response(self, response, endpoint)
+        self, request_args, endpoint, predicate = yield await parse_response(self, response, endpoint, predicate)
 
 
 def endpoint(endpoint, serial=False):
@@ -44,9 +44,11 @@ def endpoint(endpoint, serial=False):
                 await serial_request.asend(None)
                 endpoint.initialized = True
 
+            predicate = kwargs.pop('predicate', lambda x: x)
+
             request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
-            return await serial_request.asend((self, request_args, endpoint))
+            return await serial_request.asend((self, request_args, endpoint, predicate))
 
         @wraps(method)
         async def parallel_wrap(self, *args, **kwargs):
@@ -55,13 +57,15 @@ def endpoint(endpoint, serial=False):
             except ValueError:
                 pass
 
+            predicate = kwargs.pop('predicate', lambda x: x)
+
             request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
             request = await self.request.asend(None)
 
             response = request(**request_args)
 
-            return await parse_response(self, response, endpoint)
+            return await parse_response(self, response, endpoint, predicate)
 
         serial_wrap.__signature__ = sig
 

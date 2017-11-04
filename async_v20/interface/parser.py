@@ -47,18 +47,19 @@ async def _rest_response(self, response, endpoint):
     return await _create_response(json_body, endpoint, status)
 
 
-async def _stream_parser(response, endpoint):
+async def _stream_parser(response, endpoint, predicate=lambda x: x):
     async with response as resp:
         async for line in resp.content:
             body = json.loads(line)  # Turn bytes into json
             key = body.get('type')  # We must determine what type of object as been sent. So we
-            json_body = {key: body}  # can construct a phony json body similar to a rest response
-            yield await _create_response(json_body, endpoint, resp.status)
+            if predicate(key):
+                json_body = {key: body}  # can construct a phony json body similar to a rest response
+                yield await _create_response(json_body, endpoint, resp.status)
 
 
-async def parse_response(self, response, endpoint):
+async def parse_response(self, response, endpoint, predicate):
     if endpoint.host == 'REST':
         result = await _rest_response(self, response, endpoint)
     else:
-        result = _stream_parser(response, endpoint)
+        result = _stream_parser(response, endpoint, predicate)
     return result
