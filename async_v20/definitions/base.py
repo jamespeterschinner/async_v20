@@ -11,9 +11,11 @@ from .attributes import json_attributes
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
 
+
 class Primitive(object):
     """Mixin class to denote primitive type"""
     pass
+
 
 class Array(tuple):
     """Mixin to denote objects that are sent from OANDA in an array.
@@ -71,7 +73,6 @@ def tool_tip(init, signature):
 
 
 class ORM(type):
-
     def __init__(self, *args, **kwargs):
         super().__init__(self)
 
@@ -238,4 +239,3 @@ def create_attribute(typ, data):
             raise TypeError(e)
     else:
         return result
-

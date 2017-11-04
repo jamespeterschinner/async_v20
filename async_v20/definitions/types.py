@@ -1417,6 +1417,7 @@ class OrderCancelTransaction(Transaction):
     """
 
     _preset_arguments = ('type',)
+
     # TODO wait for OANDA to confirm client_order_id: ClientID
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
@@ -1903,8 +1904,6 @@ class Trade(Model):
 
     """
 
-
-
     def __new__(cls, id: TradeID = None, instrument: InstrumentName = None, price: PriceValue = None,
                 open_time: DateTime = None, state: TradeState = None, initial_units: DecimalNumber = None,
                 current_units: DecimalNumber = None, realized_pl: AccountUnits = None,
@@ -1973,6 +1972,7 @@ class OrderCancelRejectTransaction(Transaction):
     """
 
     _preset_arguments = ('type',)
+
     # TODO wait for OANDA to confirm client_order_id: ClientID
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
@@ -2630,6 +2630,7 @@ class LimitOrder(Order):
 
         """
     _preset_arguments = ('type',)
+
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
