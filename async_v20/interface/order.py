@@ -8,7 +8,6 @@ from ..definitions.types import OrderID
 from ..definitions.types import OrderRequest
 from ..definitions.types import OrderSpecifier
 from ..definitions.types import OrderStateFilter
-from ..definitions.types import StopLossOrderReason
 from ..definitions.types import StopLossOrderRequest
 from ..definitions.types import StopOrderRequest
 from ..definitions.types import TakeProfitOrderRequest

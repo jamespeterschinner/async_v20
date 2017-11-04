@@ -99,4 +99,5 @@
         - async_v20 objects are now immutable (greatly reducing complexity)
         - Objects now have a repr
         - removed inflection as a dependency
-        - tests run faster
+        - Higher test coverage
+        -
