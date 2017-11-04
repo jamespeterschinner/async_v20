@@ -4,20 +4,6 @@ from inspect import _empty
 from ..definitions.base import create_attribute
 
 
-def create_annotation_lookup(signature, bound_arguments):
-    """Combine the signatures annotations with bound arguments to create a lookup dict
-    for subsequent functions to identify arguments they need to use"""
-    annotations_lookup = {param.name: param.annotation for param in signature.parameters.values()}
-    def yield_annotations():
-        for name, value in bound_arguments.items():
-            annotation = signature.parameters[name].annotation
-            if not annotation == _empty:
-                yield annotation, value
-
-    return dict(yield_annotations())
-
-
-
 def _arguments(endpoint, param_location):
     return ((parameter['name'], parameter['type']) for parameter in endpoint.parameters if
             parameter['located'] == param_location)
@@ -103,7 +89,6 @@ def construct_arguments(signature, bound_arguments):
     return dict(yield_annotations())
 
 
-
 def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Format arguments to be passed to an aiohttp request"""
     arguments = sig.bind(self, *args, **kwargs).arguments
@@ -115,7 +100,7 @@ def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     url = create_url(self, endpoint, arguments)
 
     # yarl doesn't accept int subclass'
-    parameters = {k: str(v) for k,v in query_params(self, endpoint, arguments).items()}
+    parameters = {k: str(v) for k, v in query_params(self, endpoint, arguments).items()}
 
     request_kwargs = {
         'method': endpoint.method,
