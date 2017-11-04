@@ -100,4 +100,9 @@
         - Objects now have a repr
         - removed inflection as a dependency
         - Higher test coverage
-        -
+
+2.0.1a0
+=======
+   Improvements:
+      - `type` argument is set automatically for subclass that define it
+      - implementation improvements

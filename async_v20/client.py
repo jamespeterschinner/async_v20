@@ -9,7 +9,7 @@ from .helpers import request_limiter, initializer
 from .interface import *
 from .interface.account import AccountInterface
 
-version = '2.0.0a0'
+version = '2.0.1a0'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
