@@ -77,6 +77,7 @@ Contents
    getting_started
    best_practices
    beyond_getting_started
+   traps
    api
    types
    glossary

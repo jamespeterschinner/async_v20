@@ -28,7 +28,7 @@ class OrderInterface(object):
 
         Args:
 
-            order:
+            order_request:
                 Specification of the Order to create
 
         Returns:

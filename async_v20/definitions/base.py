@@ -38,10 +38,11 @@ def arg_parse(new: classmethod, signature=Signature) -> classmethod:
 
     @wraps(new)
     def wrap(cls, *args, args_have_been_formatted=False, **kwargs):
-        # Don't format arguments twice
+
+        # This argument is set when data is returned from
+        # the __new__ method of a class derived from Model
         if args_have_been_formatted:
-            # locals() returns __class__
-            # If it exists remove it.
+            # locals() returns __class__ so we remove it.
             kwargs.pop('__class__', None)
             return new(cls, **kwargs)
 
