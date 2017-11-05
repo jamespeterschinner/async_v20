@@ -63,7 +63,7 @@ class ClientExtensions(Model):
     """
 
     def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**ClientExtensions._preset_arguments, **locals())
 
 
 class TakeProfitDetails(Model):
@@ -83,7 +83,7 @@ class TakeProfitDetails(Model):
 
     def __new__(cls, price: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
                 client_extensions: ClientExtensions = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TakeProfitDetails._preset_arguments, **locals())
 
 
 class StopLossDetails(Model):
@@ -103,7 +103,7 @@ class StopLossDetails(Model):
 
     def __new__(cls, price: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
                 client_extensions: ClientExtensions = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**StopLossDetails._preset_arguments, **locals())
 
 
 class TrailingStopLossDetails(Model):
@@ -125,7 +125,7 @@ class TrailingStopLossDetails(Model):
 
     def __new__(cls, distance: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
                 client_extensions: ClientExtensions = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TrailingStopLossDetails._preset_arguments, **locals())
 
 
 class OrderRequest(Model):
@@ -145,7 +145,7 @@ class OrderRequest(Model):
                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**OrderRequest._preset_arguments, **locals())
 
 
 class UnitsAvailableDetails(Model):
@@ -159,7 +159,7 @@ class UnitsAvailableDetails(Model):
     """
 
     def __new__(cls, long: Unit = None, short: Unit = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**UnitsAvailableDetails._preset_arguments, **locals())
 
 
 class UnitsAvailable(Model):
@@ -182,7 +182,7 @@ class UnitsAvailable(Model):
 
     def __new__(cls, default: UnitsAvailableDetails = None, reduce_first: UnitsAvailableDetails = None,
                 reduce_only: UnitsAvailableDetails = None, open_only: UnitsAvailableDetails = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**UnitsAvailable._preset_arguments, **locals())
 
 
 class LiquidityRegenerationScheduleStep(Model):
@@ -199,7 +199,7 @@ class LiquidityRegenerationScheduleStep(Model):
 
     def __new__(cls, timestamp: DateTime = None, bid_liquidity_used: DecimalNumber = None,
                 ask_liquidity_used: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**LiquidityRegenerationScheduleStep._preset_arguments, **locals())
 
 
 class ArrayLiquidityRegenerationScheduleStep(Array):
@@ -219,7 +219,7 @@ class LiquidityRegenerationSchedule(Model):
     """
 
     def __new__(cls, steps: ArrayLiquidityRegenerationScheduleStep = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**LiquidityRegenerationSchedule._preset_arguments, **locals())
 
 
 class CandlestickData(Model):
@@ -234,7 +234,7 @@ class CandlestickData(Model):
     """
 
     def __new__(cls, o: PriceValue = None, h: PriceValue = None, l: PriceValue = None, c: PriceValue = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**CandlestickData._preset_arguments, **locals())
 
 
 class OrderIdentifier(Model):
@@ -248,7 +248,7 @@ class OrderIdentifier(Model):
     """
 
     def __new__(cls, order_id: OrderID = None, client_order_id: ClientID = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**OrderIdentifier._preset_arguments, **locals())
 
 
 class QuoteHomeConversionFactors(Model):
@@ -268,7 +268,7 @@ class QuoteHomeConversionFactors(Model):
     """
 
     def __new__(cls, positive_units: DecimalNumber = None, negative_units: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**QuoteHomeConversionFactors._preset_arguments, **locals())
 
 
 class MarketOrderMarginCloseout(Model):
@@ -281,7 +281,7 @@ class MarketOrderMarginCloseout(Model):
     """
 
     def __new__(cls, reason: MarketOrderMarginCloseoutReason = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketOrderMarginCloseout._preset_arguments, **locals())
 
 
 class InstrumentCommission(Model):
@@ -299,7 +299,7 @@ class InstrumentCommission(Model):
 
     def __new__(cls, instrument: InstrumentName = None, commission: DecimalNumber = None, units_traded: Unit = None,
                 minimum_commission: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**InstrumentCommission._preset_arguments, **locals())
 
 
 class OrderBookBucket(Model):
@@ -317,7 +317,7 @@ class OrderBookBucket(Model):
 
     def __new__(cls, price: PriceValue = None, long_count_percent: DecimalNumber = None,
                 short_count_percent: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**OrderBookBucket._preset_arguments, **locals())
 
 
 class ArrayOrderBookBucket(Array):
@@ -339,7 +339,7 @@ class PositionBookBucket(Model):
 
     def __new__(cls, price: PriceValue = None, long_count_percent: DecimalNumber = None,
                 short_count_percent: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**PositionBookBucket._preset_arguments, **locals())
 
 
 class ArrayPositionBookBucket(Array):
@@ -365,7 +365,7 @@ class DynamicOrderState(Model):
 
     def __new__(cls, id: OrderID = None, trailing_stop_value: PriceValue = None, trigger_distance: PriceValue = None,
                 is_trigger_distance_exact: bool = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**DynamicOrderState._preset_arguments, **locals())
 
 
 class ArrayDynamicOrderState(Array):
@@ -385,7 +385,7 @@ class CalculatedPositionState(Model):
 
     def __new__(cls, instrument: InstrumentName = None, net_unrealized_pl: AccountUnits = None,
                 long_unrealized_pl: AccountUnits = None, short_unrealized_pl: AccountUnits = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**CalculatedPositionState._preset_arguments, **locals())
 
 
 class ArrayCalculatedPositionState(Array):
@@ -411,7 +411,7 @@ class PositionSide(Model):
     def __new__(cls, units: Unit = None, average_price: PriceValue = None, trade_i_ds: ArrayTradeID = None,
                 pl: AccountUnits = None, unrealized_pl: AccountUnits = None, resettable_pl: AccountUnits = None,
                 financing: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**PositionSide._preset_arguments, **locals())
 
 
 class Position(Model):
@@ -433,7 +433,7 @@ class Position(Model):
     def __new__(cls, instrument: InstrumentName = None, pl: AccountUnits = None, unrealized_pl: AccountUnits = None,
                 resettable_pl: AccountUnits = None, commission: AccountUnits = None, long: PositionSide = None,
                 short: PositionSide = None, financing: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**Position._preset_arguments, **locals())
 
 
 class ArrayPosition(Array):
@@ -450,7 +450,7 @@ class PriceBucket(Model):
     """
 
     def __new__(cls, price: PriceValue = None, liquidity: int = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**PriceBucket._preset_arguments, **locals())
 
 
 class ArrayPriceBucket(Array):
@@ -477,7 +477,7 @@ class ClientPrice(Model):
 
     def __new__(cls, bids: ArrayPriceBucket = None, asks: ArrayPriceBucket = None,
                 closeout_bid: PriceValue = None, closeout_ask: PriceValue = None, timestamp: DateTime = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**ClientPrice._preset_arguments, **locals())
 
 
 class PricingHeartbeat(Model):
@@ -491,7 +491,7 @@ class PricingHeartbeat(Model):
     """
 
     def __new__(cls, type: str = None, time: DateTime = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**PricingHeartbeat._preset_arguments, **locals())
 
 
 class CalculatedTradeState(Model):
@@ -504,7 +504,7 @@ class CalculatedTradeState(Model):
     """
 
     def __new__(cls, id: TradeID = None, unrealized_pl: AccountUnits = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**CalculatedTradeState._preset_arguments, **locals())
 
 
 class ArrayCalculatedTradeState(Array):
@@ -526,7 +526,7 @@ class MarketOrderDelayedTradeClose(Model):
 
     def __new__(cls, trade_id: TradeID = None, client_trade_id: TradeID = None,
                 source_transaction_id: TransactionID = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketOrderDelayedTradeClose._preset_arguments, **locals())
 
 
 class MarketOrderPositionCloseout(Model):
@@ -542,7 +542,7 @@ class MarketOrderPositionCloseout(Model):
     """
 
     def __new__(cls, instrument: InstrumentName = None, units: str = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketOrderPositionCloseout._preset_arguments, **locals())
 
 
 class MarketOrderTradeClose(Model):
@@ -558,7 +558,7 @@ class MarketOrderTradeClose(Model):
     """
 
     def __new__(cls, trade_id: TradeID = None, client_trade_id: str = None, units: str = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketOrderTradeClose._preset_arguments, **locals())
 
 
 class OpenTradeFinancing(Model):
@@ -572,7 +572,7 @@ class OpenTradeFinancing(Model):
     """
 
     def __new__(cls, trade_id: TradeID = None, financing: AccountUnits = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**OpenTradeFinancing._preset_arguments, **locals())
 
 
 class ArrayOpenTradeFinancing(Array):
@@ -592,7 +592,7 @@ class PositionFinancing(Model):
 
     def __new__(cls, instrument: InstrumentName = None, financing: AccountUnits = None,
                 open_trade_financings: ArrayOpenTradeFinancing = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**PositionFinancing._preset_arguments, **locals())
 
 
 class ArrayPositionFinancing(Array):
@@ -612,7 +612,7 @@ class TradeOpen(Model):
     """
 
     def __new__(cls, trade_id: TradeID = None, units: Unit = None, client_extensions: ClientExtensions = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TradeOpen._preset_arguments, **locals())
 
 
 class VWAPReceipt(Model):
@@ -627,7 +627,7 @@ class VWAPReceipt(Model):
     """
 
     def __new__(cls, units: Unit = None, price: PriceValue = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**VWAPReceipt._preset_arguments, **locals())
 
 
 class UserInfo(Model):
@@ -642,7 +642,7 @@ class UserInfo(Model):
     """
 
     def __new__(cls, username: str = None, user_id: str = None, country: str = None, email_address: str = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**UserInfo._preset_arguments, **locals())
 
 
 class AccountProperties(Model):
@@ -657,7 +657,7 @@ class AccountProperties(Model):
     """
 
     def __new__(cls, id: AccountID = None, mt4_account_id: int = None, tags: ArrayStr = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**AccountProperties._preset_arguments, **locals())
 
 
 class ArrayAccountProperties(Array):
@@ -684,7 +684,7 @@ class Candlestick(Model):
 
     def __new__(cls, time: DateTime = None, bid: CandlestickData = None, ask: CandlestickData = None,
                 mid: CandlestickData = None, volume: int = None, complete: bool = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**Candlestick._preset_arguments, **locals())
 
 
 class ArrayCandlestick(Array):
@@ -708,7 +708,7 @@ class OrderBook(Model):
 
     def __new__(cls, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
                 bucket_width: PriceValue = None, buckets: ArrayOrderBookBucket = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**OrderBook._preset_arguments, **locals())
 
 
 class PositionBook(Model):
@@ -728,7 +728,7 @@ class PositionBook(Model):
 
     def __new__(cls, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
                 bucket_width: PriceValue = None, buckets: ArrayPositionBookBucket = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**PositionBook._preset_arguments, **locals())
 
 
 class Order(Model):
@@ -762,7 +762,7 @@ class Order(Model):
                 short_position_closeout: MarketOrderPositionCloseout = None,
                 margin_closeout: MarketOrderMarginCloseout = None,
                 delayed_trade_close: MarketOrderDelayedTradeClose = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**Order._preset_arguments, **locals())
 
 
 class ArrayOrder(Array):
@@ -785,7 +785,7 @@ class TradeReduce(Model):
 
     def __new__(cls, trade_id: TradeID = None, units: Unit = None, realized_pl: AccountUnits = None,
                 financing: AccountUnits = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TradeReduce._preset_arguments, **locals())
 
 
 class ArrayTradeReduce(Array):
@@ -804,7 +804,7 @@ class TransactionHeartbeat(Model):
     """
 
     def __new__(cls, type: str = None, last_transaction_id: TransactionID = None, time: DateTime = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TransactionHeartbeat._preset_arguments, **locals())
 
 
 class UserInfoExternal(Model):
@@ -819,7 +819,7 @@ class UserInfoExternal(Model):
     """
 
     def __new__(cls, user_id: str = None, country: str = None, fifo: str = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**UserInfoExternal._preset_arguments, **locals())
 
 
 class TradeSummary(Model):
@@ -859,7 +859,7 @@ class TradeSummary(Model):
                 financing: AccountUnits = None, close_time: DateTime = None,
                 client_extensions: ClientExtensions = None, take_profit_order_id: OrderID = None,
                 stop_loss_order_id: OrderID = None, trailing_stop_loss_order_id: OrderID = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TradeSummary._preset_arguments, **locals())
 
 
 class ArrayTradeSummary(Array):
@@ -910,7 +910,7 @@ class Transaction(Model):
                 full_price: ClientPrice = None, pl: AccountUnits = None, commission: AccountUnits = None,
                 trade_opened: TradeOpen = None, trades_closed: ArrayTradeReduce = None,
                 trade_reduced: TradeReduce = None, intended_replaces_order_id: OrderID = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**Transaction._preset_arguments, **locals())
 
 
 class ArrayTransaction(Array):
@@ -941,7 +941,7 @@ class AccountChanges(Model):
                 trades_opened: ArrayTradeSummary = None, trades_reduced: ArrayTradeSummary = None,
                 trades_closed: ArrayTradeSummary = None, positions: ArrayPosition = None,
                 transactions: ArrayTransaction = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**AccountChanges._preset_arguments, **locals())
 
 
 class Instrument(Model):
@@ -977,7 +977,7 @@ class Instrument(Model):
                 minimum_trailing_stop_distance: Unit = None, maximum_position_size: Unit = None,
                 maximum_order_units: Unit = None, margin_rate: DecimalNumber = None,
                 commission: InstrumentCommission = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**Instrument._preset_arguments, **locals())
 
 
 class ArrayInstrument(Array):
@@ -1026,7 +1026,7 @@ class AccountChangesState(Model):
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
                 orders: ArrayDynamicOrderState = None, trades: ArrayCalculatedTradeState = None,
                 positions: ArrayCalculatedPositionState = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**AccountChangesState._preset_arguments, **locals())
 
 
 class Price(Model):
@@ -1060,7 +1060,7 @@ class Price(Model):
                 asks: ArrayPriceBucket = None, closeout_bid: PriceValue = None, closeout_ask: PriceValue = None,
                 quote_home_conversion_factors: QuoteHomeConversionFactors = None,
                 units_available: UnitsAvailable = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**Price._preset_arguments, **locals())
 
 
 class ArrayPrice(Array):
@@ -1082,11 +1082,11 @@ class CloseTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('CLOSE')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
-        return super().__new__(type=TransactionType('CLOSE'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**CloseTransaction._preset_arguments, **locals())
 
 
 class MarginCallEnterTransaction(Transaction):
@@ -1106,12 +1106,11 @@ class MarginCallEnterTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('MARGIN_CALL_ENTER')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
-        return super().__new__(type=TransactionType('MARGIN_CALL_ENTER'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**MarginCallEnterTransaction._preset_arguments, **locals())
 
 
 class MarginCallExitTransaction(Transaction):
@@ -1131,12 +1130,11 @@ class MarginCallExitTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('MARGIN_CALL_EXIT')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
-        return super().__new__(type=TransactionType('MARGIN_CALL_EXIT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**MarginCallExitTransaction._preset_arguments, **locals())
 
 
 class MarginCallExtendTransaction(Transaction):
@@ -1158,13 +1156,12 @@ class MarginCallExtendTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('MARGIN_CALL_EXTEND')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 extension_number: int = None):
-        return super().__new__(type=TransactionType('MARGIN_CALL_EXTEND'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**MarginCallExtendTransaction._preset_arguments, **locals())
 
 
 class ReopenTransaction(Transaction):
@@ -1182,11 +1179,11 @@ class ReopenTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('REOPEN')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
-        return super().__new__(type=TransactionType('REOPEN'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**ReopenTransaction._preset_arguments, **locals())
 
 
 class ResetResettablePLTransaction(Transaction):
@@ -1206,12 +1203,11 @@ class ResetResettablePLTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('RESET_RESETTABLE_PL')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
-        return super().__new__(type=TransactionType('RESET_RESETTABLE_PL'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**ResetResettablePLTransaction._preset_arguments, **locals())
 
 
 class StopLossOrderRequest(OrderRequest):
@@ -1236,12 +1232,12 @@ class StopLossOrderRequest(OrderRequest):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('STOP_LOSS')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
-        return super().__new__(type=OrderType('STOP_LOSS'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**StopLossOrderRequest._preset_arguments, **locals())
 
 
 class TakeProfitOrderRequest(OrderRequest):
@@ -1266,12 +1262,12 @@ class TakeProfitOrderRequest(OrderRequest):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('TAKE_PROFIT')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
-        return super().__new__(type=OrderType('TAKE_PROFIT'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TakeProfitOrderRequest._preset_arguments, **locals())
 
 
 class TrailingStopLossOrderRequest(OrderRequest):
@@ -1295,12 +1291,12 @@ class TrailingStopLossOrderRequest(OrderRequest):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('TRAILING_STOP_LOSS')}
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue,
                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
-        return super().__new__(type=OrderType('TRAILING_STOP_LOSS'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TrailingStopLossOrderRequest._preset_arguments, **locals())
 
 
 class CreateTransaction(Transaction):
@@ -1323,13 +1319,13 @@ class CreateTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('CREATE')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 division_id: int = None, site_id: int = None,
                 account_user_id: int = None, account_number: int = None, home_currency: Currency = None):
-        return super().__new__(type=TransactionType('CREATE'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**CreateTransaction._preset_arguments, **locals())
 
 
 class ClientConfigureTransaction(Transaction):
@@ -1351,13 +1347,12 @@ class ClientConfigureTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('CLIENT_CONFIGURE')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 alias: str = None, margin_rate: DecimalNumber = None):
-        return super().__new__(type=TransactionType('CLIENT_CONFIGURE'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**ClientConfigureTransaction._preset_arguments, **locals())
 
 
 class DelayedTradeClosureTransaction(Transaction):
@@ -1383,14 +1378,13 @@ class DelayedTradeClosureTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('DELAYED_TRADE_CLOSURE')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 reason: MarketOrderReason = None,
                 trade_i_ds: TradeID = None):
-        return super().__new__(type=TransactionType('DELAYED_TRADE_CLOSURE'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**DelayedTradeClosureTransaction._preset_arguments, **locals())
 
 
 class OrderCancelTransaction(Transaction):
@@ -1416,7 +1410,7 @@ class OrderCancelTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('ORDER_CANCEL')}
 
     # TODO wait for OANDA to confirm client_order_id: ClientID
 
@@ -1425,7 +1419,7 @@ class OrderCancelTransaction(Transaction):
                 order_id: OrderID = None, client_order_id: ClientID = None,
                 reason: OrderCancelReason = None, replaced_by_order_id: OrderID = None,
                 closed_trade_id: OrderID = None, trade_close_transaction_id: TransactionID = None):
-        return super().__new__(type=TransactionType('ORDER_CANCEL'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**OrderCancelTransaction._preset_arguments, **locals())
 
 
 class OrderClientExtensionsModifyTransaction(Transaction):
@@ -1449,15 +1443,14 @@ class OrderClientExtensionsModifyTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 order_id: OrderID = None,
                 client_order_id: ClientID = None, client_extensions_modify: ClientExtensions = None,
                 trade_client_extensions_modify: ClientExtensions = None):
-        return super().__new__(type=TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**OrderClientExtensionsModifyTransaction._preset_arguments, **locals())
 
 
 class DailyFinancingTransaction(Transaction):
@@ -1481,15 +1474,14 @@ class DailyFinancingTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('DAILY_FINANCING')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 financing: AccountUnits = None,
                 account_balance: AccountUnits = None, account_financing_mode: AccountFinancingMode = None,
                 position_financings: ArrayPositionFinancing = None):
-        return super().__new__(type=TransactionType('DAILY_FINANCING'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**DailyFinancingTransaction._preset_arguments, **locals())
 
 
 class TradeClientExtensionsModifyTransaction(Transaction):
@@ -1512,14 +1504,13 @@ class TradeClientExtensionsModifyTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 trade_id: TradeID = None,
                 client_trade_id: ClientID = None, trade_client_extensions_modify: ClientExtensions = None):
-        return super().__new__(type=TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**TradeClientExtensionsModifyTransaction._preset_arguments, **locals())
 
 
 class AccountSummary(Model):
@@ -1593,7 +1584,7 @@ class AccountSummary(Model):
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
                 last_transaction_id: TransactionID = None, trades: ArrayTradeSummary = None,
                 positions: ArrayPosition = None, orders: ArrayOrder = None, financing: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**AccountSummary._preset_arguments, **locals())
 
 
 class MarketOrderRequest(OrderRequest):
@@ -1631,7 +1622,7 @@ class MarketOrderRequest(OrderRequest):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('MARKET')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
@@ -1639,7 +1630,7 @@ class MarketOrderRequest(OrderRequest):
                 take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return super().__new__(type=OrderType('MARKET'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketOrderRequest._preset_arguments, **locals())
 
 
 class TakeProfitOrderTransaction(Transaction):
@@ -1678,7 +1669,7 @@ class TakeProfitOrderTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('TAKE_PROFIT_ORDER')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -1687,8 +1678,7 @@ class TakeProfitOrderTransaction(Transaction):
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
-        return super().__new__(type=TransactionType('TAKE_PROFIT_ORDER'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**TakeProfitOrderTransaction._preset_arguments, **locals())
 
 
 class TakeProfitOrder(Order):
@@ -1735,7 +1725,7 @@ class TakeProfitOrder(Order):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('TAKE_PROFIT')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
                 state: OrderState = None, client_extensions: ClientExtensions = None,
@@ -1745,7 +1735,7 @@ class TakeProfitOrder(Order):
                 trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return super().__new__(type=OrderType('TAKE_PROFIT'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TakeProfitOrder._preset_arguments, **locals())
 
 
 class StopLossOrder(Order):
@@ -1792,7 +1782,7 @@ class StopLossOrder(Order):
 
         """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('STOP_LOSS')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
                 state: OrderState = None, client_extensions: ClientExtensions = None,
@@ -1802,7 +1792,7 @@ class StopLossOrder(Order):
                 trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return super().__new__(type=OrderType('STOP_LOSS'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**StopLossOrder._preset_arguments, **locals())
 
 
 class TrailingStopLossOrder(Order):
@@ -1857,7 +1847,7 @@ class TrailingStopLossOrder(Order):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('TRAILING_STOP_LOSS')}
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: OrderID = None, create_time: DateTime = None,
                 state: OrderState = None, client_extensions: ClientExtensions = None, client_trade_id: ClientID = None,
@@ -1868,7 +1858,7 @@ class TrailingStopLossOrder(Order):
                 trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return super().__new__(type=OrderType('TRAILING_STOP_LOSS'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TrailingStopLossOrder._preset_arguments, **locals())
 
 
 class Trade(Model):
@@ -1912,7 +1902,7 @@ class Trade(Model):
                 close_time: DateTime = None, client_extensions: ClientExtensions = None,
                 take_profit_order: TakeProfitOrder = None, stop_loss_order: StopLossOrder = None,
                 trailing_stop_loss_order: TrailingStopLossOrder = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**Trade._preset_arguments, **locals())
 
 
 class ArrayTrade(Array):
@@ -1939,14 +1929,13 @@ class ClientConfigureRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('CLIENT_CONFIGURE_REJECT')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 alias: str = None,
                 margin_rate: DecimalNumber = None, reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('CLIENT_CONFIGURE_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**ClientConfigureRejectTransaction._preset_arguments, **locals())
 
 
 class OrderCancelRejectTransaction(Transaction):
@@ -1971,7 +1960,7 @@ class OrderCancelRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('ORDER_CANCEL_REJECT')}
 
     # TODO wait for OANDA to confirm client_order_id: ClientID
 
@@ -1980,8 +1969,7 @@ class OrderCancelRejectTransaction(Transaction):
                 order_id: OrderID = None,
                 client_order_id: ClientID = None, reason: OrderCancelReason = None,
                 reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('ORDER_CANCEL_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**OrderCancelRejectTransaction._preset_arguments, **locals())
 
 
 class OrderClientExtensionsModifyRejectTransaction(Transaction):
@@ -2006,7 +1994,8 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT'),
+                         'args_have_been_formatted': True}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -2014,8 +2003,7 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
                 client_order_id: ClientID = None, client_extensions_modify: ClientExtensions = None,
                 trade_client_extensions_modify: ClientExtensions = None,
                 reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**OrderClientExtensionsModifyRejectTransaction._preset_arguments, **locals())
 
 
 class TradeClientExtensionsModifyRejectTransaction(Transaction):
@@ -2039,15 +2027,15 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT'),
+                         'args_have_been_formatted': True}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 trade_id: TradeID = None,
                 client_trade_id: ClientID = None, trade_client_extensions_modify: ClientExtensions = None,
                 reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**TradeClientExtensionsModifyRejectTransaction._preset_arguments, **locals())
 
 
 class TransferFundsTransaction(Transaction):
@@ -2072,13 +2060,13 @@ class TransferFundsTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('TRANSFER_FUNDS')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 amount: AccountUnits = None,
                 funding_reason: FundingReason = None, comment: str = None, account_balance: AccountUnits = None):
-        return super().__new__(type=TransactionType('TRANSFER_FUNDS'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**TransferFundsTransaction._preset_arguments, **locals())
 
 
 class TransferFundsRejectTransaction(Transaction):
@@ -2103,15 +2091,14 @@ class TransferFundsRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('TRANSFER_FUNDS_REJECT')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
                 amount: AccountUnits = None,
                 funding_reason: FundingReason = None, comment: str = None,
                 reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('TRANSFER_FUNDS_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**TransferFundsRejectTransaction._preset_arguments, **locals())
 
 
 class LimitOrderRequest(OrderRequest):
@@ -2153,7 +2140,7 @@ class LimitOrderRequest(OrderRequest):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('LIMIT')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
@@ -2161,7 +2148,7 @@ class LimitOrderRequest(OrderRequest):
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return super().__new__(type=OrderType('LIMIT'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**LimitOrderRequest._preset_arguments, **locals())
 
 
 class MarketIfTouchedOrderRequest(OrderRequest):
@@ -2207,7 +2194,7 @@ class MarketIfTouchedOrderRequest(OrderRequest):
 
         """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('MARKET_IF_TOUCHED')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, price_bound: PriceValue = None,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
@@ -2215,7 +2202,7 @@ class MarketIfTouchedOrderRequest(OrderRequest):
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return super().__new__(type=OrderType('MARKET_IF_TOUCHED'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketIfTouchedOrderRequest._preset_arguments, **locals())
 
 
 class StopOrderRequest(OrderRequest):
@@ -2259,7 +2246,7 @@ class StopOrderRequest(OrderRequest):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('STOP')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
                 price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
@@ -2267,7 +2254,7 @@ class StopOrderRequest(OrderRequest):
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return super().__new__(type=OrderType('STOP'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**StopOrderRequest._preset_arguments, **locals())
 
 
 class Account(AccountSummary):
@@ -2344,7 +2331,7 @@ class Account(AccountSummary):
                 margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
                 last_transaction_id: TransactionID = None, trades: ArrayTradeSummary = None,
                 positions: ArrayPosition = None, orders: ArrayOrder = None, financing: DecimalNumber = None):
-        return super().__new__(**locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**Account._preset_arguments, **locals())
 
 
 class MarketOrderTransaction(Transaction):
@@ -2394,7 +2381,7 @@ class MarketOrderTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('MARKET_ORDER')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -2408,7 +2395,7 @@ class MarketOrderTransaction(Transaction):
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None):
-        return super().__new__(type=TransactionType('MARKET_ORDER'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketOrderTransaction._preset_arguments, **locals())
 
 
 class MarketOrderRejectTransaction(Transaction):
@@ -2456,7 +2443,7 @@ class MarketOrderRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('MARKET_ORDER_REJECT')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -2470,8 +2457,7 @@ class MarketOrderRejectTransaction(Transaction):
                 client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('MARKET_ORDER_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**MarketOrderRejectTransaction._preset_arguments, **locals())
 
 
 class StopLossOrderTransaction(Transaction):
@@ -2510,7 +2496,7 @@ class StopLossOrderTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('STOP_LOSS_ORDER')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -2519,8 +2505,7 @@ class StopLossOrderTransaction(Transaction):
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
-        return super().__new__(type=TransactionType('STOP_LOSS_ORDER'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**StopLossOrderTransaction._preset_arguments, **locals())
 
 
 class TrailingStopLossOrderTransaction(Transaction):
@@ -2558,7 +2543,7 @@ class TrailingStopLossOrderTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('TRAILING_STOP_LOSS_ORDER')}
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -2567,8 +2552,7 @@ class TrailingStopLossOrderTransaction(Transaction):
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
-        return super().__new__(type=TransactionType('TRAILING_STOP_LOSS_ORDER'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**TrailingStopLossOrderTransaction._preset_arguments, **locals())
 
 
 class LimitOrder(Order):
@@ -2629,7 +2613,7 @@ class LimitOrder(Order):
             provided if this Order was cancelled as part of a cancel/replace).
 
         """
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('LIMIT')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
@@ -2642,7 +2626,7 @@ class LimitOrder(Order):
                 trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return super().__new__(type=OrderType('LIMIT'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**LimitOrder._preset_arguments, **locals())
 
 
 class MarketIfTouchedOrder(Order):
@@ -2711,7 +2695,7 @@ class MarketIfTouchedOrder(Order):
 
         """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('MARKET_IF_TOUCHED')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
@@ -2725,7 +2709,7 @@ class MarketIfTouchedOrder(Order):
                 trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return super().__new__(type=OrderType('MARKET_IF_TOUCHED'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketIfTouchedOrder._preset_arguments, **locals())
 
 
 class StopOrder(Order):
@@ -2789,7 +2773,7 @@ class StopOrder(Order):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('STOP')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
                 create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
@@ -2802,7 +2786,7 @@ class StopOrder(Order):
                 trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None):
-        return super().__new__(type=OrderType('STOP'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**StopOrder._preset_arguments, **locals())
 
 
 class OrderFillTransaction(Transaction):
@@ -2843,7 +2827,7 @@ class OrderFillTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('ORDER_FILL')}
 
     def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
                 account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
@@ -2853,7 +2837,7 @@ class OrderFillTransaction(Transaction):
                 financing: AccountUnits = None, commission: AccountUnits = None, account_balance: AccountUnits = None,
                 trade_opened: TradeOpen = None, trades_closed: ArrayTradeReduce = None,
                 trade_reduced: TradeReduce = None):
-        return super().__new__(type=TransactionType('ORDER_FILL'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**OrderFillTransaction._preset_arguments, **locals())
 
 
 class StopLossOrderRejectTransaction(Transaction):
@@ -2891,7 +2875,7 @@ class StopLossOrderRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('STOP_LOSS_ORDER_REJECT')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -2900,8 +2884,7 @@ class StopLossOrderRejectTransaction(Transaction):
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('STOP_LOSS_ORDER_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**StopLossOrderRejectTransaction._preset_arguments, **locals())
 
 
 class MarketIfTouchedOrderTransaction(Transaction):
@@ -2952,7 +2935,7 @@ class MarketIfTouchedOrderTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('MARKET_IF_TOUCHED_ORDER')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -2964,8 +2947,7 @@ class MarketIfTouchedOrderTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
                 cancelling_transaction_id: TransactionID = None):
-        return super().__new__(type=TransactionType('MARKET_IF_TOUCHED_ORDER'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**MarketIfTouchedOrderTransaction._preset_arguments, **locals())
 
 
 class LimitOrderTransaction(Transaction):
@@ -3012,7 +2994,7 @@ class LimitOrderTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('LIMIT_ORDER')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -3024,7 +3006,7 @@ class LimitOrderTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
                 cancelling_transaction_id: TransactionID = None):
-        return super().__new__(type=TransactionType('LIMIT_ORDER'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**LimitOrderTransaction._preset_arguments, **locals())
 
 
 class TakeProfitOrderRejectTransaction(Transaction):
@@ -3062,7 +3044,7 @@ class TakeProfitOrderRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('TAKE_PROFIT_ORDER_REJECT')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -3071,8 +3053,7 @@ class TakeProfitOrderRejectTransaction(Transaction):
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('TAKE_PROFIT_ORDER_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**TakeProfitOrderRejectTransaction._preset_arguments, **locals())
 
 
 class TrailingStopLossOrderRejectTransaction(Transaction):
@@ -3109,7 +3090,7 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('TRAILING_STOP_LOSS_ORDER_REJECT')}
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
                 user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
@@ -3118,8 +3099,7 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = None,
                 client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
                 intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('TRAILING_STOP_LOSS_ORDER_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**TrailingStopLossOrderRejectTransaction._preset_arguments, **locals())
 
 
 class StopOrderTransaction(Transaction):
@@ -3168,7 +3148,7 @@ class StopOrderTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('STOP_ORDER')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -3180,7 +3160,7 @@ class StopOrderTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
                 cancelling_transaction_id: TransactionID = None):
-        return super().__new__(type=TransactionType('STOP_ORDER'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**StopOrderTransaction._preset_arguments, **locals())
 
 
 class MarketIfTouchedOrderRejectTransaction(Transaction):
@@ -3230,7 +3210,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('MARKET_IF_TOUCHED_ORDER_REJECT')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -3242,8 +3222,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
                 reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('MARKET_IF_TOUCHED_ORDER_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**MarketIfTouchedOrderRejectTransaction._preset_arguments, **locals())
 
 
 class LimitOrderRejectTransaction(Transaction):
@@ -3289,7 +3268,7 @@ class LimitOrderRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('LIMIT_ORDER_REJECT')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -3300,8 +3279,7 @@ class LimitOrderRejectTransaction(Transaction):
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
                 reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('LIMIT_ORDER_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**LimitOrderRejectTransaction._preset_arguments, **locals())
 
 
 class StopOrderRejectTransaction(Transaction):
@@ -3349,7 +3327,7 @@ class StopOrderRejectTransaction(Transaction):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': TransactionType('STOP_ORDER_REJECT')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
                 time: DateTime = None, user_id: int = None, account_id: AccountID = None,
@@ -3361,8 +3339,7 @@ class StopOrderRejectTransaction(Transaction):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
                 reject_reason: TransactionRejectReason = None):
-        return super().__new__(type=TransactionType('STOP_ORDER_REJECT'), **locals(),
-                               **{'args_have_been_formatted': True})
+        return super().__new__(**StopOrderRejectTransaction._preset_arguments, **locals())
 
 
 class MarketOrder(Order):
@@ -3424,7 +3401,7 @@ class MarketOrder(Order):
 
     """
 
-    _preset_arguments = ('type',)
+    _preset_arguments = {'type': OrderType('MARKET')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, id: OrderID = None, create_time: DateTime = None,
                 state: OrderState = None, client_extensions: ClientExtensions = None,
@@ -3440,4 +3417,4 @@ class MarketOrder(Order):
                 filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
                 trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
                 cancelled_time: DateTime = None):
-        return super().__new__(type=OrderType('MARKET'), **locals(), **{'args_have_been_formatted': True})
+        return super().__new__(**MarketOrder._preset_arguments, **locals())

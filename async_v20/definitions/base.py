@@ -97,6 +97,11 @@ class ORM(type):
             # should already be parsed by models subclasses
             class_obj.__new__ = arg_parse(class_obj.__new__, pretty_signature)
 
+            # Setting this argument to true prevents the argument parser
+            # from converting camelCase to snake_case multiple times when
+            # super().__new__ is called
+            class_obj._preset_arguments.update(args_have_been_formatted=True)
+
         # Create a pretty signature for documentation
         class_obj.__doc__ = create_doc_signature(class_obj, pretty_signature)
 
@@ -139,7 +144,7 @@ class Model(tuple, metaclass=ORM):
     # But the derived class require they are fixed.
     # Any arguments passed, that match names in `_preset_arguments`
     # will be removed. Prior to calling new.
-    _preset_arguments = ()
+    _preset_arguments = {}
 
     def __repr__(self):
         def information():

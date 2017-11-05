@@ -46,6 +46,7 @@ async def initializer(self):
 
     # Get the first account listed in in accounts
     response = await self.list_accounts()
+    print(response.json_dict())
     # Get the corresponding AccountID for the provided token
     self.default_parameters.update({AccountID: response['accounts'][0].id})
 
