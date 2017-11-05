@@ -56,6 +56,8 @@ def test_class_default_parameters_contain_parameter_in_preset_arguments():
     class_definitions = re.findall(r"class[\s\S]*?\*\*{'args_have_been_formatted': True}\)", code)
     # Make sure each class definition is formatted correctly
     for cls in class_definitions:
+        class_name = re.findall(r"(?<=class\s)[a-zA-Z]*", cls)[0]
+        print(class_name)
         # get the __new__ return statement
         return_statement = re.findall(r"return\ssuper\(\)\.__new__\([\s\S]*?\}\)", cls)[0]
         # Find keyword arguments in the return statement
@@ -63,6 +65,9 @@ def test_class_default_parameters_contain_parameter_in_preset_arguments():
         # make sure all keyword returned arguments are in the class'
         # _preset_arguments class attribute
         if returned_preset_arguments:
+            commented_preset_arguments = re.findall(r"#\s*_preset_arguments.*", cls)
+            if commented_preset_arguments:
+                assert 0  # can't comment out the class attribute _preset_arguments
             preset_arguments = re.findall(r"_preset_arguments.*", cls)[0]
             # Debug print out
             print(preset_arguments)
