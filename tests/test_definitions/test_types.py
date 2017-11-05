@@ -4,8 +4,6 @@ from async_v20.definitions import types
 from async_v20.definitions.base import Model
 from async_v20.definitions.base import create_attribute
 from tests.test_definitions.helpers import get_valid_primitive_data, create_cls_annotations
-import inspect
-import re
 
 model_classes = [cls for cls in (getattr(types, typ) for typ in types.__all__) if
                  issubclass(cls, Model)]

@@ -46,8 +46,14 @@ def arg_parse(new: classmethod, signature=Signature) -> classmethod:
             return new(cls, **kwargs)
 
         # Remove preset arguments this class defines from kwargs
-        for argument in cls._preset_arguments:
-            kwargs.pop(argument, None)
+        # Also make sure that if the argument was supplied it
+        # is the same as the preset value
+        for argument, preset_value in cls._preset_arguments.items():
+            value = kwargs.pop(argument, None)
+            if value is not None:
+                if not value == preset_value:
+                    raise ValueError(f'CLASS {cls.__name__}.{argument}'
+                                     f' MUST == {preset_value} NOT {value}')
 
         def format():
             for name, value in kwargs.items():

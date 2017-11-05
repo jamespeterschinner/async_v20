@@ -1,6 +1,7 @@
 from ..data.json_data import GETAccountID_response, position_response, order_cancel_transaction_json_dict
 from async_v20.definitions.types import Account, Position, OrderCancelTransaction
 import pandas as pd
+import pytest
 
 def test_account_builds_from_dict():
     account_instance = Account(**GETAccountID_response['account'])
@@ -19,3 +20,8 @@ def test_order_cancel_transaction_builds_from_dict():
     assert type(order_cancel_transaction) == OrderCancelTransaction
     series = order_cancel_transaction.series()
     assert type(series) == pd.Series
+
+def test_supplying_incorret_preset_argument_raises_value_error():
+    order_cancel_transaction_json_dict.update(type='INCORRECT VALUE')
+    with pytest.raises(ValueError):
+        OrderCancelTransaction(**order_cancel_transaction_json_dict)
