@@ -32,6 +32,13 @@ def test_all_types_can_be_instantiated_from_dict(cls, data):
     assert type(result) == cls
 
 @pytest.mark.parametrize('cls, data', model_classes_data)
+def test_all_types_can_be_instantiated_from_dict_with_incorrect_argument(cls, data):
+    arguments = data.copy()
+    arguments.update(this_argument_doesnt_exist='TEST_VALUE')
+    with pytest.raises(ValueError):
+        cls(**arguments)
+
+@pytest.mark.parametrize('cls, data', model_classes_data)
 def test_all_types_can_be_instantiated_from_tuple(cls, data):
     arguments = tuple(data.values())
     # make sure the arguments are in the correct order
