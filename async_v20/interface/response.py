@@ -32,7 +32,7 @@ class Response(dict):
             except AttributeError:
                 try:
                     result = [obj.json_dict() for obj in value]
-                except AttributeError:
+                except (AttributeError, TypeError):
                     result = value
             return result
 
