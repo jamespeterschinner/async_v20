@@ -58,7 +58,7 @@ async def handler(request):
     return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers)
 
 
-@pytest.fixture
+@pytest.yield_fixture
 @pytest.mark.asyncio
 async def server(event_loop):
     server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
@@ -66,6 +66,7 @@ async def server(event_loop):
     server.received = received
     yield server
     server.close()
+    server.wait_closed()
 
 
 

@@ -25,20 +25,17 @@ async def handler(request):
     return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers, status=status)
 
 
-@pytest.fixture
+@pytest.yield_fixture
 @pytest.mark.asyncio
 async def server(event_loop):
+    global status
+    status = 200
     server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
     yield server
     server.close()
 
 
-def test_server_works(server):
-    print(server)
-    assert server
-
-
-@pytest.fixture()
+@pytest.yield_fixture()
 def client():
     oanda_client = OandaClient(rest_host='127.0.0.1', rest_port=8080, rest_scheme='http',
                                stream_host='127.0.0.1', stream_port=8080, stream_scheme='http')

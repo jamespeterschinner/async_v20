@@ -10,18 +10,20 @@ def _lookup_schema(endpoint, status):
     try:
         schema = endpoint.responses[status]  # look up the template to process the data
     except KeyError:
-        schema = other_responses[status]  # See if a response status is an error code
+        try:
+            schema = other_responses[status]  # See if a response status is an error code
+        except KeyError:
+            raise ConnectionError(f'Unexpected response status {status}')
+        else:
+            # Returns False if the status wasn't in the endpoints expected response
+            return schema, status, False
     else:
         # Returns true if the status was a valid response
         return schema, status, True
-    # Returns False if the status wasn't in the endpoints expected response
-    return schema, status, False
 
 
-async def _create_response(json_body, endpoint, status):
-    # Placed this in create response to minimize all the arguments being passed around
-    schema, status, boolean = _lookup_schema(endpoint, status)
 
+async def _create_response(json_body, endpoint, schema, status, boolean):
     # Here we iterate through all the json objects returned in the response
     # and construct the corresponding async_v20 type as determined by the endpoints
     # Schema
@@ -34,27 +36,29 @@ async def _create_response(json_body, endpoint, status):
 
 async def _rest_response(self, response, endpoint):
     async with response as resp:
-        status = resp.status
-        headers = resp.raw_headers
+        schema, status, boolean = _lookup_schema(endpoint, resp.status)
+
+        # Update client headers.
+        self.default_parameters.update(resp.raw_headers)
         json_body = await resp.json()
 
-    # Update client headers. Such as lastTransactionID and the like
-    self.default_parameters.update(headers)
+
     last_transaction_id = json_body.get('lastTransactionID', None)
     if last_transaction_id:
         self.default_parameters.update({LastTransactionID: last_transaction_id})
 
-    return await _create_response(json_body, endpoint, status)
+    return await _create_response(json_body, endpoint, schema, status, boolean)
 
 
 async def _stream_parser(response, endpoint, predicate=lambda x: x):
     async with response as resp:
+        schema, status, boolean = _lookup_schema(endpoint, resp.status)
         async for line in resp.content:
             body = json.loads(line)  # Turn bytes into json
             key = body.get('type')  # We must determine what type of object as been sent. So we
             if predicate(key):
                 json_body = {key: body}  # can construct a phony json body similar to a rest response
-                yield await _create_response(json_body, endpoint, resp.status)
+                yield await _create_response(json_body, endpoint, schema, status, boolean)
 
 
 async def parse_response(self, response, endpoint, predicate):

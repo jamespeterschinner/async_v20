@@ -1,6 +1,11 @@
+import gzip
 from collections import namedtuple
 
 import pytest
+from aiohttp import web
+
+from async_v20 import OandaClient
+from async_v20.definitions.base import Array
 from async_v20.definitions.types import Account, AccountSummary, AccountProperties
 from async_v20.definitions.types import Price, Position
 from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary, GETAccounts
@@ -8,55 +13,61 @@ from async_v20.endpoints.annotations import LastTransactionID
 from async_v20.endpoints.instrument import GETInstrumentsCandles
 from async_v20.endpoints.pricing import GETPricingStream
 from async_v20.interface.parser import _create_response
+from async_v20.interface.parser import _lookup_schema
 from async_v20.interface.parser import _rest_response
 from async_v20.interface.parser import _stream_parser
-from async_v20.definitions.base import Array
-
 from tests.data.json_data import GETAccountIDSummary_response
 from tests.data.json_data import GETAccountID_response
 from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETInstrumentsCandles_response
 from tests.data.stream_data import price_bytes
 from .helpers import order_dict
-from ..test_client import client
-
 from ..server.server import routes, headers
-from aiohttp import web
-import gzip
 
-client = client
 
-status = 200
+@pytest.yield_fixture()
+def client():
+    oanda_client = OandaClient(rest_host='127.0.0.1', rest_port=8080, rest_scheme='http',
+                               stream_host='127.0.0.1', stream_port=8080, stream_scheme='http')
+    yield oanda_client
+    del oanda_client
+
+
 async def handler(request):
     print(request)
     method = request.method
     path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
     data = routes[(method, path)]
     global received
+    global status
     received = method
     if data is None:
         data = "null"
     return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers, status=status)
 
 
-@pytest.fixture
+@pytest.yield_fixture
 @pytest.mark.asyncio
 async def server(event_loop):
     server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
     yield server
     server.close()
+    await server.wait_closed()
 
 
 @pytest.fixture
 @pytest.mark.asyncio
 async def stream_generator():
     """FIXTURE to simulate data stream"""
+
     async def agen():
         while True:
-            yield price_bytes # DATA
+            yield price_bytes  # DATA
+
     stream = (i async for i in agen())
     yield stream
     del stream
+
 
 @pytest.mark.asyncio
 async def test_response_generator(stream_generator):
@@ -70,6 +81,7 @@ async def test_response_generator(stream_generator):
 @pytest.fixture()
 def stream_response(stream_generator):
     """FIXTURE to simulate an `aiohttp` stream response"""
+
     class StreamResponse:
         content = stream_generator
         status = 200
@@ -79,6 +91,7 @@ def stream_response(stream_generator):
 
         async def __aexit__(self, exc_type, exc_val, exc_tb):
             pass
+
     response = StreamResponse()
     yield response
     del response
@@ -94,6 +107,7 @@ async def test_stream_parser_creates_price_object(stream_response):
 @pytest.fixture()
 def rest_response():
     """FIXTURE to simulate an `aiohttp` rest response"""
+
     class RestResponse(object):
         raw_headers = {}
 
@@ -135,6 +149,7 @@ async def test_rest_response_builds_account_object_from_json_response(client_ins
     # assert type(result['account'].positions) == tuple # TODO fix
     assert type(result['account'].positions[0]) == Position
 
+
 @pytest.mark.asyncio
 async def test_rest_response_builds_account_summary_from_json_response(client_instance, rest_response):
     result = await _rest_response(client_instance, rest_response(GETAccountIDSummary_response), GETAccountIDSummary)
@@ -144,6 +159,7 @@ async def test_rest_response_builds_account_summary_from_json_response(client_in
     assert type(result['account']) == AccountSummary
     # Ensure that the Account has expected attributes
     assert hasattr(result['account'], 'data')
+
 
 def test_array_object_creates_tuple_of_objects():
     array = GETAccounts.responses[200]['accounts']
@@ -161,7 +177,8 @@ async def test_rest_response_builds_array_account_properties(client_instance, re
     assert 'accounts' in result
     # Ensure that 'account' is indeed an Account
     # assert type(result['accounts']) == tuple # TODO fix
-    assert type(result['accounts'][0]) ==  AccountProperties
+    assert type(result['accounts'][0]) == AccountProperties
+
 
 @pytest.mark.asyncio
 async def test_rest_response_updates_client_default_parameters(client_instance, rest_response):
@@ -169,12 +186,13 @@ async def test_rest_response_updates_client_default_parameters(client_instance, 
     # Ensure default_parameters is updated
     assert client_instance.default_parameters[LastTransactionID] == str(14)
 
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize('json_body, endpoint', [(GETInstrumentsCandles_response, GETInstrumentsCandles),
-                                               (GETAccounts_response, GETAccounts),
-                                               (GETAccountIDSummary_response, GETAccountIDSummary)])
+                                                 (GETAccounts_response, GETAccounts),
+                                                 (GETAccountIDSummary_response, GETAccountIDSummary)])
 async def test_conversion_from_server_json_to_response_object_to_json_equal(json_body, endpoint):
-    response = await _create_response(json_body, endpoint, 200)
+    response = await _create_response(json_body, endpoint, *_lookup_schema(endpoint, 200))
     response_json = response.json_dict()
     pretty_json_body = order_dict(json_body)
     pretty_response_json = order_dict(response_json)
@@ -182,11 +200,13 @@ async def test_conversion_from_server_json_to_response_object_to_json_equal(json
     print('Response JSON:\n', pretty_response_json)
     assert response_json == json_body
 
+
 @pytest.mark.asyncio
 async def test_parser_returns_correct_boolean_for_response(client, server):
     global status
+    status = 200
     async with client as client:
-        status = 400 # make this response bad
+        status = 400  # make this response bad
         response = await client.get_account_details()
         assert bool(response) == False
         status = 200  # make this response good

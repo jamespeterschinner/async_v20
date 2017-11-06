@@ -7,7 +7,6 @@ import aiohttp
 from .definitions.types import AccountID
 
 
-
 async def sleep(s=0.0):
     await asyncio.sleep(s)
 
@@ -23,14 +22,19 @@ async def wait(time_delta, previous_time):
 
 async def request_limiter(self):
     yield
-    time_delta = 1 / self.max_requests_per_second
+
+    if self.max_requests_per_second > 0:
+        time_delta = 1 / self.max_requests_per_second
+    else:
+        time_delta = 1
+
     while True:
         previous_time = time()
         yield self.session.request
         await wait(time_delta, previous_time)
 
-async def initializer(self):
 
+async def initializer(self):
     # Initialize the request limiter coroutine
     await self.request.asend(None)
 
@@ -45,22 +49,27 @@ async def initializer(self):
         connector=conn)
 
     # Get the first account listed in in accounts
-    response = await self.list_accounts()
-    if not response:
-        raise ConnectionError(f'Failed to initialize. {response} : {response.json_dict()}')
-
-    # Get the corresponding AccountID for the provided token
-    self.default_parameters.update({AccountID: response['accounts'][0].id})
+    if self.account_id:
+        self.default_parameters.update({AccountID: self.account_id})
+    else:
+        # Get the corresponding AccountID for the provided token
+        response = await self.list_accounts()
+        if response:
+            self.default_parameters.update({AccountID: response['accounts'][0].id})
+        else:
+            raise ConnectionError(f'Server did not return AccountID during '
+                                  f'initialization. {response} {response.json_dict()}')
 
     # Get Account snapshot and last transaction id
     # last transaction is automatically updated when the
     # response is parsed
-    response = await self.get_account_details()
-    self.account = response['account']
 
-    # Get the list of all available instruments for this account
-    response = await self.account_instruments()
-    self.available_instruments = response['instruments']
+    response = await self.get_account_details()
+    if response:
+        self.account = response['account']
+    else:
+        raise ConnectionError(f'Server did not return Account Details during '
+                              f'initialization. {response} {response.json_dict()}')
 
     while True:
         yield True

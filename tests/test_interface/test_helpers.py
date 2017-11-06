@@ -38,7 +38,7 @@ def stop_loss_order():
     del order
 
 
-@pytest.fixture
+@pytest.yield_fixture
 def client():
     client = OandaClient(token='test_token', rest_host='rest_test', stream_host='stream_test')
     client.default_parameters = {}
