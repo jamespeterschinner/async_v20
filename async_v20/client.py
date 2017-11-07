@@ -9,7 +9,7 @@ from .helpers import request_limiter, initializer
 from .interface import *
 from .interface.account import AccountInterface
 
-version = '2.0.1a0'
+__version__ = '2.0.1a0'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
@@ -52,7 +52,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                  application='async_v20', datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99,
                  max_simultaneous_connections=10):
         # TODO: add poll timeout
-        self.version = version
+        self.version = __version__
 
         if token is None:
             token = os.environ['OANDA_TOKEN']
@@ -65,7 +65,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         rest_host = partial(URL.build, host=rest_host, port=rest_port, scheme=rest_scheme)
 
         # v20 STREAM API URL
-        stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme=rest_scheme)
+        stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme=stream_scheme)
 
         self.hosts = {'REST': rest_host, 'STREAM': stream_host}
 

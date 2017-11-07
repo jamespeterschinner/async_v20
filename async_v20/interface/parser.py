@@ -22,7 +22,6 @@ def _lookup_schema(endpoint, status):
         return schema, status, True
 
 
-
 async def _create_response(json_body, endpoint, schema, status, boolean):
     # Here we iterate through all the json objects returned in the response
     # and construct the corresponding async_v20 type as determined by the endpoints
@@ -41,7 +40,6 @@ async def _rest_response(self, response, endpoint):
         # Update client headers.
         self.default_parameters.update(resp.raw_headers)
         json_body = await resp.json()
-
 
     last_transaction_id = json_body.get('lastTransactionID', None)
     if last_transaction_id:
