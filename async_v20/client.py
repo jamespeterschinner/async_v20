@@ -117,6 +117,12 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         self.session.close()
 
     async def aclose(self):
-        self.close()
-        await self.initialize_client.aclose()
-        await self.request.aclose()
+        try:
+            self.close()
+        except AttributeError:  # In case the client was never initialized
+            pass
+        else:
+            # If the session object exists then then
+            # These async gens need to be closed as well
+            await self.initialize_client.aclose()
+            await self.request.aclose()

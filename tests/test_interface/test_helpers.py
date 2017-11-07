@@ -39,10 +39,12 @@ def stop_loss_order():
 
 
 @pytest.yield_fixture
-def client():
+@pytest.mark.asyncio
+async def client():
     client = OandaClient(token='test_token', rest_host='rest_test', stream_host='stream_test')
     client.default_parameters = {}
     yield client
+    await client.aclose()
     del client
 
 
