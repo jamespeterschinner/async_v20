@@ -71,5 +71,8 @@ async def initializer(self):
         raise ConnectionError(f'Server did not return Account Details during '
                               f'initialization. {response} {response.json_dict()}')
 
+
+    self.initialized = True
+
     while True:
         yield True

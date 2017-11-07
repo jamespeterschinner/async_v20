@@ -48,6 +48,25 @@ async def server(event_loop):
     server.close()
     await server.wait_closed()
 
+@pytest.mark.asyncio
+@pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: hasattr(x, 'endpoint')))
+async def test_client_initializes_automatically_with_every_api_method(method, server, client):
+    global received
+    global status
+
+    data = tuple(get_valid_primitive_data(param.annotation)
+                 for param in method[1].__signature__.parameters.values()
+                 if param.name != 'self')
+    status = 200
+    method = getattr(client, method[0])
+    try:
+        resp = await method(*data)
+    except (KeyError, ServerDisconnectedError, ContentTypeError, AttributeError, ConnectionError):
+        pass  # Caused by incorrect response status being returned
+        # Server not keeping a data stream open
+        # Response Not containing expected data
+    assert client.initialized
+
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: hasattr(x, 'endpoint')))

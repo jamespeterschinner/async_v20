@@ -54,6 +54,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # TODO: add poll timeout
         self.version = __version__
 
+        self.initialized = False  # when a new client instance is created it must be initialized
+
         if token is None:
             token = os.environ['OANDA_TOKEN']
 
