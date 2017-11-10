@@ -1,8 +1,7 @@
 """Module that defines the behaviour of the exposed client method calls by using decorators
 """
 from functools import wraps
-from inspect import Signature, signature
-from itertools import chain
+from inspect import signature
 
 from .helpers import create_request_kwargs
 from .parser import parse_response
@@ -72,5 +71,20 @@ def endpoint(endpoint, serial=False):
         parallel_wrap.__signature__ = sig
 
         return {True: serial_wrap, False: parallel_wrap}[serial]
+
+    return wrapper
+
+
+def add_signature(obj):
+    sig = signature(obj.__new__)
+
+    def wrapper(func):
+        @wraps(func)
+        def wrap(*args, **kwargs):
+            return func(*args, **kwargs)
+
+        wrap.__signature__ = sig
+        wrap.__doc__ = create_doc_signature(wrap, sig)
+        return wrap
 
     return wrapper

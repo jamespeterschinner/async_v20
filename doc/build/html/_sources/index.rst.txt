@@ -24,6 +24,7 @@ Features
 ---------
 
 - Exposes the entire `v20 API <http://developer.oanda.com/rest-live-v20/introduction/>`_ `
+- immutable objects
 - No `*args, **kwargs` In client methods. So no guessing what arguments a method takes
 - Serialize objects directly into :term:`pandas`. `Series <http://pandas.pydata.org/pandas-docs/stable/dsintro.html#series>`_ objects
 - Construct :term:`concurrent` trading algorithms
@@ -64,7 +65,7 @@ or have some suggestion in order to improve the library.
 Dependencies
 ------------
 
-- **python 3.6**
+- **python >= 3.6**
 - aiohttp >= 2.2.5
 - ujson >= 1.35'
 - yarl >= 0.12.0'
@@ -81,4 +82,3 @@ Contents
    api
    types
    glossary
-

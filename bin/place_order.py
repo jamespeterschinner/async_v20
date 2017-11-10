@@ -9,7 +9,7 @@ order = MarketOrder('AUD_USD', 1)
 
 async def account():
     async with OandaClient() as client:
-        return await client.create_order(order_request=order)
+        return await client.post_order(order_request=order)
 
 
 loop = asyncio.get_event_loop()

@@ -1,7 +1,6 @@
 from .annotations import *
 from .base import EndPoint, Path
 from ..definitions.primitives import *
-from ..definitions.base import Array
 from ..definitions.types import *
 
 __all__ = ['POSTOrders', 'GETOrders', 'GETPendingOrders', 'GETOrderSpecifier', 'PUTOrderSpecifier',

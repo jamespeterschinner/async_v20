@@ -93,6 +93,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         self.initialize_client = initializer(self)
 
     async def initialize(self):
+        print(self.initialize_client.ag_running)
         await self.initialize_client.asend(None)
 
     async def __aenter__(self):

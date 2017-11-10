@@ -36,7 +36,8 @@ Order
 -----
 
 .. autoclass:: async_v20.OandaClient
-   :members: create_order,
+   :members: post_order,
+            create_order,
             list_orders,
             list_pending_orders,
             get_order,

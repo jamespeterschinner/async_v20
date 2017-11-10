@@ -16,7 +16,7 @@ What you need to know
 
 - *OandaClient*. **methods** that require:
 
-    .. autoclass:: async_v20.definitions.descriptors.transaction.TransactionID
+    .. autoclass:: async_v20.definitions.primitives.TransactionID
 
     will be passed the last **TransactionID** implicitly
 

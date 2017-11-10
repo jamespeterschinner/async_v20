@@ -16,9 +16,9 @@ from tests.data.json_data import GETAccountID_response
 from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETInstrumentsCandles_response
 from tests.data.stream_data import price_bytes
-from .helpers import order_dict
-from ..fixtures.client import client
-from ..fixtures import server as server_module
+from tests.test_interface.helpers import order_dict
+from tests.fixtures.client import client
+from tests.fixtures import server as server_module
 
 client = client
 server = server_module.server
@@ -172,3 +172,11 @@ async def test_parser_returns_correct_boolean_for_response(client, server):
         server_module.status = 200  # make this response good
         response = await client.get_account_details()
         assert bool(response) == True
+
+
+@pytest.mark.asyncio
+async def test_parser_raises_connection_error_with_bad_http_status(client, server):
+    server_module.status = 500
+    with pytest.raises(ConnectionError):
+        async with client as client:
+            pass

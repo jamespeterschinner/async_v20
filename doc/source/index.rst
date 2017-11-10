@@ -65,7 +65,7 @@ or have some suggestion in order to improve the library.
 Dependencies
 ------------
 
-- **python 3.6**
+- **python >= 3.6**
 - aiohttp >= 2.2.5
 - ujson >= 1.35'
 - yarl >= 0.12.0'
@@ -82,4 +82,3 @@ Contents
    api
    types
    glossary
-
