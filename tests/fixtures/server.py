@@ -5,14 +5,14 @@ from aiohttp import web
 
 from .routes import routes
 
-
 headers = {'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept-Datetime-Format',
            'Access-Control-Allow-Methods': 'PUT, PATCH, POST, GET, OPTIONS, DELETE', 'Access-Control-Allow-Origin': '*',
            'Content-Type': 'application/json', 'RequestID': '42359369470976686', 'Content-Encoding': 'gzip',
            'Vary': 'Accept-Encoding', 'Connection': 'Keep-Alive'}
 
 status = 200
-received  = ''
+received = ''
+
 
 async def handler(request):
     print(request)
@@ -35,6 +35,7 @@ async def handler(request):
 
     return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers,
                         status=status)
+
 
 @pytest.yield_fixture
 @pytest.mark.asyncio

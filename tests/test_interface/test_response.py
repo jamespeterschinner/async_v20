@@ -1,4 +1,3 @@
-
 import pytest
 
 from tests.fixtures.static import get_account_details_response, get_pricing_response, list_accounts_response
@@ -6,9 +5,9 @@ from tests.fixtures.static import get_account_details_response, get_pricing_resp
 from ..fixtures.client import client
 from ..fixtures import server as server_module
 
-
 client = client
 server = server_module.server
+
 
 @pytest.mark.asyncio
 async def test_response_creates_correct_json(client, server):

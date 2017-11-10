@@ -21,7 +21,6 @@ __all__ = ['OrderInterface']
 
 
 class OrderInterface(object):
-
     @endpoint(POSTOrders)
     def post_order(self, order_request: OrderRequest = None):
         """
@@ -48,7 +47,6 @@ class OrderInterface(object):
             the request
 
         """
-
 
     @endpoint(GETOrders)
     def list_orders(self,
@@ -190,8 +188,6 @@ class OrderInterface(object):
         """
         return self.post_order(order_request=MarketOrderRequest(*args, **kwargs))
 
-
-
     @add_signature(LimitOrderRequest)
     def limit_order(self, *args, **kwargs):
         """
@@ -317,7 +313,7 @@ class OrderInterface(object):
         pass
 
     @add_signature(StopLossOrderRequest)
-    def stop_loss_order(self, *args , **kwargs):
+    def stop_loss_order(self, *args, **kwargs):
         """
         Shortcut to create a Stop Loss Order in an Account
 

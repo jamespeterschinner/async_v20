@@ -34,6 +34,7 @@ class InstrumentInterface(object):
         Fetch candlestick data for an instrument.
 
         Args:
+            include_first_query:
             instrument:
                 Name of the Instrument
             price:
@@ -56,12 +57,6 @@ class InstrumentInterface(object):
                 not.  A smoothed candlestick uses the previous candle's close
                 price as its open price, while an unsmoothed candlestick uses
                 the first price from its time range as its open price.
-            include_first:
-                A flag that controls whether the candlestick that is covered by
-                the from time should be included in the results. This flag
-                enables clients to use the timestamp of the last completed
-                candlestick received to poll for future candlesticks but avoid
-                receiving the previous candlestick repeatedly.
             daily_alignment:
                 The hour of the day (in the specified timezone) to use for
                 granularities that have daily alignments.

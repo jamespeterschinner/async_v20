@@ -184,7 +184,8 @@ class Model(tuple, metaclass=ORM):
 
         def construct_object_data():
             for name, annotation, value in arguments:
-                cls._fields.append(name)
+                if value is not None:
+                    cls._fields.append(name)
                 yield create_attribute(annotation, value) if value else value
 
         result = super().__new__(cls, tuple(construct_object_data()))

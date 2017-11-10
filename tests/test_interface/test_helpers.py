@@ -9,9 +9,11 @@ from async_v20.definitions.types import Account
 from async_v20.definitions.types import AccountID, OrderRequest
 from async_v20.definitions.types import StopLossOrderRequest
 from async_v20.endpoints import POSTOrders
-from async_v20.endpoints.annotations import Authorization, LastTransactionID
+from async_v20.endpoints.annotations import Authorization
 from async_v20.endpoints.annotations import Bool
+# noinspection PyProtectedMember
 from async_v20.interface.helpers import _arguments
+# noinspection PyProtectedMember
 from async_v20.interface.helpers import _create_request_params
 from async_v20.interface.helpers import construct_arguments
 from async_v20.interface.helpers import create_body

@@ -11,10 +11,13 @@ def test_flatten_dict():
     result = flatten_dict(nested_dict, delimiter='_')
     assert result == flattened_dict
 
+
 def test_get_valid_primitive_data_returns_primitive_example():
     assert AccountID.example == get_valid_primitive_data(AccountID)
+
 
 def test_get_valid_primitive_data_returns_Array_example():
     class TestArray(Array):
         _contains = AccountID
+
     assert (AccountID.example,) == get_valid_primitive_data(TestArray)

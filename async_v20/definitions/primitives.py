@@ -577,6 +577,7 @@ class ClientTag(str, Primitive):
     def __new__(cls, value):
         return super().__new__(cls, value)
 
+
 class Reason(Primitive, str):
     """Generic reason for any transaction that may occur"""
     values = {}
@@ -590,6 +591,7 @@ class Reason(Primitive, str):
         else:
             assert domain_check(value, possible_values=Reason.values)
         return str.__new__(cls, value)
+
 
 class FundingReason(Reason):
     """The reason that an Account is being funded.
@@ -1106,6 +1108,3 @@ class TransactionType(str, Primitive):
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
-
-
-

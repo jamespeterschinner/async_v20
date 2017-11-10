@@ -3,11 +3,13 @@ from async_v20.definitions.types import Account, Position, OrderCancelTransactio
 import pandas as pd
 import pytest
 
+
 def test_account_builds_from_dict():
     account_instance = Account(**GETAccountID_response['account'])
     assert type(account_instance) == Account
     series = account_instance.series()
     assert type(series) == pd.Series
+
 
 def test_position_builds_from_dict():
     position = Position(**position_response)
@@ -15,11 +17,13 @@ def test_position_builds_from_dict():
     series = position.series()
     assert type(series) == pd.Series
 
+
 def test_order_cancel_transaction_builds_from_dict():
     order_cancel_transaction = OrderCancelTransaction(**order_cancel_transaction_json_dict)
     assert type(order_cancel_transaction) == OrderCancelTransaction
     series = order_cancel_transaction.series()
     assert type(series) == pd.Series
+
 
 def test_supplying_incorret_preset_argument_raises_value_error():
     order_cancel_transaction_json_dict.update(type='INCORRECT VALUE')

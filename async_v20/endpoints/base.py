@@ -1,7 +1,5 @@
 from typing import List
 
-from ..helpers import sleep
-
 
 class Path(object):
     """capture the construction of a path"""

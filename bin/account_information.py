@@ -8,7 +8,6 @@ async def account():
         return await client.get_account_details()
 
 
-
 loop = asyncio.get_event_loop()
 response = loop.run_until_complete(account())
 

@@ -4,6 +4,7 @@ Order
 =====
 
 .. automodule:: async_v20.definitions.types
+    :show-inheritance:
     :members: Order,
             MarketOrder,
             LimitOrder,

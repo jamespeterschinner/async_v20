@@ -10,6 +10,7 @@ model_classes = (cls for cls in (getattr(types, typ) for typ in types.__all__) i
 
 model_classes_data = [(cls, get_valid_primitive_data(cls)) for cls in model_classes]
 
+
 @pytest.mark.parametrize('cls, data', model_classes_data)
 def test_class_annotations_match_the_parents_class_annotations(cls, data):
     if not cls.__bases__[0] == Model:
@@ -31,12 +32,14 @@ def test_all_types_can_be_instantiated_from_dict(cls, data):
     assert result
     assert type(result) == cls
 
+
 @pytest.mark.parametrize('cls, data', model_classes_data)
 def test_all_types_can_be_instantiated_from_dict_with_incorrect_argument(cls, data):
     arguments = data.copy()
     arguments.update(this_argument_doesnt_exist='TEST_VALUE')
     with pytest.raises(ValueError):
         cls(**arguments)
+
 
 @pytest.mark.parametrize('cls, data', model_classes_data)
 def test_all_types_can_be_instantiated_from_tuple(cls, data):
@@ -60,6 +63,3 @@ def test_all_types_can_be_instantiated_from_annotation(cls, data):
                  for k, v in data.items()}
     print(arguments)
     assert cls(**arguments)
-
-
-

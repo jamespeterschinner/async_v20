@@ -1,8 +1,8 @@
 from inspect import _empty
 from itertools import starmap, chain
 
-def domain_check(value, example=None, possible_values=None):
 
+def domain_check(value, example=None, possible_values=None):
     if example:
         try:
             assert len(example) == len(value)
@@ -19,6 +19,7 @@ def domain_check(value, example=None, possible_values=None):
             raise ValueError(msg)
 
     return True
+
 
 def flatten_dict(dictionary, delimiter='_'):
     """Flatten a nested dictionary structure"""
@@ -50,4 +51,3 @@ def create_doc_signature(obj, sig):
     defaults = list(map(lambda x: '' if x.default == _empty else '=' + str(x.default), sig.parameters.values()))
     arguments = ', '.join(''.join(argument) for argument in zip(names, annotations, defaults))
     return f'{obj.__name__}({arguments})\n{obj.__doc__}'
-

@@ -68,10 +68,12 @@ def test_json_dict_returns_correct_data_structure(account):
             with pytest.raises(ValueError):
                 float(value)
 
+
 def test_json_data(account):
     result = account.json()
     assert type(result) == str
     assert json.loads(result) == account.json_dict(float_to_string=True)
+
 
 def test_data(account):
     result = account.data(float_to_string=True)
@@ -86,6 +88,7 @@ def test_data(account):
             with pytest.raises(ValueError):
                 float(value)
 
+
 def test_series(account):
     result = account.series()
     print(result)
@@ -97,12 +100,14 @@ def test_series(account):
             with pytest.raises(ValueError):
                 float(value)
 
+
 def test_array_returns_type_error():
     class ArrayTest(Array):
         _contains = int
 
     with pytest.raises(ValueError):
         ArrayTest('ABC', 'DEF')
+
 
 def test_create_attribute_returns_type_error():
     with pytest.raises(TypeError):

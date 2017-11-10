@@ -1,17 +1,16 @@
 import ujson as json
 
+
 class Response(dict):
     """A response from OANDA.
 
     Data is accessed as per a standard dictionary
     """
 
-
-    def __init__(self, data, status,  bool):
+    def __init__(self, data, status, bool):
         super().__init__(data)
         self.status = status
         self.bool = bool
-
 
     def __bool__(self):
         """Returns True if response contains data as per the OANDA spec.

@@ -1,10 +1,12 @@
 from async_v20.definitions.base import Model, Array
 from inspect import signature
 
+
 def create_cls_annotations(cls):
     return {name: param.annotation for
-     name, param in
-     signature(cls.__new__).parameters.items()}
+            name, param in
+            signature(cls.__new__).parameters.items()}
+
 
 def get_valid_primitive_data(primitive):
     data = None
@@ -19,7 +21,7 @@ def get_valid_primitive_data(primitive):
         data = 14.0
     elif issubclass(primitive, (int)):
         try:
-            data = primitive() # See if the annotation has a default value
+            data = primitive()  # See if the annotation has a default value
         except TypeError:
             pass
         if not data:
@@ -34,4 +36,3 @@ def get_valid_primitive_data(primitive):
                 data = '1'
 
     return data
-
