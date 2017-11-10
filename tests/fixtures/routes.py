@@ -1,13 +1,4 @@
-import asyncio
-from tests.server.static import *
-from aiohttp import web
-import gzip
-import pytest
-
-from aiohttp.web_server import BaseRequest
-
-loop = asyncio.get_event_loop()
-headers = {'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept-Datetime-Format', 'Access-Control-Allow-Methods': 'PUT, PATCH, POST, GET, OPTIONS, DELETE', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json', 'RequestID': '42359369470976686', 'Content-Encoding': 'gzip', 'Vary': 'Accept-Encoding', 'Connection': 'Keep-Alive'}
+from .static import *
 
 routes = {
     ('GET', '/v3/accounts'): list_accounts_response,
@@ -43,35 +34,3 @@ routes = {
     ('GET', '/v3/accounts/123-123-1234567-123/transactions/stream'): None,
     ('GET', '/v3/users/123-123-1234567-123'): None,
     ('GET', '/v3/users/123-123-1234567-123/externalInfo'): None}
-
-received = None
-
-async def handler(request):
-    print(request)
-    method = request.method
-    path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
-    data = routes[(method, path)]
-    global received
-    received = await request.read()
-    if data is None:
-        data = "null"
-    return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers)
-
-
-@pytest.yield_fixture
-@pytest.mark.asyncio
-async def server(event_loop):
-    server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
-    global received
-    server.received = received
-    yield server
-    server.close()
-    server.wait_closed()
-
-
-
-
-if __name__ == '__main__':
-
-
-    loop.run_until_complete(server(loop).asend(None))

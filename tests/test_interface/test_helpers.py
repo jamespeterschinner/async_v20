@@ -1,5 +1,4 @@
 import inspect
-from inspect import Parameter
 
 import pytest
 
@@ -10,42 +9,36 @@ from async_v20.definitions.types import Account
 from async_v20.definitions.types import AccountID, OrderRequest
 from async_v20.definitions.types import StopLossOrderRequest
 from async_v20.endpoints import POSTOrders
-from async_v20.endpoints.annotations import Authorization
+from async_v20.endpoints.annotations import Authorization, LastTransactionID
+from async_v20.endpoints.annotations import Bool
 from async_v20.interface.helpers import _arguments
 from async_v20.interface.helpers import _create_request_params
 from async_v20.interface.helpers import construct_arguments
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import create_request_kwargs
 from async_v20.interface.helpers import create_url
-from tests.test_definitions.helpers import get_valid_primitive_data
 from .helpers import order_dict
 from ..data.json_data import GETAccountID_response
+from ..fixtures.client import client
 from ..test_definitions.helpers import get_valid_primitive_data
-from async_v20.endpoints.annotations import Bool
 
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
+client = client
+
+
 def test_order_dict():
-    first = {'a':1, 'b':2, 'c':{'d':3, 'e':4, 'f':{'e':5, 'g':6}}}
-    second = {'c':{'f':{'g':6, 'e':5},'e':4, 'd':3},'b':2, 'a':1}
+    first = {'a': 1, 'b': 2, 'c': {'d': 3, 'e': 4, 'f': {'e': 5, 'g': 6}}}
+    second = {'c': {'f': {'g': 6, 'e': 5}, 'e': 4, 'd': 3}, 'b': 2, 'a': 1}
     assert order_dict(first) == order_dict(second)
+
 
 @pytest.fixture
 def stop_loss_order():
     order = StopLossOrderRequest(trade_id=1234, price=0.8)
     yield order
     del order
-
-
-@pytest.yield_fixture
-@pytest.mark.asyncio
-async def client():
-    client = OandaClient(token='test_token', rest_host='rest_test', stream_host='stream_test')
-    client.default_parameters = {}
-    yield client
-    await client.aclose()
-    del client
 
 
 client_signatures = [inspect.signature(method) for method in client_methods]
@@ -84,7 +77,6 @@ def test_arguments(endpoint, param_location):
     assert len(list(result)) == len(list(correct))
 
 
-
 @pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
                                               for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
 @pytest.mark.asyncio
@@ -108,6 +100,16 @@ async def test_create_request_params(client, interface_method):
         print('Possible Arguments', list(_arguments(endpoint, arguments)))
         print(location, ': ', result)
         total_params.extend(result)
+
+    # These parameters are set by default in the client.
+    # They will appear in total_arguments even though they were not passed
+    # therefore We will remove them
+    for default_param in ['Authorization', 'LastTransactionID', 'Accept-Datetime-Format',
+                          'accountID']:
+        try:
+            total_params.remove(default_param)
+        except ValueError:
+            continue
 
     assert len(total_params) == len(arguments) - len(list(endpoint.request_schema))
 
@@ -133,7 +135,7 @@ def test_create_request_kwargs(client, interface_method):
 
     args = []
     for param in interface_method.__signature__.parameters.values():
-            args.append(get_valid_primitive_data(param.annotation))
+        args.append(get_valid_primitive_data(param.annotation))
 
     args = args[1:]
 

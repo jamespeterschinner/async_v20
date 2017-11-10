@@ -1,10 +1,5 @@
-import gzip
-from collections import namedtuple
-
 import pytest
-from aiohttp import web
 
-from async_v20 import OandaClient
 from async_v20.definitions.base import Array
 from async_v20.definitions.types import Account, AccountSummary, AccountProperties
 from async_v20.definitions.types import Price, Position
@@ -22,39 +17,11 @@ from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETInstrumentsCandles_response
 from tests.data.stream_data import price_bytes
 from .helpers import order_dict
-from ..server.server import routes, headers
+from ..fixtures.client import client
+from ..fixtures import server as server_module
 
-
-@pytest.yield_fixture()
-@pytest.mark.asyncio
-async def client():
-    oanda_client = OandaClient(rest_host='127.0.0.1', rest_port=8080, rest_scheme='http',
-                               stream_host='127.0.0.1', stream_port=8080, stream_scheme='http')
-    yield oanda_client
-    await oanda_client.aclose()
-    del oanda_client
-
-
-async def handler(request):
-    print(request)
-    method = request.method
-    path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
-    data = routes[(method, path)]
-    global received
-    global status
-    received = method
-    if data is None:
-        data = "null"
-    return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers, status=status)
-
-
-@pytest.yield_fixture
-@pytest.mark.asyncio
-async def server(event_loop):
-    server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
-    yield server
-    server.close()
-    await server.wait_closed()
+client = client
+server = server_module.server
 
 
 @pytest.fixture
@@ -130,16 +97,9 @@ def rest_response():
     del RestResponse
 
 
-@pytest.fixture
-def client_instance():
-    """FIXTURE to simulate client object"""
-    client = namedtuple('client', ['default_parameters'])
-    yield client(dict())
-
-
 @pytest.mark.asyncio
-async def test_rest_response_builds_account_object_from_json_response(client_instance, rest_response):
-    result = await _rest_response(client_instance, rest_response(GETAccountID_response), GETAccountID)
+async def test_rest_response_builds_account_object_from_json_response(client, rest_response):
+    result = await _rest_response(client, rest_response(GETAccountID_response), GETAccountID)
     # Ensure the result contains an 'account'
     assert 'account' in result
     # Ensure that 'account' is indeed an Account
@@ -153,8 +113,8 @@ async def test_rest_response_builds_account_object_from_json_response(client_ins
 
 
 @pytest.mark.asyncio
-async def test_rest_response_builds_account_summary_from_json_response(client_instance, rest_response):
-    result = await _rest_response(client_instance, rest_response(GETAccountIDSummary_response), GETAccountIDSummary)
+async def test_rest_response_builds_account_summary_from_json_response(client, rest_response):
+    result = await _rest_response(client, rest_response(GETAccountIDSummary_response), GETAccountIDSummary)
     # Ensure the result contains an 'account'
     assert 'account' in result
     # Ensure that 'account' is indeed an Account
@@ -172,8 +132,8 @@ def test_array_object_creates_tuple_of_objects():
 
 
 @pytest.mark.asyncio
-async def test_rest_response_builds_array_account_properties(client_instance, rest_response):
-    result = await _rest_response(client_instance, rest_response(GETAccounts_response), GETAccounts)
+async def test_rest_response_builds_array_account_properties(client, rest_response):
+    result = await _rest_response(client, rest_response(GETAccounts_response), GETAccounts)
     # Ensure the result contains an 'account'
     print(result)
     assert 'accounts' in result
@@ -183,10 +143,10 @@ async def test_rest_response_builds_array_account_properties(client_instance, re
 
 
 @pytest.mark.asyncio
-async def test_rest_response_updates_client_default_parameters(client_instance, rest_response):
-    await _rest_response(client_instance, rest_response(GETAccountID_response), GETAccountID)
+async def test_rest_response_updates_client_default_parameters(client, rest_response):
+    await _rest_response(client, rest_response(GETAccountID_response), GETAccountID)
     # Ensure default_parameters is updated
-    assert client_instance.default_parameters[LastTransactionID] == str(14)
+    assert client.default_parameters[LastTransactionID] == str(14)
 
 
 @pytest.mark.asyncio
@@ -205,12 +165,10 @@ async def test_conversion_from_server_json_to_response_object_to_json_equal(json
 
 @pytest.mark.asyncio
 async def test_parser_returns_correct_boolean_for_response(client, server):
-    global status
-    status = 200
     async with client as client:
-        status = 400  # make this response bad
+        server_module.status = 400  # make this response bad
         response = await client.get_account_details()
         assert bool(response) == False
-        status = 200  # make this response good
+        server_module.status = 200  # make this response good
         response = await client.get_account_details()
         assert bool(response) == True

@@ -6,43 +6,13 @@ import pytest
 from async_v20 import AccountID
 from async_v20.client import OandaClient
 from async_v20.endpoints.annotations import Authorization
-from aiohttp import web
-from .server.server import routes, headers
-import gzip
 
+from .fixtures.client import client
+from .fixtures import server as server_module
+
+client = client
+server = server_module.server
 # prevent pycharm from removing the import
-
-async def handler(request):
-    print(request)
-    method = request.method
-    path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
-    data = routes[(method, path)]
-    global received
-    global status
-    received = method
-    if data is None:
-        data = "null"
-    return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers, status=status)
-
-
-@pytest.yield_fixture
-@pytest.mark.asyncio
-async def server(event_loop):
-    global status
-    status = 200
-    server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
-    yield server
-    server.close()
-
-
-@pytest.yield_fixture
-@pytest.mark.asyncio
-async def client():
-    oanda_client = OandaClient(rest_host='127.0.0.1', rest_port=8080, rest_scheme='http',
-                               stream_host='127.0.0.1', stream_port=8080, stream_scheme='http')
-    yield oanda_client
-    await oanda_client.aclose()
-    del oanda_client
 
 
 def test_oanda_client_has_correct_version(client):
@@ -80,8 +50,7 @@ def test_oanda_client_constructs_url(client):
 
 @pytest.mark.asyncio
 async def test_client_initializes(client, server):
-    global status
-    status = 200
+    server.status = 200
     try:
         await client.initialize()
         assert client.default_parameters[AccountID] == AccountID('123-123-1234567-123')
@@ -94,8 +63,8 @@ async def test_client_initializes(client, server):
 
 @pytest.mark.asyncio
 async def test_client_raises_connection_error_on_initialisation_failure(client, server):
-    global status
-    status = 400
+    server_module.status = 400
+    print('TEST STATUS', server_module.status)
     with pytest.raises(ConnectionError):
         await client.initialize()
 

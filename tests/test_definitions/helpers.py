@@ -34,3 +34,4 @@ def get_valid_primitive_data(primitive):
                 data = '1'
 
     return data
+
