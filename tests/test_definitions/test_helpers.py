@@ -1,6 +1,6 @@
 from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import AccountID, TradeID
-from async_v20.endpoints.annotations import Smooth
+from async_v20.endpoints.annotations import Smooth, Count
 from .helpers import get_valid_primitive_data
 from async_v20.definitions.base import Array
 
@@ -21,6 +21,9 @@ def test_get_valid_primitive_data_returns_int():
 
 def test_get_valid_primitive_data_returns_bool():
     assert type(get_valid_primitive_data(Smooth)) == bool
+
+def test_get_valid_primitive_data_returns_default_value():
+    assert get_valid_primitive_data(Count) == 500
 
 def test_get_valid_primitive_data_returns_Array_example():
     class TestArray(Array):
