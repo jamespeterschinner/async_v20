@@ -3,7 +3,7 @@ from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
 
 __all__ = ['Alias', 'AlignmentTimezone', 'Authorization', 'Count', 'DailyAlignment', 'FromTime',
-           'FromTransactionID', 'Ids', 'IncludeFirstQuery','Instruments', 'LastTransactionID',
+           'FromTransactionID', 'Ids', 'IncludeFirstQuery', 'Instruments', 'LastTransactionID',
            'LongClientExtensions', 'LongUnits', 'PageSize', 'ShortClientExtensions', 'ShortUnits', 'Smooth', 'Snapshot',
            'ToTime', 'ToTransactionID', 'TradeClientExtensions', 'Type', 'Units', 'UserSpecifier']
 

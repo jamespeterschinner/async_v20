@@ -46,6 +46,24 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     loop = None
 
+    @property
+    def max_requests_per_second(self):
+        return self._max_requests_per_second
+
+    @max_requests_per_second.setter
+    def max_requests_per_second(self, value):
+        # Limit maximum concurrent connections
+        self._max_requests_per_second = {True: value, False: 1}[value > 0]
+
+    @property
+    def max_simultaneous_connections(self):
+        return self._max_simultaneous_connections
+
+    @max_simultaneous_connections.setter
+    def max_simultaneous_connections(self, value):
+        # Limit concurrent connections
+        self._max_simultaneous_connections = {True: value, False: 1}[value > 0]
+
     def __init__(self, token=None, account_id=None, rest_host='api-fxpractice.oanda.com', rest_port=443,
                  rest_scheme='https',
                  stream_host='stream-fxpractice.oanda.com', stream_port=None, stream_scheme='https',
@@ -75,10 +93,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # v20 REST server
         self.poll_timeout = poll_timeout
 
-        # Limit new requests to a certain rate
         self.max_requests_per_second = max_requests_per_second
 
-        # Limit concurrent connections
         self.max_simultaneous_connections = max_simultaneous_connections
 
         # This is the default parameter dictionary. OandaClient Methods that require certain parameters

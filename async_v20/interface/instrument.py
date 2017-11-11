@@ -7,9 +7,9 @@ from ..endpoints.annotations import AlignmentTimezone
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import DailyAlignment
 from ..endpoints.annotations import FromTime
+from ..endpoints.annotations import IncludeFirstQuery
 from ..endpoints.annotations import Smooth
 from ..endpoints.annotations import ToTime
-from ..endpoints.annotations import IncludeFirstQuery
 from ..endpoints.instrument import *
 
 __all__ = ['InstrumentInterface']

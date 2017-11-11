@@ -7,7 +7,7 @@ __all__ = ['AccountInterface']
 
 
 class AccountInterface(object):
-    @endpoint(GETAccounts, serial=True)
+    @endpoint(GETAccounts)
     def list_accounts(self):
         """Get a list of all Accounts authorized for the provided token.
 
@@ -19,7 +19,7 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountID, serial=True)
+    @endpoint(GETAccountID)
     def get_account_details(self):
         """
         Get the full details for a single Account that a client has access to.
@@ -35,7 +35,7 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountIDSummary, serial=True)
+    @endpoint(GETAccountIDSummary)
     def account_summary(self):
         """
         Get a summary for a single Account that a client has access to.
@@ -50,7 +50,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDInstruments)
-    def account_instruments(self, instruments: Instruments=None):
+    def account_instruments(self, instruments: Instruments = None):
         """
         Get the list of tradeable instruments for the given Account. The list
         of tradeable instruments is dependent on the regulatory division that
@@ -69,7 +69,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(PATCHAccountIDConfiguration)
-    def configure_account(self, alias: Alias=None, margin_rate: DecimalNumber=None):
+    def configure_account(self, alias: Alias = None, margin_rate: DecimalNumber = None):
         """
         Set the client-configurable portions of an Account.
 
@@ -87,7 +87,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDChanges)
-    def account_changes(self, since_transaction_id: LastTransactionID=None):
+    def account_changes(self, since_transaction_id: LastTransactionID = None):
         """
         Endpoint used to poll an Account for its current state and changes
         since a specified TransactionID.

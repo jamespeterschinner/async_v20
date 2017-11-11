@@ -9,6 +9,8 @@ from async_v20.endpoints.annotations import Authorization
 
 from .fixtures.client import client
 from .fixtures import server as server_module
+import time
+import asyncio
 
 client = client
 server = server_module.server
@@ -115,3 +117,15 @@ async def test_response_returns_json(client, server):
 async def test_enter_causes_warning(client, server, capsys):
     with client as client:
         assert capsys.readouterr()[0] == 'Warning: <with> used rather than <async with>\n'
+
+
+def test_client_request_limiter_minimum_value(client):
+    client.max_requests_per_second = 0
+    assert client.max_requests_per_second == 1
+
+@pytest.mark.asyncio
+async def test_request_limiter_limits(client, server, event_loop):
+    start = time.time()
+    await asyncio.gather(*[client.list_orders() for _ in range(2)])
+    time_taken = time.time() - start
+    print(time_taken)

@@ -23,10 +23,7 @@ async def wait(time_delta, previous_time):
 async def request_limiter(self):
     yield
 
-    if self.max_requests_per_second > 0:
-        time_delta = 1 / self.max_requests_per_second
-    else:
-        time_delta = 1
+    time_delta = 1 / self.max_requests_per_second
 
     while True:
         previous_time = time()
