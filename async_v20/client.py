@@ -93,7 +93,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         self.initialize_client = initializer(self)
 
     async def initialize(self):
-        print(self.initialize_client.ag_running)
+        """Initialize the client instance"""
         await self.initialize_client.asend(None)
 
     async def __aenter__(self):
@@ -104,7 +104,6 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         await self.aclose()
 
     def __enter__(self):
-        # TODO Make this print in red
         print('Warning: <with> used rather than <async with>')
         return self
 

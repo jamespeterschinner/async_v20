@@ -23,82 +23,79 @@ OandaClient
 Account
 -------
 
-.. autoclass:: async_v20.OandaClient
-   :members: list_accounts, get_account_details, account_summary, account_instruments, configure_account, account_changes
+.. automethod:: async_v20.OandaClient.list_accounts
+.. automethod:: async_v20.OandaClient.get_account_details
+.. automethod:: async_v20.OandaClient.account_summary
+.. automethod:: async_v20.OandaClient.account_instruments
+.. automethod:: async_v20.OandaClient.configure_account
+.. automethod:: async_v20.OandaClient.account_changes
 
 Instrument
 ----------
 
-.. autoclass:: async_v20.OandaClient
-   :members: get_candles
+.. automethod:: async_v20.OandaClient.get_candles
 
 Order
 -----
 
-.. autoclass:: async_v20.OandaClient
-   :members: post_order,
-            create_order,
-            list_orders,
-            list_pending_orders,
-            get_order,
-            replace_order,
-            cancel_order,
-            set_client_extensions,
-            market_order,
-            limit_order,
-            limit_replace_order,
-            stop_order,
-            stop_replace_order,
-            market_if_touched_order,
-            market_if_touched_replace_order,
-            take_profit_order,
-            take_profit_replace_order,
-            stop_loss_order,
-            stop_loss_replace_order,
-            trailing_stop_loss_order,
-            trailing_stop_loss_replace_order
+.. automethod:: async_v20.OandaClient.post_order
+.. automethod:: async_v20.OandaClient.create_order
+.. automethod:: async_v20.OandaClient.list_orders
+.. automethod:: async_v20.OandaClient.list_pending_orders
+.. automethod:: async_v20.OandaClient.get_order
+.. automethod:: async_v20.OandaClient.replace_order
+.. automethod:: async_v20.OandaClient.cancel_order
+.. automethod:: async_v20.OandaClient.set_client_extensions
+.. automethod:: async_v20.OandaClient.market_order
+.. automethod:: async_v20.OandaClient.limit_order
+.. automethod:: async_v20.OandaClient.limit_replace_order
+.. automethod:: async_v20.OandaClient.stop_order
+.. automethod:: async_v20.OandaClient.stop_replace_order
+.. automethod:: async_v20.OandaClient.market_if_touched_order
+.. automethod:: async_v20.OandaClient.market_if_touched_replace_order
+.. automethod:: async_v20.OandaClient.take_profit_order
+.. automethod:: async_v20.OandaClient.take_profit_replace_order
+.. automethod:: async_v20.OandaClient.stop_loss_order
+.. automethod:: async_v20.OandaClient.stop_loss_replace_order
+.. automethod:: async_v20.OandaClient.trailing_stop_loss_order
+.. automethod:: async_v20.OandaClient.trailing_stop_loss_replace_order
 
 
 Position
 --------
 
-.. autoclass:: async_v20.OandaClient
-   :members: list_positions,
-            list_open_positions,
-            get_positions,
-            close_position
+.. automethod:: async_v20.OandaClient.list_positions
+.. automethod:: async_v20.OandaClient.list_open_positions
+.. automethod:: async_v20.OandaClient.get_positions
+.. automethod:: async_v20.OandaClient.close_position
 
 Pricing
 -------
 
-.. autoclass:: async_v20.OandaClient
-   :members: get_pricing,
-         stream_pricing
+.. automethod:: async_v20.OandaClient.get_pricing
+.. automethod:: async_v20.OandaClient.stream_pricing
 
 Trade
 -----
 
-.. autoclass:: async_v20.OandaClient
-   :members: list_trades,
-            list_open_trades,
-            get_trades,
-            close_trades,
-            set_client_extensions_trade,
-            set_dependent_orders_trade
+.. automethod:: async_v20.OandaClient.list_trades
+.. automethod:: async_v20.OandaClient.list_open_trades
+.. automethod:: async_v20.OandaClient.get_trades
+.. automethod:: async_v20.OandaClient.close_trades
+.. automethod:: async_v20.OandaClient.set_client_extensions_trade
+.. automethod:: async_v20.OandaClient.set_dependent_orders_trade
 
 Transaction
 -----------
 
-.. autoclass:: async_v20.OandaClient
-   :members: list_transactions,
-            get_transactions,
-            transaction_range,
-            since_transaction,
-            stream_transactions
+.. automethod:: async_v20.OandaClient.list_transactions
+.. automethod:: async_v20.OandaClient.get_transactions
+.. automethod:: async_v20.OandaClient.transaction_range
+.. automethod:: async_v20.OandaClient.since_transaction
+.. automethod:: async_v20.OandaClient.stream_transactions
 
 User
 ----
 
-.. autoclass:: async_v20.OandaClient
-   :members: get_user_info,
-         get_external_user_info
+.. automethod:: async_v20.OandaClient.get_user_info
+.. automethod:: async_v20.OandaClient.get_external_user_info
