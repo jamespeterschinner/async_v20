@@ -5,9 +5,10 @@ from yarl import URL
 
 from .definitions.types import AcceptDatetimeFormat
 from .endpoints.annotations import Authorization
-from .helpers import request_limiter, initializer
+from .helpers import initializer, sleep
 from .interface import *
 from .interface.account import AccountInterface
+from time import time
 
 __version__ = '2.0.1a0'
 
@@ -54,6 +55,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     def max_requests_per_second(self, value):
         # Limit maximum concurrent connections
         self._max_requests_per_second = {True: value, False: 1}[value > 0]
+        self._min_time_between_requests = 1 / self.max_requests_per_second
 
     @property
     def max_simultaneous_connections(self):
@@ -62,7 +64,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     @max_simultaneous_connections.setter
     def max_simultaneous_connections(self, value):
         # Limit concurrent connections
-        self._max_simultaneous_connections = {True: value, False: 1}[value > 0]
+        self._max_simultaneous_connections = {True: value, False: 0}[value >= 0]
 
     def __init__(self, token=None, account_id=None, rest_host='api-fxpractice.oanda.com', rest_port=443,
                  rest_scheme='https',
@@ -104,9 +106,20 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
              AcceptDatetimeFormat: datetime_format}
         )
 
-        self.request = request_limiter(self)
-
         self.initialize_client = initializer(self)
+
+    async def request_limiter(self):
+        """Wait for the time interval before creating new request"""
+        try:
+            self._next_request_time += self._min_time_between_requests
+        except AttributeError:
+            self._next_request_time = time()
+            return
+
+        if self._next_request_time - time() > 0:
+            await sleep(self._next_request_time - time())
+        return
+
 
     async def initialize(self):
         """Initialize the client instance"""
@@ -141,4 +154,4 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             # If the session object exists then then
             # These async gens need to be closed as well
             await self.initialize_client.aclose()
-            await self.request.aclose()
+

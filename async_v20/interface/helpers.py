@@ -20,8 +20,8 @@ def _create_request_params(self, endpoint, arguments: dict, param_location: str)
                 try:
                     result = self.default_parameters[typ]
                 except KeyError:
-                    print(f"WARNING: missing {typ.__name__} in {param_location}")
                     continue
+
             yield name, result
 
     return dict(lookup())

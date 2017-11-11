@@ -125,7 +125,13 @@ def test_client_request_limiter_minimum_value(client):
 
 @pytest.mark.asyncio
 async def test_request_limiter_limits(client, server, event_loop):
+
+    client.max_simultaneous_connections = 0
+    client.max_requests_per_second = 1000
+    concurrent_requests = 100
     start = time.time()
-    await asyncio.gather(*[client.list_orders() for _ in range(2)])
+    async with client as client:
+        await asyncio.gather(*[client.list_orders() for _ in range(concurrent_requests)])
     time_taken = time.time() - start
     print(time_taken)
+    assert time_taken >= (concurrent_requests/client.max_requests_per_second)

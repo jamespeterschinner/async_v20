@@ -7,7 +7,6 @@ from .helpers import create_request_kwargs
 from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
 
-
 def endpoint(endpoint):
     """Define a method call to be exposed to the user"""
 
@@ -31,9 +30,9 @@ def endpoint(endpoint):
 
             request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
-            request = await self.request.asend(None)
+            await self.request_limiter()
 
-            response = request(**request_args)
+            response = self.session.request(**request_args)
 
             return await parse_response(self, response, endpoint, predicate)
 
