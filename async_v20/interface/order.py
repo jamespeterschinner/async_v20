@@ -47,6 +47,7 @@ class OrderInterface(object):
             the request
 
         """
+        return self.post_order(order_request=OrderRequest(*args, **kwargs))
 
     @endpoint(GETOrders)
     def list_orders(self,
@@ -200,7 +201,7 @@ class OrderInterface(object):
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.post_order(order_request=MarketOrderRequest(*args, **kwargs))
+        return self.post_order(order_request=LimitOrderRequest(*args, **kwargs))
 
     @endpoint(PUTOrderSpecifier)
     def limit_replace_order(self,

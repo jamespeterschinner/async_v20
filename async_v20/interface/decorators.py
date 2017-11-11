@@ -82,9 +82,10 @@ def add_signature(obj):
 
     def wrapper(func):
         @wraps(func)
-        def wrap(*args, **kwargs):
-            return func(*args, **kwargs)
+        def wrap(self, *args, **kwargs):
+            return func(self, *args, **kwargs)
 
+        wrap.shortcut = True
         wrap.__signature__ = sig
         wrap.__doc__ = create_doc_signature(wrap, sig)
         return wrap

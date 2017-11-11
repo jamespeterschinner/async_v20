@@ -25,9 +25,8 @@ def get_valid_primitive_data(primitive):
         try:
             data = primitive()  # See if the annotation has a default value
         except TypeError:
-            pass
-        if not data:
             data = 123456789
+
     elif issubclass(primitive, Bool):
         data = primitive()
     # The only valid option here should be a subclass of str

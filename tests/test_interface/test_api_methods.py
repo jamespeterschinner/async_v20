@@ -49,3 +49,23 @@ async def test_client_methods_send_correct_data(method, server, client):
             # Response Not containing expected data
         # TODO Added meaning full asserts
         print(server_module.received)
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: hasattr(x, 'shortcut')))
+async def test_client_methods_shortcut_api_methods(method, server, client):
+    data = tuple(get_valid_primitive_data(param.annotation)
+                 for param in method[1].__signature__.parameters.values()
+                 if param.name not in 'self cls')
+    async with client as client:  # initialize first
+        method = getattr(client, method[0])
+        server_module.status = 201
+
+        print(method)
+        try:
+            resp = await method(*data)
+        except (KeyError, ServerDisconnectedError, ContentTypeError, AttributeError):
+            pass  # Caused by incorrect response status being returned
+            # Server not keeping a data stream open
+            # Response Not containing expected data
+        # TODO Added meaning full asserts
+        print(server_module.received)
