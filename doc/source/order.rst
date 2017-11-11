@@ -4,6 +4,7 @@ Order
 =====
 
 .. automodule:: async_v20.definitions.types
+    :undoc-members:
     :show-inheritance:
     :members: Order,
             MarketOrder,

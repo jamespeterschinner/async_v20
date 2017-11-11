@@ -1,6 +1,8 @@
-from async_v20.definitions.base import Model, Array
 from inspect import signature, _empty
+
+from async_v20.definitions.base import Model, Array
 from async_v20.endpoints.annotations import Bool
+
 
 def create_cls_annotations(cls):
     return {name: param.annotation for
@@ -26,7 +28,6 @@ def get_valid_primitive_data(primitive):
             data = primitive()  # See if the annotation has a default value
         except TypeError:
             data = 123456789
-
     elif issubclass(primitive, Bool):
         data = primitive()
     # The only valid option here should be a subclass of str
