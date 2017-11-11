@@ -3,7 +3,7 @@ from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
 
 __all__ = ['Alias', 'AlignmentTimezone', 'Authorization', 'Count', 'DailyAlignment', 'FromTime',
-           'FromTransactionID', 'Ids', 'IncludeFirstQuery', 'IncludeUnitsAvailable', 'Instruments', 'LastTransactionID',
+           'FromTransactionID', 'Ids', 'IncludeFirstQuery','Instruments', 'LastTransactionID',
            'LongClientExtensions', 'LongUnits', 'PageSize', 'ShortClientExtensions', 'ShortUnits', 'Smooth', 'Snapshot',
            'ToTime', 'ToTransactionID', 'TradeClientExtensions', 'Type', 'Units', 'UserSpecifier']
 
@@ -109,12 +109,12 @@ class ShortUnits(str):
         return super().__new__(cls, value)
 
 
-class IncludeUnitsAvailable(Bool):
-    pass  # bool
-
-
 class Snapshot(Bool):
-    pass  # bool
+    """Flag that enables/disables the sending of a pricing snapshot
+    when initially connecting to the stream. [default=True]"""
+
+    def __new__(cls, value=True):
+        return super().__new__(cls, value)
 
 
 class PageSize(int):

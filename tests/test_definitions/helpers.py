@@ -1,6 +1,6 @@
 from async_v20.definitions.base import Model, Array
-from inspect import signature
-
+from inspect import signature, _empty
+from async_v20.endpoints.annotations import Bool
 
 def create_cls_annotations(cls):
     return {name: param.annotation for
@@ -10,7 +10,9 @@ def create_cls_annotations(cls):
 
 def get_valid_primitive_data(primitive):
     data = None
-    if issubclass(primitive, Array):
+    if primitive == _empty:
+        return
+    elif issubclass(primitive, Array):
         return (get_valid_primitive_data(primitive._contains),)
     elif issubclass(primitive, Model):
         return {attr: get_valid_primitive_data(create_cls_annotations(primitive)[attr])
@@ -26,7 +28,11 @@ def get_valid_primitive_data(primitive):
             pass
         if not data:
             data = 123456789
-    elif issubclass(primitive, (str)):
+    elif issubclass(primitive, Bool):
+        data = primitive()
+    # The only valid option here should be a subclass of str
+    else:
+        assert issubclass(primitive, (str))
         try:
             data = primitive.example
         except AttributeError:

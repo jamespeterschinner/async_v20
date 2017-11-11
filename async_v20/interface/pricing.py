@@ -10,8 +10,7 @@ class PricingInterface(object):
     @endpoint(GETPricing)
     def get_pricing(self,
                     instruments: Instruments=None,
-                    since: DateTime=None,
-                    include_units_available: IncludeUnitsAvailable=None):
+                    since: DateTime=None):
         """
         Get pricing information for a specified list of Instruments within an
         Account.

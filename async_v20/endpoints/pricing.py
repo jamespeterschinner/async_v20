@@ -24,8 +24,7 @@ class GETPricing(EndPoint):
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
         {'name': 'instruments', 'located': 'query', 'type': Instruments,
          'description': 'List of InstrumentName (csv)'},
-        {'name': 'since', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
-        {'name': 'includeUnitsAvailable', 'located': 'query', 'type': IncludeUnitsAvailable, 'description': 'boolean'}
+        {'name': 'since', 'located': 'query', 'type': DateTime, 'description': 'DateTime'}
     ]
 
     # valid responses
