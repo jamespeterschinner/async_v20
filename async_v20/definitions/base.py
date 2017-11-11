@@ -195,8 +195,9 @@ class Model(tuple, metaclass=ORM):
         def fields():
             for field in self._fields:
                 attr = getattr(self, field)
-                if attr is None:
-                    continue
+                # Don't need to check if attr is none.
+                # because attr will only exist if the immutable tuple
+                # had the attribute set in _fields
                 if not isinstance(attr, (int, float, str)):
                     try:
                         attr = attr.json_dict(float_to_string)

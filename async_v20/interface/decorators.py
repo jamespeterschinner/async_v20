@@ -51,10 +51,12 @@ def endpoint(endpoint, serial=False):
 
         @wraps(method)
         async def parallel_wrap(self, *args, **kwargs):
-            try:
-                await self.initialize()
-            except ValueError:
-                pass
+
+            # Unlike serial wrap,
+            # This can never be called during initialisation.
+            # Because initialisation only uses endpoints
+            # that require serial behaviour.
+            await self.initialize()
 
             predicate = kwargs.pop('predicate', lambda x: x)
 
