@@ -108,7 +108,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
         self.initialize_client = initializer(self)
 
-    async def request_limiter(self):
+    async def _request_limiter(self):
         """Wait for the time interval before creating new request"""
         try:
             self._next_request_time += self._min_time_between_requests

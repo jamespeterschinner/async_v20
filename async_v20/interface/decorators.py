@@ -30,7 +30,7 @@ def endpoint(endpoint):
 
             request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
-            await self.request_limiter()
+            await self._request_limiter()
 
             response = self.session.request(**request_args)
 
