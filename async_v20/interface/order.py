@@ -40,7 +40,7 @@ class OrderInterface(object):
     @add_signature(OrderRequest)
     def create_order(self, *args, **kwargs):
         """
-        Shortcut to create a OrderRequest in an Account
+        Shortcut to create an OrderRequest in an Account
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting

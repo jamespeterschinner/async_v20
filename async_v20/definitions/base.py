@@ -177,7 +177,7 @@ class Model(tuple, metaclass=ORM):
 
     def __new__(cls, *args, **kwargs):
 
-        # contains all the attributes the class contains
+        # contains all the attributes the class instance contains
         cls._fields = []
 
         arguments = ((attr, cls.__annotations__[attr], kwargs[attr]) for attr in cls.template)

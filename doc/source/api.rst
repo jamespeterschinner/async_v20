@@ -5,11 +5,6 @@ OandaClient API
 
 .. note::
 
-      **methods** arguments annotated with 'TransactionID'
-      will be passed the correct TransactionID implicitly.
-
-.. note::
-
       OandaClient will look for OANDA_TOKEN in the enviroment variables
       if no token is passed
 

@@ -31,3 +31,16 @@ async def test_response_returns_json(client, server):
     assert accounts.json() == list_accounts_response.replace(' ', '')
     assert account_details.json() == get_account_details_response.replace(' ', '')
     assert pricing.json() == get_pricing_response.replace(' ', '')
+
+@pytest.mark.asyncio
+async def test_response_keys_can_be_accessed_through_dot(client, server):
+    async with client as client:
+        accounts = await client.list_accounts()
+        account_details = await client.get_account_details()
+        pricing = await client.get_pricing()
+
+    for response in [accounts, account_details, pricing]:
+        for key, value in response.items():
+            assert getattr(response, key) == value
+            with pytest.raises(AttributeError):
+                getattr(response, key+'_test')

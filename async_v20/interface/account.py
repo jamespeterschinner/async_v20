@@ -93,7 +93,7 @@ class AccountInterface(object):
         since a specified TransactionID.
 
         Note:
-            since_transaction_id is automatically handled by OandaClient
+            OandaClient will supply since_transaction_id if None is provided
 
         Args:
             since_transaction_id:

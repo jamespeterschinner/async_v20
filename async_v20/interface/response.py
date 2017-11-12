@@ -1,12 +1,11 @@
 import ujson as json
-
+from operator import itemgetter
 
 class Response(dict):
     """A response from OANDA.
 
     Data is accessed as per a standard dictionary
     """
-
     def __init__(self, data, status, bool):
         super().__init__(data)
         self.status = status
@@ -20,7 +19,13 @@ class Response(dict):
         return self.bool
 
     def __repr__(self):
-        return f'<Status [{self.status}]>'
+        return f'<Status [{self.status}]: {", ".join(self.keys())}>'
+
+    def __getattr__(self, name):
+        if name in self:
+            return self[name]
+        else:
+            raise AttributeError("No such attribute: " + name)
 
     def json_dict(self):
 

@@ -36,7 +36,6 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         stream_port: -- The port of the v20 REST server
         rest_scheme: -- The scheme of the connection. Defaults to 'https'
         stream_scheme: -- The scheme of the connection. Defaults to 'https'
-        application: Optional name of the application using the v20 bindings
         datetime_format: -- The format to request when dealing with times
         poll_timeout: -- The timeout to use when making a polling request with
             the v20 REST server

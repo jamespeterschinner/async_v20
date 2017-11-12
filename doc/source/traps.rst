@@ -23,19 +23,20 @@ It may be:
 An Order is not an OrderRequest
 -------------------------------
 
-This is taken from the OANDA `docs <http://developer.oanda.com/rest-live-v20/order-df/>`_
+.. note::
 
-Orders
+      This is taken from the OANDA `docs <http://developer.oanda.com/rest-live-v20/order-df/>`_
 
-    - The specification of all Orders supported by the platform.
+      Orders
 
-Order Requests:
+          - The specification of all Orders supported by the platform.
 
-    - The request specification of all Orders supported by the platform. These objects are used by the API client to create Orders on the platform.
+      Order Requests:
+
+          - The request specification of all Orders supported by the platform. These objects are used by the API client to create Orders on the platform.
 
 They key point here is that you need to use async_v20 objects that derive from
 OrderRequest when passing an order request to the order_request argument
 of:
 
-   .. autoclass:: async_v20.client.OandaClient
-      :members: create_order
+   .. automethod:: async_v20.client.OandaClient.post_order
