@@ -1,17 +1,29 @@
-from .decorators import endpoint, add_signature
+from .decorators import endpoint, shortcut
 from ..definitions.types import ClientExtensions
+from ..definitions.types import ClientID
+from ..definitions.types import DateTime
 from ..definitions.types import InstrumentName
 from ..definitions.types import LimitOrderRequest
 from ..definitions.types import MarketIfTouchedOrderRequest
 from ..definitions.types import MarketOrderRequest
 from ..definitions.types import OrderID
+from ..definitions.types import OrderPositionFill
 from ..definitions.types import OrderRequest
 from ..definitions.types import OrderSpecifier
 from ..definitions.types import OrderStateFilter
+from ..definitions.types import OrderTriggerCondition
+from ..definitions.types import OrderType
+from ..definitions.types import PriceValue
+from ..definitions.types import StopLossDetails
 from ..definitions.types import StopLossOrderRequest
 from ..definitions.types import StopOrderRequest
+from ..definitions.types import TakeProfitDetails
 from ..definitions.types import TakeProfitOrderRequest
+from ..definitions.types import TimeInForce
+from ..definitions.types import TradeID
+from ..definitions.types import TrailingStopLossDetails
 from ..definitions.types import TrailingStopLossOrderRequest
+from ..definitions.types import Unit
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import TradeClientExtensions
@@ -37,8 +49,16 @@ class OrderInterface(object):
         """
         pass
 
-    @add_signature(OrderRequest)
-    def create_order(self, *args, **kwargs):
+    @shortcut
+    def create_order(self, instrument: InstrumentName, units: Unit, type: OrderType = None,
+                     trade_id: TradeID = None, price: PriceValue = None, client_trade_id: ClientID = None,
+                     time_in_force: TimeInForce = None, gtd_time: DateTime = None,
+                     trigger_condition: OrderTriggerCondition = None, client_extensions: ClientExtensions = None,
+                     distance: PriceValue = None, price_bound: PriceValue = None,
+                     position_fill: OrderPositionFill = None, take_profit_on_fill: TakeProfitDetails = None,
+                     stop_loss_on_fill: StopLossDetails = None,
+                     trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                     trade_client_extensions: ClientExtensions = None):
         """
         Shortcut to create an OrderRequest in an Account
 
@@ -47,7 +67,14 @@ class OrderInterface(object):
             the request
 
         """
-        return self.post_order(order_request=OrderRequest(*args, **kwargs))
+        return self.post_order(
+            order_request=OrderRequest(instrument=instrument, units=units, type=type, trade_id=trade_id, price=price,
+                                       client_trade_id=client_trade_id, time_in_force=time_in_force, gtd_time=gtd_time,
+                                       trigger_condition=trigger_condition, client_extensions=client_extensions,
+                                       distance=distance, price_bound=price_bound, position_fill=position_fill,
+                                       take_profit_on_fill=take_profit_on_fill, stop_loss_on_fill=stop_loss_on_fill,
+                                       trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+                                       trade_client_extensions=trade_client_extensions))
 
     @endpoint(GETOrders)
     def list_orders(self,
@@ -175,8 +202,13 @@ class OrderInterface(object):
         """
         pass
 
-    @add_signature(MarketOrderRequest)
-    def market_order(self, *args, **kwargs):
+    @shortcut
+    def market_order(self, instrument: InstrumentName, units: Unit,
+                     time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
+                     position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = None,
+                     take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
+                     trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                     trade_client_extensions: ClientExtensions = None):
         """
         Shortcut to create a Market Order in an Account
         MarketOrderRequest
@@ -187,10 +219,23 @@ class OrderInterface(object):
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.post_order(order_request=MarketOrderRequest(*args, **kwargs))
-
-    @add_signature(LimitOrderRequest)
-    def limit_order(self, *args, **kwargs):
+        return self.post_order(
+            order_request=MarketOrderRequest(instrument=instrument, units=units, time_in_force=time_in_force,
+                                             price_bound=price_bound, position_fill=position_fill,
+                                             client_extensions=client_extensions,
+                                             take_profit_on_fill=take_profit_on_fill,
+                                             stop_loss_on_fill=stop_loss_on_fill,
+                                             trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+                                             trade_client_extensions=trade_client_extensions
+                                             ))
+    @shortcut
+    def limit_order(self, instrument: InstrumentName, units: Unit, price: PriceValue,
+                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                    position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                    client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
+                    stop_loss_on_fill: StopLossDetails = None,
+                    trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                    trade_client_extensions: ClientExtensions = None):
         """
         Shortcut to create a Limit Order in an Account
 
@@ -201,7 +246,16 @@ class OrderInterface(object):
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.post_order(order_request=LimitOrderRequest(*args, **kwargs))
+        return self.post_order(order_request=LimitOrderRequest(instrument=instrument, units=units, price=price,
+                                                               time_in_force=time_in_force, gtd_time=gtd_time,
+                                                               position_fill=position_fill,
+                                                               trigger_condition=trigger_condition,
+                                                               client_extensions=client_extensions,
+                                                               take_profit_on_fill=take_profit_on_fill,
+                                                               stop_loss_on_fill=stop_loss_on_fill,
+                                                               trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+                                                               trade_client_extensions=trade_client_extensions
+                                                               ))
 
     @endpoint(PUTOrderSpecifier)
     def limit_replace_order(self,
@@ -220,8 +274,10 @@ class OrderInterface(object):
         """
         pass
 
-    @add_signature(StopLossOrderRequest)
-    def stop_order(self, *args, **kwargs):
+    @shortcut
+    def stop_order(self, trade_id: TradeID, price: PriceValue,
+                   client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                   trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
         """
         Shortcut to create a Stop Order in an Account
 
@@ -232,7 +288,11 @@ class OrderInterface(object):
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.post_order(order_request=StopLossOrderRequest(*args, **kwargs))
+        return self.post_order(
+            order_request=StopLossOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
+                                               time_in_force=time_in_force, gtd_time=gtd_time,
+                                               trigger_condition=trigger_condition, client_extensions=client_extensions
+                                               ))
 
     @endpoint(PUTOrderSpecifier)
     def stop_replace_order(self,
@@ -251,8 +311,17 @@ class OrderInterface(object):
         """
         pass
 
-    @add_signature(MarketIfTouchedOrderRequest)
-    def market_if_touched_order(self, *args, **kwargs):
+    @shortcut
+    def market_if_touched_order(self, instrument: InstrumentName, units: Unit, price: PriceValue,
+                                price_bound: PriceValue = None,
+                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                                position_fill: OrderPositionFill = 'DEFAULT',
+                                trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                                client_extensions: ClientExtensions = None,
+                                take_profit_on_fill: TakeProfitDetails = None,
+                                stop_loss_on_fill: StopLossDetails = None,
+                                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
+                                trade_client_extensions: ClientExtensions = None):
         """
         Shortcut to create a MarketIfTouched Order in an Account
 
@@ -263,7 +332,17 @@ class OrderInterface(object):
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.post_order(order_request=MarketIfTouchedOrderRequest(*args, **kwargs))
+        return self.post_order(
+            order_request=MarketIfTouchedOrderRequest(instrument=instrument, units=units, price=price,
+                                                      price_bound=price_bound, time_in_force=time_in_force,
+                                                      gtd_time=gtd_time, position_fill=position_fill,
+                                                      trigger_condition=trigger_condition,
+                                                      client_extensions=client_extensions,
+                                                      take_profit_on_fill=take_profit_on_fill,
+                                                      stop_loss_on_fill=stop_loss_on_fill,
+                                                      trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+                                                      trade_client_extensions=trade_client_extensions
+                                                      ))
 
     @endpoint(PUTOrderSpecifier)
     def market_if_touched_replace_order(self,
@@ -282,8 +361,12 @@ class OrderInterface(object):
         """
         pass
 
-    @add_signature(TakeProfitOrderRequest)
-    def take_profit_order(self, *args, **kwargs):
+    @shortcut
+    def take_profit_order(self, trade_id: TradeID, price: PriceValue,
+                          client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC',
+                          gtd_time: DateTime = None,
+                          trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                          client_extensions: ClientExtensions = None):
         """
         Shortcut to create a Take Profit Order in an Account
 
@@ -294,7 +377,12 @@ class OrderInterface(object):
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.post_order(order_request=TakeProfitOrderRequest(*args, **kwargs))
+        return self.post_order(
+            order_request=TakeProfitOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
+                                                 time_in_force=time_in_force, gtd_time=gtd_time,
+                                                 trigger_condition=trigger_condition,
+                                                 client_extensions=client_extensions
+                                                 ))
 
     @endpoint(PUTOrderSpecifier)
     def take_profit_replace_order(self,
@@ -313,8 +401,11 @@ class OrderInterface(object):
         """
         pass
 
-    @add_signature(StopLossOrderRequest)
-    def stop_loss_order(self, *args, **kwargs):
+    @shortcut
+    def stop_loss_order(self, trade_id: TradeID, price: PriceValue,
+                        client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                        trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                        client_extensions: ClientExtensions = None):
         """
         Shortcut to create a Stop Loss Order in an Account
 
@@ -325,7 +416,11 @@ class OrderInterface(object):
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.post_order(order_request=StopLossOrderRequest(*args, **kwargs))
+        return self.post_order(
+            order_request=StopLossOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
+                                               time_in_force=time_in_force, gtd_time=gtd_time,
+                                               trigger_condition=trigger_condition, client_extensions=client_extensions
+                                               ))
 
     @endpoint(PUTOrderSpecifier)
     def stop_loss_replace_order(self, order_specifier: OrderSpecifier,
@@ -343,8 +438,12 @@ class OrderInterface(object):
         """
         pass
 
-    @add_signature(TrailingStopLossOrderRequest)
-    def trailing_stop_loss_order(self, *args, **kwargs):
+    @shortcut
+    def trailing_stop_loss_order(self, trade_id: TradeID, distance: PriceValue,
+                                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC',
+                                 gtd_time: DateTime = None,
+                                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                                 client_extensions: ClientExtensions = None):
         """
         Shortcut to create a Trailing Stop Loss Order in an Account
 
@@ -355,7 +454,13 @@ class OrderInterface(object):
             async_v20.interface.parser.Response containing the results from submitting
             the request
         """
-        return self.post_order(order_request=TrailingStopLossOrderRequest(*args, **kwargs))
+        return self.post_order(order_request=TrailingStopLossOrderRequest(trade_id=trade_id, distance=distance,
+                                                                          client_trade_id=client_trade_id,
+                                                                          time_in_force=time_in_force,
+                                                                          gtd_time=gtd_time,
+                                                                          trigger_condition=trigger_condition,
+                                                                          client_extensions=client_extensions
+                                                                          ))
 
     @endpoint(PUTOrderSpecifier)
     def trailing_stop_loss_replace_order(self, order_specifier: OrderSpecifier,

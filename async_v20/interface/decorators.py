@@ -46,17 +46,14 @@ def endpoint(endpoint):
     return wrapper
 
 
-def add_signature(obj):
-    sig = signature(obj.__new__)
+def shortcut(func):
+    sig = signature(func)
 
-    def wrapper(func):
-        @wraps(func)
-        def wrap(self, *args, **kwargs):
-            return func(self, *args, **kwargs)
+    @wraps(func)
+    def wrap(self, *args, **kwargs):
+        return func(self, *args, **kwargs)
 
-        wrap.shortcut = True
-        wrap.__signature__ = sig
-        wrap.__doc__ = create_doc_signature(wrap, sig)
-        return wrap
-
-    return wrapper
+    wrap.shortcut = True
+    wrap.__signature__ = sig
+    wrap.__doc__ = create_doc_signature(wrap, sig)
+    return wrap
