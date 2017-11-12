@@ -7,6 +7,7 @@ from .helpers import create_request_kwargs
 from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
 
+
 def endpoint(endpoint):
     """Define a method call to be exposed to the user"""
 
@@ -21,10 +22,7 @@ def endpoint(endpoint):
 
         @wraps(method)
         async def wrap(self, *args, **kwargs):
-            try:
-                await self.initialize()
-            except ValueError:
-                pass
+            await self.initialize()
 
             predicate = kwargs.pop('predicate', lambda x: x)
 

@@ -43,10 +43,6 @@ def test_oanda_client_accepts_token():
     assert client.default_parameters[Authorization] == 'Bearer test_token'
 
 
-def test_oanda_client_has_application_name(client):
-    assert client.application == 'async_v20'
-
-
 def test_oanda_client_constructs_url(client):
     assert client.hosts['REST'](path='test').human_repr() == 'http://127.0.0.1:8080/test'
     assert client.hosts['STREAM'](path='test').human_repr() == 'http://127.0.0.1:8080/test'

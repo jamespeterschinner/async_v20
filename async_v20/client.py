@@ -1,14 +1,22 @@
+import asyncio
 import os
+import ujson as json
 from functools import partial
+from time import time
 
+import aiohttp
 from yarl import URL
 
 from .definitions.types import AcceptDatetimeFormat
+from .definitions.types import AccountID
 from .endpoints.annotations import Authorization
-from .helpers import initializer, sleep
 from .interface import *
 from .interface.account import AccountInterface
-from time import time
+
+
+async def sleep(s=0.0):
+    await asyncio.sleep(s)
+
 
 __version__ = '2.0.1a0'
 
@@ -36,10 +44,14 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         max_simultaneous_connections: -- Maximum concurrent HTTP requests
 
     """
+    headers = {'Content-Type': 'application/json', 'Connection': 'keep-alive',
+               'OANDA-Agent': 'async_v20_' + __version__}
 
     default_parameters = {}
 
-    initialized = 0
+    initialized = False
+
+    initializing = False
 
     account = None
 
@@ -69,7 +81,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     def __init__(self, token=None, account_id=None, rest_host='api-fxpractice.oanda.com', rest_port=443,
                  rest_scheme='https',
                  stream_host='stream-fxpractice.oanda.com', stream_port=None, stream_scheme='https',
-                 application='async_v20', datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99,
+                 datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99,
                  max_simultaneous_connections=10):
         # TODO: add poll timeout
         self.version = __version__
@@ -80,8 +92,6 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             token = os.environ['OANDA_TOKEN']
 
         self.account_id = account_id
-
-        self.application = application
 
         # V20 REST API URL
         rest_host = partial(URL.build, host=rest_host, port=rest_port, scheme=rest_scheme)
@@ -106,10 +116,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
              AcceptDatetimeFormat: datetime_format}
         )
 
-        self.initialize_client = initializer(self)
-
     async def _request_limiter(self):
-        """Wait for the time interval before creating new request"""
+        """Wait for a minimum time interval before creating new request"""
         try:
             self._next_request_time += self._min_time_between_requests
         except AttributeError:
@@ -120,38 +128,59 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             await sleep(self._next_request_time - time())
         return
 
-
     async def initialize(self):
-        """Initialize the client instance"""
-        await self.initialize_client.asend(None)
+        if not self.initialized and not self.initializing:
+            self.initializing = True
+
+            conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
+
+            self.session = aiohttp.ClientSession(
+                json_serialize=json.dumps,
+                headers=self.headers,
+                connector=conn)
+
+            # Get the first account listed in in accounts
+            if self.account_id:
+                self.default_parameters.update({AccountID: self.account_id})
+            else:
+                # Get the corresponding AccountID for the provided token
+                response = await self.list_accounts()
+                if response:
+                    self.default_parameters.update({AccountID: response['accounts'][0].id})
+                else:
+                    raise ConnectionError(f'Server did not return AccountID during '
+                                          f'initialization. {response} {response.json_dict()}')
+
+            # Get Account snapshot and last transaction id
+            # last transaction is automatically updated when the
+            # response is parsed
+
+            response = await self.get_account_details()
+            if response:
+                self.account = response['account']
+            else:
+                raise ConnectionError(f'Server did not return Account Details during '
+                                      f'initialization. {response} {response.json_dict()}')
+
+            self.initializing = False
+            self.initialized = True
 
     async def __aenter__(self):
         await self.initialize()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        await self.aclose()
+        self.close()
 
     def __enter__(self):
         print('Warning: <with> used rather than <async with>')
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        try:
-            self.close()
-        except AttributeError:  # In case the client was never initialized
-            pass
+        self.close()
 
     def close(self):
-        self.session.close()
-
-    async def aclose(self):
         try:
-            self.close()
+            self.session.close()
         except AttributeError:  # In case the client was never initialized
             pass
-        else:
-            # If the session object exists then then
-            # These async gens need to be closed as well
-            await self.initialize_client.aclose()
-
