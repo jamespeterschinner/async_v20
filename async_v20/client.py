@@ -136,7 +136,9 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             self.session = aiohttp.ClientSession(
                 json_serialize=json.dumps,
                 headers=self.headers,
-                connector=conn)
+                connector=conn,
+                read_timeout=self.poll_timeout
+            )
 
             # Get the first account listed in in accounts
             if self.account_id:
