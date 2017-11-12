@@ -14,11 +14,12 @@ What you need to know
     - dictionary responses contain the equivalent python objects. As defined in :ref:`class-definitions`
         - these objects are constructed from the servers http response :term:`JSON` body
 
-- *OandaClient*. **methods** that require:
+- *OandaClient*. Automatically supplys arguments to endpoints that require the following:
 
-    .. autoclass:: async_v20.definitions.primitives.TransactionID
+    .. autoclass:: async_v20.definitions.primitives.AccountID
+    .. autoclass:: async_v20.endpoints.annotations.Authorization
+    .. autoclass:: async_v20.endpoints.annotations.LastTransactionID
 
-    will be passed the last **TransactionID** implicitly
 
 
 - **OandaClient** by default will connect to the practice server:

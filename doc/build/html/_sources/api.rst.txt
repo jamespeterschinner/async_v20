@@ -19,7 +19,6 @@ OandaClient
 -----------
 
 .. autoclass:: async_v20.OandaClient
-    :members: initialize
 
 Account
 -------

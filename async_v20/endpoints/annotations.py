@@ -14,6 +14,7 @@ class Bool(object):
 
 
 class Authorization(str):
+    """Contains OANDA_TOKEN"""
     pass
 
 
@@ -136,10 +137,12 @@ class UserSpecifier(str):
 
 
 class FromTime(DateTime):
+    """A DateTime to be used as the starting period a query"""
     pass
 
 
 class ToTime(DateTime):
+    """A DateTime to be used as the ending period a query"""
     pass
 
 
@@ -174,12 +177,15 @@ class Units(str):
 
 
 class LastTransactionID(TransactionID):
+    """Contains the most recent TransactionID"""
     pass
 
 
 class FromTransactionID(TransactionID):
+    """A TransactionID to be used as the starting period a query"""
     pass
 
 
 class ToTransactionID(TransactionID):
+    """A TransactionID to be used as the ending period a query"""
     pass

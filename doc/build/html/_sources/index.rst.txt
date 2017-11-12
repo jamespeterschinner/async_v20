@@ -1,11 +1,5 @@
 .. _async_v20-home:
 
-.. async_v20 documentation master file, created by
-sphinx-quickstart on Sat Oct 21 19:19:01 2017.
-You can adapt this file completely to your liking, but it should at least
-contain the root `toctree` directive.
-
-
 
 async_v20: Asynchronous OANDA v20 client
 ========================================

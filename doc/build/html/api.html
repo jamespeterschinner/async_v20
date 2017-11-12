@@ -56,7 +56,7 @@ if no token is passed</p>
 <span id="id1"></span><h2>OandaClient<a class="headerlink" href="#oandaclient" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="async_v20.OandaClient">
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>application='async_v20'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -212,6 +212,7 @@ request</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>include_first_query</strong> – </li>
 <li><strong>instrument</strong> – Name of the Instrument</li>
 <li><strong>price</strong> – The Price component(s) to get candlestick data for. Can contain
 any combination of the characters “M” (midpoint candles) “B”
@@ -227,11 +228,6 @@ will determine the number of candlesticks to return.</li>
 not.  A smoothed candlestick uses the previous candle’s close
 price as its open price, while an unsmoothed candlestick uses
 the first price from its time range as its open price.</li>
-<li><strong>include_first</strong> – A flag that controls whether the candlestick that is covered by
-the from time should be included in the results. This flag
-enables clients to use the timestamp of the last completed
-candlestick received to poll for future candlesticks but avoid
-receiving the previous candlestick repeatedly.</li>
 <li><strong>daily_alignment</strong> – The hour of the day (in the specified timezone) to use for
 granularities that have daily alignments.</li>
 <li><strong>alignment_timezone</strong> – The timezone to use for the dailyAlignment parameter.
@@ -760,7 +756,7 @@ request</p>
 <h2>Pricing<a class="headerlink" href="#pricing" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="async_v20.OandaClient.get_pricing">
-<code class="descclassname">OandaClient.</code><code class="descname">get_pricing</code><span class="sig-paren">(</span><em>self</em>, <em>instruments: Instruments=None</em>, <em>since: DateTime=None</em>, <em>include_units_available: IncludeUnitsAvailable=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_pricing" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_pricing</code><span class="sig-paren">(</span><em>self</em>, <em>instruments: Instruments=None</em>, <em>since: DateTime=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_pricing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get pricing information for a specified list of Instruments within an
 Account.</p>
 <table class="docutils field-list" frame="void" rules="none">
