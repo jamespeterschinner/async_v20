@@ -32,7 +32,7 @@ What is an environment variable?
 --------------------------------
 
 For our requirements, we will think of an environment variable,
-as variables stored outside the scope of the application.
+as a variable stored outside the scope of the application.
 
 Python programs can access these variables via the *os* module
 
