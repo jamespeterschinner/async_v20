@@ -75,17 +75,17 @@ Now we have defined our :term:`coroutine` we need to execute it.
 To do so we need an event loop. Achieved using `asyncio`. **get_event_loop()**
 
 .. literalinclude:: ../../bin/account_information.py
-    :lines: 12
+    :lines: 11
 
 The value returned by executing the `account` :term:`coroutine` is accessed through the event loop.
 
 .. literalinclude:: ../../bin/account_information.py
-    :lines: 13
+    :lines: 12
 
 :term:`async_v20` objects have a `Model`. **series()** method that returns a :term:`pandas`. **Series**
 
 .. literalinclude:: ../../bin/account_information.py
-    :lines: 16
+    :lines: 15
 
 .. note::
 
