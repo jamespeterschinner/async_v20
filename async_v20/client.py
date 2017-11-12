@@ -148,6 +148,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 if response:
                     self.default_parameters.update({AccountID: response['accounts'][0].id})
                 else:
+                    self.initializing =False
                     raise ConnectionError(f'Server did not return AccountID during '
                                           f'initialization. {response} {response.json_dict()}')
 
@@ -159,6 +160,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             if response:
                 self.account = response['account']
             else:
+                self.initializing = False
                 raise ConnectionError(f'Server did not return Account Details during '
                                       f'initialization. {response} {response.json_dict()}')
 

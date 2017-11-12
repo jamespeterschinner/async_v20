@@ -53,7 +53,7 @@ async def _stream_parser(response, endpoint, predicate=lambda x: x):
         schema, status, boolean = _lookup_schema(endpoint, resp.status)
         async for line in resp.content:
             body = json.loads(line)  # Turn bytes into json
-            key = body.get('type')  # We must determine what type of object as been sent. So we
+            key = body.get('type')  # We must determine what type of object as been sent.
             if predicate(key):
                 json_body = {key: body}  # can construct a phony json body similar to a rest response
                 yield await _create_response(json_body, endpoint, schema, status, boolean)

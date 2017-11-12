@@ -29,12 +29,16 @@ async def handler(request):
 
     if data is None:
         data = "null"
+    try:
+        response_status = next(status)
+    except:
+        response_status = status
 
     global received
     received = await request.text()
 
     return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers,
-                        status=status)
+                        status=response_status)
 
 
 @pytest.yield_fixture

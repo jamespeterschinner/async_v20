@@ -64,10 +64,23 @@ async def test_client_initializes(client, server):
 @pytest.mark.asyncio
 async def test_client_raises_connection_error_on_initialisation_failure(client, server):
     server_module.status = 400
-    print('TEST STATUS', server_module.status)
     with pytest.raises(ConnectionError):
         await client.initialize()
+    assert client.initialized == False
+    assert client.initializing == False
 
+    server_module.status = iter([200, 400])
+    with pytest.raises(ConnectionError):
+        await client.initialize()
+    assert client.initialized == False
+    assert client.initializing == False
+
+
+@pytest.mark.asyncio
+async def test_initialize_works_with_preset_account_id(client, server):
+    client.account_id = '123-123-1234567-123'
+    async with client as client:
+        assert client.account_id == '123-123-1234567-123'
 
 @pytest.mark.asyncio
 async def test_aenter_and_aexit(client, server):
