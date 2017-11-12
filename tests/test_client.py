@@ -144,3 +144,11 @@ async def test_request_limiter_limits(client, server, event_loop):
     time_taken = time.time() - start
     print(time_taken)
     assert time_taken >= (concurrent_requests/client.max_requests_per_second)
+
+@pytest.mark.asyncio
+async def test_client_time_out(client, server):
+    server_module.sleep_time = 10
+    client.poll_timeout = 0.1
+    with pytest.raises(TimeoutError):
+        async with client as client:
+            pass

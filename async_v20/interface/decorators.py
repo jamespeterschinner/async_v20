@@ -6,6 +6,7 @@ from inspect import signature
 from .helpers import create_request_kwargs
 from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
+from concurrent.futures._base import TimeoutError as ConcurrentTimeoutError
 
 
 def endpoint(endpoint):
@@ -30,9 +31,13 @@ def endpoint(endpoint):
 
             await self._request_limiter()
 
+
             response = self.session.request(**request_args)
 
-            return await parse_response(self, response, endpoint, predicate)
+            try:
+                return await parse_response(self, response, endpoint, predicate)
+            except ConcurrentTimeoutError:
+                raise TimeoutError(f'{method.__name__} to longer than {self.poll_timeout}')
 
         wrap.__signature__ = sig
 

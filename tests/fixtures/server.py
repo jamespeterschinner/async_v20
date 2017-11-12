@@ -2,6 +2,7 @@ import gzip
 
 import pytest
 from aiohttp import web
+import asyncio
 
 from .routes import routes
 
@@ -12,6 +13,7 @@ headers = {'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept-
 
 status = 200
 received = ''
+sleep_time = 0
 
 
 async def handler(request):
@@ -37,6 +39,8 @@ async def handler(request):
     global received
     received = await request.text()
 
+    await asyncio.sleep(sleep_time)
+
     return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers,
                         status=response_status)
 
@@ -44,8 +48,9 @@ async def handler(request):
 @pytest.yield_fixture
 @pytest.mark.asyncio
 async def server(event_loop):
-    global status
+    global status, sleep_time
     status = 200
+    sleep_time = 0
     server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
     yield server
     server.close()
