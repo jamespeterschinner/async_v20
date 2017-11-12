@@ -3,7 +3,9 @@ import ujson as json
 from .response import Response
 from ..definitions.base import create_attribute
 from ..endpoints.annotations import LastTransactionID
+from ..endpoints.annotations import SinceTransactionID
 from ..endpoints.other_responses import other_responses
+from ..endpoints.account import GETAccountIDChanges
 
 
 def _lookup_schema(endpoint, status):
@@ -43,6 +45,8 @@ async def _rest_response(self, response, endpoint):
 
     last_transaction_id = json_body.get('lastTransactionID', None)
     if last_transaction_id:
+        if endpoint == GETAccountIDChanges:
+            self.default_parameters.update({SinceTransactionID: last_transaction_id})
         self.default_parameters.update({LastTransactionID: last_transaction_id})
 
     return await _create_response(json_body, endpoint, schema, status, boolean)

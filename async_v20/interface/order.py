@@ -50,7 +50,7 @@ class OrderInterface(object):
         pass
 
     @shortcut
-    def create_order(self, instrument: InstrumentName, units: Unit, type: OrderType = None,
+    def create_order(self, instrument: InstrumentName, units: Unit, type: OrderType = 'MARKET',
                      trade_id: TradeID = None, price: PriceValue = None, client_trade_id: ClientID = None,
                      time_in_force: TimeInForce = None, gtd_time: DateTime = None,
                      trigger_condition: OrderTriggerCondition = None, client_extensions: ClientExtensions = None,

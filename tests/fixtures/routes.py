@@ -6,7 +6,7 @@ routes = {
     ('GET', '/v3/accounts/123-123-1234567-123/summary'): account_summary_response,
     ('GET', '/v3/accounts/123-123-1234567-123/instruments'): account_instruments_response,
     ('PATCH', '/v3/accounts/123-123-1234567-123/configuration'): None,
-    ('GET', '/v3/accounts/123-123-1234567-123/changes'): None,
+    ('GET', '/v3/accounts/123-123-1234567-123/changes'): account_changes_response,
     ('GET', '/v3/instruments/123-123-1234567-123/candles'): get_candles_response,
     ('POST', '/v3/accounts/123-123-1234567-123/orders'): create_order_response,
     ('GET', '/v3/accounts/123-123-1234567-123/orders'): list_orders_response,

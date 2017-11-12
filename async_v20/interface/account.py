@@ -1,7 +1,9 @@
 from .decorators import endpoint
 from ..definitions.types import DecimalNumber
 from ..endpoints.account import *
-from ..endpoints.annotations import *
+from ..endpoints.annotations import SinceTransactionID
+from ..endpoints.annotations import Instruments
+from ..endpoints.annotations import Alias
 
 __all__ = ['AccountInterface']
 
@@ -87,7 +89,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDChanges)
-    def account_changes(self, since_transaction_id: LastTransactionID = None):
+    def account_changes(self, since_transaction_id: SinceTransactionID = None):
         """
         Endpoint used to poll an Account for its current state and changes
         since a specified TransactionID.

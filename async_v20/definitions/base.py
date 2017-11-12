@@ -195,9 +195,6 @@ class Model(tuple, metaclass=ORM):
         def fields():
             for field in self._fields:
                 attr = getattr(self, field)
-                # Don't need to check if attr is none.
-                # because attr will only exist if the immutable tuple
-                # had the attribute set in _fields
                 if not isinstance(attr, (int, float, str)):
                     try:
                         attr = attr.json_dict(float_to_string)
@@ -209,6 +206,10 @@ class Model(tuple, metaclass=ORM):
                                     if float_to_string and isinstance(obj, float)
                                     else obj
                                     for obj in attr]
+                        except TypeError:
+                            # Attr is None. account_changes endpoint
+                            # returns items with null
+                            attr = attr
 
 
                 elif float_to_string and isinstance(attr, float):

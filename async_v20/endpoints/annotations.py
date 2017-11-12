@@ -180,6 +180,11 @@ class LastTransactionID(TransactionID):
     """Contains the most recent TransactionID"""
     pass
 
+class SinceTransactionID(TransactionID):
+    """Contains the most recent TransactionID that was returned
+    from account_changes()"""
+    pass
+
 
 class FromTransactionID(TransactionID):
     """A TransactionID to be used as the starting period a query"""

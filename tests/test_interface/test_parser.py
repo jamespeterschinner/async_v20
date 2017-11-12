@@ -4,7 +4,7 @@ from async_v20.definitions.base import Array
 from async_v20.definitions.types import Account, AccountSummary, AccountProperties
 from async_v20.definitions.types import Price, Position
 from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary, GETAccounts
-from async_v20.endpoints.annotations import LastTransactionID
+from async_v20.endpoints.annotations import SinceTransactionID, LastTransactionID
 from async_v20.endpoints.instrument import GETInstrumentsCandles
 from async_v20.endpoints.pricing import GETPricingStream
 from async_v20.interface.parser import _create_response
@@ -16,9 +16,10 @@ from tests.data.json_data import GETAccountID_response
 from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETInstrumentsCandles_response
 from tests.data.stream_data import price_bytes
-from tests.test_interface.helpers import order_dict
-from tests.fixtures.client import client
 from tests.fixtures import server as server_module
+from tests.fixtures.static import account_changes_response
+from tests.fixtures.client import client
+from tests.test_interface.helpers import order_dict
 
 client = client
 server = server_module.server
@@ -180,3 +181,18 @@ async def test_parser_raises_connection_error_with_bad_http_status(client, serve
     with pytest.raises(ConnectionError):
         async with client as client:
             pass
+
+
+@pytest.mark.asyncio
+async def test_parser_updates_since_transaction_id(client, server):
+    async with client as client:
+        # Test server will return response with lastTransactionID
+        # Being 4980
+        assert client.default_parameters[SinceTransactionID] != '4980'
+        assert client.default_parameters[SinceTransactionID] == \
+               client.default_parameters[LastTransactionID]
+        response = await client.account_changes()
+        assert client.default_parameters[SinceTransactionID] == '4980'
+        print(response.json())
+        print(account_changes_response)
+        assert response.json() == account_changes_response

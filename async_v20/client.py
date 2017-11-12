@@ -9,7 +9,7 @@ from yarl import URL
 
 from .definitions.types import AcceptDatetimeFormat
 from .definitions.types import AccountID
-from .endpoints.annotations import Authorization
+from .endpoints.annotations import Authorization, SinceTransactionID, LastTransactionID
 from .interface import *
 from .interface.account import AccountInterface
 
@@ -164,6 +164,10 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 self.initializing = False
                 raise ConnectionError(f'Server did not return Account Details during '
                                       f'initialization. {response} {response.json_dict()}')
+
+            # On initialization the SinceTransactionID needs updated to reflect LastTransactionID
+            self.default_parameters.update({SinceTransactionID: self.default_parameters[LastTransactionID]})
+
 
             self.initializing = False
             self.initialized = True

@@ -1,4 +1,7 @@
-from .annotations import *
+from .annotations import SinceTransactionID
+from .annotations import Authorization
+from .annotations import Instruments
+from .annotations import Alias
 from .base import EndPoint, Path
 from ..definitions.primitives import *
 from ..definitions.types import *
@@ -155,7 +158,7 @@ class GETAccountIDChanges(EndPoint):
         {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
          'description': 'AcceptDatetimeFormat'},
         {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'sinceTransactionID', 'located': 'query', 'type': LastTransactionID, 'description': 'TransactionID'},
+        {'name': 'sinceTransactionID', 'located': 'query', 'type': SinceTransactionID, 'description': 'TransactionID'},
     ]
 
     # valid responses
