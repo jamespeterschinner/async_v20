@@ -26,11 +26,28 @@ class Array(tuple):
     _contains = None
 
     def __new__(cls, *data):
+        ids = {}
+
+        def construct_items(data):
+            for index, obj in enumerate(data):
+                item = create_attribute(cls._contains, obj)
+                try:
+                    ids.update({getattr(item, 'id'): index})
+                except AttributeError:
+                    pass
+                yield item
+
         try:
-            return super().__new__(cls, (create_attribute(cls._contains, obj) for obj in data))
+            instance = super().__new__(cls, construct_items(data))
         except (TypeError, ValueError):
             msg = f'FAILED TO CREATE OBJECT: {cls.__name__} FROM DATA: {data} DATA TYPE: {type(data)}'
             raise ValueError(msg)
+        else:
+            instance._ids = ids
+            return instance
+
+    def get_id(self, id_):
+        return self[self._ids[id_]]
 
 
 def arg_parse(new: classmethod, signature=Signature) -> classmethod:
@@ -162,7 +179,7 @@ class Model(tuple, metaclass=ORM):
 
             # These attributes seem to be the most important to users
             for attribute in ('id', 'instrument', 'amount', 'units', 'financing',
-                              'pl', 'price', 'reason', 'time', ):
+                              'pl', 'price', 'reason', 'time',):
                 try:
                     value = getattr(self, attribute)
                 except (IndexError, AttributeError):
@@ -191,22 +208,10 @@ class Model(tuple, metaclass=ORM):
             for name, annotation, value in arguments:
                 if value is not None:
                     cls._fields.append(name)
-                yield create_attribute(annotation, value) if value else value
+                yield create_attribute(annotation, value) if value is not None else None
 
         result = super().__new__(cls, tuple(construct_object_data()))
         return result
-
-    # def keys(self):
-    #     """Iterate over keys"""
-    #     return (field for field  in self._fields)
-    #
-    # def values(self):
-    #     """Iterate over values"""
-    #     return (getattr(self, field) for field in self._fields)
-    #
-    # def items(self):
-    #     """Iterate over key, value pairs"""
-    #     return ((field, getattr(self, field)) for field in self._fields)
 
     def dict(self, json=True):
         def fields():
@@ -253,18 +258,11 @@ class Model(tuple, metaclass=ORM):
 
         return pd.Series(dict(self.template, **dict(create_data())))
 
-    def update(self, other):
-        if not type(other) == type(self):
-            raise ValueError(f'Cannot update. type({self}) != type({other}) : {type(self)} must == {type(other)}')
-        def merge():
-            for attribute in self.template:
-                try:
-                    value = getattr(other, attribute, getattr(self, attribute))
-                except AttributeError:
-                    continue
-                else:
-                    yield attribute, value
-        return self.__class__(**dict(merge()))
+    def replace(self, **kwargs):
+        """Create new instance of self with replaced values"""
+        updated_kwargs = self.dict(json=False)
+        updated_kwargs.update(kwargs)
+        return self.__class__(**updated_kwargs)
 
 
 def create_attribute(typ, data):

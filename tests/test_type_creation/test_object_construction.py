@@ -1,5 +1,6 @@
 from ..data.json_data import GETAccountID_response, position_response, order_cancel_transaction_json_dict
-from async_v20.definitions.types import Account, Position, OrderCancelTransaction
+from async_v20.definitions.types import Account, Position, OrderCancelTransaction, ArrayOrder, Account
+from async_v20.definitions.primitives import TradeSpecifier, OrderSpecifier
 import pandas as pd
 import pytest
 
@@ -29,3 +30,15 @@ def test_supplying_incorret_preset_argument_raises_value_error():
     order_cancel_transaction_json_dict.update(type='INCORRECT VALUE')
     with pytest.raises(ValueError):
         OrderCancelTransaction(**order_cancel_transaction_json_dict)
+
+def test_passing_empty_list_tuple_to_array_returns_empty_array():
+    array_order = ArrayOrder(*[])
+    assert type(array_order) == ArrayOrder
+    account = Account(orders=[])
+    assert type(account.orders) == ArrayOrder
+    account = Account(orders=())
+    assert type(account.orders) == ArrayOrder
+
+def test_specifiers_can_be_constructed_from_int():
+    assert type(TradeSpecifier(1234)) == TradeSpecifier
+    assert type(OrderSpecifier(1234)) == OrderSpecifier

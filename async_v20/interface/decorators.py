@@ -37,7 +37,7 @@ def endpoint(endpoint, initialization_step=False):
             try:
                 return await parse_response(self, response, endpoint, predicate)
             except ConcurrentTimeoutError:
-                raise TimeoutError(f'{method.__name__} to longer than {self.poll_timeout}')
+                raise TimeoutError(f'{method.__name__} to longer than {self.poll_timeout} seconds')
 
         wrap.__signature__ = sig
 

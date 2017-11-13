@@ -502,7 +502,6 @@ class TradeSpecifier(str, Primitive):
     example = '@my_trade_id'
 
     def __new__(cls, value):
-        assert domain_check(value, example=cls.example)
         return super().__new__(cls, value)
 
 

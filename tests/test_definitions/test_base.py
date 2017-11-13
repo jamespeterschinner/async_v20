@@ -120,7 +120,7 @@ def test_create_attribute_returns_type_error():
 def test_model_update():
     trade_summary = TradeSummary(**example_trade_summary)
     changed_trade_summary = TradeSummary(**example_changed_trade_summary)
-    result = trade_summary.update(changed_trade_summary)
+    result = trade_summary.replace(**changed_trade_summary.dict(json=False))
     merged = trade_summary.dict()
     merged.update(changed_trade_summary.dict())
     assert all(map(lambda x: x in merged, result.dict().keys()))
@@ -129,20 +129,5 @@ def test_model_update():
 def test_model_update_returns_error_with_incorrect_type():
     trade_summary = TradeSummary(**example_trade_summary)
     changed_trade_summary = Trade(**example_changed_trade_summary)
-    with pytest.raises(ValueError):
-        trade_summary.update(changed_trade_summary)
-
-# def test_key_method_returns_all_keys():
-#     trade_summary = TradeSummary(**example_trade_summary)
-#     trade_summary_dict = trade_summary.json_dict()
-#     print(trade_summary_dict)
-#     for key in trade_summary.keys():
-#         assert key in trade_summary_dict
-#
-# def test_value_method_returns_all_values():
-#     trade_summary = TradeSummary(**example_trade_summary)
-#     assert len(trade_summary.values()) == len(trade_summary.json_dict().values())
-#
-# def test_items_method_returns_all_key_value_pairs():
-#     trade_summary = TradeSummary(**example_trade_summary)
-#     assert all(map(lambda x: getattr(trade_summary, x[0]) == x[1], trade_summary.items()))
+    with pytest.raises(TypeError):
+        trade_summary.replace(**changed_trade_summary.dict(json=False))

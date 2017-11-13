@@ -4,7 +4,7 @@ import pytest
 
 from async_v20.definitions import primitives
 from async_v20.definitions.primitives import ClientComment, ClientID, ClientTag
-from async_v20.definitions.primitives import OrderSpecifier
+from async_v20.definitions.primitives import OrderSpecifier, TradeSpecifier
 from async_v20.definitions.primitives import TransactionID
 from tests.test_definitions.helpers import get_valid_primitive_data
 
@@ -40,7 +40,7 @@ def test_primitive_values_have_length_checking(primitive):
 def test_primitives_enforce_length_checking(primitive):
     if isclass(primitive):
         if getattr(primitive, 'example', None) and primitive not in \
-                (OrderSpecifier, ClientComment, ClientID, ClientTag, TransactionID):
+                (OrderSpecifier, ClientComment, ClientID, ClientTag, TransactionID, TradeSpecifier):
             with pytest.raises(ValueError):
                 primitive(primitive.example + '_')
 

@@ -114,13 +114,18 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
              AcceptDatetimeFormat: datetime_format}
         )
 
-    # async def account(self):
-    #     """Get the current state of the account
-    #
-    #     Returns: async_v20.definitions.types.Account
-    #     """
-    #     response = await self.account_changes()
-    #     for change in response.changes
+    async def account(self):
+        """Get the current state of the account
+
+        Returns: async_v20.definitions.types.Account
+        """
+        response = await self.account_changes()
+        if response:
+            orders = []
+            orders.append(response.changes.orders_created)
+
+
+
 
     async def _request_limiter(self):
         """Wait for a minimum time interval before creating new request"""
