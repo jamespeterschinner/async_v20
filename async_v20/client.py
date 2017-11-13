@@ -55,6 +55,9 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     # The first step to be called during initialization
     expected_step = None
 
+    # Time to poll initialized when waiting for initialization
+    initialization_sleep = 0.5
+
     account = None
 
     session = None
@@ -130,10 +133,11 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     async def initialize(self, initialization_step=False):
         if self.initialized or self.expected_step == initialization_step:
+            print('PASSING INITIALIZATION', self.expected_step, initialization_step)
             pass
         elif self.initializing:
             while not self.initialized:
-                await sleep(1)
+                await sleep(self.initialization_sleep)
         else:  # Means an initialization is required
             self.initializing = True
 
@@ -150,7 +154,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             if self.account_id:
                 self.default_parameters.update({AccountID: self.account_id})
             else:  # Get the corresponding AccountID for the provided token
-                self.expected_step = 0  # Allow the expected step to pass though
+                self.expected_step = 1  # Allow the expected step to pass though
                 # initialization
                 response = await self.list_accounts()
                 if response:
@@ -164,7 +168,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             # last transaction is automatically updated when the
             # response is parsed
 
-            self.expected_step = 1
+            self.expected_step = 2
             response = await self.get_account_details()
             if response:
                 self.account = response['account']

@@ -10,6 +10,8 @@ from async_v20.client import OandaClient
 from async_v20.endpoints.annotations import Authorization
 from .fixtures import server as server_module
 from .fixtures.client import client
+import inspect
+from .test_definitions.helpers import get_valid_primitive_data
 
 client = client
 server = server_module.server
@@ -160,6 +162,20 @@ async def test_client_time_out(client, server):
             pass
 
 @pytest.mark.asyncio
-async def test_client_handles_multiple_concurrent_initializations(client, server):
-    await asyncio.gather(*[client.get_account_details() for _ in range(10)])
+@pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: True if hasattr(x, 'shortcut') or
+                                                      hasattr(x, 'endpoint') else False))
+async def test_client_handles_multiple_concurrent_initializations(client, server, method):
+    # Method is a tuple of attribute, function
+    client.initialization_sleep = 0 # Make this small to speed up tests
+    data = tuple(get_valid_primitive_data(param.annotation)
+                 for param in method[1].__signature__.parameters.values()
+                 if param.name not in 'self cls')
+    method = getattr(client, method[0])
+    try:
+        await asyncio.gather(*[method(*data) for _ in range(5)])
+    except (AttributeError, ConnectionError):
+        # Don't care if incorrect data or status is returned)
+        # Just want to make sure the client always initializes correctly
+        pass
     assert client.initialized
+
