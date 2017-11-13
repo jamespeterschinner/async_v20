@@ -47,7 +47,7 @@ def create_body(request_schema, arguments):
     # Reverse the request schema to allow for lookups
 
     def dumps():
-        """Iterate over the arguments returning json_dicts of matching objects"""
+        """Iterate over the arguments returning dicts of matching objects"""
         for key, value in arguments.items():
             try:
                 key = request_schema[key]
@@ -55,7 +55,7 @@ def create_body(request_schema, arguments):
                 continue
             else:
                 try:
-                    value = value.json_dict()
+                    value = value.dict()
                 except AttributeError:
                     pass
                 yield key, value

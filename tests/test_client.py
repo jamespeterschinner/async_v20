@@ -127,9 +127,9 @@ async def test_response_returns_json(client, server):
         account_details = await client.get_account_details()
         pricing = await client.get_pricing()
 
-    assert accounts.json_dict()
-    assert account_details.json_dict()
-    assert pricing.json_dict()
+    assert accounts.dict()
+    assert account_details.dict()
+    assert pricing.dict()
 
 
 @pytest.mark.asyncio

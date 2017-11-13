@@ -18,4 +18,4 @@ print(response['account'].series())
 print(response['account'])
 
 # JSON data in python dictionary format
-print(response['account'].json_dict())
+print(response['account'].dict())

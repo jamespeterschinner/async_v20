@@ -28,7 +28,7 @@ def test_all_types_can_be_instantiated_from_dict(cls, data):
     assert result
     assert type(result) == cls
     # Test class instance can be used to create another instance of the same class
-    result = cls(**result.json_dict())
+    result = cls(**result.dict())
     assert result
     assert type(result) == cls
 

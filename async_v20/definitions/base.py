@@ -161,8 +161,8 @@ class Model(tuple, metaclass=ORM):
         def information():
 
             # These attributes seem to be the most important to users
-            for attribute in ('amount', 'financing', 'id', 'instrument',
-                              'pl', 'price', 'reason', 'time', 'units'):
+            for attribute in ('id', 'instrument', 'amount', 'units', 'financing',
+                              'pl', 'price', 'reason', 'time', ):
                 try:
                     value = getattr(self, attribute)
                 except (IndexError, AttributeError):
@@ -170,7 +170,12 @@ class Model(tuple, metaclass=ORM):
                 if value is not None:
                     yield f'{attribute}={value}'
 
-        return f'<{self.__class__.__name__}: {", ".join(information())}>'
+        # Attempt to get important attributes otherwise provide everything
+        attributes = ', '.join(information())
+        if not attributes:
+            attributes = ', '.join(self._fields)
+
+        return f'<{self.__class__.__name__}: {attributes}>'
 
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -191,19 +196,31 @@ class Model(tuple, metaclass=ORM):
         result = super().__new__(cls, tuple(construct_object_data()))
         return result
 
-    def json_dict(self, float_to_string=True):
+    # def keys(self):
+    #     """Iterate over keys"""
+    #     return (field for field  in self._fields)
+    #
+    # def values(self):
+    #     """Iterate over values"""
+    #     return (getattr(self, field) for field in self._fields)
+    #
+    # def items(self):
+    #     """Iterate over key, value pairs"""
+    #     return ((field, getattr(self, field)) for field in self._fields)
+
+    def dict(self, json=True):
         def fields():
             for field in self._fields:
                 attr = getattr(self, field)
                 if not isinstance(attr, (int, float, str)):
                     try:
-                        attr = attr.json_dict(float_to_string)
+                        attr = attr.dict(json)
                     except AttributeError:
                         try:
-                            attr = [obj.json_dict(float_to_string) for obj in attr]
+                            attr = [obj.dict(json) for obj in attr]
                         except AttributeError:
                             attr = [str(obj)
-                                    if float_to_string and isinstance(obj, float)
+                                    if json and isinstance(obj, float)
                                     else obj
                                     for obj in attr]
                         except TypeError:
@@ -212,17 +229,17 @@ class Model(tuple, metaclass=ORM):
                             attr = attr
 
 
-                elif float_to_string and isinstance(attr, float):
+                elif json and isinstance(attr, float):
                     attr = str(attr)
                 yield field, attr
 
-        return {json_attributes[field]: attr for field, attr in fields()}
+        return {json_attributes[field] if json else field: attr for field, attr in fields()}
 
     def json(self):
-        return json.dumps(self.json_dict(float_to_string=True))
+        return json.dumps(self.dict(json=True))
 
     def data(self, float_to_string=False):
-        return flatten_dict(self.json_dict(float_to_string), self._delimiter)
+        return flatten_dict(self.dict(float_to_string), self._delimiter)
 
     def series(self):
         def create_data():
@@ -235,6 +252,19 @@ class Model(tuple, metaclass=ORM):
                 yield key, value
 
         return pd.Series(dict(self.template, **dict(create_data())))
+
+    def update(self, other):
+        if not type(other) == type(self):
+            raise ValueError(f'Cannot update. type({self}) != type({other}) : {type(self)} must == {type(other)}')
+        def merge():
+            for attribute in self.template:
+                try:
+                    value = getattr(other, attribute, getattr(self, attribute))
+                except AttributeError:
+                    continue
+                else:
+                    yield attribute, value
+        return self.__class__(**dict(merge()))
 
 
 def create_attribute(typ, data):

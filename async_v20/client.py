@@ -52,15 +52,13 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     initializing = False
 
-    # The first step to be called during initialization
-    expected_step = None
+    expected_step = None  # The first step to be called during initialization
 
-    # Time to poll initialized when waiting for initialization
-    initialization_sleep = 0.5
+    initialization_sleep = 0.5  # Time to poll initialized when waiting for initialization
 
-    account = None
+    _account = None
 
-    session = None
+    session = None  # http session will be created during initialization
 
     @property
     def max_requests_per_second(self):
@@ -82,14 +80,11 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         self._max_simultaneous_connections = {True: value, False: 0}[value >= 0]
 
     def __init__(self, token=None, account_id=None, rest_host='api-fxpractice.oanda.com', rest_port=443,
-                 rest_scheme='https',
-                 stream_host='stream-fxpractice.oanda.com', stream_port=None, stream_scheme='https',
-                 datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99,
+                 rest_scheme='https', stream_host='stream-fxpractice.oanda.com', stream_port=None,
+                 stream_scheme='https', datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99,
                  max_simultaneous_connections=10):
-        # TODO: add poll timeout
-        self.version = __version__
 
-        self.initialized = False  # when a new client instance is created it must be initialized
+        self.version = __version__
 
         if token is None:
             token = os.environ['OANDA_TOKEN']
@@ -119,6 +114,14 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
              AcceptDatetimeFormat: datetime_format}
         )
 
+    # async def account(self):
+    #     """Get the current state of the account
+    #
+    #     Returns: async_v20.definitions.types.Account
+    #     """
+    #     response = await self.account_changes()
+    #     for change in response.changes
+
     async def _request_limiter(self):
         """Wait for a minimum time interval before creating new request"""
         try:
@@ -141,13 +144,24 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         Returns: True when complete
         """
         if self.initialized or self.expected_step == initialization_step:
+            # Do not initialize or wait for initialization to complete
+            # If it did, due to circular logic initialization would never
+            # complete
             pass
+
         elif self.initializing:
+            # Wait for current initialization to complete before
+            # continuing with request
             while not self.initialized:
                 await sleep(self.initialization_sleep)
-        else:  # Means an initialization is required
-            self.initializing = True
 
+        else:  # If it gets this far. An initialization if required
+
+            self.initializing = True  # immediately set initializing to make sure
+            # Upcoming requests wait for this initialization
+            # to complete.
+
+            # Create http session this client will use to sent all requests
             conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
 
             self.session = aiohttp.ClientSession(
@@ -157,19 +171,26 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 read_timeout=self.poll_timeout
             )
 
-            # Get the first account listed in in accounts
-            if self.account_id:
+            # Get the first account listed in in accounts.
+            # If another is desired the account must be configured
+            # manually when instantiating the client
+
+            if self.account_id:  # Allow manual assignment of AccountID
                 self.default_parameters.update({AccountID: self.account_id})
+
             else:  # Get the corresponding AccountID for the provided token
-                self.expected_step = 1  # Allow the expected step to pass though
-                # initialization
+
+                self.expected_step = 1  # Setting this prevents the request from
+                # waiting for initialization to complete.
+
                 response = await self.list_accounts()
-                if response:
+                if response:  # Checks is the response status was the expected status as
+                    # defined by OANDA spec.
                     self.default_parameters.update({AccountID: response['accounts'][0].id})
                 else:
                     self.initializing = False
                     raise ConnectionError(f'Server did not return AccountID during '
-                                          f'initialization. {response} {response.json_dict()}')
+                                          f'initialization. {response} {response.dict()}')
 
             # Get Account snapshot and last transaction id
             # last transaction is automatically updated when the
@@ -182,7 +203,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             else:
                 self.initializing = False
                 raise ConnectionError(f'Server did not return Account Details during '
-                                      f'initialization. {response} {response.json_dict()}')
+                                      f'initialization. {response} {response.dict()}')
 
             # On initialization the SinceTransactionID needs updated to reflect LastTransactionID
             self.default_parameters.update({SinceTransactionID: self.default_parameters[LastTransactionID]})
@@ -210,5 +231,6 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     def close(self):
         try:
             self.session.close()
-        except AttributeError:  # In case the client was never initialized
+        except AttributeError:
+            # In case the client was never initialized
             pass

@@ -1,9 +1,9 @@
 from .decorators import endpoint
 from ..definitions.types import DecimalNumber
 from ..endpoints.account import *
-from ..endpoints.annotations import SinceTransactionID
-from ..endpoints.annotations import Instruments
 from ..endpoints.annotations import Alias
+from ..endpoints.annotations import Instruments
+from ..endpoints.annotations import SinceTransactionID
 
 __all__ = ['AccountInterface']
 
@@ -12,8 +12,6 @@ class AccountInterface(object):
     @endpoint(GETAccounts, initialization_step=1)
     def list_accounts(self):
         """Get a list of all Accounts authorized for the provided token.
-
-        Args:
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting the

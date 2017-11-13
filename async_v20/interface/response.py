@@ -27,21 +27,21 @@ class Response(dict):
         else:
             raise AttributeError("No such attribute: " + name)
 
-    def json_dict(self):
+    def dict(self, json=True):
 
-        def value_to_json_dict(value):
+        def value_to_dict(value):
             try:
                 # If value is an Model object
-                result = value.json_dict()
+                result = value.dict(json)
             except AttributeError:
                 try:
-                    result = [obj.json_dict() for obj in value]
+                    result = [obj.dict(json) for obj in value]
                 except (AttributeError, TypeError):
                     result = value
             return result
 
-        return {key: value_to_json_dict(value) for key, value in self.items()}
+        return {key: value_to_dict(value) for key, value in self.items()}
 
     def json(self):
         """Return the json equivalent of the response"""
-        return json.dumps(self.json_dict())
+        return json.dumps(self.dict())

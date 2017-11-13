@@ -15,7 +15,7 @@ response = loop.run_until_complete(candles())
 print(response['instrument'])
 
 # JSON data in python dictionary format
-print(response['candles'][0].json_dict())
+print(response['candles'][0].dict())
 
 # pandas Series
 print(response['candles'][0].series())

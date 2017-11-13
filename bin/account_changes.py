@@ -15,7 +15,7 @@ response = loop.run_until_complete(account())
 print(response['state'])
 
 # JSON data in python dictionary format
-print(response['state'].json_dict())
+print(response['state'].dict())
 
 # pandas Series
 print(response['state'].series())

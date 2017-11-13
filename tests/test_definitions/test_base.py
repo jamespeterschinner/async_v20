@@ -1,12 +1,12 @@
+import ujson as json
+
 import pytest
+
 from async_v20.definitions.base import Model, Array, create_attribute
-from async_v20.definitions.types import Account, ArrayStr
 from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import TradeID, AccountID
-
-from ..data.json_data import GETAccountID_response
-
-import ujson as json
+from async_v20.definitions.types import Account, ArrayStr, TradeSummary, Trade
+from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
 
 
 @pytest.fixture
@@ -17,7 +17,7 @@ def account():
 
 
 def test_account_has_correct_methods(account):
-    assert hasattr(account, 'json_dict')
+    assert hasattr(account, 'dict')
     assert hasattr(account, 'data')
     assert hasattr(account, 'series')
 
@@ -49,7 +49,7 @@ def test_json_dict_returns_correct_data_structure(account):
     serializing objects to send to OANDA. Though when used internally is it more
     natural to leave floats as floats."""
 
-    result = account.json_dict(float_to_string=True)
+    result = account.dict(json=True)
     # Test result is a dict
     assert type(result) == dict
     flattened_result = flatten_dict(result)
@@ -57,7 +57,7 @@ def test_json_dict_returns_correct_data_structure(account):
     for value in flattened_result:
         assert isinstance(value, (dict, str, int, list))
 
-    result = account.json_dict(float_to_string=False)
+    result = account.dict(json=False)
     assert type(result) == dict
     flattened_result = flatten_dict(result)
     # Test that all values have the correct data type. Specifically that
@@ -72,7 +72,7 @@ def test_json_dict_returns_correct_data_structure(account):
 def test_json_data(account):
     result = account.json()
     assert type(result) == str
-    assert json.loads(result) == account.json_dict(float_to_string=True)
+    assert json.loads(result) == account.dict(json=True)
 
 
 def test_data(account):
@@ -115,3 +115,34 @@ def test_create_attribute_returns_type_error():
 
     with pytest.raises(TypeError):
         create_attribute(ArrayStr, TradeID(123))
+
+
+def test_model_update():
+    trade_summary = TradeSummary(**example_trade_summary)
+    changed_trade_summary = TradeSummary(**example_changed_trade_summary)
+    result = trade_summary.update(changed_trade_summary)
+    merged = trade_summary.dict()
+    merged.update(changed_trade_summary.dict())
+    assert all(map(lambda x: x in merged, result.dict().keys()))
+    assert result.dict() == TradeSummary(**merged).dict()
+
+def test_model_update_returns_error_with_incorrect_type():
+    trade_summary = TradeSummary(**example_trade_summary)
+    changed_trade_summary = Trade(**example_changed_trade_summary)
+    with pytest.raises(ValueError):
+        trade_summary.update(changed_trade_summary)
+
+# def test_key_method_returns_all_keys():
+#     trade_summary = TradeSummary(**example_trade_summary)
+#     trade_summary_dict = trade_summary.json_dict()
+#     print(trade_summary_dict)
+#     for key in trade_summary.keys():
+#         assert key in trade_summary_dict
+#
+# def test_value_method_returns_all_values():
+#     trade_summary = TradeSummary(**example_trade_summary)
+#     assert len(trade_summary.values()) == len(trade_summary.json_dict().values())
+#
+# def test_items_method_returns_all_key_value_pairs():
+#     trade_summary = TradeSummary(**example_trade_summary)
+#     assert all(map(lambda x: getattr(trade_summary, x[0]) == x[1], trade_summary.items()))

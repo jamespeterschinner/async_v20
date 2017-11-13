@@ -176,7 +176,7 @@ async def test_request_body_is_constructed_correctly(stop_loss_order):
 async def test_objects_can_be_converted_between_Model_object_and_json():
     account = Account(**GETAccountID_response['account'])
     response_json_account = GETAccountID_response['account']
-    account_to_json = account.json_dict()
+    account_to_json = account.dict()
 
     response_json_account = order_dict(response_json_account)
     account_to_json = order_dict(account_to_json)
