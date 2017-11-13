@@ -1,4 +1,5 @@
 import asyncio
+import inspect
 import os
 import re
 import time
@@ -10,7 +11,6 @@ from async_v20.client import OandaClient
 from async_v20.endpoints.annotations import Authorization
 from .fixtures import server as server_module
 from .fixtures.client import client
-import inspect
 from .test_definitions.helpers import get_valid_primitive_data
 
 client = client
@@ -61,7 +61,9 @@ async def test_client_initializes(client, server):
         client.close()
         assert client.session.closed == True
 
+
 error_status = [i for i in range(400, 600)]
+
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
@@ -71,6 +73,7 @@ async def test_client_raises_error_on_first_initialisation_failure(client, serve
         await client.initialize()
     assert client.initialized == False
     assert client.initializing == False
+
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
@@ -161,12 +164,13 @@ async def test_client_time_out(client, server):
         async with client as client:
             pass
 
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: True if hasattr(x, 'shortcut') or
-                                                      hasattr(x, 'endpoint') else False))
+                                                                                     hasattr(x, 'endpoint') else False))
 async def test_client_handles_multiple_concurrent_initializations(client, server, method):
     # Method is a tuple of attribute, function
-    client.initialization_sleep = 0 # Make this small to speed up tests
+    client.initialization_sleep = 0  # Make this small to speed up tests
     data = tuple(get_valid_primitive_data(param.annotation)
                  for param in method[1].__signature__.parameters.values()
                  if param.name not in 'self cls')
@@ -178,4 +182,3 @@ async def test_client_handles_multiple_concurrent_initializations(client, server
         # Just want to make sure the client always initializes correctly
         pass
     assert client.initialized
-

@@ -132,8 +132,15 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         return
 
     async def initialize(self, initialization_step=False):
+        """Initialize client instance
+
+        Args:
+            initialization_step: -- Used internally to allow requests to bypass
+                                    initialization.
+
+        Returns: True when complete
+        """
         if self.initialized or self.expected_step == initialization_step:
-            print('PASSING INITIALIZATION', self.expected_step, initialization_step)
             pass
         elif self.initializing:
             while not self.initialized:
