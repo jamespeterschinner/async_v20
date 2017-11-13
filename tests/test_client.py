@@ -74,7 +74,7 @@ async def test_client_raises_error_on_first_initialisation_failure(client, serve
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
-async def test_client_raises_error_on_first_initialisation_failure(client, server, error_status):
+async def test_client_raises_error_on_second_initialisation_failure(client, server, error_status):
     server_module.status = iter([200, 400])
     with pytest.raises(ConnectionError):
         await client.initialize()
