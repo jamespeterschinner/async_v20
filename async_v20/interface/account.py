@@ -9,7 +9,7 @@ __all__ = ['AccountInterface']
 
 
 class AccountInterface(object):
-    @endpoint(GETAccounts)
+    @endpoint(GETAccounts, initialization_step=0)
     def list_accounts(self):
         """Get a list of all Accounts authorized for the provided token.
 
@@ -21,7 +21,7 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountID)
+    @endpoint(GETAccountID, initialization_step=1)
     def get_account_details(self):
         """
         Get the full details for a single Account that a client has access to.

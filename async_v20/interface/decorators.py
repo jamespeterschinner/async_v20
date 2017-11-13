@@ -9,7 +9,7 @@ from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
 
 
-def endpoint(endpoint):
+def endpoint(endpoint, initialization_step=False):
     """Define a method call to be exposed to the user"""
 
     def wrapper(method):
@@ -21,9 +21,10 @@ def endpoint(endpoint):
 
         method.__doc__ = create_doc_signature(method, sig)
 
+
         @wraps(method)
         async def wrap(self, *args, **kwargs):
-            await self.initialize()
+            await self.initialize(initialization_step)
 
             predicate = kwargs.pop('predicate', lambda x: x)
 

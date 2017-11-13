@@ -52,11 +52,12 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     initializing = False
 
+    # The first step to be called during initialization
+    expected_step = None
+
     account = None
 
     session = None
-
-    loop = None
 
     @property
     def max_requests_per_second(self):
@@ -127,8 +128,13 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             await sleep(self._next_request_time - time())
         return
 
-    async def initialize(self):
-        if not self.initialized and not self.initializing:
+    async def initialize(self, initialization_step=False):
+        if self.initialized or self.expected_step == initialization_step:
+            pass
+        elif self.initializing:
+            while not self.initialized:
+                await sleep(1)
+        else:  # Means an initialization is required
             self.initializing = True
 
             conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
@@ -143,13 +149,14 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             # Get the first account listed in in accounts
             if self.account_id:
                 self.default_parameters.update({AccountID: self.account_id})
-            else:
-                # Get the corresponding AccountID for the provided token
+            else:  # Get the corresponding AccountID for the provided token
+                self.expected_step = 0  # Allow the expected step to pass though
+                # initialization
                 response = await self.list_accounts()
                 if response:
                     self.default_parameters.update({AccountID: response['accounts'][0].id})
                 else:
-                    self.initializing =False
+                    self.initializing = False
                     raise ConnectionError(f'Server did not return AccountID during '
                                           f'initialization. {response} {response.json_dict()}')
 
@@ -157,6 +164,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             # last transaction is automatically updated when the
             # response is parsed
 
+            self.expected_step = 1
             response = await self.get_account_details()
             if response:
                 self.account = response['account']
@@ -168,9 +176,11 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             # On initialization the SinceTransactionID needs updated to reflect LastTransactionID
             self.default_parameters.update({SinceTransactionID: self.default_parameters[LastTransactionID]})
 
-
             self.initializing = False
             self.initialized = True
+
+        # Always return True when initialization has complete
+        return True
 
     async def __aenter__(self):
         await self.initialize()

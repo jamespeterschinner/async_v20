@@ -1,16 +1,15 @@
+import asyncio
 import os
 import re
+import time
 
 import pytest
 
 from async_v20 import AccountID
 from async_v20.client import OandaClient
 from async_v20.endpoints.annotations import Authorization
-
-from .fixtures.client import client
 from .fixtures import server as server_module
-import time
-import asyncio
+from .fixtures.client import client
 
 client = client
 server = server_module.server
@@ -60,15 +59,20 @@ async def test_client_initializes(client, server):
         client.close()
         assert client.session.closed == True
 
+error_status = [i for i in range(400, 600)]
 
 @pytest.mark.asyncio
-async def test_client_raises_connection_error_on_initialisation_failure(client, server):
+@pytest.mark.parametrize('error_status', error_status)
+async def test_client_raises_error_on_first_initialisation_failure(client, server, error_status):
     server_module.status = 400
     with pytest.raises(ConnectionError):
         await client.initialize()
     assert client.initialized == False
     assert client.initializing == False
 
+@pytest.mark.asyncio
+@pytest.mark.parametrize('error_status', error_status)
+async def test_client_raises_error_on_first_initialisation_failure(client, server, error_status):
     server_module.status = iter([200, 400])
     with pytest.raises(ConnectionError):
         await client.initialize()
@@ -81,6 +85,7 @@ async def test_initialize_works_with_preset_account_id(client, server):
     client.account_id = '123-123-1234567-123'
     async with client as client:
         assert client.account_id == '123-123-1234567-123'
+
 
 @pytest.mark.asyncio
 async def test_aenter_and_aexit(client, server):
@@ -132,9 +137,9 @@ def test_client_request_limiter_minimum_value(client):
     client.max_requests_per_second = 0
     assert client.max_requests_per_second == 1
 
+
 @pytest.mark.asyncio
 async def test_request_limiter_limits(client, server, event_loop):
-
     client.max_simultaneous_connections = 0
     client.max_requests_per_second = 1000
     concurrent_requests = 100
@@ -143,7 +148,8 @@ async def test_request_limiter_limits(client, server, event_loop):
         await asyncio.gather(*[client.list_orders() for _ in range(concurrent_requests)])
     time_taken = time.time() - start
     print(time_taken)
-    assert time_taken >= (concurrent_requests/client.max_requests_per_second)
+    assert time_taken >= (concurrent_requests / client.max_requests_per_second)
+
 
 @pytest.mark.asyncio
 async def test_client_time_out(client, server):
@@ -152,3 +158,8 @@ async def test_client_time_out(client, server):
     with pytest.raises(TimeoutError):
         async with client as client:
             pass
+
+@pytest.mark.asyncio
+async def test_client_handles_multiple_concurrent_initializations(client, server):
+    await asyncio.gather(*[client.get_account_details() for _ in range(10)])
+    assert client.initialized
