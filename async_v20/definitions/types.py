@@ -764,7 +764,8 @@ class Order(Model):
                 long_position_closeout: MarketOrderPositionCloseout = None,
                 short_position_closeout: MarketOrderPositionCloseout = None,
                 margin_closeout: MarketOrderMarginCloseout = None,
-                delayed_trade_close: MarketOrderDelayedTradeClose = None):
+                delayed_trade_close: MarketOrderDelayedTradeClose = None,
+                trigger_distance: PriceValue = None, is_trigger_distance_exact: bool = None):
         return super().__new__(**Order._preset_arguments, **locals())
 
 

@@ -1,6 +1,5 @@
 import ujson as json
 
-from .helpers import update_account
 from .response import Response
 from ..definitions.base import create_attribute
 from ..endpoints.account import GETAccountIDChanges, GETAccountID
@@ -53,9 +52,6 @@ async def _rest_response(self, response, endpoint):
             if endpoint == GETAccountIDChanges:
 
                 self.default_parameters.update({SinceTransactionID: last_transaction_id})
-                # Every time GETAccountIDChanges is used we must update the account
-                # to prevent falling out of sync
-                self._account, self.transactions = update_account(self, response.changes, response.state)
 
         if endpoint == GETAccountID:
             self._account = response.account

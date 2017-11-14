@@ -146,7 +146,7 @@ class Model(tuple, metaclass=ORM):
 
             # These attributes seem to be the most important to users
             for attribute in ('id', 'instrument', 'amount', 'units',
-                              'current_units','realized_pl', 'financing',
+                              'current_units', 'realized_pl', 'financing',
                               'pl', 'price', 'reason', 'time',):
                 try:
                     value = getattr(self, attribute)
@@ -174,9 +174,11 @@ class Model(tuple, metaclass=ORM):
 
         def construct_object_data():
             for name, annotation, value in arguments:
-                if value is not None:
+                if value is None:
+                    yield None
+                else:
                     cls._fields.append(name)
-                yield create_attribute(annotation, value) if value is not None else None
+                    yield create_attribute(annotation, value)
 
         result = super().__new__(cls, tuple(construct_object_data()))
         return result
@@ -185,6 +187,7 @@ class Model(tuple, metaclass=ORM):
         def fields():
             for field in self._fields:
                 attr = getattr(self, field)
+
                 if not isinstance(attr, (int, float, str)):
                     try:
                         attr = attr.dict(json)
@@ -227,9 +230,7 @@ class Model(tuple, metaclass=ORM):
 
     def replace(self, **kwargs):
         """Create new instance of self with replaced values"""
-        updated_kwargs = self.dict(json=False)
-        updated_kwargs.update(kwargs)
-        return self.__class__(**updated_kwargs)
+        return self.__class__(**dict(self.dict(json=False), **kwargs))
 
 
 class Array(tuple):
@@ -241,15 +242,22 @@ class Array(tuple):
     _contains = None
 
     def __new__(cls, *data):
-        ids = {}
+        _ids = {}
+        _instruments = {}
 
         def construct_items(data):
             for index, obj in enumerate(data):
                 item = create_attribute(cls._contains, obj)
+
+                # It's useful to be able to lookup items in an array
+                # By the items attributes. If not id, instrument
                 try:
-                    ids.update({getattr(item, 'id'): index})
+                    _ids.update({getattr(item, 'id'): index})
                 except AttributeError:
-                    pass
+                    try:
+                        _instruments.update({getattr(item, 'instrument'): index})
+                    except AttributeError:
+                        pass
                 yield item
 
         try:
@@ -258,7 +266,8 @@ class Array(tuple):
             msg = f'FAILED TO CREATE OBJECT: {cls.__name__} FROM DATA: {data} DATA TYPE: {type(data)}'
             raise ValueError(msg)
         else:
-            instance._ids = ids
+            instance._ids = _ids
+            instance._instruments = _instruments
             return instance
 
     def get_id(self, id_):
@@ -266,6 +275,13 @@ class Array(tuple):
             return self[self._ids[id_]]
         except KeyError:
             return None
+
+    def get_instrument(self, instrument):
+        try:
+            return self[self._instruments[instrument]]
+        except KeyError:
+            return None
+
 
 def create_attribute(typ, data):
     try:

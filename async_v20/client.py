@@ -11,7 +11,6 @@ from .definitions.types import AcceptDatetimeFormat
 from .definitions.types import AccountID
 from .definitions.types import ArrayTransaction
 from .endpoints.annotations import Authorization, SinceTransactionID, LastTransactionID
-from .interface.helpers import update_account
 from .interface import *
 from .interface.account import AccountInterface
 
@@ -124,11 +123,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         )
 
     async def account(self):
-        """Get updated """
-        response = await self.account_changes()
-        if response:
-            self._account, self.transactions = update_account(self, response.changes, response.state)
-
+        """Get updated account"""
+        await self.account_changes()
         return self._account
 
     async def _request_limiter(self):
@@ -142,6 +138,27 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         if self._next_request_time - time() > 0:
             await sleep(self._next_request_time - time())
         return
+
+    async def __aenter__(self):
+        await self.initialize()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def __enter__(self):
+        print('Warning: <with> used rather than <async with>')
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def close(self):
+        try:
+            self.session.close()
+        except AttributeError:
+            # In case the client was never initialized
+            pass
 
     async def initialize(self, initialization_step=False):
         """Initialize client instance
@@ -221,24 +238,3 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
         # Always return True when initialization has complete
         return True
-
-    async def __aenter__(self):
-        await self.initialize()
-        return self
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        self.close()
-
-    def __enter__(self):
-        print('Warning: <with> used rather than <async with>')
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.close()
-
-    def close(self):
-        try:
-            self.session.close()
-        except AttributeError:
-            # In case the client was never initialized
-            pass
