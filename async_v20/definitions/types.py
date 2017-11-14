@@ -744,6 +744,8 @@ class Order(Model):
 
     """
 
+    # TODO: Update the annotation for partial_fill when OANDA responds to email
+
     def __new__(cls, id: OrderID = None, create_time: DateTime = None, state: OrderState = None,
                 client_extensions: ClientExtensions = None, trade_id: TradeID = None, price: PriceValue = None,
                 type: OrderType = None, client_trade_id: ClientID = None, time_in_force: TimeInForce = None,
@@ -754,7 +756,8 @@ class Order(Model):
                 cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
                 replaced_by_order_id: OrderID = None, distance: PriceValue = None,
                 trailing_stop_value: PriceValue = None, instrument: InstrumentName = None, units: Unit = None,
-                position_fill: OrderPositionFill = None, take_profit_on_fill: TakeProfitDetails = None,
+                partial_fill: str = None, position_fill: OrderPositionFill = None,
+                take_profit_on_fill: TakeProfitDetails = None,
                 stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
                 trade_client_extensions: ClientExtensions = None, price_bound: PriceValue = None,
                 initial_market_price: PriceValue = None, trade_close: MarketOrderTradeClose = None,

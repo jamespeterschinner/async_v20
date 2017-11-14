@@ -1,6 +1,15 @@
-from ..data.json_data import GETAccountID_response, position_response, order_cancel_transaction_json_dict
-from async_v20.definitions.types import Account, Position, OrderCancelTransaction, ArrayOrder, Account
-from async_v20.definitions.primitives import TradeSpecifier, OrderSpecifier
+from ..data.json_data import GETAccountID_response
+from ..data.json_data import position_response
+from ..data.json_data import order_cancel_transaction_json_dict
+from ..data.json_data import example_order
+from async_v20.definitions.types import Account
+from async_v20.definitions.types import Position
+from async_v20.definitions.types import OrderCancelTransaction
+from async_v20.definitions.types import ArrayOrder
+from async_v20.definitions.types import Account
+from async_v20.definitions.types import Order
+from async_v20.definitions.primitives import TradeSpecifier
+from async_v20.definitions.primitives import OrderSpecifier
 import pandas as pd
 import pytest
 
@@ -42,3 +51,6 @@ def test_passing_empty_list_tuple_to_array_returns_empty_array():
 def test_specifiers_can_be_constructed_from_int():
     assert type(TradeSpecifier(1234)) == TradeSpecifier
     assert type(OrderSpecifier(1234)) == OrderSpecifier
+
+def test_order_can_be_constructed_from_example_data():
+    assert type(Order(**example_order)) == Order

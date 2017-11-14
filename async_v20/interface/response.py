@@ -22,9 +22,9 @@ class Response(dict):
         return f'<Status [{self.status}]: {", ".join(self.keys())}>'
 
     def __getattr__(self, name):
-        if name in self:
+        try:
             return self[name]
-        else:
+        except KeyError:
             raise AttributeError("No such attribute: " + name)
 
     def dict(self, json=True):

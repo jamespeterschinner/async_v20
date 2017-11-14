@@ -117,3 +117,9 @@ example_changed_trade_summary = {'id': 4991, 'instrument': 'AUD_JPY', 'price': '
                                  'currentUnits': '0.0', 'realizedPL': '-0.0003', 'averageClosePrice': '87.026',
                                  'closingTransactionIDs': ['4995'], 'financing': '0.0',
                                  'closeTime': '1510552170.804347695'}
+
+example_order = {'id': '5053', 'createTime': '1510584559.111762008', 'type': 'STOP',
+         'instrument': 'AUD_JPY', 'units': '5', 'timeInForce': 'GTD',
+         'price': '86.885', 'gtdTime': '1511189310.000000000',
+         'triggerCondition': 'DEFAULT', 'partialFill': 'DEFAULT_FILL',
+         'positionFill': 'DEFAULT', 'state': 'PENDING'}

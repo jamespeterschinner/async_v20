@@ -76,11 +76,11 @@ def test_json_data(account):
 
 
 def test_data(account):
-    result = account.data(float_to_string=True)
+    result = account.data(json=True)
     for value in result:
         assert isinstance(value, (str, int, list))
 
-    result = account.data(float_to_string=False)
+    result = account.data(json=False)
     for value in result:
         print(value)
         assert isinstance(value, (float, str, int, list))

@@ -9,7 +9,9 @@ from yarl import URL
 
 from .definitions.types import AcceptDatetimeFormat
 from .definitions.types import AccountID
+from .definitions.types import ArrayTransaction
 from .endpoints.annotations import Authorization, SinceTransactionID, LastTransactionID
+from .interface.helpers import update_account
 from .interface import *
 from .interface.account import AccountInterface
 
@@ -30,6 +32,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     Args:
         token: -- User generated token from the online account configuration page
+        account_id: -- The account id the client will connect to
+        max_transaction_history: -- Maximum past transactions to store
         rest_host: -- The hostname of the v20 REST server
         rest_port: -- The port of the v20 REST server
         stream_host: -- The hostname of the v20 REST server
@@ -58,6 +62,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     _account = None
 
+    transactions = ArrayTransaction()
+
     session = None  # http session will be created during initialization
 
     @property
@@ -79,9 +85,10 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # Limit concurrent connections
         self._max_simultaneous_connections = {True: value, False: 0}[value >= 0]
 
-    def __init__(self, token=None, account_id=None, rest_host='api-fxpractice.oanda.com', rest_port=443,
+    def __init__(self, token=None, account_id=None, max_transaction_history=100,
+                 rest_host='api-fxpractice.oanda.com', rest_port=443,
                  rest_scheme='https', stream_host='stream-fxpractice.oanda.com', stream_port=None,
-                 stream_scheme='https', datetime_format='UNIX', poll_timeout=2, max_requests_per_second=99,
+                 stream_scheme='https', datetime_format='UNIX', poll_timeout=4, max_requests_per_second=99,
                  max_simultaneous_connections=10):
 
         self.version = __version__
@@ -90,6 +97,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             token = os.environ['OANDA_TOKEN']
 
         self.account_id = account_id
+
+        self.max_transaction_history = max_transaction_history
 
         # V20 REST API URL
         rest_host = partial(URL.build, host=rest_host, port=rest_port, scheme=rest_scheme)
@@ -115,17 +124,12 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         )
 
     async def account(self):
-        """Get the current state of the account
-
-        Returns: async_v20.definitions.types.Account
-        """
+        """Get updated """
         response = await self.account_changes()
         if response:
-            orders = []
-            orders.append(response.changes.orders_created)
+            self._account, self.transactions = update_account(self, response.changes, response.state)
 
-
-
+        return self._account
 
     async def _request_limiter(self):
         """Wait for a minimum time interval before creating new request"""
@@ -149,22 +153,21 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         Returns: True when complete
         """
         if self.initialized or self.expected_step == initialization_step:
-            # Do not initialize or wait for initialization to complete
-            # If it did, due to circular logic initialization would never
-            # complete
+            # Do not initialize or wait for initialization to complete.
+            # If it did, due to circular logic, initialization would never
+            # complete.
             pass
 
         elif self.initializing:
             # Wait for current initialization to complete before
-            # continuing with request
+            # continuing with request.
             while not self.initialized:
                 await sleep(self.initialization_sleep)
 
-        else:  # If it gets this far. An initialization if required
+        else:  # If it gets this far. An initialization if required.
 
             self.initializing = True  # immediately set initializing to make sure
-            # Upcoming requests wait for this initialization
-            # to complete.
+            # Upcoming requests wait for this initialization to complete.
 
             # Create http session this client will use to sent all requests
             conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
@@ -204,7 +207,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             self.expected_step = 2
             response = await self.get_account_details()
             if response:
-                self.account = response['account']
+                self._account = response['account']
             else:
                 self.initializing = False
                 raise ConnectionError(f'Server did not return Account Details during '

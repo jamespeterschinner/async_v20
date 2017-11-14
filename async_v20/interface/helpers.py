@@ -1,6 +1,10 @@
 from functools import partial
 from inspect import _empty
 
+from async_v20.definitions.types import Account
+from async_v20.definitions.types import AccountChanges
+from async_v20.definitions.types import AccountChangesState
+from async_v20.definitions.types import ArrayTransaction
 from ..definitions.base import create_attribute
 
 
@@ -114,3 +118,65 @@ def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
         request_kwargs.update({'timeout': 0})
 
     return request_kwargs
+
+
+def update_account(self, changes: AccountChanges, changes_state: AccountChangesState) -> (Account, ArrayTransaction):
+    """Update an existing account with changes
+
+    Args:
+        account: -- The account instance to update
+        transactions: -- An iterable of Transactions to append to
+        changes: -- Changes from account_changes API call
+        changes_state: ChangesState from account_changes API call
+
+    Returns:
+        (Account, ArrayTransaction)
+
+    """
+
+    # remove, replace, add changed orders
+    orders = list(changes.orders_created)
+    for order in self._account.orders:
+        if not changes.orders_cancelled.get_id(order.id) \
+                and not changes.orders_filled.get_id(order.id):
+            # Don't add an existing order to the new account instance
+            # if it has been cancelled or filled
+            triggered_order = changes.orders_triggered.get_id(order.id)
+            if triggered_order:
+                order = triggered_order
+            orders.append(order)
+
+    # All new open trades need to be added to account
+    trades = list(changes.trades_opened)
+    for trade in self._account.trades:
+        if not changes.trades_closed.get_id(trade.id):
+            # Replace the trade if it has been reduced
+            reduced_trade = changes.trades_reduced.get_id(trade.id)
+            if reduced_trade:
+                trade = reduced_trade
+
+            trades.append(trade)
+
+    # get_account_details does not provide transaction history
+    # Account specification has no transactions
+    transactions = ArrayTransaction(*[*self.transactions, *changes.transactions])
+
+    updated_account = self._account.replace(
+        orders=orders,
+        trades=trades,
+        positions=changes.positions,
+        unrealized_pl=changes_state.unrealized_pl,
+        nav=changes_state.nav,
+        margin_used=changes_state.margin_used,
+        margin_available=changes_state.margin_available,
+        position_value=changes_state.position_value,
+        margin_closeout_unrealized_pl=changes_state.margin_closeout_unrealized_pl,
+        margin_closeout_nav=changes_state.margin_closeout_nav,
+        margin_closeout_margin_used=changes_state.margin_closeout_margin_used,
+        margin_closeout_percent=changes_state.margin_closeout_percent,
+        margin_closeout_position_value=changes_state.margin_closeout_position_value,
+        withdrawal_limit=changes_state.withdrawal_limit,
+        margin_call_margin_used=changes_state.margin_call_margin_used,
+        margin_call_percent=changes_state.margin_call_percent
+    )
+    return updated_account, transactions

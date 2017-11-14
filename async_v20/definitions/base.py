@@ -12,44 +12,6 @@ from .helpers import create_doc_signature
 from .helpers import flatten_dict
 
 
-class Primitive(object):
-    """Mixin class to denote primitive type"""
-    pass
-
-
-class Array(tuple):
-    """Mixin to denote objects that are sent from OANDA in an array.
-    Also used to correctly serialize objects.
-    """
-
-    # Denotes the type the Array contains
-    _contains = None
-
-    def __new__(cls, *data):
-        ids = {}
-
-        def construct_items(data):
-            for index, obj in enumerate(data):
-                item = create_attribute(cls._contains, obj)
-                try:
-                    ids.update({getattr(item, 'id'): index})
-                except AttributeError:
-                    pass
-                yield item
-
-        try:
-            instance = super().__new__(cls, construct_items(data))
-        except (TypeError, ValueError):
-            msg = f'FAILED TO CREATE OBJECT: {cls.__name__} FROM DATA: {data} DATA TYPE: {type(data)}'
-            raise ValueError(msg)
-        else:
-            instance._ids = ids
-            return instance
-
-    def get_id(self, id_):
-        return self[self._ids[id_]]
-
-
 def arg_parse(new: classmethod, signature=Signature) -> classmethod:
     """Wrapper to convert camelCase arguments to snake_case """
 
@@ -158,6 +120,11 @@ class ORM(type):
         return class_obj
 
 
+class Primitive(object):
+    """Mixin class to denote primitive type"""
+    pass
+
+
 class Model(tuple, metaclass=ORM):
     # Make attribute assignment impossible
     __slots__ = ()
@@ -178,7 +145,8 @@ class Model(tuple, metaclass=ORM):
         def information():
 
             # These attributes seem to be the most important to users
-            for attribute in ('id', 'instrument', 'amount', 'units', 'financing',
+            for attribute in ('id', 'instrument', 'amount', 'units',
+                              'current_units','realized_pl', 'financing',
                               'pl', 'price', 'reason', 'time',):
                 try:
                     value = getattr(self, attribute)
@@ -232,10 +200,9 @@ class Model(tuple, metaclass=ORM):
                             # Attr is None. account_changes endpoint
                             # returns items with null
                             attr = attr
-
-
                 elif json and isinstance(attr, float):
                     attr = str(attr)
+
                 yield field, attr
 
         return {json_attributes[field] if json else field: attr for field, attr in fields()}
@@ -243,12 +210,12 @@ class Model(tuple, metaclass=ORM):
     def json(self):
         return json.dumps(self.dict(json=True))
 
-    def data(self, float_to_string=False):
-        return flatten_dict(self.dict(float_to_string), self._delimiter)
+    def data(self, json=False):
+        return flatten_dict(self.dict(json), self._delimiter)
 
     def series(self):
         def create_data():
-            for key, value in self.data(float_to_string=False).items():
+            for key, value in self.data(json=False).items():
                 if isinstance(value, str):
                     try:
                         value = int(value)
@@ -264,6 +231,41 @@ class Model(tuple, metaclass=ORM):
         updated_kwargs.update(kwargs)
         return self.__class__(**updated_kwargs)
 
+
+class Array(tuple):
+    """Mixin to denote objects that are sent from OANDA in an array.
+    Also used to correctly serialize objects.
+    """
+
+    # Denotes the type the Array contains
+    _contains = None
+
+    def __new__(cls, *data):
+        ids = {}
+
+        def construct_items(data):
+            for index, obj in enumerate(data):
+                item = create_attribute(cls._contains, obj)
+                try:
+                    ids.update({getattr(item, 'id'): index})
+                except AttributeError:
+                    pass
+                yield item
+
+        try:
+            instance = super().__new__(cls, construct_items(data))
+        except (TypeError, ValueError):
+            msg = f'FAILED TO CREATE OBJECT: {cls.__name__} FROM DATA: {data} DATA TYPE: {type(data)}'
+            raise ValueError(msg)
+        else:
+            instance._ids = ids
+            return instance
+
+    def get_id(self, id_):
+        try:
+            return self[self._ids[id_]]
+        except KeyError:
+            return None
 
 def create_attribute(typ, data):
     try:
