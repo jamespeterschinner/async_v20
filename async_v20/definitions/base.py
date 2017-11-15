@@ -124,6 +124,13 @@ class Primitive(object):
     """Mixin class to denote primitive type"""
     pass
 
+class Specifier(object):
+    """Mixin class to denote primitive type can be used for
+    specifying an Order/Trade/Position"""
+    # This is necessary due to different types using a mixture
+    # of int and str which prevents inheritance due to 'Lay-out error'
+    pass
+
 
 class Model(tuple, metaclass=ORM):
     # Make attribute assignment impossible
@@ -294,7 +301,12 @@ class Array(tuple):
 
 def create_attribute(typ, data):
     try:
-        if isinstance(data, (Model, Array, Primitive)):
+        if isinstance(data, Specifier):
+            if not issubclass(typ, Specifier):
+                raise TypeError(f'{data} must be a {Specifier} is {type(data)}')
+            result = typ(data)
+
+        elif isinstance(data, (Model, Array, Primitive)):
             if not issubclass(type(data), typ):
                 raise TypeError(f'{data} must be of type {typ} is {type(data)}')
             result = data

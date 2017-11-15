@@ -1,4 +1,4 @@
-from .base import Primitive
+from .base import Primitive, Specifier
 from .helpers import domain_check
 
 __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'AccountUnits', 'CancellableOrderType',
@@ -150,7 +150,7 @@ class CancellableOrderType(str, Primitive):
         return super().__new__(cls, value)
 
 
-class OrderID(int, Primitive):
+class OrderID(int, Primitive, Specifier):
     """The Order’s identifier, unique within the Order’s Account.
     """
 
@@ -186,7 +186,7 @@ class OrderPositionFill(str, Primitive):
         return super().__new__(cls, value)
 
 
-class OrderSpecifier(str, Primitive):
+class OrderSpecifier(str, Primitive, Specifier):
     """The specification of an Order as referred to by clients
     """
 
@@ -456,8 +456,20 @@ class InstrumentType(str, Primitive):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
 
+class TradeSpecifier(str, Primitive, Specifier):
+    """The identification of a Trade as referred to by clients
+    """
 
-class TradeID(int, Primitive):
+    # Correct syntax of value
+    format_syntax = 'Either the Trade’s OANDA-assigned TradeID or the Trade’s client-provided ' \
+                    'ClientID prefixed by the “@” symbol'
+    # Example of correct format
+    example = '@my_trade_id'
+
+    def __new__(cls, value):
+        return super().__new__(cls, value)
+
+class TradeID(int, Primitive, Specifier):
     """The Trade’s identifier, unique within the Trade’s Account.
     """
 
@@ -491,18 +503,7 @@ class TradePL(str, Primitive):
         return super().__new__(cls, value)
 
 
-class TradeSpecifier(str, Primitive):
-    """The identification of a Trade as referred to by clients
-    """
 
-    # Correct syntax of value
-    format_syntax = 'Either the Trade’s OANDA-assigned TradeID or the Trade’s client-provided ' \
-                    'ClientID prefixed by the “@” symbol'
-    # Example of correct format
-    example = '@my_trade_id'
-
-    def __new__(cls, value):
-        return super().__new__(cls, value)
 
 
 class TradeState(str, Primitive):
@@ -553,7 +554,7 @@ class ClientComment(str, Primitive):
         return super().__new__(cls, value)
 
 
-class ClientID(str, Primitive):
+class ClientID(str, Primitive, Specifier):
     """A client-provided identifier, used by clients to refer to their
     Orders or Trades with an identifier that they have provided.
     """

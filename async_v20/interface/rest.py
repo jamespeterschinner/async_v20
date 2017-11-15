@@ -2,7 +2,7 @@
 
 from itertools import chain
 
-from async_v20.definitions.types import Order
+from async_v20.definitions.types import ArrayTransaction
 
 
 def update_account(self, changes, changes_state):
@@ -33,7 +33,7 @@ def update_account(self, changes, changes_state):
 
     # Update the Dynamic state
     orders = tuple(order if not changes_state.orders.get_id(order.id)
-                   else Order.replace(**changes_state.orders.get_id(order.id).dict())
+                   else order.replace(**changes_state.orders.get_id(order.id).dict())
                    for order in orders)
 
     trades = tuple(trade if not changes_state.trades.get_id(trade.id)
@@ -50,3 +50,6 @@ def update_account(self, changes, changes_state):
 
     self._account = self._account.replace(**dict(changes_state.dict(json=False),
                                                  orders=orders, trades=trades, positions=positions))
+
+    self.transactions = ArrayTransaction(*sorted((changes.transactions+self.transactions)
+                                         [-self.max_transaction_history:],reverse=True))
