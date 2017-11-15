@@ -4,6 +4,7 @@ from ..data.json_data import order_cancel_transaction_json_dict
 from ..data.json_data import example_order
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import Position
+from async_v20.definitions.types import Instrument
 from async_v20.definitions.types import OrderCancelTransaction
 from async_v20.definitions.types import ArrayOrder
 from async_v20.definitions.types import Account
@@ -54,3 +55,7 @@ def test_specifiers_can_be_constructed_from_int():
 
 def test_order_can_be_constructed_from_example_data():
     assert type(Order(**example_order)) == Order
+
+def test_supplying_incorrect_type_raises_error():
+    with pytest.raises(TypeError):
+        Order(instrument=Instrument())

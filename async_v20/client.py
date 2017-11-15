@@ -127,6 +127,16 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         await self.account_changes()
         return self._account
 
+    async def close_all_trades(self):
+        """Close all open trades"""
+        response = await self.list_open_trades()
+        print(response.json())
+        if response:
+            return await asyncio.gather(*[self.close_trade(trade.id)
+                                          for trade in response.trades])
+        else:
+            raise ConnectionError(f'Could not get open trades. '
+                                  f'Server returned status {response.status}')
     async def _request_limiter(self):
         """Wait for a minimum time interval before creating new request"""
         try:

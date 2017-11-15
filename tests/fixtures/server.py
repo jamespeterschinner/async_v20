@@ -3,6 +3,7 @@ import gzip
 import pytest
 from aiohttp import web
 import asyncio
+import re
 
 from .routes import routes
 
@@ -15,35 +16,54 @@ status = 200
 received = ''
 sleep_time = 0
 
+def get_id_from_path(path):
+    try:
+        path_id = re.findall(r'(?<=\/)(\d+)(?=[/\s])', path)[0]
+        path = re.sub(r'(((orders)|(trades)|(transactions))\/)(\d+)', '\g<1>0000', path)
+    except:
+        return path, None
+    else:
+        return path, path_id
 
-async def handler(request):
-    print(request)
-    method = request.method
-    path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
-
-    data = None
+def get_response_data(method, path, specifier):
+    data = 'null'
     try:
         data = routes[(method, path)]
     except KeyError:
         pass
+    else:
+        if isinstance(data, dict):
+            data = data[int(specifier)]
+    return data
 
-    server.received = method
-
-    if data is None:
-        data = "null"
+def get_response_status():
+    global status
     try:
         response_status = next(status)
     except:
         response_status = status
+    return response_status
+
+
+async def handler(request):
+    method = request.method
+    path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
+    path, path_id = get_id_from_path(path)
+
+    print(method, path, path_id)
+
+    response_data = get_response_data(method, path, path_id)
+
+    response_status = get_response_status()
 
     global received
     received = await request.text()
 
+    if response_data is None:
+        response_data = 'null'
+
     await asyncio.sleep(sleep_time)
-
-    print('RESPONSE STATUS:=', response_status)
-
-    return web.Response(body=gzip.compress(bytes(data, encoding='utf8')), headers=headers,
+    return web.Response(body=gzip.compress(bytes(response_data, encoding='utf8')), headers=headers,
                         status=response_status)
 
 

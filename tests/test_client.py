@@ -13,6 +13,7 @@ from .fixtures import server as server_module
 from .fixtures.client import client
 from .test_definitions.helpers import get_valid_primitive_data
 from async_v20.definitions.types import Account
+from .fixtures import changes_response_two
 
 client = client
 server = server_module.server
@@ -185,9 +186,35 @@ async def test_client_handles_multiple_concurrent_initializations(client, server
     assert client.initialized
 
 @pytest.mark.asyncio
-async def test_account(client, server):
+async def test_account_method(client, server):
     async with client as client:
         assert len(client._account.trades) == 0
         account = await client.account()
         assert len(client._account.trades) == 1
         assert type(account)== Account
+
+
+
+@pytest.mark.asyncio
+async def test_max_transaction_history_limits(client, server, changes_response_two):
+    async with client as client:
+        rsp = await client.account_changes()
+    assert len(client.transactions) == client.max_transaction_history
+
+@pytest.mark.asyncio
+async def test_close_all_trades(client, server):
+    """Test that calling closed trades closes all trades"""
+    async with client as client:
+        trades_response = await client.list_open_trades()
+        close_response = await client.close_all_trades()
+        closed_trades = {i.orderFillTransaction.trades_closed[0].trade_id :i.json()
+                         for i in close_response}
+        for trade in trades_response.trades:
+            assert trade.id in closed_trades
+
+@pytest.mark.asyncio
+async def test_close_all_trades(client, server):
+    async with client as client:
+        server_module.status = 401
+        with pytest.raises(ConnectionError):
+            response = await client.close_all_trades()
