@@ -129,14 +129,33 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     async def close_all_trades(self):
         """Close all open trades"""
+
+        # Procedure is as follows:
+        # - get all open trades
+        # - attempt to close all open trades
+        # - get all open trades again and check there there are None
+        # - return close trade responses and successful/unsuccessful
+        all_trades_closed = False
         response = await self.list_open_trades()
-        print(response.json())
         if response:
-            return await asyncio.gather(*[self.close_trade(trade.id)
+            close_trade_responses = await asyncio.gather(*[self.close_trade(trade.id)
                                           for trade in response.trades])
         else:
             raise ConnectionError(f'Could not get open trades. '
                                   f'Server returned status {response.status}')
+        # After closing all trades check that all trades have indeed been closed
+        response = await self.list_open_trades()
+        if response:
+            if len(response.trades) == 0:
+                all_trades_closed = True
+        else:
+            raise ConnectionError(f'Unable to confirm all trades have been closed! '
+                                  f'Server returned status {response.status}')
+
+        return close_trade_responses, all_trades_closed
+
+
+
     async def _request_limiter(self):
         """Wait for a minimum time interval before creating new request"""
         try:

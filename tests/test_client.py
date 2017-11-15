@@ -14,9 +14,13 @@ from .fixtures.client import client
 from .test_definitions.helpers import get_valid_primitive_data
 from async_v20.definitions.types import Account
 from .fixtures import changes_response_two
+from .fixtures import all_trades_open_closed
+from .fixtures.static import close_all_trades_response
+from itertools import chain
 
 client = client
 server = server_module.server
+changes_response_two = changes_response_two
 
 
 # prevent pycharm from removing the import
@@ -202,19 +206,47 @@ async def test_max_transaction_history_limits(client, server, changes_response_t
     assert len(client.transactions) == client.max_transaction_history
 
 @pytest.mark.asyncio
-async def test_close_all_trades(client, server):
+async def test_close_all_trades_returns_false_when_trades_are_open(client, server):
     """Test that calling closed trades closes all trades"""
     async with client as client:
         trades_response = await client.list_open_trades()
-        close_response = await client.close_all_trades()
+        close_responses, result = await client.close_all_trades()
         closed_trades = {i.orderFillTransaction.trades_closed[0].trade_id :i.json()
-                         for i in close_response}
+                         for i in close_responses}
         for trade in trades_response.trades:
             assert trade.id in closed_trades
+        # close_all_trades checks that no trades are open after giving the close command
+        # Due to the mocked test server, not reflecting the closed state. result should
+        # be false indicating that not all trades were closed
+        assert result == False
 
 @pytest.mark.asyncio
-async def test_close_all_trades(client, server):
+async def test_close_all_trades_returns_true_when_trades_are_closed(client, server, all_trades_open_closed):
+    """Test that calling closed trades closes all trades"""
+
+    # all_trades_open_closed fixture mocks changing server response
+    # to closing all trades
+    server_module.routes.update()
+    async with client as client:
+        close_responses, result = await client.close_all_trades()
+        assert result == True
+
+
+@pytest.mark.asyncio
+async def test_close_all_trades_error_first_list_trades_request(client, server):
     async with client as client:
         server_module.status = 401
         with pytest.raises(ConnectionError):
             response = await client.close_all_trades()
+
+@pytest.mark.asyncio
+async def test_close_all_trades_error_second_list_trades_request(client, server):
+    # status 200 for list_open_trades request
+    # status 200 for all close_trades request
+    # status 400 for second list_open_trades request
+    server_status = (i for i in chain((200,),(200 for _ in range(len(close_all_trades_response))),(400,)))
+    async with client as client:
+        server_module.status = server_status
+        with pytest.raises(ConnectionError):
+            response = await client.close_all_trades()
+

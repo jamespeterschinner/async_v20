@@ -4,6 +4,7 @@ import pytest
 from aiohttp import web
 import asyncio
 import re
+from inspect import isgenerator
 
 from .routes import routes
 
@@ -31,9 +32,11 @@ def get_response_data(method, path, specifier):
         data = routes[(method, path)]
     except KeyError:
         pass
-    else:
-        if isinstance(data, dict):
-            data = data[int(specifier)]
+    if isgenerator(data): # Allows test to mock changing response
+        data = next(data)
+    if isinstance(data, dict):
+        data = data[int(specifier)]
+
     return data
 
 def get_response_status():
