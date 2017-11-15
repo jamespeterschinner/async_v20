@@ -63,3 +63,12 @@ def test_all_types_can_be_instantiated_from_annotation(cls, data):
                  for k, v in data.items()}
     print(arguments)
     assert cls(**arguments)
+
+@pytest.mark.parametrize('cls, data', model_classes_data)
+def test_all_derived_types_have_same_arguments_and_annotations_as_parent(cls, data):
+    parent_class = cls.__bases__[0]
+    if not parent_class == Model:
+        parent_class_parameters = parent_class.__new__.__signature__.parameters
+        for name, parameter in cls.__new__.__signature__.parameters.items():
+            assert name in parent_class_parameters
+            assert issubclass(parameter.annotation,parent_class_parameters[name].annotation)

@@ -6,6 +6,7 @@ from ..endpoints.account import GETAccountIDChanges, GETAccountID
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.annotations import SinceTransactionID
 from ..endpoints.other_responses import other_responses
+from .rest import update_account
 
 
 def _lookup_schema(endpoint, status):
@@ -49,9 +50,14 @@ async def _rest_response(self, response, endpoint):
         last_transaction_id = getattr(response, 'lastTransactionID', None)
         if last_transaction_id:
             self.default_parameters.update({LastTransactionID: last_transaction_id})
-            if endpoint == GETAccountIDChanges:
 
+            # This code is to implement the RESTful nature of the v20 API
+            # - Keep track of the last transaction id used to update
+            # - Add / Remove / Replace changes to account
+            if endpoint == GETAccountIDChanges:
+                response = response
                 self.default_parameters.update({SinceTransactionID: last_transaction_id})
+                update_account(self, response.changes, response.state)
 
         if endpoint == GETAccountID:
             self._account = response.account

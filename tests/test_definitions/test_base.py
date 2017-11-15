@@ -117,17 +117,17 @@ def test_create_attribute_returns_type_error():
         create_attribute(ArrayStr, TradeID(123))
 
 
-def test_model_update():
-    trade_summary = TradeSummary(**example_trade_summary)
-    changed_trade_summary = TradeSummary(**example_changed_trade_summary)
-    result = trade_summary.replace(**changed_trade_summary.dict(json=False))
-    merged = trade_summary.dict()
-    merged.update(changed_trade_summary.dict())
-    assert all(map(lambda x: x in merged, result.dict().keys()))
-    assert result.dict() == TradeSummary(**merged).dict()
-
-def test_model_update_returns_error_with_incorrect_type():
-    trade_summary = TradeSummary(**example_trade_summary)
-    changed_trade_summary = Trade(**example_changed_trade_summary)
-    with pytest.raises(TypeError):
-        trade_summary.replace(**changed_trade_summary.dict(json=False))
+# def test_model_update():
+#     trade_summary = TradeSummary(**example_trade_summary)
+#     changed_trade_summary = TradeSummary(**example_changed_trade_summary)
+#     result = trade_summary.replace(**changed_trade_summary.dict(json=False))
+#     merged = trade_summary.dict()
+#     merged.update(changed_trade_summary.dict())
+#     assert all(map(lambda x: x in merged, result.dict().keys()))
+#     assert result.dict() == TradeSummary(**merged).dict()
+#
+# def test_model_update_returns_error_with_incorrect_type():
+#     trade_summary = TradeSummary(**example_trade_summary)
+#     changed_trade_summary = Trade(**example_changed_trade_summary)
+#     with pytest.raises(TypeError):
+#         trade_summary.replace(**changed_trade_summary.dict(json=False))

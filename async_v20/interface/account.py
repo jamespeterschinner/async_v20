@@ -50,7 +50,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDInstruments)
-    def account_instruments(self, instruments: Instruments = None):
+    def account_instruments(self, instruments: Instruments = ...):
         """
         Get the list of tradeable instruments for the given Account. The list
         of tradeable instruments is dependent on the regulatory division that
@@ -69,7 +69,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(PATCHAccountIDConfiguration)
-    def configure_account(self, alias: Alias = None, margin_rate: DecimalNumber = None):
+    def configure_account(self, alias: Alias = ..., margin_rate: DecimalNumber = ...):
         """
         Set the client-configurable portions of an Account.
 
@@ -87,7 +87,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDChanges)
-    def account_changes(self, since_transaction_id: SinceTransactionID = None):
+    def account_changes(self, since_transaction_id: SinceTransactionID = ...):
         """
         Endpoint used to poll an Account for its current state and changes
         since a specified TransactionID.

@@ -191,6 +191,7 @@ async def test_parser_updates_since_transaction_id(client, server):
         assert client.default_parameters[SinceTransactionID] != '4980'
         assert client.default_parameters[SinceTransactionID] == \
                client.default_parameters[LastTransactionID]
+
         response = await client.account_changes()
         assert client.default_parameters[SinceTransactionID] == '4980'
         print(response.json())

@@ -54,7 +54,7 @@ def create_body(request_schema, arguments):
                 continue
             else:
                 try:
-                    value = value.dict()
+                    value = value.dict(json=True)
                 except AttributeError:
                     pass
                 yield key, value

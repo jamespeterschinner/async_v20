@@ -18,11 +18,11 @@ __all__ = ['TradeInterface']
 class TradeInterface(object):
     @endpoint(GETTrades)
     def list_trades(self,
-                    ids: Ids = None,
-                    state: TradeStateFilter = None,
-                    instrument: InstrumentName = None,
-                    count: Count = None,
-                    trade_id: TradeID = None):
+                    ids: Ids = ...,
+                    state: TradeStateFilter = ...,
+                    instrument: InstrumentName = ...,
+                    count: Count = ...,
+                    trade_id: TradeID = ...):
         """
         Get a list of Trades for an Account
 
@@ -59,7 +59,7 @@ class TradeInterface(object):
         pass
 
     @endpoint(GETTradeSpecifier)
-    def get_trades(self, trade_specifier: TradeSpecifier = None):
+    def get_trades(self, trade_specifier: TradeSpecifier = ...):
         """
         Get the details of a specific Trade in an Account
 
@@ -74,9 +74,9 @@ class TradeInterface(object):
         pass
 
     @endpoint(PUTTradeSpecifierClose)
-    def close_trades(self,
-                     trade_specifier: TradeSpecifier = None,
-                     units: Units = None):
+    def close_trade(self,
+                     trade_specifier: TradeSpecifier = ...,
+                     units: Units = ...):
         """
         Close (partially or fully) a specific open Trade in an Account
 
@@ -99,8 +99,8 @@ class TradeInterface(object):
 
     @endpoint(PUTTradeSpecifierClientExtensions)
     def set_client_extensions_trade(self,
-                                    trade_specifier: TradeSpecifier = None,
-                                    client_extensions: ClientExtensions = None):
+                                    trade_specifier: TradeSpecifier = ...,
+                                    client_extensions: ClientExtensions = ...):
         """
         Update the Client Extensions for a Trade. Do not add, update, or delete
         the Client Extensions if your account is associated with MT4.
@@ -121,10 +121,10 @@ class TradeInterface(object):
 
     @endpoint(PUTTradesSpecifierOrders)
     def set_dependent_orders_trade(self,
-                                   trade_specifier: TradeSpecifier = None,
-                                   take_profit: TakeProfitDetails = None,
-                                   stop_loss: StopLossDetails = None,
-                                   trailing_stop_loss: TrailingStopLossDetails = None):
+                                   trade_specifier: TradeSpecifier = ...,
+                                   take_profit: TakeProfitDetails = ...,
+                                   stop_loss: StopLossDetails = ...,
+                                   trailing_stop_loss: TrailingStopLossDetails = ...):
         """
         Create, replace and cancel a Trade's dependent Orders (Take Profit,
         Stop Loss and Trailing Stop Loss) through the Trade itself

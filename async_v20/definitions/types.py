@@ -62,7 +62,7 @@ class ClientExtensions(Model):
 
     """
 
-    def __new__(cls, id: ClientID = None, tag: ClientTag = None, comment: ClientComment = None):
+    def __new__(cls, id: ClientID = ..., tag: ClientTag = ..., comment: ClientComment = ...):
         return super().__new__(**ClientExtensions._preset_arguments, **locals())
 
 
@@ -81,8 +81,8 @@ class TakeProfitDetails(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
-                client_extensions: ClientExtensions = None):
+    def __new__(cls, price: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+                client_extensions: ClientExtensions = ...):
         return super().__new__(**TakeProfitDetails._preset_arguments, **locals())
 
 
@@ -101,8 +101,8 @@ class StopLossDetails(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
-                client_extensions: ClientExtensions = None):
+    def __new__(cls, price: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+                client_extensions: ClientExtensions = ...):
         return super().__new__(**StopLossDetails._preset_arguments, **locals())
 
 
@@ -123,8 +123,8 @@ class TrailingStopLossDetails(Model):
 
     """
 
-    def __new__(cls, distance: PriceValue = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
-                client_extensions: ClientExtensions = None):
+    def __new__(cls, distance: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+                client_extensions: ClientExtensions = ...):
         return super().__new__(**TrailingStopLossDetails._preset_arguments, **locals())
 
 
@@ -137,14 +137,14 @@ class OrderRequest(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = None, price: PriceValue = None, type: OrderType = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = None, gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = None, client_extensions: ClientExtensions = None,
-                distance: PriceValue = None, instrument: InstrumentName = None, units: Unit = None,
-                price_bound: PriceValue = None, position_fill: OrderPositionFill = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None):
+    def __new__(cls, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
+                distance: PriceValue = ..., instrument: InstrumentName = ..., units: Unit = ...,
+                price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ...):
         return super().__new__(**OrderRequest._preset_arguments, **locals())
 
 
@@ -158,7 +158,7 @@ class UnitsAvailableDetails(Model):
 
     """
 
-    def __new__(cls, long: Unit = None, short: Unit = None):
+    def __new__(cls, long: Unit = ..., short: Unit = ...):
         return super().__new__(**UnitsAvailableDetails._preset_arguments, **locals())
 
 
@@ -180,8 +180,8 @@ class UnitsAvailable(Model):
 
         """
 
-    def __new__(cls, default: UnitsAvailableDetails = None, reduce_first: UnitsAvailableDetails = None,
-                reduce_only: UnitsAvailableDetails = None, open_only: UnitsAvailableDetails = None):
+    def __new__(cls, default: UnitsAvailableDetails = ..., reduce_first: UnitsAvailableDetails = ...,
+                reduce_only: UnitsAvailableDetails = ..., open_only: UnitsAvailableDetails = ...):
         return super().__new__(**UnitsAvailable._preset_arguments, **locals())
 
 
@@ -197,8 +197,8 @@ class LiquidityRegenerationScheduleStep(Model):
 
     """
 
-    def __new__(cls, timestamp: DateTime = None, bid_liquidity_used: DecimalNumber = None,
-                ask_liquidity_used: DecimalNumber = None):
+    def __new__(cls, timestamp: DateTime = ..., bid_liquidity_used: DecimalNumber = ...,
+                ask_liquidity_used: DecimalNumber = ...):
         return super().__new__(**LiquidityRegenerationScheduleStep._preset_arguments, **locals())
 
 
@@ -218,7 +218,7 @@ class LiquidityRegenerationSchedule(Model):
 
     """
 
-    def __new__(cls, steps: ArrayLiquidityRegenerationScheduleStep = None):
+    def __new__(cls, steps: ArrayLiquidityRegenerationScheduleStep = ...):
         return super().__new__(**LiquidityRegenerationSchedule._preset_arguments, **locals())
 
 
@@ -233,7 +233,7 @@ class CandlestickData(Model):
 
     """
 
-    def __new__(cls, o: PriceValue = None, h: PriceValue = None, l: PriceValue = None, c: PriceValue = None):
+    def __new__(cls, o: PriceValue = ..., h: PriceValue = ..., l: PriceValue = ..., c: PriceValue = ...):
         return super().__new__(**CandlestickData._preset_arguments, **locals())
 
 
@@ -247,7 +247,7 @@ class OrderIdentifier(Model):
 
     """
 
-    def __new__(cls, order_id: OrderID = None, client_order_id: ClientID = None):
+    def __new__(cls, order_id: OrderID = ..., client_order_id: ClientID = ...):
         return super().__new__(**OrderIdentifier._preset_arguments, **locals())
 
 
@@ -267,7 +267,7 @@ class QuoteHomeConversionFactors(Model):
 
     """
 
-    def __new__(cls, positive_units: DecimalNumber = None, negative_units: DecimalNumber = None):
+    def __new__(cls, positive_units: DecimalNumber = ..., negative_units: DecimalNumber = ...):
         return super().__new__(**QuoteHomeConversionFactors._preset_arguments, **locals())
 
 
@@ -280,7 +280,7 @@ class MarketOrderMarginCloseout(Model):
 
     """
 
-    def __new__(cls, reason: MarketOrderMarginCloseoutReason = None):
+    def __new__(cls, reason: MarketOrderMarginCloseoutReason = ...):
         return super().__new__(**MarketOrderMarginCloseout._preset_arguments, **locals())
 
 
@@ -297,8 +297,8 @@ class InstrumentCommission(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = None, commission: DecimalNumber = None, units_traded: Unit = None,
-                minimum_commission: DecimalNumber = None):
+    def __new__(cls, instrument: InstrumentName = ..., commission: DecimalNumber = ..., units_traded: Unit = ...,
+                minimum_commission: DecimalNumber = ...):
         return super().__new__(**InstrumentCommission._preset_arguments, **locals())
 
 
@@ -315,8 +315,8 @@ class OrderBookBucket(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = None, long_count_percent: DecimalNumber = None,
-                short_count_percent: DecimalNumber = None):
+    def __new__(cls, price: PriceValue = ..., long_count_percent: DecimalNumber = ...,
+                short_count_percent: DecimalNumber = ...):
         return super().__new__(**OrderBookBucket._preset_arguments, **locals())
 
 
@@ -337,8 +337,8 @@ class PositionBookBucket(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = None, long_count_percent: DecimalNumber = None,
-                short_count_percent: DecimalNumber = None):
+    def __new__(cls, price: PriceValue = ..., long_count_percent: DecimalNumber = ...,
+                short_count_percent: DecimalNumber = ...):
         return super().__new__(**PositionBookBucket._preset_arguments, **locals())
 
 
@@ -363,8 +363,8 @@ class DynamicOrderState(Model):
 
     """
 
-    def __new__(cls, id: OrderID = None, trailing_stop_value: PriceValue = None, trigger_distance: PriceValue = None,
-                is_trigger_distance_exact: bool = None):
+    def __new__(cls, id: OrderID = ..., trailing_stop_value: PriceValue = ..., trigger_distance: PriceValue = ...,
+                is_trigger_distance_exact: bool = ...):
         return super().__new__(**DynamicOrderState._preset_arguments, **locals())
 
 
@@ -383,8 +383,8 @@ class CalculatedPositionState(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = None, net_unrealized_pl: AccountUnits = None,
-                long_unrealized_pl: AccountUnits = None, short_unrealized_pl: AccountUnits = None):
+    def __new__(cls, instrument: InstrumentName = ..., net_unrealized_pl: AccountUnits = ...,
+                long_unrealized_pl: AccountUnits = ..., short_unrealized_pl: AccountUnits = ...):
         return super().__new__(**CalculatedPositionState._preset_arguments, **locals())
 
 
@@ -408,9 +408,9 @@ class PositionSide(Model):
 
     """
 
-    def __new__(cls, units: Unit = None, average_price: PriceValue = None, trade_i_ds: ArrayTradeID = None,
-                pl: AccountUnits = None, unrealized_pl: AccountUnits = None, resettable_pl: AccountUnits = None,
-                financing: DecimalNumber = None):
+    def __new__(cls, units: Unit = ..., average_price: PriceValue = ..., trade_i_ds: ArrayTradeID = ...,
+                pl: AccountUnits = ..., unrealized_pl: AccountUnits = ..., resettable_pl: AccountUnits = ...,
+                financing: DecimalNumber = ...):
         return super().__new__(**PositionSide._preset_arguments, **locals())
 
 
@@ -430,9 +430,9 @@ class Position(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = None, pl: AccountUnits = None, unrealized_pl: AccountUnits = None,
-                resettable_pl: AccountUnits = None, commission: AccountUnits = None, long: PositionSide = None,
-                short: PositionSide = None, financing: DecimalNumber = None):
+    def __new__(cls, instrument: InstrumentName = ..., pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
+                resettable_pl: AccountUnits = ..., commission: AccountUnits = ..., long: PositionSide = ...,
+                short: PositionSide = ..., financing: DecimalNumber = ...):
         return super().__new__(**Position._preset_arguments, **locals())
 
 
@@ -449,7 +449,7 @@ class PriceBucket(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = None, liquidity: int = None):
+    def __new__(cls, price: PriceValue = ..., liquidity: int = ...):
         return super().__new__(**PriceBucket._preset_arguments, **locals())
 
 
@@ -475,8 +475,8 @@ class ClientPrice(Model):
 
     """
 
-    def __new__(cls, bids: ArrayPriceBucket = None, asks: ArrayPriceBucket = None,
-                closeout_bid: PriceValue = None, closeout_ask: PriceValue = None, timestamp: DateTime = None):
+    def __new__(cls, bids: ArrayPriceBucket = ..., asks: ArrayPriceBucket = ...,
+                closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ..., timestamp: DateTime = ...):
         return super().__new__(**ClientPrice._preset_arguments, **locals())
 
 
@@ -490,7 +490,7 @@ class PricingHeartbeat(Model):
 
     """
 
-    def __new__(cls, type: str = None, time: DateTime = None):
+    def __new__(cls, type: str = ..., time: DateTime = ...):
         return super().__new__(**PricingHeartbeat._preset_arguments, **locals())
 
 
@@ -503,7 +503,7 @@ class CalculatedTradeState(Model):
 
     """
 
-    def __new__(cls, id: TradeID = None, unrealized_pl: AccountUnits = None):
+    def __new__(cls, id: TradeID = ..., unrealized_pl: AccountUnits = ...):
         return super().__new__(**CalculatedTradeState._preset_arguments, **locals())
 
 
@@ -524,8 +524,8 @@ class MarketOrderDelayedTradeClose(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = None, client_trade_id: TradeID = None,
-                source_transaction_id: TransactionID = None):
+    def __new__(cls, trade_id: TradeID = ..., client_trade_id: TradeID = ...,
+                source_transaction_id: TransactionID = ...):
         return super().__new__(**MarketOrderDelayedTradeClose._preset_arguments, **locals())
 
 
@@ -541,7 +541,7 @@ class MarketOrderPositionCloseout(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = None, units: str = None):
+    def __new__(cls, instrument: InstrumentName = ..., units: str = ...):
         return super().__new__(**MarketOrderPositionCloseout._preset_arguments, **locals())
 
 
@@ -557,7 +557,7 @@ class MarketOrderTradeClose(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = None, client_trade_id: str = None, units: str = None):
+    def __new__(cls, trade_id: TradeID = ..., client_trade_id: str = ..., units: str = ...):
         return super().__new__(**MarketOrderTradeClose._preset_arguments, **locals())
 
 
@@ -571,7 +571,7 @@ class OpenTradeFinancing(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = None, financing: AccountUnits = None):
+    def __new__(cls, trade_id: TradeID = ..., financing: AccountUnits = ...):
         return super().__new__(**OpenTradeFinancing._preset_arguments, **locals())
 
 
@@ -590,8 +590,8 @@ class PositionFinancing(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = None, financing: AccountUnits = None,
-                open_trade_financings: ArrayOpenTradeFinancing = None):
+    def __new__(cls, instrument: InstrumentName = ..., financing: AccountUnits = ...,
+                open_trade_financings: ArrayOpenTradeFinancing = ...):
         return super().__new__(**PositionFinancing._preset_arguments, **locals())
 
 
@@ -611,7 +611,7 @@ class TradeOpen(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = None, units: Unit = None, client_extensions: ClientExtensions = None):
+    def __new__(cls, trade_id: TradeID = ..., units: Unit = ..., client_extensions: ClientExtensions = ...):
         return super().__new__(**TradeOpen._preset_arguments, **locals())
 
 
@@ -626,7 +626,7 @@ class VWAPReceipt(Model):
 
     """
 
-    def __new__(cls, units: Unit = None, price: PriceValue = None):
+    def __new__(cls, units: Unit = ..., price: PriceValue = ...):
         return super().__new__(**VWAPReceipt._preset_arguments, **locals())
 
 
@@ -641,7 +641,7 @@ class UserInfo(Model):
 
     """
 
-    def __new__(cls, username: str = None, user_id: str = None, country: str = None, email_address: str = None):
+    def __new__(cls, username: str = ..., user_id: str = ..., country: str = ..., email_address: str = ...):
         return super().__new__(**UserInfo._preset_arguments, **locals())
 
 
@@ -656,7 +656,7 @@ class AccountProperties(Model):
 
     """
 
-    def __new__(cls, id: AccountID = None, mt4_account_id: int = None, tags: ArrayStr = None):
+    def __new__(cls, id: AccountID = ..., mt4_account_id: int = ..., tags: ArrayStr = ...):
         return super().__new__(**AccountProperties._preset_arguments, **locals())
 
 
@@ -682,8 +682,8 @@ class Candlestick(Model):
 
     """
 
-    def __new__(cls, time: DateTime = None, bid: CandlestickData = None, ask: CandlestickData = None,
-                mid: CandlestickData = None, volume: int = None, complete: bool = None):
+    def __new__(cls, time: DateTime = ..., bid: CandlestickData = ..., ask: CandlestickData = ...,
+                mid: CandlestickData = ..., volume: int = ..., complete: bool = ...):
         return super().__new__(**Candlestick._preset_arguments, **locals())
 
 
@@ -706,8 +706,8 @@ class OrderBook(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
-                bucket_width: PriceValue = None, buckets: ArrayOrderBookBucket = None):
+    def __new__(cls, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
+                bucket_width: PriceValue = ..., buckets: ArrayOrderBookBucket = ...):
         return super().__new__(**OrderBook._preset_arguments, **locals())
 
 
@@ -726,8 +726,8 @@ class PositionBook(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = None, time: DateTime = None, price: PriceValue = None,
-                bucket_width: PriceValue = None, buckets: ArrayPositionBookBucket = None):
+    def __new__(cls, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
+                bucket_width: PriceValue = ..., buckets: ArrayPositionBookBucket = ...):
         return super().__new__(**PositionBook._preset_arguments, **locals())
 
 
@@ -746,26 +746,26 @@ class Order(Model):
 
     # TODO: Update the annotation for partial_fill when OANDA responds to email
 
-    def __new__(cls, id: OrderID = None, create_time: DateTime = None, state: OrderState = None,
-                client_extensions: ClientExtensions = None, trade_id: TradeID = None, price: PriceValue = None,
-                type: OrderType = None, client_trade_id: ClientID = None, time_in_force: TimeInForce = None,
-                gtd_time: DateTime = None, trigger_condition: OrderTriggerCondition = None,
-                filling_transaction_id: TransactionID = None, filled_time: DateTime = None,
-                trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
-                cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
-                replaced_by_order_id: OrderID = None, distance: PriceValue = None,
-                trailing_stop_value: PriceValue = None, instrument: InstrumentName = None, units: Unit = None,
-                partial_fill: str = None, position_fill: OrderPositionFill = None,
-                take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, price_bound: PriceValue = None,
-                initial_market_price: PriceValue = None, trade_close: MarketOrderTradeClose = None,
-                long_position_closeout: MarketOrderPositionCloseout = None,
-                short_position_closeout: MarketOrderPositionCloseout = None,
-                margin_closeout: MarketOrderMarginCloseout = None,
-                delayed_trade_close: MarketOrderDelayedTradeClose = None,
-                trigger_distance: PriceValue = None, is_trigger_distance_exact: bool = None):
+    def __new__(cls, id: OrderID = ..., create_time: DateTime = ..., state: OrderState = ...,
+                client_extensions: ClientExtensions = ..., trade_id: TradeID = ..., price: PriceValue = ...,
+                type: OrderType = ..., client_trade_id: ClientID = ..., time_in_force: TimeInForce = ...,
+                gtd_time: DateTime = ..., trigger_condition: OrderTriggerCondition = ...,
+                filling_transaction_id: TransactionID = ..., filled_time: DateTime = ...,
+                trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                replaced_by_order_id: OrderID = ..., distance: PriceValue = ...,
+                trailing_stop_value: PriceValue = ..., instrument: InstrumentName = ..., units: Unit = ...,
+                partial_fill: str = ..., position_fill: OrderPositionFill = ...,
+                take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., price_bound: PriceValue = ...,
+                initial_market_price: PriceValue = ..., trade_close: MarketOrderTradeClose = ...,
+                long_position_closeout: MarketOrderPositionCloseout = ...,
+                short_position_closeout: MarketOrderPositionCloseout = ...,
+                margin_closeout: MarketOrderMarginCloseout = ...,
+                delayed_trade_close: MarketOrderDelayedTradeClose = ...,
+                trigger_distance: PriceValue = ..., is_trigger_distance_exact: bool = ...):
         return super().__new__(**Order._preset_arguments, **locals())
 
 
@@ -787,8 +787,8 @@ class TradeReduce(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = None, units: Unit = None, realized_pl: AccountUnits = None,
-                financing: AccountUnits = None):
+    def __new__(cls, trade_id: TradeID = ..., units: Unit = ..., realized_pl: AccountUnits = ...,
+                financing: AccountUnits = ...):
         return super().__new__(**TradeReduce._preset_arguments, **locals())
 
 
@@ -807,7 +807,7 @@ class TransactionHeartbeat(Model):
 
     """
 
-    def __new__(cls, type: str = None, last_transaction_id: TransactionID = None, time: DateTime = None):
+    def __new__(cls, type: str = ..., last_transaction_id: TransactionID = ..., time: DateTime = ...):
         return super().__new__(**TransactionHeartbeat._preset_arguments, **locals())
 
 
@@ -822,7 +822,7 @@ class UserInfoExternal(Model):
 
     """
 
-    def __new__(cls, user_id: str = None, country: str = None, fifo: str = None):
+    def __new__(cls, user_id: str = ..., country: str = ..., fifo: str = ...):
         return super().__new__(**UserInfoExternal._preset_arguments, **locals())
 
 
@@ -856,13 +856,13 @@ class TradeSummary(Model):
 
     """
 
-    def __new__(cls, id: TradeID = None, instrument: InstrumentName = None, price: PriceValue = None,
-                open_time: DateTime = None, state: TradeState = None, initial_units: Unit = None,
-                current_units: Unit = None, realized_pl: AccountUnits = None, unrealized_pl: AccountUnits = None,
-                average_close_price: PriceValue = None, closing_transaction_i_ds: ArrayTransactionID = None,
-                financing: AccountUnits = None, close_time: DateTime = None,
-                client_extensions: ClientExtensions = None, take_profit_order_id: OrderID = None,
-                stop_loss_order_id: OrderID = None, trailing_stop_loss_order_id: OrderID = None):
+    def __new__(cls, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
+                open_time: DateTime = ..., state: TradeState = ..., initial_units: Unit = ...,
+                current_units: Unit = ..., realized_pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
+                average_close_price: PriceValue = ..., closing_transaction_i_ds: ArrayTransactionID = ...,
+                financing: AccountUnits = ..., close_time: DateTime = ...,
+                client_extensions: ClientExtensions = ..., take_profit_order_id: OrderID = ...,
+                stop_loss_order_id: OrderID = ..., trailing_stop_loss_order_id: OrderID = ...):
         return super().__new__(**TradeSummary._preset_arguments, **locals())
 
 
@@ -885,35 +885,35 @@ class Transaction(Model):
 
     """
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                type: TransactionType = None, extension_number: int = None, division_id: int = None,
-                site_id: int = None, account_user_id: int = None, account_number: int = None,
-                home_currency: Currency = None, alias: str = None, margin_rate: DecimalNumber = None,
-                reason: Reason = None, trade_i_ds: TradeID = None, order_id: OrderID = None,
-                client_order_id: ClientID = None, replaced_by_order_id: OrderID = None,
-                closed_trade_id: OrderID = None, trade_close_transaction_id: TransactionID = None,
-                client_extensions_modify: ClientExtensions = None,
-                trade_client_extensions_modify: ClientExtensions = None, financing: AccountUnits = None,
-                account_balance: AccountUnits = None, account_financing_mode: AccountFinancingMode = None,
-                position_financings: ArrayPositionFinancing = None, trade_id: TradeID = None,
-                client_trade_id: ClientID = None, price: PriceValue = None, time_in_force: TimeInForce = None,
-                gtd_time: DateTime = None, trigger_condition: OrderTriggerCondition = None,
-                client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
-                replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None,
-                reject_reason: TransactionRejectReason = None, amount: AccountUnits = None,
-                funding_reason: FundingReason = None, comment: str = None, instrument: InstrumentName = None,
-                units: Unit = None, price_bound: PriceValue = None, position_fill: OrderPositionFill = None,
-                trade_close: MarketOrderTradeClose = None, long_position_closeout: MarketOrderPositionCloseout = None,
-                short_position_closeout: MarketOrderPositionCloseout = None,
-                margin_closeout: MarketOrderMarginCloseout = None,
-                delayed_trade_close: MarketOrderDelayedTradeClose = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, distance: PriceValue = None,
-                full_price: ClientPrice = None, pl: AccountUnits = None, commission: AccountUnits = None,
-                trade_opened: TradeOpen = None, trades_closed: ArrayTradeReduce = None,
-                trade_reduced: TradeReduce = None, intended_replaces_order_id: OrderID = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                type: TransactionType = ..., extension_number: int = ..., division_id: int = ...,
+                site_id: int = ..., account_user_id: int = ..., account_number: int = ...,
+                home_currency: Currency = ..., alias: str = ..., margin_rate: DecimalNumber = ...,
+                reason: Reason = ..., trade_i_ds: TradeID = ..., order_id: OrderID = ...,
+                client_order_id: ClientID = ..., replaced_by_order_id: OrderID = ...,
+                closed_trade_id: OrderID = ..., trade_close_transaction_id: TransactionID = ...,
+                client_extensions_modify: ClientExtensions = ...,
+                trade_client_extensions_modify: ClientExtensions = ..., financing: AccountUnits = ...,
+                account_balance: AccountUnits = ..., account_financing_mode: AccountFinancingMode = ...,
+                position_financings: ArrayPositionFinancing = ..., trade_id: TradeID = ...,
+                client_trade_id: ClientID = ..., price: PriceValue = ..., time_in_force: TimeInForce = ...,
+                gtd_time: DateTime = ..., trigger_condition: OrderTriggerCondition = ...,
+                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...,
+                reject_reason: TransactionRejectReason = ..., amount: AccountUnits = ...,
+                funding_reason: FundingReason = ..., comment: str = ..., instrument: InstrumentName = ...,
+                units: Unit = ..., price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
+                trade_close: MarketOrderTradeClose = ..., long_position_closeout: MarketOrderPositionCloseout = ...,
+                short_position_closeout: MarketOrderPositionCloseout = ...,
+                margin_closeout: MarketOrderMarginCloseout = ...,
+                delayed_trade_close: MarketOrderDelayedTradeClose = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., distance: PriceValue = ...,
+                full_price: ClientPrice = ..., pl: AccountUnits = ..., commission: AccountUnits = ...,
+                trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
+                trade_reduced: TradeReduce = ..., intended_replaces_order_id: OrderID = ...):
         return super().__new__(**Transaction._preset_arguments, **locals())
 
 
@@ -940,11 +940,11 @@ class AccountChanges(Model):
 
     """
 
-    def __new__(cls, orders_created: ArrayOrder = None, orders_cancelled: ArrayOrder = None,
-                orders_filled: ArrayOrder = None, orders_triggered: ArrayOrder = None,
-                trades_opened: ArrayTradeSummary = None, trades_reduced: ArrayTradeSummary = None,
-                trades_closed: ArrayTradeSummary = None, positions: ArrayPosition = None,
-                transactions: ArrayTransaction = None):
+    def __new__(cls, orders_created: ArrayOrder = ..., orders_cancelled: ArrayOrder = ...,
+                orders_filled: ArrayOrder = ..., orders_triggered: ArrayOrder = ...,
+                trades_opened: ArrayTradeSummary = ..., trades_reduced: ArrayTradeSummary = ...,
+                trades_closed: ArrayTradeSummary = ..., positions: ArrayPosition = ...,
+                transactions: ArrayTransaction = ...):
         return super().__new__(**AccountChanges._preset_arguments, **locals())
 
 
@@ -975,12 +975,12 @@ class Instrument(Model):
 
     """
 
-    def __new__(cls, name: InstrumentName = None, type: InstrumentType = None, display_name: str = None,
-                pip_location: int = None, display_precision: int = None, trade_units_precision: int = None,
-                minimum_trade_size: Unit = None, maximum_trailing_stop_distance: Unit = None,
-                minimum_trailing_stop_distance: Unit = None, maximum_position_size: Unit = None,
-                maximum_order_units: Unit = None, margin_rate: DecimalNumber = None,
-                commission: InstrumentCommission = None):
+    def __new__(cls, name: InstrumentName = ..., type: InstrumentType = ..., display_name: str = ...,
+                pip_location: int = ..., display_precision: int = ..., trade_units_precision: int = ...,
+                minimum_trade_size: Unit = ..., maximum_trailing_stop_distance: Unit = ...,
+                minimum_trailing_stop_distance: Unit = ..., maximum_position_size: Unit = ...,
+                maximum_order_units: Unit = ..., margin_rate: DecimalNumber = ...,
+                commission: InstrumentCommission = ...):
         return super().__new__(**Instrument._preset_arguments, **locals())
 
 
@@ -1022,14 +1022,14 @@ class AccountChangesState(Model):
 
     """
 
-    def __new__(cls, unrealized_pl: AccountUnits = None, nav: AccountUnits = None, margin_used: AccountUnits = None,
-                margin_available: AccountUnits = None, position_value: AccountUnits = None,
-                margin_closeout_unrealized_pl: AccountUnits = None, margin_closeout_nav: AccountUnits = None,
-                margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
-                margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
-                margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
-                orders: ArrayDynamicOrderState = None, trades: ArrayCalculatedTradeState = None,
-                positions: ArrayCalculatedPositionState = None):
+    def __new__(cls, unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
+                margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
+                margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
+                margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
+                margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
+                margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
+                orders: ArrayDynamicOrderState = ..., trades: ArrayCalculatedTradeState = ...,
+                positions: ArrayCalculatedPositionState = ...):
         return super().__new__(**AccountChangesState._preset_arguments, **locals())
 
 
@@ -1059,11 +1059,11 @@ class Price(Model):
 
     """
 
-    def __new__(cls, type: str = None, instrument: InstrumentName = None, time: DateTime = None,
-                status: PriceStatus = None, tradeable: bool = None, bids: ArrayPriceBucket = None,
-                asks: ArrayPriceBucket = None, closeout_bid: PriceValue = None, closeout_ask: PriceValue = None,
-                quote_home_conversion_factors: QuoteHomeConversionFactors = None,
-                units_available: UnitsAvailable = None):
+    def __new__(cls, type: str = ..., instrument: InstrumentName = ..., time: DateTime = ...,
+                status: PriceStatus = ..., tradeable: bool = ..., bids: ArrayPriceBucket = ...,
+                asks: ArrayPriceBucket = ..., closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ...,
+                quote_home_conversion_factors: QuoteHomeConversionFactors = ...,
+                units_available: UnitsAvailable = ...):
         return super().__new__(**Price._preset_arguments, **locals())
 
 
@@ -1088,8 +1088,8 @@ class CloseTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('CLOSE')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         return super().__new__(**CloseTransaction._preset_arguments, **locals())
 
 
@@ -1112,8 +1112,8 @@ class MarginCallEnterTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARGIN_CALL_ENTER')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         return super().__new__(**MarginCallEnterTransaction._preset_arguments, **locals())
 
 
@@ -1136,8 +1136,8 @@ class MarginCallExitTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARGIN_CALL_EXIT')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         return super().__new__(**MarginCallExitTransaction._preset_arguments, **locals())
 
 
@@ -1162,9 +1162,9 @@ class MarginCallExtendTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARGIN_CALL_EXTEND')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                extension_number: int = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                extension_number: int = ...):
         return super().__new__(**MarginCallExtendTransaction._preset_arguments, **locals())
 
 
@@ -1185,8 +1185,8 @@ class ReopenTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('REOPEN')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         return super().__new__(**ReopenTransaction._preset_arguments, **locals())
 
 
@@ -1209,8 +1209,8 @@ class ResetResettablePLTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('RESET_RESETTABLE_PL')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         return super().__new__(**ResetResettablePLTransaction._preset_arguments, **locals())
 
 
@@ -1239,8 +1239,8 @@ class StopLossOrderRequest(OrderRequest):
     _preset_arguments = {'type': OrderType('STOP_LOSS')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         return super().__new__(**StopLossOrderRequest._preset_arguments, **locals())
 
 
@@ -1269,8 +1269,8 @@ class TakeProfitOrderRequest(OrderRequest):
     _preset_arguments = {'type': OrderType('TAKE_PROFIT')}
 
     def __new__(cls, trade_id: TradeID, price: PriceValue,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         return super().__new__(**TakeProfitOrderRequest._preset_arguments, **locals())
 
 
@@ -1298,8 +1298,8 @@ class TrailingStopLossOrderRequest(OrderRequest):
     _preset_arguments = {'type': OrderType('TRAILING_STOP_LOSS')}
 
     def __new__(cls, trade_id: TradeID, distance: PriceValue,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         return super().__new__(**TrailingStopLossOrderRequest._preset_arguments, **locals())
 
 
@@ -1325,10 +1325,10 @@ class CreateTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('CREATE')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                division_id: int = None, site_id: int = None,
-                account_user_id: int = None, account_number: int = None, home_currency: Currency = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                division_id: int = ..., site_id: int = ...,
+                account_user_id: int = ..., account_number: int = ..., home_currency: Currency = ...):
         return super().__new__(**CreateTransaction._preset_arguments, **locals())
 
 
@@ -1353,9 +1353,9 @@ class ClientConfigureTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('CLIENT_CONFIGURE')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                alias: str = None, margin_rate: DecimalNumber = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                alias: str = ..., margin_rate: DecimalNumber = ...):
         return super().__new__(**ClientConfigureTransaction._preset_arguments, **locals())
 
 
@@ -1384,10 +1384,10 @@ class DelayedTradeClosureTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('DELAYED_TRADE_CLOSURE')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                reason: MarketOrderReason = None,
-                trade_i_ds: TradeID = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                reason: MarketOrderReason = ...,
+                trade_i_ds: TradeID = ...):
         return super().__new__(**DelayedTradeClosureTransaction._preset_arguments, **locals())
 
 
@@ -1418,11 +1418,11 @@ class OrderCancelTransaction(Transaction):
 
     # TODO wait for OANDA to confirm client_order_id: ClientID
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                order_id: OrderID = None, client_order_id: ClientID = None,
-                reason: OrderCancelReason = None, replaced_by_order_id: OrderID = None,
-                closed_trade_id: OrderID = None, trade_close_transaction_id: TransactionID = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                order_id: OrderID = ..., client_order_id: ClientID = ...,
+                reason: OrderCancelReason = ..., replaced_by_order_id: OrderID = ...,
+                closed_trade_id: OrderID = ..., trade_close_transaction_id: TransactionID = ...):
         return super().__new__(**OrderCancelTransaction._preset_arguments, **locals())
 
 
@@ -1449,11 +1449,11 @@ class OrderClientExtensionsModifyTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                order_id: OrderID = None,
-                client_order_id: ClientID = None, client_extensions_modify: ClientExtensions = None,
-                trade_client_extensions_modify: ClientExtensions = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                order_id: OrderID = ...,
+                client_order_id: ClientID = ..., client_extensions_modify: ClientExtensions = ...,
+                trade_client_extensions_modify: ClientExtensions = ...):
         return super().__new__(**OrderClientExtensionsModifyTransaction._preset_arguments, **locals())
 
 
@@ -1480,11 +1480,11 @@ class DailyFinancingTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('DAILY_FINANCING')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                financing: AccountUnits = None,
-                account_balance: AccountUnits = None, account_financing_mode: AccountFinancingMode = None,
-                position_financings: ArrayPositionFinancing = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                financing: AccountUnits = ...,
+                account_balance: AccountUnits = ..., account_financing_mode: AccountFinancingMode = ...,
+                position_financings: ArrayPositionFinancing = ...):
         return super().__new__(**DailyFinancingTransaction._preset_arguments, **locals())
 
 
@@ -1510,10 +1510,10 @@ class TradeClientExtensionsModifyTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                trade_id: TradeID = None,
-                client_trade_id: ClientID = None, trade_client_extensions_modify: ClientExtensions = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                trade_id: TradeID = ...,
+                client_trade_id: ClientID = ..., trade_client_extensions_modify: ClientExtensions = ...):
         return super().__new__(**TradeClientExtensionsModifyTransaction._preset_arguments, **locals())
 
 
@@ -1573,21 +1573,21 @@ class AccountSummary(Model):
 
     """
 
-    def __new__(cls, id: AccountID = None, alias: str = None, currency: Currency = None, balance: AccountUnits = None,
-                created_by_user_id: int = None, created_time: DateTime = None, pl: AccountUnits = None,
-                resettable_pl: AccountUnits = None, resettabled_pl_time: DateTime = None,
-                commission: AccountUnits = None, margin_rate: DecimalNumber = None,
-                margin_call_enter_time: DateTime = None, margin_call_extension_count: int = None,
-                last_margin_call_extension_time: DateTime = None, open_trade_count: int = None,
-                open_position_count: int = None, pending_order_count: int = None, hedging_enabled: bool = None,
-                unrealized_pl: AccountUnits = None, nav: AccountUnits = None, margin_used: AccountUnits = None,
-                margin_available: AccountUnits = None, position_value: AccountUnits = None,
-                margin_closeout_unrealized_pl: AccountUnits = None, margin_closeout_nav: AccountUnits = None,
-                margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
-                margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
-                margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
-                last_transaction_id: TransactionID = None, trades: ArrayTradeSummary = None,
-                positions: ArrayPosition = None, orders: ArrayOrder = None, financing: DecimalNumber = None):
+    def __new__(cls, id: AccountID = ..., alias: str = ..., currency: Currency = ..., balance: AccountUnits = ...,
+                created_by_user_id: int = ..., created_time: DateTime = ..., pl: AccountUnits = ...,
+                resettable_pl: AccountUnits = ..., resettabled_pl_time: DateTime = ...,
+                commission: AccountUnits = ..., margin_rate: DecimalNumber = ...,
+                margin_call_enter_time: DateTime = ..., margin_call_extension_count: int = ...,
+                last_margin_call_extension_time: DateTime = ..., open_trade_count: int = ...,
+                open_position_count: int = ..., pending_order_count: int = ..., hedging_enabled: bool = ...,
+                unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
+                margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
+                margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
+                margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
+                margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
+                margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
+                last_transaction_id: TransactionID = ..., trades: ArrayTradeSummary = ...,
+                positions: ArrayPosition = ..., orders: ArrayOrder = ..., financing: DecimalNumber = ...):
         return super().__new__(**AccountSummary._preset_arguments, **locals())
 
 
@@ -1629,11 +1629,11 @@ class MarketOrderRequest(OrderRequest):
     _preset_arguments = {'type': OrderType('MARKET')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit,
-                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
-                position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None):
+                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ...):
         return super().__new__(**MarketOrderRequest._preset_arguments, **locals())
 
 
@@ -1675,13 +1675,13 @@ class TakeProfitOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TAKE_PROFIT_ORDER')}
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
-                user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = None,
-                client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
-                replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
+    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                request_id: RequestID = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = ...,
+                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
         return super().__new__(**TakeProfitOrderTransaction._preset_arguments, **locals())
 
 
@@ -1731,14 +1731,14 @@ class TakeProfitOrder(Order):
 
     _preset_arguments = {'type': OrderType('TAKE_PROFIT')}
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
-                state: OrderState = None, client_extensions: ClientExtensions = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = None,
-                filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
-                cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
-                replaced_by_order_id: OrderID = None):
+    def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
+                state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
+                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                replaced_by_order_id: OrderID = ...):
         return super().__new__(**TakeProfitOrder._preset_arguments, **locals())
 
 
@@ -1788,14 +1788,14 @@ class StopLossOrder(Order):
 
     _preset_arguments = {'type': OrderType('STOP_LOSS')}
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = None, create_time: DateTime = None,
-                state: OrderState = None, client_extensions: ClientExtensions = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = None,
-                filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
-                cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
-                replaced_by_order_id: OrderID = None):
+    def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
+                state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
+                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                replaced_by_order_id: OrderID = ...):
         return super().__new__(**StopLossOrder._preset_arguments, **locals())
 
 
@@ -1853,15 +1853,15 @@ class TrailingStopLossOrder(Order):
 
     _preset_arguments = {'type': OrderType('TRAILING_STOP_LOSS')}
 
-    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: OrderID = None, create_time: DateTime = None,
-                state: OrderState = None, client_extensions: ClientExtensions = None, client_trade_id: ClientID = None,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = None,
-                filling_transaction_id: TransactionID = None, filled_time: DateTime = None,
-                trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
-                cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
-                replaced_by_order_id: OrderID = None):
+    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
+                state: OrderState = ..., client_extensions: ClientExtensions = ..., client_trade_id: ClientID = ...,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = ...,
+                filling_transaction_id: TransactionID = ..., filled_time: DateTime = ...,
+                trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                replaced_by_order_id: OrderID = ...):
         return super().__new__(**TrailingStopLossOrder._preset_arguments, **locals())
 
 
@@ -1898,14 +1898,14 @@ class Trade(Model):
 
     """
 
-    def __new__(cls, id: TradeID = None, instrument: InstrumentName = None, price: PriceValue = None,
-                open_time: DateTime = None, state: TradeState = None, initial_units: DecimalNumber = None,
-                current_units: DecimalNumber = None, realized_pl: AccountUnits = None,
-                unrealized_pl: AccountUnits = None, average_close_price: PriceValue = None,
-                closing_transaction_i_ds: ArrayTransactionID = None, financing: AccountUnits = None,
-                close_time: DateTime = None, client_extensions: ClientExtensions = None,
-                take_profit_order: TakeProfitOrder = None, stop_loss_order: StopLossOrder = None,
-                trailing_stop_loss_order: TrailingStopLossOrder = None):
+    def __new__(cls, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
+                open_time: DateTime = ..., state: TradeState = ..., initial_units: Unit = ...,
+                current_units: Unit = ..., realized_pl: AccountUnits = ...,
+                unrealized_pl: AccountUnits = ..., average_close_price: PriceValue = ...,
+                closing_transaction_i_ds: ArrayTransactionID = ..., financing: AccountUnits = ...,
+                close_time: DateTime = ..., client_extensions: ClientExtensions = ...,
+                take_profit_order: TakeProfitOrder = ..., stop_loss_order: StopLossOrder = ...,
+                trailing_stop_loss_order: TrailingStopLossOrder = ...):
         return super().__new__(**Trade._preset_arguments, **locals())
 
 
@@ -1935,10 +1935,10 @@ class ClientConfigureRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('CLIENT_CONFIGURE_REJECT')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                alias: str = None,
-                margin_rate: DecimalNumber = None, reject_reason: TransactionRejectReason = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                alias: str = ...,
+                margin_rate: DecimalNumber = ..., reject_reason: TransactionRejectReason = ...):
         return super().__new__(**ClientConfigureRejectTransaction._preset_arguments, **locals())
 
 
@@ -1968,11 +1968,11 @@ class OrderCancelRejectTransaction(Transaction):
 
     # TODO wait for OANDA to confirm client_order_id: ClientID
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                order_id: OrderID = None,
-                client_order_id: ClientID = None, reason: OrderCancelReason = None,
-                reject_reason: TransactionRejectReason = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                order_id: OrderID = ...,
+                client_order_id: ClientID = ..., reason: OrderCancelReason = ...,
+                reject_reason: TransactionRejectReason = ...):
         return super().__new__(**OrderCancelRejectTransaction._preset_arguments, **locals())
 
 
@@ -2001,12 +2001,12 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
     _preset_arguments = {'type': TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT'),
                          'args_have_been_formatted': True}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                order_id: OrderID = None,
-                client_order_id: ClientID = None, client_extensions_modify: ClientExtensions = None,
-                trade_client_extensions_modify: ClientExtensions = None,
-                reject_reason: TransactionRejectReason = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                order_id: OrderID = ...,
+                client_order_id: ClientID = ..., client_extensions_modify: ClientExtensions = ...,
+                trade_client_extensions_modify: ClientExtensions = ...,
+                reject_reason: TransactionRejectReason = ...):
         return super().__new__(**OrderClientExtensionsModifyRejectTransaction._preset_arguments, **locals())
 
 
@@ -2034,11 +2034,11 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction):
     _preset_arguments = {'type': TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT'),
                          'args_have_been_formatted': True}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                trade_id: TradeID = None,
-                client_trade_id: ClientID = None, trade_client_extensions_modify: ClientExtensions = None,
-                reject_reason: TransactionRejectReason = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                trade_id: TradeID = ...,
+                client_trade_id: ClientID = ..., trade_client_extensions_modify: ClientExtensions = ...,
+                reject_reason: TransactionRejectReason = ...):
         return super().__new__(**TradeClientExtensionsModifyRejectTransaction._preset_arguments, **locals())
 
 
@@ -2066,10 +2066,10 @@ class TransferFundsTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TRANSFER_FUNDS')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                amount: AccountUnits = None,
-                funding_reason: FundingReason = None, comment: str = None, account_balance: AccountUnits = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                amount: AccountUnits = ...,
+                funding_reason: FundingReason = ..., comment: str = ..., account_balance: AccountUnits = ...):
         return super().__new__(**TransferFundsTransaction._preset_arguments, **locals())
 
 
@@ -2097,11 +2097,11 @@ class TransferFundsRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TRANSFER_FUNDS_REJECT')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                amount: AccountUnits = None,
-                funding_reason: FundingReason = None, comment: str = None,
-                reject_reason: TransactionRejectReason = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                amount: AccountUnits = ...,
+                funding_reason: FundingReason = ..., comment: str = ...,
+                reject_reason: TransactionRejectReason = ...):
         return super().__new__(**TransferFundsRejectTransaction._preset_arguments, **locals())
 
 
@@ -2147,11 +2147,11 @@ class LimitOrderRequest(OrderRequest):
     _preset_arguments = {'type': OrderType('LIMIT')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None):
+                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ...):
         return super().__new__(**LimitOrderRequest._preset_arguments, **locals())
 
 
@@ -2200,12 +2200,12 @@ class MarketIfTouchedOrderRequest(OrderRequest):
 
     _preset_arguments = {'type': OrderType('MARKET_IF_TOUCHED')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, price_bound: PriceValue = None,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, price_bound: PriceValue = ...,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None):
+                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ...):
         return super().__new__(**MarketIfTouchedOrderRequest._preset_arguments, **locals())
 
 
@@ -2253,11 +2253,11 @@ class StopOrderRequest(OrderRequest):
     _preset_arguments = {'type': OrderType('STOP')}
 
     def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
-                price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None):
+                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ...):
         return super().__new__(**StopOrderRequest._preset_arguments, **locals())
 
 
@@ -2320,21 +2320,21 @@ class Account(AccountSummary):
 
     """
 
-    def __new__(cls, id: AccountID = None, alias: str = None, currency: Currency = None, balance: AccountUnits = None,
-                created_by_user_id: int = None, created_time: DateTime = None, pl: AccountUnits = None,
-                resettable_pl: AccountUnits = None, resettabled_pl_time: DateTime = None,
-                commission: AccountUnits = None, margin_rate: DecimalNumber = None,
-                margin_call_enter_time: DateTime = None, margin_call_extension_count: int = None,
-                last_margin_call_extension_time: DateTime = None, open_trade_count: int = None,
-                open_position_count: int = None, pending_order_count: int = None, hedging_enabled: bool = None,
-                unrealized_pl: AccountUnits = None, nav: AccountUnits = None, margin_used: AccountUnits = None,
-                margin_available: AccountUnits = None, position_value: AccountUnits = None,
-                margin_closeout_unrealized_pl: AccountUnits = None, margin_closeout_nav: AccountUnits = None,
-                margin_closeout_margin_used: AccountUnits = None, margin_closeout_percent: DecimalNumber = None,
-                margin_closeout_position_value: DecimalNumber = None, withdrawal_limit: AccountUnits = None,
-                margin_call_margin_used: AccountUnits = None, margin_call_percent: DecimalNumber = None,
-                last_transaction_id: TransactionID = None, trades: ArrayTradeSummary = None,
-                positions: ArrayPosition = None, orders: ArrayOrder = None, financing: DecimalNumber = None):
+    def __new__(cls, id: AccountID = ..., alias: str = ..., currency: Currency = ..., balance: AccountUnits = ...,
+                created_by_user_id: int = ..., created_time: DateTime = ..., pl: AccountUnits = ...,
+                resettable_pl: AccountUnits = ..., resettabled_pl_time: DateTime = ...,
+                commission: AccountUnits = ..., margin_rate: DecimalNumber = ...,
+                margin_call_enter_time: DateTime = ..., margin_call_extension_count: int = ...,
+                last_margin_call_extension_time: DateTime = ..., open_trade_count: int = ...,
+                open_position_count: int = ..., pending_order_count: int = ..., hedging_enabled: bool = ...,
+                unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
+                margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
+                margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
+                margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
+                margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
+                margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
+                last_transaction_id: TransactionID = ..., trades: ArrayTradeSummary = ...,
+                positions: ArrayPosition = ..., orders: ArrayOrder = ..., financing: DecimalNumber = ...):
         return super().__new__(**Account._preset_arguments, **locals())
 
 
@@ -2387,18 +2387,18 @@ class MarketOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_ORDER')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
-                user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None,
-                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
-                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = None,
-                long_position_closeout: MarketOrderPositionCloseout = None,
-                short_position_closeout: MarketOrderPositionCloseout = None,
-                margin_closeout: MarketOrderMarginCloseout = None,
-                delayed_trade_close: MarketOrderDelayedTradeClose = None, reason: MarketOrderReason = None,
-                client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None):
+    def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = ..., time: DateTime = ...,
+                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                request_id: RequestID = ...,
+                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
+                long_position_closeout: MarketOrderPositionCloseout = ...,
+                short_position_closeout: MarketOrderPositionCloseout = ...,
+                margin_closeout: MarketOrderMarginCloseout = ...,
+                delayed_trade_close: MarketOrderDelayedTradeClose = ..., reason: MarketOrderReason = ...,
+                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ...):
         return super().__new__(**MarketOrderTransaction._preset_arguments, **locals())
 
 
@@ -2449,18 +2449,18 @@ class MarketOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = None, time: DateTime = None,
-                user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None,
-                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
-                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = None,
-                long_position_closeout: MarketOrderPositionCloseout = None,
-                short_position_closeout: MarketOrderPositionCloseout = None,
-                margin_closeout: MarketOrderMarginCloseout = None,
-                delayed_trade_close: MarketOrderDelayedTradeClose = None, reason: MarketOrderReason = None,
-                client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, reject_reason: TransactionRejectReason = None):
+    def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = ..., time: DateTime = ...,
+                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                request_id: RequestID = ...,
+                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
+                long_position_closeout: MarketOrderPositionCloseout = ...,
+                short_position_closeout: MarketOrderPositionCloseout = ...,
+                margin_closeout: MarketOrderMarginCloseout = ...,
+                delayed_trade_close: MarketOrderDelayedTradeClose = ..., reason: MarketOrderReason = ...,
+                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., reject_reason: TransactionRejectReason = ...):
         return super().__new__(**MarketOrderRejectTransaction._preset_arguments, **locals())
 
 
@@ -2502,13 +2502,13 @@ class StopLossOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('STOP_LOSS_ORDER')}
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
-                user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = None,
-                client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
-                replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
+    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                request_id: RequestID = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = ...,
+                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
         return super().__new__(**StopLossOrderTransaction._preset_arguments, **locals())
 
 
@@ -2549,13 +2549,13 @@ class TrailingStopLossOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TRAILING_STOP_LOSS_ORDER')}
 
-    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
-                user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = None,
-                client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
-                replaces_order_id: OrderID = None, cancelling_transaction_id: TransactionID = None):
+    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                request_id: RequestID = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = ...,
+                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
         return super().__new__(**TrailingStopLossOrderTransaction._preset_arguments, **locals())
 
 
@@ -2619,17 +2619,17 @@ class LimitOrder(Order):
         """
     _preset_arguments = {'type': OrderType('LIMIT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
-                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = ...,
+                create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
-                filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
-                cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
-                replaced_by_order_id: OrderID = None):
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
+                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                replaced_by_order_id: OrderID = ...):
         return super().__new__(**LimitOrder._preset_arguments, **locals())
 
 
@@ -2701,18 +2701,18 @@ class MarketIfTouchedOrder(Order):
 
     _preset_arguments = {'type': OrderType('MARKET_IF_TOUCHED')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
-                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
-                price_bound: PriceValue = None,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = ...,
+                create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                price_bound: PriceValue = ...,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                initial_market_price: PriceValue = None, take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
-                filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
-                cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
-                replaced_by_order_id: OrderID = None):
+                initial_market_price: PriceValue = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
+                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                replaced_by_order_id: OrderID = ...):
         return super().__new__(**MarketIfTouchedOrder._preset_arguments, **locals())
 
 
@@ -2779,17 +2779,17 @@ class StopOrder(Order):
 
     _preset_arguments = {'type': OrderType('STOP')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = None,
-                create_time: DateTime = None, state: OrderState = None, client_extensions: ClientExtensions = None,
-                price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC',
-                gtd_time: DateTime = None, position_fill: OrderPositionFill = 'DEFAULT',
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
-                filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
-                cancelled_time: DateTime = None, replaces_order_id: OrderID = None,
-                replaced_by_order_id: OrderID = None):
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = ...,
+                create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC',
+                gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
+                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                replaced_by_order_id: OrderID = ...):
         return super().__new__(**StopOrder._preset_arguments, **locals())
 
 
@@ -2833,14 +2833,14 @@ class OrderFillTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('ORDER_FILL')}
 
-    def __new__(cls, id: TransactionID = None, time: DateTime = None, user_id: int = None,
-                account_id: AccountID = None, batch_id: TransactionID = None, request_id: RequestID = None,
-                order_id: OrderID = None, client_order_id: ClientID = None,
-                instrument: InstrumentName = None, units: Unit = None, price: PriceValue = None,
-                full_price: ClientPrice = None, reason: OrderFillReason = None, pl: AccountUnits = None,
-                financing: AccountUnits = None, commission: AccountUnits = None, account_balance: AccountUnits = None,
-                trade_opened: TradeOpen = None, trades_closed: ArrayTradeReduce = None,
-                trade_reduced: TradeReduce = None):
+    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                order_id: OrderID = ..., client_order_id: ClientID = ...,
+                instrument: InstrumentName = ..., units: Unit = ..., price: PriceValue = ...,
+                full_price: ClientPrice = ..., reason: OrderFillReason = ..., pl: AccountUnits = ...,
+                financing: AccountUnits = ..., commission: AccountUnits = ..., account_balance: AccountUnits = ...,
+                trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
+                trade_reduced: TradeReduce = ...):
         return super().__new__(**OrderFillTransaction._preset_arguments, **locals())
 
 
@@ -2881,13 +2881,13 @@ class StopLossOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('STOP_LOSS_ORDER_REJECT')}
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
-                user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = None,
-                client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
-                intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
+    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                request_id: RequestID = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = ...,
+                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
         return super().__new__(**StopLossOrderRejectTransaction._preset_arguments, **locals())
 
 
@@ -2941,16 +2941,16 @@ class MarketIfTouchedOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_IF_TOUCHED_ORDER')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
-                time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None, price_bound: PriceValue = None,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: MarketIfTouchedOrderReason = None, client_extensions: ClientExtensions = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
-                cancelling_transaction_id: TransactionID = None):
+                reason: MarketIfTouchedOrderReason = ..., client_extensions: ClientExtensions = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
+                cancelling_transaction_id: TransactionID = ...):
         return super().__new__(**MarketIfTouchedOrderTransaction._preset_arguments, **locals())
 
 
@@ -3000,16 +3000,16 @@ class LimitOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('LIMIT_ORDER')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
-                time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                batch_id: TransactionID = ..., request_id: RequestID = ...,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: LimitOrderReason = None, client_extensions: ClientExtensions = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
-                cancelling_transaction_id: TransactionID = None):
+                reason: LimitOrderReason = ..., client_extensions: ClientExtensions = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
+                cancelling_transaction_id: TransactionID = ...):
         return super().__new__(**LimitOrderTransaction._preset_arguments, **locals())
 
 
@@ -3050,13 +3050,13 @@ class TakeProfitOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TAKE_PROFIT_ORDER_REJECT')}
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = None, time: DateTime = None,
-                user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = None,
-                client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
-                intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
+    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                request_id: RequestID = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = ...,
+                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
         return super().__new__(**TakeProfitOrderRejectTransaction._preset_arguments, **locals())
 
 
@@ -3096,13 +3096,13 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TRAILING_STOP_LOSS_ORDER_REJECT')}
 
-    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = None, time: DateTime = None,
-                user_id: int = None, account_id: AccountID = None, batch_id: TransactionID = None,
-                request_id: RequestID = None,
-                client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = None,
-                client_extensions: ClientExtensions = None, order_fill_transaction_id: TransactionID = None,
-                intended_replaces_order_id: OrderID = None, reject_reason: TransactionRejectReason = None):
+    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                request_id: RequestID = ...,
+                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = ...,
+                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
         return super().__new__(**TrailingStopLossOrderRejectTransaction._preset_arguments, **locals())
 
 
@@ -3154,16 +3154,16 @@ class StopOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('STOP_ORDER')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
-                time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None,
-                price_bound: PriceValue = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                batch_id: TransactionID = ..., request_id: RequestID = ...,
+                price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: StopOrderReason = None, client_extensions: ClientExtensions = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, replaces_order_id: OrderID = None,
-                cancelling_transaction_id: TransactionID = None):
+                reason: StopOrderReason = ..., client_extensions: ClientExtensions = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
+                cancelling_transaction_id: TransactionID = ...):
         return super().__new__(**StopOrderTransaction._preset_arguments, **locals())
 
 
@@ -3216,16 +3216,16 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_IF_TOUCHED_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
-                time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None, price_bound: PriceValue = None,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: MarketIfTouchedOrderReason = None, client_extensions: ClientExtensions = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
-                reject_reason: TransactionRejectReason = None):
+                reason: MarketIfTouchedOrderReason = ..., client_extensions: ClientExtensions = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
+                reject_reason: TransactionRejectReason = ...):
         return super().__new__(**MarketIfTouchedOrderRejectTransaction._preset_arguments, **locals())
 
 
@@ -3274,15 +3274,15 @@ class LimitOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('LIMIT_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
-                time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None, time_in_force: TimeInForce = 'GTC',
-                gtd_time: DateTime = None, position_fill: OrderPositionFill = 'DEFAULT',
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: LimitOrderReason = None,
-                client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
-                stop_loss_on_fill: StopLossDetails = None, trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
-                reject_reason: TransactionRejectReason = None):
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                batch_id: TransactionID = ..., request_id: RequestID = ..., time_in_force: TimeInForce = 'GTC',
+                gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
+                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: LimitOrderReason = ...,
+                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
+                reject_reason: TransactionRejectReason = ...):
         return super().__new__(**LimitOrderRejectTransaction._preset_arguments, **locals())
 
 
@@ -3333,16 +3333,16 @@ class StopOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('STOP_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = None,
-                time: DateTime = None, user_id: int = None, account_id: AccountID = None,
-                batch_id: TransactionID = None, request_id: RequestID = None, price_bound: PriceValue = None,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
+                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: StopOrderReason = None, client_extensions: ClientExtensions = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, intended_replaces_order_id: OrderID = None,
-                reject_reason: TransactionRejectReason = None):
+                reason: StopOrderReason = ..., client_extensions: ClientExtensions = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
+                reject_reason: TransactionRejectReason = ...):
         return super().__new__(**StopOrderRejectTransaction._preset_arguments, **locals())
 
 
@@ -3407,18 +3407,18 @@ class MarketOrder(Order):
 
     _preset_arguments = {'type': OrderType('MARKET')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, id: OrderID = None, create_time: DateTime = None,
-                state: OrderState = None, client_extensions: ClientExtensions = None,
-                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
-                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = None,
-                long_position_closeout: MarketOrderPositionCloseout = None,
-                short_position_closeout: MarketOrderPositionCloseout = None,
-                margin_closeout: MarketOrderMarginCloseout = None,
-                delayed_trade_close: MarketOrderDelayedTradeClose = None,
-                take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                trade_client_extensions: ClientExtensions = None, filling_transaction_id: TransactionID = None,
-                filled_time: DateTime = None, trade_opened_id: TradeID = None, trade_reduced_id: TradeID = None,
-                trade_closed_i_ds: ArrayTradeID = None, cancelling_transaction_id: TransactionID = None,
-                cancelled_time: DateTime = None):
+    def __new__(cls, instrument: InstrumentName, units: Unit, id: OrderID = ..., create_time: DateTime = ...,
+                state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
+                long_position_closeout: MarketOrderPositionCloseout = ...,
+                short_position_closeout: MarketOrderPositionCloseout = ...,
+                margin_closeout: MarketOrderMarginCloseout = ...,
+                delayed_trade_close: MarketOrderDelayedTradeClose = ...,
+                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
+                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                cancelled_time: DateTime = ...):
         return super().__new__(**MarketOrder._preset_arguments, **locals())

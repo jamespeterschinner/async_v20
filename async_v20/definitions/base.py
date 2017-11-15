@@ -146,8 +146,8 @@ class Model(tuple, metaclass=ORM):
 
             # These attributes seem to be the most important to users
             for attribute in ('id', 'instrument', 'amount', 'units',
-                              'current_units', 'realized_pl', 'financing',
-                              'pl', 'price', 'reason', 'time',):
+                              'current_units', 'realized_pl',
+                              'unrealized_pl', 'price', 'reason', 'time'):
                 try:
                     value = getattr(self, attribute)
                 except (IndexError, AttributeError):
@@ -168,22 +168,35 @@ class Model(tuple, metaclass=ORM):
     def __new__(cls, *args, **kwargs):
 
         # contains all the attributes the class instance contains
-        cls._fields = []
+        fields = []
 
         arguments = ((attr, cls.__annotations__[attr], kwargs[attr]) for attr in cls.template)
 
         def construct_object_data():
             for name, annotation, value in arguments:
-                if value is None:
+                # Sometimes OANDA JSON responses contain null values.
+                # Ellipsis (...) is used as the default parameter
+                # to determine the difference between None and null
+                # This is important because it allows converting objects
+                # back into the EXACT JSON they were created from.
+                # Without dropping the null values
+                if value is ...:
+                    yield None
+                elif value is None:
+                    fields.append(name)
                     yield None
                 else:
-                    cls._fields.append(name)
+                    fields.append(name)
                     yield create_attribute(annotation, value)
 
-        result = super().__new__(cls, tuple(construct_object_data()))
-        return result
+        instance = super().__new__(cls, tuple(construct_object_data()))
+        instance._fields = tuple(fields)
+        return instance
 
-    def dict(self, json=True):
+    def replace(self, **kwargs):
+        return self.__class__(**dict(self.dict(), **kwargs))
+
+    def dict(self, json=False):
         def fields():
             for field in self._fields:
                 attr = getattr(self, field)
@@ -216,9 +229,9 @@ class Model(tuple, metaclass=ORM):
     def data(self, json=False):
         return flatten_dict(self.dict(json), self._delimiter)
 
-    def series(self):
+    def series(self, json=False):
         def create_data():
-            for key, value in self.data(json=False).items():
+            for key, value in self.data(json=json).items():
                 if isinstance(value, str):
                     try:
                         value = int(value)
@@ -227,10 +240,6 @@ class Model(tuple, metaclass=ORM):
                 yield key, value
 
         return pd.Series(dict(self.template, **dict(create_data())))
-
-    def replace(self, **kwargs):
-        """Create new instance of self with replaced values"""
-        return self.__class__(**dict(self.dict(json=False), **kwargs))
 
 
 class Array(tuple):
@@ -287,7 +296,7 @@ def create_attribute(typ, data):
     try:
         if isinstance(data, (Model, Array, Primitive)):
             if not issubclass(type(data), typ):
-                raise TypeError(f'{data} must be of type {typ}')
+                raise TypeError(f'{data} must be of type {typ} is {type(data)}')
             result = data
         elif isinstance(data, dict):
             result = typ(**data)

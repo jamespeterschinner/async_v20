@@ -34,7 +34,7 @@ __all__ = ['OrderInterface']
 
 class OrderInterface(object):
     @endpoint(POSTOrders)
-    def post_order(self, order_request: OrderRequest = None):
+    def post_order(self, order_request: OrderRequest = ...):
         """
         Post an OrderRequest to an account
 
@@ -51,14 +51,14 @@ class OrderInterface(object):
 
     @shortcut
     def create_order(self, instrument: InstrumentName, units: Unit, type: OrderType = 'MARKET',
-                     trade_id: TradeID = None, price: PriceValue = None, client_trade_id: ClientID = None,
-                     time_in_force: TimeInForce = None, gtd_time: DateTime = None,
-                     trigger_condition: OrderTriggerCondition = None, client_extensions: ClientExtensions = None,
-                     distance: PriceValue = None, price_bound: PriceValue = None,
-                     position_fill: OrderPositionFill = None, take_profit_on_fill: TakeProfitDetails = None,
-                     stop_loss_on_fill: StopLossDetails = None,
-                     trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                     trade_client_extensions: ClientExtensions = None):
+                     trade_id: TradeID = ..., price: PriceValue = ..., client_trade_id: ClientID = ...,
+                     time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+                     trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
+                     distance: PriceValue = ..., price_bound: PriceValue = ...,
+                     position_fill: OrderPositionFill = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                     stop_loss_on_fill: StopLossDetails = ...,
+                     trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                     trade_client_extensions: ClientExtensions = ...):
         """
         Shortcut to create an OrderRequest in an Account
 
@@ -78,11 +78,11 @@ class OrderInterface(object):
 
     @endpoint(GETOrders)
     def list_orders(self,
-                    ids: Ids = None,
-                    state: OrderStateFilter = None,
-                    instrument: InstrumentName = None,
-                    count: Count = None,
-                    before_id: OrderID = None):
+                    ids: Ids = ...,
+                    state: OrderStateFilter = ...,
+                    instrument: InstrumentName = ...,
+                    count: Count = ...,
+                    before_id: OrderID = ...):
         """
         Get a list of Orders for an Account
 
@@ -121,7 +121,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrderSpecifier)
-    def get_order(self, order_specifier: OrderSpecifier = None):
+    def get_order(self, order_specifier: OrderSpecifier = ...):
         """
         Get details for a single Order in an Account
 
@@ -138,8 +138,8 @@ class OrderInterface(object):
 
     @endpoint(PUTOrderSpecifier)
     def replace_order(self,
-                      order_specifier: OrderSpecifier = None,
-                      order_request: OrderRequest = None):
+                      order_specifier: OrderSpecifier = ...,
+                      order_request: OrderRequest = ...):
         """
         Replace an Order in an Account by simultaneously cancelling it and
         creating a replacement Order
@@ -158,7 +158,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifierCancel)
-    def cancel_order(self, order_specifier: OrderSpecifier = None):
+    def cancel_order(self, order_specifier: OrderSpecifier = ...):
         """
         Cancel a pending Order in an Account
 
@@ -175,9 +175,9 @@ class OrderInterface(object):
 
     @endpoint(PUTClientExtensions)
     def set_client_extensions(self,
-                              order_specifier: OrderSpecifier = None,
-                              client_extensions: ClientExtensions = None,
-                              trade_client_extensions: TradeClientExtensions = None):
+                              order_specifier: OrderSpecifier = ...,
+                              client_extensions: ClientExtensions = ...,
+                              trade_client_extensions: TradeClientExtensions = ...):
         """
         Update the Client Extensions for an Order in an Account. Do not set,
         modify, or delete clientExtensions if your account is associated with
@@ -204,11 +204,11 @@ class OrderInterface(object):
 
     @shortcut
     def market_order(self, instrument: InstrumentName, units: Unit,
-                     time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = None,
-                     position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = None,
-                     take_profit_on_fill: TakeProfitDetails = None, stop_loss_on_fill: StopLossDetails = None,
-                     trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                     trade_client_extensions: ClientExtensions = None):
+                     time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                     position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = ...,
+                     take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                     trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                     trade_client_extensions: ClientExtensions = ...):
         """
         Shortcut to create a Market Order in an Account
         MarketOrderRequest
@@ -230,12 +230,12 @@ class OrderInterface(object):
                                              ))
     @shortcut
     def limit_order(self, instrument: InstrumentName, units: Unit, price: PriceValue,
-                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                     position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                    client_extensions: ClientExtensions = None, take_profit_on_fill: TakeProfitDetails = None,
-                    stop_loss_on_fill: StopLossDetails = None,
-                    trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                    trade_client_extensions: ClientExtensions = None):
+                    client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                    stop_loss_on_fill: StopLossDetails = ...,
+                    trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                    trade_client_extensions: ClientExtensions = ...):
         """
         Shortcut to create a Limit Order in an Account
 
@@ -276,8 +276,8 @@ class OrderInterface(object):
 
     @shortcut
     def stop_order(self, trade_id: TradeID, price: PriceValue,
-                   client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
-                   trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = None):
+                   client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                   trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         """
         Shortcut to create a Stop Order in an Account
 
@@ -313,15 +313,15 @@ class OrderInterface(object):
 
     @shortcut
     def market_if_touched_order(self, instrument: InstrumentName, units: Unit, price: PriceValue,
-                                price_bound: PriceValue = None,
-                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                                price_bound: PriceValue = ...,
+                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                                 position_fill: OrderPositionFill = 'DEFAULT',
                                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                                client_extensions: ClientExtensions = None,
-                                take_profit_on_fill: TakeProfitDetails = None,
-                                stop_loss_on_fill: StopLossDetails = None,
-                                trailing_stop_loss_on_fill: TrailingStopLossDetails = None,
-                                trade_client_extensions: ClientExtensions = None):
+                                client_extensions: ClientExtensions = ...,
+                                take_profit_on_fill: TakeProfitDetails = ...,
+                                stop_loss_on_fill: StopLossDetails = ...,
+                                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                                trade_client_extensions: ClientExtensions = ...):
         """
         Shortcut to create a MarketIfTouched Order in an Account
 
@@ -363,10 +363,10 @@ class OrderInterface(object):
 
     @shortcut
     def take_profit_order(self, trade_id: TradeID, price: PriceValue,
-                          client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC',
-                          gtd_time: DateTime = None,
+                          client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
+                          gtd_time: DateTime = ...,
                           trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                          client_extensions: ClientExtensions = None):
+                          client_extensions: ClientExtensions = ...):
         """
         Shortcut to create a Take Profit Order in an Account
 
@@ -403,9 +403,9 @@ class OrderInterface(object):
 
     @shortcut
     def stop_loss_order(self, trade_id: TradeID, price: PriceValue,
-                        client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = None,
+                        client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                        client_extensions: ClientExtensions = None):
+                        client_extensions: ClientExtensions = ...):
         """
         Shortcut to create a Stop Loss Order in an Account
 
@@ -440,10 +440,10 @@ class OrderInterface(object):
 
     @shortcut
     def trailing_stop_loss_order(self, trade_id: TradeID, distance: PriceValue,
-                                 client_trade_id: ClientID = None, time_in_force: TimeInForce = 'GTC',
-                                 gtd_time: DateTime = None,
+                                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
+                                 gtd_time: DateTime = ...,
                                  trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                                 client_extensions: ClientExtensions = None):
+                                 client_extensions: ClientExtensions = ...):
         """
         Shortcut to create a Trailing Stop Loss Order in an Account
 
