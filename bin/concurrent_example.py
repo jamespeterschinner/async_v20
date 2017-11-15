@@ -7,16 +7,14 @@ client = OandaClient()
 
 async def poll_account(poll_interval=6, client=client):
     while True:
-        result = await client.account_changes()
-        print(result['changes'].dict())
+        account = await client.account()
+        print(account)
         await asyncio.sleep(poll_interval)
 
 
 async def stream(instruments, client=client):
-    async for data in await client.stream_pricing(instruments):
-        price = data.get('PRICE', None)
-        if price:
-            print(price.series())
+    async for price in await client.stream_pricing(instruments):
+        print(price)
 
 
 loop = asyncio.get_event_loop()

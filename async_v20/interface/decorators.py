@@ -26,8 +26,6 @@ def endpoint(endpoint, initialization_step=False):
         async def wrap(self, *args, **kwargs):
             await self.initialize(initialization_step)
 
-            predicate = kwargs.pop('predicate', lambda x: x)
-
             request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
             await self._request_limiter()
@@ -35,7 +33,7 @@ def endpoint(endpoint, initialization_step=False):
             response = self.session.request(**request_args)
 
             try:
-                return await parse_response(self, response, endpoint, predicate)
+                return await parse_response(self, response, endpoint)
             except ConcurrentTimeoutError:
                 raise TimeoutError(f'{method.__name__} to longer than {self.poll_timeout} seconds')
 
