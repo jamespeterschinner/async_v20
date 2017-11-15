@@ -9,14 +9,11 @@ def update_account(self, changes, changes_state):
     """Update an existing account with changes
 
     Args:
-        account: -- The account instance to update
-        transactions: -- An iterable of Transactions to append to
+        self: -- OandaClient instance
         changes: -- Changes from account_changes API call
         changes_state: ChangesState from account_changes API call
 
-    Returns:
-        (Account, ArrayTransaction)
-
+    Returns: None
     """
 
     # Add / Replace / Remove items from the AccountChanges object

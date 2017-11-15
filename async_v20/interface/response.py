@@ -35,10 +35,7 @@ class Response(dict):
                 result = value.dict(json)
             except AttributeError:
                 try:
-                    if json:
-                        result = [obj.dict(json) for obj in value]
-                    else:
-                        result = tuple(obj.dict(json) for obj in value)
+                    result = [obj.dict(json) for obj in value]
                 except (AttributeError, TypeError):
                     result = value
             return result

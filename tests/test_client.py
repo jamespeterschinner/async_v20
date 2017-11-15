@@ -12,6 +12,7 @@ from async_v20.endpoints.annotations import Authorization
 from .fixtures import server as server_module
 from .fixtures.client import client
 from .test_definitions.helpers import get_valid_primitive_data
+from async_v20.definitions.types import Account
 
 client = client
 server = server_module.server
@@ -182,3 +183,11 @@ async def test_client_handles_multiple_concurrent_initializations(client, server
         # Just want to make sure the client always initializes correctly
         pass
     assert client.initialized
+
+@pytest.mark.asyncio
+async def test_account(client, server):
+    async with client as client:
+        assert len(client._account.trades) == 0
+        account = await client.account()
+        assert len(client._account.trades) == 1
+        assert type(account)== Account
