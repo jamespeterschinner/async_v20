@@ -122,12 +122,10 @@ arguments when being constructed
 `objects` store there attributes as `snake_case` (as python programmers would expect),
 which adds a further requirement to convert these into `camelCase` when being serialized.
 
-To solve this the `attributes` module:
+To solve this the :mod:`async_v20.definitions.attributes` module
+contains two dictionaries. :attr:`~async_v20.definitions.attributes.instance_attributes`
+& :attr:`~async_v20.definitions.attributes.json_attributes`:
 
-   .. automodule:: async_v20.definitions.attributes
-
-        contains two dictionaries
-
-- When creating objects, arguments are passed through `instance_attributes` dictionary
-- When serializing objects, attributes are passed through `json_attributes` dictionary
+   - When creating objects, arguments are passed through `instance_attributes` dictionary
+   - When serializing objects, attributes are passed through `json_attributes` dictionary
 
