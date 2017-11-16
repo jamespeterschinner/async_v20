@@ -8,3 +8,4 @@ dependencies:
 - ujson
 - yarl
 - pandas
+- sphinx_rtd_theme

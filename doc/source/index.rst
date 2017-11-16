@@ -71,6 +71,7 @@ Contents
 
    getting_started
    best_practices
+   particularly_pertinent
    beyond_getting_started
    traps
    api
