@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>OandaClient API &mdash; async_v20 2.0.1a0 documentation</title>
+  <title>OandaClient API &mdash; async_v20 2.1.0b0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="async_v20 2.0.1a0 documentation" href="index.html"/>
+    <link rel="top" title="async_v20 2.1.0b0 documentation" href="index.html"/>
         <link rel="next" title="Class Definitions" href="types.html"/>
         <link rel="prev" title="Traps for young players" href="traps.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                2.0.1a0
+                2.1.0b0
               </div>
             
           
@@ -93,6 +93,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="particularly_pertinent.html">Particularly Pertinent Programming Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
@@ -183,7 +184,7 @@ if no token is passed</p>
 <span id="id1"></span><h2>OandaClient<a class="headerlink" href="#oandaclient" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="async_v20.OandaClient">
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=2</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>datetime_format='UNIX'</em>, <em>poll_timeout=4</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -191,6 +192,8 @@ if no token is passed</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>token</strong> – – User generated token from the online account configuration page</li>
+<li><strong>account_id</strong> – – The account id the client will connect to</li>
+<li><strong>max_transaction_history</strong> – – Maximum past transactions to store</li>
 <li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
@@ -212,11 +215,16 @@ the v20 REST server</li>
 </div>
 <div class="section" id="account">
 <h2>Account<a class="headerlink" href="#account" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="id2"></span><dl class="method">
+<dt id="async_v20.OandaClient.account">
+<code class="descclassname">OandaClient.</code><code class="descname">account</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient.account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient.account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get updated account</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="async_v20.OandaClient.list_accounts">
 <code class="descclassname">OandaClient.</code><code class="descname">list_accounts</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_accounts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of all Accounts authorized for the provided token.</p>
-<p>Args:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -264,7 +272,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.account_instruments">
-<code class="descclassname">OandaClient.</code><code class="descname">account_instruments</code><span class="sig-paren">(</span><em>self</em>, <em>instruments: Instruments=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_instruments" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">account_instruments</code><span class="sig-paren">(</span><em>self</em>, <em>instruments: Instruments=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_instruments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the list of tradeable instruments for the given Account. The list
 of tradeable instruments is dependent on the regulatory division that
 the Account is located in, thus should be the same for all Accounts
@@ -284,7 +292,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.configure_account">
-<code class="descclassname">OandaClient.</code><code class="descname">configure_account</code><span class="sig-paren">(</span><em>self</em>, <em>alias: Alias=None</em>, <em>margin_rate: DecimalNumber=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.configure_account" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">configure_account</code><span class="sig-paren">(</span><em>self</em>, <em>alias: Alias=Ellipsis</em>, <em>margin_rate: DecimalNumber=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.configure_account" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the client-configurable portions of an Account.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -306,7 +314,7 @@ request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.account_changes">
-<code class="descclassname">OandaClient.</code><code class="descname">account_changes</code><span class="sig-paren">(</span><em>self</em>, <em>since_transaction_id: LastTransactionID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_changes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">account_changes</code><span class="sig-paren">(</span><em>self</em>, <em>since_transaction_id: SinceTransactionID=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_changes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint used to poll an Account for its current state and changes
 since a specified TransactionID.</p>
 <div class="admonition note">
@@ -331,7 +339,7 @@ request</td>
 <h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="async_v20.OandaClient.get_candles">
-<code class="descclassname">OandaClient.</code><code class="descname">get_candles</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>price: PriceComponent=M</em>, <em>granularity: CandlestickGranularity=S5</em>, <em>count: Count=500</em>, <em>from_time: FromTime=None</em>, <em>to_time: ToTime=None</em>, <em>smooth: Smooth=False</em>, <em>include_first_query: IncludeFirstQuery=True</em>, <em>daily_alignment: DailyAlignment=17</em>, <em>alignment_timezone: AlignmentTimezone=America/New_York</em>, <em>weekly_alignment: WeeklyAlignment=Friday</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_candles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_candles</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>price: PriceComponent=M</em>, <em>granularity: CandlestickGranularity=S5</em>, <em>count: Count=500</em>, <em>from_time: FromTime=Ellipsis</em>, <em>to_time: ToTime=Ellipsis</em>, <em>smooth: Smooth=False</em>, <em>include_first_query: IncludeFirstQuery=True</em>, <em>daily_alignment: DailyAlignment=17</em>, <em>alignment_timezone: AlignmentTimezone=America/New_York</em>, <em>weekly_alignment: WeeklyAlignment=Friday</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_candles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch candlestick data for an instrument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -377,7 +385,7 @@ request</p>
 <h2>Order<a class="headerlink" href="#order" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="async_v20.OandaClient.post_order">
-<code class="descclassname">OandaClient.</code><code class="descname">post_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_request: OrderRequest=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.post_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">post_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_request: OrderRequest=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.post_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Post an OrderRequest to an account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -394,7 +402,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.create_order">
-<code class="descclassname">OandaClient.</code><code class="descname">create_order</code><span class="sig-paren">(</span><em>cls</em>, <em>trade_id: TradeID=None</em>, <em>price: PriceValue=None</em>, <em>type: OrderType=None</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=None</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=None</em>, <em>client_extensions: ClientExtensions=None</em>, <em>distance: PriceValue=None</em>, <em>instrument: InstrumentName=None</em>, <em>units: Unit=None</em>, <em>price_bound: PriceValue=None</em>, <em>position_fill: OrderPositionFill=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.create_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">create_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>type: OrderType=MARKET</em>, <em>trade_id: TradeID=Ellipsis</em>, <em>price: PriceValue=Ellipsis</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=Ellipsis</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=Ellipsis</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>distance: PriceValue=Ellipsis</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>position_fill: OrderPositionFill=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.create_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create an OrderRequest in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -409,7 +417,7 @@ the request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.list_orders">
-<code class="descclassname">OandaClient.</code><code class="descname">list_orders</code><span class="sig-paren">(</span><em>self</em>, <em>ids: Ids=None</em>, <em>state: OrderStateFilter=None</em>, <em>instrument: InstrumentName=None</em>, <em>count: Count=None</em>, <em>before_id: OrderID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_orders" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">list_orders</code><span class="sig-paren">(</span><em>self</em>, <em>ids: Ids=Ellipsis</em>, <em>state: OrderStateFilter=Ellipsis</em>, <em>instrument: InstrumentName=Ellipsis</em>, <em>count: Count=Ellipsis</em>, <em>before_id: OrderID=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_orders" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of Orders for an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -451,7 +459,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_order">
-<code class="descclassname">OandaClient.</code><code class="descname">get_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get details for a single Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -468,7 +476,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.replace_order">
-<code class="descclassname">OandaClient.</code><code class="descname">replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=None</em>, <em>order_request: OrderRequest=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=Ellipsis</em>, <em>order_request: OrderRequest=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace an Order in an Account by simultaneously cancelling it and
 creating a replacement Order</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -491,7 +499,7 @@ request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.cancel_order">
-<code class="descclassname">OandaClient.</code><code class="descname">cancel_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.cancel_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">cancel_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.cancel_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cancel a pending Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -508,7 +516,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.set_client_extensions">
-<code class="descclassname">OandaClient.</code><code class="descname">set_client_extensions</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=None</em>, <em>client_extensions: ClientExtensions=None</em>, <em>trade_client_extensions: TradeClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_client_extensions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">set_client_extensions</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=Ellipsis</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>trade_client_extensions: TradeClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_client_extensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the Client Extensions for an Order in an Account. Do not set,
 modify, or delete clientExtensions if your account is associated with
 MT4.</p>
@@ -537,7 +545,7 @@ request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_order">
-<code class="descclassname">OandaClient.</code><code class="descname">market_order</code><span class="sig-paren">(</span><em>cls</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>time_in_force: TimeInForce=FOK</em>, <em>price_bound: PriceValue=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">market_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>time_in_force: TimeInForce=FOK</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Market Order in an Account
 MarketOrderRequest
 :param kwargs: The arguments to create a MarketOrderRequest</p>
@@ -554,7 +562,7 @@ the request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.limit_order">
-<code class="descclassname">OandaClient.</code><code class="descname">limit_order</code><span class="sig-paren">(</span><em>cls</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">limit_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Limit Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -593,7 +601,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_order">
-<code class="descclassname">OandaClient.</code><code class="descname">stop_order</code><span class="sig-paren">(</span><em>cls</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">stop_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Stop Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -632,7 +640,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_if_touched_order">
-<code class="descclassname">OandaClient.</code><code class="descname">market_if_touched_order</code><span class="sig-paren">(</span><em>cls</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em>, <em>take_profit_on_fill: TakeProfitDetails=None</em>, <em>stop_loss_on_fill: StopLossDetails=None</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=None</em>, <em>trade_client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">market_if_touched_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a MarketIfTouched Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -671,7 +679,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.take_profit_order">
-<code class="descclassname">OandaClient.</code><code class="descname">take_profit_order</code><span class="sig-paren">(</span><em>cls</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">take_profit_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Take Profit Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -710,7 +718,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_loss_order">
-<code class="descclassname">OandaClient.</code><code class="descname">stop_loss_order</code><span class="sig-paren">(</span><em>cls</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">stop_loss_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Stop Loss Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -749,7 +757,7 @@ the request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.trailing_stop_loss_order">
-<code class="descclassname">OandaClient.</code><code class="descname">trailing_stop_loss_order</code><span class="sig-paren">(</span><em>cls</em>, <em>trade_id: TradeID</em>, <em>distance: PriceValue</em>, <em>client_trade_id: ClientID=None</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=None</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">trailing_stop_loss_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>distance: PriceValue</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to create a Trailing Stop Loss Order in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -826,7 +834,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_positions">
-<code class="descclassname">OandaClient.</code><code class="descname">get_positions</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_positions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_positions</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_positions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the details of a single Instrument’s Position in an Account. The
 Position may by open or not.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -844,7 +852,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.close_position">
-<code class="descclassname">OandaClient.</code><code class="descname">close_position</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName=None</em>, <em>long_units: LongUnits=None</em>, <em>long_client_extensions: LongClientExtensions=None</em>, <em>short_units: ShortUnits=None</em>, <em>short_client_extensions: ShortClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.close_position" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">close_position</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName=Ellipsis</em>, <em>long_units: LongUnits=Ellipsis</em>, <em>long_client_extensions: LongClientExtensions=Ellipsis</em>, <em>short_units: ShortUnits=Ellipsis</em>, <em>short_client_extensions: ShortClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.close_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Closeout the open Position for a specific instrument in an Account.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -882,7 +890,7 @@ request</p>
 <h2>Pricing<a class="headerlink" href="#pricing" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="async_v20.OandaClient.get_pricing">
-<code class="descclassname">OandaClient.</code><code class="descname">get_pricing</code><span class="sig-paren">(</span><em>self</em>, <em>instruments: Instruments=None</em>, <em>since: DateTime=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_pricing" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_pricing</code><span class="sig-paren">(</span><em>self</em>, <em>instruments: Instruments=Ellipsis</em>, <em>since: DateTime=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_pricing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get pricing information for a specified list of Instruments within an
 Account.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -908,7 +916,7 @@ request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stream_pricing">
-<code class="descclassname">OandaClient.</code><code class="descname">stream_pricing</code><span class="sig-paren">(</span><em>self</em>, <em>instruments: Instruments=None</em>, <em>snapshot: Snapshot=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stream_pricing" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">stream_pricing</code><span class="sig-paren">(</span><em>self</em>, <em>instruments: Instruments=Ellipsis</em>, <em>snapshot: Snapshot=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stream_pricing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a stream of Account Prices starting from when the request is made.
 This pricing stream does not include every single price created for the
 Account, but instead will provide at most 4 prices per second (every
@@ -945,7 +953,7 @@ request</p>
 <h2>Trade<a class="headerlink" href="#trade" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="async_v20.OandaClient.list_trades">
-<code class="descclassname">OandaClient.</code><code class="descname">list_trades</code><span class="sig-paren">(</span><em>self</em>, <em>ids: Ids=None</em>, <em>state: TradeStateFilter=None</em>, <em>instrument: InstrumentName=None</em>, <em>count: Count=None</em>, <em>trade_id: TradeID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_trades" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">list_trades</code><span class="sig-paren">(</span><em>self</em>, <em>ids: Ids=Ellipsis</em>, <em>state: TradeStateFilter=Ellipsis</em>, <em>instrument: InstrumentName=Ellipsis</em>, <em>count: Count=Ellipsis</em>, <em>trade_id: TradeID=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_trades" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of Trades for an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -987,7 +995,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_trades">
-<code class="descclassname">OandaClient.</code><code class="descname">get_trades</code><span class="sig-paren">(</span><em>self</em>, <em>trade_specifier: TradeSpecifier=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_trades" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_trades</code><span class="sig-paren">(</span><em>self</em>, <em>trade_specifier: TradeSpecifier=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_trades" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the details of a specific Trade in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1003,8 +1011,8 @@ request</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="async_v20.OandaClient.close_trades">
-<code class="descclassname">OandaClient.</code><code class="descname">close_trades</code><span class="sig-paren">(</span><em>self</em>, <em>trade_specifier: TradeSpecifier=None</em>, <em>units: Units=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.close_trades" title="Permalink to this definition">¶</a></dt>
+<dt id="async_v20.OandaClient.close_trade">
+<code class="descclassname">OandaClient.</code><code class="descname">close_trade</code><span class="sig-paren">(</span><em>self</em>, <em>trade_specifier: TradeSpecifier=Ellipsis</em>, <em>units: Units=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.close_trade" title="Permalink to this definition">¶</a></dt>
 <dd><p>Close (partially or fully) a specific open Trade in an Account</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1029,9 +1037,23 @@ request</p>
 </table>
 </dd></dl>
 
+<span class="target" id="close-all-trades"></span><dl class="method">
+<dt id="async_v20.OandaClient.close_all_trades">
+<code class="descclassname">OandaClient.</code><code class="descname">close_all_trades</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient.close_all_trades"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient.close_all_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close all open trades</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple containing successful/unsuccessful (bool), [close_trade (response), …]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="async_v20.OandaClient.set_client_extensions_trade">
-<code class="descclassname">OandaClient.</code><code class="descname">set_client_extensions_trade</code><span class="sig-paren">(</span><em>self</em>, <em>trade_specifier: TradeSpecifier=None</em>, <em>client_extensions: ClientExtensions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_client_extensions_trade" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">set_client_extensions_trade</code><span class="sig-paren">(</span><em>self</em>, <em>trade_specifier: TradeSpecifier=Ellipsis</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_client_extensions_trade" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the Client Extensions for a Trade. Do not add, update, or delete
 the Client Extensions if your account is associated with MT4.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1056,7 +1078,7 @@ request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.set_dependent_orders_trade">
-<code class="descclassname">OandaClient.</code><code class="descname">set_dependent_orders_trade</code><span class="sig-paren">(</span><em>self</em>, <em>trade_specifier: TradeSpecifier=None</em>, <em>take_profit: TakeProfitDetails=None</em>, <em>stop_loss: StopLossDetails=None</em>, <em>trailing_stop_loss: TrailingStopLossDetails=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_dependent_orders_trade" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">set_dependent_orders_trade</code><span class="sig-paren">(</span><em>self</em>, <em>trade_specifier: TradeSpecifier=Ellipsis</em>, <em>take_profit: TakeProfitDetails=Ellipsis</em>, <em>stop_loss: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss: TrailingStopLossDetails=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_dependent_orders_trade" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create, replace and cancel a Trade’s dependent Orders (Take Profit,
 Stop Loss and Trailing Stop Loss) through the Trade itself</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1102,7 +1124,7 @@ request</p>
 <h2>Transaction<a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="async_v20.OandaClient.list_transactions">
-<code class="descclassname">OandaClient.</code><code class="descname">list_transactions</code><span class="sig-paren">(</span><em>self</em>, <em>from_time: FromTime=None</em>, <em>to_time: ToTime=None</em>, <em>page_size: PageSize=100</em>, <em>type_: Type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_transactions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">list_transactions</code><span class="sig-paren">(</span><em>self</em>, <em>from_time: FromTime=Ellipsis</em>, <em>to_time: ToTime=Ellipsis</em>, <em>page_size: PageSize=100</em>, <em>type_: Type=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_transactions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of Transactions pages that satisfy a time-based Transaction
 query.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1130,7 +1152,7 @@ request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_transactions">
-<code class="descclassname">OandaClient.</code><code class="descname">get_transactions</code><span class="sig-paren">(</span><em>self</em>, <em>transaction_id: TransactionID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_transactions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_transactions</code><span class="sig-paren">(</span><em>self</em>, <em>transaction_id: TransactionID=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_transactions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the details of a single Account Transaction.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1147,7 +1169,7 @@ request</td>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.transaction_range">
-<code class="descclassname">OandaClient.</code><code class="descname">transaction_range</code><span class="sig-paren">(</span><em>self</em>, <em>from_transaction: FromTransactionID</em>, <em>to_transaction: ToTransactionID</em>, <em>type_: Type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.transaction_range" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">transaction_range</code><span class="sig-paren">(</span><em>self</em>, <em>from_transaction: FromTransactionID</em>, <em>to_transaction: ToTransactionID</em>, <em>type_: Type=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.transaction_range" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a range of Transactions for an Account based on the Transaction
 IDs.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1172,7 +1194,7 @@ request</p>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.since_transaction">
-<code class="descclassname">OandaClient.</code><code class="descname">since_transaction</code><span class="sig-paren">(</span><em>self</em>, <em>transaction_id: TransactionID=None</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.since_transaction" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">since_transaction</code><span class="sig-paren">(</span><em>self</em>, <em>transaction_id: TransactionID=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.since_transaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a range of Transactions for an Account starting at (but not
 including) a provided Transaction ID.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1294,7 +1316,7 @@ request</td>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.0.1a0',
+            VERSION:'2.1.0b0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -4,7 +4,20 @@
 async_v20: Asynchronous OANDA v20 client
 ========================================
 
+.. image:: https://raw.githubusercontent.com/jamespeterschinner/async_v20/master/doc/source/_static/async_v20-icon-128x128.png
+  :alt: async-v20 logo
 
+.. image:: https://travis-ci.org/jamespeterschinner/async_v20.svg?branch=master
+  :target: https://travis-ci.org/jamespeterschinner/async_v20
+
+
+.. image:: https://codecov.io/gh/jamespeterschinner/async_v20/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/jamespeterschinner/async_v20
+
+
+.. image:: https://readthedocs.org/projects/async-v20/badge/?version=latest
+  :target: http://async-v20.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation Status
 
 Disclaimer
 ----------

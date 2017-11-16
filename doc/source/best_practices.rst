@@ -19,7 +19,7 @@ Initialize first
 
 `OandaClient` requires initialization. The initialization procedure can delay execution of `OandaClient`. **methods**
 
-It is recommended to preemptively initialize the OandaClient instance, if this is a concern for you.
+If this is a concern for you, it is recommended to preemptively initialize the OandaClient instance.
 
 .. literalinclude:: ../../bin/initialization.py
     :emphasize-lines: 8

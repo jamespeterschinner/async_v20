@@ -18,6 +18,8 @@ OandaClient
 Account
 -------
 
+.. _account:
+.. automethod:: async_v20.OandaClient.account
 .. automethod:: async_v20.OandaClient.list_accounts
 .. automethod:: async_v20.OandaClient.get_account_details
 .. automethod:: async_v20.OandaClient.account_summary
@@ -76,7 +78,9 @@ Trade
 .. automethod:: async_v20.OandaClient.list_trades
 .. automethod:: async_v20.OandaClient.list_open_trades
 .. automethod:: async_v20.OandaClient.get_trades
-.. automethod:: async_v20.OandaClient.close_trades
+.. automethod:: async_v20.OandaClient.close_trade
+.. _close_all_trades:
+.. automethod:: async_v20.OandaClient.close_all_trades
 .. automethod:: async_v20.OandaClient.set_client_extensions_trade
 .. automethod:: async_v20.OandaClient.set_dependent_orders_trade
 

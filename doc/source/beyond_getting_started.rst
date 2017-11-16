@@ -5,14 +5,16 @@ So you have read :ref:`tutorial` and need to know more.
 
 Your first issue is knowing what methods to use.
 
-The :ref:`api-docs` contains all the exposed methods :term:`async_v20` provides.
+The :ref:`api-docs` docs contains all the exposed methods :term:`async_v20` provides.
 
 What you need to know
 ---------------------
 
-- :ref:`OandaClient` returns server responses in the equivalent :term:`python` dictionary:
-    - dictionary responses contain the equivalent python objects. As defined in :ref:`class-definitions`
-        - these objects are constructed from the servers http response :term:`JSON` body
+- :ref:`OandaClient` returns v20 API calls in :class:`~async_v20.interface.response.Response` objects
+    The `response` is a python dictionary and designed to reflect the responses defined by the v20
+    `docs <http://developer.oanda.com/rest-live-v20/introduction/>`_ :
+
+    - responses contain the equivalent python objects. As defined in :ref:`class-definitions`
 
 - *OandaClient*. Automatically supplys arguments to endpoints that require the following:
 
@@ -76,7 +78,7 @@ The http request formatting is defined by the *EndPoint*
 **Notice that**
 
     .. literalinclude:: ../../async_v20/endpoints/instrument.py
-        :lines: 21
+        :lines: 20
         :emphasize-lines: 1
 
 Is a list of dictionary's. Each dictionary has a :term:`key` **'type'**
@@ -96,8 +98,6 @@ each *OandaClient*. **method** defines.
      .. literalinclude:: ../../async_v20/endpoints/instrument.py
         :lines: 41-42
         :emphasize-lines: 1,2
-
-`response` is a dictionary of dictionary's.
 
 There is a two step process by which the response is constructed:
    - The http :term:`status` is used to look up the expected response

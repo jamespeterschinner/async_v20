@@ -41,50 +41,50 @@ we are ready to begin.
 
 Lets first take a look at this code example, then go though it line by line.
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 1-16
 
 
 First we need to import :term:`asyncio` this allows us to run our :term:`coroutine`
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 1
 
 We then import `OandaClient` which provides us the means to interact with OANDA
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 3
 
 Because `OandaClient` returns `coroutines` we use `async def`. This allows the use of the `await` syntax
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 6
 
 `OandaClient` is a :term:`context manager`, we use `async with` to instantiate a
 client instance. Doing so will automatically close the `http session` when we're done
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 7
 
 We then create and :term:`await` the :term:`coroutine` by calling `client`. **get_account_details()**
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 8
 
 Now we have defined our :term:`coroutine` we need to execute it.
 To do so we need an event loop. Achieved using `asyncio`. **get_event_loop()**
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 11
 
 The value returned by executing the `account` :term:`coroutine` is accessed through the event loop.
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 12
 
 :term:`async_v20` objects have a `Model`. **series()** method that returns a :term:`pandas`. **Series**
 
-.. literalinclude:: ../../bin/account_information.py
+.. literalinclude:: ../../bin/account.py
     :lines: 15
 
 .. note::

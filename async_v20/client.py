@@ -19,7 +19,7 @@ async def sleep(s=0.0):
     await asyncio.sleep(s)
 
 
-__version__ = '2.0.1a0'
+__version__ = '2.1.0b0'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
@@ -128,7 +128,12 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         return self._account
 
     async def close_all_trades(self):
-        """Close all open trades"""
+        """Close all open trades
+
+        Returns:
+            tuple containing successful/unsuccessful (bool), [close_trade (response), ...]
+
+        """
 
         # Procedure is as follows:
         # - get all open trades
@@ -152,7 +157,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             raise ConnectionError(f'Unable to confirm all trades have been closed! '
                                   f'Server returned status {response.status}')
 
-        return close_trade_responses, all_trades_closed
+        return all_trades_closed, close_trade_responses
 
 
 

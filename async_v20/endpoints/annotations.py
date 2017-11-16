@@ -14,7 +14,7 @@ class Bool(object):
 
 
 class Authorization(str):
-    """Contains OANDA_TOKEN"""
+    """Contains OANDA's v20 API authorization token"""
     pass
 
 

@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; async_v20 2.0.1a0 documentation</title>
+  <title>Index &mdash; async_v20 2.1.0b0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
         <link rel="index" title="Index"
               href="#"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="async_v20 2.0.1a0 documentation" href="index.html"/> 
+    <link rel="top" title="async_v20 2.1.0b0 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                2.0.1a0
+                2.1.0b0
               </div>
             
           
@@ -92,6 +92,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="particularly_pertinent.html">Particularly Pertinent Programming Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">OandaClient API</a></li>
@@ -191,6 +192,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="account.html#async_v20.definitions.types.Account">Account (class in async_v20.definitions.types)</a>
+</li>
+      <li><a href="api.html#async_v20.OandaClient.account">account() (async_v20.OandaClient method)</a>
 </li>
       <li><a href="transaction.html#async_v20.definitions.types.DailyFinancingTransaction.account_balance">account_balance (async_v20.definitions.types.DailyFinancingTransaction attribute)</a>
 
@@ -638,8 +641,6 @@
         <li><a href="transaction.html#async_v20.definitions.types.Transaction.client_extensions_modify">(async_v20.definitions.types.Transaction attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="transaction.html#async_v20.definitions.types.OrderCancelRejectTransaction.client_order_id">client_order_id (async_v20.definitions.types.OrderCancelRejectTransaction attribute)</a>
 
       <ul>
@@ -654,6 +655,8 @@
         <li><a href="transaction.html#async_v20.definitions.types.Transaction.client_order_id">(async_v20.definitions.types.Transaction attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="transaction.html#async_v20.definitions.types.MarketOrderDelayedTradeClose.client_trade_id">client_trade_id (async_v20.definitions.types.MarketOrderDelayedTradeClose attribute)</a>, <a href="transaction.html#async_v20.definitions.types.MarketOrderDelayedTradeClose.client_trade_id">[1]</a>
 
       <ul>
@@ -702,6 +705,8 @@
 </li>
       <li><a href="pricing.html#async_v20.definitions.types.ClientPrice">ClientPrice (class in async_v20.definitions.types)</a>
 </li>
+      <li><a href="api.html#async_v20.OandaClient.close_all_trades">close_all_trades() (async_v20.OandaClient method)</a>
+</li>
       <li><a href="api.html#async_v20.OandaClient.close_position">close_position() (async_v20.OandaClient method)</a>
 </li>
       <li><a href="trade.html#async_v20.definitions.types.Trade.close_time">close_time (async_v20.definitions.types.Trade attribute)</a>, <a href="trade.html#async_v20.definitions.types.Trade.close_time">[1]</a>
@@ -710,7 +715,7 @@
         <li><a href="trade.html#async_v20.definitions.types.TradeSummary.close_time">(async_v20.definitions.types.TradeSummary attribute)</a>, <a href="trade.html#async_v20.definitions.types.TradeSummary.close_time">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api.html#async_v20.OandaClient.close_trades">close_trades() (async_v20.OandaClient method)</a>
+      <li><a href="api.html#async_v20.OandaClient.close_trade">close_trade() (async_v20.OandaClient method)</a>
 </li>
       <li><a href="transaction.html#async_v20.definitions.types.Transaction.closed_trade_id">closed_trade_id (async_v20.definitions.types.Transaction attribute)</a>
 </li>
@@ -1277,7 +1282,11 @@
 </li>
       </ul></li>
       <li><a href="order.html#async_v20.definitions.types.DynamicOrderState.is_trigger_distance_exact">is_trigger_distance_exact (async_v20.definitions.types.DynamicOrderState attribute)</a>, <a href="order.html#async_v20.definitions.types.DynamicOrderState.is_trigger_distance_exact">[1]</a>
+
+      <ul>
+        <li><a href="order.html#async_v20.definitions.types.Order.is_trigger_distance_exact">(async_v20.definitions.types.Order attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -1673,6 +1682,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="glossary.html#term-pandas"><strong>pandas</strong></a>
+</li>
+      <li><a href="order.html#async_v20.definitions.types.Order.partial_fill">partial_fill (async_v20.definitions.types.Order attribute)</a>
 </li>
       <li><a href="account.html#async_v20.definitions.types.Account.pending_order_count">pending_order_count (async_v20.definitions.types.Account attribute)</a>
 
@@ -2896,7 +2907,11 @@
 </li>
       </ul></li>
       <li><a href="order.html#async_v20.definitions.types.DynamicOrderState.trigger_distance">trigger_distance (async_v20.definitions.types.DynamicOrderState attribute)</a>, <a href="order.html#async_v20.definitions.types.DynamicOrderState.trigger_distance">[1]</a>
+
+      <ul>
+        <li><a href="order.html#async_v20.definitions.types.Order.trigger_distance">(async_v20.definitions.types.Order attribute)</a>
 </li>
+      </ul></li>
       <li><a href="glossary.html#term-type"><strong>type</strong></a>
 
       <ul>
@@ -3234,7 +3249,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.0.1a0',
+            VERSION:'2.1.0b0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

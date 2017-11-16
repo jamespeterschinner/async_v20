@@ -27,7 +27,7 @@ class Response(dict):
         except KeyError:
             raise AttributeError("No such attribute: " + name)
 
-    def dict(self, json=True):
+    def dict(self, json=False):
 
         def value_to_dict(value):
             try:
@@ -44,4 +44,4 @@ class Response(dict):
 
     def json(self):
         """Return the json equivalent of the response"""
-        return json.dumps(self.dict())
+        return json.dumps(self.dict(json=True))
