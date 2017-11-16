@@ -24,7 +24,7 @@ Disclaimer
 
 - Losses can exceed investment.
 - async_v20 and its creator has no affiliation with OANDA. And is not endorsed by OANDA in any manner.
-- async_v20 is in Alpha stage and has not been tested on a live OANDA account
+- async_v20 is in Beta stage and has not been tested on a live OANDA account
 - This package currently does not have full unittest coverage.
 
 Features
