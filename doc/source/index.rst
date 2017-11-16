@@ -84,10 +84,10 @@ Contents
 
    getting_started
    best_practices
-   particularly_pertinent
    beyond_getting_started
    traps
    api
+   particularly_pertinent
    types
    primitives
    annotations

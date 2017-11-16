@@ -76,7 +76,7 @@ The http request formatting is defined by the *EndPoint*
 **In this case**
 
     .. literalinclude:: ../../async_v20/endpoints/instrument.py
-        :lines: 10-45
+        :lines: 9-44
 
 **Notice that**
 
