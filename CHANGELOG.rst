@@ -106,3 +106,22 @@
    Improvements:
       - `type` argument is set automatically for subclass that define it
       - implementation improvements
+
+2.1.0b0
+=======
+
+   Beta release. At present time client is considered feature full
+   with 100% test coverage
+
+   Bug fixes:
+
+      - _fields attribute stored on instance not class
+
+   Improvements
+      - RESTful account() method added
+      - close_all_trades() method added
+      - Added replace() method to Model
+      - Simplified Endpoint decorator (No serial requests)
+      - Changes close_trades to close_trade (Method can only close one trade)
+      - Response parser checks HTTP status first
+      - Added tests
