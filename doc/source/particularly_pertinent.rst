@@ -44,7 +44,7 @@ Closing all Trades
 
 The :meth:`~async_v20.OandaClient.close_all_trades` method is provided to help facilitate
 your risk management policy. async_v20 is intended to be used as an algorithmic trading platform,
-which naturally raises concerns of run away losses to the unbeknown user.
+which naturally raises concerns of run away losses, to the unbeknown user.
 
 :meth:`~async_v20.OandaClient.close_all_trades` is intended to help mitigate this concern by allowing
 users to programme a `global` :term:`stop loss` by which all trades can be terminated.
