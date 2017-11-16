@@ -50,9 +50,10 @@ which naturally raises concerns of run away losses to the unbeknown user.
 users to programme a `global` :term:`stop loss` by which all trades can be terminated.
 
 .. note::
-    Users who implement this feature should account for the **three** possible outcomes.
+    Users who implement this feature should account for the **four** possible outcomes.
 
     Either:
+        - A :class:`TimeoutError` is raised.
         - A :class:`ConnectionError` is raised.
         - returns (**False**, `closed_trade_responses`) - All trades were **not** closed
         - returns (**True**, `closed_trade_responses`) - All trades were closed
