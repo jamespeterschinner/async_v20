@@ -4,7 +4,8 @@ from ..definitions.types import TransactionID
 
 __all__ = ['Alias', 'AlignmentTimezone', 'Authorization', 'Count', 'DailyAlignment', 'FromTime',
            'FromTransactionID', 'Ids', 'IncludeFirstQuery', 'Instruments', 'LastTransactionID',
-           'LongClientExtensions', 'LongUnits', 'PageSize', 'ShortClientExtensions', 'ShortUnits', 'Smooth', 'Snapshot',
+           'LongClientExtensions', 'LongUnits', 'PageSize', 'ShortClientExtensions', 'ShortUnits',
+           'Smooth', 'Snapshot', 'SinceTransactionID',
            'ToTime', 'ToTransactionID', 'TradeClientExtensions', 'Type', 'Units', 'UserSpecifier']
 
 

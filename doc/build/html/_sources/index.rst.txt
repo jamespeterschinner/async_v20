@@ -90,5 +90,6 @@ Contents
    api
    types
    primitives
+   annotations
    glossary
 
