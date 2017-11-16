@@ -170,3 +170,6 @@ texinfo_documents = [
      author, 'async_v20', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+
+autodoc_default_flags = ['show-inheritance']
