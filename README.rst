@@ -28,8 +28,8 @@ Disclaimer
 
 - Losses can exceed investment.
 - async_v20 and its creator has no affiliation with OANDA. And is not endorsed by OANDA in any manner.
-- async_v20 is in Alpha stage and has not been tested on a live OANDA account
-- This package currently does not have full unittest coverage.
+- async_v20 is in Beta stage and has not been tested on a live OANDA account
+- Use at own risk
 
 Features
 ---------
@@ -104,24 +104,30 @@ we are ready to begin.
 
 Lets first take a look at this code example, then go though it line by line.
 
+
 .. code-block:: python
 
-    import asyncio
+   import asyncio
 
-    from async_v20 import OandaClient
-
-
-    async def account():
-        async with OandaClient() as client:
-            return await client.get_account_details()
+   from async_v20 import OandaClient
 
 
+   async def get_account():
+       async with OandaClient() as client:
+           return await client.account()
 
-    loop = asyncio.get_event_loop()
-    response = loop.run_until_complete(account())
 
-    # pandas Series
-    print(response['account'].series())
+   loop = asyncio.get_event_loop()
+   account = loop.run_until_complete(get_account())
+
+   # pandas Series
+   print(account.series())
+
+   # HTTP response state
+   print(account)
+
+   # JSON data in python dictionary format
+   print(account.dict())
 
 
 First we need to import *asyncio* this allows us to run our *coroutine*
@@ -142,7 +148,7 @@ Because *OandaClient* returns *coroutines* we use *async def*. This allows the u
 
 .. code-block:: python
 
-    async def account():
+    async def get_account():
 
 
 *OandaClient* is a *context manager*, we use *async with* to instantiate a
@@ -157,7 +163,7 @@ We then create and *run* the *coroutine* by calling *client*. **get_account_deta
 
 .. code-block:: python
 
-            return await client.get_account_details()
+            return await client.account()
 
 
 Now we have defined our *coroutine* we need to execute it.
@@ -172,14 +178,54 @@ The value returned by executing the `account()` *coroutine* is accessed through 
 
 .. code-block:: python
 
-    response = loop.run_until_complete(account())
+    account = loop.run_until_complete(get_account())
 
 
 `async_v20` objects have a **series()** method that returns a `pandas.Series`
 
 .. code-block:: python
 
-    print(response['account'].series())
+    print(account.series())
 
 
+**Outputs**
 
+.. code-block:: python
+
+   alias                                           Primary
+   balance                                         97801.9
+   commission                                            0
+   created_by_user_id                              6557245
+   created_time                       1502463871.639182352
+   currency                                            AUD
+   financing                                       -3.5596
+   hedging_enabled                                   False
+   id                                  123-123-1234567-123
+   last_margin_call_extension_time                    None
+   last_transaction_id                                6348
+   margin_available                                97801.9
+   margin_call_enter_time                             None
+   margin_call_extension_count                        None
+   margin_call_margin_used                               0
+   margin_call_percent                                   0
+   margin_closeout_margin_used                           0
+   margin_closeout_nav                             97801.9
+   margin_closeout_percent                               0
+   margin_closeout_position_value                        0
+   margin_closeout_unrealized_pl                         0
+   margin_rate                                        0.02
+   margin_used                                           0
+   nav                                             97801.9
+   open_position_count                                   0
+   open_trade_count                                      0
+   orders                                               []
+   pending_order_count                                   0
+   pl                                             -2194.52
+   position_value                                        0
+   positions                                            []
+   resettable_pl                                  -2194.52
+   resettabled_pl_time                                None
+   trades                                               []
+   unrealized_pl                                         0
+   withdrawal_limit                                97801.9
+   dtype: object
