@@ -3,7 +3,7 @@ Annotations
 
 .. note::
     The class' in :mod:`async_v20.endpoints.annotations`
-    are used as argument annotations for some :ref:`api-docs` calls,
+    are used as parameter annotations for some :ref:`api-docs` calls,
     in order to correctly map passed arguments to the correct endpoint
     parameter
 
