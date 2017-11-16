@@ -3,8 +3,8 @@
 Account
 =======
 
-.. autoclass:: async_v20.definitions.typesAccountProperties
-.. autoclass:: async_v20.definitions.typesAccountChangesState
-.. autoclass:: async_v20.definitions.typesAccountSummary
-.. autoclass:: async_v20.definitions.typesAccount
-.. autoclass:: async_v20.definitions.typesAccountChanges
+.. autoclass:: async_v20.definitions.types.AccountProperties
+.. autoclass:: async_v20.definitions.types.AccountChangesState
+.. autoclass:: async_v20.definitions.types.AccountSummary
+.. autoclass:: async_v20.definitions.types.Account
+.. autoclass:: async_v20.definitions.types.AccountChanges

@@ -8,13 +8,13 @@ This page contains python class definitions of all types defined in OANDA's
 
 .. toctree::
 
-    account
-    instrument
-    order
-    positions
-    pricing
-    trade
-    transaction
+    ./definitions/account
+    ./definitions/instrument
+    ./definitions/order
+    ./definitions/positions
+    ./definitions/pricing
+    ./definitions/trade
+    ./definitions/transaction
 
 
 
