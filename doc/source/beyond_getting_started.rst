@@ -19,8 +19,11 @@ What you need to know
 - *OandaClient*. Automatically supplys arguments to endpoints that require the following:
 
     .. autoclass:: async_v20.definitions.primitives.AccountID
+        :noindex:
     .. autoclass:: async_v20.endpoints.annotations.Authorization
+        :noindex:
     .. autoclass:: async_v20.endpoints.annotations.LastTransactionID
+        :noindex:
 
 
 

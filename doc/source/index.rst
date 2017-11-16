@@ -89,4 +89,6 @@ Contents
    traps
    api
    types
+   primitives
    glossary
+
