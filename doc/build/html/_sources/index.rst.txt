@@ -66,7 +66,7 @@ Source code
 Can be found on `GitHub <https://github.com/jamespeterschinner/async_v20>`_
 
 Please feel free to file an issue on the bug tracker if you have found a bug
-or have some suggestion in order to improve the library.
+or have some suggestion in order to improve the client.
 
 
 Dependencies
