@@ -210,7 +210,7 @@ async def test_close_all_trades_returns_false_when_trades_are_open(client, serve
     """Test that calling closed trades closes all trades"""
     async with client as client:
         trades_response = await client.list_open_trades()
-        close_responses, result = await client.close_all_trades()
+        result, close_responses = await client.close_all_trades()
         closed_trades = {i.orderFillTransaction.trades_closed[0].trade_id :i.json()
                          for i in close_responses}
         for trade in trades_response.trades:
@@ -228,7 +228,7 @@ async def test_close_all_trades_returns_true_when_trades_are_closed(client, serv
     # to closing all trades
     server_module.routes.update()
     async with client as client:
-        close_responses, result = await client.close_all_trades()
+        result, close_responses = await client.close_all_trades()
         assert result == True
 
 
