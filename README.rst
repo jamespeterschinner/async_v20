@@ -14,8 +14,8 @@ async_v20: Asynchronous OANDA v20 client
    :target: https://codecov.io/gh/jamespeterschinner/async_v20
 
 .. image:: https://readthedocs.org/projects/async-v20/badge/?version=latest
-   :target: http://async-v20.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentation Status
+  :target: http://async-v20.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation Status
 
 
 Documentation
