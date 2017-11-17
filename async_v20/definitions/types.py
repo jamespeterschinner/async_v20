@@ -149,7 +149,7 @@ class OrderRequest(Model):
 
 
 class UnitsAvailableDetails(Model):
-    """Representation of many units of an Instrument are available to be traded
+    """Representation of how many units of an Instrument are available to be traded
     for both long and short Orders.
 
     Attributes:
