@@ -30,6 +30,29 @@ What you need to know
 - **OandaClient** by default will connect to the practice server:
     - OANDA's `docs <http://developer.oanda.com/rest-live-v20/introduction/>`_ Contain host information
 
+
+Underling Principles
+--------------------
+
+All arguments passed to :ref:`api-docs` methods are used to create instances of the parameters annotation.
+Why is this useful?
+
+    - Prevents you from importing required class' and instantiating them manually
+    - HTTP requests are formatted based upon the objects the endpoint accepts. See :ref:`passing-arguments`
+    - The base class :class:`~async_v20.definitions.base.Model` will convert the object into valid :term:`JSON`
+    - Invalid arguments will raise :class:`ValueError` catching mistakes earlier
+    - Provides flexibility when passing arguments
+
+Here in an Example
+
+.. literalinclude:: ../../bin/passing_arguments.py
+
+.. note::
+
+    Executing this example **will** create a long position of the AUD/USD currency pair
+    worth 30 units.
+
+
 What might be usefull
 ---------------------
 

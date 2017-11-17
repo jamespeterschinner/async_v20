@@ -55,6 +55,29 @@ It is therefore recommended to also install :term:`cchardet` as per :term:`aioht
 
    $ pip install aiodns
 
+Why async_v20?
+--------------
+
+There are many OANDA clients for python already available. Why create another?
+The main driver for creating async_v20 was to facilitate better risk management,
+by allowing user's to monitor account status and trade currency's concurrently.
+
+An unintended consequence of async_v20 is the ability to create clear segregation
+between implementation ideas.
+
+A simple example might contain a coroutine for the following:
+
+    - Monitoring overall account status
+    - Watching price stream and triggering buy/sell signals
+    - Monitoring individual trades and closing movements against held positions
+
+A synchronous implementation would require considerable effort to determine which
+task communicates with the server next. async_v20 removes this burden by using
+`aiohttp <https://github.com/aio-libs/aiohttp>`_
+
+Further goals of async_v20 has been to lower the barrier of entry for algorithmic trading,
+by providing a complete and simple to use interface.
+
 Tutorial
 --------
 
