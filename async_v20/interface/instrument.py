@@ -34,25 +34,25 @@ class InstrumentInterface(object):
         Fetch candlestick data for an instrument.
 
         Args:
-            include_first_query:
-            instrument:
+            include_first_query: :class:`~async_v20.endpoints.annotations.IncludeFirstQuery`
+            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
                 Name of the Instrument
-            price:
+            price: :class:`~async_v20.endpoints.annotations.PriceComponent`
                 The Price component(s) to get candlestick data for. Can contain
                 any combination of the characters "M" (midpoint candles) "B"
                 (bid candles) and "A" (ask candles).
-            granularity:
+            granularity: :class:`~async_v20.endpoints.annotations.CandlestickGranularity`
                 The granularity of the candlesticks to fetch
-            count:
+            count: :class:`~async_v20.endpoints.annotations.Count`
                 The number of candlesticks to return in the reponse. Count
                 should not be specified if both the start and end parameters
                 are provided, as the time range combined with the graularity
                 will determine the number of candlesticks to return.
-            from_time:
+            from_time: :class:`~async_v20.endpoints.annotations.FromTime`
                 The start of the time range to fetch candlesticks for.
-            to_time:
+            to_time: :class:`~async_v20.endpoints.annotations.ToTime`
                 The end of the time range to fetch candlesticks for.
-            smooth:
+            smooth: :class:`~async_v20.endpoints.annotations.Smooth`
                 A flag that controls whether the candlestick is "smoothed" or
                 not.  A smoothed candlestick uses the previous candle's close
                 price as its open price, while an unsmoothed candlestick uses
