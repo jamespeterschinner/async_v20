@@ -23,21 +23,18 @@ class TransactionInterface(object):
         query.
 
         Args:
-            from_time:
+
+            from_time: :class:`~async_v20.endpoints.annotations.FromTime`
                 The starting time (inclusive) of the time range for the
                 Transactions being queried.
-            to_time:
+            to_time: :class:`~async_v20.endpoints.annotations.ToTime`
                 The ending time (inclusive) of the time range for the
                 Transactions being queried.
-            page_size:
+            page_size: :class:`~async_v20.endpoints.annotations.PageSize`
                 The number of Transactions to include in each page of the
                 results.
-            type_:
+            type_: :class:`~async_v20.endpoints.annotations.Type`
                 A filter for restricting the types of Transactions to retrieve.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -47,12 +44,9 @@ class TransactionInterface(object):
         Get the details of a single Account Transaction.
 
         Args:
-            transaction_id:
-                A Transaction ID
 
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
+            transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+                A Transaction ID
         """
         pass
 
@@ -66,17 +60,14 @@ class TransactionInterface(object):
         IDs.
 
         Args:
-            from_transaction:
+
+            from_transaction: :class:`~async_v20.endpoints.annotations.FromTransactionID`
                 The starting Transaction ID (inclusive) to fetch.
-            to_transaction:
+            to_transaction: :class:`~async_v20.endpoints.annotations.ToTransactionID`
                 The ending Transaction ID (inclusive) to fetch.
-            type_:
+            type_: :class:`~async_v20.endpoints.annotations.Type`
                 The filter that restricts the types of Transactions to
                 retrieve.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -87,13 +78,10 @@ class TransactionInterface(object):
         including) a provided Transaction ID.
 
         Args:
-            transaction_id:
+
+            transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
                 The ID of the last Transaction fetched. This query will return
                 all Transactions newer than the TransactionID.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -102,11 +90,5 @@ class TransactionInterface(object):
         """
         Get a stream of Transactions for an Account starting from when the
         request is made.
-
-        Args:
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass

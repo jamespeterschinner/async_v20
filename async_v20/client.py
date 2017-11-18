@@ -123,7 +123,12 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         )
 
     async def account(self):
-        """Get updated account"""
+        """Get updated account
+
+        Returns:
+
+            :class:`~async_v20.definitions.types.Account`
+        """
         await self.account_changes()
         return self._account
 
@@ -131,7 +136,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         """Close all open trades
 
         Returns:
-            tuple containing successful/unsuccessful (bool), [close_trade (response), ...]
+
+            :class:`tuple` (:class:`bool`, [:class`~async_v20.interface.response.Response`, ...])
 
         """
 

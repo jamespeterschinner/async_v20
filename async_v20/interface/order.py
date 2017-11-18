@@ -36,16 +36,12 @@ class OrderInterface(object):
     @endpoint(POSTOrders)
     def post_order(self, order_request: OrderRequest = ...):
         """
-        Post an OrderRequest to an account
+        Post an OrderRequest.
 
         Args:
 
-            order_request:
-                An OrderRequest or a class derived from OrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
+            order_request: :class:`~async_v20.definitions.types.OrderRequest`
+                or a class derived from OrderRequest
         """
         pass
 
@@ -61,11 +57,6 @@ class OrderInterface(object):
                      trade_client_extensions: ClientExtensions = ...):
         """
         create an OrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
-
         """
         return self.post_order(
             order_request=OrderRequest(instrument=instrument, units=units, type=type, trade_id=trade_id, price=price,
@@ -88,21 +79,17 @@ class OrderInterface(object):
 
         Args:
 
-            ids:
+            ids: :class:`~async_v20.endpoints.annotations.Ids`
                 List of Order IDs to retrieve
-            state:
+            state: :class:`~async_v20.definitions.primitives.OrderStateFilter`
                 The state to filter the requested Orders by
-            instrument:
+            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
                 The instrument to filter the requested orders by
-            count:
+            count: :class:`~async_v20.endpoints.annotations.Count`
                 The maximum number of Orders to return
-            before_id:
+            before_id: :class:`~async_v20.definitions.primitives.OrderID`
                 The maximum Order ID to return. If not provided the most recent
                 Orders in the Account are returned
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -110,10 +97,6 @@ class OrderInterface(object):
     def list_pending_orders(self):
         """
         List all pending Orders
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -124,12 +107,8 @@ class OrderInterface(object):
 
         Args:
 
-            order_specifier:
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The Order Specifier
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -143,14 +122,10 @@ class OrderInterface(object):
 
         Args:
 
-            order_specifier:
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The Order Specifier
-            order:
+            order_request: :class:`~async_v20.definitions.types.OrderRequest`
                 Specification of the replacing Order
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -161,12 +136,8 @@ class OrderInterface(object):
 
         Args:
 
-            order_specifier:
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The Order Specifier
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -182,20 +153,16 @@ class OrderInterface(object):
 
         Args:
 
-            order_specifier:
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The Order Specifier
-            client_extensions:
+            client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
                 The Client Extensions to update for the Order. Do not set,
                 modify, or delete clientExtensions if your account is
                 associated with MT4.
-            trade_client_extensions:
+            trade_client_extensions: :class:`~async_v20.endpoints.annotations.TradeClientExtensions`
                 The Client Extensions to update for the Trade created when the
                 Order is filled. Do not set, modify, or delete clientExtensions
                 if your account is associated with MT4.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -207,14 +174,7 @@ class OrderInterface(object):
                      trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                      trade_client_extensions: ClientExtensions = ...):
         """
-        Create a Market Order
-        MarketOrderRequest
-        Args:
-            kwargs : The arguments to create a MarketOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+        Create a Market Order Request
         """
         return self.post_order(
             order_request=MarketOrderRequest(instrument=instrument, units=units, time_in_force=time_in_force,
@@ -225,6 +185,7 @@ class OrderInterface(object):
                                              trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
                                              trade_client_extensions=trade_client_extensions
                                              ))
+
     @shortcut
     def limit_order(self, instrument: InstrumentName, units: Unit, price: PriceValue,
                     time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -235,13 +196,6 @@ class OrderInterface(object):
                     trade_client_extensions: ClientExtensions = ...):
         """
         Create a Limit Order
-
-        Args:
-            kwargs : The arguments to create a LimitOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
         """
         return self.post_order(order_request=LimitOrderRequest(instrument=instrument, units=units, price=price,
                                                                time_in_force=time_in_force, gtd_time=gtd_time,
@@ -262,12 +216,10 @@ class OrderInterface(object):
         Replace a pending Limit Order
 
         Args:
-            order_specifier : The ID of the Limit Order to replace
-            kwargs : The arguments to create a LimitOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
+                The ID of the Limit Order to replace
+            order: :class:`~async_v20.definitions.types.LimitOrderRequest`
+                The arguments to create a LimitOrderRequest
         """
         pass
 
@@ -277,13 +229,6 @@ class OrderInterface(object):
                    trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         """
         Create a Stop Order
-
-        Args:
-            kwargs : The arguments to create a StopOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
         """
         return self.post_order(
             order_request=StopLossOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
@@ -299,12 +244,10 @@ class OrderInterface(object):
         Replace a pending Stop Order
 
         Args:
-            order_specifier : The ID of the Stop Order to replace
-            kwargs : The arguments to create a StopOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
+                The ID of the Stop Order to replace
+            order: :class:`~async_v20.definitions.types.StopOrderRequest`
+                The arguments to create a StopOrderRequest
         """
         pass
 
@@ -320,14 +263,7 @@ class OrderInterface(object):
                                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                                 trade_client_extensions: ClientExtensions = ...):
         """
-        Create a MarketIfTouched Order
-
-        Args:
-            kwargs : The arguments to create a MarketIfTouchedOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+        Create a market if touched order
         """
         return self.post_order(
             order_request=MarketIfTouchedOrderRequest(instrument=instrument, units=units, price=price,
@@ -346,15 +282,13 @@ class OrderInterface(object):
                                         order_specifier: OrderSpecifier,
                                         order: MarketIfTouchedOrderRequest):
         """
-        Replace a pending MarketIfTouched Order
+        Replace a pending market if touched order
 
         Args:
-            order_specifier : The ID of the MarketIfTouched Order to replace
-            kwargs : The arguments to create a MarketIfTouchedOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
+                The ID of the MarketIfTouched Order to replace
+            order: :class:`~async_v20.definitions.types.MarketIfTouchedOrderRequest`
+                The arguments to create a MarketIfTouchedOrderRequest
         """
         pass
 
@@ -365,14 +299,7 @@ class OrderInterface(object):
                           trigger_condition: OrderTriggerCondition = 'DEFAULT',
                           client_extensions: ClientExtensions = ...):
         """
-        Create a Take Profit Order
-
-        Args:
-            kwargs : The arguments to create a TakeProfitOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+        Create a take profit order
         """
         return self.post_order(
             order_request=TakeProfitOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
@@ -386,15 +313,12 @@ class OrderInterface(object):
                                   order_specifier: OrderSpecifier,
                                   order: TakeProfitOrderRequest):
         """
-        Replace a pending Take Profit Order
+        Replace a pending take profit order
 
         Args:
-            order_specifier : The ID of the Take Profit Order to replace
-            kwargs : The arguments to create a TakeProfitOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
+                The ID of the Take Profit Order to replace
+            order: :class:`~async_v20.definitions.types.TakeProfitOrderRequest`
         """
         pass
 
@@ -405,13 +329,6 @@ class OrderInterface(object):
                         client_extensions: ClientExtensions = ...):
         """
         Create a Stop Loss Order
-
-        Args:
-            kwargs : The arguments to create a StopLossOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
         """
         return self.post_order(
             order_request=StopLossOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
@@ -426,12 +343,10 @@ class OrderInterface(object):
         Replace a pending Stop Loss Order
 
         Args:
-            order_specifier : The ID of the Stop Loss Order to replace
-            kwargs : The arguments to create a StopLossOrderRequest
 
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
+                The ID of the Stop Loss Order to replace
+            order: :class:`~async_v20.definitions.types.StopLossOrderRequest`
         """
         pass
 
@@ -443,13 +358,6 @@ class OrderInterface(object):
                                  client_extensions: ClientExtensions = ...):
         """
         Create a Trailing Stop Loss Order
-
-        Args:
-            kwargs : The arguments to create a TrailingStopLossOrderRequest
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
         """
         return self.post_order(order_request=TrailingStopLossOrderRequest(trade_id=trade_id, distance=distance,
                                                                           client_trade_id=client_trade_id,
@@ -466,11 +374,9 @@ class OrderInterface(object):
         Replace a pending Trailing Stop Loss Order
 
         Args:
-            order_specifier : The ID of the Take Profit Order to replace
-            kwargs : The arguments to create a TrailingStopLossOrderRequest
 
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting
-            the request
+            order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
+                The ID of the Take Profit Order to replace
+            order: :class:`~async_v20.definitions.types.TrailingStopLossOrderRequest`
         """
         pass

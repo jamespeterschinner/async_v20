@@ -12,10 +12,6 @@ class AccountInterface(object):
     @endpoint(GETAccounts, initialization_step=1)
     def list_accounts(self):
         """Get a list of all Accounts authorized for the provided token.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -25,13 +21,6 @@ class AccountInterface(object):
         Get the full details for a single Account that a client has access to.
         Full pending Order, open Trade and open Position representations are
         provided.
-
-        Args:
-
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -39,13 +28,6 @@ class AccountInterface(object):
     def account_summary(self):
         """
         Get a summary for a single Account that a client has access to.
-
-        Args:
-
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -59,12 +41,8 @@ class AccountInterface(object):
 
         Args:
 
-            instruments:
+            instruments: :class:`~async_v20.endpoints.annotations.Instruments`
                 List of instruments to query specifically.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -75,14 +53,10 @@ class AccountInterface(object):
 
         Args:
 
-            alias:
+            alias: :class:`~async_v20.endpoints.annotations.Alias`
                 Client-defined alias (name) for the Account
-            margin_rate:
+            margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
                 The string representation of a decimal number.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -96,11 +70,7 @@ class AccountInterface(object):
             OandaClient will supply since_transaction_id if None is provided
 
         Args:
-            since_transaction_id:
+            since_transaction_id: :class:`~async_v20.endpoints.annotations.SinceTransactionID`
                 ID of the Transaction to get Account changes since.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass

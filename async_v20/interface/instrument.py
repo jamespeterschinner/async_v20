@@ -57,19 +57,15 @@ class InstrumentInterface(object):
                 not.  A smoothed candlestick uses the previous candle's close
                 price as its open price, while an unsmoothed candlestick uses
                 the first price from its time range as its open price.
-            daily_alignment:
+            daily_alignment: :class:`~async_v20.endpoints.annotations.DailyAlignment`
                 The hour of the day (in the specified timezone) to use for
                 granularities that have daily alignments.
-            alignment_timezone:
+            alignment_timezone: :class:`~async_v20.endpoints.annotations.AlignmentTimezone`
                 The timezone to use for the dailyAlignment parameter.
                 Candlesticks with daily alignment will be aligned to the
                 dailyAlignment hour within the alignmentTimezone.
-            weekly_alignment:
+            weekly_alignment: :class:`~async_v20.definitions.primitives.WeeklyAlignment`
                 The day of the week used for granularities that have weekly
                 alignment.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass

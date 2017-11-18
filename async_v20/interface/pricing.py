@@ -17,18 +17,11 @@ class PricingInterface(object):
 
         Args:
 
-            instruments:
+            instruments: :class:`~async_v20.endpoints.annotations.Instruments`
                 List of Instruments to get pricing for.
-            since:
+            since: :class:`~async_v20.definitions.primitives.DateTime`
                 Date/Time filter to apply to the returned prices. Only prices
                 with a time later than this filter will be provided.
-            include_units_available:
-                Flag that enables the inclusion of the unitsAvailable field in
-                the returned Price objects.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -52,14 +45,10 @@ class PricingInterface(object):
 
         Args:
 
-            instruments:
+            instruments: :class:`~async_v20.endpoints.annotations.Instruments`
                 List of Instruments to stream Prices for.
-            snapshot:
+            snapshot: :class:`~async_v20.endpoints.annotations.Snapshot`
                 Flag that enables/disables the sending of a pricing snapshot
                 when initially connecting to the stream.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass

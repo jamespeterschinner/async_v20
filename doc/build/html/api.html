@@ -87,21 +87,20 @@ the v20 REST server</li>
 <dt id="async_v20.OandaClient.account">
 <code class="descclassname">OandaClient.</code><code class="descname">account</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient.account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient.account" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get updated account</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="definitions/account.html#async_v20.definitions.types.Account" title="async_v20.definitions.types.Account"><code class="xref py py-class docutils literal"><span class="pre">Account</span></code></a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.list_accounts">
 <code class="descclassname">OandaClient.</code><code class="descname">list_accounts</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_accounts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of all Accounts authorized for the provided token.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
@@ -110,32 +109,12 @@ request</td>
 <dd><p>Get the full details for a single Account that a client has access to.
 Full pending Order, open Trade and open Position representations are
 provided.</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.account_summary">
 <code class="descclassname">OandaClient.</code><code class="descname">account_summary</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.account_summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a summary for a single Account that a client has access to.</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
@@ -149,10 +128,8 @@ owned by a single user.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instruments</strong> – List of instruments to query specifically.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instruments</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Instruments" title="async_v20.endpoints.annotations.Instruments"><code class="xref py py-class docutils literal"><span class="pre">Instruments</span></code></a>
+List of instruments to query specifically.</td>
 </tr>
 </tbody>
 </table>
@@ -166,14 +143,12 @@ request</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>alias</strong> – Client-defined alias (name) for the Account</li>
-<li><strong>margin_rate</strong> – The string representation of a decimal number.</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>alias</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Alias" title="async_v20.endpoints.annotations.Alias"><code class="xref py py-class docutils literal"><span class="pre">Alias</span></code></a>
+Client-defined alias (name) for the Account</li>
+<li><strong>margin_rate</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DecimalNumber" title="async_v20.definitions.primitives.DecimalNumber"><code class="xref py py-class docutils literal"><span class="pre">DecimalNumber</span></code></a>
+The string representation of a decimal number.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -193,10 +168,8 @@ since a specified TransactionID.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>since_transaction_id</strong> – ID of the Transaction to get Account changes since.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>since_transaction_id</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.SinceTransactionID" title="async_v20.endpoints.annotations.SinceTransactionID"><code class="xref py py-class docutils literal"><span class="pre">SinceTransactionID</span></code></a>
+ID of the Transaction to get Account changes since.</td>
 </tr>
 </tbody>
 </table>
@@ -213,7 +186,7 @@ request</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>include_first_query</strong> – </li>
 <li><strong>instrument</strong> – Name of the Instrument</li>
 <li><strong>price</strong> – The Price component(s) to get candlestick data for. Can contain
@@ -230,18 +203,17 @@ will determine the number of candlesticks to return.</li>
 not.  A smoothed candlestick uses the previous candle’s close
 price as its open price, while an unsmoothed candlestick uses
 the first price from its time range as its open price.</li>
-<li><strong>daily_alignment</strong> – The hour of the day (in the specified timezone) to use for
+<li><strong>daily_alignment</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.DailyAlignment" title="async_v20.endpoints.annotations.DailyAlignment"><code class="xref py py-class docutils literal"><span class="pre">DailyAlignment</span></code></a>
+The hour of the day (in the specified timezone) to use for
 granularities that have daily alignments.</li>
-<li><strong>alignment_timezone</strong> – The timezone to use for the dailyAlignment parameter.
+<li><strong>alignment_timezone</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.AlignmentTimezone" title="async_v20.endpoints.annotations.AlignmentTimezone"><code class="xref py py-class docutils literal"><span class="pre">AlignmentTimezone</span></code></a>
+The timezone to use for the dailyAlignment parameter.
 Candlesticks with daily alignment will be aligned to the
 dailyAlignment hour within the alignmentTimezone.</li>
-<li><strong>weekly_alignment</strong> – The day of the week used for granularities that have weekly
+<li><strong>weekly_alignment</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.WeeklyAlignment" title="async_v20.definitions.primitives.WeeklyAlignment"><code class="xref py py-class docutils literal"><span class="pre">WeeklyAlignment</span></code></a>
+The day of the week used for granularities that have weekly
 alignment.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -254,15 +226,13 @@ request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.post_order">
 <code class="descclassname">OandaClient.</code><code class="descname">post_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_request: OrderRequest=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.post_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Post an OrderRequest to an account</p>
+<dd><p>Post an OrderRequest.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_request</strong> – An OrderRequest or a class derived from OrderRequest</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_request</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.OrderRequest" title="async_v20.definitions.types.OrderRequest"><code class="xref py py-class docutils literal"><span class="pre">OrderRequest</span></code></a>
+or a class derived from OrderRequest</td>
 </tr>
 </tbody>
 </table>
@@ -271,16 +241,7 @@ request</td>
 <dl class="method">
 <dt id="async_v20.OandaClient.create_order">
 <code class="descclassname">OandaClient.</code><code class="descname">create_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>type: OrderType=MARKET</em>, <em>trade_id: TradeID=Ellipsis</em>, <em>price: PriceValue=Ellipsis</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=Ellipsis</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=Ellipsis</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>distance: PriceValue=Ellipsis</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>position_fill: OrderPositionFill=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.create_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to create an OrderRequest in an Account</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
-the request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>create an OrderRequest</p>
 </dd></dl>
 
 <dl class="method">
@@ -291,18 +252,19 @@ the request</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ids</strong> – List of Order IDs to retrieve</li>
-<li><strong>state</strong> – The state to filter the requested Orders by</li>
-<li><strong>instrument</strong> – The instrument to filter the requested orders by</li>
-<li><strong>count</strong> – The maximum number of Orders to return</li>
-<li><strong>before_id</strong> – The maximum Order ID to return. If not provided the most recent
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ids</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Ids" title="async_v20.endpoints.annotations.Ids"><code class="xref py py-class docutils literal"><span class="pre">Ids</span></code></a>
+List of Order IDs to retrieve</li>
+<li><strong>state</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderStateFilter" title="async_v20.definitions.primitives.OrderStateFilter"><code class="xref py py-class docutils literal"><span class="pre">OrderStateFilter</span></code></a>
+The state to filter the requested Orders by</li>
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+The instrument to filter the requested orders by</li>
+<li><strong>count</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Count" title="async_v20.endpoints.annotations.Count"><code class="xref py py-class docutils literal"><span class="pre">Count</span></code></a>
+The maximum number of Orders to return</li>
+<li><strong>before_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderID" title="async_v20.definitions.primitives.OrderID"><code class="xref py py-class docutils literal"><span class="pre">OrderID</span></code></a>
+The maximum Order ID to return. If not provided the most recent
 Orders in the Account are returned</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -312,31 +274,19 @@ request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.list_pending_orders">
 <code class="descclassname">OandaClient.</code><code class="descname">list_pending_orders</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_pending_orders" title="Permalink to this definition">¶</a></dt>
-<dd><p>List all pending Orders in an Account</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>List all pending Orders</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_order">
 <code class="descclassname">OandaClient.</code><code class="descname">get_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get details for a single Order in an Account</p>
+<dd><p>Get details for a single Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_specifier</strong> – The Order Specifier</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The Order Specifier</td>
 </tr>
 </tbody>
 </table>
@@ -345,20 +295,18 @@ request</td>
 <dl class="method">
 <dt id="async_v20.OandaClient.replace_order">
 <code class="descclassname">OandaClient.</code><code class="descname">replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=Ellipsis</em>, <em>order_request: OrderRequest=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.replace_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replace an Order in an Account by simultaneously cancelling it and
+<dd><p>Replace an Order  by simultaneously cancelling it and
 creating a replacement Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>order_specifier</strong> – The Order Specifier</li>
-<li><strong>order</strong> – Specification of the replacing Order</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The Order Specifier</li>
+<li><strong>order_request</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.OrderRequest" title="async_v20.definitions.types.OrderRequest"><code class="xref py py-class docutils literal"><span class="pre">OrderRequest</span></code></a>
+Specification of the replacing Order</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -368,15 +316,13 @@ request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.cancel_order">
 <code class="descclassname">OandaClient.</code><code class="descname">cancel_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.cancel_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cancel a pending Order in an Account</p>
+<dd><p>Cancel a pending Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_specifier</strong> – The Order Specifier</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The Order Specifier</td>
 </tr>
 </tbody>
 </table>
@@ -385,26 +331,25 @@ request</td>
 <dl class="method">
 <dt id="async_v20.OandaClient.set_client_extensions">
 <code class="descclassname">OandaClient.</code><code class="descname">set_client_extensions</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier=Ellipsis</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>trade_client_extensions: TradeClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.set_client_extensions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the Client Extensions for an Order in an Account. Do not set,
+<dd><p>Update the Client Extensions for an Order . Do not set,
 modify, or delete clientExtensions if your account is associated with
 MT4.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>order_specifier</strong> – The Order Specifier</li>
-<li><strong>client_extensions</strong> – The Client Extensions to update for the Order. Do not set,
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The Order Specifier</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The Client Extensions to update for the Order. Do not set,
 modify, or delete clientExtensions if your account is
 associated with MT4.</li>
-<li><strong>trade_client_extensions</strong> – The Client Extensions to update for the Trade created when the
+<li><strong>trade_client_extensions</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.TradeClientExtensions" title="async_v20.endpoints.annotations.TradeClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensions</span></code></a>
+The Client Extensions to update for the Trade created when the
 Order is filled. Do not set, modify, or delete clientExtensions
 if your account is associated with MT4.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -414,53 +359,29 @@ request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.market_order">
 <code class="descclassname">OandaClient.</code><code class="descname">market_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>time_in_force: TimeInForce=FOK</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to create a Market Order in an Account
-MarketOrderRequest
-:param kwargs: The arguments to create a MarketOrderRequest</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
-the request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Create a Market Order Request</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.limit_order">
 <code class="descclassname">OandaClient.</code><code class="descname">limit_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to create a Limit Order in an Account</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a LimitOrderRequest</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
-the request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Create a Limit Order</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.limit_replace_order">
 <code class="descclassname">OandaClient.</code><code class="descname">limit_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>order: LimitOrderRequest</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_replace_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to replace a pending Limit Order in an Account</p>
+<dd><p>Replace a pending Limit Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>order_specifier</strong> – The ID of the Limit Order to replace</li>
-<li><strong>kwargs</strong> – The arguments to create a LimitOrderRequest</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The ID of the Limit Order to replace</li>
+<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.LimitOrderRequest" title="async_v20.definitions.types.LimitOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">LimitOrderRequest</span></code></a>
+The arguments to create a LimitOrderRequest</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
-the request</p>
 </td>
 </tr>
 </tbody>
@@ -470,36 +391,23 @@ the request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_order">
 <code class="descclassname">OandaClient.</code><code class="descname">stop_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to create a Stop Order in an Account</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a StopOrderRequest</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
-the request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Create a Stop Order</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_replace_order">
 <code class="descclassname">OandaClient.</code><code class="descname">stop_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>order: StopOrderRequest</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_replace_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to replace a pending Stop Order in an Account</p>
+<dd><p>Replace a pending Stop Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>order_specifier</strong> – The ID of the Stop Order to replace</li>
-<li><strong>kwargs</strong> – The arguments to create a StopOrderRequest</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The ID of the Stop Order to replace</li>
+<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.StopOrderRequest" title="async_v20.definitions.types.StopOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">StopOrderRequest</span></code></a>
+The arguments to create a StopOrderRequest</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
-the request</p>
 </td>
 </tr>
 </tbody>
@@ -509,36 +417,23 @@ the request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.market_if_touched_order">
 <code class="descclassname">OandaClient.</code><code class="descname">market_if_touched_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to create a MarketIfTouched Order in an Account</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a MarketIfTouchedOrderRequest</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
-the request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Create a market if touched order</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_if_touched_replace_order">
 <code class="descclassname">OandaClient.</code><code class="descname">market_if_touched_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>order: MarketIfTouchedOrderRequest</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_replace_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to replace a pending MarketIfTouched Order in an Account</p>
+<dd><p>Replace a pending market if touched order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>order_specifier</strong> – The ID of the MarketIfTouched Order to replace</li>
-<li><strong>kwargs</strong> – The arguments to create a MarketIfTouchedOrderRequest</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The ID of the MarketIfTouched Order to replace</li>
+<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.MarketIfTouchedOrderRequest" title="async_v20.definitions.types.MarketIfTouchedOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">MarketIfTouchedOrderRequest</span></code></a>
+The arguments to create a MarketIfTouchedOrderRequest</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
-the request</p>
 </td>
 </tr>
 </tbody>
@@ -548,36 +443,22 @@ the request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.take_profit_order">
 <code class="descclassname">OandaClient.</code><code class="descname">take_profit_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to create a Take Profit Order in an Account</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a TakeProfitOrderRequest</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
-the request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Create a take profit order</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.take_profit_replace_order">
 <code class="descclassname">OandaClient.</code><code class="descname">take_profit_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>order: TakeProfitOrderRequest</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.take_profit_replace_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to replace a pending Take Profit Order in an Account</p>
+<dd><p>Replace a pending take profit order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>order_specifier</strong> – The ID of the Take Profit Order to replace</li>
-<li><strong>kwargs</strong> – The arguments to create a TakeProfitOrderRequest</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The ID of the Take Profit Order to replace</li>
+<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.TakeProfitOrderRequest" title="async_v20.definitions.types.TakeProfitOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitOrderRequest</span></code></a></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
-the request</p>
 </td>
 </tr>
 </tbody>
@@ -587,36 +468,22 @@ the request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_loss_order">
 <code class="descclassname">OandaClient.</code><code class="descname">stop_loss_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>price: PriceValue</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to create a Stop Loss Order in an Account</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a StopLossOrderRequest</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
-the request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Create a Stop Loss Order</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_loss_replace_order">
 <code class="descclassname">OandaClient.</code><code class="descname">stop_loss_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>order: StopLossOrderRequest</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_loss_replace_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to replace a pending Stop Loss Order in an Account</p>
+<dd><p>Replace a pending Stop Loss Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>order_specifier</strong> – The ID of the Stop Loss Order to replace</li>
-<li><strong>kwargs</strong> – The arguments to create a StopLossOrderRequest</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The ID of the Stop Loss Order to replace</li>
+<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.StopLossOrderRequest" title="async_v20.definitions.types.StopLossOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">StopLossOrderRequest</span></code></a></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
-the request</p>
 </td>
 </tr>
 </tbody>
@@ -626,36 +493,22 @@ the request</p>
 <dl class="method">
 <dt id="async_v20.OandaClient.trailing_stop_loss_order">
 <code class="descclassname">OandaClient.</code><code class="descname">trailing_stop_loss_order</code><span class="sig-paren">(</span><em>self</em>, <em>trade_id: TradeID</em>, <em>distance: PriceValue</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to create a Trailing Stop Loss Order in an Account</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The arguments to create a TrailingStopLossOrderRequest</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting
-the request</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Create a Trailing Stop Loss Order</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.trailing_stop_loss_replace_order">
 <code class="descclassname">OandaClient.</code><code class="descname">trailing_stop_loss_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>order: TrailingStopLossOrderRequest</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.trailing_stop_loss_replace_order" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to replace a pending Trailing Stop Loss Order in an Account</p>
+<dd><p>Replace a pending Trailing Stop Loss Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>order_specifier</strong> – The ID of the Take Profit Order to replace</li>
-<li><strong>kwargs</strong> – The arguments to create a TrailingStopLossOrderRequest</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
+The ID of the Take Profit Order to replace</li>
+<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.TrailingStopLossOrderRequest" title="async_v20.definitions.types.TrailingStopLossOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossOrderRequest</span></code></a></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting
-the request</p>
 </td>
 </tr>
 </tbody>
@@ -671,16 +524,6 @@ the request</p>
 <dd><p>List all Positions for an Account. The Positions returned are for every
 instrument that has had a position during the lifetime of an the
 Account.</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
@@ -688,16 +531,6 @@ request</td>
 <code class="descclassname">OandaClient.</code><code class="descname">list_open_positions</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_open_positions" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all open Positions for an Account. An open Position is a Position
 in an Account that currently has a Trade opened for it.</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
@@ -709,10 +542,8 @@ Position may by open or not.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instrument</strong> – Name of the Instrument</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+Name of the Instrument</td>
 </tr>
 </tbody>
 </table>
@@ -726,27 +557,28 @@ request</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>instrument</strong> – Name of the Instrument</li>
-<li><strong>long_units</strong> – Indication of how much of the long Position to closeout. Either
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+Name of the Instrument</li>
+<li><strong>long_units</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.LongUnits" title="async_v20.endpoints.annotations.LongUnits"><code class="xref py py-class docutils literal"><span class="pre">LongUnits</span></code></a>
+Indication of how much of the long Position to closeout. Either
 the string “ALL”, the string “NONE”, or a DecimalNumber
 representing how many units of the long position to close using
 a PositionCloseout MarketOrder. The units specified must always
 be positive.</li>
-<li><strong>long_client_extensions</strong> – The client extensions to add to the MarketOrder used to close
+<li><strong>long_client_extensions</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.LongClientExtensions" title="async_v20.endpoints.annotations.LongClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">LongClientExtensions</span></code></a>
+The client extensions to add to the MarketOrder used to close
 the long position.</li>
-<li><strong>short_units</strong> – Indication of how much of the short Position to closeout.
+<li><strong>short_units</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.ShortUnits" title="async_v20.endpoints.annotations.ShortUnits"><code class="xref py py-class docutils literal"><span class="pre">ShortUnits</span></code></a>
+Indication of how much of the short Position to closeout.
 Either the string “ALL”, the string “NONE”, or a DecimalNumber
 representing how many units of the short position to close
 using a PositionCloseout MarketOrder. The units specified must
 always be positive.</li>
-<li><strong>short_client_extensions</strong> – The client extensions to add to the MarketOrder used to close
+<li><strong>short_client_extensions</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.ShortClientExtensions" title="async_v20.endpoints.annotations.ShortClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ShortClientExtensions</span></code></a>
+The client extensions to add to the MarketOrder used to close
 the short position.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -765,17 +597,13 @@ Account.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>instruments</strong> – List of Instruments to get pricing for.</li>
-<li><strong>since</strong> – Date/Time filter to apply to the returned prices. Only prices
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>instruments</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Instruments" title="async_v20.endpoints.annotations.Instruments"><code class="xref py py-class docutils literal"><span class="pre">Instruments</span></code></a>
+List of Instruments to get pricing for.</li>
+<li><strong>since</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+Date/Time filter to apply to the returned prices. Only prices
 with a time later than this filter will be provided.</li>
-<li><strong>include_units_available</strong> – Flag that enables the inclusion of the unitsAvailable field in
-the returned Price objects.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -801,15 +629,13 @@ different prices depending on their alignment.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>instruments</strong> – List of Instruments to stream Prices for.</li>
-<li><strong>snapshot</strong> – Flag that enables/disables the sending of a pricing snapshot
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>instruments</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Instruments" title="async_v20.endpoints.annotations.Instruments"><code class="xref py py-class docutils literal"><span class="pre">Instruments</span></code></a>
+List of Instruments to stream Prices for.</li>
+<li><strong>snapshot</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Snapshot" title="async_v20.endpoints.annotations.Snapshot"><code class="xref py py-class docutils literal"><span class="pre">Snapshot</span></code></a>
+Flag that enables/disables the sending of a pricing snapshot
 when initially connecting to the stream.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -827,18 +653,19 @@ request</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ids</strong> – List of Trade IDs to retrieve.</li>
-<li><strong>state</strong> – The state to filter the requested Trades by.</li>
-<li><strong>instrument</strong> – The instrument to filter the requested Trades by.</li>
-<li><strong>count</strong> – The maximum number of Trades to return.</li>
-<li><strong>before_id</strong> – The maximum Trade ID to return. If not provided the most recent
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ids</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Ids" title="async_v20.endpoints.annotations.Ids"><code class="xref py py-class docutils literal"><span class="pre">Ids</span></code></a>
+List of Trade IDs to retrieve.</li>
+<li><strong>state</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeStateFilter" title="async_v20.definitions.primitives.TradeStateFilter"><code class="xref py py-class docutils literal"><span class="pre">TradeStateFilter</span></code></a>
+The state to filter the requested Trades by.</li>
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+The instrument to filter the requested Trades by.</li>
+<li><strong>count</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Count" title="async_v20.endpoints.annotations.Count"><code class="xref py py-class docutils literal"><span class="pre">Count</span></code></a>
+The maximum number of Trades to return.</li>
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The maximum Trade ID to return. If not provided the most recent
 Trades in the Account are returned.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -849,16 +676,6 @@ request</p>
 <dt id="async_v20.OandaClient.list_open_trades">
 <code class="descclassname">OandaClient.</code><code class="descname">list_open_trades</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_open_trades" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the list of open Trades for an Account</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
@@ -869,10 +686,8 @@ request</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>trade_specifier</strong> – Specifier for the Trade</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>trade_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeSpecifier" title="async_v20.definitions.primitives.TradeSpecifier"><code class="xref py py-class docutils literal"><span class="pre">TradeSpecifier</span></code></a>
+Specifier for the Trade</td>
 </tr>
 </tbody>
 </table>
@@ -886,19 +701,17 @@ request</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>trade_specifier</strong> – Specifier for the Trade</li>
-<li><strong>units</strong> – Indication of how much of the Trade to close. Either the string
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>trade_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeSpecifier" title="async_v20.definitions.primitives.TradeSpecifier"><code class="xref py py-class docutils literal"><span class="pre">TradeSpecifier</span></code></a>
+Specifier for the Trade</li>
+<li><strong>units</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Units" title="async_v20.endpoints.annotations.Units"><code class="xref py py-class docutils literal"><span class="pre">Units</span></code></a>
+Indication of how much of the Trade to close. Either the string
 “ALL” (indicating that all of the Trade should be closed), or a
 DecimalNumber representing the number of units of the open
 Trade to Close using a TradeClose MarketOrder. The units
 specified must always be positive, and the magnitude of the
 value cannot exceed the magnitude of the Trade’s open units.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -913,7 +726,9 @@ request</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple containing successful/unsuccessful (bool), [close_trade (response), …]</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">class`~async_v20.interface.response.Response`, …])</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> (<code class="xref py py-class docutils literal"><span class="pre">bool</span></code>, [</td>
 </tr>
 </tbody>
 </table>
@@ -928,16 +743,14 @@ the Client Extensions if your account is associated with MT4.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>trade_specifier</strong> – Specifier for the Trade</li>
-<li><strong>client_extensions</strong> – The Client Extensions to update the Trade with. Do not add,
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>trade_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeSpecifier" title="async_v20.definitions.primitives.TradeSpecifier"><code class="xref py py-class docutils literal"><span class="pre">TradeSpecifier</span></code></a>
+Specifier for the Trade</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The Client Extensions to update the Trade with. Do not add,
 update, or delete the Client Extensions if your account is
 associated with MT4.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -953,22 +766,26 @@ Stop Loss and Trailing Stop Loss) through the Trade itself</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>trade_specifier</strong> – Specifier for the Trade</li>
-<li><strong>take_profit</strong> – The specification of the Take Profit to create/modify/cancel.
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>trade_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeSpecifier" title="async_v20.definitions.primitives.TradeSpecifier"><code class="xref py py-class docutils literal"><span class="pre">TradeSpecifier</span></code></a>
+Specifier for the Trade</li>
+<li><strong>take_profit</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitDetails" title="async_v20.definitions.types.TakeProfitDetails"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitDetails</span></code></a>
+The specification of the Take Profit to create/modify/cancel.
 If takeProfit is set to null, the Take Profit Order will be
 cancelled if it exists. If takeProfit is not provided, the
 existing Take Profit Order will not be modified. If a sub-
 field of takeProfit is not specified, that field will be set to
 a default value on create, and be inherited by the replacing
 order on modify.</li>
-<li><strong>stop_loss</strong> – The specification of the Stop Loss to create/modify/cancel. If
+<li><strong>stop_loss</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossDetails" title="async_v20.definitions.types.StopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">StopLossDetails</span></code></a>
+The specification of the Stop Loss to create/modify/cancel. If
 stopLoss is set to null, the Stop Loss Order will be cancelled
 if it exists. If stopLoss is not provided, the existing Stop
 Loss Order will not be modified. If a sub-field of stopLoss is
 not specified, that field will be set to a default value on
 create, and be inherited by the replacing order on modify.</li>
-<li><strong>trailing_stop_loss</strong> – The specification of the Trailing Stop Loss to
+<li><strong>trailing_stop_loss</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossDetails" title="async_v20.definitions.types.TrailingStopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossDetails</span></code></a>
+The specification of the Trailing Stop Loss to
 create/modify/cancel. If trailingStopLoss is set to null, the
 Trailing Stop Loss Order will be cancelled if it exists. If
 trailingStopLoss is not provided, the existing Trailing Stop
@@ -977,10 +794,6 @@ trailingStopLoss is not specified, that field will be set to a
 default value on create, and be inherited by the replacing
 order on modify.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -999,19 +812,19 @@ query.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>from_time</strong> – The starting time (inclusive) of the time range for the
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>from_time</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.FromTime" title="async_v20.endpoints.annotations.FromTime"><code class="xref py py-class docutils literal"><span class="pre">FromTime</span></code></a>
+The starting time (inclusive) of the time range for the
 Transactions being queried.</li>
-<li><strong>to_time</strong> – The ending time (inclusive) of the time range for the
+<li><strong>to_time</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.ToTime" title="async_v20.endpoints.annotations.ToTime"><code class="xref py py-class docutils literal"><span class="pre">ToTime</span></code></a>
+The ending time (inclusive) of the time range for the
 Transactions being queried.</li>
-<li><strong>page_size</strong> – The number of Transactions to include in each page of the
+<li><strong>page_size</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.PageSize" title="async_v20.endpoints.annotations.PageSize"><code class="xref py py-class docutils literal"><span class="pre">PageSize</span></code></a>
+The number of Transactions to include in each page of the
 results.</li>
-<li><strong>type</strong> – A filter for restricting the types of Transactions to retrieve.</li>
+<li><strong>type</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Type" title="async_v20.endpoints.annotations.Type"><code class="xref py py-class docutils literal"><span class="pre">Type</span></code></a>
+A filter for restricting the types of Transactions to retrieve.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -1026,10 +839,8 @@ request</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction_id</strong> – A Transaction ID</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>
+A Transaction ID</td>
 </tr>
 </tbody>
 </table>
@@ -1044,16 +855,15 @@ IDs.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>from_transaction</strong> – The starting Transaction ID (inclusive) to fetch.</li>
-<li><strong>to_transaction</strong> – The ending Transaction ID (inclusive) to fetch.</li>
-<li><strong>type</strong> – The filter that restricts the types of Transactions to
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>from_transaction</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.FromTransactionID" title="async_v20.endpoints.annotations.FromTransactionID"><code class="xref py py-class docutils literal"><span class="pre">FromTransactionID</span></code></a>
+The starting Transaction ID (inclusive) to fetch.</li>
+<li><strong>to_transaction</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.ToTransactionID" title="async_v20.endpoints.annotations.ToTransactionID"><code class="xref py py-class docutils literal"><span class="pre">ToTransactionID</span></code></a>
+The ending Transaction ID (inclusive) to fetch.</li>
+<li><strong>type</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Type" title="async_v20.endpoints.annotations.Type"><code class="xref py py-class docutils literal"><span class="pre">Type</span></code></a>
+The filter that restricts the types of Transactions to
 retrieve.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">async_v20.interface.parser.Response containing the results from submitting the
-request</p>
 </td>
 </tr>
 </tbody>
@@ -1069,11 +879,9 @@ including) a provided Transaction ID.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction_id</strong> – The ID of the last Transaction fetched. This query will return
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>
+The ID of the last Transaction fetched. This query will return
 all Transactions newer than the TransactionID.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
 </tr>
 </tbody>
 </table>
@@ -1084,16 +892,6 @@ request</td>
 <code class="descclassname">OandaClient.</code><code class="descname">stream_transactions</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stream_transactions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a stream of Transactions for an Account starting from when the
 request is made.</p>
-<p>Args:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -1109,10 +907,8 @@ information.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – The User Specifier</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.UserSpecifier" title="async_v20.endpoints.annotations.UserSpecifier"><code class="xref py py-class docutils literal"><span class="pre">UserSpecifier</span></code></a>
+The User Specifier</td>
 </tr>
 </tbody>
 </table>
@@ -1128,10 +924,8 @@ authorized by a user to view their personal information.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – The User Specifier</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">async_v20.interface.parser.Response containing the results from submitting the
-request</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.UserSpecifier" title="async_v20.endpoints.annotations.UserSpecifier"><code class="xref py py-class docutils literal"><span class="pre">UserSpecifier</span></code></a>
+The User Specifier</td>
 </tr>
 </tbody>
 </table>

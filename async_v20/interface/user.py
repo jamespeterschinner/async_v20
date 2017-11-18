@@ -14,12 +14,9 @@ class UserInterface(object):
         information.
 
         Args:
-            user_specifier:
-                The User Specifier
 
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
+            user_specifier: :class:`~async_v20.endpoints.annotations.UserSpecifier`
+                The User Specifier
         """
         pass
 
@@ -31,11 +28,8 @@ class UserInterface(object):
         authorized by a user to view their personal information.
 
         Args:
-            user_specifier:
-                The User Specifier
 
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
+            user_specifier: :class:`~async_v20.endpoints.annotations.UserSpecifier`
+                The User Specifier
         """
         pass

@@ -16,13 +16,6 @@ class PositionInterface(object):
         List all Positions for an Account. The Positions returned are for every
         instrument that has had a position during the lifetime of an the
         Account.
-
-        Args:
-
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -31,13 +24,6 @@ class PositionInterface(object):
         """
         List all open Positions for an Account. An open Position is a Position
         in an Account that currently has a Trade opened for it.
-
-        Args:
-
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -49,12 +35,8 @@ class PositionInterface(object):
 
         Args:
 
-            instrument:
+            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
                 Name of the Instrument
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
 
@@ -70,29 +52,25 @@ class PositionInterface(object):
 
         Args:
 
-            instrument:
+            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
                 Name of the Instrument
-            long_units:
+            long_units: :class:`~async_v20.endpoints.annotations.LongUnits`
                 Indication of how much of the long Position to closeout. Either
                 the string "ALL", the string "NONE", or a DecimalNumber
                 representing how many units of the long position to close using
                 a PositionCloseout MarketOrder. The units specified must always
                 be positive.
-            long_client_extensions:
+            long_client_extensions: :class:`~async_v20.endpoints.annotations.LongClientExtensions`
                 The client extensions to add to the MarketOrder used to close
                 the long position.
-            short_units:
+            short_units: :class:`~async_v20.endpoints.annotations.ShortUnits`
                 Indication of how much of the short Position to closeout.
                 Either the string "ALL", the string "NONE", or a DecimalNumber
                 representing how many units of the short position to close
                 using a PositionCloseout MarketOrder. The units specified must
                 always be positive.
-            short_client_extensions:
+            short_client_extensions: :class:`~async_v20.endpoints.annotations.ShortClientExtensions`
                 The client extensions to add to the MarketOrder used to close
                 the short position.
-
-        Returns:
-            async_v20.interface.parser.Response containing the results from submitting the
-            request
         """
         pass
