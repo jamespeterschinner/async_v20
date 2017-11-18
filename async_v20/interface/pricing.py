@@ -22,6 +22,13 @@ class PricingInterface(object):
             since: :class:`~async_v20.definitions.primitives.DateTime`
                 Date/Time filter to apply to the returned prices. Only prices
                 with a time later than this filter will be provided.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'prices': :class:`~async_v20.definitions.types.ArrayPrice`,
+                'time': :class:`~async_v20.definitions.primitives.DateTime`})
+
         """
         pass
 
@@ -50,5 +57,17 @@ class PricingInterface(object):
             snapshot: :class:`~async_v20.endpoints.annotations.Snapshot`
                 Flag that enables/disables the sending of a pricing snapshot
                 when initially connecting to the stream.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'PRICE': :class:`~async_v20.definitions.types.Price`})
+
+                **OR**
+
+                :class:`~async_v20.interface.response.Response`
+                ({'HEARTBEAT': :class:`~async_v20.definitions.types.PricingHeartbeat`})
+
+
         """
         pass

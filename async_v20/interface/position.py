@@ -16,6 +16,13 @@ class PositionInterface(object):
         List all Positions for an Account. The Positions returned are for every
         instrument that has had a position during the lifetime of an the
         Account.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'positions': :class:`~async_v20.definitions.types.ArrayPosition`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -24,6 +31,13 @@ class PositionInterface(object):
         """
         List all open Positions for an Account. An open Position is a Position
         in an Account that currently has a Trade opened for it.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'positions': :class:`~async_v20.definitions.types.ArrayPosition`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -37,6 +51,13 @@ class PositionInterface(object):
 
             instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
                 Name of the Instrument
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'position': :class:`~async_v20.definitions.types.Position`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -72,5 +93,33 @@ class PositionInterface(object):
             short_client_extensions: :class:`~async_v20.endpoints.annotations.ShortClientExtensions`
                 The client extensions to add to the MarketOrder used to close
                 the short position.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'longOrderCreateTransaction': :class:`~async_v20.definitions.types.MarketOrderTransaction`,
+                'longOrderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'longOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'shortOrderCreateTransaction': :class:`~async_v20.definitions.types.MarketOrderTransaction`,
+                'shortOrderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'shortOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'longOrderRejectTransaction': :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
+                'shortOrderRejectTransaction': :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'longOrderRejectTransaction': :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
+                'shortOrderRejectTransaction': :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         pass

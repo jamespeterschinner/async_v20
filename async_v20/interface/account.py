@@ -12,6 +12,12 @@ class AccountInterface(object):
     @endpoint(GETAccounts, initialization_step=1)
     def list_accounts(self):
         """Get a list of all Accounts authorized for the provided token.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'accounts': :class:`~async_v20.definitions.types.ArrayAccountProperties`})
+
         """
         pass
 
@@ -21,6 +27,12 @@ class AccountInterface(object):
         Get the full details for a single Account that a client has access to.
         Full pending Order, open Trade and open Position representations are
         provided.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'account': :class:`~async_v20.definitions.types.Account`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
         """
         pass
 
@@ -28,6 +40,13 @@ class AccountInterface(object):
     def account_summary(self):
         """
         Get a summary for a single Account that a client has access to.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'account': :class:`~async_v20.definitions.types.AccountSummary`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -43,6 +62,13 @@ class AccountInterface(object):
 
             instruments: :class:`~async_v20.endpoints.annotations.Instruments`
                 List of instruments to query specifically.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'instruments': :class:`~async_v20.definitions.types.ArrayInstrument`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -57,6 +83,25 @@ class AccountInterface(object):
                 Client-defined alias (name) for the Account
             margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
                 The string representation of a decimal number.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'clientConfigureTransaction': :class:`~async_v20.definitions.types.ClientConfigureTransaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'clientConfigureRejectTransaction': :class:`~async_v20.definitions.types.ClientConfigureRejectTransaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [403]
+                :class:`~async_v20.interface.response.Response`
+                ({'clientConfigureRejectTransaction': :class:`~async_v20.definitions.types.ClientConfigureRejectTransaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+
         """
         pass
 
@@ -72,5 +117,12 @@ class AccountInterface(object):
         Args:
             since_transaction_id: :class:`~async_v20.endpoints.annotations.SinceTransactionID`
                 ID of the Transaction to get Account changes since.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'changes': :class:`~async_v20.definitions.types.AccountChanges`,
+                'state': :class:`~async_v20.definitions.types.AccountChangesState`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
         """
         pass

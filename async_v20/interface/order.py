@@ -42,6 +42,32 @@ class OrderInterface(object):
 
             order_request: :class:`~async_v20.definitions.types.OrderRequest`
                 or a class derived from OrderRequest
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+
         """
         pass
 
@@ -57,6 +83,31 @@ class OrderInterface(object):
                      trade_client_extensions: ClientExtensions = ...):
         """
         create an OrderRequest
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         return self.post_order(
             order_request=OrderRequest(instrument=instrument, units=units, type=type, trade_id=trade_id, price=price,
@@ -90,6 +141,13 @@ class OrderInterface(object):
             before_id: :class:`~async_v20.definitions.primitives.OrderID`
                 The maximum Order ID to return. If not provided the most recent
                 Orders in the Account are returned
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'orders': :class:`~async_v20.definitions.types.ArrayOrder`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -97,6 +155,13 @@ class OrderInterface(object):
     def list_pending_orders(self):
         """
         List all pending Orders
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'orders': :class:`~async_v20.definitions.types.ArrayOrder`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -109,6 +174,13 @@ class OrderInterface(object):
 
             order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The Order Specifier
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'order': :class:`~async_v20.definitions.types.Order`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -126,6 +198,32 @@ class OrderInterface(object):
                 The Order Specifier
             order_request: :class:`~async_v20.definitions.types.OrderRequest`
                 Specification of the replacing Order
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'replacingOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         pass
 
@@ -138,6 +236,21 @@ class OrderInterface(object):
 
             order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The Order Specifier
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelRejectTransaction': :class:`~async_v20.definitions.types.OrderCancelRejectTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+
         """
         pass
 
@@ -163,6 +276,28 @@ class OrderInterface(object):
                 The Client Extensions to update for the Trade created when the
                 Order is filled. Do not set, modify, or delete clientExtensions
                 if your account is associated with MT4.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderClientExtensionsModifyTransaction': :class:`~async_v20.definitions.types.OrderClientExtensionsModifyTransaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderClientExtensionsModifyRejectTransaction': :class:`~async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderClientExtensionsModifyRejectTransaction': :class:`~async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+
         """
         pass
 
@@ -175,6 +310,31 @@ class OrderInterface(object):
                      trade_client_extensions: ClientExtensions = ...):
         """
         Create a Market Order Request
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         return self.post_order(
             order_request=MarketOrderRequest(instrument=instrument, units=units, time_in_force=time_in_force,
@@ -196,6 +356,31 @@ class OrderInterface(object):
                     trade_client_extensions: ClientExtensions = ...):
         """
         Create a Limit Order
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         return self.post_order(order_request=LimitOrderRequest(instrument=instrument, units=units, price=price,
                                                                time_in_force=time_in_force, gtd_time=gtd_time,
@@ -220,6 +405,32 @@ class OrderInterface(object):
                 The ID of the Limit Order to replace
             order: :class:`~async_v20.definitions.types.LimitOrderRequest`
                 The arguments to create a LimitOrderRequest
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'replacingOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         pass
 
@@ -229,6 +440,31 @@ class OrderInterface(object):
                    trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         """
         Create a Stop Order
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         return self.post_order(
             order_request=StopLossOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
@@ -248,6 +484,33 @@ class OrderInterface(object):
                 The ID of the Stop Order to replace
             order: :class:`~async_v20.definitions.types.StopOrderRequest`
                 The arguments to create a StopOrderRequest
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'replacingOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+
         """
         pass
 
@@ -264,6 +527,31 @@ class OrderInterface(object):
                                 trade_client_extensions: ClientExtensions = ...):
         """
         Create a market if touched order
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         return self.post_order(
             order_request=MarketIfTouchedOrderRequest(instrument=instrument, units=units, price=price,
@@ -289,6 +577,33 @@ class OrderInterface(object):
                 The ID of the MarketIfTouched Order to replace
             order: :class:`~async_v20.definitions.types.MarketIfTouchedOrderRequest`
                 The arguments to create a MarketIfTouchedOrderRequest
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'replacingOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+
         """
         pass
 
@@ -300,6 +615,32 @@ class OrderInterface(object):
                           client_extensions: ClientExtensions = ...):
         """
         Create a take profit order
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+
         """
         return self.post_order(
             order_request=TakeProfitOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
@@ -319,6 +660,32 @@ class OrderInterface(object):
             order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The ID of the Take Profit Order to replace
             order: :class:`~async_v20.definitions.types.TakeProfitOrderRequest`
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'replacingOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         pass
 
@@ -329,6 +696,31 @@ class OrderInterface(object):
                         client_extensions: ClientExtensions = ...):
         """
         Create a Stop Loss Order
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         return self.post_order(
             order_request=StopLossOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
@@ -347,6 +739,33 @@ class OrderInterface(object):
             order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The ID of the Stop Loss Order to replace
             order: :class:`~async_v20.definitions.types.StopLossOrderRequest`
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'replacingOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+
         """
         pass
 
@@ -358,6 +777,31 @@ class OrderInterface(object):
                                  client_extensions: ClientExtensions = ...):
         """
         Create a Trailing Stop Loss Order
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         return self.post_order(order_request=TrailingStopLossOrderRequest(trade_id=trade_id, distance=distance,
                                                                           client_trade_id=client_trade_id,
@@ -378,5 +822,31 @@ class OrderInterface(object):
             order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The ID of the Take Profit Order to replace
             order: :class:`~async_v20.definitions.types.TrailingStopLossOrderRequest`
+
+        Returns:
+            status [201]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'orderCreateTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderFillTransaction': :class:`~async_v20.definitions.types.OrderFillTransaction`,
+                'orderReissueTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'orderReissueRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'replacingOrderCancelTransaction': :class:`~async_v20.definitions.types.OrderCancelTransaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            status [400]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
+            status [404]
+                :class:`~async_v20.interface.response.Response`
+                ({'orderCancelRejectTransaction': :class:`~async_v20.definitions.types.Transaction`,
+                'relatedTransactionIDs': :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
+                'errorCode': :class:`~builtins.str`,
+                'errorMessage': :class:`~builtins.str`})
         """
         pass

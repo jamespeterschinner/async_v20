@@ -35,6 +35,18 @@ class TransactionInterface(object):
                 results.
             type_: :class:`~async_v20.endpoints.annotations.Type`
                 A filter for restricting the types of Transactions to retrieve.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'from': :class:`~async_v20.definitions.primitives.DateTime`,
+                'to': :class:`~async_v20.definitions.primitives.DateTime`,
+                'pageSize': :class:`~builtins.int`,
+                'type': :class:`~async_v20.definitions.types.ArrayTransactionFilter`,
+                'count': :class:`~builtins.int`,
+                'pages': :class:`~async_v20.definitions.types.ArrayStr`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+
         """
         pass
 
@@ -47,6 +59,12 @@ class TransactionInterface(object):
 
             transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
                 A Transaction ID
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'transaction': :class:`~async_v20.definitions.types.Transaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
         """
         pass
 
@@ -68,6 +86,12 @@ class TransactionInterface(object):
             type_: :class:`~async_v20.endpoints.annotations.Type`
                 The filter that restricts the types of Transactions to
                 retrieve.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'transactions': :class:`~async_v20.definitions.types.ArrayTransaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
         """
         pass
 
@@ -82,6 +106,12 @@ class TransactionInterface(object):
             transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
                 The ID of the last Transaction fetched. This query will return
                 all Transactions newer than the TransactionID.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'transactions': :class:`~async_v20.definitions.types.ArrayTransaction`,
+                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
         """
         pass
 
@@ -90,5 +120,15 @@ class TransactionInterface(object):
         """
         Get a stream of Transactions for an Account starting from when the
         request is made.
+
+        Returns:
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                ({'transaction': :class:`~async_v20.definitions.types.Transaction`})
+
+                **OR**
+
+                :class:`~async_v20.interface.response.Response`
+                ({'transactionHeartbeat': :class:`~async_v20.definitions.types.TransactionHeartbeat`})
         """
         pass

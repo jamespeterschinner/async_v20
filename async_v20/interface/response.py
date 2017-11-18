@@ -4,7 +4,7 @@ from operator import itemgetter
 class Response(dict):
     """A response from OANDA.
 
-    Data is accessed as per a standard dictionary
+    Allows dotted attribute access
     """
     def __init__(self, data, status, bool):
         super().__init__(data)
@@ -28,6 +28,13 @@ class Response(dict):
             raise AttributeError("No such attribute: " + name)
 
     def dict(self, json=False):
+        """Convert the response to a nested dictionary
+
+        Args:
+
+            json: Convert object attributes to the :term:`JSON` representation
+
+        """
 
         def value_to_dict(value):
             try:

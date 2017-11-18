@@ -111,6 +111,7 @@ Contents
    beyond_getting_started
    traps
    api
+   response
    particularly_pertinent
    types
    primitives
