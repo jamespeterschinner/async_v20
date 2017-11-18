@@ -38,16 +38,15 @@ class TransactionInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (from= :class:`~async_v20.definitions.primitives.DateTime`,
-            to= :class:`~async_v20.definitions.primitives.DateTime`,
-            pageSize= :class:`~builtins.int`,
-            type= :class:`~async_v20.definitions.types.ArrayTransactionFilter`,
-            count= :class:`~builtins.int`,
-            pages= :class:`~async_v20.definitions.types.ArrayStr`,
-            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
-
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (from= :class:`~async_v20.definitions.primitives.DateTime`,
+                to= :class:`~async_v20.definitions.primitives.DateTime`,
+                pageSize= :class:`~builtins.int`,
+                type= :class:`~async_v20.definitions.types.ArrayTransactionFilter`,
+                count= :class:`~builtins.int`,
+                pages= :class:`~async_v20.definitions.types.ArrayStr`,
+                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
         """
         pass
 
@@ -63,10 +62,10 @@ class TransactionInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (transaction= :class:`~async_v20.definitions.types.Transaction`,
-            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (transaction= :class:`~async_v20.definitions.types.Transaction`,
+                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
         """
         pass
 
@@ -91,10 +90,10 @@ class TransactionInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (transactions= :class:`~async_v20.definitions.types.ArrayTransaction`,
-            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (transactions= :class:`~async_v20.definitions.types.ArrayTransaction`,
+                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
         """
         pass
 
@@ -112,10 +111,10 @@ class TransactionInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (transactions= :class:`~async_v20.definitions.types.ArrayTransaction`,
-            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (transactions= :class:`~async_v20.definitions.types.ArrayTransaction`,
+                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
         """
         pass
 
@@ -127,13 +126,15 @@ class TransactionInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (transaction= :class:`~async_v20.definitions.types.Transaction`)
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (transaction= :class:`~async_v20.definitions.types.Transaction`)
+
 
                 **OR**
 
-            :class:`~async_v20.interface.response.Response`
-            (transactionHeartbeat= :class:`~async_v20.definitions.types.TransactionHeartbeat`)
+
+                :class:`~async_v20.interface.response.Response`
+                (transactionHeartbeat= :class:`~async_v20.definitions.types.TransactionHeartbeat`)
         """
         pass

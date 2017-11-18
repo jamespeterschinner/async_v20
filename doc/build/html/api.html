@@ -1,44 +1,180 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>OandaClient API &#8212; async_v20 2.1.0b0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.1.0b0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The Response Object" href="response.html" />
-    <link rel="prev" title="Traps for young players" href="traps.html" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OandaClient API &mdash; async_v20 2.1.0b0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="async_v20 2.1.0b0 documentation" href="index.html"/>
+        <link rel="next" title="The Response Object" href="response.html"/>
+        <link rel="prev" title="Traps for young players" href="traps.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home"> async_v20
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0b0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#account">Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#order">Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#position">Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pricing">Pricing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trade">Trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction">Transaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="response.html">The Response Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="particularly_pertinent.html">Particularly Pertinent Programming Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitives.html">Primitives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotations.html">Annotations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">async_v20</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>OandaClient API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="oandaclient-api">
 <span id="api-docs"></span><h1>OandaClient API<a class="headerlink" href="#oandaclient-api" title="Permalink to this headline">¶</a></h1>
@@ -105,9 +241,12 @@ the v20 REST server</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(accounts= <code class="xref py py-class docutils literal"><span class="pre">ArrayAccountProperties</span></code>)</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(accounts= <code class="xref py py-class docutils literal"><span class="pre">ArrayAccountProperties</span></code>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -123,10 +262,13 @@ provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (account= <a class="reference internal" href="definitions/account.html#async_v20.definitions.types.Account" title="async_v20.definitions.types.Account"><code class="xref py py-class docutils literal"><span class="pre">Account</span></code></a>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -140,10 +282,13 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (account= <a class="reference internal" href="definitions/account.html#async_v20.definitions.types.AccountSummary" title="async_v20.definitions.types.AccountSummary"><code class="xref py py-class docutils literal"><span class="pre">AccountSummary</span></code></a>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -166,10 +311,14 @@ owned by a single user.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (instruments= <code class="xref py py-class docutils literal"><span class="pre">ArrayInstrument</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
+</dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -192,22 +341,27 @@ The string representation of a decimal number.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (clientConfigureTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientConfigureTransaction" title="async_v20.definitions.types.ClientConfigureTransaction"><code class="xref py py-class docutils literal"><span class="pre">ClientConfigureTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (clientConfigureRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientConfigureRejectTransaction" title="async_v20.definitions.types.ClientConfigureRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">ClientConfigureRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [403]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [403]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (clientConfigureRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientConfigureRejectTransaction" title="async_v20.definitions.types.ClientConfigureRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">ClientConfigureRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -231,11 +385,14 @@ since a specified TransactionID.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>since_transaction_id</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.SinceTransactionID" title="async_v20.endpoints.annotations.SinceTransactionID"><code class="xref py py-class docutils literal"><span class="pre">SinceTransactionID</span></code></a>
 ID of the Transaction to get Account changes since.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (changes= <a class="reference internal" href="definitions/account.html#async_v20.definitions.types.AccountChanges" title="async_v20.definitions.types.AccountChanges"><code class="xref py py-class docutils literal"><span class="pre">AccountChanges</span></code></a>,
 state= <a class="reference internal" href="definitions/account.html#async_v20.definitions.types.AccountChangesState" title="async_v20.definitions.types.AccountChangesState"><code class="xref py py-class docutils literal"><span class="pre">AccountChangesState</span></code></a>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -289,11 +446,15 @@ alignment.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (instrument= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>,
 granularity= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.CandlestickGranularity" title="async_v20.definitions.primitives.CandlestickGranularity"><code class="xref py py-class docutils literal"><span class="pre">CandlestickGranularity</span></code></a>,
 candles= <code class="xref py py-class docutils literal"><span class="pre">ArrayCandlestick</span></code>)</p>
+</dd>
+</dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -314,28 +475,31 @@ candles= <code class="xref py py-class docutils literal"><span class="pre">Array
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_request</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.OrderRequest" title="async_v20.definitions.types.OrderRequest"><code class="xref py py-class docutils literal"><span class="pre">OrderRequest</span></code></a>
 or a class derived from OrderRequest</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -350,28 +514,31 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -401,10 +568,14 @@ Orders in the Account are returned</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orders= <code class="xref py py-class docutils literal"><span class="pre">ArrayOrder</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
+</dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -419,10 +590,13 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orders= <code class="xref py py-class docutils literal"><span class="pre">ArrayOrder</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -439,10 +613,13 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
 The Order Specifier</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (order= <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.Order" title="async_v20.definitions.types.Order"><code class="xref py py-class docutils literal"><span class="pre">Order</span></code></a>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -465,8 +642,9 @@ Specification of the replacing Order</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
@@ -475,20 +653,24 @@ orderReissueRejectTransaction= <a class="reference internal" href="definitions/t
 replacingOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -507,17 +689,20 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
 The Order Specifier</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelRejectTransaction" title="async_v20.definitions.types.OrderCancelRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelRejectTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -548,25 +733,30 @@ if your account is associated with MT4.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderClientExtensionsModifyTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderClientExtensionsModifyTransaction" title="async_v20.definitions.types.OrderClientExtensionsModifyTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderClientExtensionsModifyTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderClientExtensionsModifyRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction" title="async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderClientExtensionsModifyRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderClientExtensionsModifyRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction" title="async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderClientExtensionsModifyRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -582,28 +772,31 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -618,28 +811,31 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -662,8 +858,9 @@ The arguments to create a LimitOrderRequest</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
@@ -672,20 +869,24 @@ orderReissueRejectTransaction= <a class="reference internal" href="definitions/t
 replacingOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -701,28 +902,31 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -745,8 +949,9 @@ The arguments to create a StopOrderRequest</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
@@ -755,20 +960,24 @@ orderReissueRejectTransaction= <a class="reference internal" href="definitions/t
 replacingOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -784,28 +993,31 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -828,8 +1040,9 @@ The arguments to create a MarketIfTouchedOrderRequest</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
@@ -838,20 +1051,24 @@ orderReissueRejectTransaction= <a class="reference internal" href="definitions/t
 replacingOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -867,28 +1084,31 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -910,8 +1130,9 @@ The ID of the Take Profit Order to replace</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
@@ -920,20 +1141,24 @@ orderReissueRejectTransaction= <a class="reference internal" href="definitions/t
 replacingOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -949,28 +1174,31 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -992,8 +1220,9 @@ The ID of the Stop Loss Order to replace</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
@@ -1002,20 +1231,24 @@ orderReissueRejectTransaction= <a class="reference internal" href="definitions/t
 replacingOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -1031,28 +1264,31 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+<dt>status [400]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+<dt>status [401]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -1074,8 +1310,9 @@ The ID of the Take Profit Order to replace</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [201]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [201]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
@@ -1084,20 +1321,24 @@ orderReissueRejectTransaction= <a class="reference internal" href="definitions/t
 replacingOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -1118,10 +1359,13 @@ Account.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (positions= <code class="xref py py-class docutils literal"><span class="pre">ArrayPosition</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1136,10 +1380,13 @@ in an Account that currently has a Trade opened for it.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (positions= <code class="xref py py-class docutils literal"><span class="pre">ArrayPosition</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1157,10 +1404,13 @@ Position may by open or not.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
 Name of the Instrument</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (position= <a class="reference internal" href="definitions/positions.html#async_v20.definitions.types.Position" title="async_v20.definitions.types.Position"><code class="xref py py-class docutils literal"><span class="pre">Position</span></code></a>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1198,8 +1448,9 @@ the short position.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (longOrderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.MarketOrderTransaction" title="async_v20.definitions.types.MarketOrderTransaction"><code class="xref py py-class docutils literal"><span class="pre">MarketOrderTransaction</span></code></a>,
 longOrderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 longOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
@@ -1208,22 +1459,26 @@ shortOrderFillTransaction= <a class="reference internal" href="definitions/trans
 shortOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (longOrderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.MarketOrderRejectTransaction" title="async_v20.definitions.types.MarketOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">MarketOrderRejectTransaction</span></code></a>,
 shortOrderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.MarketOrderRejectTransaction" title="async_v20.definitions.types.MarketOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">MarketOrderRejectTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (longOrderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.MarketOrderRejectTransaction" title="async_v20.definitions.types.MarketOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">MarketOrderRejectTransaction</span></code></a>,
 shortOrderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.MarketOrderRejectTransaction" title="async_v20.definitions.types.MarketOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">MarketOrderRejectTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -1252,10 +1507,14 @@ with a time later than this filter will be provided.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (prices= <code class="xref py py-class docutils literal"><span class="pre">ArrayPrice</span></code>,
 time= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>)</p>
+</dd>
+</dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -1290,14 +1549,15 @@ when initially connecting to the stream.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (PRICE= <a class="reference internal" href="definitions/pricing.html#async_v20.definitions.types.Price" title="async_v20.definitions.types.Price"><code class="xref py py-class docutils literal"><span class="pre">Price</span></code></a>)</p>
-<blockquote>
-<div><p><strong>OR</strong></p>
-</div></blockquote>
-<p><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<p><strong>OR</strong></p>
+<p class="last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (HEARTBEAT= <a class="reference internal" href="definitions/pricing.html#async_v20.definitions.types.PricingHeartbeat" title="async_v20.definitions.types.PricingHeartbeat"><code class="xref py py-class docutils literal"><span class="pre">PricingHeartbeat</span></code></a>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -1331,10 +1591,14 @@ Trades in the Account are returned.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (trades= <code class="xref py py-class docutils literal"><span class="pre">ArrayTrade</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
+</dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -1349,10 +1613,13 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (trades= <code class="xref py py-class docutils literal"><span class="pre">ArrayTrade</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1369,10 +1636,13 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>trade_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeSpecifier" title="async_v20.definitions.primitives.TradeSpecifier"><code class="xref py py-class docutils literal"><span class="pre">TradeSpecifier</span></code></a>
 Specifier for the Trade</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (trade= <a class="reference internal" href="definitions/trade.html#async_v20.definitions.types.Trade" title="async_v20.definitions.types.Trade"><code class="xref py py-class docutils literal"><span class="pre">Trade</span></code></a>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1399,25 +1669,30 @@ value cannot exceed the magnitude of the Trade’s open units.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.MarketOrderTransaction" title="async_v20.definitions.types.MarketOrderTransaction"><code class="xref py py-class docutils literal"><span class="pre">MarketOrderTransaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.MarketOrderRejectTransaction" title="async_v20.definitions.types.MarketOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">MarketOrderRejectTransaction</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.MarketOrderRejectTransaction" title="async_v20.definitions.types.MarketOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">MarketOrderRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -1460,28 +1735,33 @@ associated with MT4.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (tradeClientExtensionsModifyTransaction=
 <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (tradeClientExtensionsModifyRejectTransaction=
 <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
-<p><strong>status [401]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [401]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (tradeClientExtensionsModifyRejectTransaction=
 <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -1528,8 +1808,9 @@ order on modify.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (takeProfitOrderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 takeProfitOrderTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitOrderTransaction" title="async_v20.definitions.types.TakeProfitOrderTransaction"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitOrderTransaction</span></code></a>,
 takeProfitOrderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
@@ -1542,8 +1823,9 @@ trailingStopLossOrderCancelTransaction= <a class="reference internal" href="defi
 trailingStopLossOrderTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossOrderTransaction" title="async_v20.definitions.types.TrailingStopLossOrderTransaction"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossOrderTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
-<p><strong>status [400]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+</dd>
+<dt>status [400]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (takeProfitOrderCancelRejectTransaction=
 <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelRejectTransaction" title="async_v20.definitions.types.OrderCancelRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelRejectTransaction</span></code></a>,
 takeProfitOrderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitOrderRejectTransaction" title="async_v20.definitions.types.TakeProfitOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitOrderRejectTransaction</span></code></a>,
@@ -1557,6 +1839,8 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
+</dl>
 </p>
 </td>
 </tr>
@@ -1591,8 +1875,9 @@ A filter for restricting the types of Transactions to retrieve.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (from= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>,
 to= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>,
 pageSize= <code class="xref py py-class docutils literal"><span class="pre">int</span></code>,
@@ -1600,6 +1885,9 @@ type= <code class="xref py py-class docutils literal"><span class="pre">ArrayTra
 count= <code class="xref py py-class docutils literal"><span class="pre">int</span></code>,
 pages= <code class="xref py py-class docutils literal"><span class="pre">ArrayStr</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
+</dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -1617,10 +1905,13 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>
 A Transaction ID</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (transaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1646,10 +1937,14 @@ retrieve.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (transactions= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransaction</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
+</dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -1669,10 +1964,13 @@ including) a provided Transaction ID.</p>
 The ID of the last Transaction fetched. This query will return
 all Transactions newer than the TransactionID.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (transactions= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransaction</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</td>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1687,12 +1985,14 @@ request is made.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(transaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>)<blockquote>
-<div><strong>OR</strong></div></blockquote>
-<p><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(transaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>)<p><strong>OR</strong></p>
+<p class="last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (transactionHeartbeat= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TransactionHeartbeat" title="async_v20.definitions.types.TransactionHeartbeat"><code class="xref py py-class docutils literal"><span class="pre">TransactionHeartbeat</span></code></a>)</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -1715,9 +2015,12 @@ information.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.UserSpecifier" title="async_v20.endpoints.annotations.UserSpecifier"><code class="xref py py-class docutils literal"><span class="pre">UserSpecifier</span></code></a>
 The User Specifier</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(userInfo= <code class="xref py py-class docutils literal"><span class="pre">UserInfo</span></code>)</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(userInfo= <code class="xref py py-class docutils literal"><span class="pre">UserInfo</span></code>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1736,9 +2039,12 @@ authorized by a user to view their personal information.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.UserSpecifier" title="async_v20.endpoints.annotations.UserSpecifier"><code class="xref py py-class docutils literal"><span class="pre">UserSpecifier</span></code></a>
 The User Specifier</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
-<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(userInfo= <code class="xref py py-class docutils literal"><span class="pre">UserInfoExternal</span></code>)</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(userInfo= <code class="xref py py-class docutils literal"><span class="pre">UserInfoExternal</span></code>)</dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1748,83 +2054,75 @@ The User Specifier</td>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="response.html" class="btn btn-neutral float-right" title="The Response Object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="traps.html" class="btn btn-neutral" title="Traps for young players" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, James Peter Schinner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">async_v20</a></h1>
+
+    </section>
+
+  </div>
+  
 
 
+  
 
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.1.0b0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
 
+  
 
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
 
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
 
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#account">Account</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#order">Order</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#position">Position</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pricing">Pricing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#trade">Trade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#transaction">Transaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="response.html">The Response Object</a></li>
-<li class="toctree-l1"><a class="reference internal" href="particularly_pertinent.html">Particularly Pertinent Programming Interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="primitives.html">Primitives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="annotations.html">Annotations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="traps.html" title="previous chapter">Traps for young players</a></li>
-      <li>Next: <a href="response.html" title="next chapter">The Response Object</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, James Peter Schinner.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/api.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>

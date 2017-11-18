@@ -25,11 +25,10 @@ class PricingInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (prices= :class:`~async_v20.definitions.types.ArrayPrice`,
-            time= :class:`~async_v20.definitions.primitives.DateTime`)
-
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (prices= :class:`~async_v20.definitions.types.ArrayPrice`,
+                time= :class:`~async_v20.definitions.primitives.DateTime`)
         """
         pass
 
@@ -61,14 +60,14 @@ class PricingInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (PRICE= :class:`~async_v20.definitions.types.Price`)
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (PRICE= :class:`~async_v20.definitions.types.Price`)
 
                 **OR**
 
-            :class:`~async_v20.interface.response.Response`
-            (HEARTBEAT= :class:`~async_v20.definitions.types.PricingHeartbeat`)
+                :class:`~async_v20.interface.response.Response`
+                (HEARTBEAT= :class:`~async_v20.definitions.types.PricingHeartbeat`)
 
 
         """

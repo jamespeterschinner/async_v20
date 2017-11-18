@@ -20,10 +20,9 @@ class UserInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (userInfo= :class:`~async_v20.definitions.types.UserInfo`)
-
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (userInfo= :class:`~async_v20.definitions.types.UserInfo`)
         """
         pass
 
@@ -41,9 +40,8 @@ class UserInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (userInfo= :class:`~async_v20.definitions.types.UserInfoExternal`)
-
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (userInfo= :class:`~async_v20.definitions.types.UserInfoExternal`)
         """
         pass

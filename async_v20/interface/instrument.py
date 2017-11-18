@@ -71,11 +71,11 @@ class InstrumentInterface(object):
 
         Returns:
 
-            **status [200]**
-            :class:`~async_v20.interface.response.Response`
-            (instrument= :class:`~async_v20.definitions.primitives.InstrumentName`,
-            granularity= :class:`~async_v20.definitions.primitives.CandlestickGranularity`,
-            candles= :class:`~async_v20.definitions.types.ArrayCandlestick`)
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (instrument= :class:`~async_v20.definitions.primitives.InstrumentName`,
+                granularity= :class:`~async_v20.definitions.primitives.CandlestickGranularity`,
+                candles= :class:`~async_v20.definitions.types.ArrayCandlestick`)
 
         """
         pass
