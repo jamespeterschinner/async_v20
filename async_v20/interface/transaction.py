@@ -37,6 +37,7 @@ class TransactionInterface(object):
                 A filter for restricting the types of Transactions to retrieve.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (from= :class:`~async_v20.definitions.primitives.DateTime`,
@@ -61,6 +62,7 @@ class TransactionInterface(object):
                 A Transaction ID
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (transaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -88,6 +90,7 @@ class TransactionInterface(object):
                 retrieve.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (transactions= :class:`~async_v20.definitions.types.ArrayTransaction`,
@@ -108,6 +111,7 @@ class TransactionInterface(object):
                 all Transactions newer than the TransactionID.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (transactions= :class:`~async_v20.definitions.types.ArrayTransaction`,
@@ -122,6 +126,7 @@ class TransactionInterface(object):
         request is made.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (transaction= :class:`~async_v20.definitions.types.Transaction`)

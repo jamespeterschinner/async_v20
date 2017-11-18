@@ -14,6 +14,7 @@ class AccountInterface(object):
         """Get a list of all Accounts authorized for the provided token.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (accounts= :class:`~async_v20.definitions.types.ArrayAccountProperties`)
@@ -29,6 +30,7 @@ class AccountInterface(object):
         provided.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (account= :class:`~async_v20.definitions.types.Account`,
@@ -42,6 +44,7 @@ class AccountInterface(object):
         Get a summary for a single Account that a client has access to.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (account= :class:`~async_v20.definitions.types.AccountSummary`,
@@ -64,6 +67,7 @@ class AccountInterface(object):
             list of instruments to query specifically.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (instruments= :class:`~async_v20.definitions.types.ArrayInstrument`,
@@ -85,6 +89,7 @@ class AccountInterface(object):
                 The string representation of a decimal number.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (clientConfigureTransaction= :class:`~async_v20.definitions.types.ClientConfigureTransaction`,
@@ -121,6 +126,7 @@ class AccountInterface(object):
                 ID of the Transaction to get Account changes since.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (changes= :class:`~async_v20.definitions.types.AccountChanges`,

@@ -24,6 +24,7 @@ class PricingInterface(object):
                 with a time later than this filter will be provided.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (prices= :class:`~async_v20.definitions.types.ArrayPrice`,
@@ -59,6 +60,7 @@ class PricingInterface(object):
                 when initially connecting to the stream.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (PRICE= :class:`~async_v20.definitions.types.Price`)

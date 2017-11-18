@@ -1,180 +1,44 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>OandaClient API &mdash; async_v20 2.1.0b0 documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-
-  
-  
-    
-
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="async_v20 2.1.0b0 documentation" href="index.html"/>
-        <link rel="next" title="The Response Object" href="response.html"/>
-        <link rel="prev" title="Traps for young players" href="traps.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>OandaClient API &#8212; async_v20 2.1.0b0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.1.0b0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Response Object" href="response.html" />
+    <link rel="prev" title="Traps for young players" href="traps.html" />
    
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
-
-          
-            <a href="index.html" class="icon icon-home"> async_v20
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                2.1.0b0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#account">Account</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#order">Order</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#position">Position</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pricing">Pricing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#trade">Trade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#transaction">Transaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="response.html">The Response Object</a></li>
-<li class="toctree-l1"><a class="reference internal" href="particularly_pertinent.html">Particularly Pertinent Programming Interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="primitives.html">Primitives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="annotations.html">Annotations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">async_v20</a>
-        
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>OandaClient API</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="oandaclient-api">
 <span id="api-docs"></span><h1>OandaClient API<a class="headerlink" href="#oandaclient-api" title="Permalink to this headline">¶</a></h1>
@@ -1598,19 +1462,22 @@ associated with MT4.</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p><strong>status [200]</strong>
 <a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(tradeClientExtensionsModifyTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyTransaction</span></code></a>,
+(tradeClientExtensionsModifyTransaction=
+<a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyTransaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
 <p><strong>status [400]</strong>
 <a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(tradeClientExtensionsModifyRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyRejectTransaction</span></code></a>,
+(tradeClientExtensionsModifyRejectTransaction=
+<a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
 errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
 <p><strong>status [401]</strong>
 <a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(tradeClientExtensionsModifyRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyRejectTransaction</span></code></a>,
+(tradeClientExtensionsModifyRejectTransaction=
+<a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction" title="async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TradeClientExtensionsModifyRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
@@ -1677,12 +1544,15 @@ relatedTransactionIDs= <code class="xref py py-class docutils literal"><span cla
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
 <p><strong>status [400]</strong>
 <a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(takeProfitOrderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelRejectTransaction" title="async_v20.definitions.types.OrderCancelRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelRejectTransaction</span></code></a>,
+(takeProfitOrderCancelRejectTransaction=
+<a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelRejectTransaction" title="async_v20.definitions.types.OrderCancelRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelRejectTransaction</span></code></a>,
 takeProfitOrderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitOrderRejectTransaction" title="async_v20.definitions.types.TakeProfitOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitOrderRejectTransaction</span></code></a>,
 stopLossOrderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelRejectTransaction" title="async_v20.definitions.types.OrderCancelRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelRejectTransaction</span></code></a>,
 stopLossOrderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossOrderRejectTransaction" title="async_v20.definitions.types.StopLossOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">StopLossOrderRejectTransaction</span></code></a>,
-trailingStopLossOrderCancelRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelRejectTransaction" title="async_v20.definitions.types.OrderCancelRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelRejectTransaction</span></code></a>,
-trailingStopLossOrderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossOrderRejectTransaction" title="async_v20.definitions.types.TrailingStopLossOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossOrderRejectTransaction</span></code></a>,
+trailingStopLossOrderCancelRejectTransaction=
+<a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelRejectTransaction" title="async_v20.definitions.types.OrderCancelRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelRejectTransaction</span></code></a>,
+trailingStopLossOrderRejectTransaction=
+<a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossOrderRejectTransaction" title="async_v20.definitions.types.TrailingStopLossOrderRejectTransaction"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossOrderRejectTransaction</span></code></a>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
@@ -1845,6 +1715,10 @@ information.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.UserSpecifier" title="async_v20.endpoints.annotations.UserSpecifier"><code class="xref py py-class docutils literal"><span class="pre">UserSpecifier</span></code></a>
 The User Specifier</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
+<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(userInfo= <code class="xref py py-class docutils literal"><span class="pre">UserInfo</span></code>)</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -1862,6 +1736,10 @@ authorized by a user to view their personal information.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>user_specifier</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.UserSpecifier" title="async_v20.endpoints.annotations.UserSpecifier"><code class="xref py py-class docutils literal"><span class="pre">UserSpecifier</span></code></a>
 The User Specifier</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
+<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(userInfo= <code class="xref py py-class docutils literal"><span class="pre">UserInfoExternal</span></code>)</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -1870,75 +1748,83 @@ The User Specifier</td>
 </div>
 
 
-           </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="response.html" class="btn btn-neutral float-right" title="The Response Object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="traps.html" class="btn btn-neutral" title="Traps for young players" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2017, James Peter Schinner.
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">async_v20</a></h1>
 
 
-  
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'2.1.0b0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
 
-  
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
 
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-   
 
-</body>
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#account">Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#order">Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#position">Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pricing">Pricing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trade">Trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction">Transaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="response.html">The Response Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="particularly_pertinent.html">Particularly Pertinent Programming Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitives.html">Primitives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotations.html">Annotations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="traps.html" title="previous chapter">Traps for young players</a></li>
+      <li>Next: <a href="response.html" title="next chapter">The Response Object</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, James Peter Schinner.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
 </html>

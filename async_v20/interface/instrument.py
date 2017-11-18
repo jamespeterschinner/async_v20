@@ -34,6 +34,7 @@ class InstrumentInterface(object):
         Fetch candlestick data for an instrument.
 
         Args:
+
             include_first_query: :class:`~async_v20.endpoints.annotations.IncludeFirstQuery`
             instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
                 Name of the Instrument
@@ -69,6 +70,7 @@ class InstrumentInterface(object):
                 alignment.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (instrument= :class:`~async_v20.definitions.primitives.InstrumentName`,

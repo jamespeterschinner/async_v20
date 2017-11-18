@@ -44,6 +44,7 @@ class OrderInterface(object):
                 or a class derived from OrderRequest
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -87,6 +88,7 @@ class OrderInterface(object):
         create an OrderRequest
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -147,6 +149,7 @@ class OrderInterface(object):
                 Orders in the Account are returned
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (orders= :class:`~async_v20.definitions.types.ArrayOrder`,
@@ -161,6 +164,7 @@ class OrderInterface(object):
         List all pending Orders
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (orders= :class:`~async_v20.definitions.types.ArrayOrder`,
@@ -180,6 +184,7 @@ class OrderInterface(object):
                 The Order Specifier
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (order= :class:`~async_v20.definitions.types.Order`,
@@ -204,6 +209,7 @@ class OrderInterface(object):
                 Specification of the replacing Order
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
@@ -244,6 +250,7 @@ class OrderInterface(object):
                 The Order Specifier
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
@@ -285,6 +292,7 @@ class OrderInterface(object):
                 if your account is associated with MT4.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (orderClientExtensionsModifyTransaction= :class:`~async_v20.definitions.types.OrderClientExtensionsModifyTransaction`,
@@ -321,6 +329,7 @@ class OrderInterface(object):
         Create a Market Order Request
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -369,6 +378,7 @@ class OrderInterface(object):
         Create a Limit Order
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -420,6 +430,7 @@ class OrderInterface(object):
                 The arguments to create a LimitOrderRequest
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
@@ -457,6 +468,7 @@ class OrderInterface(object):
         Create a Stop Order
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -503,6 +515,7 @@ class OrderInterface(object):
                 The arguments to create a StopOrderRequest
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
@@ -548,6 +561,7 @@ class OrderInterface(object):
         Create a market if touched order
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -600,6 +614,7 @@ class OrderInterface(object):
                 The arguments to create a MarketIfTouchedOrderRequest
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
@@ -640,6 +655,7 @@ class OrderInterface(object):
         Create a take profit order
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -682,11 +698,13 @@ class OrderInterface(object):
         Replace a pending take profit order
 
         Args:
+
             order_specifier: :class:`~async_v20.definitions.primitives.OrderSpecifier`
                 The ID of the Take Profit Order to replace
             order: :class:`~async_v20.definitions.types.TakeProfitOrderRequest`
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
@@ -725,6 +743,7 @@ class OrderInterface(object):
         Create a Stop Loss Order
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -770,6 +789,7 @@ class OrderInterface(object):
             order: :class:`~async_v20.definitions.types.StopLossOrderRequest`
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
@@ -810,6 +830,7 @@ class OrderInterface(object):
         Create a Trailing Stop Loss Order
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCreateTransaction= :class:`~async_v20.definitions.types.Transaction`,
@@ -857,6 +878,7 @@ class OrderInterface(object):
             order: :class:`~async_v20.definitions.types.TrailingStopLossOrderRequest`
 
         Returns:
+
             **status [201]**
             :class:`~async_v20.interface.response.Response`
             (orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,

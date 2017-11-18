@@ -17,6 +17,13 @@ class UserInterface(object):
 
             user_specifier: :class:`~async_v20.endpoints.annotations.UserSpecifier`
                 The User Specifier
+
+        Returns:
+
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (userInfo= :class:`~async_v20.definitions.types.UserInfo`)
+
         """
         pass
 
@@ -31,5 +38,12 @@ class UserInterface(object):
 
             user_specifier: :class:`~async_v20.endpoints.annotations.UserSpecifier`
                 The User Specifier
+
+        Returns:
+
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (userInfo= :class:`~async_v20.definitions.types.UserInfoExternal`)
+
         """
         pass

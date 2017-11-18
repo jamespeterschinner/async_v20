@@ -18,6 +18,7 @@ class PositionInterface(object):
         Account.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (positions= :class:`~async_v20.definitions.types.ArrayPosition`,
@@ -33,6 +34,7 @@ class PositionInterface(object):
         in an Account that currently has a Trade opened for it.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (positions= :class:`~async_v20.definitions.types.ArrayPosition`,
@@ -53,6 +55,7 @@ class PositionInterface(object):
                 Name of the Instrument
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (position= :class:`~async_v20.definitions.types.Position`,
@@ -95,6 +98,7 @@ class PositionInterface(object):
                 the short position.
 
         Returns:
+
             **status [200]**
             :class:`~async_v20.interface.response.Response`
             (longOrderCreateTransaction= :class:`~async_v20.definitions.types.MarketOrderTransaction`,
