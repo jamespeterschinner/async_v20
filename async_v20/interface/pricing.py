@@ -18,16 +18,16 @@ class PricingInterface(object):
         Args:
 
             instruments: :class:`~async_v20.endpoints.annotations.Instruments`
-                List of Instruments to get pricing for.
+            list of Instruments to get pricing for.
             since: :class:`~async_v20.definitions.primitives.DateTime`
                 Date/Time filter to apply to the returned prices. Only prices
                 with a time later than this filter will be provided.
 
         Returns:
-            status [200]
-                :class:`~async_v20.interface.response.Response`
-                ({'prices': :class:`~async_v20.definitions.types.ArrayPrice`,
-                'time': :class:`~async_v20.definitions.primitives.DateTime`})
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (prices= :class:`~async_v20.definitions.types.ArrayPrice`,
+            time= :class:`~async_v20.definitions.primitives.DateTime`)
 
         """
         pass
@@ -53,20 +53,20 @@ class PricingInterface(object):
         Args:
 
             instruments: :class:`~async_v20.endpoints.annotations.Instruments`
-                List of Instruments to stream Prices for.
+            list of Instruments to stream Prices for.
             snapshot: :class:`~async_v20.endpoints.annotations.Snapshot`
                 Flag that enables/disables the sending of a pricing snapshot
                 when initially connecting to the stream.
 
         Returns:
-            status [200]
-                :class:`~async_v20.interface.response.Response`
-                ({'PRICE': :class:`~async_v20.definitions.types.Price`})
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (PRICE= :class:`~async_v20.definitions.types.Price`)
 
                 **OR**
 
-                :class:`~async_v20.interface.response.Response`
-                ({'HEARTBEAT': :class:`~async_v20.definitions.types.PricingHeartbeat`})
+            :class:`~async_v20.interface.response.Response`
+            (HEARTBEAT= :class:`~async_v20.definitions.types.PricingHeartbeat`)
 
 
         """

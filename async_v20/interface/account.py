@@ -14,9 +14,9 @@ class AccountInterface(object):
         """Get a list of all Accounts authorized for the provided token.
 
         Returns:
-            status [200]
-                :class:`~async_v20.interface.response.Response`
-                ({'accounts': :class:`~async_v20.definitions.types.ArrayAccountProperties`})
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (accounts= :class:`~async_v20.definitions.types.ArrayAccountProperties`)
 
         """
         pass
@@ -29,10 +29,10 @@ class AccountInterface(object):
         provided.
 
         Returns:
-            status [200]
-                :class:`~async_v20.interface.response.Response`
-                ({'account': :class:`~async_v20.definitions.types.Account`,
-                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (account= :class:`~async_v20.definitions.types.Account`,
+            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
         """
         pass
 
@@ -42,10 +42,10 @@ class AccountInterface(object):
         Get a summary for a single Account that a client has access to.
 
         Returns:
-            status [200]
-                :class:`~async_v20.interface.response.Response`
-                ({'account': :class:`~async_v20.definitions.types.AccountSummary`,
-                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (account= :class:`~async_v20.definitions.types.AccountSummary`,
+            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
 
         """
         pass
@@ -61,13 +61,13 @@ class AccountInterface(object):
         Args:
 
             instruments: :class:`~async_v20.endpoints.annotations.Instruments`
-                List of instruments to query specifically.
+            list of instruments to query specifically.
 
         Returns:
-            status [200]
-                :class:`~async_v20.interface.response.Response`
-                ({'instruments': :class:`~async_v20.definitions.types.ArrayInstrument`,
-                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (instruments= :class:`~async_v20.definitions.types.ArrayInstrument`,
+            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
 
         """
         pass
@@ -85,22 +85,24 @@ class AccountInterface(object):
                 The string representation of a decimal number.
 
         Returns:
-            status [200]
-                :class:`~async_v20.interface.response.Response`
-                ({'clientConfigureTransaction': :class:`~async_v20.definitions.types.ClientConfigureTransaction`,
-                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
-            status [400]
-                :class:`~async_v20.interface.response.Response`
-                ({'clientConfigureRejectTransaction': :class:`~async_v20.definitions.types.ClientConfigureRejectTransaction`,
-                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
-                'errorCode': :class:`~builtins.str`,
-                'errorMessage': :class:`~builtins.str`})
-            status [403]
-                :class:`~async_v20.interface.response.Response`
-                ({'clientConfigureRejectTransaction': :class:`~async_v20.definitions.types.ClientConfigureRejectTransaction`,
-                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`,
-                'errorCode': :class:`~builtins.str`,
-                'errorMessage': :class:`~builtins.str`})
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (clientConfigureTransaction= :class:`~async_v20.definitions.types.ClientConfigureTransaction`,
+            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+
+            **status [400]**
+            :class:`~async_v20.interface.response.Response`
+            (clientConfigureRejectTransaction= :class:`~async_v20.definitions.types.ClientConfigureRejectTransaction`,
+            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
+            errorCode= :class:`~builtins.str`,
+            errorMessage= :class:`~builtins.str`)
+
+            **status [403]**
+            :class:`~async_v20.interface.response.Response`
+            (clientConfigureRejectTransaction= :class:`~async_v20.definitions.types.ClientConfigureRejectTransaction`,
+            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
+            errorCode= :class:`~builtins.str`,
+            errorMessage= :class:`~builtins.str`)
 
         """
         pass
@@ -119,10 +121,10 @@ class AccountInterface(object):
                 ID of the Transaction to get Account changes since.
 
         Returns:
-            status [200]
-                :class:`~async_v20.interface.response.Response`
-                ({'changes': :class:`~async_v20.definitions.types.AccountChanges`,
-                'state': :class:`~async_v20.definitions.types.AccountChangesState`,
-                'lastTransactionID': :class:`~async_v20.definitions.primitives.TransactionID`})
+            **status [200]**
+            :class:`~async_v20.interface.response.Response`
+            (changes= :class:`~async_v20.definitions.types.AccountChanges`,
+            state= :class:`~async_v20.definitions.types.AccountChangesState`,
+            lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
         """
         pass

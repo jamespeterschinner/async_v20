@@ -1,44 +1,180 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>OandaClient API &#8212; async_v20 2.1.0b0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '2.1.0b0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The Response Object" href="response.html" />
-    <link rel="prev" title="Traps for young players" href="traps.html" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OandaClient API &mdash; async_v20 2.1.0b0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="async_v20 2.1.0b0 documentation" href="index.html"/>
+        <link rel="next" title="The Response Object" href="response.html"/>
+        <link rel="prev" title="Traps for young players" href="traps.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <div class="wy-grid-for-nav">
 
-  </head>
-  <body>
-  
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home"> async_v20
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0b0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#account">Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#order">Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#position">Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pricing">Pricing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trade">Trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transaction">Transaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="response.html">The Response Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="particularly_pertinent.html">Particularly Pertinent Programming Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitives.html">Primitives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotations.html">Annotations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">async_v20</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>OandaClient API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="oandaclient-api">
 <span id="api-docs"></span><h1>OandaClient API<a class="headerlink" href="#oandaclient-api" title="Permalink to this headline">¶</a></h1>
@@ -105,12 +241,9 @@ the v20 REST server</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
-<dt>status [200]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-({‘accounts’: <code class="xref py py-class docutils literal"><span class="pre">ArrayAccountProperties</span></code>})</dd>
-</dl>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>status [200]</strong>
+<a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(accounts= <code class="xref py py-class docutils literal"><span class="pre">ArrayAccountProperties</span></code>)</td>
 </tr>
 </tbody>
 </table>
@@ -269,19 +402,26 @@ ID of the Transaction to get Account changes since.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>include_first_query</strong> – </li>
-<li><strong>instrument</strong> – Name of the Instrument</li>
-<li><strong>price</strong> – The Price component(s) to get candlestick data for. Can contain
+<li><strong>include_first_query</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.IncludeFirstQuery" title="async_v20.endpoints.annotations.IncludeFirstQuery"><code class="xref py py-class docutils literal"><span class="pre">IncludeFirstQuery</span></code></a></li>
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+Name of the Instrument</li>
+<li><strong>price</strong> – <code class="xref py py-class docutils literal"><span class="pre">PriceComponent</span></code>
+The Price component(s) to get candlestick data for. Can contain
 any combination of the characters “M” (midpoint candles) “B”
 (bid candles) and “A” (ask candles).</li>
-<li><strong>granularity</strong> – The granularity of the candlesticks to fetch</li>
-<li><strong>count</strong> – The number of candlesticks to return in the reponse. Count
+<li><strong>granularity</strong> – <code class="xref py py-class docutils literal"><span class="pre">CandlestickGranularity</span></code>
+The granularity of the candlesticks to fetch</li>
+<li><strong>count</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Count" title="async_v20.endpoints.annotations.Count"><code class="xref py py-class docutils literal"><span class="pre">Count</span></code></a>
+The number of candlesticks to return in the reponse. Count
 should not be specified if both the start and end parameters
 are provided, as the time range combined with the graularity
 will determine the number of candlesticks to return.</li>
-<li><strong>from_time</strong> – The start of the time range to fetch candlesticks for.</li>
-<li><strong>to_time</strong> – The end of the time range to fetch candlesticks for.</li>
-<li><strong>smooth</strong> – A flag that controls whether the candlestick is “smoothed” or
+<li><strong>from_time</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.FromTime" title="async_v20.endpoints.annotations.FromTime"><code class="xref py py-class docutils literal"><span class="pre">FromTime</span></code></a>
+The start of the time range to fetch candlesticks for.</li>
+<li><strong>to_time</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.ToTime" title="async_v20.endpoints.annotations.ToTime"><code class="xref py py-class docutils literal"><span class="pre">ToTime</span></code></a>
+The end of the time range to fetch candlesticks for.</li>
+<li><strong>smooth</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Smooth" title="async_v20.endpoints.annotations.Smooth"><code class="xref py py-class docutils literal"><span class="pre">Smooth</span></code></a>
+A flag that controls whether the candlestick is “smoothed” or
 not.  A smoothed candlestick uses the previous candle’s close
 price as its open price, while an unsmoothed candlestick uses
 the first price from its time range as its open price.</li>
@@ -1886,83 +2026,75 @@ The User Specifier</td>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="response.html" class="btn btn-neutral float-right" title="The Response Object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="traps.html" class="btn btn-neutral" title="Traps for young players" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, James Peter Schinner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">async_v20</a></h1>
+
+    </section>
+
+  </div>
+  
 
 
+  
 
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.1.0b0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
 
+  
 
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
 
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
 
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#account">Account</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#instrument">Instrument</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#order">Order</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#position">Position</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pricing">Pricing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#trade">Trade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#transaction">Transaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="response.html">The Response Object</a></li>
-<li class="toctree-l1"><a class="reference internal" href="particularly_pertinent.html">Particularly Pertinent Programming Interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="primitives.html">Primitives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="annotations.html">Annotations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="traps.html" title="previous chapter">Traps for young players</a></li>
-      <li>Next: <a href="response.html" title="next chapter">The Response Object</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, James Peter Schinner.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/api.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>
