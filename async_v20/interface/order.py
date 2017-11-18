@@ -60,7 +60,7 @@ class OrderInterface(object):
                      trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                      trade_client_extensions: ClientExtensions = ...):
         """
-        Shortcut to create an OrderRequest in an Account
+        create an OrderRequest
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting
@@ -109,10 +109,7 @@ class OrderInterface(object):
     @endpoint(GETPendingOrders)
     def list_pending_orders(self):
         """
-        List all pending Orders in an Account
-
-        Args:
-
+        List all pending Orders
 
         Returns:
             async_v20.interface.parser.Response containing the results from submitting the
@@ -123,7 +120,7 @@ class OrderInterface(object):
     @endpoint(GETOrderSpecifier)
     def get_order(self, order_specifier: OrderSpecifier = ...):
         """
-        Get details for a single Order in an Account
+        Get details for a single Order
 
         Args:
 
@@ -141,7 +138,7 @@ class OrderInterface(object):
                       order_specifier: OrderSpecifier = ...,
                       order_request: OrderRequest = ...):
         """
-        Replace an Order in an Account by simultaneously cancelling it and
+        Replace an Order  by simultaneously cancelling it and
         creating a replacement Order
 
         Args:
@@ -160,7 +157,7 @@ class OrderInterface(object):
     @endpoint(PUTOrderSpecifierCancel)
     def cancel_order(self, order_specifier: OrderSpecifier = ...):
         """
-        Cancel a pending Order in an Account
+        Cancel a pending Order
 
         Args:
 
@@ -179,7 +176,7 @@ class OrderInterface(object):
                               client_extensions: ClientExtensions = ...,
                               trade_client_extensions: TradeClientExtensions = ...):
         """
-        Update the Client Extensions for an Order in an Account. Do not set,
+        Update the Client Extensions for an Order . Do not set,
         modify, or delete clientExtensions if your account is associated with
         MT4.
 
@@ -210,7 +207,7 @@ class OrderInterface(object):
                      trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                      trade_client_extensions: ClientExtensions = ...):
         """
-        Shortcut to create a Market Order in an Account
+        Create a Market Order
         MarketOrderRequest
         Args:
             kwargs : The arguments to create a MarketOrderRequest
@@ -237,7 +234,7 @@ class OrderInterface(object):
                     trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                     trade_client_extensions: ClientExtensions = ...):
         """
-        Shortcut to create a Limit Order in an Account
+        Create a Limit Order
 
         Args:
             kwargs : The arguments to create a LimitOrderRequest
@@ -262,7 +259,7 @@ class OrderInterface(object):
                             order_specifier: OrderSpecifier,
                             order: LimitOrderRequest):
         """
-        Shortcut to replace a pending Limit Order in an Account
+        Replace a pending Limit Order
 
         Args:
             order_specifier : The ID of the Limit Order to replace
@@ -279,7 +276,7 @@ class OrderInterface(object):
                    client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                    trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         """
-        Shortcut to create a Stop Order in an Account
+        Create a Stop Order
 
         Args:
             kwargs : The arguments to create a StopOrderRequest
@@ -299,7 +296,7 @@ class OrderInterface(object):
                            order_specifier: OrderSpecifier,
                            order: StopOrderRequest):
         """
-        Shortcut to replace a pending Stop Order in an Account
+        Replace a pending Stop Order
 
         Args:
             order_specifier : The ID of the Stop Order to replace
@@ -323,7 +320,7 @@ class OrderInterface(object):
                                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                                 trade_client_extensions: ClientExtensions = ...):
         """
-        Shortcut to create a MarketIfTouched Order in an Account
+        Create a MarketIfTouched Order
 
         Args:
             kwargs : The arguments to create a MarketIfTouchedOrderRequest
@@ -349,7 +346,7 @@ class OrderInterface(object):
                                         order_specifier: OrderSpecifier,
                                         order: MarketIfTouchedOrderRequest):
         """
-        Shortcut to replace a pending MarketIfTouched Order in an Account
+        Replace a pending MarketIfTouched Order
 
         Args:
             order_specifier : The ID of the MarketIfTouched Order to replace
@@ -368,7 +365,7 @@ class OrderInterface(object):
                           trigger_condition: OrderTriggerCondition = 'DEFAULT',
                           client_extensions: ClientExtensions = ...):
         """
-        Shortcut to create a Take Profit Order in an Account
+        Create a Take Profit Order
 
         Args:
             kwargs : The arguments to create a TakeProfitOrderRequest
@@ -389,7 +386,7 @@ class OrderInterface(object):
                                   order_specifier: OrderSpecifier,
                                   order: TakeProfitOrderRequest):
         """
-        Shortcut to replace a pending Take Profit Order in an Account
+        Replace a pending Take Profit Order
 
         Args:
             order_specifier : The ID of the Take Profit Order to replace
@@ -407,7 +404,7 @@ class OrderInterface(object):
                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
                         client_extensions: ClientExtensions = ...):
         """
-        Shortcut to create a Stop Loss Order in an Account
+        Create a Stop Loss Order
 
         Args:
             kwargs : The arguments to create a StopLossOrderRequest
@@ -426,7 +423,7 @@ class OrderInterface(object):
     def stop_loss_replace_order(self, order_specifier: OrderSpecifier,
                                 order: StopLossOrderRequest):
         """
-        Shortcut to replace a pending Stop Loss Order in an Account
+        Replace a pending Stop Loss Order
 
         Args:
             order_specifier : The ID of the Stop Loss Order to replace
@@ -445,7 +442,7 @@ class OrderInterface(object):
                                  trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                  client_extensions: ClientExtensions = ...):
         """
-        Shortcut to create a Trailing Stop Loss Order in an Account
+        Create a Trailing Stop Loss Order
 
         Args:
             kwargs : The arguments to create a TrailingStopLossOrderRequest
@@ -466,7 +463,7 @@ class OrderInterface(object):
     def trailing_stop_loss_replace_order(self, order_specifier: OrderSpecifier,
                                          order: TrailingStopLossOrderRequest):
         """
-        Shortcut to replace a pending Trailing Stop Loss Order in an Account
+        Replace a pending Trailing Stop Loss Order
 
         Args:
             order_specifier : The ID of the Take Profit Order to replace
