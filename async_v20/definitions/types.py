@@ -266,13 +266,13 @@ class CandlestickData(Model):
     """The price data (open, high, low, close) for the Candlestick representation.
 
     Attributes:
-        o:
+        o: :class:`~async_v20.definitions.primitives.PriceValue`
             The first (open) price in the time-range represented by the candlestick.
-        h:
+        h: :class:`~async_v20.definitions.primitives.PriceValue`
             The highest price in the time-range represented by the candlestick.
-        l:
+        l: :class:`~async_v20.definitions.primitives.PriceValue`
             The lowest price in the time-range represented by the candlestick.
-        c:
+        c: :class:`~async_v20.definitions.primitives.PriceValue`
             The last (closing) price in the time-range represented by the candlestick.
 
     """
