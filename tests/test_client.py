@@ -252,8 +252,9 @@ async def test_close_all_trades_error_second_list_trades_request(client, server)
             response = await client.close_all_trades()
 
 @pytest.mark.asyncio
-async def test_initialize_timeout_resets_initialization(client):
+async def test_initialize_timeout_resets_initialization(client, server):
     with pytest.raises(TimeoutError):
+        server_module.sleep_time = 10
         client.poll_timeout = 0.1
         async with client as client:
             assert client.initializing == False
