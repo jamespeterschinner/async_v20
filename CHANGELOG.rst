@@ -125,3 +125,12 @@
       - Changes close_trades to close_trade (Method can only close one trade)
       - Response parser checks HTTP status first
       - Added tests
+
+2.2.0b0
+=======
+
+   Bug fixes:
+      - Initialization doesn't freeze after failure
+
+   Improvements:
+      - Order methods exposes all arguments

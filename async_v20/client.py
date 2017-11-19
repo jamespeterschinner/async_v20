@@ -13,6 +13,7 @@ from .definitions.types import ArrayTransaction
 from .endpoints.annotations import Authorization, SinceTransactionID, LastTransactionID
 from .interface import *
 from .interface.account import AccountInterface
+from aiohttp.client_exceptions import ClientConnectionError
 
 
 async def sleep(s=0.0):
@@ -281,7 +282,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 self.initialized = False
                 raise TimeoutError(f'Initialization step {self.expected_step} '
                                    f'took longer than {self.poll_timeout} seconds')
-            except ConnectionError as e:
+            except (ConnectionError, ClientConnectionError) as e:
                 self.initializing = False
                 self.initialized = False
                 raise ConnectionError(e)
