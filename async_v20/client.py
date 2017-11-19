@@ -222,59 +222,69 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 await sleep(self.initialization_sleep)
 
         else:  # If it gets this far. An initialization if required.
+            try:
+                self.initializing = True  # immediately set initializing to make sure
+                # Upcoming requests wait for this initialization to complete.
 
-            self.initializing = True  # immediately set initializing to make sure
-            # Upcoming requests wait for this initialization to complete.
+                # Create http session this client will use to sent all requests
+                conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
 
-            # Create http session this client will use to sent all requests
-            conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
+                self.session = aiohttp.ClientSession(
+                    json_serialize=json.dumps,
+                    headers=self.headers,
+                    connector=conn,
+                    read_timeout=self.poll_timeout
+                )
 
-            self.session = aiohttp.ClientSession(
-                json_serialize=json.dumps,
-                headers=self.headers,
-                connector=conn,
-                read_timeout=self.poll_timeout
-            )
+                # Get the first account listed in in accounts.
+                # If another is desired the account must be configured
+                # manually when instantiating the client
 
-            # Get the first account listed in in accounts.
-            # If another is desired the account must be configured
-            # manually when instantiating the client
+                if self.account_id:  # Allow manual assignment of AccountID
+                    self.default_parameters.update({AccountID: self.account_id})
 
-            if self.account_id:  # Allow manual assignment of AccountID
-                self.default_parameters.update({AccountID: self.account_id})
+                else:  # Get the corresponding AccountID for the provided token
 
-            else:  # Get the corresponding AccountID for the provided token
+                    self.expected_step = 1  # Setting this prevents the request from
+                    # waiting for initialization to complete.
 
-                self.expected_step = 1  # Setting this prevents the request from
-                # waiting for initialization to complete.
+                    response = await self.list_accounts()
+                    if response:  # Checks is the response status was the expected status as
+                        # defined by OANDA spec.
+                        self.default_parameters.update({AccountID: response['accounts'][0].id})
+                    else:
+                        self.initializing = False
+                        raise ConnectionError(f'Server did not return AccountID during '
+                                              f'initialization. {response} {response.dict()}')
 
-                response = await self.list_accounts()
-                if response:  # Checks is the response status was the expected status as
-                    # defined by OANDA spec.
-                    self.default_parameters.update({AccountID: response['accounts'][0].id})
+                # Get Account snapshot and last transaction id
+                # last transaction is automatically updated when the
+                # response is parsed
+
+                self.expected_step = 2
+                response = await self.get_account_details()
+                if response:
+                    self._account = response['account']
                 else:
                     self.initializing = False
-                    raise ConnectionError(f'Server did not return AccountID during '
+                    raise ConnectionError(f'Server did not return Account Details during '
                                           f'initialization. {response} {response.dict()}')
 
-            # Get Account snapshot and last transaction id
-            # last transaction is automatically updated when the
-            # response is parsed
+                # On initialization the SinceTransactionID needs updated to reflect LastTransactionID
+                self.default_parameters.update({SinceTransactionID: self.default_parameters[LastTransactionID]})
 
-            self.expected_step = 2
-            response = await self.get_account_details()
-            if response:
-                self._account = response['account']
-            else:
                 self.initializing = False
-                raise ConnectionError(f'Server did not return Account Details during '
-                                      f'initialization. {response} {response.dict()}')
+                self.initialized = True
 
-            # On initialization the SinceTransactionID needs updated to reflect LastTransactionID
-            self.default_parameters.update({SinceTransactionID: self.default_parameters[LastTransactionID]})
+            except TimeoutError:
+                self.initializing = False
+                self.initialized = False
+                raise TimeoutError(f'Initialization step {self.expected_step} '
+                                   f'took longer than {self.poll_timeout} seconds')
+            except ConnectionError as e:
+                self.initializing = False
+                self.initialized = False
+                raise ConnectionError(e)
 
-            self.initializing = False
-            self.initialized = True
-
-        # Always return True when initialization has complete
+            # Always return True when initialization has complete
         return True

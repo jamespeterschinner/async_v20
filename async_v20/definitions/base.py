@@ -301,17 +301,16 @@ class Array(tuple):
 
 def create_attribute(typ, data):
     try:
-        if isinstance(data, Specifier):
+        if isinstance(data, dict):
+            result = typ(**data)
+        elif isinstance(data, Specifier):
             if not issubclass(typ, Specifier):
                 raise TypeError(f'{data} must be a {Specifier} is {type(data)}')
             result = typ(data)
-
         elif isinstance(data, (Model, Array, Primitive)):
             if not issubclass(type(data), typ):
                 raise TypeError(f'{data} must be of type {typ} is {type(data)}')
             result = data
-        elif isinstance(data, dict):
-            result = typ(**data)
         elif isinstance(data, (tuple, list)):
             result = typ(*data)
         else:

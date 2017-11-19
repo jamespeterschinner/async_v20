@@ -239,6 +239,7 @@ async def test_close_all_trades_error_first_list_trades_request(client, server):
         with pytest.raises(ConnectionError):
             response = await client.close_all_trades()
 
+
 @pytest.mark.asyncio
 async def test_close_all_trades_error_second_list_trades_request(client, server):
     # status 200 for list_open_trades request
@@ -250,3 +251,18 @@ async def test_close_all_trades_error_second_list_trades_request(client, server)
         with pytest.raises(ConnectionError):
             response = await client.close_all_trades()
 
+@pytest.mark.asyncio
+async def test_initialize_timeout_resets_initialization(client):
+    with pytest.raises(TimeoutError):
+        client.poll_timeout = 0.1
+        async with client as client:
+            assert client.initializing == False
+            assert client.initialized == False
+
+@pytest.mark.asyncio
+async def test_initialize_connection_error_resets_initialization(client, server):
+    with pytest.raises(ConnectionError):
+        server_module.status = 400
+        async with client as client:
+            assert client.initializing == False
+            assert client.initialized == False
