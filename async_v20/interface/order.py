@@ -116,13 +116,14 @@ class OrderInterface(object):
                 errorMessage= :class:`~builtins.str`)
         """
         return self.post_order(
-            order_request=OrderRequest(instrument=instrument, units=units, type=type, trade_id=trade_id, price=price,
-                                       client_trade_id=client_trade_id, time_in_force=time_in_force, gtd_time=gtd_time,
-                                       trigger_condition=trigger_condition, client_extensions=client_extensions,
-                                       distance=distance, price_bound=price_bound, position_fill=position_fill,
-                                       take_profit_on_fill=take_profit_on_fill, stop_loss_on_fill=stop_loss_on_fill,
-                                       trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
-                                       trade_client_extensions=trade_client_extensions))
+            order_request=OrderRequest(
+                instrument=instrument, units=units, type=type, trade_id=trade_id, price=price,
+                client_trade_id=client_trade_id, time_in_force=time_in_force, gtd_time=gtd_time,
+                trigger_condition=trigger_condition, client_extensions=client_extensions,
+                distance=distance, price_bound=price_bound, position_fill=position_fill,
+                take_profit_on_fill=take_profit_on_fill, stop_loss_on_fill=stop_loss_on_fill,
+                trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+                trade_client_extensions=trade_client_extensions))
 
     @endpoint(GETOrders)
     def list_orders(self,
@@ -295,13 +296,15 @@ class OrderInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (orderClientExtensionsModifyTransaction= :class:`~async_v20.definitions.types.OrderClientExtensionsModifyTransaction`,
+                (orderClientExtensionsModifyTransaction=
+                :class:`~async_v20.definitions.types.OrderClientExtensionsModifyTransaction`,
                 lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
                 relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
-                (orderClientExtensionsModifyRejectTransaction= :class:`~async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction`,
+                (orderClientExtensionsModifyRejectTransaction=
+                :class:`~async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction`,
                 lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
                 relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
                 errorCode= :class:`~builtins.str`,
@@ -309,7 +312,8 @@ class OrderInterface(object):
 
             status [401]
                 :class:`~async_v20.interface.response.Response`
-                (orderClientExtensionsModifyRejectTransaction= :class:`~async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction`,
+                (orderClientExtensionsModifyRejectTransaction=
+                :class:`~async_v20.definitions.types.OrderClientExtensionsModifyRejectTransaction`,
                 lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
                 relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
                 errorCode= :class:`~builtins.str`,
@@ -405,21 +409,22 @@ class OrderInterface(object):
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """
-        return self.post_order(order_request=LimitOrderRequest(instrument=instrument, units=units, price=price,
-                                                               time_in_force=time_in_force, gtd_time=gtd_time,
-                                                               position_fill=position_fill,
-                                                               trigger_condition=trigger_condition,
-                                                               client_extensions=client_extensions,
-                                                               take_profit_on_fill=take_profit_on_fill,
-                                                               stop_loss_on_fill=stop_loss_on_fill,
-                                                               trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
-                                                               trade_client_extensions=trade_client_extensions
-                                                               ))
+        return self.post_order(order_request=LimitOrderRequest(
+            instrument=instrument, units=units, price=price,
+            time_in_force=time_in_force, gtd_time=gtd_time,
+            position_fill=position_fill,
+            trigger_condition=trigger_condition,
+            client_extensions=client_extensions,
+            take_profit_on_fill=take_profit_on_fill,
+            stop_loss_on_fill=stop_loss_on_fill,
+            trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+            trade_client_extensions=trade_client_extensions
+        ))
 
     @endpoint(PUTOrderSpecifier)
     def limit_replace_order(self,
                             order_specifier: OrderSpecifier,
-                            order: LimitOrderRequest):
+                            order_request: LimitOrderRequest):
         """
         Replace a pending Limit Order
 
@@ -496,15 +501,23 @@ class OrderInterface(object):
                 errorMessage= :class:`~builtins.str`)
         """
         return self.post_order(
-            order_request=StopLossOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
-                                               time_in_force=time_in_force, gtd_time=gtd_time,
-                                               trigger_condition=trigger_condition, client_extensions=client_extensions
-                                               ))
+            order_request=StopLossOrderRequest(
+                trade_id=trade_id, price=price, client_trade_id=client_trade_id,
+                time_in_force=time_in_force, gtd_time=gtd_time,
+                trigger_condition=trigger_condition, client_extensions=client_extensions
+            ))
 
-    @endpoint(PUTOrderSpecifier)
+    @shortcut
     def stop_replace_order(self,
                            order_specifier: OrderSpecifier,
-                           order: StopOrderRequest):
+                           instrument: InstrumentName, units: Unit, price: PriceValue,
+                           price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                           position_fill: OrderPositionFill = 'DEFAULT',
+                           trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                           client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                           stop_loss_on_fill: StopLossDetails = ...,
+                           trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                           trade_client_extensions: ClientExtensions = ...):
         """
         Replace a pending Stop Order
 
@@ -544,7 +557,18 @@ class OrderInterface(object):
                 errorMessage= :class:`~builtins.str`)
 
         """
-        pass
+        return self.replace_order(order_specifier=order_specifier,
+                           order_request=StopOrderRequest(
+                               instrument=instrument, units=units, price=price,
+                               price_bound=price_bound, time_in_force=time_in_force,
+                               gtd_time=gtd_time, position_fill=position_fill,
+                               trigger_condition=trigger_condition,
+                               client_extensions=client_extensions,
+                               take_profit_on_fill=take_profit_on_fill,
+                               stop_loss_on_fill=stop_loss_on_fill,
+                               trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+                               trade_client_extensions=trade_client_extensions
+                           ))
 
     @shortcut
     def market_if_touched_order(self, instrument: InstrumentName, units: Unit, price: PriceValue,
@@ -589,21 +613,32 @@ class OrderInterface(object):
                 errorMessage= :class:`~builtins.str`)
         """
         return self.post_order(
-            order_request=MarketIfTouchedOrderRequest(instrument=instrument, units=units, price=price,
-                                                      price_bound=price_bound, time_in_force=time_in_force,
-                                                      gtd_time=gtd_time, position_fill=position_fill,
-                                                      trigger_condition=trigger_condition,
-                                                      client_extensions=client_extensions,
-                                                      take_profit_on_fill=take_profit_on_fill,
-                                                      stop_loss_on_fill=stop_loss_on_fill,
-                                                      trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
-                                                      trade_client_extensions=trade_client_extensions
-                                                      ))
+            order_request=MarketIfTouchedOrderRequest(
+                instrument=instrument, units=units, price=price,
+                price_bound=price_bound, time_in_force=time_in_force,
+                gtd_time=gtd_time, position_fill=position_fill,
+                trigger_condition=trigger_condition,
+                client_extensions=client_extensions,
+                take_profit_on_fill=take_profit_on_fill,
+                stop_loss_on_fill=stop_loss_on_fill,
+                trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+                trade_client_extensions=trade_client_extensions
+            ))
 
-    @endpoint(PUTOrderSpecifier)
+    @shortcut
     def market_if_touched_replace_order(self,
                                         order_specifier: OrderSpecifier,
-                                        order: MarketIfTouchedOrderRequest):
+                                        instrument: InstrumentName, units: Unit, price: PriceValue,
+                                        price_bound: PriceValue = ...,
+                                        time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                                        position_fill: OrderPositionFill = 'DEFAULT',
+                                        trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                                        client_extensions: ClientExtensions = ...,
+                                        take_profit_on_fill: TakeProfitDetails = ...,
+                                        stop_loss_on_fill: StopLossDetails = ...,
+                                        trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                                        trade_client_extensions: ClientExtensions = ...
+                                        ):
         """
         Replace a pending market if touched order
 
@@ -643,7 +678,20 @@ class OrderInterface(object):
                 errorMessage= :class:`~builtins.str`)
 
         """
-        pass
+        return self.replace_order(order_specifier=order_specifier,
+                                  order_request=MarketIfTouchedOrderRequest(
+                                      instrument=instrument, units=units,
+                                      price=price, price_bound=price_bound,
+                                      time_in_force=time_in_force,
+                                      gtd_time=gtd_time,
+                                      position_fill=position_fill,
+                                      trigger_condition=trigger_condition,
+                                      client_extensions=client_extensions,
+                                      take_profit_on_fill=take_profit_on_fill,
+                                      stop_loss_on_fill=stop_loss_on_fill,
+                                      trailing_stop_loss_on_fill=trailing_stop_loss_on_fill,
+                                      trade_client_extensions=trade_client_extensions)
+                                  )
 
     @shortcut
     def take_profit_order(self, trade_id: TradeID, price: PriceValue,
@@ -684,16 +732,22 @@ class OrderInterface(object):
 
         """
         return self.post_order(
-            order_request=TakeProfitOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
-                                                 time_in_force=time_in_force, gtd_time=gtd_time,
-                                                 trigger_condition=trigger_condition,
-                                                 client_extensions=client_extensions
-                                                 ))
+            order_request=TakeProfitOrderRequest(
+                trade_id=trade_id, price=price, client_trade_id=client_trade_id,
+                time_in_force=time_in_force, gtd_time=gtd_time,
+                trigger_condition=trigger_condition,
+                client_extensions=client_extensions
+            ))
 
-    @endpoint(PUTOrderSpecifier)
+    @shortcut
     def take_profit_replace_order(self,
                                   order_specifier: OrderSpecifier,
-                                  order: TakeProfitOrderRequest):
+                                  trade_id: TradeID, price: PriceValue,
+                                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
+                                  gtd_time: DateTime = ...,
+                                  trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                                  client_extensions: ClientExtensions = ...
+                                  ):
         """
         Replace a pending take profit order
 
@@ -732,7 +786,14 @@ class OrderInterface(object):
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """
-        pass
+        return self.replace_order(order_specifier=order_specifier,
+                                  order_request=TakeProfitOrderRequest(
+                                      trade_id=trade_id, price=price,
+                                      client_trade_id=client_trade_id,
+                                      time_in_force=time_in_force, gtd_time=gtd_time,
+                                      trigger_condition=trigger_condition,
+                                      client_extensions=client_extensions)
+                                  )
 
     @shortcut
     def stop_loss_order(self, trade_id: TradeID, price: PriceValue,
@@ -771,14 +832,19 @@ class OrderInterface(object):
                 errorMessage= :class:`~builtins.str`)
         """
         return self.post_order(
-            order_request=StopLossOrderRequest(trade_id=trade_id, price=price, client_trade_id=client_trade_id,
-                                               time_in_force=time_in_force, gtd_time=gtd_time,
-                                               trigger_condition=trigger_condition, client_extensions=client_extensions
-                                               ))
+            order_request=StopLossOrderRequest(
+                trade_id=trade_id, price=price, client_trade_id=client_trade_id,
+                time_in_force=time_in_force, gtd_time=gtd_time,
+                trigger_condition=trigger_condition, client_extensions=client_extensions
+            ))
 
-    @endpoint(PUTOrderSpecifier)
+    @shortcut
     def stop_loss_replace_order(self, order_specifier: OrderSpecifier,
-                                order: StopLossOrderRequest):
+                                trade_id: TradeID, price: PriceValue,
+                                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
+                                gtd_time: DateTime = ...,
+                                trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                                client_extensions: ClientExtensions = ...):
         """
         Replace a pending Stop Loss Order
 
@@ -818,7 +884,14 @@ class OrderInterface(object):
                 errorMessage= :class:`~builtins.str`)
 
         """
-        pass
+        return self.replace_order(order_specifier=order_specifier,
+                                  order_request=StopLossOrderRequest(
+                                      trade_id=trade_id, price=price,
+                                      client_trade_id=client_trade_id,
+                                      time_in_force=time_in_force, gtd_time=gtd_time,
+                                      trigger_condition=trigger_condition,
+                                      client_extensions=client_extensions
+                                  ))
 
     @shortcut
     def trailing_stop_loss_order(self, trade_id: TradeID, distance: PriceValue,
@@ -857,17 +930,22 @@ class OrderInterface(object):
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """
-        return self.post_order(order_request=TrailingStopLossOrderRequest(trade_id=trade_id, distance=distance,
-                                                                          client_trade_id=client_trade_id,
-                                                                          time_in_force=time_in_force,
-                                                                          gtd_time=gtd_time,
-                                                                          trigger_condition=trigger_condition,
-                                                                          client_extensions=client_extensions
-                                                                          ))
+        return self.post_order(order_request=TrailingStopLossOrderRequest(
+            trade_id=trade_id, distance=distance,
+            client_trade_id=client_trade_id,
+            time_in_force=time_in_force,
+            gtd_time=gtd_time,
+            trigger_condition=trigger_condition,
+            client_extensions=client_extensions
+        ))
 
-    @endpoint(PUTOrderSpecifier)
+    @shortcut
     def trailing_stop_loss_replace_order(self, order_specifier: OrderSpecifier,
-                                         order: TrailingStopLossOrderRequest):
+                                         trade_id: TradeID, distance: PriceValue,
+                                         client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
+                                         gtd_time: DateTime = ...,
+                                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                                         client_extensions: ClientExtensions = ...):
         """
         Replace a pending Trailing Stop Loss Order
 
@@ -906,4 +984,12 @@ class OrderInterface(object):
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """
-        pass
+        return self.replace_order(order_specifier=order_specifier,
+                                  order_request=TrailingStopLossOrderRequest(
+                                      trade_id=trade_id, distance=distance,
+                                      client_trade_id=client_trade_id,
+                                      time_in_force=time_in_force,
+                                      gtd_time=gtd_time,
+                                      trigger_condition=trigger_condition,
+                                      client_extensions=client_extensions
+                                  ))
