@@ -55,7 +55,7 @@ https://www.python.org/
 
 
 `async_v20` is built with `aiohttp <https://github.com/aio-libs/aiohttp>`_.
-It is therefore recommended to also install `cchardet` and `aiodns` as per `aiohttp` 
+It is therefore recommended to also install `cchardet` and `aiodns` as per `aiohttp`
 `documentation <http://aiohttp.readthedocs.io/en/stable/>`_
 
 .. code-block:: bash
@@ -211,7 +211,7 @@ The value returned by executing the `account()` *coroutine* is accessed through 
 
 **Outputs**
 
-.. code-block:: python
+.. code-block:: none
 
    alias                                                          Primary
    balance                                                        97801.9
