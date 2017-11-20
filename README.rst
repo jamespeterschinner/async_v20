@@ -212,7 +212,7 @@ By default `async_v20`.**DateTime**`'s will be converted into `pandas`.**Timesta
 
 **Outputs**
 
-.. code-block:: None
+.. code-block:: none
 
    alias                                                          Primary
    balance                                                        97801.9
