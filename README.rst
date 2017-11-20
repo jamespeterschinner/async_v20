@@ -1,5 +1,6 @@
 async_v20: Asynchronous OANDA v20 client
 ========================================
+*A foreign exchange client*
 
 .. image:: https://raw.githubusercontent.com/jamespeterschinner/async_v20/master/doc/source/_static/async_v20-icon-128x128.png
    :height: 64px
@@ -52,19 +53,39 @@ https://www.python.org/
 
     $ pip install async_v20
 
-It is also recommended to install pandas. This allows objects to be converted into *pandas*. **Series** objects
-allowing for easier integration with python's powerful data analysis tool chain.
 
-    $ pip install pandas
+`async_v20` is built with `aiohttp <https://github.com/aio-libs/aiohttp>`_.
+It is therefore recommended to also install `cchardet` and `aiodns` as per :term:`aiohttp`
+`documentation <http://aiohttp.readthedocs.io/en/stable/>`_ `
 
+.. code-block:: bash
 
-`async_v20` is built upon `aiohttp`.
-It is therefore recommended to also install `cchardet` as per `aiohttp` documentation
+   $ pip install cchardet
 
-http://aiohttp.readthedocs.io/en/stable/
+   $ pip install aiodns
 
-    $ pip install cchardet
+Why async_v20?
+--------------
 
+There are many OANDA clients for python already available. Why create another?
+The main driver for creating async_v20 was to facilitate better risk management,
+by allowing user's to monitor account status and trade currency's concurrently.
+
+An unintended consequence of async_v20 is the ability to create clear segregation
+between implementation ideas.
+
+A simple example might contain a coroutine for the following:
+
+    - Monitoring overall account status
+    - Watching price stream and triggering buy/sell signals
+    - Monitoring individual trades and closing movements against held positions
+
+A synchronous implementation would require considerable effort to determine which
+task communicates with the server next. async_v20 removes this burden by using
+`aiohttp <https://github.com/aio-libs/aiohttp>`_
+
+Further goals of async_v20 has been to lower the barrier of entry for algorithmic trading,
+by providing a complete and simple to use interface.
 
 
 Getting started
@@ -192,40 +213,40 @@ The value returned by executing the `account()` *coroutine* is accessed through 
 
 .. code-block:: python
 
-   alias                                           Primary
-   balance                                         97801.9
-   commission                                            0
-   created_by_user_id                              6557245
-   created_time                       1502463871.639182352
-   currency                                            AUD
-   financing                                       -3.5596
-   hedging_enabled                                   False
-   id                                  123-123-1234567-123
-   last_margin_call_extension_time                    None
-   last_transaction_id                                6348
-   margin_available                                97801.9
-   margin_call_enter_time                             None
-   margin_call_extension_count                        None
-   margin_call_margin_used                               0
-   margin_call_percent                                   0
-   margin_closeout_margin_used                           0
-   margin_closeout_nav                             97801.9
-   margin_closeout_percent                               0
-   margin_closeout_position_value                        0
-   margin_closeout_unrealized_pl                         0
-   margin_rate                                        0.02
-   margin_used                                           0
-   nav                                             97801.9
-   open_position_count                                   0
-   open_trade_count                                      0
-   orders                                               []
-   pending_order_count                                   0
-   pl                                             -2194.52
-   position_value                                        0
-   positions                                            []
-   resettable_pl                                  -2194.52
-   resettabled_pl_time                                None
-   trades                                               []
-   unrealized_pl                                         0
-   withdrawal_limit                                97801.9
+   alias                                                          Primary
+   balance                                                        97801.9
+   commission                                                           0
+   created_by_user_id                                             1234567
+   created_time                       2017-08-11 15:04:31.639182352+00:00
+   currency                                                           AUD
+   financing                                                      -3.5596
+   hedging_enabled                                                  False
+   id                                                 123-123-1234567-123
+   last_margin_call_extension_time                                   None
+   last_transaction_id                                               6360
+   margin_available                                               97801.9
+   margin_call_enter_time                                            None
+   margin_call_extension_count                                       None
+   margin_call_margin_used                                              0
+   margin_call_percent                                                  0
+   margin_closeout_margin_used                                          0
+   margin_closeout_nav                                            97801.9
+   margin_closeout_percent                                              0
+   margin_closeout_position_value                                       0
+   margin_closeout_unrealized_pl                                        0
+   margin_rate                                                       0.02
+   margin_used                                                          0
+   nav                                                            97801.9
+   open_position_count                                                  0
+   open_trade_count                                                     0
+   orders                                                              []
+   pending_order_count                                                  0
+   pl                                                            -2194.53
+   position_value                                                       0
+   positions                                                           []
+   resettable_pl                                                 -2194.53
+   resettabled_pl_time                                               None
+   trades                                                              []
+   unrealized_pl                                                        0
+   withdrawal_limit                                               97801.9
    dtype: object

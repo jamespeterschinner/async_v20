@@ -134,3 +134,9 @@
 
    Improvements:
       - Order methods exposes all arguments
+
+2.2.1b0
+=======
+
+   Improvements:
+      - series() method converts both UNIX and RFC3339 time's to pandas.Timestamp 's

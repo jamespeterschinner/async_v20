@@ -47,7 +47,7 @@ installation
    $ pip install async_v20
 
 :term:`async_v20` is built with `aiohttp <https://github.com/aio-libs/aiohttp>`_.
-It is therefore recommended to also install :term:`cchardet` as per :term:`aiohttp`
+It is therefore recommended to also install :term:`cchardet` and :term:`aiodns` as per :term:`aiohttp`
 `documentation <http://aiohttp.readthedocs.io/en/stable/>`_ `
 
 .. code-block:: bash
