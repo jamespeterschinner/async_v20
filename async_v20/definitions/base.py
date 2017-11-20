@@ -290,6 +290,10 @@ class Array(tuple):
         except KeyError:
             return None
 
+    def dataframe(self, json=False, datetime=True):
+        """Create a pandas.Dataframe"""
+        return pd.DataFrame(obj.series(json=False, datetime=True) for obj in self)
+
 
 def create_attribute(typ, data):
     try:
