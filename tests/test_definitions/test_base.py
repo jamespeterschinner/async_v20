@@ -5,8 +5,10 @@ import pytest
 from async_v20.definitions.base import Model, Array, create_attribute
 from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import TradeID, AccountID
-from async_v20.definitions.types import Account, ArrayStr, TradeSummary
+from async_v20.definitions.types import Account, ArrayStr, TradeSummary, ArrayTransaction
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
+from ..data.json_data import example_transactions
+
 
 from pandas import Timestamp
 
@@ -139,3 +141,9 @@ def test_model_update():
     merged.update(changed_trade_summary.dict())
     assert all(map(lambda x: x in merged, result.dict().keys()))
     assert result.dict() == TradeSummary(**merged).dict()
+
+def test_array_get_id_returns_id():
+    data = json.loads(example_transactions)
+    print(data)
+    transactions = ArrayTransaction(*json.loads(example_transactions))
+    assert transactions.get_id(6607).id == '6607'

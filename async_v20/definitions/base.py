@@ -275,12 +275,12 @@ class Array(tuple):
             raise ValueError(msg)
         else:
             instance._ids = _ids
-            instance._instruments = _instruments
+            instance._instruments = dict(_instruments)
             return instance
 
     def get_id(self, id_):
         try:
-            return self[self._ids[id_]]
+            return self[self._ids[str(id_)]]
         except KeyError:
             return None
 
@@ -292,7 +292,7 @@ class Array(tuple):
 
     def dataframe(self, json=False, datetime=True):
         """Create a pandas.Dataframe"""
-        return pd.DataFrame(obj.series(json=False, datetime=True) for obj in self)
+        return pd.DataFrame(obj.series(json=json, datetime=datetime) for obj in self)
 
 
 def create_attribute(typ, data):

@@ -28,6 +28,8 @@ def update_account(self, changes, changes_state):
               for trade in chain(self._account.trades, changes.trades_opened)
               if not changes.trades_closed.get_id(trade.id))
 
+    # There is a many to one relationship between an instrument and possible Orders/Trades
+    # But a one to one for positions
     positions = ((position, changes_state.positions.get_instrument(position.instrument))
                  for position in changes.positions)
 
