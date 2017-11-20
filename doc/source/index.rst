@@ -61,7 +61,7 @@ Why async_v20?
 
 There are many OANDA clients for python already available. Why create another?
 The main driver for creating async_v20 was to facilitate better risk management,
-by allowing user's to monitor account status and trade currency's concurrently.
+by allowing user's to concurrently monitor account status and trade currency's.
 
 An unintended consequence of async_v20 is the ability to create clear segregation
 between implementation ideas.
