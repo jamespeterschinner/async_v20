@@ -203,7 +203,7 @@ The value returned by executing the `account()` *coroutine* is accessed through 
 
 
 `async_v20` objects have a **series()** method that returns a `pandas`. **Series**.
-By default `async_v20`. **DateTime**`'s will be converted into `pandas`. **Timestamp**`'s.
+By default `async_v20`. **DateTime**'s will be converted into `pandas`. **Timestamp**'s.
 
 .. code-block:: python
 
