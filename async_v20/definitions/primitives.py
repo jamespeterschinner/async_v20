@@ -1,4 +1,3 @@
-from .base import Primitive, Specifier
 from .helpers import domain_check
 
 __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'AccountUnits', 'CancellableOrderType',
@@ -12,6 +11,16 @@ __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'Account
            'TrailingStopLossOrderReason', 'TransactionFilter', 'TransactionID', 'TransactionRejectReason',
            'TransactionType', 'Unit', 'WeeklyAlignment']
 
+class Primitive(object):
+    """Mixin class to denote primitive type"""
+    pass
+
+class Specifier(object):
+    """Mixin class to denote primitive type can be used for
+    specifying an Order/Trade/Position"""
+    # This is necessary due to different types using a mixture
+    # of int and str which prevents inheritance due to 'Lay-out error'
+    pass
 
 class AccountFinancingMode(str, Primitive):
     """The financing mode of an Account

@@ -5,11 +5,12 @@ from inspect import signature, Signature
 from operator import itemgetter
 
 import pandas as pd
-
+from .primitives import Primitive, Specifier, DateTime
 from .attributes import instance_attributes
 from .attributes import json_attributes
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
+from .helpers import time_to_time_stamp
 
 
 def arg_parse(new: classmethod, signature=Signature) -> classmethod:
@@ -120,17 +121,6 @@ class ORM(type):
         return class_obj
 
 
-class Primitive(object):
-    """Mixin class to denote primitive type"""
-    pass
-
-class Specifier(object):
-    """Mixin class to denote primitive type can be used for
-    specifying an Order/Trade/Position"""
-    # This is necessary due to different types using a mixture
-    # of int and str which prevents inheritance due to 'Lay-out error'
-    pass
-
 
 class Model(tuple, metaclass=ORM):
     # Make attribute assignment impossible
@@ -203,17 +193,17 @@ class Model(tuple, metaclass=ORM):
     def replace(self, **kwargs):
         return self.__class__(**dict(self.dict(), **kwargs))
 
-    def dict(self, json=False):
+    def dict(self, json=False, datetime=False):
         def fields():
             for field in self._fields:
                 attr = getattr(self, field)
 
                 if not isinstance(attr, (int, float, str)):
                     try:
-                        attr = attr.dict(json)
+                        attr = attr.dict(json=json, datetime=datetime)
                     except AttributeError:
                         try:
-                            attr = [obj.dict(json) for obj in attr]
+                            attr = [obj.dict(json=json, datetime=datetime) for obj in attr]
                         except AttributeError:
                             attr = [str(obj)
                                     if json and isinstance(obj, float)
@@ -225,20 +215,22 @@ class Model(tuple, metaclass=ORM):
                             attr = attr
                 elif json and isinstance(attr, float):
                     attr = str(attr)
+                elif datetime and isinstance(attr, DateTime):
+                    attr = time_to_time_stamp(attr)
 
                 yield field, attr
 
         return {json_attributes[field] if json else field: attr for field, attr in fields()}
 
     def json(self):
-        return json.dumps(self.dict(json=True))
+        return json.dumps(self.dict(json=True, datetime=False))
 
-    def data(self, json=False):
-        return flatten_dict(self.dict(json), self._delimiter)
+    def data(self, json=False, datetime=False):
+        return flatten_dict(self.dict(json=json, datetime=datetime), self._delimiter)
 
-    def series(self, json=False):
+    def series(self, json=False, datetime=True):
         def create_data():
-            for key, value in self.data(json=json).items():
+            for key, value in self.data(json=json, datetime=datetime).items():
                 if isinstance(value, str):
                     try:
                         value = int(value)

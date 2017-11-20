@@ -5,8 +5,10 @@ import pytest
 from async_v20.definitions.base import Model, Array, create_attribute
 from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import TradeID, AccountID
-from async_v20.definitions.types import Account, ArrayStr, TradeSummary, Trade
+from async_v20.definitions.types import Account, ArrayStr, TradeSummary
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
+
+from pandas import Timestamp
 
 
 @pytest.fixture
@@ -89,16 +91,28 @@ def test_data(account):
                 float(value)
 
 
-def test_series(account):
-    result = account.series()
+def test_series_doesnt_convert_datetime(account):
+    result = account.series(datetime=False)
     print(result)
 
     for value in result:
         assert isinstance(value, (float, str, int, list, type(None)))
         if isinstance(value, str):
             print(value)
+            # All values in a series object should be a float if they can be
             with pytest.raises(ValueError):
                 float(value)
+
+def test_series_converts_time_to_datetime(account):
+    result = account.series(datetime=True)
+    print(result)
+
+    with pytest.raises(AssertionError):
+        for value in result:
+            assert isinstance(value, (float, str, int, list, type(None)))
+
+    for value in result:
+        assert isinstance(value, (float, str, int, list, type(None), Timestamp))
 
 
 def test_array_returns_type_error():
@@ -117,17 +131,11 @@ def test_create_attribute_returns_type_error():
         create_attribute(ArrayStr, TradeID(123))
 
 
-# def test_model_update():
-#     trade_summary = TradeSummary(**example_trade_summary)
-#     changed_trade_summary = TradeSummary(**example_changed_trade_summary)
-#     result = trade_summary.replace(**changed_trade_summary.dict(json=False))
-#     merged = trade_summary.dict()
-#     merged.update(changed_trade_summary.dict())
-#     assert all(map(lambda x: x in merged, result.dict().keys()))
-#     assert result.dict() == TradeSummary(**merged).dict()
-#
-# def test_model_update_returns_error_with_incorrect_type():
-#     trade_summary = TradeSummary(**example_trade_summary)
-#     changed_trade_summary = Trade(**example_changed_trade_summary)
-#     with pytest.raises(TypeError):
-#         trade_summary.replace(**changed_trade_summary.dict(json=False))
+def test_model_update():
+    trade_summary = TradeSummary(**example_trade_summary)
+    changed_trade_summary = TradeSummary(**example_changed_trade_summary)
+    result = trade_summary.replace(**changed_trade_summary.dict(json=False))
+    merged = trade_summary.dict()
+    merged.update(changed_trade_summary.dict())
+    assert all(map(lambda x: x in merged, result.dict().keys()))
+    assert result.dict() == TradeSummary(**merged).dict()
