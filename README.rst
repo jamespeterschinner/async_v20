@@ -202,7 +202,8 @@ The value returned by executing the `account()` *coroutine* is accessed through 
     account = loop.run_until_complete(get_account())
 
 
-`async_v20` objects have a **series()** method that returns a `pandas.Series`
+`async_v20` objects have a **series()** method that returns a `pandas.Series`.
+By default `async_v20.DateTime`'s will be converted into `pandas.Timestamp`'s
 
 .. code-block:: python
 
