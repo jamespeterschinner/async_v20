@@ -8,6 +8,13 @@ from async_v20.definitions.primitives import TradeID, AccountID
 from async_v20.definitions.types import Account, ArrayStr, TradeSummary, ArrayTransaction
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
 from ..data.json_data import example_transactions
+from ..fixtures.client import client
+from ..fixtures.server import server
+
+from pandas import DataFrame
+
+client= client
+server = server
 
 
 from pandas import Timestamp
@@ -147,3 +154,12 @@ def test_array_get_id_returns_id():
     print(data)
     transactions = ArrayTransaction(*json.loads(example_transactions))
     assert transactions.get_id(6607).id == '6607'
+
+@pytest.mark.asyncio
+async def test_array_dataframe_returns_dataframe(client, server):
+    # Easier to get a real response from the fake server than to mock a response
+    async with client as client:
+        rsp = await client.get_candles('AUD_USD')
+    df = rsp.candles.dataframe()
+    assert type(df) == DataFrame
+

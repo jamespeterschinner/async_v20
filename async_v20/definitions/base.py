@@ -296,6 +296,7 @@ class Array(tuple):
 
 
 def create_attribute(typ, data):
+    """Correctly instantiate object based upon type of argument passed"""
     try:
         if isinstance(data, dict):
             result = typ(**data)
