@@ -140,3 +140,9 @@
 
    Improvements:
       - series() method converts both UNIX and RFC3339 time's to pandas.Timestamp 's
+
+2.2.2b0
+=======
+
+   Improvements:
+      - Added get_position_book and get_order_book API calls
