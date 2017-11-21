@@ -1,5 +1,6 @@
 from .decorators import endpoint
 from ..definitions.primitives import InstrumentName
+from ..definitions.primitives import DateTime
 from ..definitions.types import CandlestickGranularity
 from ..definitions.types import PriceComponent
 from ..definitions.types import WeeklyAlignment
@@ -79,3 +80,49 @@ class InstrumentInterface(object):
 
         """
         pass
+
+    @endpoint(GETInstrumentOrderBook)
+    def get_order_book(self,
+                       instrument: InstrumentName,
+                       time: DateTime = ...):
+        """Fetch a gzip compressed order book for an instrument
+
+        Args:
+
+            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+                Name of the Instrument
+            time: :class:`~async_v20.definitions.primitives.DateTime`
+                The time of the snapshot to fetch. If not specified,
+                then the most recent snapshot is fetched
+
+        Returns:
+
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (orderBook= :class:`~async_v20.definitions.types.OrderBook`)
+        """
+        pass
+
+    @endpoint(GETInstrumentsPositionBook)
+    def get_position_book(self,
+                       instrument: InstrumentName,
+                       time: DateTime = ...):
+        """Fetch a gzip compressed order book for an instrument
+
+        Args:
+
+            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+                Name of the Instrument
+            time: :class:`~async_v20.definitions.primitives.DateTime`
+                The time of the snapshot to fetch. If not specified,
+                then the most recent snapshot is fetched
+
+        Returns:
+
+            status [200]
+                :class:`~async_v20.interface.response.Response`
+                (positionBook= :class:`~async_v20.definitions.types.PositionBook`)
+        """
+        pass
+
+

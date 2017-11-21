@@ -31,6 +31,8 @@ Instrument
 ----------
 
 .. automethod:: async_v20.OandaClient.get_candles
+.. automethod:: async_v20.OandaClient.get_order_book
+.. automethod:: async_v20.OandaClient.get_position_book
 
 Order
 -----

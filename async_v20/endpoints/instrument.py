@@ -49,7 +49,7 @@ class GETInstrumentOrderBook(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/instruments/', Instrument, '/orderBook')
+    path = Path('/v3/instruments/', InstrumentName, '/orderBook')
 
     # description of endpoint
     description = 'Fetch a gzip compressed order book for an instrument.'
@@ -75,7 +75,7 @@ class GETInstrumentsPositionBook(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/instruments/', Instrument, '/positionBook')
+    path = Path('/v3/instruments/', InstrumentName, '/positionBook')
 
     # description of endpoint
     description = 'Fetch a gzip compressed position book for an instrument.'

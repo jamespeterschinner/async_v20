@@ -1,6 +1,6 @@
 async_v20: Asynchronous OANDA v20 client
 ========================================
-*A foreign exchange client*
+   *A foreign exchange client*
 
 .. image:: https://raw.githubusercontent.com/jamespeterschinner/async_v20/master/doc/source/_static/async_v20-icon-128x128.png
    :height: 64px
