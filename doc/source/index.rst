@@ -3,7 +3,7 @@
 
 async_v20: Asynchronous OANDA v20 client
 ========================================
-*A foreign exchange client*
+    *A foreign exchange client*
 
 .. image:: https://raw.githubusercontent.com/jamespeterschinner/async_v20/master/doc/source/_static/async_v20-icon-128x128.png
     :alt: async-v20 logo
@@ -59,7 +59,7 @@ It is therefore recommended to also install :term:`cchardet` and :term:`aiodns` 
 Why async_v20?
 --------------
 
-There are many OANDA clients for python already available. Why create another?
+There are many OANDA clients for python already available so why create another?
 The main driver for creating async_v20 was to facilitate better risk management,
 by allowing user's to concurrently monitor account status and trade currency's.
 
@@ -76,7 +76,7 @@ A synchronous implementation would require considerable effort to determine whic
 task communicates with the server next. async_v20 removes this burden by using
 `aiohttp <https://github.com/aio-libs/aiohttp>`_
 
-Further goals of async_v20 has been to lower the barrier of entry for algorithmic trading,
+Further goals of async_v20 has been to lower the barrier of entry for algorithmic trading
 by providing a complete and simple to use interface.
 
 Tutorial

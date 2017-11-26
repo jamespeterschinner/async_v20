@@ -66,7 +66,7 @@ client instance. Doing so will automatically close the `http session` when we're
 .. literalinclude:: ../../bin/account.py
     :lines: 7
 
-We then create and :term:`await` the :term:`coroutine` by calling `client`. **get_account_details()**
+We then create and :term:`await` the :term:`coroutine` by calling `client`. **account()**
 
 .. literalinclude:: ../../bin/account.py
     :lines: 8

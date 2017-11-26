@@ -36,7 +36,7 @@ Features
 ---------
 
 - Exposes the entire v20 API
-- No `*args, **kwargs` In client methods. So no guessing what arguments a method takes
+- No `*args, **kwargs` In client methods. Therefore no need to guess what arguments a method takes
 - Serialize objects directly into `pandas.Series` objects
 - Construct *concurrent* trading algorithms
 
@@ -67,7 +67,7 @@ It is therefore recommended to also install `cchardet` and `aiodns` as per `aioh
 Why async_v20?
 --------------
 
-There are many OANDA clients for python already available. Why create another?
+There are many OANDA clients for python already available so why create another?
 The main driver for creating async_v20 was to facilitate better risk management,
 by allowing user's to concurrently monitor account status and trade currency's.
 
@@ -84,7 +84,7 @@ A synchronous implementation would require considerable effort to determine whic
 task communicates with the server next. async_v20 removes this burden by using
 `aiohttp <https://github.com/aio-libs/aiohttp>`_
 
-Further goals of async_v20 has been to lower the barrier of entry for algorithmic trading,
+Further goals of async_v20 has been to lower the barrier of entry for algorithmic trading
 by providing a complete and simple to use interface.
 
 
@@ -180,7 +180,7 @@ client instance. Doing so will automatically close the *http session* when we're
         async with OandaClient() as client:
 
 
-We then create and *run* the *coroutine* by calling *client*. **get_account_details()**
+We then create and *run* the *coroutine* by calling *client*. **account()**
 
 .. code-block:: python
 
@@ -212,7 +212,7 @@ By default `async_v20`. **DateTime**'s will be converted into `pandas`. **Timest
 
 **Outputs**
 
-.. code-block:: none
+.. code-block:: python
 
    alias                                                          Primary
    balance                                                        97801.9
