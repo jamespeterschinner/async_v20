@@ -165,7 +165,7 @@ async def test_request_limiter_limits(client, server, event_loop):
 @pytest.mark.asyncio
 async def test_client_time_out(client, server):
     server_module.sleep_time = 10
-    client.poll_timeout = 0.1
+    client.rest_timeout = 0.1
     with pytest.raises(TimeoutError):
         async with client as client:
             pass
@@ -255,7 +255,7 @@ async def test_close_all_trades_error_second_list_trades_request(client, server)
 async def test_initialize_timeout_resets_initialization(client, server):
     with pytest.raises(TimeoutError):
         server_module.sleep_time = 10
-        client.poll_timeout = 0.1
+        client.rest_timeout = 0.1
         async with client as client:
             assert client.initializing == False
             assert client.initialized == False

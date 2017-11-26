@@ -1,12 +1,14 @@
 import ujson as json
-
+import async_timeout
+from asyncio import TimeoutError as AsyncTimeOutError
 from .response import Response
+from .rest import update_account
 from ..definitions.base import create_attribute
 from ..endpoints.account import GETAccountIDChanges, GETAccountID
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.annotations import SinceTransactionID
 from ..endpoints.other_responses import other_responses
-from .rest import update_account
+
 
 
 def _lookup_schema(endpoint, status):
@@ -65,19 +67,23 @@ async def _rest_response(self, response, endpoint):
     return response
 
 
-async def _stream_parser(response, endpoint):
+
+async def _stream_parser(response, endpoint, timeout):
     async with response as resp:
         schema, status, boolean = _lookup_schema(endpoint, resp.status)
-        async for line in resp.content:
-            body = json.loads(line)  # Turn bytes into json
-            key = body.get('type')  # We must determine what type of object as been sent.
-            json_body = {key: body}  # can construct a phony json body similar to a rest response
-            yield await _create_response(json_body, endpoint, schema, status, boolean)
+        while not resp.content.at_eof():
+            try:
+                async with async_timeout.timeout(timeout):
+                    body = json.loads(await resp.content.readline())
+                    json_body = {body.get('type'): body}  # mimic a rest response
+                    yield await _create_response(json_body, endpoint, schema, status, boolean)
+            except AsyncTimeOutError as e:
+                raise TimeoutError(e)
 
 
 async def parse_response(self, response, endpoint):
     if endpoint.host == 'REST':
         result = await _rest_response(self, response, endpoint)
     else:
-        result = _stream_parser(response, endpoint)
+        result = _stream_parser(response, endpoint, self.stream_timeout)
     return result

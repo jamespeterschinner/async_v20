@@ -5,6 +5,7 @@ from functools import partial
 from time import time
 
 import aiohttp
+from aiohttp.client_exceptions import ClientConnectionError
 from yarl import URL
 
 from .definitions.types import AcceptDatetimeFormat
@@ -13,14 +14,13 @@ from .definitions.types import ArrayTransaction
 from .endpoints.annotations import Authorization, SinceTransactionID, LastTransactionID
 from .interface import *
 from .interface.account import AccountInterface
-from aiohttp.client_exceptions import ClientConnectionError
 
 
 async def sleep(s=0.0):
     await asyncio.sleep(s)
 
 
-__version__ = '2.2.2b0'
+__version__ = '2.2.3b0'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
@@ -41,8 +41,9 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         rest_scheme: -- The scheme of the connection. Defaults to 'https'
         stream_scheme: -- The scheme of the connection. Defaults to 'https'
         datetime_format: -- The format to request when dealing with times
-        poll_timeout: -- The timeout to use when making a polling request with
+        rest_timeout: -- The timeout to use when making a polling request with
             the v20 REST server
+        stream_timeout: -- period to wait for an new json object during streaming
         max_requests_per_second: -- Maximum HTTP requests sent per second
         max_simultaneous_connections: -- Maximum concurrent HTTP requests
 
@@ -88,8 +89,11 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     def __init__(self, token=None, account_id=None, max_transaction_history=100,
                  rest_host='api-fxpractice.oanda.com', rest_port=443,
                  rest_scheme='https', stream_host='stream-fxpractice.oanda.com', stream_port=None,
-                 stream_scheme='https', datetime_format='UNIX', poll_timeout=4, max_requests_per_second=99,
-                 max_simultaneous_connections=10):
+                 stream_scheme='https', datetime_format='UNIX', rest_timeout=4, stream_timeout=60,
+                 max_requests_per_second=99, max_simultaneous_connections=10, loop=None):
+
+        if loop is None:
+            self._loop = asyncio.get_event_loop()
 
         self.version = __version__
 
@@ -110,7 +114,10 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
         # The timeout to use when making a polling request with the
         # v20 REST server
-        self.poll_timeout = poll_timeout
+        self.rest_timeout = rest_timeout
+
+        # The timeout to use when waiting for the next object when wait for a stream response
+        self.stream_timeout = stream_timeout
 
         self.max_requests_per_second = max_requests_per_second
 
@@ -151,7 +158,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         response = await self.list_open_trades()
         if response:
             close_trade_responses = await asyncio.gather(*[self.close_trade(trade.id)
-                                          for trade in response.trades])
+                                                           for trade in response.trades])
         else:
             raise ConnectionError(f'Could not get open trades. '
                                   f'Server returned status {response.status}')
@@ -165,8 +172,6 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                                   f'Server returned status {response.status}')
 
         return all_trades_closed, close_trade_responses
-
-
 
     async def _request_limiter(self):
         """Wait for a minimum time interval before creating new request"""
@@ -234,7 +239,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                     json_serialize=json.dumps,
                     headers=self.headers,
                     connector=conn,
-                    read_timeout=self.poll_timeout
+                    read_timeout=self.rest_timeout
                 )
 
                 # Get the first account listed in in accounts.
@@ -281,11 +286,11 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 self.initializing = False
                 self.initialized = False
                 raise TimeoutError(f'Initialization step {self.expected_step} '
-                                   f'took longer than {self.poll_timeout} seconds')
+                                   f'took longer than {self.rest_timeout} seconds')
             except (ConnectionError, ClientConnectionError) as e:
                 self.initializing = False
                 self.initialized = False
                 raise ConnectionError(e)
 
-            # Always return True when initialization has complete
+                # Always return True when initialization has complete
         return True

@@ -512,7 +512,7 @@ class Position(Model):
 
     def __new__(cls, instrument: InstrumentName = ..., pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
                 resettable_pl: AccountUnits = ..., commission: AccountUnits = ..., long: PositionSide = ...,
-                short: PositionSide = ..., financing: DecimalNumber = ...):
+                short: PositionSide = ..., financing: DecimalNumber = ..., margin_used: DecimalNumber = ...):
         return super().__new__(**Position._preset_arguments, **locals())
 
 

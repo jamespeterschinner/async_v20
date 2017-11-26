@@ -2,6 +2,7 @@ from ..data.json_data import GETAccountID_response
 from ..data.json_data import position_response
 from ..data.json_data import order_cancel_transaction_json_dict
 from ..data.json_data import example_order
+from ..data.json_data import account_example
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import Position
 from async_v20.definitions.types import Instrument
@@ -59,3 +60,6 @@ def test_order_can_be_constructed_from_example_data():
 def test_supplying_incorrect_type_raises_error():
     with pytest.raises(TypeError):
         Order(instrument=Instrument())
+
+def test_account_object_can_be_constructed_from_example():
+    assert type(Account(**account_example['account'])) == Account

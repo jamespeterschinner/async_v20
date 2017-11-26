@@ -146,3 +146,13 @@
 
    Improvements:
       - Added get_position_book and get_order_book API calls
+
+2.2.3b0
+=======
+
+   Bug Fixes:
+      - Added 'margin_used' to Position object.
+      (OANDA added new attribute, causing error)
+
+   Improvements:
+      - Added TimeoutError to stream

@@ -20,7 +20,7 @@ routes = {
     ('GET', '/v3/accounts/123-123-1234567-123/positions/0000'): None,
     ('PUT', '/v3/accounts/123-123-1234567-123/positions/0000'): None,
     ('GET', '/v3/accounts/123-123-1234567-123/pricing'): get_pricing_response,
-    ('GET', '/v3/accounts/123-123-1234567-123/pricing/stream'): None,
+    ('GET', '/v3/accounts/123-123-1234567-123/pricing/stream'): price_stream,
     ('GET', '/v3/accounts/123-123-1234567-123/trades'): None,
     ('GET', '/v3/accounts/123-123-1234567-123/openTrades'): list_open_trades_response,
     ('GET', '/v3/accounts/123-123-1234567-123/trades/0000'): None,

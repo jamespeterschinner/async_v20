@@ -29,13 +29,13 @@ def endpoint(endpoint, initialization_step=False):
             request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
             await self._request_limiter()
-
+            print('SENDING REQUEST WITH THESE ARGUMENTS:\n', request_args)
             response = self.session.request(**request_args)
 
             try:
                 return await parse_response(self, response, endpoint)
             except ConcurrentTimeoutError:
-                raise TimeoutError(f'{method.__name__} to longer than {self.poll_timeout} seconds')
+                raise TimeoutError(f'{method.__name__} to longer than {self.rest_timeout} seconds')
 
         wrap.__signature__ = sig
 

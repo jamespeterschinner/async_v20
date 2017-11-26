@@ -43,7 +43,7 @@ def arg_parse(new: classmethod, signature=Signature) -> classmethod:
                 except KeyError:
                     possible_arguments = ', '.join(param.name for param in signature.parameters.values()
                                                    if param.name != 'cls')
-                    raise ValueError(f'{name} is not a valid keyword argument. '
+                    raise ValueError(f'`{name}` is not a valid keyword argument. '
                                      f'Possible arguments for class {cls.__name__} '
                                      f'include: {possible_arguments}')
 

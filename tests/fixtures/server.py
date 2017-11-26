@@ -1,21 +1,27 @@
-import gzip
-
-import pytest
-from aiohttp import web
 import asyncio
+import gzip
 import re
 from inspect import isgenerator
 
+import pytest
+from aiohttp import web
+
 from .routes import routes
 
-headers = {'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept-Datetime-Format',
+rest_headers = {'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept-Datetime-Format',
            'Access-Control-Allow-Methods': 'PUT, PATCH, POST, GET, OPTIONS, DELETE', 'Access-Control-Allow-Origin': '*',
            'Content-Type': 'application/json', 'RequestID': '42359369470976686', 'Content-Encoding': 'gzip',
+           'Vary': 'Accept-Encoding', 'Connection': 'Keep-Alive'}
+
+stream_headers = {'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept-Datetime-Format',
+           'Access-Control-Allow-Methods': 'PUT, PATCH, POST, GET, OPTIONS, DELETE', 'Access-Control-Allow-Origin': '*',
+           'Content-Type': 'application/json', 'RequestID': '42359369470976686',
            'Vary': 'Accept-Encoding', 'Connection': 'Keep-Alive'}
 
 status = 200
 received = ''
 sleep_time = 0
+
 
 def get_id_from_path(path):
     try:
@@ -26,18 +32,20 @@ def get_id_from_path(path):
     else:
         return path, path_id
 
+
 def get_response_data(method, path, specifier):
     data = 'null'
     try:
         data = routes[(method, path)]
     except KeyError:
         pass
-    if isgenerator(data): # Allows test to mock changing response
+    if isgenerator(data):  # Allows test to mock changing response
         data = next(data)
     if isinstance(data, dict):
         data = data[int(specifier)]
 
     return data
+
 
 def get_response_status():
     global status
@@ -65,8 +73,20 @@ async def handler(request):
     if response_data is None:
         response_data = 'null'
 
+    if path == '/v3/accounts/123-123-1234567-123/pricing/stream':
+        resp = web.StreamResponse(headers=stream_headers,
+                                  status=response_status,
+                                  reason='OK')
+        await resp.prepare(request)
+        while True:
+            print('SENDING')
+            resp.write(bytes(response_data, encoding='utf8'))
+            resp.write(bytes('\n', encoding='utf8'))
+            await resp.drain()
+            await asyncio.sleep(sleep_time)
+
     await asyncio.sleep(sleep_time)
-    return web.Response(body=gzip.compress(bytes(response_data, encoding='utf8')), headers=headers,
+    return web.Response(body=gzip.compress(bytes(response_data, encoding='utf8')), headers=rest_headers,
                         status=response_status)
 
 

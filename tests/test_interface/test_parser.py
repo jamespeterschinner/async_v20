@@ -2,76 +2,25 @@ import pytest
 
 from async_v20.definitions.base import Array
 from async_v20.definitions.types import Account, AccountSummary, AccountProperties
-from async_v20.definitions.types import Price, Position
+from async_v20.definitions.types import Position
 from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary, GETAccounts
 from async_v20.endpoints.annotations import SinceTransactionID, LastTransactionID
 from async_v20.endpoints.instrument import GETInstrumentsCandles
-from async_v20.endpoints.pricing import GETPricingStream
 from async_v20.interface.parser import _create_response
 from async_v20.interface.parser import _lookup_schema
 from async_v20.interface.parser import _rest_response
-from async_v20.interface.parser import _stream_parser
 from tests.data.json_data import GETAccountIDSummary_response
 from tests.data.json_data import GETAccountID_response
 from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETInstrumentsCandles_response
-from tests.data.stream_data import price_bytes
 from tests.fixtures import server as server_module
-from tests.fixtures.static import account_changes_response
 from tests.fixtures.client import client
+from tests.fixtures.static import account_changes_response
 from tests.test_interface.helpers import order_dict
+import async_timeout
 
 client = client
 server = server_module.server
-
-
-@pytest.fixture
-@pytest.mark.asyncio
-async def stream_generator():
-    """FIXTURE to simulate data stream"""
-
-    async def agen():
-        while True:
-            yield price_bytes  # DATA
-
-    stream = (i async for i in agen())
-    yield stream
-    del stream
-
-
-@pytest.mark.asyncio
-async def test_response_generator(stream_generator):
-    """TEST stream_generator fixture works as intended"""
-    result = list()
-    result.append(await stream_generator.asend(None))
-    result.append(await stream_generator.asend(None))
-    assert result == [price_bytes, price_bytes]
-
-
-@pytest.fixture()
-def stream_response(stream_generator):
-    """FIXTURE to simulate an `aiohttp` stream response"""
-
-    class StreamResponse:
-        content = stream_generator
-        status = 200
-
-        async def __aenter__(self):
-            return self
-
-        async def __aexit__(self, exc_type, exc_val, exc_tb):
-            pass
-
-    response = StreamResponse()
-    yield response
-    del response
-
-
-@pytest.mark.asyncio
-async def test_stream_parser_creates_price_object(stream_response):
-    async_gen = _stream_parser(stream_response, GETPricingStream)
-    iteration = await async_gen.asend(None)
-    assert type(iteration.get('PRICE')) == Price
 
 
 @pytest.fixture()
@@ -197,3 +146,19 @@ async def test_parser_updates_since_transaction_id(client, server):
         print(response.json())
         print(account_changes_response)
         assert response.json() == account_changes_response
+
+@pytest.mark.asyncio
+async def test_stream_parser_raises_timeout_error(client, server):
+    async with client as client:
+        server_module.sleep_time = 1
+        client.stream_timeout = 0.1
+        items = 3
+        async with async_timeout.timeout(items*client.stream_timeout+1):
+            with pytest.raises(TimeoutError):
+                async for obj in await client.stream_pricing('AUD_USD'):
+                    items -= 1
+                    print(obj)
+                    if items <= 0:
+                        print('BREAK CALLED')
+                        break
+
