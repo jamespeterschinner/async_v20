@@ -168,3 +168,9 @@
    Added attributes to TradeOpen:
        - price
        - guaranteed_execution_fee
+
+2.2.4b1
+=======
+
+   Added attributes to TradeReduce:
+       - guaranteed_execution_fee

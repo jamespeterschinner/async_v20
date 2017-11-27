@@ -965,7 +965,7 @@ class TradeReduce(Model):
     """
 
     def __new__(cls, trade_id: TradeID = ..., units: Unit = ..., realized_pl: AccountUnits = ...,
-                financing: AccountUnits = ...):
+                financing: AccountUnits = ..., guaranteed_execution_fee: DecimalNumber = ...):
         return super().__new__(**TradeReduce._preset_arguments, **locals())
 
 
