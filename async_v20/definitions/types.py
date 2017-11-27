@@ -719,8 +719,9 @@ class TradeOpen(Model):
             The client extensions for the newly opened Trade
 
     """
+
     # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
-    def __new__(cls, price: DecimalNumber = ...,  trade_id: TradeID = ..., units: Unit = ...,
+    def __new__(cls, price: DecimalNumber = ..., trade_id: TradeID = ..., units: Unit = ...,
                 client_extensions: ClientExtensions = ..., guaranteed_execution_fee: DecimalNumber = ...):
         return super().__new__(**TradeOpen._preset_arguments, **locals())
 
@@ -965,7 +966,8 @@ class TradeReduce(Model):
     """
 
     def __new__(cls, trade_id: TradeID = ..., units: Unit = ..., realized_pl: AccountUnits = ...,
-                financing: AccountUnits = ..., guaranteed_execution_fee: DecimalNumber = ...):
+                financing: AccountUnits = ..., price: DecimalNumber = ...,
+                guaranteed_execution_fee: DecimalNumber = ...):
         return super().__new__(**TradeReduce._preset_arguments, **locals())
 
 
