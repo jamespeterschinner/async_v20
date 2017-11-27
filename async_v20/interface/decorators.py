@@ -29,7 +29,7 @@ def endpoint(endpoint, initialization_step=False):
             request_args = create_request_kwargs(self, endpoint, sig, *args, **kwargs)
 
             await self._request_limiter()
-    
+
             response = self.session.request(**request_args)
 
             try:

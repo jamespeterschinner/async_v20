@@ -318,6 +318,6 @@ def create_attribute(typ, data):
         # when an error code has been returned
         # A none value should be returned if this is the case
         if typ is not None:
-            raise TypeError(e)
+            raise TypeError(f'Could note create {typ} from {data}')
     else:
         return result

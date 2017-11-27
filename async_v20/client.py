@@ -20,7 +20,7 @@ async def sleep(s=0.0):
     await asyncio.sleep(s)
 
 
-__version__ = '2.2.3b1'
+__version__ = '2.2.3b2'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
@@ -89,7 +89,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     def __init__(self, token=None, account_id=None, max_transaction_history=100,
                  rest_host='api-fxpractice.oanda.com', rest_port=443,
                  rest_scheme='https', stream_host='stream-fxpractice.oanda.com', stream_port=None,
-                 stream_scheme='https', datetime_format='UNIX', rest_timeout=4, stream_timeout=60,
+                 stream_scheme='https', datetime_format='UNIX', rest_timeout=10, stream_timeout=60,
                  max_requests_per_second=99, max_simultaneous_connections=10, loop=None):
 
         if loop is None:

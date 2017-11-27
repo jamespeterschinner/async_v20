@@ -155,7 +155,13 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'full_price': 'full_price', 'trade_opened': 'trade_opened', 'trade_reduced': 'trade_reduced',
                        'intended_replaces_order_id': 'intended_replaces_order_id', 'username': 'username',
                        'country': 'country', 'emailAddress': 'email_address', 'email_address': 'email_address',
-                       'FIFO': 'fifo', 'fifo': 'fifo', 'partialFill': 'partial_fill', 'partial_fill': 'partial_fill'}
+                       'FIFO': 'fifo', 'fifo': 'fifo', 'partialFill': 'partial_fill', 'partial_fill': 'partial_fill',
+                       'gainQuoteHomeConversionFactor': 'gain_quote_home_conversion_factor',
+                       'gain_quote_home_conversion_factor': 'gain_quote_home_conversion_factor',
+                       'lossQuoteHomeConversionFactor': 'loss_quote_home_conversion_factor',
+                       'loss_quote_home_conversion_factor': 'loss_quote_home_conversion_factor',
+                       'guaranteedExecutionFee': 'guaranteed_execution_fee',
+                       'guaranteed_execution_fee': 'guaranteed_execution_fee'}
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
                    'reduce_only': 'reduceOnly', 'open_only': 'openOnly', 'timestamp': 'timestamp',
@@ -237,4 +243,7 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'initial_market_price': 'initialMarketPrice', 'full_price': 'fullPrice',
                    'trade_opened': 'tradeOpened', 'trade_reduced': 'tradeReduced',
                    'intended_replaces_order_id': 'intendedReplacesOrderID', 'username': 'username',
-                   'country': 'country', 'email_address': 'emailAddress', 'fifo': 'FIFO', 'partial_fill': 'partialFill'}
+                   'country': 'country', 'email_address': 'emailAddress', 'fifo': 'FIFO', 'partial_fill': 'partialFill',
+                   'gain_quote_home_conversion_factor': 'gainQuoteHomeConversionFactor',
+                   'loss_quote_home_conversion_factor': 'lossQuoteHomeConversionFactor',
+                   'guaranteed_execution_fee': 'guaranteedExecutionFee'}

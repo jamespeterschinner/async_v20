@@ -719,8 +719,9 @@ class TradeOpen(Model):
             The client extensions for the newly opened Trade
 
     """
-
-    def __new__(cls, trade_id: TradeID = ..., units: Unit = ..., client_extensions: ClientExtensions = ...):
+    # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
+    def __new__(cls, price: DecimalNumber = ...,  trade_id: TradeID = ..., units: Unit = ...,
+                client_extensions: ClientExtensions = ..., guaranteed_execution_fee: DecimalNumber = ...):
         return super().__new__(**TradeOpen._preset_arguments, **locals())
 
 
@@ -1118,7 +1119,11 @@ class Transaction(Model):
                 trade_client_extensions: ClientExtensions = ..., distance: PriceValue = ...,
                 full_price: ClientPrice = ..., pl: AccountUnits = ..., commission: AccountUnits = ...,
                 trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
-                trade_reduced: TradeReduce = ..., intended_replaces_order_id: OrderID = ...):
+                trade_reduced: TradeReduce = ..., intended_replaces_order_id: OrderID = ...,
+                # TODO update when OANDA ADVISES correct type. This is currently a guess.
+                gain_quote_home_conversion_factor: DecimalNumber = ...,
+                loss_quote_home_conversion_factor: DecimalNumber = ...,
+                guaranteed_execution_fee: DecimalNumber = ...):
         return super().__new__(**Transaction._preset_arguments, **locals())
 
 
@@ -3591,7 +3596,11 @@ class OrderFillTransaction(Transaction):
                 full_price: ClientPrice = ..., reason: OrderFillReason = ..., pl: AccountUnits = ...,
                 financing: AccountUnits = ..., commission: AccountUnits = ..., account_balance: AccountUnits = ...,
                 trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
-                trade_reduced: TradeReduce = ...):
+                trade_reduced: TradeReduce = ...,
+                # TODO update when OANDA ADVISES correct type. This is currently a guess.
+                gain_quote_home_conversion_factor: DecimalNumber = ...,
+                loss_quote_home_conversion_factor: DecimalNumber = ...,
+                guaranteed_execution_fee: DecimalNumber = ...):
         return super().__new__(**OrderFillTransaction._preset_arguments, **locals())
 
 
