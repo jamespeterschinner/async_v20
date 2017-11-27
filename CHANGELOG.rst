@@ -156,3 +156,15 @@
 
    Improvements:
       - Added TimeoutError to stream
+
+2.2.4b0
+=======
+
+   Added attributes to Transaction:
+       - guaranteed_execution_fee
+       - gain_quote_home_conversion_factor
+       - loss_quote_home_conversion_factor
+
+   Added attributes to TradeOpen:
+       - price
+       - guaranteed_execution_fee
