@@ -1,7 +1,7 @@
 The Response Object
 ===================
 
-All objects apart from :meth:`~async_v20.OandaClient.account` and
+All API methods apart from :meth:`~async_v20.OandaClient.account` and
 :meth:`~async_v20.OandaClient.close_all_trades` return
 :class:`~async_v20.interface.response.Response` objects
 

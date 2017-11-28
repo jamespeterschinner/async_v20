@@ -138,12 +138,12 @@ class UserSpecifier(str):
 
 
 class FromTime(DateTime):
-    """A DateTime to be used as the starting period a query"""
+    """A DateTime to be used as the starting period of a query"""
     pass
 
 
 class ToTime(DateTime):
-    """A DateTime to be used as the ending period a query"""
+    """A DateTime to be used as the ending period of a query"""
     pass
 
 
@@ -188,10 +188,10 @@ class SinceTransactionID(TransactionID):
 
 
 class FromTransactionID(TransactionID):
-    """A TransactionID to be used as the starting period a query"""
+    """A TransactionID to be used as the starting period of a query"""
     pass
 
 
 class ToTransactionID(TransactionID):
-    """A TransactionID to be used as the ending period a query"""
+    """A TransactionID to be used as the ending period of a query"""
     pass
