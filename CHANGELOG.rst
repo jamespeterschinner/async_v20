@@ -174,3 +174,9 @@
 
    Added attributes to TradeReduce:
        - guaranteed_execution_fee
+
+2.2.4b3
+=======
+
+   Added attributes to TradeSummary:
+       - margin_used

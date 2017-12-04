@@ -1064,7 +1064,9 @@ class TradeSummary(Model):
                 average_close_price: PriceValue = ..., closing_transaction_i_ds: ArrayTransactionID = ...,
                 financing: AccountUnits = ..., close_time: DateTime = ...,
                 client_extensions: ClientExtensions = ..., take_profit_order_id: OrderID = ...,
-                stop_loss_order_id: OrderID = ..., trailing_stop_loss_order_id: OrderID = ...):
+                stop_loss_order_id: OrderID = ..., trailing_stop_loss_order_id: OrderID = ...,
+                # TODO: margin_used is undocumented on OANDA's website
+                margin_used: AccountUnits = ...):
         return super().__new__(**TradeSummary._preset_arguments, **locals())
 
 
