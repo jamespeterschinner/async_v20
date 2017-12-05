@@ -3610,7 +3610,8 @@ class OrderFillTransaction(Transaction):
                 # TODO update when OANDA ADVISES correct type. This is currently a guess.
                 gain_quote_home_conversion_factor: DecimalNumber = ...,
                 loss_quote_home_conversion_factor: DecimalNumber = ...,
-                guaranteed_execution_fee: DecimalNumber = ...):
+                guaranteed_execution_fee: DecimalNumber = ...,
+                half_spread_cost: DecimalNumber = ...):
         return super().__new__(**OrderFillTransaction._preset_arguments, **locals())
 
 
