@@ -2394,7 +2394,9 @@ class Trade(Model):
                 closing_transaction_i_ds: ArrayTransactionID = ..., financing: AccountUnits = ...,
                 close_time: DateTime = ..., client_extensions: ClientExtensions = ...,
                 take_profit_order: TakeProfitOrder = ..., stop_loss_order: StopLossOrder = ...,
-                trailing_stop_loss_order: TrailingStopLossOrder = ...):
+                trailing_stop_loss_order: TrailingStopLossOrder = ...,
+                # TODO: Update this when OANDA UPDATES documention
+                margin_used: AccountUnits = ...):
         return super().__new__(**Trade._preset_arguments, **locals())
 
 

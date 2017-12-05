@@ -4,6 +4,7 @@ from ..data.json_data import order_cancel_transaction_json_dict
 from ..data.json_data import example_order
 from ..data.json_data import account_example
 from ..data.json_data import example_transaction_array
+from ..data.json_data import example_trade_array
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import Position
 from async_v20.definitions.types import Instrument
@@ -12,6 +13,7 @@ from async_v20.definitions.types import ArrayOrder
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import Order
 from async_v20.definitions.types import ArrayTransaction
+from async_v20.definitions.types import ArrayTrade
 from async_v20.definitions.primitives import TradeSpecifier
 from async_v20.definitions.primitives import OrderSpecifier
 import pandas as pd
@@ -68,3 +70,6 @@ def test_account_object_can_be_constructed_from_example():
 
 def test_transaction_array_can_be_constructed_from_example():
     assert type(ArrayTransaction(*example_transaction_array)) == ArrayTransaction
+
+def test_trade_array_can_be_constructed_from_example():
+    assert type(ArrayTrade(*example_trade_array)) == ArrayTrade

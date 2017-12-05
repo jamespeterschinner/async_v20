@@ -135,7 +135,7 @@ account_example = {'account': {'NAV': '97798.0524',
                                'currency': 'AUD',
                                'financing': '-3.5607',
                                'hedgingEnabled': False,
-                               'id': '101-011-6557245-001',
+                               'id': '123-123-1234567-123',
                                'lastTransactionID': '6971',
                                'marginAvailable': '97798.0524',
                                'marginCallMarginUsed': '0.0',
@@ -298,7 +298,7 @@ account_example = {'account': {'NAV': '97798.0524',
 example_transaction_array = (
 {'type': 'MARKET_ORDER', 'instrument': 'AUD_USD', 'units': '-19554', 'timeInForce': 'FOK', 'positionFill': 'DEFAULT',
  'trailingStopLossOnFill': {'distance': '0.00050', 'timeInForce': 'GTC'}, 'reason': 'CLIENT_ORDER', 'id': '7095',
- 'userID': 6557245, 'accountID': '101-011-6557245-001', 'batchID': '7095', 'requestID': '60386854771345686',
+ 'userID': 6557245, 'accountID': '123-123-1234567-123', 'batchID': '7095', 'requestID': '60386854771345686',
  'time': '1512446222.248676455'},
 {'type': 'ORDER_FILL', 'orderID': '7095', 'instrument': 'AUD_USD', 'units': '-19554', 'price': '0.76412',
  'pl': '0.0000', 'financing': '0.0000', 'commission': '0.0000', 'accountBalance': '97770.1692',
@@ -309,10 +309,10 @@ example_transaction_array = (
  'fullPrice': {'closeoutBid': '0.76397', 'closeoutAsk': '0.76440', 'timestamp': '1512446219.959988002',
                'bids': [{'price': '0.76412', 'liquidity': '10000000'}],
                'asks': [{'price': '0.76425', 'liquidity': '10000000'}]}, 'id': '7096', 'userID': 6557245,
- 'accountID': '101-011-6557245-001', 'batchID': '7095', 'requestID': '60386854771345686',
+ 'accountID': '123-123-1234567-123', 'batchID': '7095', 'requestID': '60386854771345686',
  'time': '1512446222.248676455'},
 {'type': 'TRAILING_STOP_LOSS_ORDER', 'tradeID': '7096', 'timeInForce': 'GTC', 'triggerCondition': 'DEFAULT',
- 'distance': '0.00050', 'reason': 'ON_FILL', 'id': '7097', 'userID': 6557245, 'accountID': '101-011-6557245-001',
+ 'distance': '0.00050', 'reason': 'ON_FILL', 'id': '7097', 'userID': 6557245, 'accountID': '123-123-1234567-123',
  'batchID': '7095', 'requestID': '60386854771345686', 'time': '1512446222.248676455'},
 {'type': 'ORDER_FILL', 'orderID': '7097', 'instrument': 'AUD_USD', 'units': '19554', 'price': '0.76465',
  'pl': '-13.5561', 'financing': '-0.0035', 'commission': '0.0000', 'accountBalance': '97756.6096',
@@ -323,4 +323,7 @@ example_transaction_array = (
  'fullPrice': {'closeoutBid': '0.76435', 'closeoutAsk': '0.76480', 'timestamp': '1512446723.180178732',
                'bids': [{'price': '0.76450', 'liquidity': '10000000'}],
                'asks': [{'price': '0.76465', 'liquidity': '10000000'}]}, 'id': '7098', 'userID': 0,
- 'accountID': '101-011-6557245-001', 'batchID': '7098', 'time': '1512446723.180178732'})
+ 'accountID': '123-123-1234567-123', 'batchID': '7098', 'time': '1512446723.180178732'})
+
+
+example_trade_array = ({'id': '7105', 'instrument': 'AUD_USD', 'price': '0.76473', 'openTime': '1512454055.845717338', 'initialUnits': '1', 'state': 'OPEN', 'currentUnits': '1', 'realizedPL': '0.0000', 'financing': '0.0000', 'unrealizedPL': '-0.0002', 'marginUsed': '0.0200', 'stopLossOrder': {'id': '7106', 'createTime': '1512454055.845717338', 'type': 'STOP_LOSS', 'tradeID': '7105', 'price': '0.00002', 'timeInForce': 'GTC', 'triggerCondition': 'DEFAULT', 'state': 'PENDING'}, 'trailingStopLossOrder': {'id': '7107', 'createTime': '1512454055.845717338', 'type': 'TRAILING_STOP_LOSS', 'tradeID': '7105', 'distance': '0.00050', 'timeInForce': 'GTC', 'triggerCondition': 'DEFAULT', 'state': 'PENDING', 'trailingStopValue': '0.76409'}}, {'id': '7101', 'instrument': 'AUD_USD', 'price': '0.76513', 'openTime': '1512453504.235625587', 'initialUnits': '1', 'state': 'OPEN', 'currentUnits': '1', 'realizedPL': '0.0000', 'financing': '0.0000', 'unrealizedPL': '-0.0007', 'marginUsed': '0.0200', 'stopLossOrder': {'id': '7102', 'createTime': '1512453504.235625587', 'type': 'STOP_LOSS', 'tradeID': '7101', 'price': '0.00002', 'timeInForce': 'GTC', 'triggerCondition': 'DEFAULT', 'state': 'PENDING'}, 'trailingStopLossOrder': {'id': '7103', 'createTime': '1512453504.235625587', 'type': 'TRAILING_STOP_LOSS', 'tradeID': '7101', 'distance': '0.00050', 'timeInForce': 'GTC', 'triggerCondition': 'DEFAULT', 'state': 'PENDING', 'trailingStopValue': '0.76449'}})
