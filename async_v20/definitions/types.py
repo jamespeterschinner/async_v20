@@ -720,9 +720,12 @@ class TradeOpen(Model):
 
     """
 
-    # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
+
     def __new__(cls, price: DecimalNumber = ..., trade_id: TradeID = ..., units: Unit = ...,
-                client_extensions: ClientExtensions = ..., guaranteed_execution_fee: DecimalNumber = ...):
+                client_extensions: ClientExtensions = ...,
+                # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
+                guaranteed_execution_fee: DecimalNumber = ...,
+                half_spread_cost: DecimalNumber = ...):
         return super().__new__(**TradeOpen._preset_arguments, **locals())
 
 
@@ -967,7 +970,9 @@ class TradeReduce(Model):
 
     def __new__(cls, trade_id: TradeID = ..., units: Unit = ..., realized_pl: AccountUnits = ...,
                 financing: AccountUnits = ..., price: DecimalNumber = ...,
-                guaranteed_execution_fee: DecimalNumber = ...):
+                # TODO: Update these with correct type when OANDA updated there documentation
+                guaranteed_execution_fee: DecimalNumber = ...,
+                half_spread_cost: DecimalNumber = ...):
         return super().__new__(**TradeReduce._preset_arguments, **locals())
 
 
@@ -1127,7 +1132,8 @@ class Transaction(Model):
                 # TODO update when OANDA ADVISES correct type. This is currently a guess.
                 gain_quote_home_conversion_factor: DecimalNumber = ...,
                 loss_quote_home_conversion_factor: DecimalNumber = ...,
-                guaranteed_execution_fee: DecimalNumber = ...):
+                guaranteed_execution_fee: DecimalNumber = ...,
+                half_spread_cost: DecimalNumber = ...):
         return super().__new__(**Transaction._preset_arguments, **locals())
 
 
