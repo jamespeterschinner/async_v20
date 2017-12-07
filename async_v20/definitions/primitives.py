@@ -11,9 +11,11 @@ __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'Account
            'TrailingStopLossOrderReason', 'TransactionFilter', 'TransactionID', 'TransactionRejectReason',
            'TransactionType', 'Unit', 'WeeklyAlignment']
 
+
 class Primitive(object):
     """Mixin class to denote primitive type"""
     pass
+
 
 class Specifier(object):
     """Mixin class to denote primitive type can be used for
@@ -21,6 +23,7 @@ class Specifier(object):
     # This is necessary due to different types using a mixture
     # of int and str which prevents inheritance due to 'Lay-out error'
     pass
+
 
 class AccountFinancingMode(str, Primitive):
     """The financing mode of an Account
@@ -135,8 +138,13 @@ class PriceComponent(str, Primitive):
               'B': 'bid candles',
               'A': 'ask candles'}
 
+    # Pre-constructed permutations to speed up domain checking
+    value_permutations = {'AB', 'B', 'BAM', 'AM', 'M',
+                          'BM', 'AMB', 'MBA', 'MA', 'A',
+                          'MB', 'ABM', 'BMA', 'MAB', 'BA'}
+
     def __new__(cls, value):
-        assert domain_check(value, possible_values=cls.values)
+        assert domain_check(value, possible_values=cls.value_permutations)
         return super().__new__(cls, value)
 
 
@@ -465,6 +473,7 @@ class InstrumentType(str, Primitive):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
 
+
 class TradeSpecifier(str, Primitive, Specifier):
     """The identification of a Trade as referred to by clients
     """
@@ -477,6 +486,7 @@ class TradeSpecifier(str, Primitive, Specifier):
 
     def __new__(cls, value):
         return super().__new__(cls, value)
+
 
 class TradeID(int, Primitive, Specifier):
     """The Trade’s identifier, unique within the Trade’s Account.
@@ -510,9 +520,6 @@ class TradePL(str, Primitive):
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
-
-
-
 
 
 class TradeState(str, Primitive):

@@ -180,3 +180,9 @@
 
    Added attributes to TradeSummary:
        - margin_used
+
+2.2.5b0
+=======
+
+   Bug fix:
+      - PriceComponent accepts all combinations of 'M' 'A' 'B'

@@ -5,7 +5,7 @@ from ..data.json_data import example_order
 from ..data.json_data import account_example
 from ..data.json_data import example_transaction_array
 from ..data.json_data import example_trade_array
-from async_v20.definitions.types import Account
+
 from async_v20.definitions.types import Position
 from async_v20.definitions.types import Instrument
 from async_v20.definitions.types import OrderCancelTransaction
@@ -16,9 +16,10 @@ from async_v20.definitions.types import ArrayTransaction
 from async_v20.definitions.types import ArrayTrade
 from async_v20.definitions.primitives import TradeSpecifier
 from async_v20.definitions.primitives import OrderSpecifier
+from async_v20.definitions.primitives import PriceComponent
 import pandas as pd
 import pytest
-
+from itertools import permutations
 
 def test_account_builds_from_dict():
     account_instance = Account(**GETAccountID_response['account'])
@@ -73,3 +74,8 @@ def test_transaction_array_can_be_constructed_from_example():
 
 def test_trade_array_can_be_constructed_from_example():
     assert type(ArrayTrade(*example_trade_array)) == ArrayTrade
+
+def test_all_possible_combinations_of_price_component():
+    for i in range(1,4):
+        for perm in permutations('MBA', i):
+            assert type(PriceComponent(perm[0])) == PriceComponent
