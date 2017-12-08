@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint, Path
+from .base import EndPoint
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -11,7 +11,7 @@ class GETPricing(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/pricing')
+    path = ('/v3/accounts/', AccountID, '/pricing')
 
     # description of endpoint
     description = 'Get pricing information for a specified list of Instruments within an Account.'
@@ -42,7 +42,7 @@ class GETPricingStream(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/pricing/stream')
+    path = ('/v3/accounts/', AccountID, '/pricing/stream')
 
     # description of endpoint
     description = '''Get a stream of Account Prices starting from when the request is made.

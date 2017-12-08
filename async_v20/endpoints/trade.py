@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint, Path
+from .base import EndPoint
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -12,7 +12,7 @@ class GETTrades(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/trades')
+    path = ('/v3/accounts/', AccountID, '/trades')
 
     # description of endpoint
     description = 'Get a list of Trades for an Account'
@@ -43,7 +43,7 @@ class GETOpenTrades(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/openTrades')
+    path = ('/v3/accounts/', AccountID, '/openTrades')
 
     # description of endpoint
     description = 'Get the list of open Trades for an Account'
@@ -68,7 +68,7 @@ class GETTradeSpecifier(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/trades/', TradeSpecifier)
+    path = ('/v3/accounts/', AccountID, '/trades/', TradeSpecifier)
 
     # description of endpoint
     description = 'Get the details of a specific Trade in an Account'
@@ -94,7 +94,7 @@ class PUTTradeSpecifierClose(EndPoint):
     method = 'PUT'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/close')
+    path = ('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/close')
 
     # description of endpoint
     description = 'Close (partially or fully) a specific open Trade in an Account'
@@ -129,7 +129,7 @@ class PUTTradeSpecifierClientExtensions(EndPoint):
     method = 'PUT'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/clientExtensions')
+    path = ('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/clientExtensions')
 
     # description of endpoint
     description = 'Update the Client Extensions for a Trade. Do not add, update, or ' \
@@ -166,7 +166,7 @@ class PUTTradesSpecifierOrders(EndPoint):
     method = 'PUT'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/orders')
+    path = ('/v3/accounts/', AccountID, '/trades/', TradeSpecifier, '/orders')
 
     # description of endpoint
     description = 'Create, replace and cancel a Trade’s dependent Orders ' \

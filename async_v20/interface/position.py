@@ -65,12 +65,18 @@ class PositionInterface(object):
     @endpoint(PUTPositionsInstrumentClose)
     def close_position(self,
                        instrument: InstrumentName = ...,
-                   long_units: LongUnits = ...,
-                   long_client_extensions: LongClientExtensions = ...,
+                       long_units: LongUnits = ...,
+                       long_client_extensions: LongClientExtensions = ...,
                        short_units: ShortUnits = ...,
                        short_client_extensions: ShortClientExtensions = ...):
         """
         Closeout the open Position for a specific instrument in an Account.
+
+        .. note::
+
+             - Either long_units or short_units **MUST** be specified.
+             - Do **NOT** specify `ALL` for `long_units` **or** `short_units`
+               if there are no units to close.
 
         Args:
 

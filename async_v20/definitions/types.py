@@ -451,7 +451,9 @@ class CalculatedPositionState(Model):
     """
 
     def __new__(cls, instrument: InstrumentName = ..., net_unrealized_pl: AccountUnits = ...,
-                long_unrealized_pl: AccountUnits = ..., short_unrealized_pl: AccountUnits = ...):
+                long_unrealized_pl: AccountUnits = ..., short_unrealized_pl: AccountUnits = ...,
+                # TODO Update when OANDA updates documentation
+                margin_used: DecimalNumber = ...):
         return super().__new__(**CalculatedPositionState._preset_arguments, **locals())
 
 
@@ -512,7 +514,9 @@ class Position(Model):
 
     def __new__(cls, instrument: InstrumentName = ..., pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
                 resettable_pl: AccountUnits = ..., commission: AccountUnits = ..., long: PositionSide = ...,
-                short: PositionSide = ..., financing: DecimalNumber = ..., margin_used: DecimalNumber = ...):
+                short: PositionSide = ..., financing: DecimalNumber = ...,
+                # TODO update these attributes with the correct type when OANDA updates documentation
+                margin_used: DecimalNumber = ...):
         return super().__new__(**Position._preset_arguments, **locals())
 
 
@@ -596,7 +600,9 @@ class CalculatedTradeState(Model):
 
     """
 
-    def __new__(cls, id: TradeID = ..., unrealized_pl: AccountUnits = ...):
+    def __new__(cls, id: TradeID = ..., unrealized_pl: AccountUnits = ...,
+                # TODO Update when OANDA updates documentation
+                margin_used: DecimalNumber = ...):
         return super().__new__(**CalculatedTradeState._preset_arguments, **locals())
 
 
@@ -719,7 +725,6 @@ class TradeOpen(Model):
             The client extensions for the newly opened Trade
 
     """
-
 
     def __new__(cls, price: DecimalNumber = ..., trade_id: TradeID = ..., units: Unit = ...,
                 client_extensions: ClientExtensions = ...,
@@ -1133,7 +1138,8 @@ class Transaction(Model):
                 gain_quote_home_conversion_factor: DecimalNumber = ...,
                 loss_quote_home_conversion_factor: DecimalNumber = ...,
                 guaranteed_execution_fee: DecimalNumber = ...,
-                half_spread_cost: DecimalNumber = ...):
+                half_spread_cost: DecimalNumber = ...,
+                partial_fill: str = ...):
         return super().__new__(**Transaction._preset_arguments, **locals())
 
 
@@ -3098,7 +3104,7 @@ class MarketOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = ..., time: DateTime = ...,
+    def __new__(cls, instrument: InstrumentName = ..., units: Unit = ..., id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
@@ -3669,7 +3675,7 @@ class StopLossOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('STOP_LOSS_ORDER_REJECT')}
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+    def __new__(cls, trade_id: TradeID = ..., price: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3892,7 +3898,7 @@ class TakeProfitOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TAKE_PROFIT_ORDER_REJECT')}
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+    def __new__(cls, trade_id: TradeID = ..., price: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3953,7 +3959,7 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('TRAILING_STOP_LOSS_ORDER_REJECT')}
 
-    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+    def __new__(cls, trade_id: TradeID = ..., distance: PriceValue= ..., id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -4113,7 +4119,8 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_IF_TOUCHED_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+    def __new__(cls, instrument: InstrumentName = ..., units: Unit = ..., price: PriceValue = ...,
+                id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -4190,7 +4197,8 @@ class LimitOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('LIMIT_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+    def __new__(cls, instrument: InstrumentName = ..., units: Unit = ..., price: PriceValue = ...,
+                id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., time_in_force: TimeInForce = 'GTC',
                 gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
@@ -4269,7 +4277,8 @@ class StopOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('STOP_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+    def __new__(cls, instrument: InstrumentName = ..., units: Unit = ..., price: PriceValue = ...,
+                id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,

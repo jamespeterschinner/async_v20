@@ -19,7 +19,8 @@ class Response(dict):
         return self.bool
 
     def __repr__(self):
-        return f'<Status [{self.status}]: {", ".join(self.keys())}>'
+        keys = ', '.join(self.keys())
+        return f'<Status [{self.status}]: {keys}>'
 
     def __getattr__(self, name):
         try:

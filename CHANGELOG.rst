@@ -186,3 +186,15 @@
 
    Bug fix:
       - PriceComponent accepts all combinations of 'M' 'A' 'B'
+
+2.2.5b1
+=======
+
+   Bug fix:
+      - RejectTransactions have no required arguments
+      - API methods now apply default values
+      - Added undocumented attributes
+
+   Improvements:
+      - Path class has been removed in favour of helper function. Allowing for more useful
+      error message on failure.

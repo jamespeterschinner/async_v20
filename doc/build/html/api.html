@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>OandaClient API &#8212; async_v20 2.2.2b0 documentation</title>
+    <title>OandaClient API &#8212; async_v20 2.2.5b1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.2.2b0',
+        VERSION:     '2.2.5b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -51,7 +51,7 @@ if no token is passed</p>
 <span id="id1"></span><h2>OandaClient<a class="headerlink" href="#oandaclient" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="async_v20.OandaClient">
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>datetime_format='UNIX'</em>, <em>rest_timeout=4</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>datetime_format='UNIX'</em>, <em>rest_timeout=10</em>, <em>stream_timeout=60</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em>, <em>loop=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.account.AccountInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.instrument.InstrumentInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.order.OrderInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.position.PositionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.pricing.PricingInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.trade.TradeInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.transaction.TransactionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.user.UserInterface</span></code></p>
 <p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -71,6 +71,7 @@ if no token is passed</p>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>rest_timeout</strong> – – The timeout to use when making a polling request with
 the v20 REST server</li>
+<li><strong>stream_timeout</strong> – – period to wait for an new json object during streaming</li>
 <li><strong>max_requests_per_second</strong> – – Maximum HTTP requests sent per second</li>
 <li><strong>max_simultaneous_connections</strong> – – Maximum concurrent HTTP requests</li>
 </ul>
@@ -1347,6 +1348,14 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <dt id="async_v20.OandaClient.close_position">
 <code class="descclassname">OandaClient.</code><code class="descname">close_position</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName=Ellipsis</em>, <em>long_units: LongUnits=Ellipsis</em>, <em>long_client_extensions: LongClientExtensions=Ellipsis</em>, <em>short_units: ShortUnits=Ellipsis</em>, <em>short_client_extensions: ShortClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.close_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Closeout the open Position for a specific instrument in an Account.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Either long_units or short_units <strong>MUST</strong> be specified.</li>
+<li>Do <strong>NOT</strong> specify <cite>ALL</cite> for <cite>long_units</cite> <strong>or</strong> <cite>short_units</cite>
+if there are no units to close.</li>
+</ul>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

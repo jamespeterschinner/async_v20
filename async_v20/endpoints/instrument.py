@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint, Path
+from .base import EndPoint
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -11,7 +11,7 @@ class GETInstrumentsCandles(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/instruments/', InstrumentName, '/candles')
+    path = ('/v3/instruments/', InstrumentName, '/candles')
 
     # description of endpoint
     description = 'Fetch candlestick data for an instrument.'
@@ -49,7 +49,7 @@ class GETInstrumentOrderBook(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/instruments/', InstrumentName, '/orderBook')
+    path = ('/v3/instruments/', InstrumentName, '/orderBook')
 
     # description of endpoint
     description = 'Fetch a gzip compressed order book for an instrument.'
@@ -75,7 +75,7 @@ class GETInstrumentsPositionBook(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/instruments/', InstrumentName, '/positionBook')
+    path = ('/v3/instruments/', InstrumentName, '/positionBook')
 
     # description of endpoint
     description = 'Fetch a gzip compressed position book for an instrument.'

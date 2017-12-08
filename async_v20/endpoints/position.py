@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint, Path
+from .base import EndPoint
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -11,7 +11,7 @@ class GETPositions(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/positions')
+    path = ('/v3/accounts/', AccountID, '/positions')
 
     # description of endpoint
     description = 'List all Positions for an Account. The Positions returned are for every ' \
@@ -35,7 +35,7 @@ class GETOpenPositions(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/openPositions')
+    path = ('/v3/accounts/', AccountID, '/openPositions')
 
     # description of endpoint
     description = 'List all open Positions for an Account. An open Position is a ' \
@@ -59,7 +59,7 @@ class GETPositionsInstrument(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/positions/', InstrumentName)
+    path = ('/v3/accounts/', AccountID, '/positions/', InstrumentName)
 
     # description of endpoint
     description = 'Get the details of a single Instrument’s Position in an Account. The Position may by open or not.'
@@ -83,7 +83,7 @@ class PUTPositionsInstrumentClose(EndPoint):
     method = 'PUT'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/positions/', InstrumentName, '/close')
+    path = ('/v3/accounts/', AccountID, '/positions/', InstrumentName, '/close')
 
     # description of endpoint
     description = 'Closeout the open Position for a specific instrument in an Account.'

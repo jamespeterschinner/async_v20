@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint, Path
+from .base import EndPoint
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -12,7 +12,7 @@ class POSTOrders(EndPoint):
     method = 'POST'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/orders')
+    path = ('/v3/accounts/', AccountID, '/orders')
 
     # description of endpoint
     description = 'Create an Order for an Account'
@@ -47,7 +47,7 @@ class GETOrders(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/orders')
+    path = ('/v3/accounts/', AccountID, '/orders')
 
     # description of endpoint
     description = 'Get a list of Orders for an Account'
@@ -78,7 +78,7 @@ class GETPendingOrders(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/pendingOrders')
+    path = ('/v3/accounts/', AccountID, '/pendingOrders')
 
     # description of endpoint
     description = 'List all pending Orders in an Account'
@@ -103,7 +103,7 @@ class GETOrderSpecifier(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
+    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
 
     # description of endpoint
     description = 'Get details for a single Order in an Account'
@@ -129,7 +129,7 @@ class PUTOrderSpecifier(EndPoint):
     method = 'PUT'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
+    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier)
 
     # description of endpoint
     description = 'Replace an Order in an Account by simultaneously cancelling it and creating a replacement Order'
@@ -166,7 +166,7 @@ class PUTOrderSpecifierCancel(EndPoint):
     method = 'PUT'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/cancel')
+    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/cancel')
 
     # description of endpoint
     description = 'Cancel a pending Order in an Account'
@@ -196,7 +196,7 @@ class PUTClientExtensions(EndPoint):
     method = 'PUT'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/clientExtensions')
+    path = ('/v3/accounts/', AccountID, '/orders/', OrderSpecifier, '/clientExtensions')
 
     # description of endpoint
     description = 'Update the Client Extensions for an Order in an Account. Do not set, ' \

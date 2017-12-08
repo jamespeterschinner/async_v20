@@ -5,6 +5,7 @@ from ..data.json_data import example_order
 from ..data.json_data import account_example
 from ..data.json_data import example_transaction_array
 from ..data.json_data import example_trade_array
+from ..data.json_data import example_market_order_reject_transaction
 
 from async_v20.definitions.types import Position
 from async_v20.definitions.types import Instrument
@@ -14,6 +15,7 @@ from async_v20.definitions.types import Account
 from async_v20.definitions.types import Order
 from async_v20.definitions.types import ArrayTransaction
 from async_v20.definitions.types import ArrayTrade
+from async_v20.definitions.types import MarketOrderRejectTransaction
 from async_v20.definitions.primitives import TradeSpecifier
 from async_v20.definitions.primitives import OrderSpecifier
 from async_v20.definitions.primitives import PriceComponent
@@ -79,3 +81,7 @@ def test_all_possible_combinations_of_price_component():
     for i in range(1,4):
         for perm in permutations('MBA', i):
             assert type(PriceComponent(perm[0])) == PriceComponent
+
+def test_market_order_reject_transaction_can_be_created_from_example():
+    assert type(MarketOrderRejectTransaction(**example_market_order_reject_transaction)) == \
+        MarketOrderRejectTransaction

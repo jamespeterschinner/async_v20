@@ -1,5 +1,5 @@
 from .annotations import UserSpecifier, Authorization
-from .base import EndPoint, Path
+from .base import EndPoint
 from ..definitions.types import *
 
 __all__ = ['GETUserSpecifier', 'GETExternalInfo']
@@ -10,7 +10,7 @@ class GETUserSpecifier(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/users/', UserSpecifier)
+    path = ('/v3/users/', UserSpecifier)
 
     # description of endpoint
     description = 'Fetch the user information for the specified user.'
@@ -33,7 +33,7 @@ class GETExternalInfo(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/users/', UserSpecifier, '/externalInfo')
+    path = ('/v3/users/', UserSpecifier, '/externalInfo')
 
     # description of endpoint
     description = 'Fetch the externally-available user information for the specified user.'

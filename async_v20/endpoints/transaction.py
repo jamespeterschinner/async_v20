@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint, Path
+from .base import EndPoint
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -11,7 +11,7 @@ class GETTransactions(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/transactions')
+    path = ('/v3/accounts/', AccountID, '/transactions')
 
     # description of endpoint
     description = 'Get a list of Transactions pages that satisfy a time-based Transaction query.'
@@ -43,7 +43,7 @@ class GETTransactionID(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/transactions/', TransactionID)
+    path = ('/v3/accounts/', AccountID, '/transactions/', TransactionID)
 
     # description of endpoint
     description = 'Get the details of a single Account Transaction.'
@@ -69,7 +69,7 @@ class GETIDrange(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/transactions/idrange')
+    path = ('/v3/accounts/', AccountID, '/transactions/idrange')
 
     # description of endpoint
     description = 'Get a range of Transactions for an Account based on the Transaction IDs.'
@@ -98,7 +98,7 @@ class GETSinceID(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/transactions/sinceid')
+    path = ('/v3/accounts/', AccountID, '/transactions/sinceid')
 
     # description of endpoint
     description = 'Get a range of Transactions for an Account starting at ' \
@@ -128,7 +128,7 @@ class GETTransactionsStream(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/transactions/stream')
+    path = ('/v3/accounts/', AccountID, '/transactions/stream')
 
     # description of endpoint
     description = 'Get a stream of Transactions for an Account starting from when the request is made.'

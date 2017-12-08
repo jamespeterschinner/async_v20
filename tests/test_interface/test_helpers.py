@@ -118,8 +118,8 @@ async def test_create_request_params(client, interface_method):
 
 @pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])
 def test_create_url(client, endpoint):
-    path = endpoint.path.path
-    arguments = [value for value in path if not isinstance(value, str)]
+    template = endpoint.path
+    arguments = [value for value in template if not isinstance(value, str)]
     values = list(map(lambda x: str(x), range(len(arguments))))
     arguments = dict(zip(arguments, values))
     url = create_url(client, endpoint, arguments)
@@ -128,6 +128,11 @@ def test_create_url(client, endpoint):
         assert value in path
         path = path[path.index(value):]
 
+@pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])
+def test_create_url_raises_error_when_missing_arguments(client, endpoint):
+    if len(endpoint.path) > 3: # URL TEMPLATES with len > 3 will require addition arguments to be passed
+        with pytest.raises(ValueError):
+            url = create_url(client, endpoint, {})
 
 @pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
                                               for method in cls.__dict__.values() if hasattr(method, 'endpoint')])

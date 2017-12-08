@@ -1,7 +1,7 @@
 import pytest
 
 from tests.fixtures.static import get_account_details_response, get_pricing_response, list_accounts_response
-
+from async_v20.interface.response import Response
 from ..fixtures.client import client
 from ..fixtures import server as server_module
 
@@ -44,3 +44,6 @@ async def test_response_keys_can_be_accessed_through_dot(client, server):
             assert getattr(response, key) == value
             with pytest.raises(AttributeError):
                 getattr(response, key+'_test')
+
+def test_response_doesnt_error_when_response_contains_no_data():
+    print(Response(data='',status=400, bool=0))

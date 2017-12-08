@@ -1,25 +1,6 @@
 from typing import List
 
 
-class Path(object):
-    """capture the construction of a path"""
-
-    def __init__(self, *path):
-        self.path = path
-
-    def __call__(self, arguments: dict, default: dict):
-        def lookup(segment):
-            try:
-                result = arguments[segment]
-            except KeyError:
-                result = default[segment]
-            return result
-
-        return ''.join([segment if isinstance(segment, str)
-                        else lookup(segment)
-                        for segment in self.path])
-
-
 class EndPoint(object):
     """Base object representation of an endpoint"""
 
@@ -27,7 +8,7 @@ class EndPoint(object):
     host = 'REST'
 
     # Path needs to be a Path object
-    path = Path
+    path = ()
 
     # the HTTP verb to use for this endpoint
     method = str

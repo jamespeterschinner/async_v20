@@ -2,7 +2,7 @@ from .annotations import SinceTransactionID
 from .annotations import Authorization
 from .annotations import Instruments
 from .annotations import Alias
-from .base import EndPoint, Path
+from .base import EndPoint
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -15,7 +15,7 @@ class GETAccounts(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts')
+    path = ('/v3/accounts',)
 
     # description of endpoint
     description = 'Get a list of all Accounts authorized for the provided token.'
@@ -37,7 +37,7 @@ class GETAccountID(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID)
+    path = ('/v3/accounts/', AccountID)
 
     # description of endpoint
     description = 'Get the full details for a single Account that a client has access to. ' \
@@ -63,7 +63,7 @@ class GETAccountIDSummary(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/summary')
+    path = ('/v3/accounts/', AccountID, '/summary')
 
     # description of endpoint
     description = 'Get a summary for a single Account that a client has access to.'
@@ -88,7 +88,7 @@ class GETAccountIDInstruments(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/instruments')
+    path = ('/v3/accounts/', AccountID, '/instruments')
 
     # description of endpoint
     description = 'Get the list of tradeable instruments for the given Account.' \
@@ -116,7 +116,7 @@ class PATCHAccountIDConfiguration(EndPoint):
     method = 'PATCH'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/configuration')
+    path = ('/v3/accounts/', AccountID, '/configuration')
 
     # description of endpoint
     description = 'Set the client-configurable portions of an Account.'
@@ -148,7 +148,7 @@ class GETAccountIDChanges(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = Path('/v3/accounts/', AccountID, '/changes')
+    path = ('/v3/accounts/', AccountID, '/changes')
     # description of endpoint
     description = 'Endpoint used to poll an Account for its current state and changes since a specified TransactionID.'
 

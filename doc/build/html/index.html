@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>async_v20: Asynchronous OANDA v20 client &#8212; async_v20 2.2.2b0 documentation</title>
+    <title>async_v20: Asynchronous OANDA v20 client &#8212; async_v20 2.2.5b1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.2.2b0',
+        VERSION:     '2.2.5b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -41,7 +41,8 @@
             
   <div class="section" id="async-v20-asynchronous-oanda-v20-client">
 <span id="async-v20-home"></span><h1>async_v20: Asynchronous OANDA v20 client<a class="headerlink" href="#async-v20-asynchronous-oanda-v20-client" title="Permalink to this headline">¶</a></h1>
-<p><em>A foreign exchange client</em></p>
+<blockquote>
+<div><em>A foreign exchange client</em></div></blockquote>
 <img alt="async-v20 logo" src="https://raw.githubusercontent.com/jamespeterschinner/async_v20/master/doc/source/_static/async_v20-icon-128x128.png" />
 <a class="reference external image-reference" href="https://travis-ci.org/jamespeterschinner/async_v20"><img alt="https://travis-ci.org/jamespeterschinner/async_v20.svg?branch=master" src="https://travis-ci.org/jamespeterschinner/async_v20.svg?branch=master" /></a>
 <a class="reference external image-reference" href="https://codecov.io/gh/jamespeterschinner/async_v20"><img alt="https://codecov.io/gh/jamespeterschinner/async_v20/branch/master/graph/badge.svg" src="https://codecov.io/gh/jamespeterschinner/async_v20/branch/master/graph/badge.svg" /></a>
@@ -81,7 +82,7 @@ $ pip install aiodns
 </div>
 <div class="section" id="why-async-v20">
 <h2>Why async_v20?<a class="headerlink" href="#why-async-v20" title="Permalink to this headline">¶</a></h2>
-<p>There are many OANDA clients for python already available. Why create another?
+<p>There are many OANDA clients for python already available so why create another?
 The main driver for creating async_v20 was to facilitate better risk management,
 by allowing user’s to concurrently monitor account status and trade currency’s.</p>
 <p>An unintended consequence of async_v20 is the ability to create clear segregation
@@ -97,7 +98,7 @@ between implementation ideas.</p>
 <p>A synchronous implementation would require considerable effort to determine which
 task communicates with the server next. async_v20 removes this burden by using
 <a class="reference external" href="https://github.com/aio-libs/aiohttp">aiohttp</a></p>
-<p>Further goals of async_v20 has been to lower the barrier of entry for algorithmic trading,
+<p>Further goals of async_v20 has been to lower the barrier of entry for algorithmic trading
 by providing a complete and simple to use interface.</p>
 </div>
 <div class="section" id="tutorial">

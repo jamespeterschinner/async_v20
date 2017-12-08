@@ -68,7 +68,8 @@ async def handler(request):
     response_status = get_response_status()
 
     global received
-    received = await request.text()
+    received = await request.read()
+    print(received)
 
     if response_data is None:
         response_data = 'null'

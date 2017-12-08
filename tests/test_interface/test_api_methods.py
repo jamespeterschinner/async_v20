@@ -10,6 +10,7 @@ from ..fixtures.client import client
 
 client = client
 server = server_module.server
+received = server_module.received
 
 
 @pytest.mark.asyncio
@@ -69,3 +70,5 @@ async def test_client_methods_shortcut_api_methods(method, server, client):
             # Response Not containing expected data
         # TODO Added meaning full asserts
         print(server_module.received)
+
+

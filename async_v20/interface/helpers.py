@@ -25,11 +25,32 @@ def _create_request_params(self, endpoint, arguments: dict, param_location: str)
 
     return dict(lookup())
 
+def construct_path(template, arguments, default_arguments):
+    path = ''
+    for segment in template:
+        try:
+            path += segment
+        except TypeError:
+            # Means segment wasn't a string
+            try:
+                path += arguments[segment]
+            except KeyError:
+                # Means the segment wasn't passed in the arguments
+                try:
+                    path += default_arguments[segment]
+                except KeyError:
+                    # Means path can not be constructed
+                    raise ValueError(f'Missing {segment} in arguments in supplied arguments {arguments}')
+    return path
 
 def create_url(self, endpoint, arguments):
-    endpoint_path = endpoint.path(arguments, default=self.default_parameters)
+    try:
+        path = construct_path(endpoint.path, arguments, self.default_parameters)
+    except ValueError:
+        raise ValueError(f'Unable to construct path for {endpoint}')
+
     host = self.hosts[endpoint.host]
-    return host(path=endpoint_path)
+    return host(path=path)
 
 
 def create_body(request_schema, arguments):
@@ -82,7 +103,7 @@ def construct_arguments(signature, bound_arguments):
     def yield_annotations():
         for name, value in bound_arguments.items():
             annotation = signature.parameters[name].annotation
-            if not annotation == _empty:
+            if not annotation == _empty and not value == ...:
                 yield annotation, create_attribute(annotation, value)
 
     return dict(yield_annotations())
@@ -90,8 +111,9 @@ def construct_arguments(signature, bound_arguments):
 
 def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     """Format arguments to be passed to an aiohttp request"""
-    arguments = sig.bind(self, *args, **kwargs).arguments
-    arguments = construct_arguments(sig, arguments)
+    bound = sig.bind(self, *args, **kwargs)
+    bound.apply_defaults()
+    arguments = construct_arguments(sig, bound.arguments)
 
     json = create_body(endpoint.request_schema, arguments)
 
