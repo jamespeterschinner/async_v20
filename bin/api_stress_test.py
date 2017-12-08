@@ -16,6 +16,7 @@ rsp = run(
     client.get_account_details(),
     client.account_summary(),
     client.account_instruments(),
+    client.get_candles('AUD_USD'),
     # should be ok
     client.account_instruments(instruments='AUD_USD,EUR_USD,AUD_JPY'),
     # should give error

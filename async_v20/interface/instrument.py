@@ -26,7 +26,7 @@ class InstrumentInterface(object):
                     from_time: FromTime = ...,
                     to_time: ToTime = ...,
                     smooth: Smooth = False,
-                    include_first_query: IncludeFirstQuery = True,
+                    include_first_query: IncludeFirstQuery = ...,
                     daily_alignment: DailyAlignment = 17,
                     alignment_timezone: AlignmentTimezone = 'America/New_York',
                     weekly_alignment: WeeklyAlignment = 'Friday',

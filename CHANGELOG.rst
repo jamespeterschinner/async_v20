@@ -198,3 +198,9 @@
    Improvements:
       - Path class has been removed in favour of helper function. Allowing for more useful
       error message on failure.
+
+2.2.5b2
+=======
+
+   Bug fix:
+      - Fixed get_candles default value
