@@ -5,9 +5,9 @@ import pytest
 from async_v20.definitions.base import Model, Array, create_attribute
 from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import TradeID, AccountID
-from async_v20.definitions.types import Account, ArrayStr, TradeSummary, ArrayTransaction
+from async_v20.definitions.types import Account, ArrayStr, TradeSummary, ArrayTransaction, ArrayPosition
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
-from ..data.json_data import example_transactions
+from ..data.json_data import example_transactions, example_positions
 from ..fixtures.client import client
 from ..fixtures.server import server
 
@@ -154,6 +154,14 @@ def test_array_get_id_returns_id():
     print(data)
     transactions = ArrayTransaction(*json.loads(example_transactions))
     assert transactions.get_id(6607).id == 6607
+    assert transactions.get_id(123) == None
+
+def test_array_get_instrument_returns_instrument():
+    data = json.loads(example_transactions)
+    print(data)
+    positions = ArrayPosition(*json.loads(example_positions))
+    assert positions.get_instrument('AUD_USD').instrument == 'AUD_USD'
+    assert positions.get_instrument('EUR_USD') == None
 
 @pytest.mark.asyncio
 async def test_array_dataframe_returns_dataframe(client, server):
@@ -162,4 +170,6 @@ async def test_array_dataframe_returns_dataframe(client, server):
         rsp = await client.get_candles('AUD_USD')
     df = rsp.candles.dataframe()
     assert type(df) == DataFrame
+
+
 
