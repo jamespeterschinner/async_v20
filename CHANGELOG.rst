@@ -65,7 +65,7 @@
 1.1.5a0
 =======
    Bug fixes:
-      - Issue method signatures were offset buy 1 argument due to handling of
+      - method signatures were offset buy 1 argument due to handling of
       'self' parameter. Methods now displaying correct signature
 
 1.1.5a1

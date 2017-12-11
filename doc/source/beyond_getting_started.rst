@@ -140,7 +140,7 @@ Python programs typically reserve camelCase for :term:`class` definitions.
 
 This means, in order to both satisfy python standards and OANDA,
 objects (as defined in :ref:`class-definitions`) need to accept `camelCase` and :term:`snake_case`
-arguments when being constructed
+arguments when being constructed.
 
 `objects` store there attributes as `snake_case` (as python programmers would expect),
 which adds a further requirement to convert these into `camelCase` when being serialized.
