@@ -204,3 +204,14 @@
 
    Bug fix:
       - Fixed get_candles default value
+
+2.3.0b0
+=======
+
+   Bug fix:
+      - Updated limit_replace_order() method to expose all arguments
+      - TransactionID, TradeID & OrderID get stored as integers and cast to strings when creating JSON
+      representations
+
+   Improvements:
+      - Added documentation for order API methods

@@ -893,7 +893,7 @@ class TransactionFilter(str, Primitive):
         return super().__new__(cls, value)
 
 
-class TransactionID(str, Primitive):
+class TransactionID(int, Primitive, Specifier):
     """The unique Transaction identifier within each Account.
     """
 

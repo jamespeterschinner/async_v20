@@ -170,7 +170,7 @@ def test_create_request_kwargs(client, interface_method):
 async def test_request_body_is_constructed_correctly(stop_loss_order):
     result = create_body(POSTOrders.request_schema,
                          {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
-    correct = {'order': {'tradeID': 1234, 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
+    correct = {'order': {'tradeID': '1234', 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
                          'triggerCondition': 'DEFAULT'}}
     print('RESULT: \n', result)
     print('CORRECT: \n', correct)

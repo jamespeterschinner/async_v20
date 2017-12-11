@@ -96,7 +96,7 @@ async def test_rest_response_builds_array_account_properties(client, rest_respon
 async def test_rest_response_updates_client_default_parameters(client, rest_response):
     await _rest_response(client, rest_response(GETAccountID_response), GETAccountID)
     # Ensure default_parameters is updated
-    assert client.default_parameters[LastTransactionID] == str(14)
+    assert client.default_parameters[LastTransactionID] == 14
 
 
 @pytest.mark.asyncio
@@ -136,13 +136,13 @@ async def test_parser_raises_connection_error_with_bad_http_status(client, serve
 async def test_parser_updates_since_transaction_id(client, server):
     async with client as client:
         # Test server will return response with lastTransactionID
-        # Being 4980
-        assert client.default_parameters[SinceTransactionID] != '4980'
+        # Being 10385
+        assert client.default_parameters[SinceTransactionID] != 10547
         assert client.default_parameters[SinceTransactionID] == \
                client.default_parameters[LastTransactionID]
 
         response = await client.account_changes()
-        assert client.default_parameters[SinceTransactionID] == '4980'
+        assert client.default_parameters[SinceTransactionID] == 10547
         print(response.json())
         print(account_changes_response)
         assert response.json() == account_changes_response

@@ -1,4 +1,5 @@
 import ujson as json
+from ..definitions.base import Specifier
 from operator import itemgetter
 
 class Response(dict):
@@ -45,7 +46,11 @@ class Response(dict):
                 try:
                     result = [obj.dict(json) for obj in value]
                 except (AttributeError, TypeError):
-                    result = value
+                    if json and isinstance(value, Specifier):
+                        # Specifiers need to be strings for JSON
+                        result = str(value)
+                    else:
+                        result = value
             return result
 
         return {key: value_to_dict(value) for key, value in self.items()}

@@ -153,7 +153,7 @@ def test_array_get_id_returns_id():
     data = json.loads(example_transactions)
     print(data)
     transactions = ArrayTransaction(*json.loads(example_transactions))
-    assert transactions.get_id(6607).id == '6607'
+    assert transactions.get_id(6607).id == 6607
 
 @pytest.mark.asyncio
 async def test_array_dataframe_returns_dataframe(client, server):

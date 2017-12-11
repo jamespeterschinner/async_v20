@@ -21,7 +21,6 @@ def endpoint(endpoint, initialization_step=False):
 
         method.__doc__ = create_doc_signature(method, sig)
 
-
         @wraps(method)
         async def wrap(self, *args, **kwargs):
             await self.initialize(initialization_step)

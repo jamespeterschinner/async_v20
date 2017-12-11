@@ -5,12 +5,13 @@ from inspect import signature, Signature
 from operator import itemgetter
 
 import pandas as pd
-from .primitives import Primitive, Specifier, DateTime
+
 from .attributes import instance_attributes
 from .attributes import json_attributes
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
 from .helpers import time_to_time_stamp
+from .primitives import Primitive, Specifier, DateTime
 
 
 def arg_parse(new: classmethod, signature=Signature) -> classmethod:
@@ -121,7 +122,6 @@ class ORM(type):
         return class_obj
 
 
-
 class Model(tuple, metaclass=ORM):
     # Make attribute assignment impossible
     __slots__ = ()
@@ -213,7 +213,11 @@ class Model(tuple, metaclass=ORM):
                             # Attr is None. account_changes endpoint
                             # returns items with null
                             attr = attr
-                elif json and isinstance(attr, float):
+                elif json and isinstance(attr, (float, Specifier)):
+                    # Technically OANDA's spec declares all specifiers as strings
+                    # though TradeID and OrderID in async_v20 are integers. As this
+                    # seems to be most useful type. We will make sure to cast them back
+                    # to strings when sending JSON data to OANDA
                     attr = str(attr)
                 elif datetime and isinstance(attr, DateTime):
                     attr = time_to_time_stamp(attr)
@@ -280,7 +284,7 @@ class Array(tuple):
 
     def get_id(self, id_):
         try:
-            return self[self._ids[str(id_)]]
+            return self[self._ids[int(id_)]]
         except KeyError:
             return None
 

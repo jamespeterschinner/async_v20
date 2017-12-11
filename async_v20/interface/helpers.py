@@ -30,14 +30,14 @@ def construct_path(template, arguments, default_arguments):
     for segment in template:
         try:
             path += segment
-        except TypeError:
+        except TypeError: # Need to cast to string as specifier may be an int.
             # Means segment wasn't a string
             try:
-                path += arguments[segment]
+                path += str(arguments[segment])
             except KeyError:
                 # Means the segment wasn't passed in the arguments
                 try:
-                    path += default_arguments[segment]
+                    path += str(default_arguments[segment])
                 except KeyError:
                     # Means path can not be constructed
                     raise ValueError(f'Missing {segment} in arguments in supplied arguments {arguments}')

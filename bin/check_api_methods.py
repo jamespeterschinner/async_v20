@@ -133,5 +133,7 @@ rsp = run(
 for i in rsp:
     print(i.json())
 
+run(client.close_all_trades())
+
 
 print('TEST SUCCESSFUL!')

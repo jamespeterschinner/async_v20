@@ -453,7 +453,7 @@ class CalculatedPositionState(Model):
     def __new__(cls, instrument: InstrumentName = ..., net_unrealized_pl: AccountUnits = ...,
                 long_unrealized_pl: AccountUnits = ..., short_unrealized_pl: AccountUnits = ...,
                 # TODO Update when OANDA updates documentation
-                margin_used: DecimalNumber = ...):
+                margin_used: AccountUnits = ...):
         return super().__new__(**CalculatedPositionState._preset_arguments, **locals())
 
 
@@ -516,7 +516,7 @@ class Position(Model):
                 resettable_pl: AccountUnits = ..., commission: AccountUnits = ..., long: PositionSide = ...,
                 short: PositionSide = ..., financing: DecimalNumber = ...,
                 # TODO update these attributes with the correct type when OANDA updates documentation
-                margin_used: DecimalNumber = ...):
+                margin_used: AccountUnits = ...):
         return super().__new__(**Position._preset_arguments, **locals())
 
 
@@ -602,7 +602,7 @@ class CalculatedTradeState(Model):
 
     def __new__(cls, id: TradeID = ..., unrealized_pl: AccountUnits = ...,
                 # TODO Update when OANDA updates documentation
-                margin_used: DecimalNumber = ...):
+                margin_used: AccountUnits = ...):
         return super().__new__(**CalculatedTradeState._preset_arguments, **locals())
 
 
@@ -1539,6 +1539,7 @@ class StopLossOrderRequest(OrderRequest):
         client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
             The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
+
     """
 
     _preset_arguments = {'type': OrderType('STOP_LOSS')}
