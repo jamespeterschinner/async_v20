@@ -162,7 +162,7 @@
 
    status
 
-      When prefixed with http. Refers a 3 digit number.
+      When prefixed with http. Refers to a 3 digit number with pre-assigned meaning.
 
       https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Status_codes
 
