@@ -276,6 +276,15 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                     raise ConnectionError(f'Server did not return Account Details during '
                                           f'initialization. {response} {response.dict()}')
 
+                self.expected_step = 3
+                response = await self.account_instruments()
+                if response:
+                    self._instruments = response['instruments']
+                else:
+                    self.initializing = False
+                    raise ConnectionError(f'Server did not return Account Instruments during '
+                                          f'initialization. {response} {response.dict()}')
+
                 # On initialization the SinceTransactionID needs updated to reflect LastTransactionID
                 self.default_parameters.update({SinceTransactionID: self.default_parameters[LastTransactionID]})
 

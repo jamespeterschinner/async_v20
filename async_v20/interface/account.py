@@ -52,7 +52,7 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountIDInstruments)
+    @endpoint(GETAccountIDInstruments, initialization_step=3)
     def account_instruments(self, instruments: Instruments = ...):
         """
         Get the list of tradeable instruments for the given Account. The list

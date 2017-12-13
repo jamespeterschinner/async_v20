@@ -157,7 +157,7 @@ class OrderRequest(Model):
         client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
         distance: :class:`~async_v20.definitions.primitives.PriceValue`
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
         price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
         position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
         take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
@@ -169,7 +169,7 @@ class OrderRequest(Model):
     def __new__(cls, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
-                distance: PriceValue = ..., instrument: InstrumentName = ..., units: Unit = ...,
+                distance: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
                 price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
@@ -182,14 +182,14 @@ class UnitsAvailableDetails(Model):
     for both long and short Orders.
 
     Attributes:
-        long: :class:`~async_v20.definitions.primitives.Unit`
+        long: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The units available for long Orders.
-        short: :class:`~async_v20.definitions.primitives.Unit`
+        short: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The units available for short Orders.
 
     """
 
-    def __new__(cls, long: Unit = ..., short: Unit = ...):
+    def __new__(cls, long: DecimalNumber = ..., short: DecimalNumber = ...):
         return super().__new__(**UnitsAvailableDetails._preset_arguments, **locals())
 
 
@@ -342,7 +342,7 @@ class InstrumentCommission(Model):
         commission: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The commission amount (in the Account's home
             currency) charged per unitsTraded of the instrument
-        units_traded: :class:`~async_v20.definitions.primitives.Unit`
+        units_traded: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The number of units traded that the commission amount is based on.
         minimum_commission: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The minimum commission amount (in the Account's home currency) that
@@ -350,7 +350,7 @@ class InstrumentCommission(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., commission: DecimalNumber = ..., units_traded: Unit = ...,
+    def __new__(cls, instrument: InstrumentName = ..., commission: DecimalNumber = ..., units_traded: DecimalNumber = ...,
                 minimum_commission: DecimalNumber = ...):
         return super().__new__(**InstrumentCommission._preset_arguments, **locals())
 
@@ -465,7 +465,7 @@ class PositionSide(Model):
     """The representation of a Position for a single direction (long or short).
 
     Attributes:
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             Number of units in the position (negative
             value indicates short position, positive indicates long position).
         average_price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -483,7 +483,7 @@ class PositionSide(Model):
 
     """
 
-    def __new__(cls, units: Unit = ..., average_price: PriceValue = ..., trade_i_ds: ArrayTradeID = ...,
+    def __new__(cls, units: DecimalNumber = ..., average_price: PriceValue = ..., trade_i_ds: ArrayTradeID = ...,
                 pl: AccountUnits = ..., unrealized_pl: AccountUnits = ..., resettable_pl: AccountUnits = ...,
                 financing: DecimalNumber = ...):
         return super().__new__(**PositionSide._preset_arguments, **locals())
@@ -719,14 +719,14 @@ class TradeOpen(Model):
     Attributes:
         trade_id: :class:`~async_v20.definitions.primitives.TradeID`
             The ID of the Trade that was opened
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The number of units opened by the Trade
         client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
             The client extensions for the newly opened Trade
 
     """
 
-    def __new__(cls, price: DecimalNumber = ..., trade_id: TradeID = ..., units: Unit = ...,
+    def __new__(cls, price: DecimalNumber = ..., trade_id: TradeID = ..., units: DecimalNumber = ...,
                 client_extensions: ClientExtensions = ...,
                 # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
                 guaranteed_execution_fee: DecimalNumber = ...,
@@ -740,14 +740,14 @@ class VWAPReceipt(Model):
     market, each bucket will be represented with a VWAP Receipt.
 
     Attributes:
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The number of units filled
         price: :class:`~async_v20.definitions.primitives.PriceValue`
             The price at which the units were filled
 
     """
 
-    def __new__(cls, units: Unit = ..., price: PriceValue = ...):
+    def __new__(cls, units: DecimalNumber = ..., price: PriceValue = ...):
         return super().__new__(**VWAPReceipt._preset_arguments, **locals())
 
 
@@ -908,7 +908,7 @@ class Order(Model):
         distance: :class:`~async_v20.definitions.primitives.PriceValue`
         trailing_stop_value: :class:`~async_v20.definitions.primitives.PriceValue`
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
         partial_fill: :class:`str`
         position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
         take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
@@ -937,7 +937,7 @@ class Order(Model):
                 trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ..., distance: PriceValue = ...,
-                trailing_stop_value: PriceValue = ..., instrument: InstrumentName = ..., units: Unit = ...,
+                trailing_stop_value: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
                 partial_fill: str = ..., position_fill: OrderPositionFill = ...,
                 take_profit_on_fill: TakeProfitDetails = ...,
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
@@ -964,7 +964,7 @@ class TradeReduce(Model):
     Attributes:
         trade_id: :class:`~async_v20.definitions.primitives.TradeID`
             The ID of the Trade that was reduced or closed
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The number of units that the Trade was reduced by
         realized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
             The PL realized when reducing the Trade
@@ -973,7 +973,7 @@ class TradeReduce(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = ..., units: Unit = ..., realized_pl: AccountUnits = ...,
+    def __new__(cls, trade_id: TradeID = ..., units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
                 financing: AccountUnits = ..., price: DecimalNumber = ...,
                 # TODO: Update these with correct type when OANDA updated there documentation
                 guaranteed_execution_fee: DecimalNumber = ...,
@@ -1036,10 +1036,10 @@ class TradeSummary(Model):
             The date/time when the Trade was opened.
         state: :class:`~async_v20.definitions.primitives.TradeState`
             The current state of the Trade.
-        initial_units: :class:`~async_v20.definitions.primitives.Unit`
+        initial_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The initial size of the Trade. Negative values indicate
             a short Trade, and positive values indicate a long Trade.
-        current_units: :class:`~async_v20.definitions.primitives.Unit`
+        current_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The number of units currently open for the Trade. This
             value is reduced to 0.0 as the Trade is closed.
         realized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
@@ -1069,8 +1069,8 @@ class TradeSummary(Model):
     """
 
     def __new__(cls, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
-                open_time: DateTime = ..., state: TradeState = ..., initial_units: Unit = ...,
-                current_units: Unit = ..., realized_pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
+                open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
+                current_units: DecimalNumber = ..., realized_pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
                 average_close_price: PriceValue = ..., closing_transaction_i_ds: ArrayTransactionID = ...,
                 financing: AccountUnits = ..., close_time: DateTime = ...,
                 client_extensions: ClientExtensions = ..., take_profit_order_id: OrderID = ...,
@@ -1123,7 +1123,7 @@ class Transaction(Model):
                 replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...,
                 reject_reason: TransactionRejectReason = ..., amount: AccountUnits = ...,
                 funding_reason: FundingReason = ..., comment: str = ..., instrument: InstrumentName = ...,
-                units: Unit = ..., price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
+                units: DecimalNumber = ..., price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
                 trade_close: MarketOrderTradeClose = ..., long_position_closeout: MarketOrderPositionCloseout = ...,
                 short_position_closeout: MarketOrderPositionCloseout = ...,
                 margin_closeout: MarketOrderMarginCloseout = ...,
@@ -1203,17 +1203,17 @@ class Instrument(Model):
         trade_units_precision: :class:`int`
             The amount of decimal places that may be provided
             when specifying the number of units traded for this instrument.
-        minimum_trade_size: :class:`~async_v20.definitions.primitives.Unit`
+        minimum_trade_size: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The smallest number of units allowed to be traded for this instrument.
-        maximum_trailing_stop_distance: :class:`~async_v20.definitions.primitives.Unit`
+        maximum_trailing_stop_distance: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The maximum trailing stop distance allowed for a trailing
             stop loss created for this instrument. Specified in price units.
-        minimum_trailing_stop_distance: :class:`~async_v20.definitions.primitives.Unit`
+        minimum_trailing_stop_distance: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The minimum trailing stop distance allowed for a trailing
             stop loss created for this instrument. Specified in price units.
-        maximum_position_size: :class:`~async_v20.definitions.primitives.Unit`
+        maximum_position_size: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The maximum position size allowed for this instrument. Specified in units.
-        maximum_order_units: :class:`~async_v20.definitions.primitives.Unit`
+        maximum_order_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The maximum units allowed for an Order
             placed for this instrument. Specified in units.
         margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
@@ -1225,9 +1225,9 @@ class Instrument(Model):
 
     def __new__(cls, name: InstrumentName = ..., type: InstrumentType = ..., display_name: str = ...,
                 pip_location: int = ..., display_precision: int = ..., trade_units_precision: int = ...,
-                minimum_trade_size: Unit = ..., maximum_trailing_stop_distance: Unit = ...,
-                minimum_trailing_stop_distance: Unit = ..., maximum_position_size: Unit = ...,
-                maximum_order_units: Unit = ..., margin_rate: DecimalNumber = ...,
+                minimum_trade_size: DecimalNumber = ..., maximum_trailing_stop_distance: DecimalNumber = ...,
+                minimum_trailing_stop_distance: DecimalNumber = ..., maximum_position_size: DecimalNumber = ...,
+                maximum_order_units: DecimalNumber = ..., margin_rate: DecimalNumber = ...,
                 commission: InstrumentCommission = ...):
         return super().__new__(**Instrument._preset_arguments, **locals())
 
@@ -2000,8 +2000,8 @@ class MarketOrderRequest(OrderRequest):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Market Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
-            The quantity requested to be filled by the Market Order. A posititive number of units
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+            The quantity requested to be filled by the Market Order. A positive number of units
             results in a long Order, and a negative number of units results in a short Order.
         time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
             The time-in-force requested for the Market Order.
@@ -2038,7 +2038,7 @@ class MarketOrderRequest(OrderRequest):
 
     _preset_arguments = {'type': OrderType('MARKET')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = ...,
                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
@@ -2360,10 +2360,10 @@ class Trade(Model):
             The date/time when the Trade was opened.
         state: :class:`~async_v20.definitions.primitives.TradeState`
             The current state of the Trade.
-        initial_units: :class:`~async_v20.definitions.primitives.Unit`
+        initial_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The initial size of the Trade. Negative values indicate
             a short Trade, and positive values indicate a long Trade.
-        current_units: :class:`~async_v20.definitions.primitives.Unit`
+        current_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The number of units currently open for the Trade. This
             value is reduced to 0.0 as the Trade is closed.
         realized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
@@ -2395,8 +2395,8 @@ class Trade(Model):
     """
 
     def __new__(cls, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
-                open_time: DateTime = ..., state: TradeState = ..., initial_units: Unit = ...,
-                current_units: Unit = ..., realized_pl: AccountUnits = ...,
+                open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
+                current_units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
                 unrealized_pl: AccountUnits = ..., average_close_price: PriceValue = ...,
                 closing_transaction_i_ds: ArrayTransactionID = ..., financing: AccountUnits = ...,
                 close_time: DateTime = ..., client_extensions: ClientExtensions = ...,
@@ -2658,7 +2658,7 @@ class LimitOrderRequest(OrderRequest):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Limit Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Limit Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -2702,7 +2702,7 @@ class LimitOrderRequest(OrderRequest):
 
     _preset_arguments = {'type': OrderType('LIMIT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -2719,7 +2719,7 @@ class MarketIfTouchedOrderRequest(OrderRequest):
 
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The MarketIfTouched Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -2768,7 +2768,7 @@ class MarketIfTouchedOrderRequest(OrderRequest):
 
     _preset_arguments = {'type': OrderType('MARKET_IF_TOUCHED')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, price_bound: PriceValue = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, price_bound: PriceValue = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -2785,7 +2785,7 @@ class StopOrderRequest(OrderRequest):
 
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Stop Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Stop Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -2832,7 +2832,7 @@ class StopOrderRequest(OrderRequest):
 
     _preset_arguments = {'type': OrderType('STOP')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -2976,7 +2976,7 @@ class MarketOrderTransaction(Transaction):
             Transactions in the same batch are applied to the Account simultaneously.
         request_id: :class:`~async_v20.definitions.primitives.RequestID`
             The Request ID of the request which generated the transaction.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
@@ -3022,7 +3022,7 @@ class MarketOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_ORDER')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, id: TransactionID = ..., time: DateTime = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
@@ -3057,7 +3057,7 @@ class MarketOrderRejectTransaction(Transaction):
             Transactions in the same batch are applied to the Account simultaneously.
         request_id: :class:`~async_v20.definitions.primitives.RequestID`
             The Request ID of the request which generated the transaction.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
@@ -3105,7 +3105,7 @@ class MarketOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName = ..., units: Unit = ..., id: TransactionID = ..., time: DateTime = ...,
+    def __new__(cls, instrument: InstrumentName = ..., units: DecimalNumber = ..., id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
@@ -3252,7 +3252,7 @@ class LimitOrder(Order):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Limit Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Limit Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -3328,7 +3328,7 @@ class LimitOrder(Order):
         """
     _preset_arguments = {'type': OrderType('LIMIT')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
@@ -3350,7 +3350,7 @@ class MarketIfTouchedOrder(Order):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The MarketIfTouched Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -3434,7 +3434,7 @@ class MarketIfTouchedOrder(Order):
 
     _preset_arguments = {'type': OrderType('MARKET_IF_TOUCHED')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 price_bound: PriceValue = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3456,7 +3456,7 @@ class StopOrder(Order):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Stop Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Stop Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -3536,7 +3536,7 @@ class StopOrder(Order):
 
     _preset_arguments = {'type': OrderType('STOP')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: OrderID = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC',
                 gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
@@ -3575,7 +3575,7 @@ class OrderFillTransaction(Transaction):
             (only provided if the client has assigned one).
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The name of the filled Order's instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The number of units filled by the Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
             The average market price that the Order was filled at.
@@ -3611,7 +3611,7 @@ class OrderFillTransaction(Transaction):
     def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 order_id: OrderID = ..., client_order_id: ClientID = ...,
-                instrument: InstrumentName = ..., units: Unit = ..., price: PriceValue = ...,
+                instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
                 full_price: ClientPrice = ..., reason: OrderFillReason = ..., pl: AccountUnits = ...,
                 financing: AccountUnits = ..., commission: AccountUnits = ..., account_balance: AccountUnits = ...,
                 trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
@@ -3693,7 +3693,7 @@ class MarketIfTouchedOrderTransaction(Transaction):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The MarketIfTouched Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -3756,7 +3756,7 @@ class MarketIfTouchedOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_IF_TOUCHED_ORDER')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3776,7 +3776,7 @@ class LimitOrderTransaction(Transaction):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Limit Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Limit Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -3834,7 +3834,7 @@ class LimitOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('LIMIT_ORDER')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3977,7 +3977,7 @@ class StopOrderTransaction(Transaction):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Stop Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Stop Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -4038,7 +4038,7 @@ class StopOrderTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('STOP_ORDER')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, price: PriceValue, id: TransactionID = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ...,
                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -4058,7 +4058,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The MarketIfTouched Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -4120,7 +4120,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('MARKET_IF_TOUCHED_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName = ..., units: Unit = ..., price: PriceValue = ...,
+    def __new__(cls, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
                 id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
@@ -4141,7 +4141,7 @@ class LimitOrderRejectTransaction(Transaction):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Limit Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Limit Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -4198,7 +4198,7 @@ class LimitOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('LIMIT_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName = ..., units: Unit = ..., price: PriceValue = ...,
+    def __new__(cls, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
                 id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., time_in_force: TimeInForce = 'GTC',
@@ -4218,7 +4218,7 @@ class StopOrderRejectTransaction(Transaction):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Stop Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Stop Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         price: :class:`~async_v20.definitions.primitives.PriceValue`
@@ -4278,7 +4278,7 @@ class StopOrderRejectTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('STOP_ORDER_REJECT')}
 
-    def __new__(cls, instrument: InstrumentName = ..., units: Unit = ..., price: PriceValue = ...,
+    def __new__(cls, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
                 id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
@@ -4299,7 +4299,7 @@ class MarketOrder(Order):
     Attributes:
         instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
             The Market Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.Unit`
+        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
             The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
         id: :class:`~async_v20.definitions.primitives.OrderID`
@@ -4377,7 +4377,7 @@ class MarketOrder(Order):
 
     _preset_arguments = {'type': OrderType('MARKET')}
 
-    def __new__(cls, instrument: InstrumentName, units: Unit, id: OrderID = ..., create_time: DateTime = ...,
+    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, id: OrderID = ..., create_time: DateTime = ...,
                 state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,

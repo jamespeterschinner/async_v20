@@ -215,3 +215,10 @@
 
    Improvements:
       - Added documentation for order API methods
+
+2.3.1b0
+=======
+
+   Improvements:
+      - Array.get_instrument() works with ArrayInstrument
+      - OandaClient.initialize() gets account instruments

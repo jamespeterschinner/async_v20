@@ -23,7 +23,7 @@ from ..definitions.types import TimeInForce
 from ..definitions.types import TradeID
 from ..definitions.types import TrailingStopLossDetails
 from ..definitions.types import TrailingStopLossOrderRequest
-from ..definitions.types import Unit
+from ..definitions.types import DecimalNumber
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import TradeClientExtensions
@@ -75,7 +75,7 @@ class OrderInterface(object):
         pass
 
     @shortcut
-    def create_order(self, instrument: InstrumentName, units: Unit, type: OrderType = 'MARKET',
+    def create_order(self, instrument: InstrumentName, units: DecimalNumber, type: OrderType = 'MARKET',
                      trade_id: TradeID = ..., price: PriceValue = ..., client_trade_id: ClientID = ...,
                      time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                      trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
@@ -343,7 +343,7 @@ class OrderInterface(object):
         pass
 
     @shortcut
-    def market_order(self, instrument: InstrumentName, units: Unit,
+    def market_order(self, instrument: InstrumentName, units: DecimalNumber,
                      time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
                      position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = ...,
                      take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
@@ -430,7 +430,7 @@ class OrderInterface(object):
             ))
 
     @shortcut
-    def limit_order(self, instrument: InstrumentName, units: Unit, price: PriceValue,
+    def limit_order(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                     time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                     position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                     client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -527,7 +527,7 @@ class OrderInterface(object):
 
     @shortcut
     def limit_replace_order(self,
-                            order_specifier: OrderSpecifier, instrument: InstrumentName, units: Unit, price: PriceValue,
+                            order_specifier: OrderSpecifier, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                             time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                             position_fill: OrderPositionFill = 'DEFAULT',
                             trigger_condition: OrderTriggerCondition = 'DEFAULT',
@@ -691,7 +691,7 @@ class OrderInterface(object):
     @shortcut
     def stop_replace_order(self,
                            order_specifier: OrderSpecifier,
-                           instrument: InstrumentName, units: Unit, price: PriceValue,
+                           instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                            price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                            position_fill: OrderPositionFill = 'DEFAULT',
                            trigger_condition: OrderTriggerCondition = 'DEFAULT',
@@ -796,7 +796,7 @@ class OrderInterface(object):
             ))
 
     @shortcut
-    def market_if_touched_order(self, instrument: InstrumentName, units: Unit, price: PriceValue,
+    def market_if_touched_order(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                                 price_bound: PriceValue = ...,
                                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                                 position_fill: OrderPositionFill = 'DEFAULT',
@@ -903,7 +903,7 @@ class OrderInterface(object):
     @shortcut
     def market_if_touched_replace_order(self,
                                         order_specifier: OrderSpecifier,
-                                        instrument: InstrumentName, units: Unit, price: PriceValue,
+                                        instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                                         price_bound: PriceValue = ...,
                                         time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                                         position_fill: OrderPositionFill = 'DEFAULT',

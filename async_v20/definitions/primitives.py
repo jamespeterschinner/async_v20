@@ -9,7 +9,7 @@ __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'Account
            'PriceValue', 'Reason', 'RequestID', 'StopLossOrderReason', 'StopOrderReason', 'TakeProfitOrderReason',
            'TimeInForce', 'TradeID', 'TradePL', 'TradeSpecifier', 'TradeState', 'TradeStateFilter',
            'TrailingStopLossOrderReason', 'TransactionFilter', 'TransactionID', 'TransactionRejectReason',
-           'TransactionType', 'Unit', 'WeeklyAlignment']
+           'TransactionType', 'WeeklyAlignment']
 
 
 class Primitive(object):
@@ -346,7 +346,7 @@ class PriceValue(float, Primitive):
                     'provided depends on the Price’s Instrument.'
 
     def __new__(cls, value):
-        return super().__new__(cls, round(float(value), 5))
+        return super().__new__(cls, value)
 
 
 class AcceptDatetimeFormat(str, Primitive):
@@ -414,19 +414,7 @@ class DecimalNumber(float, Primitive):
                     'provided depends on what the number represents.'
 
     def __new__(cls, value):
-        return super().__new__(cls, round(float(value), 5))
-
-
-class Unit(float, Primitive):
-    """A unit is a standard allotment of a currency
-    """
-
-    # Correct syntax of value
-    format_syntax = 'A decimal number encoded as a string. The amount of precision ' \
-                    'provided depends on what the number represents.'
-
-    def __new__(cls, value):
-        return super().__new__(cls, round(float(value), 0))
+        return super().__new__(cls, value)
 
 
 class Direction(str, Primitive):

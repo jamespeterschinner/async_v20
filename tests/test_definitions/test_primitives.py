@@ -52,7 +52,3 @@ def test_primitives_return_correct_type_when_initialized_with_value(primitive):
 
 def test_PriceValue_rounds_floats_to_the_correct_accuracy():
     assert primitives.PriceValue(0.123456) == 0.12346
-
-
-def test_Unit_rounds_floats_to_the_correct_accuracy():
-    assert primitives.Unit(0.6) == 1

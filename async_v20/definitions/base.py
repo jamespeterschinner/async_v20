@@ -194,11 +194,20 @@ class Model(tuple, metaclass=ORM):
         return self.__class__(**dict(self.dict(), **kwargs))
 
     def dict(self, json=False, datetime=False):
+        """Convert object into a dictionary representation
+
+        Args:
+            json: - bool. True converts dict keys into JSON format
+            datetime: - bool. True converts DateTimes into pandas.Timestamps
+            accuracy: - int: The accuracy to round PriceValues to.
+        """
+
         def fields():
             for field in self._fields:
                 attr = getattr(self, field)
 
                 if not isinstance(attr, (int, float, str)):
+                    # Means attr is either a Model object, tuple, list, None
                     try:
                         attr = attr.dict(json=json, datetime=datetime)
                     except AttributeError:
@@ -242,7 +251,7 @@ class Model(tuple, metaclass=ORM):
                         pass
                 yield key, value
 
-        return pd.Series(dict(self.template, **dict(create_data())))
+        return pd.Series(dict(create_data()))
 
 
 class Array(tuple):
@@ -266,10 +275,9 @@ class Array(tuple):
                 try:
                     _ids.update({getattr(item, 'id'): index})
                 except AttributeError:
-                    try:
-                        _instruments.update({getattr(item, 'instrument'): index})
-                    except AttributeError:
-                        pass
+                    key = getattr(item, 'instrument', getattr(item, 'name', None))
+                    if key:
+                        _instruments.update({key: index})
                 yield item
 
         try:

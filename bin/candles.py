@@ -9,6 +9,7 @@ async def candles():
 
 
 loop = asyncio.get_event_loop()
+
 response = loop.run_until_complete(candles())
 
 # HTTP response state

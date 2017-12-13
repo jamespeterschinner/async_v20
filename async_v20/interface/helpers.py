@@ -1,6 +1,13 @@
 from functools import partial
 from inspect import _empty
 from ..definitions.base import create_attribute
+from ..definitions.types import Instrument, OrderRequest
+
+def _in_context(order_request: OrderRequest, instrument: Instrument):
+    """Ensure the order request is formatted as per the instrument specification
+    """
+    pass
+
 
 
 def _arguments(endpoint, param_location):
