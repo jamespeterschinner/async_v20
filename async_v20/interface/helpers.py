@@ -2,6 +2,7 @@ from functools import partial
 from inspect import _empty
 
 from ..definitions.base import create_attribute
+from ..definitions.types import OrderRequest
 
 
 def _in_context(order_request, instrument, clip=False):
@@ -117,7 +118,7 @@ def create_url(self, endpoint, arguments):
     return host(path=path)
 
 
-def create_body(request_schema, arguments):
+def create_body(self, request_schema, arguments):
     """Create the JSON body to add to the HTTP request
 
     Args:
@@ -131,13 +132,18 @@ def create_body(request_schema, arguments):
     # Reverse the request schema to allow for lookups
 
     def dumps():
-        """Iterate over the arguments returning dicts of matching objects"""
+        """Iterate over the arguments returning dicts of matching objects
+        and format order requests where required"""
         for key, value in arguments.items():
             try:
                 key = request_schema[key]
             except KeyError:
                 continue
             else:
+                if isinstance(value, OrderRequest):
+                    value = _in_context(value,
+                                        self._instruments.get_instrument(value.instrument),
+                                        self.format_order_requests)
                 try:
                     value = value.dict(json=True)
                 except AttributeError:
@@ -179,7 +185,7 @@ def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     bound.apply_defaults()
     arguments = construct_arguments(sig, bound.arguments)
 
-    json = create_body(endpoint.request_schema, arguments)
+    json = create_body(self, endpoint.request_schema, arguments)
 
     headers = header_params(self, endpoint, arguments)
     url = create_url(self, endpoint, arguments)

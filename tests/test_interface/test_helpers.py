@@ -23,6 +23,7 @@ from async_v20.interface.helpers import _in_context
 from .helpers import order_dict
 from ..data.json_data import GETAccountID_response, example_instruments
 from ..fixtures.client import client
+from ..fixtures.server import server
 from ..test_definitions.helpers import get_valid_primitive_data
 
 
@@ -30,7 +31,7 @@ client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
 client = client
-
+server = server
 
 def test_order_dict():
     first = {'a': 1, 'b': 2, 'c': {'d': 3, 'e': 4, 'f': {'e': 5, 'g': 6}}}
@@ -136,12 +137,13 @@ def test_create_url_raises_error_when_missing_arguments(client, endpoint):
         with pytest.raises(ValueError):
             url = create_url(client, endpoint, {})
 
+@pytest.mark.asyncio
 @pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
                                               for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
-def test_create_request_kwargs(client, interface_method):
-    client.default_parameters.update({AccountID: 'TEST_ID',
-                                      Authorization: 'TEST_AUTH'})
-
+async def test_create_request_kwargs(client, interface_method, server):
+    # client.default_parameters.update({AccountID: 'TEST_ID',
+    #                                   Authorization: 'TEST_AUTH'})
+    await client.initialize()
     args = []
     for param in interface_method.__signature__.parameters.values():
         args.append(get_valid_primitive_data(param.annotation))

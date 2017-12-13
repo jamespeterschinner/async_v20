@@ -33,6 +33,9 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     Args:
         token: -- User generated token from the online account configuration page
         account_id: -- The account id the client will connect to
+        format_order_requests: -- bool. True, format all order_requests
+            in the context on the orders instrument. False, Don't format order requests,
+            raise ValueError for values outside of allowed range.
         max_transaction_history: -- Maximum past transactions to store
         rest_host: -- The hostname of the v20 REST server
         rest_port: -- The port of the v20 REST server
@@ -86,7 +89,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # Limit concurrent connections
         self._max_simultaneous_connections = {True: value, False: 0}[value >= 0]
 
-    def __init__(self, token=None, account_id=None, max_transaction_history=100,
+    def __init__(self, token=None, account_id=None, format_order_requests=False,
+                 max_transaction_history=100,
                  rest_host='api-fxpractice.oanda.com', rest_port=443,
                  rest_scheme='https', stream_host='stream-fxpractice.oanda.com', stream_port=None,
                  stream_scheme='https', datetime_format='UNIX', rest_timeout=10, stream_timeout=60,
@@ -101,6 +105,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             token = os.environ['OANDA_TOKEN']
 
         self.account_id = account_id
+
+        self.format_order_requests = format_order_requests
 
         self.max_transaction_history = max_transaction_history
 
