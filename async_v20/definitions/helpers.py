@@ -1,5 +1,6 @@
 from inspect import _empty
 from itertools import starmap, chain
+
 from pandas import Timestamp, Timedelta
 
 
@@ -44,6 +45,7 @@ def flatten_dict(dictionary, delimiter='_'):
 
     return dictionary
 
+
 def time_to_time_stamp(time):
     """Convert a RFC3339 or UNIX timestamp to pandas Timestamp"""
     try:
@@ -52,10 +54,11 @@ def time_to_time_stamp(time):
     except ValueError:
         # This will work with UNIX
         nanoseconds = lambda: {'nanoseconds': int(time[-3:])}
-        time_stamp =  (Timestamp.utcfromtimestamp(float(time)) +
-                       Timedelta(**nanoseconds())).tz_localize('UTC')
+        time_stamp = (Timestamp.utcfromtimestamp(float(time)) +
+                      Timedelta(**nanoseconds())).tz_localize('UTC')
 
     return time_stamp
+
 
 def create_doc_signature(obj, sig):
     names = list(sig.parameters.keys())

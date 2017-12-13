@@ -348,6 +348,16 @@ class PriceValue(float, Primitive):
     def __new__(cls, value):
         return super().__new__(cls, value)
 
+    def format(self, precision, min_=None, max_=None):
+        # A DecimalNumber can se + / -
+        value = self
+        if min_:
+            value = (value, min_)[value < min_]
+        if max_:
+            value = (value, max_)[value > max_]
+
+        return super().__new__(self.__class__, round(value, precision))
+
 
 class AcceptDatetimeFormat(str, Primitive):
     """DateTime header
@@ -416,6 +426,16 @@ class DecimalNumber(float, Primitive):
     def __new__(cls, value):
         return super().__new__(cls, value)
 
+    def format(self, precision, min_=None, max_=None):
+        # A DecimalNumber can se + / -
+        value = abs(self)
+        if min_:
+            value = (value, min_)[value < min_]
+        if max_:
+            value = (value, max_)[value > max_]
+        value = value * (1, -1)[self < 0]
+
+        return super().__new__(self.__class__, round(value, precision))
 
 class Direction(str, Primitive):
     """In the context of an Order or a

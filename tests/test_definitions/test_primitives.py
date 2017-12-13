@@ -48,7 +48,3 @@ def test_primitives_enforce_length_checking(primitive):
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives, x), primitives.__all__))
 def test_primitives_return_correct_type_when_initialized_with_value(primitive):
     assert type(primitive(get_valid_primitive_data(primitive))) == primitive
-
-
-def test_PriceValue_rounds_floats_to_the_correct_accuracy():
-    assert primitives.PriceValue(0.123456) == 0.12346

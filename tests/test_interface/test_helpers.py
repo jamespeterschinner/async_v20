@@ -1,13 +1,13 @@
 import inspect
-
+import re
 import pytest
-
+import json
 from async_v20 import endpoints
 from async_v20 import interface
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import AccountID, OrderRequest
-from async_v20.definitions.types import StopLossOrderRequest
+from async_v20.definitions.types import StopLossOrderRequest, ArrayInstrument
 from async_v20.endpoints import POSTOrders
 from async_v20.endpoints.annotations import Authorization
 from async_v20.endpoints.annotations import Bool
@@ -19,10 +19,12 @@ from async_v20.interface.helpers import construct_arguments
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import create_request_kwargs
 from async_v20.interface.helpers import create_url
+from async_v20.interface.helpers import _in_context
 from .helpers import order_dict
-from ..data.json_data import GETAccountID_response
+from ..data.json_data import GETAccountID_response, example_instruments
 from ..fixtures.client import client
 from ..test_definitions.helpers import get_valid_primitive_data
+
 
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
@@ -190,3 +192,35 @@ async def test_objects_can_be_converted_between_Model_object_and_json():
     print('ASYNC_20 DATA')
     print(account_to_json)
     assert response_json_account == account_to_json
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_updates_units(instrument):
+    order_request = OrderRequest(units=0.123456)
+    result = _in_context(order_request, instrument, clip=True)
+    assert result.units >= instrument.minimum_trade_size
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_raises_error_when_units_less_than_minimum(instrument):
+    order_request = OrderRequest(units=0.123456)
+    with pytest.raises(ValueError):
+        _in_context(order_request, instrument)
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_applies_correct_precision(instrument):
+    order_request = OrderRequest(units=50.1234567891234)
+    result = _in_context(order_request, instrument)
+    print(result.units)
+    print(instrument.trade_units_precision)
+    if instrument.trade_units_precision == 0:
+        assert re.findall(r'(?<=\.)\d+', str(result.units))[0] == '0'
+    else:
+        assert len(re.findall(r'(?<=\.)\d+', str(result.units))[0]) == instrument.trade_units_precision
+
+    order_request = OrderRequest(units=0.1234567891234)
+    result = _in_context(order_request, instrument, clip=True)
+    print(result.units)
+    print(instrument.trade_units_precision)
+    if instrument.trade_units_precision == 0:
+        assert re.findall(r'(?<=\.)\d+', str(result.units))[0] == '0'
+    else:
+        assert len(re.findall(r'(?<=\.)\d+', str(result.units))[0]) == instrument.trade_units_precision
