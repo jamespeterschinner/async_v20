@@ -2,7 +2,7 @@ from functools import partial
 from inspect import _empty
 
 from ..definitions.base import create_attribute
-from ..definitions.types import OrderRequest
+from ..definitions.types import OrderRequest, Instrument
 
 
 def _in_context(order_request, instrument, clip=False):
@@ -141,9 +141,15 @@ def create_body(self, request_schema, arguments):
                 continue
             else:
                 if isinstance(value, OrderRequest):
-                    value = _in_context(value,
-                                        self._instruments.get_instrument(value.instrument),
-                                        self.format_order_requests)
+                    instrument = self._instruments.get_instrument(value.instrument)
+                    if instrument:
+                        value = _in_context(value,
+                                            instrument,
+                                            self.format_order_requests)
+                    if not instrument and self.format_order_requests:
+                        raise KeyError(f'Could not find {value.instrument} '
+                                       f'in OandaClient._instruments')
+
                 try:
                     value = value.dict(json=True)
                 except AttributeError:

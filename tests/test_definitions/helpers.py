@@ -2,6 +2,7 @@ from inspect import signature, _empty
 
 from async_v20.definitions.base import Model, Array
 from async_v20.endpoints.annotations import Bool
+from async_v20.definitions.types import InstrumentName
 
 
 def create_cls_annotations(cls):
@@ -20,7 +21,6 @@ def get_valid_primitive_data(primitive):
         return {attr: get_valid_primitive_data(create_cls_annotations(primitive)[attr])
                 for attr in primitive.__new__.__signature__.parameters if
                 attr not in 'cls'}
-
     if issubclass(primitive, (float)):
         data = 14.0
     elif issubclass(primitive, (int)):

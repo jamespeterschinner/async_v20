@@ -1,37 +1,38 @@
 import inspect
-import re
-import pytest
 import json
+import re
+
+import pytest
+
 from async_v20 import endpoints
 from async_v20 import interface
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
-from async_v20.definitions.types import AccountID, OrderRequest
+from async_v20.definitions.types import OrderRequest
 from async_v20.definitions.types import StopLossOrderRequest, ArrayInstrument
 from async_v20.endpoints import POSTOrders
-from async_v20.endpoints.annotations import Authorization
 from async_v20.endpoints.annotations import Bool
 # noinspection PyProtectedMember
 from async_v20.interface.helpers import _arguments
 # noinspection PyProtectedMember
 from async_v20.interface.helpers import _create_request_params
+from async_v20.interface.helpers import _in_context
 from async_v20.interface.helpers import construct_arguments
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import create_request_kwargs
 from async_v20.interface.helpers import create_url
-from async_v20.interface.helpers import _in_context
 from .helpers import order_dict
 from ..data.json_data import GETAccountID_response, example_instruments
 from ..fixtures.client import client
 from ..fixtures.server import server
 from ..test_definitions.helpers import get_valid_primitive_data
 
-
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
 client = client
 server = server
+
 
 def test_order_dict():
     first = {'a': 1, 'b': 2, 'c': {'d': 3, 'e': 4, 'f': {'e': 5, 'g': 6}}}
@@ -131,30 +132,31 @@ def test_create_url(client, endpoint):
         assert value in path
         path = path[path.index(value):]
 
+
 @pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])
 def test_create_url_raises_error_when_missing_arguments(client, endpoint):
-    if len(endpoint.path) > 3: # URL TEMPLATES with len > 3 will require addition arguments to be passed
+    if len(endpoint.path) > 3:  # URL TEMPLATES with len > 3 will require addition arguments to be passed
         with pytest.raises(ValueError):
             url = create_url(client, endpoint, {})
+
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
                                               for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
 async def test_create_request_kwargs(client, interface_method, server):
-    # client.default_parameters.update({AccountID: 'TEST_ID',
-    #                                   Authorization: 'TEST_AUTH'})
+    print(interface_method)
     await client.initialize()
+    client.format_order_requests = True
     args = []
     for param in interface_method.__signature__.parameters.values():
+        if param.annotation == OrderRequest:
+            print('ORDER REQUEST')
+            args.append(OrderRequest(instrument='AUD_USD', units=0.12345))
+            continue
         args.append(get_valid_primitive_data(param.annotation))
 
     args = args[1:]
 
-    print(interface_method.__name__)
-    if interface_method.__name__ == 'create_order':
-        args = ((1, 1, 'STOP_LOSS',),)
-    elif interface_method.__name__ == 'replace_order':
-        args = (12, (1, 1, 'STOP_LOSS'))
     print('ARGS: ', args)
     request_kwargs = create_request_kwargs(client,
                                            interface_method.endpoint,
@@ -171,14 +173,24 @@ async def test_create_request_kwargs(client, interface_method, server):
 
 
 @pytest.mark.asyncio
-async def test_request_body_is_constructed_correctly(stop_loss_order):
-    result = create_body(POSTOrders.request_schema,
+async def test_request_body_is_constructed_correctly(client, server, stop_loss_order):
+    await client.initialize()
+    result = create_body(client, POSTOrders.request_schema,
                          {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
     correct = {'order': {'tradeID': '1234', 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
                          'triggerCondition': 'DEFAULT'}}
     print('RESULT: \n', result)
     print('CORRECT: \n', correct)
     assert result == correct
+
+
+@pytest.mark.asyncio
+async def test_request_body_raises_key_error_when_cannot_format_request(client, server, stop_loss_order):
+    await client.initialize()
+    client.format_order_requests = True
+    with pytest.raises(KeyError):
+        create_body(client, POSTOrders.request_schema,
+                    {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
 
 
 @pytest.mark.asyncio
@@ -195,17 +207,20 @@ async def test_objects_can_be_converted_between_Model_object_and_json():
     print(account_to_json)
     assert response_json_account == account_to_json
 
+
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_in_context_updates_units(instrument):
     order_request = OrderRequest(units=0.123456)
     result = _in_context(order_request, instrument, clip=True)
     assert result.units >= instrument.minimum_trade_size
 
+
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_in_context_raises_error_when_units_less_than_minimum(instrument):
     order_request = OrderRequest(units=0.123456)
     with pytest.raises(ValueError):
         _in_context(order_request, instrument)
+
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_in_context_applies_correct_precision(instrument):
