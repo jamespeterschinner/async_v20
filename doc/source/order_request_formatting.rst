@@ -24,16 +24,25 @@ representation of an :class:`~async_v20.definitions.types.Instrument`.
     type                                          CFD
     dtype: object
 
-The attributes of this instrument outline the formatting of OrderRequests for this instrument.
-For instance *Instrument*. **trade_units_precision** defines how many decimal places
+The above instrument outlines the formatting of an *OrderRequest* for the *Instrument* (in this case *Brent Crude Oil*).
+Take *Instrument*. **trade_units_precision** as an example, this attribute defines how many decimal places
 :class:`~async_v20.definition.types.OrderRequest`. **units** may be used for this instrument (our example *0*).
 
 You will also notice **minimum** and **maximum** values for other *OrderRequest*'s attributes.
 
-*OandaClient*. **format_order_requests** changes the degree to which *OrderRequest*'s will be modified
-to comply with the instrument specification. If **format_order_requests** is set to
-:class:`True` *OandaClient* will limit values into the valid range specified by the instrument.
-By default this feature is disabled.
+*OandaClient*. **format_order_requests** is a boolean value which changes the degree to which
+*OrderRequest*'s will be modified to comply with the instrument specification.
+If **format_order_requests** is set to
+:class:`True` *OandaClient* will modify values so that they are within
+the valid range specified by the instrument.
+
+.. note::
+    I believe most users will want to use this feature as it dramatically
+    reduces the complexity of placing valid OrderRequests. It is disabled by default.
+
+    Only enable this feature if you understand that your `OrderRequest`. **stop_loss_on_fill**/
+    **take_profit_on_fill**/**trailing_stop_loss_distance** and **price_bound** configuration may
+    be altered to comply with the instruments valid ranges.
 
 .. note::
     The precision of :class:`~async_v20.definitions.primitives.DecimalNumber` and
