@@ -39,3 +39,31 @@ valid range specified by the instrument. By default this feature is disabled.
     :class:`~async_v20.definitions.primitive.PriceValue` will **always** be rounded
     to the correct precision for the instrument, regardless of *OandaClient*. **format_order_requests**
     value.
+
+
+**Example:**
+
+.. code-block:: python
+    :emphasize-lines: 6-8,11,15
+
+    >>> from async_v20 import OandaClient
+    >>> import asyncio
+    >>> client = OandaClient()
+    >>> run = loop.run_until_complete
+    >>> run(client.create_order('AUD_USD', 0))
+    Traceback (most recent call last):
+    ValueError: OrderRequest units 0.0 are less than the minimum trade size 1.0
+    >>> run(client.create_order('AUD_USD', 1))
+    <Status [201]: orderCreateTransaction, orderFillTransaction, relatedTransactionIDs, lastTransactionID>
+    >>> client.format_order_requests
+    False
+    >>> client.format_order_requests = True
+    >>> run(client.create_order('AUD_USD', 0))
+    <Status [201]: orderCreateTransaction, orderFillTransaction, relatedTransactionIDs, lastTransactionID>
+    >>> client.format_order_requests = False
+    >>> run(client.create_order('AUD_USD', 1, trailing_stop_loss_on_fill=0))
+    Traceback (most recent call last):
+    ValueError: Trailing stop loss distance is not 0.0005 < 0.0 < 1.0
+    >>> client.format_order_requests = True
+    >>> run(client.create_order('AUD_USD', 1, trailing_stop_loss_on_fill=0))
+    <Status [201]: orderCreateTransaction, orderFillTransaction, relatedTransactionIDs, lastTransactionID>
