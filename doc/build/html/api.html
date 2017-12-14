@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>OandaClient API &#8212; async_v20 2.2.5b1 documentation</title>
+    <title>OandaClient API &#8212; async_v20 2.3.0b0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '2.2.5b1',
+        VERSION:     '2.3.0b0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -51,7 +51,7 @@ if no token is passed</p>
 <span id="id1"></span><h2>OandaClient<a class="headerlink" href="#oandaclient" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="async_v20.OandaClient">
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>datetime_format='UNIX'</em>, <em>rest_timeout=10</em>, <em>stream_timeout=60</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em>, <em>loop=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>format_order_requests=False</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>datetime_format='UNIX'</em>, <em>rest_timeout=10</em>, <em>stream_timeout=60</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em>, <em>loop=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.account.AccountInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.instrument.InstrumentInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.order.OrderInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.position.PositionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.pricing.PricingInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.trade.TradeInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.transaction.TransactionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.user.UserInterface</span></code></p>
 <p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -61,6 +61,9 @@ if no token is passed</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>token</strong> – – User generated token from the online account configuration page</li>
 <li><strong>account_id</strong> – – The account id the client will connect to</li>
+<li><strong>format_order_requests</strong> – – bool. True, format all order_requests
+in the context on the orders instrument. False, Don’t format order requests,
+raise ValueError for values outside of allowed range.</li>
 <li><strong>max_transaction_history</strong> – – Maximum past transactions to store</li>
 <li><strong>rest_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
@@ -268,7 +271,7 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="async_v20.OandaClient.get_candles">
-<code class="descclassname">OandaClient.</code><code class="descname">get_candles</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>price: PriceComponent=M</em>, <em>granularity: CandlestickGranularity=S5</em>, <em>count: Count=500</em>, <em>from_time: FromTime=Ellipsis</em>, <em>to_time: ToTime=Ellipsis</em>, <em>smooth: Smooth=False</em>, <em>include_first_query: IncludeFirstQuery=True</em>, <em>daily_alignment: DailyAlignment=17</em>, <em>alignment_timezone: AlignmentTimezone=America/New_York</em>, <em>weekly_alignment: WeeklyAlignment=Friday</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_candles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_candles</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>price: PriceComponent=M</em>, <em>granularity: CandlestickGranularity=S5</em>, <em>count: Count=500</em>, <em>from_time: FromTime=Ellipsis</em>, <em>to_time: ToTime=Ellipsis</em>, <em>smooth: Smooth=False</em>, <em>include_first_query: IncludeFirstQuery=Ellipsis</em>, <em>daily_alignment: DailyAlignment=17</em>, <em>alignment_timezone: AlignmentTimezone=America/New_York</em>, <em>weekly_alignment: WeeklyAlignment=Friday</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_candles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch candlestick data for an instrument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -433,37 +436,62 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 
 <dl class="method">
 <dt id="async_v20.OandaClient.create_order">
-<code class="descclassname">OandaClient.</code><code class="descname">create_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>type: OrderType=MARKET</em>, <em>trade_id: TradeID=Ellipsis</em>, <em>price: PriceValue=Ellipsis</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=Ellipsis</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=Ellipsis</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>distance: PriceValue=Ellipsis</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>position_fill: OrderPositionFill=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.create_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">create_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: DecimalNumber</em>, <em>type: OrderType=MARKET</em>, <em>trade_id: TradeID=Ellipsis</em>, <em>price: PriceValue=Ellipsis</em>, <em>client_trade_id: ClientID=Ellipsis</em>, <em>time_in_force: TimeInForce=Ellipsis</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>trigger_condition: OrderTriggerCondition=Ellipsis</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>distance: PriceValue=Ellipsis</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>position_fill: OrderPositionFill=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.create_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>create an OrderRequest</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a></li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a></li>
+<li><strong>type</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderType" title="async_v20.definitions.primitives.OrderType"><code class="xref py py-class docutils literal"><span class="pre">OrderType</span></code></a></li>
+<li><strong>client_trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.ClientID" title="async_v20.definitions.primitives.ClientID"><code class="xref py py-class docutils literal"><span class="pre">ClientID</span></code></a></li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a></li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a></li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a></li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a></li>
+<li><strong>distance</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a></li>
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a></li>
+<li><strong>units</strong> – <code class="xref py py-class docutils literal"><span class="pre">Unit</span></code></li>
+<li><strong>price_bound</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a></li>
+<li><strong>position_fill</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderPositionFill" title="async_v20.definitions.primitives.OrderPositionFill"><code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code></a></li>
+<li><strong>take_profit_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitDetails" title="async_v20.definitions.types.TakeProfitDetails"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitDetails</span></code></a></li>
+<li><strong>stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossDetails" title="async_v20.definitions.types.StopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">StopLossDetails</span></code></a></li>
+<li><strong>trailing_stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossDetails" title="async_v20.definitions.types.TrailingStopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossDetails</span></code></a></li>
+<li><strong>trade_client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>status [201]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
 <dt>status [400]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 <dt>status [401]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -479,8 +507,8 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ids</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Ids" title="async_v20.endpoints.annotations.Ids"><code class="xref py py-class docutils literal"><span class="pre">Ids</span></code></a></li>
-<li><strong>of Order IDs to retrieve</strong> (<em>list</em>) – </li>
+<li><strong>ids</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Ids" title="async_v20.endpoints.annotations.Ids"><code class="xref py py-class docutils literal"><span class="pre">Ids</span></code></a>
+list of Order IDs to retrieve</li>
 <li><strong>state</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderStateFilter" title="async_v20.definitions.primitives.OrderStateFilter"><code class="xref py py-class docutils literal"><span class="pre">OrderStateFilter</span></code></a>
 The state to filter the requested Orders by</li>
 <li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
@@ -694,37 +722,80 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_order">
-<code class="descclassname">OandaClient.</code><code class="descname">market_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>time_in_force: TimeInForce=FOK</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">market_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: DecimalNumber</em>, <em>time_in_force: TimeInForce=FOK</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Market Order Request</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+The Market Order’s Instrument.</li>
+<li><strong>units</strong> – <code class="xref py py-class docutils literal"><span class="pre">Unit</span></code>
+The quantity requested to be filled by the Market Order. A posititive number of units
+results in a long Order, and a negative number of units results in a short Order.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the Market Order.
+Restricted to FOK or IOC for a MarketOrder.</li>
+<li><strong>price_bound</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The worst price that the client is willing to have the Market Order filled at.</li>
+<li><strong>position_fill</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderPositionFill" title="async_v20.definitions.primitives.OrderPositionFill"><code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code></a>
+Specification of how Positions in the Account
+are modified when the Order is filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+<li><strong>take_profit_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitDetails" title="async_v20.definitions.types.TakeProfitDetails"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitDetails</span></code></a>
+TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+a client. This may happen when an Order
+is filled that opens a Trade requiring a Take Profit, or when a Trade’s dependent Take Profit Order is
+modified directly through the Trade.</li>
+<li><strong>stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossDetails" title="async_v20.definitions.types.StopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">StopLossDetails</span></code></a>
+StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+client. This may happen when an Order
+is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified
+directly through the Trade.</li>
+<li><strong>trailing_stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossDetails" title="async_v20.definitions.types.TrailingStopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossDetails</span></code></a>
+TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+created on behalf of a client. This may happen when an Order is
+filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss
+Order is modified directly through the Trade.</li>
+<li><strong>trade_client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+Client Extensions to add to the Trade created when the Order is filled (if such a
+Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
+MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>status [201]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
 <dt>status [400]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 <dt>status [401]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -733,37 +804,86 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 
 <dl class="method">
 <dt id="async_v20.OandaClient.limit_order">
-<code class="descclassname">OandaClient.</code><code class="descname">limit_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">limit_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: DecimalNumber</em>, <em>price: PriceValue</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Limit Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+The Limit Order’s Instrument.</li>
+<li><strong>units</strong> – <code class="xref py py-class docutils literal"><span class="pre">Unit</span></code>
+The quantity requested to be filled by the Limit Order. A posititive number of units
+results in a long Order, and a negative number of units results in a short Order.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the Limit Order. The Limit Order will only be
+filled by a market price that is equal to or better than this price.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the Limit Order.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the Limit Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>position_fill</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderPositionFill" title="async_v20.definitions.primitives.OrderPositionFill"><code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code></a>
+Specification of how Positions in the Account
+are modified when the Order is filled.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+<li><strong>take_profit_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitDetails" title="async_v20.definitions.types.TakeProfitDetails"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitDetails</span></code></a>
+TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+a client. This may happen when an Order
+is filled that opens a Trade requiring a Take Profit, or when a Trade’s dependent Take Profit Order is
+modified directly through the Trade.</li>
+<li><strong>stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossDetails" title="async_v20.definitions.types.StopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">StopLossDetails</span></code></a>
+StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+client. This may happen when an Order
+is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified
+directly through the Trade.</li>
+<li><strong>trailing_stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossDetails" title="async_v20.definitions.types.TrailingStopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossDetails</span></code></a>
+TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+created on behalf of a client. This may happen when an Order is
+filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss
+Order is modified directly through the Trade.</li>
+<li><strong>trade_client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+Client Extensions to add to the Trade created when the Order is filled (if such a
+Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
+MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>status [201]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
 <dt>status [400]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 <dt>status [401]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -772,7 +892,7 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 
 <dl class="method">
 <dt id="async_v20.OandaClient.limit_replace_order">
-<code class="descclassname">OandaClient.</code><code class="descname">limit_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>order_request: LimitOrderRequest</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">limit_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>instrument: InstrumentName</em>, <em>units: DecimalNumber</em>, <em>price: PriceValue</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.limit_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace a pending Limit Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -781,8 +901,47 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
 The ID of the Limit Order to replace</li>
-<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.LimitOrderRequest" title="async_v20.definitions.types.LimitOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">LimitOrderRequest</span></code></a>
-The arguments to create a LimitOrderRequest</li>
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+The Limit Order’s Instrument.</li>
+<li><strong>units</strong> – <code class="xref py py-class docutils literal"><span class="pre">Unit</span></code>
+The quantity requested to be filled by the Limit Order. A posititive number of units
+results in a long Order, and a negative number of units results in a short Order.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the Limit Order. The Limit Order will only be
+filled by a market price that is equal to or better than this price.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the Limit Order.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the Limit Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>position_fill</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderPositionFill" title="async_v20.definitions.primitives.OrderPositionFill"><code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code></a>
+Specification of how Positions in the Account
+are modified when the Order is filled.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+<li><strong>take_profit_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitDetails" title="async_v20.definitions.types.TakeProfitDetails"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitDetails</span></code></a>
+TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+a client. This may happen when an Order
+is filled that opens a Trade requiring a Take Profit, or when a Trade’s dependent Take Profit Order is
+modified directly through the Trade.</li>
+<li><strong>stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossDetails" title="async_v20.definitions.types.StopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">StopLossDetails</span></code></a>
+StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+client. This may happen when an Order
+is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified
+directly through the Trade.</li>
+<li><strong>trailing_stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossDetails" title="async_v20.definitions.types.TrailingStopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossDetails</span></code></a>
+TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+created on behalf of a client. This may happen when an Order is
+filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss
+Order is modified directly through the Trade.</li>
+<li><strong>trade_client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+Client Extensions to add to the Trade created when the Order is filled (if such a
+Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
+MT4.</li>
 </ul>
 </td>
 </tr>
@@ -830,31 +989,58 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The ID of the Trade to close when the price threshold is breached.</li>
+<li><strong>client_trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The client ID of the Trade to be closed when the price threshold is breached.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the StopLoss Order. The associated Trade will be
+closed by a market price that is equal to or worse than this threshold.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the StopLoss Order. Restricted
+to “GTC”, “GFD” and “GTD” for StopLoss Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the StopLoss Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>status [201]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
 <dt>status [400]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 <dt>status [401]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -863,7 +1049,7 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 
 <dl class="method">
 <dt id="async_v20.OandaClient.stop_replace_order">
-<code class="descclassname">OandaClient.</code><code class="descname">stop_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">stop_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>instrument: InstrumentName</em>, <em>units: DecimalNumber</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.stop_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace a pending Stop Order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -872,8 +1058,50 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
 The ID of the Stop Order to replace</li>
-<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.StopOrderRequest" title="async_v20.definitions.types.StopOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">StopOrderRequest</span></code></a>
-The arguments to create a StopOrderRequest</li>
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+The Stop Order’s Instrument.</li>
+<li><strong>units</strong> – <code class="xref py py-class docutils literal"><span class="pre">Unit</span></code>
+The quantity requested to be filled by the Stop Order. A posititive number of units
+results in a long Order, and a negative number of units results in a short Order.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the Stop Order. The Stop Order will only be
+filled by a market price that is equal to or worse than this price.</li>
+<li><strong>price_bound</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The worst market price that may be used to fill this Stop Order. If the market gaps and
+crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the Stop Order.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the Stop Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>position_fill</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderPositionFill" title="async_v20.definitions.primitives.OrderPositionFill"><code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code></a>
+Specification of how Positions in the Account
+are modified when the Order is filled.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+<li><strong>take_profit_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitDetails" title="async_v20.definitions.types.TakeProfitDetails"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitDetails</span></code></a>
+TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+a client. This may happen when an Order
+is filled that opens a Trade requiring a Take Profit, or when a Trade’s dependent Take Profit Order is
+modified directly through the Trade.</li>
+<li><strong>stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossDetails" title="async_v20.definitions.types.StopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">StopLossDetails</span></code></a>
+StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+client. This may happen when an Order
+is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified
+directly through the Trade.</li>
+<li><strong>trailing_stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossDetails" title="async_v20.definitions.types.TrailingStopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossDetails</span></code></a>
+TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+created on behalf of a client. This may happen when an Order is
+filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss
+Order is modified directly through the Trade.</li>
+<li><strong>trade_client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+Client Extensions to add to the Trade created when the Order is filled (if such a
+Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
+MT4.</li>
 </ul>
 </td>
 </tr>
@@ -915,37 +1143,91 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_if_touched_order">
-<code class="descclassname">OandaClient.</code><code class="descname">market_if_touched_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">market_if_touched_order</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>units: DecimalNumber</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a market if touched order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+The MarketIfTouched Order’s Instrument.</li>
+<li><strong>units</strong> – <code class="xref py py-class docutils literal"><span class="pre">Unit</span></code>
+The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
+results in a long Order, and a negative number of units results in a short Order.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the MarketIfTouched Order. The MarketIfTouched Order will only be
+filled by a market price that crosses this price from the direction of the market price
+at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order’s
+price and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.</li>
+<li><strong>price_bound</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The worst market price that may be used to fill this MarketIfTouched Order.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the MarketIfTouched Order. Restricted
+to “GTC”, “GFD” and “GTD” for MarketIfTouched Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the MarketIfTouched Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>position_fill</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderPositionFill" title="async_v20.definitions.primitives.OrderPositionFill"><code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code></a>
+Specification of how Positions in the Account
+are modified when the Order is filled.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+<li><strong>take_profit_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitDetails" title="async_v20.definitions.types.TakeProfitDetails"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitDetails</span></code></a>
+TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+a client. This may happen when an Order
+is filled that opens a Trade requiring a Take Profit, or when a Trade’s dependent Take Profit Order is
+modified directly through the Trade.</li>
+<li><strong>stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossDetails" title="async_v20.definitions.types.StopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">StopLossDetails</span></code></a>
+StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+client. This may happen when an Order
+is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified
+directly through the Trade.</li>
+<li><strong>trailing_stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossDetails" title="async_v20.definitions.types.TrailingStopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossDetails</span></code></a>
+TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+created on behalf of a client. This may happen when an Order is
+filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss
+Order is modified directly through the Trade.</li>
+<li><strong>trade_client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+Client Extensions to add to the Trade created when the Order is filled (if such a
+Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
+MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>status [201]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
 <dt>status [400]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 <dt>status [401]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -954,7 +1236,7 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 
 <dl class="method">
 <dt id="async_v20.OandaClient.market_if_touched_replace_order">
-<code class="descclassname">OandaClient.</code><code class="descname">market_if_touched_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>instrument: InstrumentName</em>, <em>units: Unit</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_replace_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">market_if_touched_replace_order</code><span class="sig-paren">(</span><em>self</em>, <em>order_specifier: OrderSpecifier</em>, <em>instrument: InstrumentName</em>, <em>units: DecimalNumber</em>, <em>price: PriceValue</em>, <em>price_bound: PriceValue=Ellipsis</em>, <em>time_in_force: TimeInForce=GTC</em>, <em>gtd_time: DateTime=Ellipsis</em>, <em>position_fill: OrderPositionFill=DEFAULT</em>, <em>trigger_condition: OrderTriggerCondition=DEFAULT</em>, <em>client_extensions: ClientExtensions=Ellipsis</em>, <em>take_profit_on_fill: TakeProfitDetails=Ellipsis</em>, <em>stop_loss_on_fill: StopLossDetails=Ellipsis</em>, <em>trailing_stop_loss_on_fill: TrailingStopLossDetails=Ellipsis</em>, <em>trade_client_extensions: ClientExtensions=Ellipsis</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.market_if_touched_replace_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace a pending market if touched order</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -963,8 +1245,52 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
 The ID of the MarketIfTouched Order to replace</li>
-<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.MarketIfTouchedOrderRequest" title="async_v20.definitions.types.MarketIfTouchedOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">MarketIfTouchedOrderRequest</span></code></a>
-The arguments to create a MarketIfTouchedOrderRequest</li>
+<li><strong>instrument</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.InstrumentName" title="async_v20.definitions.primitives.InstrumentName"><code class="xref py py-class docutils literal"><span class="pre">InstrumentName</span></code></a>
+The MarketIfTouched Order’s Instrument.</li>
+<li><strong>units</strong> – <code class="xref py py-class docutils literal"><span class="pre">Unit</span></code>
+The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
+results in a long Order, and a negative number of units results in a short Order.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the MarketIfTouched Order. The MarketIfTouched Order will only be
+filled by a market price that crosses this price from the direction of the market price
+at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order’s
+price and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.</li>
+<li><strong>price_bound</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The worst market price that may be used to fill this MarketIfTouched Order.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the MarketIfTouched Order. Restricted
+to “GTC”, “GFD” and “GTD” for MarketIfTouched Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the MarketIfTouched Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>position_fill</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderPositionFill" title="async_v20.definitions.primitives.OrderPositionFill"><code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code></a>
+Specification of how Positions in the Account
+are modified when the Order is filled.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+<li><strong>take_profit_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TakeProfitDetails" title="async_v20.definitions.types.TakeProfitDetails"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitDetails</span></code></a>
+TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
+a client. This may happen when an Order
+is filled that opens a Trade requiring a Take Profit, or when a Trade’s dependent Take Profit Order is
+modified directly through the Trade.</li>
+<li><strong>stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.StopLossDetails" title="async_v20.definitions.types.StopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">StopLossDetails</span></code></a>
+StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
+client. This may happen when an Order
+is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified
+directly through the Trade.</li>
+<li><strong>trailing_stop_loss_on_fill</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.TrailingStopLossDetails" title="async_v20.definitions.types.TrailingStopLossDetails"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossDetails</span></code></a>
+TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
+created on behalf of a client. This may happen when an Order is
+filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss
+Order is modified directly through the Trade.</li>
+<li><strong>trade_client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+Client Extensions to add to the Trade created when the Order is filled (if such a
+Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
+MT4.</li>
 </ul>
 </td>
 </tr>
@@ -1012,31 +1338,58 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The ID of the Trade to close when the price threshold is breached.</li>
+<li><strong>client_trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The client ID of the Trade to be closed when the price threshold is breached.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the TakeProfit Order. The associated Trade will be
+closed by a market price that is equal to or better than this threshold.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the TakeProfit Order. Restricted
+to “GTC”, “GFD” and “GTD” for TakeProfit Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the TakeProfit Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>status [201]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
 <dt>status [400]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 <dt>status [401]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -1054,7 +1407,25 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
 The ID of the Take Profit Order to replace</li>
-<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.TakeProfitOrderRequest" title="async_v20.definitions.types.TakeProfitOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">TakeProfitOrderRequest</span></code></a></li>
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The ID of the Trade to close when the price threshold is breached.</li>
+<li><strong>client_trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The client ID of the Trade to be closed when the price threshold is breached.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the TakeProfit Order. The associated Trade will be
+closed by a market price that is equal to or better than this threshold.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the TakeProfit Order. Restricted
+to “GTC”, “GFD” and “GTD” for TakeProfit Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the TakeProfit Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
 </ul>
 </td>
 </tr>
@@ -1102,31 +1473,58 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The ID of the Trade to close when the price threshold is breached.</li>
+<li><strong>client_trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The client ID of the Trade to be closed when the price threshold is breached.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the StopLoss Order. The associated Trade will be
+closed by a market price that is equal to or worse than this threshold.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the StopLoss Order. Restricted
+to “GTC”, “GFD” and “GTD” for StopLoss Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the StopLoss Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>status [201]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
 <dt>status [400]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 <dt>status [401]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -1144,7 +1542,25 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
 The ID of the Stop Loss Order to replace</li>
-<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.StopLossOrderRequest" title="async_v20.definitions.types.StopLossOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">StopLossOrderRequest</span></code></a></li>
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The ID of the Trade to close when the price threshold is breached.</li>
+<li><strong>client_trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The client ID of the Trade to be closed when the price threshold is breached.</li>
+<li><strong>price</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price threshold specified for the StopLoss Order. The associated Trade will be
+closed by a market price that is equal to or worse than this threshold.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the StopLoss Order. Restricted
+to “GTC”, “GFD” and “GTD” for StopLoss Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the StopLoss Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
 </ul>
 </td>
 </tr>
@@ -1192,31 +1608,57 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The ID of the Trade to close when the price threshold is breached.</li>
+<li><strong>client_trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The client ID of the Trade to be closed when the price threshold is breached.</li>
+<li><strong>distance</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price distance specified for the TrailingStopLoss Order.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the TrailingStopLoss Order. Restricted
+to “GTC”, “GFD” and “GTD” for TrailingStopLoss Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the StopLoss Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
 <dt>status [201]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderCreateTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderFillTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderFillTransaction" title="async_v20.definitions.types.OrderFillTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderFillTransaction</span></code></a>,
 orderCancelTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.OrderCancelTransaction" title="async_v20.definitions.types.OrderCancelTransaction"><code class="xref py py-class docutils literal"><span class="pre">OrderCancelTransaction</span></code></a>,
 orderReissueTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 orderReissueRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
-lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</dd>
+lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>)</p>
+</dd>
 <dt>status [400]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 <dt>status [401]</dt>
-<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (orderRejectTransaction= <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.Transaction" title="async_v20.definitions.types.Transaction"><code class="xref py py-class docutils literal"><span class="pre">Transaction</span></code></a>,
 relatedTransactionIDs= <code class="xref py py-class docutils literal"><span class="pre">ArrayTransactionID</span></code>,
 lastTransactionID= <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TransactionID" title="async_v20.definitions.primitives.TransactionID"><code class="xref py py-class docutils literal"><span class="pre">TransactionID</span></code></a>,
 errorCode= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>,
-errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</dd>
+errorMessage= <code class="xref py py-class docutils literal"><span class="pre">str</span></code>)</p>
+</dd>
 </dl>
+</p>
 </td>
 </tr>
 </tbody>
@@ -1234,7 +1676,24 @@ errorMessage= <code class="xref py py-class docutils literal"><span class="pre">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>order_specifier</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderSpecifier" title="async_v20.definitions.primitives.OrderSpecifier"><code class="xref py py-class docutils literal"><span class="pre">OrderSpecifier</span></code></a>
 The ID of the Take Profit Order to replace</li>
-<li><strong>order</strong> – <a class="reference internal" href="definitions/order.html#async_v20.definitions.types.TrailingStopLossOrderRequest" title="async_v20.definitions.types.TrailingStopLossOrderRequest"><code class="xref py py-class docutils literal"><span class="pre">TrailingStopLossOrderRequest</span></code></a></li>
+<li><strong>trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The ID of the Trade to close when the price threshold is breached.</li>
+<li><strong>client_trade_id</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TradeID" title="async_v20.definitions.primitives.TradeID"><code class="xref py py-class docutils literal"><span class="pre">TradeID</span></code></a>
+The client ID of the Trade to be closed when the price threshold is breached.</li>
+<li><strong>distance</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.PriceValue" title="async_v20.definitions.primitives.PriceValue"><code class="xref py py-class docutils literal"><span class="pre">PriceValue</span></code></a>
+The price distance specified for the TrailingStopLoss Order.</li>
+<li><strong>time_in_force</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.TimeInForce" title="async_v20.definitions.primitives.TimeInForce"><code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code></a>
+The time-in-force requested for the TrailingStopLoss Order. Restricted
+to “GTC”, “GFD” and “GTD” for TrailingStopLoss Orders.</li>
+<li><strong>gtd_time</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.DateTime" title="async_v20.definitions.primitives.DateTime"><code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code></a>
+The date/time when the StopLoss Order will
+be cancelled if its timeInForce is “GTD”.</li>
+<li><strong>trigger_condition</strong> – <a class="reference internal" href="primitives.html#async_v20.definitions.primitives.OrderTriggerCondition" title="async_v20.definitions.primitives.OrderTriggerCondition"><code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code></a>
+Specification of what component of a price should be used
+for comparison when determining if the Order should be filled.</li>
+<li><strong>client_extensions</strong> – <a class="reference internal" href="definitions/transaction.html#async_v20.definitions.types.ClientExtensions" title="async_v20.definitions.types.ClientExtensions"><code class="xref py py-class docutils literal"><span class="pre">ClientExtensions</span></code></a>
+The client extensions to add to the Order. Do not set,
+modify, or delete clientExtensions if your account is associated with MT4.</li>
 </ul>
 </td>
 </tr>
@@ -2009,6 +2468,7 @@ The User Specifier</td>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="best_practices.html">Best Practices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="order_request_formatting.html">Formatting Order Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>

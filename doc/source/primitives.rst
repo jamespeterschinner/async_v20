@@ -50,5 +50,4 @@ Primitives
 .. autoclass:: async_v20.definitions.primitives.TransactionID
 .. autoclass:: async_v20.definitions.primitives.TransactionRejectReason
 .. autoclass:: async_v20.definitions.primitives.TransactionType
-.. autoclass:: async_v20.definitions.primitives.Unit
 .. autoclass:: async_v20.definitions.primitives.WeeklyAlignment

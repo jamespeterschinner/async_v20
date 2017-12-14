@@ -17,7 +17,7 @@ def _in_context(order_request, instrument, clip=False):
                     instrument.trade_units_precision,
                     instrument.minimum_trade_size,
                     instrument.maximum_order_units))
-        elif instrument.minimum_trade_size < order_request.units < \
+        elif instrument.minimum_trade_size <= order_request.units <= \
                 instrument.maximum_order_units:
             formatted_attributes.update(
                 units=order_request.units.format(
@@ -52,7 +52,7 @@ def _in_context(order_request, instrument, clip=False):
                         instrument.maximum_trailing_stop_distance))}
                 )
 
-        elif instrument.minimum_trailing_stop_distance < value.distance < \
+        elif instrument.minimum_trailing_stop_distance <= value.distance <= \
                 instrument.maximum_trailing_stop_distance:
             formatted_attributes.update(
                 {attr:value.replace(

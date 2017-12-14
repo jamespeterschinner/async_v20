@@ -109,6 +109,7 @@ Contents
    getting_started
    best_practices
    beyond_getting_started
+   order_request_formatting
    traps
    api
    response
