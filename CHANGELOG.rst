@@ -216,9 +216,12 @@
    Improvements:
       - Added documentation for order API methods
 
-2.3.1b0
+3.0.0b0
 =======
 
    Improvements:
       - Array.get_instrument() works with ArrayInstrument
       - OandaClient.initialize() gets account instruments
+      - OandaClient has `format_order_request` attribute
+      - async_v20.definitions.primitives.Unit has been removed
+      - PriceValue and Decimal number has additional method `format(precision, min_, max_)`
