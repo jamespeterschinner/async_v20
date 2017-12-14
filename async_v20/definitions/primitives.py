@@ -343,13 +343,27 @@ class PriceValue(float, Primitive):
 
     # Correct syntax of value
     format_syntax = 'A decimal number encodes as a string. The amount of precision ' \
-                    'provided depends on the Price’s Instrument.'
+                    'provided depends on the Price’s Instrument. Must be positive'
 
     def __new__(cls, value):
+        try:
+            assert float(value) >= 0
+        except AssertionError:
+            raise ValueError(f'Cannot create PriceValue from {value}. PriceValues must be positive')
         return super().__new__(cls, value)
 
     def format(self, precision, min_=None, max_=None):
-        # A DecimalNumber can se + / -
+        # Ignore the sign. `self` should be positive
+        try:
+            assert precision >= 0
+        except AssertionError:
+            raise ValueError(f'Cannot format PriceValue. precision {precision} must be >= 0')
+        if min_ and max_:
+            try:
+                assert min_ <= max_
+            except AssertionError:
+                raise ValueError(f'Cannot format PriceValue. min_ {min_} is not <= max_ {max_}')
+
         value = self
         if min_:
             value = (value, min_)[value < min_]
@@ -428,6 +442,16 @@ class DecimalNumber(float, Primitive):
 
     def format(self, precision, min_=None, max_=None):
         # A DecimalNumber can se + / -
+        try:
+            assert precision >= 0
+        except AssertionError:
+            raise ValueError(f'Cannot format PriceValue. precision {precision} must be >= 0')
+        if min_ and max_:
+            try:
+                assert min_ <= max_
+            except AssertionError:
+                raise ValueError(f'Cannot format PriceValue. min_ {min_} is not <= max_ {max_}')
+
         value = abs(self)
         if min_:
             value = (value, min_)[value < min_]

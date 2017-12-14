@@ -10,35 +10,34 @@ def _in_context(order_request, instrument, clip=False):
     """
 
     formatted_attributes = {}
-
-    if clip:
-        formatted_attributes.update(
-            units=order_request.units.format(
-                instrument.trade_units_precision,
-                instrument.minimum_trade_size,
-                instrument.maximum_order_units))
-    elif instrument.minimum_trade_size < order_request.units < \
-            instrument.maximum_order_units:
-        formatted_attributes.update(
-            units=order_request.units.format(
-                instrument.trade_units_precision))
-    else:
-        raise ValueError(f'OrderRequest units {order_request.units} '
-                         f'are less than the minimum trade size {instrument.minimum_trade_size}')
+    if order_request.units is not None:
+        if clip:
+            formatted_attributes.update(
+                units=order_request.units.format(
+                    instrument.trade_units_precision,
+                    instrument.minimum_trade_size,
+                    instrument.maximum_order_units))
+        elif instrument.minimum_trade_size < order_request.units < \
+                instrument.maximum_order_units:
+            formatted_attributes.update(
+                units=order_request.units.format(
+                    instrument.trade_units_precision))
+        else:
+            raise ValueError(f'OrderRequest units {order_request.units} '
+                             f'are less than the minimum trade size {instrument.minimum_trade_size}')
 
     for attr in ('price', 'price_bound', 'distance'):
         value = getattr(order_request, attr, None)
         if value:
             formatted_attributes.update(
-                attr=value.format(instrument.display_precision)
+                {attr:value.format(instrument.display_precision)}
             )
 
     for attr in ('take_profit_on_fill', 'stop_loss_on_fill'):
         value = getattr(order_request, attr, None)
         if value:
             formatted_attributes.update(
-                attr=value.replace(
-                    price=value.price.format(instrument.display_precision))
+                {attr:value.replace(price=value.price.format(instrument.display_precision))}
             )
 
     attr = 'trailing_stop_loss_on_fill'
@@ -46,18 +45,20 @@ def _in_context(order_request, instrument, clip=False):
     if value:
         if clip:
             formatted_attributes.update(
-                attr=value.replace(
+                {attr:value.replace(
                     distance=value.distance.format(
                         instrument.display_precision,
                         instrument.minimum_trailing_stop_distance,
-                        instrument.maximum_trailing_stop_distance)))
+                        instrument.maximum_trailing_stop_distance))}
+                )
 
         elif instrument.minimum_trailing_stop_distance < value.distance < \
                 instrument.maximum_trailing_stop_distance:
             formatted_attributes.update(
-                attr=value.replace(
+                {attr:value.replace(
                     distance=value.distance.format(
-                        instrument.display_precision)))
+                        instrument.display_precision))}
+            )
         else:
             raise ValueError(f'Trailing stop loss distance is not '
                              f'{instrument.minimum_trailing_stop_distance} < {value.distance} < '
@@ -140,6 +141,9 @@ def create_body(self, request_schema, arguments):
             except KeyError:
                 continue
             else:
+                # OrderRequests require PriceValues and DecimalNumbers to
+                # be rounded to the correct accuracy before being serialized
+                # else OANDA will reject the transaction.
                 if isinstance(value, OrderRequest):
                     instrument = self._instruments.get_instrument(value.instrument)
                     if instrument:

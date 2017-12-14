@@ -223,7 +223,7 @@ def test_in_context_raises_error_when_units_less_than_minimum(instrument):
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_applies_correct_precision(instrument):
+def test_in_context_applies_correct_precision_to_units(instrument):
     order_request = OrderRequest(units=50.1234567891234)
     result = _in_context(order_request, instrument)
     print(result.units)
@@ -241,3 +241,55 @@ def test_in_context_applies_correct_precision(instrument):
         assert re.findall(r'(?<=\.)\d+', str(result.units))[0] == '0'
     else:
         assert len(re.findall(r'(?<=\.)\d+', str(result.units))[0]) == instrument.trade_units_precision
+
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_applies_correct_precision_to_price_price_bound_distance(instrument):
+    order_request = OrderRequest(price=50.1234567891234, price_bound=1234.123456789,
+                                 distance=20.123456789)
+    result = _in_context(order_request, instrument)
+    for attr in (result.price, result.price_bound, result.distance):
+        if instrument.display_precision == 0:
+            assert re.findall(r'(?<=\.)\d+', str(attr))[0] == '0'
+        else:
+            assert len(re.findall(r'(?<=\.)\d+', str(attr))[0]) == instrument.display_precision
+
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_applies_correct_precision_to_take_profit_on_fill_stop_loss_on_fill(instrument):
+    order_request = OrderRequest(take_profit_on_fill=50.123456789,
+                                 stop_loss_on_fill=50.123456789)
+    result = _in_context(order_request, instrument)
+    for attr in (result.stop_loss_on_fill.price, result.take_profit_on_fill):
+        if instrument.display_precision == 0:
+            assert re.findall(r'(?<=\.)\d+', str(attr))[0] == '0'
+        else:
+            assert len(re.findall(r'(?<=\.)\d+', str(attr))[0]) == instrument.display_precision
+
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_applies_correct_precision_to_trailing_stop_loss_on_fill(instrument):
+    order_request = OrderRequest(
+        trailing_stop_loss_on_fill=instrument.minimum_trailing_stop_distance + 0.123456789
+    )
+    result = _in_context(order_request, instrument)
+    attr = result.trailing_stop_loss_on_fill.distance
+    if instrument.display_precision == 0:
+        assert re.findall(r'(?<=\.)\d+', str(attr))[0] == '0'
+    else:
+        assert len(re.findall(r'(?<=\.)\d+', str(attr))[0]) == instrument.display_precision
+
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_limits_trailing_stop_loss_on_fill_to_valid_range(instrument):
+    order_request = OrderRequest(
+        trailing_stop_loss_on_fill=0
+    )
+    result = _in_context(order_request, instrument, clip=True)
+    assert result.trailing_stop_loss_on_fill.distance == instrument.minimum_trailing_stop_distance
+
+    order_request = OrderRequest(
+        trailing_stop_loss_on_fill=instrument.maximum_trailing_stop_distance + 10
+    )
+    result = _in_context(order_request, instrument, clip=True)
+    assert result.trailing_stop_loss_on_fill.distance == instrument.maximum_trailing_stop_distance

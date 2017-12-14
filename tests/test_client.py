@@ -3,27 +3,26 @@ import inspect
 import os
 import re
 import time
+from itertools import chain
 
 import pytest
 
 from async_v20 import AccountID
 from async_v20.client import OandaClient
+from async_v20.definitions.types import Account
 from async_v20.endpoints.annotations import Authorization
+from .fixtures import changes_response_two
 from .fixtures import server as server_module
 from .fixtures.client import client
-from .test_definitions.helpers import get_valid_primitive_data
-from async_v20.definitions.types import Account
-from .fixtures import changes_response_two
-from .fixtures import all_trades_open_closed
 from .fixtures.static import close_all_trades_response
-from itertools import chain
+from .fixtures import all_trades_open_closed
+from .test_definitions.helpers import get_valid_primitive_data
 
+# prevent pycharm from removing the import
 client = client
 server = server_module.server
 changes_response_two = changes_response_two
-
-
-# prevent pycharm from removing the import
+all_trades_open_closed = all_trades_open_closed
 
 
 def test_oanda_client_has_correct_version(client):
@@ -71,6 +70,8 @@ async def test_client_initializes(client, server):
 error_status = [i for i in range(400, 600)]
 
 
+#TEST each step of the initialization routine fails correctly
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
 async def test_client_raises_error_on_first_initialisation_failure(client, server, error_status):
@@ -90,6 +91,15 @@ async def test_client_raises_error_on_second_initialisation_failure(client, serv
     assert client.initialized == False
     assert client.initializing == False
 
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('error_status', error_status)
+async def test_client_raises_error_on_third_initialisation_failure(client, server, error_status):
+    server_module.status = iter([200, 200, 400])
+    with pytest.raises(ConnectionError):
+        await client.initialize()
+    assert client.initialized == False
+    assert client.initializing == False
 
 @pytest.mark.asyncio
 async def test_initialize_works_with_preset_account_id(client, server):
@@ -189,14 +199,14 @@ async def test_client_handles_multiple_concurrent_initializations(client, server
         pass
     assert client.initialized
 
+
 @pytest.mark.asyncio
 async def test_account_method(client, server):
     async with client as client:
         assert len(client._account.trades) == 0
         account = await client.account()
         assert len(client._account.trades) == 1
-        assert type(account)== Account
-
+        assert type(account) == Account
 
 
 @pytest.mark.asyncio
@@ -205,13 +215,14 @@ async def test_max_transaction_history_limits(client, server, changes_response_t
         rsp = await client.account_changes()
     assert len(client.transactions) == client.max_transaction_history
 
+
 @pytest.mark.asyncio
 async def test_close_all_trades_returns_false_when_trades_are_open(client, server):
     """Test that calling closed trades closes all trades"""
     async with client as client:
         trades_response = await client.list_open_trades()
         result, close_responses = await client.close_all_trades()
-        closed_trades = {i.orderFillTransaction.trades_closed[0].trade_id :i.json()
+        closed_trades = {i.orderFillTransaction.trades_closed[0].trade_id: i.json()
                          for i in close_responses}
         for trade in trades_response.trades:
             assert trade.id in closed_trades
@@ -219,6 +230,7 @@ async def test_close_all_trades_returns_false_when_trades_are_open(client, serve
         # Due to the mocked test server, not reflecting the closed state. result should
         # be false indicating that not all trades were closed
         assert result == False
+
 
 @pytest.mark.asyncio
 async def test_close_all_trades_returns_true_when_trades_are_closed(client, server, all_trades_open_closed):
@@ -245,11 +257,12 @@ async def test_close_all_trades_error_second_list_trades_request(client, server)
     # status 200 for list_open_trades request
     # status 200 for all close_trades request
     # status 400 for second list_open_trades request
-    server_status = (i for i in chain((200,),(200 for _ in range(len(close_all_trades_response))),(400,)))
+    server_status = (i for i in chain((200,), (200 for _ in range(len(close_all_trades_response))), (400,)))
     async with client as client:
         server_module.status = server_status
         with pytest.raises(ConnectionError):
             response = await client.close_all_trades()
+
 
 @pytest.mark.asyncio
 async def test_initialize_timeout_resets_initialization(client, server):
@@ -259,6 +272,7 @@ async def test_initialize_timeout_resets_initialization(client, server):
         async with client as client:
             assert client.initializing == False
             assert client.initialized == False
+
 
 @pytest.mark.asyncio
 async def test_initialize_connection_error_resets_initialization(client, server):
