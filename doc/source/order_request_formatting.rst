@@ -30,7 +30,7 @@ For instance *Instrument*. **trade_units_precision** defines how many decimal pl
 
 You will also notice **minimum** and **maximum** values for other *OrderRequest*'s attributes.
 
-This is where *OandaClient*. **format_order_requests** changes the behavior of the client.
+*OandaClient*. **format_order_requests** changes the behavior of the client.
 If **format_order_requests** is set to :class:`True` *OandaClient* will limit values into the
 valid range specified by the instrument. By default this feature is disabled.
 
