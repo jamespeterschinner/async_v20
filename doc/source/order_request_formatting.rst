@@ -28,7 +28,7 @@ The above instrument outlines the formatting of an *OrderRequest* for the *Instr
 Take *Instrument*. **trade_units_precision** as an example, this attribute defines how many decimal places
 :class:`~async_v20.definition.types.OrderRequest`. **units** may be used for this instrument (our example *0*).
 
-You will also notice **minimum** and **maximum** values for other *OrderRequest*'s attributes.
+You will also notice **minimum** and **maximum** values for other *OrderRequest* attributes.
 
 *OandaClient*. **format_order_requests** is a boolean value which changes the degree to which
 *OrderRequest*'s will be modified to comply with the instrument specification.
