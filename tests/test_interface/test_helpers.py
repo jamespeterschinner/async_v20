@@ -285,11 +285,44 @@ def test_in_context_limits_trailing_stop_loss_on_fill_to_valid_range(instrument)
     order_request = OrderRequest(
         trailing_stop_loss_on_fill=0
     )
+    if instrument.minimum_trailing_stop_distance > 0:
+        with pytest.raises(ValueError):
+            _in_context(order_request, instrument)
+
     result = _in_context(order_request, instrument, clip=True)
     assert result.trailing_stop_loss_on_fill.distance == instrument.minimum_trailing_stop_distance
 
     order_request = OrderRequest(
         trailing_stop_loss_on_fill=instrument.maximum_trailing_stop_distance + 10
     )
+
+    with pytest.raises(ValueError):
+        _in_context(order_request, instrument)
+
     result = _in_context(order_request, instrument, clip=True)
     assert result.trailing_stop_loss_on_fill.distance == instrument.maximum_trailing_stop_distance
+
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_limits_units_to_valid_range(instrument):
+    order_request = OrderRequest(
+        units=0
+    )
+
+    if instrument.minimum_trade_size > 0:
+        with pytest.raises(ValueError):
+            _in_context(order_request, instrument)
+
+    result = _in_context(order_request, instrument, clip=True)
+
+    assert result.units == instrument.minimum_trade_size
+
+    order_request = OrderRequest(
+        units=instrument.maximum_order_units + 10
+    )
+
+    with pytest.raises(ValueError):
+        _in_context(order_request, instrument)
+
+    result = _in_context(order_request, instrument, clip=True)
+    assert result.units == instrument.maximum_order_units
