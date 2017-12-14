@@ -60,8 +60,8 @@ def _in_context(order_request, instrument, clip=False):
                         instrument.display_precision))}
             )
         else:
-            raise ValueError(f'Trailing stop loss distance is not '
-                             f'{instrument.minimum_trailing_stop_distance} < {value.distance} < '
+            raise ValueError(f'Trailing stop loss distance {value.distance} is not within {instrument.name} '
+                             f'specified range {instrument.minimum_trailing_stop_distance} - '
                              f'{instrument.maximum_trailing_stop_distance}')
 
     return order_request.replace(**formatted_attributes)

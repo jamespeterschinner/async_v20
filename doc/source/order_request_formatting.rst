@@ -44,7 +44,7 @@ valid range specified by the instrument. By default this feature is disabled.
 **Example:**
 
 .. code-block:: python
-    :emphasize-lines: 6-8,11,15
+    :emphasize-lines: 10-12,15,19
 
     >>> from async_v20 import OandaClient
     >>> import asyncio
@@ -63,7 +63,7 @@ valid range specified by the instrument. By default this feature is disabled.
     >>> client.format_order_requests = False
     >>> run(client.create_order('AUD_USD', 1, trailing_stop_loss_on_fill=0))
     Traceback (most recent call last):
-    ValueError: Trailing stop loss distance is not 0.0005 < 0.0 < 1.0
+    ValueError: Trailing stop loss distance 0.0 is not within AUD_USD specified range 0.0005 - 1.0
     >>> client.format_order_requests = True
     >>> run(client.create_order('AUD_USD', 1, trailing_stop_loss_on_fill=0))
     <Status [201]: orderCreateTransaction, orderFillTransaction, relatedTransactionIDs, lastTransactionID>
