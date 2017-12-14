@@ -26,7 +26,7 @@ representation of an :class:`~async_v20.definitions.types.Instrument`.
 
 The attributes of this instrument outline the formatting of OrderRequests for this instrument.
 For instance *Instrument*. **trade_units_precision** defines how many decimal places
-:class:`~async_v20.definition.types.OrderRequest`. **units** may be defined for this instrument (our example *0*).
+:class:`~async_v20.definition.types.OrderRequest`. **units** may be used for this instrument (our example *0*).
 
 You will also notice **minimum** and **maximum** values for other *OrderRequest*'s attributes.
 
