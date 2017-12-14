@@ -1,11 +1,9 @@
-Please provide the follow
+**Description of issue:**
 
-Description of issue:
+**Your environment(os, python, packages)**
 
-Your environment(os, python, packages)
+**Expected behaviour:**
 
-Expected behaviour:
+**Actual behaviour:**
 
-Actual behaviour:
-
-Complete self contained example of issue:
+**Complete self contained example of issue:**
