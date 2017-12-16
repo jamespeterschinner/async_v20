@@ -52,7 +52,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     """
     headers = {'Content-Type': 'application/json', 'Connection': 'keep-alive',
-               'OANDA-Agent': 'async_v20_' + __version__}
+               'OANDA-Agent': 'async_v20_' + __version__,}
 
     default_parameters = {}
 

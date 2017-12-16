@@ -43,7 +43,7 @@ class PositionInterface(object):
         pass
 
     @endpoint(GETPositionsInstrument)
-    def get_positions(self, instrument: InstrumentName = ...):
+    def get_position(self, instrument: InstrumentName = ...):
         """
         Get the details of a single Instrument's Position in an Account. The
         Position may by open or not.
