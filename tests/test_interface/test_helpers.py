@@ -326,3 +326,28 @@ def test_in_context_limits_units_to_valid_range(instrument):
 
     result = _in_context(order_request, instrument, clip=True)
     assert result.units == instrument.maximum_order_units
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_in_context_accepts_negative_values_for_units(instrument):
+    order_request = OrderRequest(
+        units= -instrument.minimum_trade_size
+    )
+
+    result = _in_context(order_request, instrument, clip=False)
+
+    assert result.units == -instrument.minimum_trade_size
+
+    result = _in_context(order_request, instrument, clip=True)
+
+    assert result.units == -instrument.minimum_trade_size
+
+@pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
+def test_ins_context_does_not_add_parameters_to_order_requests(instrument):
+    order_request = OrderRequest(
+        units=instrument.minimum_trade_size
+    )
+    result = _in_context(order_request, instrument, clip=True)
+    assert getattr(result, 'price_bound') == None
+    assert getattr(result, 'trailing_stop_loss_on_fill')  == None
+    assert getattr(result, 'stop_loss_on_fill')  == None
+    assert getattr(result, 'take_profit_on_fill')  == None

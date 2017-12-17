@@ -43,7 +43,7 @@ Why is this useful?
     - Invalid arguments will raise :class:`ValueError` catching mistakes earlier
     - Provides flexibility when passing arguments
 
-Here in an Example
+Here is an Example
 
 .. literalinclude:: ../../bin/passing_arguments.py
 

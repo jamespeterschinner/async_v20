@@ -35,7 +35,7 @@ rsp = run(
 for i in rsp:
     print(i.json())
 
-rsp = run(*[client.create_order('AUD_USD', 1) for _ in range(10)])\
+rsp = run(*[client.create_order('AUD_USD', -11) for _ in range(10)])\
 
 for i in rsp:
     print(i.json())
@@ -108,7 +108,7 @@ for i in rsp:
 rsp = run(
     client.list_positions(),
     client.list_open_positions(),
-    client.get_positions('AUD_USD'),
+    client.get_position('AUD_USD'),
     client.close_position('AUD_USD', long_units='ALL'),
     client.get_pricing('AUD_USD'),
 

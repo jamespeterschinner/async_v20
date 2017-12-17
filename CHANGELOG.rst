@@ -181,3 +181,9 @@ Added attributes to TradeSummary:
 - OandaClient has `format_order_request` attribute
 - async_v20.definitions.primitives.Unit has been removed
 - PriceValue and Decimal number has additional method `format(precision, min_, max_)`
+
+4.0.0b0
+=======
+
+- Changed get_positions to get_position (as method can only close one position)
+- _in_context accepts negative units
