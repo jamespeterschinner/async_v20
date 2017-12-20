@@ -201,8 +201,6 @@ class Model(tuple, metaclass=ORM):
             accuracy: - int: The accuracy to round PriceValues to.
         """
 
-        if json is True and datetime_format is None:
-            raise ValueError(f'Must specify datetime_format when creating JSON')
 
         def fields():
 
@@ -232,15 +230,8 @@ class Model(tuple, metaclass=ORM):
                     # seems to be most useful type. We will make sure to cast them back
                     # to strings when sending JSON data to OANDA
                     attr = str(attr)
-                elif json and isinstance(attr, pd.Timestamp):
-                    attr = attr.datetime_format(datetime_format)
-                elif not json and datetime_format and isinstance(attr, pd.Timestamp):
-                    if datetime_format == 'UNIX':
-                        attr = attr.value
-                    elif datetime_format == 'RFC3339':
-                        attr = attr.datetime_format(datetime_format)
-                    else:
-                        raise ValueError(f'{datetime_format} is not a valid value')
+                elif isinstance(attr, pd.Timestamp):
+                    attr = attr.format(datetime_format, json=json)
 
                 yield field, attr
 

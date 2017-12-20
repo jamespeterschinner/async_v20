@@ -1,5 +1,6 @@
-from .helpers import domain_check
 import pandas as pd
+import numpy as np
+from .helpers import domain_check
 
 __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'AccountUnits', 'CancellableOrderType',
            'CandlestickGranularity', 'ClientComment', 'ClientID', 'ClientTag', 'Currency', 'DateTime', 'DecimalNumber',
@@ -24,6 +25,52 @@ class Specifier(object):
     # This is necessary due to different types using a mixture
     # of int and str which prevents inheritance due to 'Lay-out error'
     pass
+
+
+
+class DateTime(Primitive):
+    """A date and time value using either RFC3339 or UNIX time representation.
+    """
+
+    def __new__(cls, value):
+        kwargs = {}
+        try:
+            length = len(value)
+        except TypeError:
+            pass
+        else:
+            if length == 20 or isinstance(value, int):
+                if isinstance(value, str):
+                    value = value.replace('.', '')
+                value = int(value)
+                kwargs.update(tz='UTC')
+
+        return pd.Timestamp(value, **kwargs)
+
+
+def _format_datetime(self, datetime_format, json=False):
+
+    if json is True and datetime_format is None:
+        raise ValueError(f'Must specify datetime_format when creating JSON. Either "RFC3339" or "UNIX"')
+
+    if datetime_format == 'RFC3339':
+        nanoseconds = str(self.nanosecond)
+        nanoseconds = nanoseconds + '000'[:-len(nanoseconds)]
+        result = self.strftime(f'%Y-%m-%dT%H:%M:%S.%f{nanoseconds}Z')
+    elif datetime_format == 'UNIX':
+        result = self.value
+        if json:
+            result = str(result)
+            result =  f'{result[:-9]}.{result[-9:]}'
+
+    elif datetime_format is None:
+        result = self
+    else:
+        raise ValueError(f'{datetime_format} is not a valid value. It must be either. None, "RFC3339" or "UNIX"')
+    return result
+
+
+pd.Timestamp.format = _format_datetime
 
 
 class AccountFinancingMode(str, Primitive):
@@ -418,38 +465,6 @@ class Currency(str, Primitive):
     def __new__(cls, value):
         return super().__new__(cls, value)
 
-def _datetime_format(self, datetime_format):
-    if datetime_format == 'RFC3339':
-        nanoseconds = str(self.nanosecond)
-        nanoseconds = nanoseconds + '000'[:-len(nanoseconds)]
-        result = self.strftime(f'%Y-%m-%dT%H:%M:%S.%f{nanoseconds}Z')
-    elif datetime_format == 'UNIX':
-        value = str(self.value)
-        result = f'{value[:-9]}.{value[-9:]}'
-    else:
-        raise ValueError(f'{datetime_format} is not a valid value. It must be either "RFC3339" or "UNIX"')
-    return result
-
-pd.Timestamp.datetime_format = _datetime_format
-
-class DateTime(pd.Timestamp, Primitive):
-    """A date and time value using either RFC3339 or UNIX time representation.
-    """
-
-    def __new__(cls, value):
-        kwargs = {}
-        try:
-            length = len(value)
-        except TypeError:
-            pass
-        else:
-            if length == 20 or isinstance(value, int):
-                if isinstance(value, str):
-                    value = value.replace('.', '')
-                value = int(value)
-                kwargs.update(tz='UTC')
-
-        return super().__new__(cls, value, **kwargs)
 
 class DecimalNumber(float, Primitive):
     """The string representation of a decimal number.

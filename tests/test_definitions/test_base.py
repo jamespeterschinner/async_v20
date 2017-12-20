@@ -12,6 +12,8 @@ from ..fixtures.client import client
 from ..fixtures.server import server
 
 from pandas import DataFrame
+import pandas as pd
+import numpy as np
 
 client= client
 server = server
@@ -174,4 +176,25 @@ async def test_array_dataframe_returns_dataframe(client, server):
     assert type(df) == DataFrame
 
 
+@pytest.mark.asyncio
+async def test_array_dataframe_converts_datetimes_to_correct_type(client, server):
+    # Easier to get a real response from the fake server than to mock a response
+    async with client as client:
+        rsp = await client.get_candles('AUD_USD')
+    df = rsp.candles.dataframe()
+    assert type(df.time[0]) == pd.Timestamp
 
+    df = rsp.candles.dataframe(datetime_format='UNIX')
+    assert type(df.time[0]) == np.int64
+    assert len(str(df.time[0])) == 19
+
+    df = rsp.candles.dataframe(datetime_format='UNIX', json=True)
+    assert type(df.time[0]) == str
+    assert len(str(df.time[0])) == 20
+
+
+    df = rsp.candles.dataframe(datetime_format='RFC3339')
+    assert type(df.time[0]) == str
+    assert len(str(df.time[0])) == 30
+
+    assert type(df) == DataFrame
