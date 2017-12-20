@@ -60,7 +60,7 @@ def test_json_dict_returns_correct_data_structure(account):
     serializing objects to send to OANDA. Though when used internally is it more
     natural to leave floats as floats."""
 
-    result = account.dict(json=True)
+    result = account.dict(json=True, datetime_format='UNIX')
     # Test result is a dict
     assert type(result) == dict
     flattened_result = flatten_dict(result)
@@ -68,7 +68,7 @@ def test_json_dict_returns_correct_data_structure(account):
     for value in flattened_result:
         assert isinstance(value, (dict, str, int, list))
 
-    result = account.dict(json=False)
+    result = account.dict(json=False, datetime_format='UNIX')
     assert type(result) == dict
     flattened_result = flatten_dict(result)
     # Test that all values have the correct data type. Specifically that
@@ -81,13 +81,13 @@ def test_json_dict_returns_correct_data_structure(account):
 
 
 def test_json_data(account):
-    result = account.json()
+    result = account.json(datetime_format='UNIX')
     assert type(result) == str
-    assert json.loads(result) == account.dict(json=True)
+    assert json.loads(result) == account.dict(json=True, datetime_format='UNIX')
 
 
 def test_data(account):
-    result = account.data(json=True)
+    result = account.data(json=True, datetime_format='UNIX')
     for value in result:
         assert isinstance(value, (str, int, list))
 
@@ -101,7 +101,7 @@ def test_data(account):
 
 
 def test_series_doesnt_convert_datetime(account):
-    result = account.series(datetime=False)
+    result = account.series(datetime_format='UNIX')
     print(result)
 
     for value in result:
@@ -113,7 +113,7 @@ def test_series_doesnt_convert_datetime(account):
                 float(value)
 
 def test_series_converts_time_to_datetime(account):
-    result = account.series(datetime=True)
+    result = account.series()
     print(result)
 
     with pytest.raises(AssertionError):

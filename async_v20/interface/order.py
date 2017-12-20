@@ -77,7 +77,7 @@ class OrderInterface(object):
     @shortcut
     def create_order(self, instrument: InstrumentName, units: DecimalNumber, type: OrderType = 'MARKET',
                      trade_id: TradeID = ..., price: PriceValue = ..., client_trade_id: ClientID = ...,
-                     time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+                     time_in_force: TimeInForce = ..., gtd_time: DateTime =  ...,
                      trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
                      distance: PriceValue = ..., price_bound: PriceValue = ...,
                      position_fill: OrderPositionFill = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -431,7 +431,7 @@ class OrderInterface(object):
 
     @shortcut
     def limit_order(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
                     position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                     client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
                     stop_loss_on_fill: StopLossDetails = ...,
@@ -528,7 +528,7 @@ class OrderInterface(object):
     @shortcut
     def limit_replace_order(self,
                             order_specifier: OrderSpecifier, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                            time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                            time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
                             position_fill: OrderPositionFill = 'DEFAULT',
                             trigger_condition: OrderTriggerCondition = 'DEFAULT',
                             client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -626,7 +626,7 @@ class OrderInterface(object):
 
     @shortcut
     def stop_order(self, trade_id: TradeID, price: PriceValue,
-                   client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                   client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
                    trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         """
         Create a Stop Order
@@ -692,7 +692,7 @@ class OrderInterface(object):
     def stop_replace_order(self,
                            order_specifier: OrderSpecifier,
                            instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                           price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                           price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
                            position_fill: OrderPositionFill = 'DEFAULT',
                            trigger_condition: OrderTriggerCondition = 'DEFAULT',
                            client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -798,7 +798,7 @@ class OrderInterface(object):
     @shortcut
     def market_if_touched_order(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                                 price_bound: PriceValue = ...,
-                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
                                 position_fill: OrderPositionFill = 'DEFAULT',
                                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                 client_extensions: ClientExtensions = ...,
@@ -905,7 +905,7 @@ class OrderInterface(object):
                                         order_specifier: OrderSpecifier,
                                         instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                                         price_bound: PriceValue = ...,
-                                        time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                                        time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
                                         position_fill: OrderPositionFill = 'DEFAULT',
                                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                         client_extensions: ClientExtensions = ...,
@@ -1017,7 +1017,7 @@ class OrderInterface(object):
     @shortcut
     def take_profit_order(self, trade_id: TradeID, price: PriceValue,
                           client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                          gtd_time: DateTime = ...,
+                          gtd_time: DateTime =  ...,
                           trigger_condition: OrderTriggerCondition = 'DEFAULT',
                           client_extensions: ClientExtensions = ...):
         """
@@ -1087,7 +1087,7 @@ class OrderInterface(object):
                                   order_specifier: OrderSpecifier,
                                   trade_id: TradeID, price: PriceValue,
                                   client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                  gtd_time: DateTime = ...,
+                                  gtd_time: DateTime =  ...,
                                   trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                   client_extensions: ClientExtensions = ...
                                   ):
@@ -1160,7 +1160,7 @@ class OrderInterface(object):
 
     @shortcut
     def stop_loss_order(self, trade_id: TradeID, price: PriceValue,
-                        client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                        client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
                         client_extensions: ClientExtensions = ...):
         """
@@ -1227,7 +1227,7 @@ class OrderInterface(object):
     def stop_loss_replace_order(self, order_specifier: OrderSpecifier,
                                 trade_id: TradeID, price: PriceValue,
                                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                gtd_time: DateTime = ...,
+                                gtd_time: DateTime =  ...,
                                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                 client_extensions: ClientExtensions = ...):
         """
@@ -1300,7 +1300,7 @@ class OrderInterface(object):
     @shortcut
     def trailing_stop_loss_order(self, trade_id: TradeID, distance: PriceValue,
                                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                 gtd_time: DateTime = ...,
+                                 gtd_time: DateTime =  ...,
                                  trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                  client_extensions: ClientExtensions = ...):
         """
@@ -1370,7 +1370,7 @@ class OrderInterface(object):
     def trailing_stop_loss_replace_order(self, order_specifier: OrderSpecifier,
                                          trade_id: TradeID, distance: PriceValue,
                                          client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                         gtd_time: DateTime = ...,
+                                         gtd_time: DateTime =  ...,
                                          trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                          client_extensions: ClientExtensions = ...):
         """

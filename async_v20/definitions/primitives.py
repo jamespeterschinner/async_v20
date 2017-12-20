@@ -1,4 +1,5 @@
 from .helpers import domain_check
+import pandas as pd
 
 __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'AccountUnits', 'CancellableOrderType',
            'CandlestickGranularity', 'ClientComment', 'ClientID', 'ClientTag', 'Currency', 'DateTime', 'DecimalNumber',
@@ -417,17 +418,38 @@ class Currency(str, Primitive):
     def __new__(cls, value):
         return super().__new__(cls, value)
 
+def _datetime_format(self, datetime_format):
+    if datetime_format == 'RFC3339':
+        nanoseconds = str(self.nanosecond)
+        nanoseconds = nanoseconds + '000'[:-len(nanoseconds)]
+        result = self.strftime(f'%Y-%m-%dT%H:%M:%S.%f{nanoseconds}Z')
+    elif datetime_format == 'UNIX':
+        value = str(self.value)
+        result = f'{value[:-9]}.{value[-9:]}'
+    else:
+        raise ValueError(f'{datetime_format} is not a valid value. It must be either "RFC3339" or "UNIX"')
+    return result
 
-class DateTime(str, Primitive):
+pd.Timestamp.datetime_format = _datetime_format
+
+class DateTime(pd.Timestamp, Primitive):
     """A date and time value using either RFC3339 or UNIX time representation.
     """
 
-    # Correct syntax of value
-    format_syntax = 'The RFC 3339 representation is a string conforming to'
-
     def __new__(cls, value):
-        return super().__new__(cls, value)
+        kwargs = {}
+        try:
+            length = len(value)
+        except TypeError:
+            pass
+        else:
+            if length == 20 or isinstance(value, int):
+                if isinstance(value, str):
+                    value = value.replace('.', '')
+                value = int(value)
+                kwargs.update(tz='UTC')
 
+        return super().__new__(cls, value, **kwargs)
 
 class DecimalNumber(float, Primitive):
     """The string representation of a decimal number.
@@ -460,6 +482,7 @@ class DecimalNumber(float, Primitive):
         value = value * (1, -1)[self < 0]
 
         return super().__new__(self.__class__, round(value, precision))
+
 
 class Direction(str, Primitive):
     """In the context of an Order or a

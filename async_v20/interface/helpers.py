@@ -155,7 +155,7 @@ def create_body(self, request_schema, arguments):
                                        f'in OandaClient._instruments')
 
                 try:
-                    value = value.dict(json=True)
+                    value = value.dict(json=True, datetime_format=self.datetime_format)
                 except AttributeError:
                     pass
                 yield key, value

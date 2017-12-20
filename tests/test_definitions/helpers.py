@@ -1,9 +1,8 @@
 from inspect import signature, _empty
-
+from async_v20.definitions.types import DateTime
 from async_v20.definitions.base import Model, Array
-from async_v20.endpoints.annotations import Bool
-from async_v20.definitions.types import InstrumentName
-
+from async_v20.endpoints.annotations import Bool, FromTime, ToTime
+from types import FunctionType
 
 def create_cls_annotations(cls):
     return {name: param.annotation for
@@ -15,6 +14,9 @@ def get_valid_primitive_data(primitive):
     data = None
     if primitive == _empty:
         return
+    elif issubclass(primitive, DateTime): #or primitive == FromTime or primitive == ToTime:
+        # Means it is a time
+        return '2017-12-19T21:27:45.000000000Z'
     elif issubclass(primitive, Array):
         return (get_valid_primitive_data(primitive._contains),)
     elif issubclass(primitive, Model):
@@ -32,6 +34,7 @@ def get_valid_primitive_data(primitive):
         data = primitive()
     # The only valid option here should be a subclass of str
     else:
+        print(primitive)
         assert issubclass(primitive, (str))
         try:
             data = primitive.example

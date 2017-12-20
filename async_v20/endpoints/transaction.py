@@ -2,6 +2,7 @@ from .annotations import *
 from .base import EndPoint
 from ..definitions.primitives import *
 from ..definitions.types import *
+import pandas as pd
 
 __all__ = ['GETTransactions', 'GETTransactionID', 'GETIDrange', 'GETSinceID', 'GETTransactionsStream']
 
@@ -31,7 +32,7 @@ class GETTransactions(EndPoint):
 
     # valid responses
     responses = {
-        200: {'from': DateTime, 'to': DateTime, 'pageSize': int, 'type': ArrayTransactionFilter, 'count': int,
+        200: {'from': pd.Timestamp, 'to': pd.Timestamp, 'pageSize': int, 'type': ArrayTransactionFilter, 'count': int,
               'pages': ArrayStr, 'lastTransactionID': TransactionID}}
 
     # error msgs'

@@ -10,8 +10,7 @@ from .attributes import instance_attributes
 from .attributes import json_attributes
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
-from .helpers import time_to_time_stamp
-from .primitives import Primitive, Specifier, DateTime
+from .primitives import Primitive, Specifier
 
 
 def arg_parse(new: classmethod, signature=Signature) -> classmethod:
@@ -193,26 +192,31 @@ class Model(tuple, metaclass=ORM):
     def replace(self, **kwargs):
         return self.__class__(**dict(self.dict(), **kwargs))
 
-    def dict(self, json=False, datetime=False):
+    def dict(self, json=False, datetime_format=None):
         """Convert object into a dictionary representation
 
         Args:
             json: - bool. True converts dict keys into JSON format
-            datetime: - bool. True converts DateTimes into pandas.Timestamps
+            datetime_format: - str. convert pd.Timestamps to desired format
             accuracy: - int: The accuracy to round PriceValues to.
         """
 
+        if json is True and datetime_format is None:
+            raise ValueError(f'Must specify datetime_format when creating JSON')
+
         def fields():
+
             for field in self._fields:
+
                 attr = getattr(self, field)
 
-                if not isinstance(attr, (int, float, str)):
+                if not isinstance(attr, (int, float, str, pd.Timestamp)):
                     # Means attr is either a Model object, tuple, list, None
                     try:
-                        attr = attr.dict(json=json, datetime=datetime)
+                        attr = attr.dict(json=json, datetime_format=datetime_format)
                     except AttributeError:
                         try:
-                            attr = [obj.dict(json=json, datetime=datetime) for obj in attr]
+                            attr = [obj.dict(json=json, datetime_format=datetime_format) for obj in attr]
                         except AttributeError:
                             attr = [str(obj)
                                     if json and isinstance(obj, float)
@@ -228,22 +232,29 @@ class Model(tuple, metaclass=ORM):
                     # seems to be most useful type. We will make sure to cast them back
                     # to strings when sending JSON data to OANDA
                     attr = str(attr)
-                elif datetime and isinstance(attr, DateTime):
-                    attr = time_to_time_stamp(attr)
+                elif json and isinstance(attr, pd.Timestamp):
+                    attr = attr.datetime_format(datetime_format)
+                elif not json and datetime_format and isinstance(attr, pd.Timestamp):
+                    if datetime_format == 'UNIX':
+                        attr = attr.value
+                    elif datetime_format == 'RFC3339':
+                        attr = attr.datetime_format(datetime_format)
+                    else:
+                        raise ValueError(f'{datetime_format} is not a valid value')
 
                 yield field, attr
 
         return {json_attributes[field] if json else field: attr for field, attr in fields()}
 
-    def json(self):
-        return json.dumps(self.dict(json=True, datetime=False))
+    def json(self, datetime_format='UNIX'):
+        return json.dumps(self.dict(json=True, datetime_format=datetime_format))
 
-    def data(self, json=False, datetime=False):
-        return flatten_dict(self.dict(json=json, datetime=datetime), self._delimiter)
+    def data(self, json=False, datetime_format=None):
+        return flatten_dict(self.dict(json=json, datetime_format=datetime_format), self._delimiter)
 
-    def series(self, json=False, datetime=True):
+    def series(self, json=False, datetime_format=None):
         def create_data():
-            for key, value in self.data(json=json, datetime=datetime).items():
+            for key, value in self.data(json=json, datetime_format=datetime_format).items():
                 if isinstance(value, str):
                     try:
                         value = int(value)
@@ -302,9 +313,9 @@ class Array(tuple):
         except KeyError:
             return None
 
-    def dataframe(self, json=False, datetime=True):
+    def dataframe(self, json=False, datetime_format=None):
         """Create a pandas.Dataframe"""
-        return pd.DataFrame(obj.series(json=json, datetime=datetime) for obj in self)
+        return pd.DataFrame(obj.series(json=json, datetime_format=datetime_format) for obj in self)
 
 
 def create_attribute(typ, data):

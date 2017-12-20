@@ -1,6 +1,6 @@
 from ..definitions.types import ClientExtensions
-from ..definitions.types import DateTime
 from ..definitions.types import TransactionID
+from ..definitions.types import DateTime
 
 __all__ = ['Alias', 'AlignmentTimezone', 'Authorization', 'Count', 'DailyAlignment', 'FromTime',
            'FromTransactionID', 'Ids', 'IncludeFirstQuery', 'Instruments', 'LastTransactionID',

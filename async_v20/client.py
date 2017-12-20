@@ -129,6 +129,9 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
         self.max_simultaneous_connections = max_simultaneous_connections
 
+        # TODO: make this read only
+        self.datetime_format = datetime_format
+
         # This is the default parameter dictionary. OandaClient Methods that require certain parameters
         # that are  not explicitly passed will try to find it in this dict
         self.default_parameters.update(

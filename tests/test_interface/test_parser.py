@@ -104,8 +104,8 @@ async def test_rest_response_updates_client_default_parameters(client, rest_resp
                                                  (GETAccounts_response, GETAccounts),
                                                  (GETAccountIDSummary_response, GETAccountIDSummary)])
 async def test_conversion_from_server_json_to_response_object_to_json_equal(json_body, endpoint):
-    response = await _create_response(json_body, endpoint, *_lookup_schema(endpoint, 200))
-    response_json = response.dict(json=True)
+    response = await _create_response(json_body, endpoint, *_lookup_schema(endpoint, 200) ,datetime_format='RFC3339')
+    response_json = response.dict(json=True, datetime_format='RFC3339')
     pretty_json_body = order_dict(json_body)
     pretty_response_json = order_dict(response_json)
     print('SERVER JSON:\n', pretty_json_body)

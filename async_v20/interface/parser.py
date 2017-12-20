@@ -27,7 +27,7 @@ def _lookup_schema(endpoint, status):
         return schema, status, True
 
 
-async def _create_response(json_body, endpoint, schema, status, boolean):
+async def _create_response(json_body, endpoint, schema, status, boolean, datetime_format):
     # Here we iterate through all the json objects returned in the response
     # and construct the corresponding async_v20 type as determined by the endpoints
     # Schema
@@ -35,7 +35,7 @@ async def _create_response(json_body, endpoint, schema, status, boolean):
         for json_object, json_field in json_body.items():
             yield json_object, create_attribute(schema.get(json_object), json_field)
 
-    return Response(tuple(create_data()), status, boolean)
+    return Response(tuple(create_data()), status, boolean, datetime_format)
 
 
 async def _rest_response(self, response, endpoint):
@@ -46,7 +46,7 @@ async def _rest_response(self, response, endpoint):
         self.default_parameters.update(resp.raw_headers)
         json_body = await resp.json()
 
-    response = await _create_response(json_body, endpoint, schema, status, boolean)
+    response = await _create_response(json_body, endpoint, schema, status, boolean, self.datetime_format)
 
     if response:
         last_transaction_id = getattr(response, 'lastTransactionID', None)
@@ -68,15 +68,15 @@ async def _rest_response(self, response, endpoint):
 
 
 
-async def _stream_parser(response, endpoint, timeout):
+async def _stream_parser(self, response, endpoint):
     async with response as resp:
         schema, status, boolean = _lookup_schema(endpoint, resp.status)
         while not resp.content.at_eof():
             try:
-                async with async_timeout.timeout(timeout):
+                async with async_timeout.timeout(self.stream_timeout):
                     body = json.loads(await resp.content.readline())
                     json_body = {body.get('type'): body}  # mimic a rest response
-                    yield await _create_response(json_body, endpoint, schema, status, boolean)
+                    yield await _create_response(json_body, endpoint, schema, status, boolean, self.datetime_format)
             except AsyncTimeOutError as e:
                 raise TimeoutError(e)
 
@@ -85,5 +85,5 @@ async def parse_response(self, response, endpoint):
     if endpoint.host == 'REST':
         result = await _rest_response(self, response, endpoint)
     else:
-        result = _stream_parser(response, endpoint, self.stream_timeout)
+        result = _stream_parser(self, response, endpoint)
     return result

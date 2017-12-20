@@ -1,5 +1,5 @@
 from .decorators import endpoint
-from ..definitions.primitives import DateTime
+from ..definitions.types import DateTime
 from ..endpoints.annotations import *
 from ..endpoints.pricing import *
 

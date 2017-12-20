@@ -46,7 +46,7 @@ def test_all_types_can_be_instantiated_from_tuple(cls, data):
     arguments = tuple(data.values())
     # make sure the arguments are in the correct order
     result = cls(*arguments)
-    result_json = result.json()
+    result_json = result.json(datetime_format='UNIX')
     assert result
     assert type(result) == cls
 
@@ -54,7 +54,7 @@ def test_all_types_can_be_instantiated_from_tuple(cls, data):
         if isinstance(argument, dict):
             args = list(arguments)
             args[index] = tuple(argument.values())
-            assert cls(*args).json() == result_json
+            assert cls(*args).json(datetime_format='UNIX') == result_json
 
 
 @pytest.mark.parametrize('cls, data', model_classes_data)
@@ -71,4 +71,8 @@ def test_all_derived_types_have_same_arguments_and_annotations_as_parent(cls, da
         parent_class_parameters = parent_class.__new__.__signature__.parameters
         for name, parameter in cls.__new__.__signature__.parameters.items():
             assert name in parent_class_parameters
-            assert issubclass(parameter.annotation,parent_class_parameters[name].annotation)
+            try:
+                assert issubclass(parameter.annotation,parent_class_parameters[name].annotation)
+            except TypeError:
+                # means annotation is async_v20.definitions.helpers.time function
+                assert parameter.annotation == parent_class_parameters[name].annotation

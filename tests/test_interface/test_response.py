@@ -30,6 +30,8 @@ async def test_response_returns_json(client, server):
 
     assert accounts.json() == list_accounts_response.replace(' ', '')
     assert account_details.json() == get_account_details_response.replace(' ', '')
+    print(pricing.json())
+    print(get_pricing_response.replace(' ', ''))
     assert pricing.json() == get_pricing_response.replace(' ', '')
 
 @pytest.mark.asyncio

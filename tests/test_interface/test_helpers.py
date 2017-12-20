@@ -26,7 +26,9 @@ from ..data.json_data import GETAccountID_response, example_instruments
 from ..fixtures.client import client
 from ..fixtures.server import server
 from ..test_definitions.helpers import get_valid_primitive_data
-
+import pandas as pd
+from async_v20.definitions.types import DateTime
+from async_v20.endpoints.annotations import FromTime, ToTime
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
@@ -67,6 +69,8 @@ async def test_construct_arguments(signature, bound_arguments, args):
     for annotation, instance in result.items():
         if isinstance(instance, bool):
             assert issubclass(annotation, Bool)
+        elif isinstance(instance, pd.Timestamp):
+            assert issubclass(annotation, DateTime)
         else:
             assert type(instance) == annotation
 
@@ -197,7 +201,7 @@ async def test_request_body_raises_key_error_when_cannot_format_request(client, 
 async def test_objects_can_be_converted_between_Model_object_and_json():
     account = Account(**GETAccountID_response['account'])
     response_json_account = GETAccountID_response['account']
-    account_to_json = account.dict(json=True)
+    account_to_json = account.dict(json=True, datetime_format='RFC3339')
 
     response_json_account = order_dict(response_json_account)
     account_to_json = order_dict(account_to_json)

@@ -4,10 +4,11 @@ import pytest
 
 from async_v20.definitions import primitives
 from async_v20.definitions.primitives import ClientComment, ClientID, ClientTag
-from async_v20.definitions.primitives import OrderSpecifier, TradeSpecifier
+from async_v20.definitions.primitives import OrderSpecifier, TradeSpecifier, DateTime
 from async_v20.definitions.primitives import TransactionID, PriceValue, DecimalNumber
 from tests.test_definitions.helpers import get_valid_primitive_data
 
+import pandas as pd
 
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives, x), primitives.__all__))
 def test_get_valid_primitive_data(primitive):
@@ -47,7 +48,10 @@ def test_primitives_enforce_length_checking(primitive):
 
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives, x), primitives.__all__))
 def test_primitives_return_correct_type_when_initialized_with_value(primitive):
-    assert type(primitive(get_valid_primitive_data(primitive))) == primitive
+    if primitive == DateTime:
+        assert type(primitive(get_valid_primitive_data(primitive))) == pd.Timestamp
+    else:
+        assert type(primitive(get_valid_primitive_data(primitive))) == primitive
 
 
 def test_price_value_cannot_be_created_from_negative_value():
