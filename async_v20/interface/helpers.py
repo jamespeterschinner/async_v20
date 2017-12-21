@@ -2,7 +2,8 @@ from functools import partial
 from inspect import _empty
 
 from ..definitions.base import create_attribute
-from ..definitions.types import OrderRequest, Instrument
+from ..definitions.types import OrderRequest
+import pandas as pd
 
 
 def _in_context(order_request, instrument, clip=False):
@@ -30,14 +31,14 @@ def _in_context(order_request, instrument, clip=False):
         value = getattr(order_request, attr, None)
         if value:
             formatted_attributes.update(
-                {attr:value.format(instrument.display_precision)}
+                {attr: value.format(instrument.display_precision)}
             )
 
     for attr in ('take_profit_on_fill', 'stop_loss_on_fill'):
         value = getattr(order_request, attr, None)
         if value:
             formatted_attributes.update(
-                {attr:value.replace(price=value.price.format(instrument.display_precision))}
+                {attr: value.replace(price=value.price.format(instrument.display_precision))}
             )
 
     attr = 'trailing_stop_loss_on_fill'
@@ -45,17 +46,17 @@ def _in_context(order_request, instrument, clip=False):
     if value:
         if clip:
             formatted_attributes.update(
-                {attr:value.replace(
+                {attr: value.replace(
                     distance=value.distance.format(
                         instrument.display_precision,
                         instrument.minimum_trailing_stop_distance,
                         instrument.maximum_trailing_stop_distance))}
-                )
+            )
 
         elif instrument.minimum_trailing_stop_distance <= value.distance <= \
                 instrument.maximum_trailing_stop_distance:
             formatted_attributes.update(
-                {attr:value.replace(
+                {attr: value.replace(
                     distance=value.distance.format(
                         instrument.display_precision))}
             )
@@ -85,7 +86,12 @@ def _create_request_params(self, endpoint, arguments: dict, param_location: str)
                 except KeyError:
                     continue
 
-            yield name, result
+            if isinstance(result, pd.Timestamp):
+                result = result.json(self.datetime_format)
+            else:
+                result = str(result)
+
+            yield name, str(result)
 
     return dict(lookup())
 
@@ -201,7 +207,8 @@ def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
     url = create_url(self, endpoint, arguments)
 
     # yarl doesn't accept int subclass'
-    parameters = {k: str(v) for k, v in query_params(self, endpoint, arguments).items()}
+    parameters = query_params(self, endpoint, arguments)
+
 
     request_kwargs = {
         'method': endpoint.method,

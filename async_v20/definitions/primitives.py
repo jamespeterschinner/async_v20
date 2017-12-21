@@ -32,7 +32,6 @@ class DateTime(Primitive):
     """
 
     def __new__(cls, value, **kwargs):
-
         if not isinstance(value, (int, float, str)):
             pass
         else:
