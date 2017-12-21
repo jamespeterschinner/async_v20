@@ -192,7 +192,7 @@ Added attributes to TradeSummary:
 =======
 
 - DateTime's create pandas.Timestamp's
-- Model.dict `datetime` is now `datetime_format`. Argument behaviour now
+- Model.dict argument `datetime` is now `datetime_format`. Argument behaviour now
   specifies the representation of times. Either `RFC3339` or `UNIX`. Corresponding `json` argument
   changes the representation of UNIX times to either a `str` or `numpy.int64`
 - *Response* .json() accepts `datetime_format` argument string
