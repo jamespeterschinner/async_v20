@@ -7,7 +7,7 @@ class Response(dict):
 
     Allows dotted attribute access
     """
-    def __init__(self, data, status, bool, datetime_format='UNIX'):
+    def __init__(self, data, status, bool, datetime_format):
         super().__init__(data)
         self.status = status
         self.bool = bool
