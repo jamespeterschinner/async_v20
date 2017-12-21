@@ -48,4 +48,4 @@ async def test_response_keys_can_be_accessed_through_dot(client, server):
                 getattr(response, key+'_test')
 
 def test_response_doesnt_error_when_response_contains_no_data():
-    print(Response(data='',status=400, bool=0))
+    print(Response(data='',status=400, bool=0, datetime_format='UNIX'))
