@@ -187,3 +187,12 @@ Added attributes to TradeSummary:
 
 - Changed get_positions to get_position (as method can only close one position)
 - _in_context accepts negative units
+
+5.0.0b0
+=======
+
+- DateTime's create pandas.Timestamp's
+- Model.dict `datetime` is now `datetime_format`. Argument behaviour now
+  specifies the representation of times. Either `RFC3339` or `UNIX`. Corresponding `json` argument
+  changes the representation of UNIX times to either a `str` or `numpy.int64`
+- *Response* .**json**() accepts datetime_format string
