@@ -1,4 +1,5 @@
 import asyncio
+from time import time
 
 from async_v20 import OandaClient, LastTransactionID, OrderSpecifier, TransactionID, TradeSpecifier
 
@@ -28,6 +29,7 @@ rsp = run(
     client.account_changes(),
     client.get_candles('AUD_USD', price='BMA', count=10, granularity='S5',
                        daily_alignment=0, include_first_query=False),
+    client.get_candles('AUD_USD', from_time=time() - (60 * 10)),
     client.get_order_book('AUD_USD'),
     client.get_position_book('AUD_USD'),
 )
@@ -35,8 +37,7 @@ rsp = run(
 for i in rsp:
     print(i.json())
 
-rsp = run(*[client.create_order('AUD_USD', -11) for _ in range(10)])\
-
+rsp = run(*[client.create_order('AUD_USD', -11) for _ in range(10)])
 for i in rsp:
     print(i.json())
 
@@ -65,8 +66,8 @@ rsp = run(client.close_all_trades())
 print(rsp)
 
 rsp = run(*[client.create_order('AUD_USD', 1) for _ in range(10)],
-    client.list_orders(),
-    client.list_pending_orders())
+          client.list_orders(),
+          client.list_pending_orders())
 
 for i in rsp:
     print(i.json())
@@ -96,7 +97,7 @@ rsp = run(client.market_order('EUR_USD', 1))
 for i in rsp:
     print(i.json())
 
-rsp =  run(client.close_all_trades())
+rsp = run(client.close_all_trades())
 
 print(rsp)
 
@@ -134,6 +135,5 @@ for i in rsp:
     print(i.json())
 
 print(run(client.close_all_trades()))
-
 
 print('TEST SUCCESSFUL!')
