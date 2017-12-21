@@ -231,7 +231,10 @@ class Model(tuple, metaclass=ORM):
                     # to strings when sending JSON data to OANDA
                     attr = str(attr)
                 elif isinstance(attr, pd.Timestamp):
-                    attr = attr.format(datetime_format, json=json)
+                    if json or datetime_format == 'RFC3339':
+                        attr = attr.json(datetime_format)
+                    elif datetime_format == 'UNIX':
+                        attr = attr.value
 
                 yield field, attr
 

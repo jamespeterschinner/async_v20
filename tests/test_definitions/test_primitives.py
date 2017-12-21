@@ -14,23 +14,15 @@ def test_datetime_converts_between_different_representations():
     unix_example = '1502463871.639182000'
     rfc3339_example = '2017-08-11T15:04:31.639182000Z'
     assert DateTime(unix_example) == DateTime(rfc3339_example)
-    assert DateTime(rfc3339_example).format('UNIX', json=True) == unix_example
-    assert DateTime(rfc3339_example).format('UNIX') == int(unix_example.replace('.', ''))
-    assert DateTime(DateTime(rfc3339_example).format('UNIX', json=True)) == DateTime(rfc3339_example)
-    assert DateTime(unix_example).format('RFC3339') == rfc3339_example
+    assert DateTime(rfc3339_example).json('UNIX') == unix_example
+    assert DateTime(DateTime(rfc3339_example).json('UNIX')) == DateTime(rfc3339_example)
+    assert DateTime(unix_example).json('RFC3339') == rfc3339_example
 
-def test_datetime_format_does_not_allow_json_with_no_format_string():
-    unix_example = '1502463871.639182000'
-    with pytest.raises(TypeError):
-        assert DateTime(unix_example).format(json=True)
-
-    with pytest.raises(ValueError):
-        assert DateTime(unix_example).format(datetime_format=None, json=True)
 
 def test_datetime_format_only_allows_valid_format_string():
     unix_example = '1502463871.639182000'
     with pytest.raises(ValueError):
-        assert DateTime(unix_example).format(datetime_format='BADVALUE')
+        assert DateTime(unix_example).json(datetime_format='BADVALUE')
 
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives, x), primitives.__all__))
 def test_get_valid_primitive_data(primitive):

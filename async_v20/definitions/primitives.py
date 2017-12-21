@@ -32,45 +32,42 @@ class DateTime(Primitive):
     """A date and time value using either RFC3339 or UNIX time representation.
     """
 
-    def __new__(cls, value):
-        kwargs = {}
-        try:
-            length = len(value)
-        except TypeError:
+    def __new__(cls, value, **kwargs):
+
+        if not isinstance(value, (int, float, str)):
             pass
         else:
-            if length == 20 or isinstance(value, int):
-                if isinstance(value, str):
-                    value = value.replace('.', '')
-                value = int(value)
+            value = str(value)
+            if len(value) <= 20:
+                seconds, decimal, fraction = value.partition('.')
+
+                if not fraction and len(seconds) > 10:
+                    seconds, fraction = value[:10], value[10:]
+                # value has decimal number
+                accuracy = len(fraction)
+                fraction = fraction + '000000000'[:-accuracy]
+                value = int(seconds + fraction)
                 kwargs.update(tz='UTC')
+
 
         return pd.Timestamp(value, **kwargs)
 
 
-def _format_datetime(self, datetime_format, json=False):
-
-    if json is True and datetime_format is None:
-        raise ValueError(f'Must specify datetime_format when creating JSON. Either "RFC3339" or "UNIX"')
+def _datetime_to_json(self, datetime_format):
 
     if datetime_format == 'RFC3339':
         nanoseconds = str(self.nanosecond)
         nanoseconds = nanoseconds + '000'[:-len(nanoseconds)]
         result = self.strftime(f'%Y-%m-%dT%H:%M:%S.%f{nanoseconds}Z')
     elif datetime_format == 'UNIX':
-        result = self.value
-        if json:
-            result = str(result)
-            result =  f'{result[:-9]}.{result[-9:]}'
-
-    elif datetime_format is None:
-        result = self
+        result = str(self.value)
+        result =  f'{result[:-9]}.{result[-9:]}'
     else:
-        raise ValueError(f'{datetime_format} is not a valid value. It must be either. None, "RFC3339" or "UNIX"')
+        raise ValueError(f'{datetime_format} is not a valid value. It must be either "RFC3339" or "UNIX"')
+
     return result
 
-
-pd.Timestamp.format = _format_datetime
+pd.Timestamp.json = _datetime_to_json
 
 
 class AccountFinancingMode(str, Primitive):

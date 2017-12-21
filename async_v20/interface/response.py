@@ -54,7 +54,7 @@ class Response(dict):
                         # Specifiers need to be strings for JSON
                         result = str(value)
                     elif json and isinstance(value, pd.Timestamp):
-                        result = value.format(datetime_format, json=json)
+                        result = value.json(datetime_format)
                     else:
                         result = value
             return result

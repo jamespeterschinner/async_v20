@@ -110,6 +110,7 @@ Contents
    best_practices
    beyond_getting_started
    order_request_formatting
+   datetimes
    traps
    api
    response
