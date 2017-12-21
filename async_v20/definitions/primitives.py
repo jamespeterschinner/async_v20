@@ -37,7 +37,7 @@ class DateTime(Primitive):
             pass
         else:
             value = str(value)
-            if len(value) <= 20:
+            if 'Z' not in value:
                 seconds, decimal, fraction = value.partition('.')
 
                 if not fraction and len(seconds) > 10:
