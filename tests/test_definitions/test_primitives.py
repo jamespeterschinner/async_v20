@@ -8,7 +8,19 @@ from async_v20.definitions.primitives import OrderSpecifier, TradeSpecifier, Dat
 from async_v20.definitions.primitives import TransactionID, PriceValue, DecimalNumber
 from tests.test_definitions.helpers import get_valid_primitive_data
 
+from time import time
+from datetime import datetime
+
 import pandas as pd
+
+def test_date_time_can_be_created_from_time_and_datetime():
+    assert DateTime(time())
+    assert DateTime(datetime.now())
+
+def test_date_time_can_be_created_from_integer():
+    t = time()
+    assert DateTime(t).second == DateTime(int(t)).second
+    assert DateTime(t).second == DateTime(str(t).replace('.', '')).second
 
 def test_datetime_converts_between_different_representations():
     unix_example = '1502463871.639182000'

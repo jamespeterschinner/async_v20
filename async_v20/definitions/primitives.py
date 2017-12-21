@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+
 from .helpers import domain_check
 
 __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'AccountUnits', 'CancellableOrderType',
@@ -27,7 +27,6 @@ class Specifier(object):
     pass
 
 
-
 class DateTime(Primitive):
     """A date and time value using either RFC3339 or UNIX time representation.
     """
@@ -44,28 +43,30 @@ class DateTime(Primitive):
                 if not fraction and len(seconds) > 10:
                     seconds, fraction = value[:10], value[10:]
                 # value has decimal number
-                accuracy = len(fraction)
-                fraction = fraction + '000000000'[:-accuracy]
+                if fraction:
+                    fraction = fraction + '000000000'[:-len(fraction)]
+                else:
+                    fraction = '000000000'
+
                 value = int(seconds + fraction)
                 kwargs.update(tz='UTC')
-
 
         return pd.Timestamp(value, **kwargs)
 
 
 def _datetime_to_json(self, datetime_format):
-
     if datetime_format == 'RFC3339':
         nanoseconds = str(self.nanosecond)
         nanoseconds = nanoseconds + '000'[:-len(nanoseconds)]
         result = self.strftime(f'%Y-%m-%dT%H:%M:%S.%f{nanoseconds}Z')
     elif datetime_format == 'UNIX':
         result = str(self.value)
-        result =  f'{result[:-9]}.{result[-9:]}'
+        result = f'{result[:-9]}.{result[-9:]}'
     else:
         raise ValueError(f'{datetime_format} is not a valid value. It must be either "RFC3339" or "UNIX"')
 
     return result
+
 
 pd.Timestamp.json = _datetime_to_json
 
