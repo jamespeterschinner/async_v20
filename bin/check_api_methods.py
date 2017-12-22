@@ -1,6 +1,6 @@
 import asyncio
 from time import time
-
+import random
 from async_v20 import OandaClient, LastTransactionID, OrderSpecifier, TransactionID, TradeSpecifier
 
 loop = asyncio.get_event_loop()
@@ -8,6 +8,7 @@ loop = asyncio.get_event_loop()
 client = OandaClient()
 
 run = lambda *x: loop.run_until_complete(asyncio.gather(*x))
+
 
 print('RUNNING TEST')
 
@@ -136,4 +137,36 @@ for i in rsp:
 
 print(run(client.close_all_trades()))
 
+# Test rest functionality
+
+account = run(client.account())
+
+for position in account[0].positions:
+    print(position)
+    assert position.long.units == 0
+    assert position.short.units == 0
+
+trades = [client.create_order(instrument=random.choice(
+    list(map(lambda x: x.name, client.instruments))), units=1) for
+      _ in range(16)]
+
+rsp = run(*trades)
+
+account = run(client.account())[0]
+
+positions = {r.orderCreateTransaction.instrument: 0 for r in rsp}
+
+for response in rsp:
+    fill = getattr(response, 'orderFillTransaction', None)
+    if fill is not None:
+        positions[fill.instrument] += fill.units
+
+for instrument, units in positions.items():
+    assert account.positions.get_instrument(instrument).long.units == units
+
+assert len(trades) == len(account.trades)
+
+print(run(client.close_all_trades()))
+
+client.close()
 print('TEST SUCCESSFUL!')

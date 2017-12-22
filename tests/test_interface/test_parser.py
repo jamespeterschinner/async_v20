@@ -1,3 +1,4 @@
+import async_timeout
 import pytest
 
 from async_v20.definitions.base import Array
@@ -17,7 +18,6 @@ from tests.fixtures import server as server_module
 from tests.fixtures.client import client
 from tests.fixtures.static import account_changes_response
 from tests.test_interface.helpers import order_dict
-import async_timeout
 
 client = client
 server = server_module.server
@@ -49,7 +49,7 @@ def rest_response():
 
 @pytest.mark.asyncio
 async def test_rest_response_builds_account_object_from_json_response(client, rest_response):
-    result = await _rest_response(client, rest_response(GETAccountID_response), GETAccountID)
+    result = await _rest_response(client, rest_response(GETAccountID_response), GETAccountID, enable_rest=False)
     # Ensure the result contains an 'account'
     assert 'account' in result
     # Ensure that 'account' is indeed an Account
@@ -64,7 +64,8 @@ async def test_rest_response_builds_account_object_from_json_response(client, re
 
 @pytest.mark.asyncio
 async def test_rest_response_builds_account_summary_from_json_response(client, rest_response):
-    result = await _rest_response(client, rest_response(GETAccountIDSummary_response), GETAccountIDSummary)
+    result = await _rest_response(client, rest_response(GETAccountIDSummary_response), GETAccountIDSummary,
+                                  enable_rest=False)
     # Ensure the result contains an 'account'
     assert 'account' in result
     # Ensure that 'account' is indeed an Account
@@ -83,7 +84,7 @@ def test_array_object_creates_tuple_of_objects():
 
 @pytest.mark.asyncio
 async def test_rest_response_builds_array_account_properties(client, rest_response):
-    result = await _rest_response(client, rest_response(GETAccounts_response), GETAccounts)
+    result = await _rest_response(client, rest_response(GETAccounts_response), GETAccounts, enable_rest=False)
     # Ensure the result contains an 'account'
     print(result)
     assert 'accounts' in result
@@ -94,7 +95,7 @@ async def test_rest_response_builds_array_account_properties(client, rest_respon
 
 @pytest.mark.asyncio
 async def test_rest_response_updates_client_default_parameters(client, rest_response):
-    await _rest_response(client, rest_response(GETAccountID_response), GETAccountID)
+    await _rest_response(client, rest_response(GETAccountID_response), GETAccountID, enable_rest=False)
     # Ensure default_parameters is updated
     assert client.default_parameters[LastTransactionID] == 14
 
@@ -104,7 +105,7 @@ async def test_rest_response_updates_client_default_parameters(client, rest_resp
                                                  (GETAccounts_response, GETAccounts),
                                                  (GETAccountIDSummary_response, GETAccountIDSummary)])
 async def test_conversion_from_server_json_to_response_object_to_json_equal(json_body, endpoint):
-    response = await _create_response(json_body, endpoint, *_lookup_schema(endpoint, 200) ,datetime_format='RFC3339')
+    response = await _create_response(json_body, endpoint, *_lookup_schema(endpoint, 200), datetime_format='RFC3339')
     response_json = response.dict(json=True, datetime_format='RFC3339')
     pretty_json_body = order_dict(json_body)
     pretty_response_json = order_dict(response_json)
@@ -147,13 +148,14 @@ async def test_parser_updates_since_transaction_id(client, server):
         print(account_changes_response)
         assert response.json() == account_changes_response
 
+
 @pytest.mark.asyncio
 async def test_stream_parser_raises_timeout_error(client, server):
     async with client as client:
         server_module.sleep_time = 1
         client.stream_timeout = 0.1
         items = 3
-        async with async_timeout.timeout(items*client.stream_timeout+1):
+        async with async_timeout.timeout(items * client.stream_timeout + 1):
             with pytest.raises(TimeoutError):
                 async for obj in await client.stream_pricing('AUD_USD'):
                     items -= 1
@@ -161,4 +163,3 @@ async def test_stream_parser_raises_timeout_error(client, server):
                     if items <= 0:
                         print('BREAK CALLED')
                         break
-

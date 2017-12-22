@@ -2,7 +2,7 @@ from inspect import signature, _empty
 from async_v20.definitions.types import DateTime
 from async_v20.definitions.base import Model, Array
 from async_v20.endpoints.annotations import Bool, FromTime, ToTime
-from types import FunctionType
+
 
 def create_cls_annotations(cls):
     return {name: param.annotation for

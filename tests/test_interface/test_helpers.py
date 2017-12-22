@@ -52,20 +52,20 @@ def stop_loss_order():
 client_signatures = [inspect.signature(method) for method in client_methods]
 
 
-def bound_args(sig):
-    args = {name: get_valid_primitive_data(param.annotation) for name, param in sig.parameters.items()}
-    bound = sig.bind(**args)
-    return sig, bound.arguments, tuple(args.values())
+def kwargs(sig):
+    args = {name:get_valid_primitive_data(param.annotation) for name, param in sig.parameters.items()
+            if name != 'self'}
+    return args
 
 
-annotation_lookup_arguments = [bound_args(sig) for sig in client_signatures]
+annotation_lookup_arguments = [(sig, kwargs(sig)) for sig in client_signatures]
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('signature, bound_arguments, args', annotation_lookup_arguments)
-async def test_construct_arguments(signature, bound_arguments, args):
+@pytest.mark.parametrize('signature, arguments', annotation_lookup_arguments)
+async def test_construct_arguments(client, signature, arguments):
     """Ensure that the annotation lookup dictionary is built correctly"""
-    result = construct_arguments(signature, bound_arguments)
+    result = construct_arguments(client, signature, **arguments)
     for annotation, instance in result.items():
         if isinstance(instance, bool):
             assert issubclass(annotation, Bool)
@@ -87,19 +87,15 @@ def test_arguments(endpoint, param_location):
     assert len(list(result)) == len(list(correct))
 
 
-@pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
-                                              for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
+@pytest.mark.parametrize('method, signature, kwargs', zip(client_methods, *zip(*annotation_lookup_arguments)))
 @pytest.mark.asyncio
-async def test_create_request_params(client, interface_method):
+async def test_create_request_params(client, method, signature, kwargs):
     """Test that all every argument supplied to an endpoint goes into the HTTP request"""
 
-    endpoint = interface_method.endpoint
-    sig = interface_method.__signature__
-    print(interface_method.__name__)
-    args = tuple(get_valid_primitive_data(param.annotation)
-                 for param in sig.parameters.values() if param.kind == 1)
-    bound = dict(sig.bind(*args).arguments)
-    arguments = construct_arguments(sig, bound)
+    endpoint = method.endpoint
+    sig = method.__signature__
+    print(method.__name__)
+    arguments = construct_arguments(client, signature, **kwargs)
     total_params = []
     print(endpoint.request_schema)
     for location in locations:
@@ -145,27 +141,16 @@ def test_create_url_raises_error_when_missing_arguments(client, endpoint):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
-                                              for method in cls.__dict__.values() if hasattr(method, 'endpoint')])
-async def test_create_request_kwargs(client, interface_method, server):
-    print(interface_method)
+@pytest.mark.parametrize('method, signature, kwargs', zip(client_methods, *zip(*annotation_lookup_arguments)))
+async def test_create_request_kwargs(client, server, method, signature, kwargs):
+    print(method)
     await client.initialize()
     client.format_order_requests = True
-    args = []
-    for param in interface_method.__signature__.parameters.values():
-        if param.annotation == OrderRequest:
-            print('ORDER REQUEST')
-            args.append(OrderRequest(instrument='AUD_USD', units=0.12345))
-            continue
-        args.append(get_valid_primitive_data(param.annotation))
-
-    args = args[1:]
-
+    args = construct_arguments(client, signature, **kwargs)
+    if OrderRequest in args:
+        args.update({OrderRequest: OrderRequest(instrument='AUD_USD', units=1)})
     print('ARGS: ', args)
-    request_kwargs = create_request_kwargs(client,
-                                           interface_method.endpoint,
-                                           interface_method.__signature__,
-                                           *args)
+    request_kwargs = create_request_kwargs(client, method.endpoint, args)
     assert 'method' in request_kwargs
     assert 'url' in request_kwargs
     assert 'headers' in request_kwargs

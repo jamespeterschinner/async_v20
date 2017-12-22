@@ -158,7 +158,7 @@ def create_body(self, request_schema, arguments):
                                             self.format_order_requests)
                     if not instrument and self.format_order_requests:
                         raise KeyError(f'Could not find {value.instrument} '
-                                       f'in OandaClient._instruments')
+                                       f'in OandaClient.instruments')
 
                 try:
                     value = value.dict(json=True, datetime_format=self.datetime_format)
