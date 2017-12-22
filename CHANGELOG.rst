@@ -196,3 +196,9 @@ Added attributes to TradeSummary:
   specifies the representation of times. Either `RFC3339` or `UNIX`. Corresponding `json` argument
   changes the representation of UNIX times to either a `str` or `numpy.int64`
 - *Response* .json() accepts `datetime_format` argument string
+
+5.0.1b0
+=======
+
+- OandaClient.datetime_format is read only
+- OandaClient._instruments is no longer a protected attribute. It is now OandaClient.instruments

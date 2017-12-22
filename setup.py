@@ -1,8 +1,7 @@
 import os
 
 from setuptools import setup, find_packages
-
-version = '5.0.0b0'
+from async_v20 import __version__
 
 
 def read(f):
@@ -10,7 +9,7 @@ def read(f):
 
 
 setup(name='async_v20',
-      version=version,
+      version=__version__,
       description="Asynchronous wrapper for OANDA's v20 REST API",
       long_description=read('README.rst') + '\n\n' + read('CHANGELOG.rst'),
       author='James Peter Schinner',

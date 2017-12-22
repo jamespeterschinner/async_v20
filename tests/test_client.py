@@ -6,7 +6,7 @@ import time
 from itertools import chain
 
 import pytest
-
+import async_v20
 from async_v20 import AccountID
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
@@ -23,19 +23,6 @@ client = client
 server = server_module.server
 changes_response_two = changes_response_two
 all_trades_open_closed = all_trades_open_closed
-
-
-def test_oanda_client_has_correct_version(client):
-    try:
-        path = r'C:\Users\James\PycharmProjects\async_v20\setup.py'
-        print(path)
-        with open(path, 'r') as f:
-            setup = f.read()
-    except FileNotFoundError as e:
-        print(e)
-    else:
-        setup_version = re.findall(r"(?<=version\s=\s').*?(?='\n)", setup)[0]
-        assert setup_version == client.version
 
 
 def test_oanda_client_finds_token():
