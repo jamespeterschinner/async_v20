@@ -17,7 +17,7 @@ async_v20 adds an additional helper method *Timestamp*. **json** for the purpose
 of serializing to the correct JSON format OANDA expects.
 
 .. note::
-    This method is not part of the public API, it is documented here to give you understanding
+    This method is not part of the public API, it is documented here to give you an understanding
     of how async_v20 parses datetime like arguments into JSON that meets OANDA's specification
 
 **Example**
