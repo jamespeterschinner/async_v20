@@ -61,6 +61,8 @@ async def _rest_response(self, response, endpoint, enable_rest):
                 update_account(self, response.changes, response.state)
 
         if endpoint == GETAccountID:
+            # Means account_details was requested. So we catch the account state on the way through.
+            # This occurs during initialization of OandaClient.
             self._account = response.account
 
     return response
