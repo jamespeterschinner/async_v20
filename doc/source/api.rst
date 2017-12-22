@@ -65,7 +65,7 @@ Position
 
 .. automethod:: async_v20.OandaClient.list_positions
 .. automethod:: async_v20.OandaClient.list_open_positions
-.. automethod:: async_v20.OandaClient.get_positions
+.. automethod:: async_v20.OandaClient.get_position
 .. automethod:: async_v20.OandaClient.close_position
 
 Pricing
