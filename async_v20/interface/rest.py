@@ -28,10 +28,17 @@ def update_account(self, changes, changes_state):
               for trade in chain(self._account.trades, changes.trades_opened)
               if not changes.trades_closed.get_id(trade.id))
 
-    # There is a many to one relationship between an instrument and possible Orders/Trades
-    # But a one to one for positions
-    positions = ((position, changes_state.positions.get_instrument(position.instrument))
-                 for position in changes.positions)
+    # We need to replace any positions in the stored account with the changed positions
+    # and then we need to update the dynamic state
+    positions = {position.instrument: position
+                 for position in self._account.positions}
+
+    positions.update({
+        position.instrument: position for position in changes.positions
+    })
+
+    positions = ((position, changes_state.positions.get_instrument(instrument))
+                 for instrument, position in positions.items())
 
     # Update the Dynamic state
     orders = tuple(order if not changes_state.orders.get_id(order.id)
@@ -42,16 +49,20 @@ def update_account(self, changes, changes_state):
                    else trade.replace(**changes_state.trades.get_id(trade.id).dict())
                    for trade in trades)
 
-    positions = tuple(position if not state else position.replace(unrealized_pl=state.net_unrealized_pl,
-                                                                  long=position.long.replace(
-                                                                      unrealized_pl=state.long_unrealized_pl),
-                                                                  short=position.short.replace(
-                                                                      unrealized_pl=state.short_unrealized_pl))
-                      for position, state in positions)
-    #
+    positions = tuple(
+        position.replace(
+            unrealized_pl=0,
+            long=position.long.replace(unrealized_pl=0),
+            short=position.short.replace(unrealized_pl=0))
+        if not state
+        else position.replace(
+            unrealized_pl=state.net_unrealized_pl,
+            long=position.long.replace(unrealized_pl=state.long_unrealized_pl),
+            short=position.short.replace(unrealized_pl=state.short_unrealized_pl))
+        for position, state in positions)
 
     self._account = self._account.replace(**dict(changes_state.dict(json=False),
                                                  orders=orders, trades=trades, positions=positions))
 
-    self.transactions = ArrayTransaction(*sorted((changes.transactions+self.transactions)
-                                         [-self.max_transaction_history:],reverse=True))
+    self.transactions = ArrayTransaction(*sorted((changes.transactions + self.transactions)
+                                                 [-self.max_transaction_history:], reverse=True))

@@ -38,7 +38,7 @@ async def _create_response(json_body, endpoint, schema, status, boolean, datetim
     return Response(tuple(create_data()), status, boolean, datetime_format)
 
 
-async def _rest_response(self, response, endpoint):
+async def _rest_response(self, response, endpoint, enable_rest):
     async with response as resp:
         schema, status, boolean = _lookup_schema(endpoint, resp.status)
 
@@ -56,8 +56,7 @@ async def _rest_response(self, response, endpoint):
             # This code is to implement the RESTful nature of the v20 API
             # - Keep track of the last transaction id used to update
             # - Add / Remove / Replace changes to account
-            if endpoint == GETAccountIDChanges:
-                response = response
+            if enable_rest:
                 self.default_parameters.update({SinceTransactionID: last_transaction_id})
                 update_account(self, response.changes, response.state)
 
@@ -81,9 +80,9 @@ async def _stream_parser(self, response, endpoint):
                 raise TimeoutError(e)
 
 
-async def parse_response(self, response, endpoint):
+async def parse_response(self, response, endpoint, enable_rest):
     if endpoint.host == 'REST':
-        result = await _rest_response(self, response, endpoint)
+        result = await _rest_response(self, response, endpoint, enable_rest)
     else:
         result = _stream_parser(self, response, endpoint)
     return result

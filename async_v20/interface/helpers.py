@@ -174,7 +174,7 @@ header_params = partial(_create_request_params, param_location='header')
 query_params = partial(_create_request_params, param_location='query')
 
 
-def construct_arguments(signature, bound_arguments):
+def construct_arguments(self, sig, *args, **kwargs):
     """Construct passed arguments into corresponding objects
 
     args:
@@ -186,20 +186,27 @@ def construct_arguments(signature, bound_arguments):
         dict with annotation with as keys and annotation instances as values
         """
 
+    bound = sig.bind(self, *args, **kwargs)
+    bound.apply_defaults()
+
     def yield_annotations():
-        for name, value in bound_arguments.items():
-            annotation = signature.parameters[name].annotation
+        for name, value in bound.arguments.items():
+            annotation = sig.parameters[name].annotation
+
+            if value == ...:
+                try:
+                    value = self.default_parameters[annotation]
+                except KeyError:
+                    pass
+
             if not annotation == _empty and not value == ...:
                 yield annotation, create_attribute(annotation, value)
 
     return dict(yield_annotations())
 
 
-def create_request_kwargs(self, endpoint, sig, *args, **kwargs):
+def create_request_kwargs(self, endpoint, arguments):
     """Format arguments to be passed to an aiohttp request"""
-    bound = sig.bind(self, *args, **kwargs)
-    bound.apply_defaults()
-    arguments = construct_arguments(sig, bound.arguments)
 
     json = create_body(self, endpoint.request_schema, arguments)
 
