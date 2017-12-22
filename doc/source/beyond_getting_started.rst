@@ -24,7 +24,8 @@ What you need to know
         :noindex:
     .. autoclass:: async_v20.endpoints.annotations.LastTransactionID
         :noindex:
-
+    .. autoclass:: async_v20.endpoints.annotations.SinceTransactionID
+        :noindex:
 
 
 - **OandaClient** by default will connect to the practice server:

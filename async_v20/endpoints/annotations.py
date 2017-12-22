@@ -182,8 +182,7 @@ class LastTransactionID(TransactionID):
     pass
 
 class SinceTransactionID(TransactionID):
-    """Contains the most recent TransactionID that was returned
-    from account_changes()"""
+    """The account changes to get Since LastTransactionID for account_changes() method"""
     pass
 
 
