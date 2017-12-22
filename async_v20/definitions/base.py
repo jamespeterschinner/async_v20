@@ -295,17 +295,17 @@ class Array(tuple):
             instance._instruments = dict(_instruments)
             return instance
 
-    def get_id(self, id_):
+    def get_id(self, id_, default=None):
         try:
             return self[self._ids[int(id_)]]
         except KeyError:
-            return None
+            return default
 
-    def get_instrument(self, instrument):
+    def get_instrument(self, instrument, default=None):
         try:
             return self[self._instruments[instrument]]
         except KeyError:
-            return None
+            return default
 
     def dataframe(self, json=False, datetime_format=None):
         """Create a pandas.Dataframe"""

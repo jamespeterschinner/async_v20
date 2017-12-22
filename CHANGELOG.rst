@@ -202,3 +202,9 @@ Added attributes to TradeSummary:
 
 - OandaClient.datetime_format is read only
 - OandaClient._instruments is no longer a protected attribute. It is now OandaClient.instruments
+
+5.0.2b0
+=======
+
+- Fixed bug in rest implementation. Positions now update correctly
+- Added default argument to Array.get_id & Array.get_instrument
