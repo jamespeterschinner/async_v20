@@ -207,4 +207,9 @@ Added attributes to TradeSummary:
 =======
 
 - Fixed bug in rest implementation. Positions now update correctly
+
+5.0.3b0
+=======
+
 - Added default argument to Array.get_id & Array.get_instrument
+- Removed default value from get_candles(*count*)
