@@ -2,7 +2,7 @@ import os
 
 from setuptools import setup, find_packages
 
-version = '5.0.0b2'
+version = '5.0.0b0'
 
 
 def read(f):
@@ -22,7 +22,7 @@ setup(name='async_v20',
                         'ujson>=1.35',
                         'yarl>=0.12.0',
                         'pandas'],
-      classifiers=['Programming Language :: Python :: 3.6', 'Development Status :: 3 - Alpha',
+      classifiers=['Programming Language :: Python :: 3.6', 'Development Status :: 4 - Beta',
                    'Framework :: AsyncIO',
                    'Intended Audience :: Developers',
                    'License :: OSI Approved :: MIT License',

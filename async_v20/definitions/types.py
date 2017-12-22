@@ -1335,6 +1335,7 @@ class Price(Model):
     """
 
     def __new__(cls, type: str = ..., instrument: InstrumentName = ..., time: DateTime = ...,
+                # TODO: remove status when OANDA removes attribute
                 status: PriceStatus = ..., tradeable: bool = ..., bids: ArrayPriceBucket = ...,
                 asks: ArrayPriceBucket = ..., closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ...,
                 quote_home_conversion_factors: QuoteHomeConversionFactors = ...,
