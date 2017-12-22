@@ -12,7 +12,7 @@ DateTimes in async_20 have a requirement to support two time formats:
 :class:`~async_v20.definitions.primitives.DateTime` is responsible for handling datetimes in async_v20
 **DateTime** creates *pandas*. **Timestamp**'s from either the RFC3339 or UNIX format.
 
-async_v20 adds an additional helper method *pandas*. *Timestamp*. **json** for the purpose
+async_v20 adds an additional helper method *Timestamp*. **json** for the purpose
 of serializing to the correct JSON format OANDA expects.
 
 **Serializing**
