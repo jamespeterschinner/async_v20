@@ -281,3 +281,7 @@ async def test_initialize_connection_error_resets_initialization(client, server)
         async with client as client:
             assert client.initializing == False
             assert client.initialized == False
+
+def test_can_not_change_datetime_format_on_oanda_client_instance(client):
+    with pytest.raises(AttributeError):
+        client.datetime_format = 'RFC3339'

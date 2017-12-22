@@ -91,6 +91,11 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # Limit concurrent connections
         self._max_simultaneous_connections = {True: value, False: 0}[value >= 0]
 
+    @property
+    def datetime_format(self):
+        return self._datetime_format
+
+
     def __init__(self, token=None, account_id=None, format_order_requests=False,
                  max_transaction_history=100,
                  rest_host='api-fxpractice.oanda.com', rest_port=443,
@@ -131,8 +136,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
         self.max_simultaneous_connections = max_simultaneous_connections
 
-        # TODO: make this read only
-        self.datetime_format = datetime_format
+        self._datetime_format = datetime_format
 
         # This is the default parameter dictionary. OandaClient Methods that require certain parameters
         # that are  not explicitly passed will try to find it in this dict
