@@ -154,7 +154,8 @@ rsp = run(*trades)
 
 account = run(client.account())[0]
 
-positions = {r.orderCreateTransaction.instrument: 0 for r in rsp}
+positions = {r.orderCreateTransaction.instrument: 0 for r in rsp
+             if hasattr(r, 'orderFillTransaction')}
 
 for response in rsp:
     fill = getattr(response, 'orderFillTransaction', None)
@@ -168,5 +169,8 @@ assert len(trades) == len(account.trades)
 
 print(run(client.close_all_trades()))
 
+account = run(client.account())[0]
+
+assert len(account.trades) == 0, f'Account still has trades open {account.trades}'
 client.close()
 print('TEST SUCCESSFUL!')

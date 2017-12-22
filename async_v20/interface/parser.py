@@ -4,7 +4,7 @@ from asyncio import TimeoutError as AsyncTimeOutError
 from .response import Response
 from .rest import update_account
 from ..definitions.base import create_attribute
-from ..endpoints.account import GETAccountIDChanges, GETAccountID
+from ..endpoints.account import GETAccountID
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.annotations import SinceTransactionID
 from ..endpoints.other_responses import other_responses
