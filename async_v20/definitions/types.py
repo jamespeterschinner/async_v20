@@ -1338,7 +1338,9 @@ class Price(Model):
                 # TODO: remove status when OANDA removes attribute
                 status: PriceStatus = ..., tradeable: bool = ..., bids: ArrayPriceBucket = ...,
                 asks: ArrayPriceBucket = ..., closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ...,
+                # TODO: remove quote_home_conversion_factors when OANDA removes attribute
                 quote_home_conversion_factors: QuoteHomeConversionFactors = ...,
+                # TODO: remove units_available when OANDA removes attribute
                 units_available: UnitsAvailable = ...):
         return super().__new__(**Price._preset_arguments, **locals())
 
