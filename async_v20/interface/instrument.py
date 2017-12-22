@@ -22,7 +22,7 @@ class InstrumentInterface(object):
                     instrument: InstrumentName,
                     price: PriceComponent = 'M',
                     granularity: CandlestickGranularity = 'S5',
-                    count: Count = 500,
+                    count: Count = ...,
                     from_time: FromTime = ...,
                     to_time: ToTime = ...,
                     smooth: Smooth = False,
