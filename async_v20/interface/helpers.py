@@ -151,7 +151,7 @@ def create_body(self, request_schema, arguments):
                 # be rounded to the correct accuracy before being serialized
                 # else OANDA will reject the transaction.
                 if isinstance(value, OrderRequest):
-                    instrument = self._instruments.get_instrument(value.instrument)
+                    instrument = self.instruments.get_instrument(value.instrument)
                     if instrument:
                         value = _in_context(value,
                                             instrument,

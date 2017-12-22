@@ -66,6 +66,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     _account = None
 
+    instruments = None
+
     transactions = ArrayTransaction()
 
     session = None  # http session will be created during initialization
@@ -288,7 +290,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 self.expected_step = 3
                 response = await self.account_instruments()
                 if response:
-                    self._instruments = response['instruments']
+                    self.instruments = response['instruments']
                 else:
                     self.initializing = False
                     raise ConnectionError(f'Server did not return Account Instruments during '
