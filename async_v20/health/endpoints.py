@@ -104,3 +104,13 @@ class GETStatu(EndPoint):
 
     # valid responses
     responses = {200: Status}
+
+class GETImages(EndPoint):
+    # the HTTP verb to use for this endpoint
+    method = 'GET'
+
+    # path to endpoint
+    path = ('/api/v1/status-images',)
+
+    # valid responses
+    responses = {200: Image}
