@@ -13,7 +13,7 @@ DateTimes in async_20 have a requirement to support two time formats:
 calling **DateTime** with either a *RFC3339*, *UNIX*, time.time(), or datetime.datetime()
 representation of a date time creates a :class:`pandas.Timestamp`.
 
-async_v20 adds an additional helper method *Timestamp*. **json** for the purpose
+async_v20 adds an additional helper method *Timestamp*. **json()** for the purpose
 of serializing to the correct JSON format OANDA expects.
 
 .. note::

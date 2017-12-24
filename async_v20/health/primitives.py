@@ -1,5 +1,4 @@
 from ..definitions.primitives import Primitive
-from ..definitions.base import Model, Array
 
 class CurrentEvent(str, Primitive):
     pass
