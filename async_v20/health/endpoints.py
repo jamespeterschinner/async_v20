@@ -41,7 +41,7 @@ class GETServiceList(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = ('/api/v1/service-lists', ServiceListId)
+    path = ('/api/v1/service-lists', ServiceListID)
 
     # valid responses
     responses = {200: {'lists': ServiceList}}
@@ -85,7 +85,7 @@ class GETEvent(EndPoint):
     # valid responses
     responses = {200: {'events': Event}}
 
-class GETStatus(EndPoint):
+class GETStatuses(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -95,7 +95,7 @@ class GETStatus(EndPoint):
     # valid responses
     responses = {200: {'status': ArrayStatus}}
 
-class GETStatu(EndPoint):
+class GETStatus(EndPoint):
     # the HTTP verb to use for this endpoint
     method = 'GET'
 

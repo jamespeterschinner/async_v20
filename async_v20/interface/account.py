@@ -110,7 +110,7 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountIDChanges)
+    @endpoint(GETAccountIDChanges, rest=True)
     def account_changes(self, since_transaction_id: SinceTransactionID = ...):
         """
         Endpoint used to poll an Account for its current state and changes

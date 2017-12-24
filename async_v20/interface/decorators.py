@@ -8,11 +8,10 @@ from .helpers import create_request_kwargs, construct_arguments
 from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
 
-from ..endpoints import GETAccountIDChanges
 from ..endpoints.annotations import SinceTransactionID
 
 
-def endpoint(endpoint, initialization_step=False):
+def endpoint(endpoint, rest=False, initialization_step=False):
     """Define a method call to be exposed to the user"""
 
     def wrapper(method):
@@ -31,8 +30,7 @@ def endpoint(endpoint, initialization_step=False):
             arguments = construct_arguments(self, sig, *args, **kwargs)
 
             enable_rest = False
-            if endpoint == GETAccountIDChanges and \
-                            arguments[SinceTransactionID] == self.default_parameters[SinceTransactionID]:
+            if rest and arguments[SinceTransactionID] == self.default_parameters[SinceTransactionID]:
                 enable_rest = True
 
             request_args = create_request_kwargs(self, endpoint, arguments)

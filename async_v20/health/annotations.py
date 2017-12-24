@@ -2,7 +2,7 @@ class ServiceID(object):
     """The specifier of the service to get"""
     pass
 
-class ServiceListId(object):
+class ServiceListID(object):
     pass
 
 class Start(object):
