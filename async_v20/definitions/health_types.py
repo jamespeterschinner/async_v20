@@ -48,3 +48,14 @@ class Service(Model):
 
 class ArrayService(Array):
     _contains = Service
+
+class Image(Model):
+    """An Image to be displayed to the end user.
+    """
+
+    def __new__(cls, name: str, icon_set: str, url: str):
+        return super().__new__(**Image._preset_arguments, **locals())
+
+
+class ArrayImage(Array):
+    _contains = Image

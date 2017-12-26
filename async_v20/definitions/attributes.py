@@ -164,7 +164,7 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'guaranteed_execution_fee': 'guaranteed_execution_fee', 'halfSpreadCost': 'half_spread_cost',
                        'half_spread_cost': 'half_spread_cost', 'description': 'description', 'list': 'list',
                        'current-event': 'current_event', 'url': 'url', 'sid': 'sid', 'message': 'message',
-                       'informational': 'informational', 'level': 'level', 'image': 'image'}
+                       'informational': 'informational', 'level': 'level', 'image': 'image', 'icon_set': 'icon_set'}
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
                    'reduce_only': 'reduceOnly', 'open_only': 'openOnly', 'timestamp': 'timestamp',
@@ -252,4 +252,4 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'guaranteed_execution_fee': 'guaranteedExecutionFee', 'half_spread_cost': 'halfSpreadCost',
                    'description': 'description', 'list': 'list',
                    'current_event':'current-event', 'url': 'url', 'sid': 'sid', 'message': 'message',
-                   'informational': 'informational', 'level': 'level', 'image': 'image'}
+                   'informational': 'informational', 'level': 'level', 'image': 'image', 'icon_set': 'icon_set'}

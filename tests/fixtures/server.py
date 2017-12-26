@@ -9,14 +9,16 @@ from aiohttp import web
 from .routes import routes
 
 rest_headers = {'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept-Datetime-Format',
-           'Access-Control-Allow-Methods': 'PUT, PATCH, POST, GET, OPTIONS, DELETE', 'Access-Control-Allow-Origin': '*',
-           'Content-Type': 'application/json', 'RequestID': '42359369470976686', 'Content-Encoding': 'gzip',
-           'Vary': 'Accept-Encoding', 'Connection': 'Keep-Alive'}
+                'Access-Control-Allow-Methods': 'PUT, PATCH, POST, GET, OPTIONS, DELETE',
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json', 'RequestID': '42359369470976686', 'Content-Encoding': 'gzip',
+                'Vary': 'Accept-Encoding', 'Connection': 'Keep-Alive'}
 
 stream_headers = {'Access-Control-Allow-Headers': 'Authorization, Content-Type, Accept-Datetime-Format',
-           'Access-Control-Allow-Methods': 'PUT, PATCH, POST, GET, OPTIONS, DELETE', 'Access-Control-Allow-Origin': '*',
-           'Content-Type': 'application/json', 'RequestID': '42359369470976686',
-           'Vary': 'Accept-Encoding', 'Connection': 'Keep-Alive'}
+                  'Access-Control-Allow-Methods': 'PUT, PATCH, POST, GET, OPTIONS, DELETE',
+                  'Access-Control-Allow-Origin': '*',
+                  'Content-Type': 'application/json', 'RequestID': '42359369470976686',
+                  'Vary': 'Accept-Encoding', 'Connection': 'Keep-Alive'}
 
 status = 200
 received = ''
@@ -24,9 +26,10 @@ sleep_time = 0
 
 
 def get_id_from_path(path):
+    print(path)
     try:
-        path_id = re.findall(r'(?<=\/)(\d+)(?=[/\s])', path)[0]
-        path = re.sub(r'(((orders)|(trades)|(transactions))\/)(\d+)', '\g<1>0000', path)
+        path_id = re.findall(r'(?<=\/)(\d+)(?=(\/|\Z))', path)[0][0]
+        path = re.sub(r'(?<=\/)(\d+)(?=(\/|\Z))', '0000', path)
     except:
         return path, None
     else:
@@ -87,6 +90,7 @@ async def handler(request):
             await asyncio.sleep(sleep_time)
 
     await asyncio.sleep(sleep_time)
+    print(response_data)
     return web.Response(body=gzip.compress(bytes(response_data, encoding='utf8')), headers=rest_headers,
                         status=response_status)
 

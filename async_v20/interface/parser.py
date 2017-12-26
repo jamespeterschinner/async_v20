@@ -31,11 +31,14 @@ async def _create_response(json_body, endpoint, schema, status, boolean, datetim
     # Here we iterate through all the json objects returned in the response
     # and construct the corresponding async_v20 type as determined by the endpoints
     # Schema
-    def create_data():
+    if isinstance(schema, dict):
+        data = []
         for json_object, json_field in json_body.items():
-            yield json_object, create_attribute(schema.get(json_object), json_field)
-
-    return Response(tuple(create_data()), status, boolean, datetime_format)
+            data.append((json_object, create_attribute(schema.get(json_object), json_field)))
+    else:
+        obj = schema(**json_body)
+        data = [(obj.__class__.__name__.lower(), obj)]
+    return Response(data, status, boolean, datetime_format)
 
 
 async def _rest_response(self, response, endpoint, enable_rest):

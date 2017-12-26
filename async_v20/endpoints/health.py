@@ -118,7 +118,7 @@ class GETStatuses(EndPoint):
     path = ('/api/v1/statuses',)
 
     # valid responses
-    responses = {200: {'status': ArrayStatus}}
+    responses = {200: {'statuses': ArrayStatus}}
 
 
 class GETStatus(EndPoint):
@@ -147,4 +147,4 @@ class GETImages(EndPoint):
     path = ('/api/v1/status-images',)
 
     # valid responses
-    responses = {200: str}
+    responses = {200: {'images': ArrayImage}}

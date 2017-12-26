@@ -34,13 +34,14 @@ routes = {
     ('GET', '/v3/accounts/123-123-1234567-123/transactions/stream'): None,
     ('GET', '/v3/users/123-123-1234567-123'): None,
     ('GET', '/v3/users/123-123-1234567-123/externalInfo'): None,
-    ('GET', '/api/v1/services'): None,
-    ('GET', '/api/v1/services/0000'): None,
-    ('GET', '/api/v1/service-lists'): None,
-    ('GET', '/api/v1/service-lists/0000'): None,
-    ('GET', '/api/v1/services/0000/events'): None,
-    ('GET', '/api/v1/services/0000/events/current'): None,
-    ('GET', '/api/v1/services/0000/events/0000'): None,
-    ('GET', '/api/v1/statuses'): None,
-    ('GET', '/api/v1/status-images'): None
+    ('GET', '/api/v1/services'): list_services_response,
+    ('GET', '/api/v1/services/0000'): get_service_response,
+    ('GET', '/api/v1/service-lists'): list_service_lists_response,
+    ('GET', '/api/v1/service-lists/0000'): get_service_list_response,
+    ('GET', '/api/v1/services/0000/events'): list_events_response,
+    ('GET', '/api/v1/services/0000/events/current'): get_current_event_response,
+    ('GET', '/api/v1/services/0000/events/0000'): get_event_response,
+    ('GET', '/api/v1/statuses'): list_statuses_response,
+    ('GET', '/api/v1/statuses/0000'): get_status_response,
+    ('GET', '/api/v1/status-images'): list_images_response
 }
