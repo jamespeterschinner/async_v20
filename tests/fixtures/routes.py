@@ -33,4 +33,14 @@ routes = {
     ('GET', '/v3/accounts/123-123-1234567-123/transactions/sinceid'): None,
     ('GET', '/v3/accounts/123-123-1234567-123/transactions/stream'): None,
     ('GET', '/v3/users/123-123-1234567-123'): None,
-    ('GET', '/v3/users/123-123-1234567-123/externalInfo'): None}
+    ('GET', '/v3/users/123-123-1234567-123/externalInfo'): None,
+    ('GET', '/api/v1/services'): None,
+    ('GET', '/api/v1/services/0000'): None,
+    ('GET', '/api/v1/service-lists'): None,
+    ('GET', '/api/v1/service-lists/0000'): None,
+    ('GET', '/api/v1/services/0000/events'): None,
+    ('GET', '/api/v1/services/0000/events/current'): None,
+    ('GET', '/api/v1/services/0000/events/0000'): None,
+    ('GET', '/api/v1/statuses'): None,
+    ('GET', '/api/v1/status-images'): None
+}

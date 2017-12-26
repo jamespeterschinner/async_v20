@@ -23,7 +23,7 @@ class GETService(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = ('/api/v1/services', ServiceID)
+    path = ('/api/v1/services/', ServiceID)
 
     parameters = {ServiceID: (PATH, 'service-id')}
 
@@ -51,7 +51,7 @@ class GETServiceList(EndPoint):
     method = 'GET'
 
     # path to endpoint
-    path = ('/api/v1/service-lists', ServiceListID)
+    path = ('/api/v1/service-lists/', ServiceListID)
 
     parameters = {ServiceListID: (PATH, 'service_list_id')}
 
