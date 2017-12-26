@@ -15,7 +15,6 @@ from .endpoints.annotations import Authorization, SinceTransactionID, LastTransa
 from .interface import *
 
 
-
 async def sleep(s=0.0):
     await asyncio.sleep(s)
 
@@ -223,6 +222,17 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             # In case the client was never initialized
             pass
 
+    async def initialize_session(self):
+        # Create http session this client will use to sent all requests
+        conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
+
+        self.session = aiohttp.ClientSession(
+            json_serialize=json.dumps,
+            headers=self.headers,
+            connector=conn,
+            read_timeout=self.rest_timeout
+        )
+
     async def initialize(self, initialization_step=False):
         """Initialize client instance
 
@@ -249,16 +259,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 self.initializing = True  # immediately set initializing to make sure
                 # Upcoming requests wait for this initialization to complete.
 
-                # Create http session this client will use to sent all requests
-                conn = aiohttp.TCPConnector(limit=self.max_simultaneous_connections)
-
-                self.session = aiohttp.ClientSession(
-                    json_serialize=json.dumps,
-                    headers=self.headers,
-                    connector=conn,
-                    read_timeout=self.rest_timeout
-                )
-
+                if not self.session:
+                    await self.initialize_session()
                 # Get the first account listed in in accounts.
                 # If another is desired the account must be configured
                 # manually when instantiating the client

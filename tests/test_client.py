@@ -1,23 +1,22 @@
 import asyncio
 import inspect
 import os
-import re
 import time
 from itertools import chain
 
 import pytest
-import async_v20
+from aiohttp.client_exceptions import ContentTypeError
+
 from async_v20 import AccountID
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
 from async_v20.endpoints.annotations import Authorization
+from .fixtures import all_trades_open_closed
 from .fixtures import changes_response_two
 from .fixtures import server as server_module
 from .fixtures.client import client
 from .fixtures.static import close_all_trades_response
-from .fixtures import all_trades_open_closed
 from .test_definitions.helpers import get_valid_primitive_data
-from aiohttp.client_exceptions import ContentTypeError
 
 # prevent pycharm from removing the import
 client = client
@@ -58,7 +57,7 @@ async def test_client_initializes(client, server):
 error_status = [i for i in range(400, 600)]
 
 
-#TEST each step of the initialization routine fails correctly
+# TEST each step of the initialization routine fails correctly
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
@@ -88,6 +87,7 @@ async def test_client_raises_error_on_third_initialisation_failure(client, serve
         await client.initialize()
     assert client.initialized == False
     assert client.initializing == False
+
 
 @pytest.mark.asyncio
 async def test_initialize_works_with_preset_account_id(client, server):
@@ -170,8 +170,8 @@ async def test_client_time_out(client, server):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: True if hasattr(x, 'shortcut') or
-                                                                                     hasattr(x, 'endpoint') else False))
+@pytest.mark.parametrize('method', inspect.getmembers(OandaClient,
+lambda x: True if hasattr(x, 'shortcut') or hasattr(x, 'endpoint') else False))
 async def test_client_handles_multiple_concurrent_initializations(client, server, method):
     # Method is a tuple of attribute, function
     client.initialization_sleep = 0  # Make this small to speed up tests
@@ -185,7 +185,11 @@ async def test_client_handles_multiple_concurrent_initializations(client, server
         # Don't care if incorrect data or status is returned)
         # Just want to make sure the client always initializes correctly
         pass
-    assert client.initialized
+    if getattr(method, 'initialize_required', True):
+        assert client.initialized
+    else:
+        assert not client.initialized
+
 
 
 @pytest.mark.asyncio
@@ -269,6 +273,7 @@ async def test_initialize_connection_error_resets_initialization(client, server)
         async with client as client:
             assert client.initializing == False
             assert client.initialized == False
+
 
 def test_can_not_change_datetime_format_on_oanda_client_instance(client):
     with pytest.raises(AttributeError):

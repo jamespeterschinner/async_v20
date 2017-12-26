@@ -30,7 +30,10 @@ async def test_client_initializes_automatically_with_every_api_method(method, se
         pass  # Caused by incorrect response status being returned
         # Server not keeping a data stream open
         # Response Not containing expected data
-    assert client.initialized
+    if getattr(method, 'initialize_required', True):
+        assert client.initialized
+    else:
+        assert not client.initialized
 
 
 @pytest.mark.asyncio
