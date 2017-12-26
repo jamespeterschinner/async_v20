@@ -1,5 +1,5 @@
 from .annotations import UserSpecifier, Authorization
-from .base import EndPoint
+from .base import EndPoint, HEADER, QUERY
 from ..definitions.types import *
 
 __all__ = ['GETUserSpecifier', 'GETExternalInfo']
@@ -16,10 +16,7 @@ class GETUserSpecifier(EndPoint):
     description = 'Fetch the user information for the specified user.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'string'},
-        {'name': 'userSpecifier', 'located': 'query', 'type': UserSpecifier, 'description': 'The User Specifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), UserSpecifier: (QUERY, 'userSpecifier')}
 
     # valid responses
     responses = {200: {'userInfo': UserInfo}}
@@ -39,10 +36,7 @@ class GETExternalInfo(EndPoint):
     description = 'Fetch the externally-available user information for the specified user.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'string'},
-        {'name': 'userSpecifier', 'located': 'query', 'type': UserSpecifier, 'description': 'The User Specifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), UserSpecifier: (QUERY, 'userSpecifier')}
 
     # valid responses
     responses = {200: {'userInfo': UserInfoExternal}}

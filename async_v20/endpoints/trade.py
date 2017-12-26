@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint
+from .base import EndPoint, HEADER, PATH, QUERY
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -18,18 +18,9 @@ class GETTrades(EndPoint):
     description = 'Get a list of Trades for an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'ids', 'located': 'query', 'type': Ids,
-         'description': 'List of TradeID (csv)'},
-        {'name': 'state', 'located': 'query', 'type': TradeStateFilter, 'description': 'TradeStateFilter'},
-        {'name': 'instrument', 'located': 'query', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'count', 'located': 'query', 'type': Count, 'description': 'int'},
-        {'name': 'beforeID', 'located': 'query', 'type': TradeID, 'description': 'TradeID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), Ids: (QUERY, 'ids'), TradeStateFilter: (QUERY, 'state'),
+                  InstrumentName: (QUERY, 'instrument'), Count: (QUERY, 'count'), TradeID: (QUERY, 'beforeID')}
 
     # valid responses
     responses = {200: {'trades': ArrayTrade, 'lastTransactionID': TransactionID}}
@@ -49,12 +40,8 @@ class GETOpenTrades(EndPoint):
     description = 'Get the list of open Trades for an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID')}
 
     # valid responses
     responses = {200: {'trades': ArrayTrade, 'lastTransactionID': TransactionID}}
@@ -74,13 +61,8 @@ class GETTradeSpecifier(EndPoint):
     description = 'Get the details of a specific Trade in an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'tradeSpecifier', 'located': 'path', 'type': TradeSpecifier, 'description': 'TradeSpecifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), TradeSpecifier: (PATH, 'tradeSpecifier')}
 
     # valid responses
     responses = {200: {'trade': Trade, 'lastTransactionID': TransactionID}}
@@ -100,13 +82,8 @@ class PUTTradeSpecifierClose(EndPoint):
     description = 'Close (partially or fully) a specific open Trade in an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'tradeSpecifier', 'located': 'path', 'type': TradeSpecifier, 'description': 'TradeSpecifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), TradeSpecifier: (PATH, 'tradeSpecifier')}
 
     # valid responses
     responses = {200: {'orderCreateTransaction': MarketOrderTransaction, 'orderFillTransaction': OrderFillTransaction,
@@ -136,13 +113,8 @@ class PUTTradeSpecifierClientExtensions(EndPoint):
                   'delete the Client Extensions if your account is associated with MT4.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'tradeSpecifier', 'located': 'path', 'type': TradeSpecifier, 'description': 'TradeSpecifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), TradeSpecifier: (PATH, 'tradeSpecifier')}
 
     # valid responses
     responses = {200: {'tradeClientExtensionsModifyTransaction': TradeClientExtensionsModifyTransaction,
@@ -173,13 +145,8 @@ class PUTTradesSpecifierOrders(EndPoint):
                   '(Take Profit, Stop Loss and Trailing Stop Loss) through the Trade itself'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'tradeSpecifier', 'located': 'path', 'type': TradeSpecifier, 'description': 'TradeSpecifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), TradeSpecifier: (PATH, 'tradeSpecifier')}
 
     # valid responses
     responses = {200: {'takeProfitOrderCancelTransaction': OrderCancelTransaction,

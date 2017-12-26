@@ -68,16 +68,15 @@ def _in_context(order_request, instrument, clip=False):
     return order_request.replace(**formatted_attributes)
 
 
-def _arguments(endpoint, param_location):
-    return ((parameter['name'], parameter['type']) for parameter in endpoint.parameters if
-            parameter['located'] == param_location)
 
 
 def _create_request_params(self, endpoint, arguments: dict, param_location: str):
-    possible_arguments = _arguments(endpoint, param_location)
 
     def lookup():
-        for name, typ in possible_arguments:
+        for typ, (location, name) in endpoint.parameters.items():
+            if not location == param_location:
+                # Skip parameters if they are not in the desired location
+                continue
             try:
                 result = arguments[typ]
             except KeyError:
@@ -216,14 +215,19 @@ def create_request_kwargs(self, endpoint, arguments):
     # yarl doesn't accept int subclass'
     parameters = query_params(self, endpoint, arguments)
 
+    request_kwargs = {}
+    for parameter, value in (
+            ('method',endpoint.method),
+            ('url', url),
+            ('headers', headers),
+            ('params', parameters),
+            ('json', json)):
+        if not value:
+            continue
+        else:
+            request_kwargs.update({parameter: value})
 
-    request_kwargs = {
-        'method': endpoint.method,
-        'url': url,
-        'headers': headers,
-        'params': parameters,
-        'json': json,
-    }
+
 
     if endpoint.host == 'STREAM':
         request_kwargs.update({'timeout': 0})

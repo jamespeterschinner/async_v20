@@ -13,7 +13,7 @@ from .definitions.types import AccountID
 from .definitions.types import ArrayTransaction
 from .endpoints.annotations import Authorization, SinceTransactionID, LastTransactionID
 from .interface import *
-from .interface.account import AccountInterface
+
 
 
 async def sleep(s=0.0):
@@ -24,9 +24,8 @@ __version__ = '5.0.3b0'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
-                  PricingInterface,
-                  TradeInterface,
-                  TransactionInterface, UserInterface):
+                  PricingInterface, TradeInterface, TransactionInterface, UserInterface,
+                  HealthInterface):
     """
     Create an API context for v20 access
 
@@ -52,7 +51,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     """
     headers = {'Content-Type': 'application/json', 'Connection': 'keep-alive',
-               'OANDA-Agent': 'async_v20_' + __version__,}
+               'OANDA-Agent': 'async_v20_' + __version__}
 
     default_parameters = {}
 
@@ -95,12 +94,12 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     def datetime_format(self):
         return self._datetime_format
 
-
     def __init__(self, token=None, account_id=None, format_order_requests=False,
                  max_transaction_history=100,
                  rest_host='api-fxpractice.oanda.com', rest_port=443,
                  rest_scheme='https', stream_host='stream-fxpractice.oanda.com', stream_port=None,
-                 stream_scheme='https', datetime_format='UNIX', rest_timeout=10, stream_timeout=60,
+                 stream_scheme='https', health_host='api-status.oanda.com', health_port=80, health_scheme='http',
+                 datetime_format='UNIX', rest_timeout=10, stream_timeout=60,
                  max_requests_per_second=99, max_simultaneous_connections=10, loop=None):
 
         if loop is None:
@@ -123,7 +122,10 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # v20 STREAM API URL
         stream_host = partial(URL.build, host=stream_host, port=stream_port, scheme=stream_scheme)
 
-        self.hosts = {'REST': rest_host, 'STREAM': stream_host}
+        # V20 API health URL
+        health_host = partial(URL.build, host=health_host, port=health_port, scheme=health_scheme)
+
+        self.hosts = {'REST': rest_host, 'STREAM': stream_host, 'HEALTH': health_host}
 
         # The timeout to use when making a polling request with the
         # v20 REST server

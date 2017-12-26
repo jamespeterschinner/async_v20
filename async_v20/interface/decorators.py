@@ -33,9 +33,10 @@ def endpoint(endpoint, rest=False, initialization_step=False):
             if rest and arguments[SinceTransactionID] == self.default_parameters[SinceTransactionID]:
                 enable_rest = True
 
+
             request_args = create_request_kwargs(self, endpoint, arguments)
 
-
+            print(request_args)
             await self._request_limiter()
 
             response = self.session.request(**request_args)

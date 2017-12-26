@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint
+from .base import EndPoint, HEADER, PATH
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -18,10 +18,7 @@ class GETPositions(EndPoint):
                   'instrument that has had a position during the lifetime of an the Account.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AccountID: (PATH, 'accountID')}
 
     # valid responses
     responses = {200: {'positions': ArrayPosition, 'lastTransactionID': TransactionID}}
@@ -42,10 +39,7 @@ class GETOpenPositions(EndPoint):
                   'Position in an Account that currently has a Trade opened for it.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AccountID: (PATH, 'accountID')}
 
     # valid responses
     responses = {200: {'positions': ArrayPosition, 'lastTransactionID': TransactionID}}
@@ -65,11 +59,8 @@ class GETPositionsInstrument(EndPoint):
     description = 'Get the details of a single Instrument’s Position in an Account. The Position may by open or not.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AccountID: (PATH, 'accountID'),
+                  InstrumentName: (PATH, 'instrument')}
 
     # valid responses
     responses = {200: {'position': Position, 'lastTransactionID': TransactionID}}
@@ -89,13 +80,8 @@ class PUTPositionsInstrumentClose(EndPoint):
     description = 'Closeout the open Position for a specific instrument in an Account.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), InstrumentName: (PATH, 'instrument')}
 
     # valid responses
     responses = {

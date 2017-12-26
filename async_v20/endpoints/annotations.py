@@ -194,3 +194,4 @@ class FromTransactionID(TransactionID):
 class ToTransactionID(TransactionID):
     """A TransactionID to be used as the ending period of a query"""
     pass
+

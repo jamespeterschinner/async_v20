@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint
+from .base import EndPoint, HEADER, PATH, QUERY
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -17,15 +17,8 @@ class GETPricing(EndPoint):
     description = 'Get pricing information for a specified list of Instruments within an Account.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'instruments', 'located': 'query', 'type': Instruments,
-         'description': 'List of InstrumentName (csv)'},
-        {'name': 'since', 'located': 'query', 'type': DateTime, 'description': 'DateTime'}
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), Instruments: (QUERY, 'instruments'), DateTime: (QUERY, 'since')}
 
     # valid responses
     responses = {200: {'prices': ArrayPrice, 'time': DateTime}}
@@ -57,15 +50,8 @@ class GETPricingStream(EndPoint):
     different prices depending on their alignment.'''
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'instruments', 'located': 'query', 'type': Instruments,
-         'description': 'List of InstrumentName (csv)'},
-        {'name': 'snapshot', 'located': 'query', 'type': Snapshot, 'description': 'boolean'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), Instruments: (QUERY, 'instruments'), Snapshot: (QUERY, 'snapshot')}
 
     # valid responses
     responses = {200: {'PRICE': Price, 'HEARTBEAT': PricingHeartbeat}}

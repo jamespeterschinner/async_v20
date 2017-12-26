@@ -17,6 +17,7 @@ from .fixtures.client import client
 from .fixtures.static import close_all_trades_response
 from .fixtures import all_trades_open_closed
 from .test_definitions.helpers import get_valid_primitive_data
+from aiohttp.client_exceptions import ContentTypeError
 
 # prevent pycharm from removing the import
 client = client
@@ -180,7 +181,7 @@ async def test_client_handles_multiple_concurrent_initializations(client, server
     method = getattr(client, method[0])
     try:
         await asyncio.gather(*[method(*data) for _ in range(5)])
-    except (AttributeError, ConnectionError):
+    except (AttributeError, ConnectionError, ContentTypeError):
         # Don't care if incorrect data or status is returned)
         # Just want to make sure the client always initializes correctly
         pass

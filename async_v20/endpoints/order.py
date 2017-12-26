@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint
+from .base import EndPoint, HEADER, PATH, QUERY
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -18,12 +18,8 @@ class POSTOrders(EndPoint):
     description = 'Create an Order for an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID')}
 
     # valid responses
     responses = {201: {'orderCreateTransaction': Transaction, 'orderFillTransaction': OrderFillTransaction,
@@ -53,18 +49,9 @@ class GETOrders(EndPoint):
     description = 'Get a list of Orders for an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'ids', 'located': 'query', 'type': Ids,
-         'description': 'List of OrderID (csv)'},
-        {'name': 'state', 'located': 'query', 'type': OrderStateFilter, 'description': 'OrderStateFilter'},
-        {'name': 'instrument', 'located': 'query', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'count', 'located': 'query', 'type': Count, 'description': 'int'},
-        {'name': 'beforeID', 'located': 'query', 'type': OrderID, 'description': 'OrderID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), Ids: (QUERY, 'ids'), OrderStateFilter: (QUERY, 'state'),
+                  InstrumentName: (QUERY, 'instrument'), Count: (QUERY, 'count'), OrderID: (QUERY, 'beforeID')}
 
     # valid responses
     responses = {200: {'orders': ArrayOrder, 'lastTransactionID': TransactionID}}
@@ -84,12 +71,8 @@ class GETPendingOrders(EndPoint):
     description = 'List all pending Orders in an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID')}
 
     # valid responses
     responses = {200: {'orders': ArrayOrder, 'lastTransactionID': TransactionID}}
@@ -109,13 +92,8 @@ class GETOrderSpecifier(EndPoint):
     description = 'Get details for a single Order in an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'orderSpecifier', 'located': 'path', 'type': OrderSpecifier, 'description': 'OrderSpecifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), OrderSpecifier: (PATH, 'orderSpecifier')}
 
     # valid responses
     responses = {200: {'order': Order, 'lastTransactionID': TransactionID}}
@@ -135,13 +113,8 @@ class PUTOrderSpecifier(EndPoint):
     description = 'Replace an Order in an Account by simultaneously cancelling it and creating a replacement Order'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'orderSpecifier', 'located': 'path', 'type': OrderSpecifier, 'description': 'OrderSpecifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), OrderSpecifier: (PATH, 'orderSpecifier')}
 
     # valid responses
     responses = {201: {'orderCancelTransaction': OrderCancelTransaction, 'orderCreateTransaction': Transaction,
@@ -172,13 +145,8 @@ class PUTOrderSpecifierCancel(EndPoint):
     description = 'Cancel a pending Order in an Account'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'orderSpecifier', 'located': 'path', 'type': OrderSpecifier, 'description': 'OrderSpecifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), OrderSpecifier: (PATH, 'orderSpecifier')}
 
     # valid responses
     responses = {200: {'orderCancelTransaction': OrderCancelTransaction, 'relatedTransactionIDs': ArrayTransactionID,
@@ -203,13 +171,8 @@ class PUTClientExtensions(EndPoint):
                   'modify, or delete clientExtensions if your account is associated with MT4.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'orderSpecifier', 'located': 'path', 'type': OrderSpecifier, 'description': 'OrderSpecifier'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), OrderSpecifier: (PATH, 'orderSpecifier')}
 
     # valid responses
     responses = {200: {'orderClientExtensionsModifyTransaction': OrderClientExtensionsModifyTransaction,

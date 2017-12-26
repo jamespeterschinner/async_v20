@@ -1191,3 +1191,5 @@ class TransactionType(str, Primitive):
     def __new__(cls, value):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
+
+# Health Primitives

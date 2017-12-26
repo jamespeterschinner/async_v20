@@ -1,5 +1,5 @@
 from .annotations import *
-from .base import EndPoint
+from .base import EndPoint, HEADER, PATH, QUERY
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -17,24 +17,12 @@ class GETInstrumentsCandles(EndPoint):
     description = 'Fetch candlestick data for an instrument.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'price', 'located': 'query', 'type': PriceComponent, 'description': 'str'},
-        {'name': 'granularity', 'located': 'query', 'type': CandlestickGranularity,
-         'description': 'CandlestickGranularity'},
-        {'name': 'count', 'located': 'query', 'type': Count, 'description': 'int'},
-        {'name': 'from', 'located': 'query', 'type': FromTime, 'description': 'DateTime'},
-        {'name': 'to', 'located': 'query', 'type': ToTime, 'description': 'DateTime'},
-        {'name': 'smooth', 'located': 'query', 'type': Smooth, 'description': 'boolean'},
-        {'name': 'includeFirst', 'located': 'query', 'type': IncludeFirstQuery, 'description': 'boolean'},
-        {'name': 'dailyAlignment', 'located': 'query', 'type': DailyAlignment, 'description': 'int'},
-        {'name': 'alignmentTimezone', 'located': 'query', 'type': AlignmentTimezone, 'description': 'str'},
-        {'name': 'weeklyAlignment', 'located': 'query', 'type': WeeklyAlignment,
-         'description': 'WeeklyAlignment'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  InstrumentName: (PATH, 'instrument'), PriceComponent: (QUERY, 'price'),
+                  CandlestickGranularity: (QUERY, 'granularity'), Count: (QUERY, 'count'), FromTime: (QUERY, 'from'),
+                  ToTime: (QUERY, 'to'), Smooth: (QUERY, 'smooth'), IncludeFirstQuery: (QUERY, 'includeFirst'),
+                  DailyAlignment: (QUERY, 'dailyAlignment'), AlignmentTimezone: (QUERY, 'alignmentTimezone'),
+                  WeeklyAlignment: (QUERY, 'weeklyAlignment')}
 
     # valid responses
     responses = {
@@ -55,13 +43,8 @@ class GETInstrumentOrderBook(EndPoint):
     description = 'Fetch a gzip compressed order book for an instrument.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'time', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  InstrumentName: (PATH, 'instrument'), DateTime: (QUERY, 'time')}
 
     # valid responses
     responses = {200: {'orderBook': OrderBook}}
@@ -81,13 +64,8 @@ class GETInstrumentsPositionBook(EndPoint):
     description = 'Fetch a gzip compressed position book for an instrument.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'instrument', 'located': 'path', 'type': InstrumentName, 'description': 'InstrumentName'},
-        {'name': 'time', 'located': 'query', 'type': DateTime, 'description': 'DateTime'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  InstrumentName: (PATH, 'instrument'), DateTime: (QUERY, 'time')}
 
     # valid responses
     responses = {200: {'positionBook': PositionBook}}

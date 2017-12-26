@@ -1,5 +1,7 @@
-from typing import List
-
+HEADER = 'header'
+PATH = 'path'
+QUERY = 'query'
+HEALTH = 'HEALTH'
 
 class EndPoint(object):
     """Base object representation of an endpoint"""
@@ -11,19 +13,19 @@ class EndPoint(object):
     path = ()
 
     # the HTTP verb to use for this endpoint
-    method = str
+    method = ''
 
     # description of endpoint
-    description = str
+    description = ''
 
     # parameters required to send to endpoint
-    parameters = List[dict]
+    parameters = {}
 
     # valid responses
-    responses = List[dict]
+    responses = {}
 
     # error msgs'
-    error = List[str]
+    error = ()
 
     # json format the data body as per the response_schema below
-    request_schema = dict()
+    request_schema = {}

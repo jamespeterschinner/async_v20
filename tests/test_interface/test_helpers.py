@@ -2,19 +2,17 @@ import inspect
 import json
 import re
 
+import pandas as pd
 import pytest
 
 from async_v20 import endpoints
-from async_v20 import interface
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
+from async_v20.definitions.types import DateTime
 from async_v20.definitions.types import OrderRequest
 from async_v20.definitions.types import StopLossOrderRequest, ArrayInstrument
 from async_v20.endpoints import POSTOrders
-from async_v20.endpoints.annotations import Bool
-# noinspection PyProtectedMember
-from async_v20.interface.helpers import _arguments
-# noinspection PyProtectedMember
+from async_v20.endpoints.annotations import Bool, Authorization
 from async_v20.interface.helpers import _create_request_params
 from async_v20.interface.helpers import _in_context
 from async_v20.interface.helpers import construct_arguments
@@ -26,9 +24,7 @@ from ..data.json_data import GETAccountID_response, example_instruments
 from ..fixtures.client import client
 from ..fixtures.server import server
 from ..test_definitions.helpers import get_valid_primitive_data
-import pandas as pd
-from async_v20.definitions.types import DateTime
-from async_v20.endpoints.annotations import FromTime, ToTime
+
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
@@ -53,7 +49,7 @@ client_signatures = [inspect.signature(method) for method in client_methods]
 
 
 def kwargs(sig):
-    args = {name:get_valid_primitive_data(param.annotation) for name, param in sig.parameters.items()
+    args = {name: get_valid_primitive_data(param.annotation) for name, param in sig.parameters.items()
             if name != 'self'}
     return args
 
@@ -80,20 +76,12 @@ test_arguments_arguments = [(getattr(endpoints, cls), location)
                             for location in locations for cls in endpoints.__all__]
 
 
-@pytest.mark.parametrize('endpoint, param_location', test_arguments_arguments)
-def test_arguments(endpoint, param_location):
-    result = _arguments(endpoint, param_location)
-    correct = list(filter(lambda x: x['located'] == param_location, endpoint.parameters))
-    assert len(list(result)) == len(list(correct))
-
-
 @pytest.mark.parametrize('method, signature, kwargs', zip(client_methods, *zip(*annotation_lookup_arguments)))
 @pytest.mark.asyncio
 async def test_create_request_params(client, method, signature, kwargs):
     """Test that all every argument supplied to an endpoint goes into the HTTP request"""
 
     endpoint = method.endpoint
-    sig = method.__signature__
     print(method.__name__)
     arguments = construct_arguments(client, signature, **kwargs)
     total_params = []
@@ -103,7 +91,8 @@ async def test_create_request_params(client, method, signature, kwargs):
         print('Arguments: ', arguments)
         print('Location: ', location)
         result = _create_request_params(client, endpoint, arguments, location)
-        print('Possible Arguments', list(_arguments(endpoint, arguments)))
+        print('Possible Arguments', [typ for typ,(location, name) in endpoint.parameters.items()
+              if location == location])
         print(location, ': ', result)
         total_params.extend(result)
 
@@ -151,14 +140,21 @@ async def test_create_request_kwargs(client, server, method, signature, kwargs):
         args.update({OrderRequest: OrderRequest(instrument='AUD_USD', units=1)})
     print('ARGS: ', args)
     request_kwargs = create_request_kwargs(client, method.endpoint, args)
-    assert 'method' in request_kwargs
-    assert 'url' in request_kwargs
-    assert 'headers' in request_kwargs
-    assert 'params' in request_kwargs
-    assert 'json' in request_kwargs
+
+    # Make sure args are not empty
+    assert request_kwargs.get('method', 1)
+    assert request_kwargs.get('url', 1)
+    assert request_kwargs.get('headers', 1)
+    assert request_kwargs.get('params', 1)
+    assert request_kwargs.get('json', 1)
 
     assert [request_kwargs['method']] in [['POST'], ['GET'], ['PUT'], ['PATCH'], ['DELETE']]
-    assert 'Authorization' in request_kwargs['headers']
+
+    auth_in_header = 'Authorization' in request_kwargs.get('headers', '')
+    if Authorization in method.endpoint.parameters:
+        assert auth_in_header
+    else:
+        assert not auth_in_header
 
 
 @pytest.mark.asyncio
@@ -316,10 +312,11 @@ def test_in_context_limits_units_to_valid_range(instrument):
     result = _in_context(order_request, instrument, clip=True)
     assert result.units == instrument.maximum_order_units
 
+
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_in_context_accepts_negative_values_for_units(instrument):
     order_request = OrderRequest(
-        units= -instrument.minimum_trade_size
+        units=-instrument.minimum_trade_size
     )
 
     result = _in_context(order_request, instrument, clip=False)
@@ -330,6 +327,7 @@ def test_in_context_accepts_negative_values_for_units(instrument):
 
     assert result.units == -instrument.minimum_trade_size
 
+
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_ins_context_does_not_add_parameters_to_order_requests(instrument):
     order_request = OrderRequest(
@@ -337,6 +335,6 @@ def test_ins_context_does_not_add_parameters_to_order_requests(instrument):
     )
     result = _in_context(order_request, instrument, clip=True)
     assert getattr(result, 'price_bound') == None
-    assert getattr(result, 'trailing_stop_loss_on_fill')  == None
-    assert getattr(result, 'stop_loss_on_fill')  == None
-    assert getattr(result, 'take_profit_on_fill')  == None
+    assert getattr(result, 'trailing_stop_loss_on_fill') == None
+    assert getattr(result, 'stop_loss_on_fill') == None
+    assert getattr(result, 'take_profit_on_fill') == None

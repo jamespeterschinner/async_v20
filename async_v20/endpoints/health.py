@@ -1,9 +1,11 @@
-from .annotations import *
-from .types import *
-from ..endpoints.base import EndPoint
+from .health_annotations import *
+from ..definitions.health_types import *
+from ..endpoints.base import EndPoint, PATH, QUERY, HEALTH
 
 
 class GETServices(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -15,17 +17,23 @@ class GETServices(EndPoint):
 
 
 class GETService(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
     path = ('/api/v1/services', ServiceID)
 
+    parameters = {ServiceID: (PATH, 'service-id')}
+
     # valid responses
-    responses = {200:  Service}
+    responses = {200: Service}
 
 
 class GETServiceLists(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -37,17 +45,23 @@ class GETServiceLists(EndPoint):
 
 
 class GETServiceList(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
     path = ('/api/v1/service-lists', ServiceListID)
 
+    parameters = {ServiceListID: (PATH, 'service_list_id')}
+
     # valid responses
     responses = {200: {'lists': ServiceList}}
 
 
 class GETEvents(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -55,37 +69,48 @@ class GETEvents(EndPoint):
     path = ('/api/v1/services/', ServiceID, '/events')
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'start', 'located': 'query', 'type': Start, 'description': 'DateTime'},
-        {'name': 'end', 'located': 'query', 'type': End, 'description': 'DateTime'}
-    ]
+    parameters = {ServiceID: (PATH, 'service-id'), Start: (QUERY, 'start'), End: (QUERY, 'end')}
 
     # valid responses
     responses = {200: {'events': ArrayEvent}}
 
 
 class GETCurrentEvent(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
     path = ('/api/v1/services/', ServiceID, '/events/current')
 
+    # parameters required to send to endpoint
+    parameters = {ServiceID: (PATH, 'service-id')}
+
     # valid responses
     responses = {200: {'events': Event}}
 
 
 class GETEvent(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
     path = ('/api/v1/services/', ServiceID, '/events/', EventSid)
 
+    # parameters required to send to endpoint
+    parameters = {ServiceID: (PATH, 'service-id'),
+                  EventSid: (PATH, 'event-sid')}
+
     # valid responses
     responses = {200: {'events': Event}}
 
+
 class GETStatuses(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -95,17 +120,26 @@ class GETStatuses(EndPoint):
     # valid responses
     responses = {200: {'status': ArrayStatus}}
 
+
 class GETStatus(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
     # path to endpoint
-    path = ('/api/v1/statuses', StatusId)
+    path = ('/api/v1/statuses/', StatusID)
+
+    # parameters required to send to endpoint
+    parameters = {StatusID: (PATH, 'status-id')}
 
     # valid responses
     responses = {200: Status}
 
+
 class GETImages(EndPoint):
+    host = HEALTH
+
     # the HTTP verb to use for this endpoint
     method = 'GET'
 
@@ -113,4 +147,4 @@ class GETImages(EndPoint):
     path = ('/api/v1/status-images',)
 
     # valid responses
-    responses = {200: Image}
+    responses = {200: str}

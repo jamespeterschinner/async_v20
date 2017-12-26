@@ -278,7 +278,7 @@ class Array(tuple):
                 # It's useful to be able to lookup items in an array
                 # By the items attributes. If not id, instrument
                 try:
-                    _ids.update({getattr(item, 'id'): index})
+                    _ids.update({str(getattr(item, 'id')): index})
                 except AttributeError:
                     key = getattr(item, 'instrument', getattr(item, 'name', None))
                     if key:
@@ -297,7 +297,7 @@ class Array(tuple):
 
     def get_id(self, id_, default=None):
         try:
-            return self[self._ids[int(id_)]]
+            return self[self._ids[str(id_)]]
         except KeyError:
             return default
 
@@ -335,6 +335,6 @@ def create_attribute(typ, data):
         # when an error code has been returned
         # A none value should be returned if this is the case
         if typ is not None:
-            raise TypeError(f'Could note create {typ} from {data}')
+            raise TypeError(f'Could note create {typ} from {data}. {type(data)}')
     else:
         return result

@@ -1,8 +1,8 @@
-from .annotations import SinceTransactionID
+from .annotations import Alias
 from .annotations import Authorization
 from .annotations import Instruments
-from .annotations import Alias
-from .base import EndPoint
+from .annotations import SinceTransactionID
+from .base import EndPoint, HEADER, PATH, QUERY
 from ..definitions.primitives import *
 from ..definitions.types import *
 
@@ -21,9 +21,7 @@ class GETAccounts(EndPoint):
     description = 'Get a list of all Accounts authorized for the provided token.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization')}
 
     # valid responses
     responses = {200: {'accounts': ArrayAccountProperties}}
@@ -44,13 +42,8 @@ class GETAccountID(EndPoint):
                   'Full pending Order, open Trade and open Position representations are provided.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
-
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID')}
     # valid responses
     responses = {200: {'account': Account, 'lastTransactionID': TransactionID}}
 
@@ -69,12 +62,8 @@ class GETAccountIDSummary(EndPoint):
     description = 'Get a summary for a single Account that a client has access to.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID')}
 
     # valid responses
     responses = {200: {'account': AccountSummary, 'lastTransactionID': TransactionID}}
@@ -97,12 +86,8 @@ class GETAccountIDInstruments(EndPoint):
                   'Accounts owned by a single user.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'instruments', 'located': 'query', 'type': Instruments,
-         'description': 'List of InstrumentName (csv)'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AccountID: (PATH, 'accountID'),
+                  Instruments: (QUERY, 'instruments')}
 
     # valid responses
     responses = {200: {'instruments': ArrayInstrument, 'lastTransactionID': TransactionID}}
@@ -122,12 +107,8 @@ class PATCHAccountIDConfiguration(EndPoint):
     description = 'Set the client-configurable portions of an Account.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID')}
 
     # valid responses
     responses = {200: {'clientConfigureTransaction': ClientConfigureTransaction, 'lastTransactionID': TransactionID},
@@ -153,13 +134,8 @@ class GETAccountIDChanges(EndPoint):
     description = 'Endpoint used to poll an Account for its current state and changes since a specified TransactionID.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'sinceTransactionID', 'located': 'query', 'type': SinceTransactionID, 'description': 'TransactionID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), SinceTransactionID: (QUERY, 'sinceTransactionID')}
 
     # valid responses
     responses = {200: {'changes': AccountChanges, 'state': AccountChangesState, 'lastTransactionID': TransactionID}}

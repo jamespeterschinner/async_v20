@@ -1,8 +1,7 @@
 from .annotations import *
-from .base import EndPoint
+from .base import EndPoint, HEADER, PATH, QUERY
 from ..definitions.primitives import *
 from ..definitions.types import *
-import pandas as pd
 
 __all__ = ['GETTransactions', 'GETTransactionID', 'GETIDrange', 'GETSinceID', 'GETTransactionsStream']
 
@@ -18,17 +17,9 @@ class GETTransactions(EndPoint):
     description = 'Get a list of Transactions pages that satisfy a time-based Transaction query.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'from', 'located': 'query', 'type': FromTime, 'description': 'DateTime'},
-        {'name': 'to', 'located': 'query', 'type': ToTime, 'description': 'DateTime'},
-        {'name': 'pageSize', 'located': 'query', 'type': PageSize, 'description': 'int'},
-        {'name': 'type', 'located': 'query', 'type': Type,
-         'description': 'List of TransactionFilter (csv)'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), FromTime: (QUERY, 'from'), ToTime: (QUERY, 'to'),
+                  PageSize: (QUERY, 'pageSize'), Type: (QUERY, 'type')}
 
     # valid responses
     responses = {
@@ -50,13 +41,8 @@ class GETTransactionID(EndPoint):
     description = 'Get the details of a single Account Transaction.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'transactionID', 'located': 'path', 'type': TransactionID, 'description': 'TransactionID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), TransactionID: (PATH, 'transactionID')}
 
     # valid responses
     responses = {200: {'transaction': Transaction, 'lastTransactionID': TransactionID}}
@@ -76,16 +62,9 @@ class GETIDrange(EndPoint):
     description = 'Get a range of Transactions for an Account based on the Transaction IDs.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'from', 'located': 'query', 'type': FromTransactionID, 'description': 'TransactionID'},
-        {'name': 'to', 'located': 'query', 'type': ToTransactionID, 'description': 'TransactionID'},
-        {'name': 'type', 'located': 'query', 'type': Type,
-         'description': 'List of TransactionFilter (csv)'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), FromTransactionID: (QUERY, 'from'), ToTransactionID: (QUERY, 'to'),
+                  Type: (QUERY, 'type')}
 
     # valid responses
     responses = {200: {'transactions': ArrayTransaction, 'lastTransactionID': TransactionID}}
@@ -106,13 +85,8 @@ class GETSinceID(EndPoint):
                   '(but not including) a provided Transaction ID.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'Accept-Datetime-Format', 'located': 'header', 'type': AcceptDatetimeFormat,
-         'description': 'AcceptDatetimeFormat'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-        {'name': 'id', 'located': 'query', 'type': TransactionID, 'description': 'TransactionID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AcceptDatetimeFormat: (HEADER, 'Accept-Datetime-Format'),
+                  AccountID: (PATH, 'accountID'), TransactionID: (QUERY, 'id')}
 
     # valid responses
     responses = {200: {'transactions': ArrayTransaction, 'lastTransactionID': TransactionID}}
@@ -135,10 +109,7 @@ class GETTransactionsStream(EndPoint):
     description = 'Get a stream of Transactions for an Account starting from when the request is made.'
 
     # parameters required to send to endpoint
-    parameters = [
-        {'name': 'Authorization', 'located': 'header', 'type': Authorization, 'description': 'str'},
-        {'name': 'accountID', 'located': 'path', 'type': AccountID, 'description': 'AccountID'},
-    ]
+    parameters = {Authorization: (HEADER, 'Authorization'), AccountID: (PATH, 'accountID')}
 
     # valid responses
     responses = {200: {'transaction': Transaction, 'transactionHeartbeat': TransactionHeartbeat}}

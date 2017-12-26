@@ -83,7 +83,7 @@ async def _stream_parser(self, response, endpoint):
 
 
 async def parse_response(self, response, endpoint, enable_rest):
-    if endpoint.host == 'REST':
+    if endpoint.host in 'REST HEALTH':
         result = await _rest_response(self, response, endpoint, enable_rest)
     else:
         result = _stream_parser(self, response, endpoint)

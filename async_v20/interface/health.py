@@ -1,0 +1,67 @@
+from .decorators import endpoint
+from ..endpoints.health import *
+from ..endpoints.health_annotations import *
+
+__all__ = ['HealthInterface']
+
+class HealthInterface(object):
+
+    @endpoint(GETServices)
+    def list_services(self):
+        """List all the services
+        """
+        pass
+
+    @endpoint(GETService)
+    def get_service(self, service_id: ServiceID):
+        """Get a single service
+        """
+        pass
+
+    @endpoint(GETServiceLists)
+    def list_service_lists(self):
+        """List all service lists
+        """
+        pass
+
+    @endpoint(GETServiceList)
+    def get_service_list(self, service_list_id: ServiceListID):
+        """Get a single service list
+        """
+        pass
+
+    @endpoint(GETEvents)
+    def list_events(self, service_id: ServiceID):
+        """List all events for a service
+        """
+        pass
+
+    @endpoint(GETCurrentEvent)
+    def get_current_event(self, service_id: ServiceID):
+        """Get the current event for a service
+        """
+        pass
+
+    @endpoint(GETEvent)
+    def get_event(self, service_id: ServiceID, event_sid: EventSid):
+        """Get an individual event
+        """
+        pass
+
+    @endpoint(GETStatuses)
+    def list_statuses(self):
+        """List all statuses
+        """
+        pass
+
+    @endpoint(GETStatus)
+    def get_status(self, status_id: StatusID):
+        """Get an individual status
+        """
+        pass
+
+    @endpoint(GETImages)
+    def list_images(self):
+        """List all status images
+        """
+        pass
