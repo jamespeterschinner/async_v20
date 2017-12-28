@@ -87,7 +87,7 @@ Lets take at look at an example:
 
     .. literalinclude:: ../../async_v20/interface/instrument.py
         :lines: 20-32
-        :emphasize-lines: 2-12
+        :emphasize-lines: 2-13
 
 
 You will notice that all :term:`arguments` have an :term:`annotation`.
@@ -100,7 +100,7 @@ The http request formatting is defined by the *EndPoint*
 **In this case**
 
     .. literalinclude:: ../../async_v20/endpoints/instrument.py
-        :lines: 9-44
+        :lines: 9-33
 
 **Notice that**
 
@@ -108,10 +108,10 @@ The http request formatting is defined by the *EndPoint*
         :lines: 20
         :emphasize-lines: 1
 
-Is a list of dictionary's. Each dictionary has a :term:`key` **'type'**
-that corresponds to the annotation defined by *OandaClient*. **get_candles**
-
-**This is the means by which arguments are passed**
+    Contains :term:`key` entries that coincide with the methods annotations.
+    The annotation is then used to lookup up location of the argument in the HTTP request
+    and the corresponding key that will be used with the passed data to create the
+    correct key/value pair.
 
 
 How Responses are Constructed
