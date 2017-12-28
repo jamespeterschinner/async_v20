@@ -117,14 +117,8 @@ The http request formatting is defined by the *EndPoint*
 How Responses are Constructed
 _____________________________
 
-This section assumes you have read :ref:`passing-arguments`
-
 The :term:`http` response from :term:`OANDA` is handled by the `EndPoint`
 each *OandaClient*. **method** defines.
-
-     .. literalinclude:: ../../async_v20/endpoints/instrument.py
-        :lines: 41-42
-        :emphasize-lines: 1,2
 
 There is a two step process by which the response is constructed:
    - The http :term:`status` is used to look up the expected response
