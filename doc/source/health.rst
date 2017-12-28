@@ -1,3 +1,5 @@
+.. _health_api:
+
 Health API
 ==========
 
