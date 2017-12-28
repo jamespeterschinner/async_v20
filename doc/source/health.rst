@@ -24,13 +24,13 @@ Example:
     >>> rsp = run(client.list_services())
     >>> rsp
     # <Status [200]: services>
-    rsp.services
+    >>> rsp.services
     # (<Service: id=fxtrade-practice-rest-api>,
     # <Service: id=fxtrade-practice-streaming-api>,
     # <Service: id=fxtrade-rest-api>,
     # <Service: id=fxtrade-streaming-api>)
-    rsp.services.get_id('fxtrade-practice-streaming-api')
+    >>> rsp.services.get_id('fxtrade-practice-streaming-api')
     # <Service: id=fxtrade-practice-streaming-api>
-    rsp.services.get_id('fxtrade-practice-streaming-api').current_event.status.description
+    >>> rsp.services.get_id('fxtrade-practice-streaming-api').current_event.status.description
     # 'The service is up'
 
