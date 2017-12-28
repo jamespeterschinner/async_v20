@@ -27,6 +27,6 @@ If this is a concern for you, it is recommended to preemptively initialize the O
 Check Services
 --------------
 
-async_v20 provides the ability to check the statuses of OANDA's services. See :ref:`health-api`.
-It is encouraged to check the service you wish to consume is available.
+It is encouraged to check the service you wish to consume is available. See :ref:`health_api`.
+
 
