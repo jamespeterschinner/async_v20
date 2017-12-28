@@ -90,7 +90,6 @@ async def handler(request):
             await asyncio.sleep(sleep_time)
 
     await asyncio.sleep(sleep_time)
-    print(response_data)
     return web.Response(body=gzip.compress(bytes(response_data, encoding='utf8')), headers=rest_headers,
                         status=response_status)
 

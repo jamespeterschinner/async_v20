@@ -1,6 +1,7 @@
 import asyncio
 import os
 import ujson as json
+import warnings
 from functools import partial
 from time import time
 
@@ -259,8 +260,18 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 self.initializing = True  # immediately set initializing to make sure
                 # Upcoming requests wait for this initialization to complete.
 
+                response = await self.list_services()
+                if response:
+                    for service in response.services:
+                        if service.current_event.status.name != 'Up':
+                            warnings.warn(f'{service.name} {service.current_event.message}')
+                else:
+                    print(response)
+                    warnings.warn(f'Server did not return available services')
+
                 if not self.session:
                     await self.initialize_session()
+
                 # Get the first account listed in in accounts.
                 # If another is desired the account must be configured
                 # manually when instantiating the client
@@ -320,5 +331,5 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 self.initialized = False
                 raise ConnectionError(e)
 
-                # Always return True when initialization has complete
+        # Always return True when initialization has complete
         return True
