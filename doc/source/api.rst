@@ -100,3 +100,19 @@ User
 
 .. automethod:: async_v20.OandaClient.get_user_info
 .. automethod:: async_v20.OandaClient.get_external_user_info
+
+.. _health:
+
+Health
+------
+
+.. automethod:: async_v20.OandaClient.get_current_event
+.. automethod:: async_v20.OandaClient.get_event
+.. automethod:: async_v20.OandaClient.get_service
+.. automethod:: async_v20.OandaClient.get_service_list
+.. automethod:: async_v20.OandaClient.get_status
+.. automethod:: async_v20.OandaClient.list_events
+.. automethod:: async_v20.OandaClient.list_images
+.. automethod:: async_v20.OandaClient.list_service_lists
+.. automethod:: async_v20.OandaClient.list_services
+.. automethod:: async_v20.OandaClient.list_statuses

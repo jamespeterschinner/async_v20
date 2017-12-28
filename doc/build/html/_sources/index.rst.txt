@@ -111,6 +111,7 @@ Contents
    beyond_getting_started
    order_request_formatting
    datetimes
+   health
    traps
    api
    response

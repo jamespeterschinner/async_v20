@@ -15,6 +15,9 @@ class GETServices(EndPoint):
     # valid responses
     responses = {200: {'services': ArrayService}}
 
+    # error msgs'
+    error = (404,)
+
 
 class GETService(EndPoint):
     host = HEALTH
@@ -30,6 +33,8 @@ class GETService(EndPoint):
     # valid responses
     responses = {200: Service}
 
+    # error msgs'
+    error = (404,)
 
 class GETServiceLists(EndPoint):
     host = HEALTH
@@ -43,6 +48,8 @@ class GETServiceLists(EndPoint):
     # valid responses
     responses = {200: {'lists': ArrayServiceList}}
 
+    # error msgs'
+    error = (404,)
 
 class GETServiceList(EndPoint):
     host = HEALTH
@@ -58,6 +65,8 @@ class GETServiceList(EndPoint):
     # valid responses
     responses = {200: {'lists': ServiceList}}
 
+    # error msgs'
+    error = (404,)
 
 class GETEvents(EndPoint):
     host = HEALTH
@@ -74,6 +83,8 @@ class GETEvents(EndPoint):
     # valid responses
     responses = {200: {'events': ArrayEvent}}
 
+    # error msgs'
+    error = (404,)
 
 class GETCurrentEvent(EndPoint):
     host = HEALTH
@@ -88,8 +99,10 @@ class GETCurrentEvent(EndPoint):
     parameters = {ServiceID: (PATH, 'service-id')}
 
     # valid responses
-    responses = {200: {'events': Event}}
+    responses = {200: Event}
 
+    # error msgs'
+    error = (404,)
 
 class GETEvent(EndPoint):
     host = HEALTH
@@ -105,8 +118,10 @@ class GETEvent(EndPoint):
                   EventSid: (PATH, 'event-sid')}
 
     # valid responses
-    responses = {200: {'events': Event}}
+    responses = {200: Event}
 
+    # error msgs'
+    error = (404,)
 
 class GETStatuses(EndPoint):
     host = HEALTH
@@ -120,6 +135,8 @@ class GETStatuses(EndPoint):
     # valid responses
     responses = {200: {'statuses': ArrayStatus}}
 
+    # error msgs'
+    error = (404,)
 
 class GETStatus(EndPoint):
     host = HEALTH
@@ -136,6 +153,8 @@ class GETStatus(EndPoint):
     # valid responses
     responses = {200: Status}
 
+    # error msgs'
+    error = (404,)
 
 class GETImages(EndPoint):
     host = HEALTH
@@ -148,3 +167,6 @@ class GETImages(EndPoint):
 
     # valid responses
     responses = {200: {'images': ArrayImage}}
+
+    # error msgs'
+    error = (404,)

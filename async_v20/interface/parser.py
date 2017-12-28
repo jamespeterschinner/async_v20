@@ -37,7 +37,7 @@ async def _create_response(json_body, endpoint, schema, status, boolean, datetim
             data.append((json_object, create_attribute(schema.get(json_object), json_field)))
     else:
         obj = schema(**json_body)
-        data = [(obj.__class__.__name__.lower(), obj)]
+        data = [(obj.__class__.__name__, obj)]
     return Response(data, status, boolean, datetime_format)
 
 

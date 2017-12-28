@@ -51,8 +51,8 @@ if no token is passed</p>
 <span id="id1"></span><h2>OandaClient<a class="headerlink" href="#oandaclient" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="async_v20.OandaClient">
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>format_order_requests=False</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>datetime_format='UNIX'</em>, <em>rest_timeout=10</em>, <em>stream_timeout=60</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em>, <em>loop=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.account.AccountInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.instrument.InstrumentInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.order.OrderInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.position.PositionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.pricing.PricingInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.trade.TradeInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.transaction.TransactionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.user.UserInterface</span></code></p>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>format_order_requests=False</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>health_host='api-status.oanda.com'</em>, <em>health_port=80</em>, <em>health_scheme='http'</em>, <em>datetime_format='UNIX'</em>, <em>rest_timeout=10</em>, <em>stream_timeout=60</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em>, <em>loop=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.account.AccountInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.instrument.InstrumentInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.order.OrderInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.position.PositionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.pricing.PricingInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.trade.TradeInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.transaction.TransactionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.user.UserInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.health.HealthInterface</span></code></p>
 <p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -271,7 +271,7 @@ lastTransactionID= <a class="reference internal" href="primitives.html#async_v20
 <h2>Instrument<a class="headerlink" href="#instrument" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="async_v20.OandaClient.get_candles">
-<code class="descclassname">OandaClient.</code><code class="descname">get_candles</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>price: PriceComponent=M</em>, <em>granularity: CandlestickGranularity=S5</em>, <em>count: Count=500</em>, <em>from_time: FromTime=Ellipsis</em>, <em>to_time: ToTime=Ellipsis</em>, <em>smooth: Smooth=False</em>, <em>include_first_query: IncludeFirstQuery=Ellipsis</em>, <em>daily_alignment: DailyAlignment=17</em>, <em>alignment_timezone: AlignmentTimezone=America/New_York</em>, <em>weekly_alignment: WeeklyAlignment=Friday</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_candles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">OandaClient.</code><code class="descname">get_candles</code><span class="sig-paren">(</span><em>self</em>, <em>instrument: InstrumentName</em>, <em>price: PriceComponent=M</em>, <em>granularity: CandlestickGranularity=S5</em>, <em>count: Count=Ellipsis</em>, <em>from_time: FromTime=Ellipsis</em>, <em>to_time: ToTime=Ellipsis</em>, <em>smooth: Smooth=False</em>, <em>include_first_query: IncludeFirstQuery=Ellipsis</em>, <em>daily_alignment: DailyAlignment=17</em>, <em>alignment_timezone: AlignmentTimezone=America/New_York</em>, <em>weekly_alignment: WeeklyAlignment=Friday</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_candles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch candlestick data for an instrument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -2446,6 +2446,69 @@ The User Specifier</td>
 </dd></dl>
 
 </div>
+<div class="section" id="health">
+<span id="id3"></span><h2>Health<a class="headerlink" href="#health" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="async_v20.OandaClient.get_current_event">
+<code class="descclassname">OandaClient.</code><code class="descname">get_current_event</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_current_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current event for a service</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_event">
+<code class="descclassname">OandaClient.</code><code class="descname">get_event</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em>, <em>event_sid: EventSid</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an individual event</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_service">
+<code class="descclassname">OandaClient.</code><code class="descname">get_service</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single service</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_service_list">
+<code class="descclassname">OandaClient.</code><code class="descname">get_service_list</code><span class="sig-paren">(</span><em>self</em>, <em>service_list_id: ServiceListID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_service_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single service list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.get_status">
+<code class="descclassname">OandaClient.</code><code class="descname">get_status</code><span class="sig-paren">(</span><em>self</em>, <em>status_id: StatusID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an individual status</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_events">
+<code class="descclassname">OandaClient.</code><code class="descname">list_events</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all events for a service</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_images">
+<code class="descclassname">OandaClient.</code><code class="descname">list_images</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all status images</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_service_lists">
+<code class="descclassname">OandaClient.</code><code class="descname">list_service_lists</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_service_lists" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all service lists</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_services">
+<code class="descclassname">OandaClient.</code><code class="descname">list_services</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_services" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the services</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="async_v20.OandaClient.list_statuses">
+<code class="descclassname">OandaClient.</code><code class="descname">list_statuses</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_statuses" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all statuses</p>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -2470,6 +2533,7 @@ The User Specifier</td>
 <li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="order_request_formatting.html">Formatting Order Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datetimes.html">Dealing With Time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="health.html">Health API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="traps.html">Traps for young players</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">OandaClient API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#oandaclient">OandaClient</a></li>
@@ -2481,6 +2545,7 @@ The User Specifier</td>
 <li class="toctree-l2"><a class="reference internal" href="#trade">Trade</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#transaction">Transaction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#user">User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#health">Health</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="response.html">The Response Object</a></li>
