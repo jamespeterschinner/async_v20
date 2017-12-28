@@ -5,9 +5,10 @@ Health API
 
 async_v20 includes OANDA's v20 health `API <http://developer.oanda.com/rest-live-v20/health/>`_.
 
-This functionality has been added to assist users in diagnosing connection issues.
 During the initialization of OandaClient the statuses of the services are checked.
 A warning is generated for each service that is not currently up.
+
+Users are encouraged to explicitly check the service they wish to use is available.
 
 see :ref:`health` for complete list of API calls.
 
