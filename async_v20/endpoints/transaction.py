@@ -112,7 +112,42 @@ class GETTransactionsStream(EndPoint):
     parameters = {Authorization: (HEADER, 'Authorization'), AccountID: (PATH, 'accountID')}
 
     # valid responses
-    responses = {200: {'transaction': Transaction, 'transactionHeartbeat': TransactionHeartbeat}}
+    responses = {200: {'transactionHeartbeat': TransactionHeartbeat,
+                       'CREATE': CreateTransaction,
+                       'CLOSE': CloseTransaction,
+                       'REOPEN': ReopenTransaction,
+                       'CLIENT_CONFIGURE': ClientConfigureTransaction,
+                       'CLIENT_CONFIGURE_REJECT': ClientConfigureRejectTransaction,
+                       'TRANSFER_FUNDS': TransferFundsTransaction,
+                       'TRANSFER_FUNDS_REJECT': TransferFundsRejectTransaction,
+                       'MARKET_ORDER': MarketOrderTransaction,
+                       'MARKET_ORDER_REJECT': MarketOrderRejectTransaction,
+                       'LIMIT_ORDER': LimitOrderTransaction,
+                       'LIMIT_ORDER_REJECT': LimitOrderRejectTransaction,
+                       'STOP_ORDER': StopOrderTransaction,
+                       'STOP_ORDER_REJECT': StopOrderRejectTransaction,
+                       'MARKET_IF_TOUCHED_ORDER': MarketIfTouchedOrderTransaction,
+                       'MARKET_IF_TOUCHED_ORDER_REJECT': MarketIfTouchedOrderRejectTransaction,
+                       'TAKE_PROFIT_ORDER': TakeProfitOrderTransaction,
+                       'TAKE_PROFIT_ORDER_REJECT': TakeProfitOrderRejectTransaction,
+                       'STOP_LOSS_ORDER': StopLossOrderTransaction,
+                       'STOP_LOSS_ORDER_REJECT': StopOrderRejectTransaction,
+                       'TRAILING_STOP_LOSS_ORDER': TrailingStopLossOrderTransaction,
+                       'TRAILING_STOP_LOSS_ORDER_REJECT': TrailingStopLossOrderRejectTransaction,
+                       'ORDER_FILL': OrderFillTransaction,
+                       'ORDER_CANCEL': OrderCancelTransaction,
+                       'ORDER_CANCEL_REJECT': OrderCancelRejectTransaction,
+                       'ORDER_CLIENT_EXTENSIONS_MODIFY': OrderClientExtensionsModifyTransaction,
+                       'ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT': OrderClientExtensionsModifyRejectTransaction,
+                       'TRADE_CLIENT_EXTENSIONS_MODIFY': TradeClientExtensionsModifyTransaction,
+                       'TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT': TradeClientExtensionsModifyRejectTransaction,
+                       'MARGIN_CALL_ENTER': MarginCallEnterTransaction,
+                       'MARGIN_CALL_EXTEND': MarginCallExtendTransaction,
+                       'MARGIN_CALL_EXIT': MarginCallExitTransaction,
+                       'DELAYED_TRADE_CLOSURE': DelayedTradeClosureTransaction,
+                       'DAILY_FINANCING': DailyFinancingTransaction,
+                       'RESET_RESETTABLE_PL': ResetResettablePLTransaction}
+                 }
 
     # error msgs'
     error = (400, 401, 404, 405)
