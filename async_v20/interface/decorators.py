@@ -49,7 +49,7 @@ def endpoint(endpoint, rest=False, initialization_step=False, initialize_require
             try:
                 return await parse_response(self, response, endpoint, enable_rest)
             except ConcurrentTimeoutError:
-                raise TimeoutError(f'{method.__name__} to longer than {self.rest_timeout} seconds')
+                raise TimeoutError(f'{method.__name__} took longer than {self.rest_timeout} seconds')
 
         wrap.__signature__ = sig
 
