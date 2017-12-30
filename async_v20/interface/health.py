@@ -1,5 +1,4 @@
 from .decorators import endpoint
-from ..endpoints.annotations import ServiceID, ServiceListID, EventSid, StatusID
 from ..endpoints.health import *
 
 __all__ = ['HealthInterface']
