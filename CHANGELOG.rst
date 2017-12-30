@@ -214,8 +214,12 @@ Added attributes to TradeSummary:
 - Added default argument to Array.get_id & Array.get_instrument
 - Removed default value from get_candles(*count*)
 
-5.0.4b0
+6.0.0b0
 =======
 
 - Added health API and initialization check
 - Fixed stream_transactions. Now returns correct type
+- Changed streaming responses keys. Where stream_pricing() returned 'PRICE' or 'HEARTBEAT'
+  response now contains 'price' or 'heartbeat'. Like wise stream_transactions() now returns
+  'transaction' or 'heartbeat'. This has been done to standardise access to the transaction
+  stream response and 'heartbeat' objects. Due to the different types these objects may take.
