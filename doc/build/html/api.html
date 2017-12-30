@@ -2451,61 +2451,223 @@ The User Specifier</td>
 <dl class="method">
 <dt id="async_v20.OandaClient.get_current_event">
 <code class="descclassname">OandaClient.</code><code class="descname">get_current_event</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_current_event" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the current event for a service</p>
+<dd><dl class="docutils">
+<dt>Get the current event for a service</dt>
+<dd><p class="first">Args:</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>service_id: <code class="xref py py-class docutils literal"><span class="pre">ServiceID</span></code></dt>
+<dd>The service to get the current event for</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(Event= <code class="xref py py-class docutils literal"><span class="pre">Event</span></code>)</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_event">
 <code class="descclassname">OandaClient.</code><code class="descname">get_event</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em>, <em>event_sid: EventSid</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an individual event</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service_id</strong> – <code class="xref py py-class docutils literal"><span class="pre">ServiceID</span></code>
+The service to event for</li>
+<li><strong>event_sid</strong> – <code class="xref py py-class docutils literal"><span class="pre">EventSid</span></code>
+The event to get from the specified service</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><p class="first last"><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(Event= <code class="xref py py-class docutils literal"><span class="pre">Event</span></code>)</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_service">
 <code class="descclassname">OandaClient.</code><code class="descname">get_service</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_service" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a single service</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>service_id</strong> – <code class="xref py py-class docutils literal"><span class="pre">ServiceID</span></code>
+Name of the service to get</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(Service= <code class="xref py py-class docutils literal"><span class="pre">Service</span></code>)</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_service_list">
 <code class="descclassname">OandaClient.</code><code class="descname">get_service_list</code><span class="sig-paren">(</span><em>self</em>, <em>service_list_id: ServiceListID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_service_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a single service list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>service_list_id</strong> – <code class="xref py py-class docutils literal"><span class="pre">ServiceListID</span></code>
+The service list to get.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(lists= <code class="xref py py-class docutils literal"><span class="pre">ServiceList</span></code>)</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.get_status">
 <code class="descclassname">OandaClient.</code><code class="descname">get_status</code><span class="sig-paren">(</span><em>self</em>, <em>status_id: StatusID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an individual status</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>status_id</strong> – <code class="xref py py-class docutils literal"><span class="pre">StatusID</span></code>
+The status to get</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(Status= <code class="xref py py-class docutils literal"><span class="pre">Status</span></code>)</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.list_events">
 <code class="descclassname">OandaClient.</code><code class="descname">list_events</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_events" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all events for a service</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>service_id</strong> – <code class="xref py py-class docutils literal"><span class="pre">ServiceID</span></code>
+The service to get events for.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(lists= <code class="xref py py-class docutils literal"><span class="pre">ServiceList</span></code>)</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.list_images">
 <code class="descclassname">OandaClient.</code><code class="descname">list_images</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_images" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all status images</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(images=( <code class="xref py py-class docutils literal"><span class="pre">Image</span></code>, …))</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.list_service_lists">
 <code class="descclassname">OandaClient.</code><code class="descname">list_service_lists</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_service_lists" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all service lists</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(lists=( <code class="xref py py-class docutils literal"><span class="pre">ServiceList</span></code>, …))</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.list_services">
 <code class="descclassname">OandaClient.</code><code class="descname">list_services</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_services" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all the services</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(services= <code class="xref py py-class docutils literal"><span class="pre">ArrayService</span></code>)</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="async_v20.OandaClient.list_statuses">
 <code class="descclassname">OandaClient.</code><code class="descname">list_statuses</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.list_statuses" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all statuses</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<dt>status [200]</dt>
+<dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
+(statuses=( <code class="xref py py-class docutils literal"><span class="pre">Event</span></code>, …))</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

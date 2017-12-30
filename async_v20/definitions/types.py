@@ -1,5 +1,6 @@
 from .base import *
 from .primitives import *
+from warnings import warn
 
 __all__ = ['Account', 'AccountChanges', 'AccountChangesState', 'AccountProperties', 'AccountSummary',
            'ArrayAccountProperties', 'ArrayCalculatedPositionState', 'ArrayCalculatedTradeState', 'ArrayCandlestick',

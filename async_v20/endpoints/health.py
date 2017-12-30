@@ -1,4 +1,4 @@
-from .health_annotations import *
+from .annotations import ServiceID, ServiceListID, Start, End, EventSid, StatusID
 from ..definitions.health_types import *
 from ..endpoints.base import EndPoint, PATH, QUERY, HEALTH
 
