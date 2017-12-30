@@ -112,7 +112,7 @@ class GETTransactionsStream(EndPoint):
     parameters = {Authorization: (HEADER, 'Authorization'), AccountID: (PATH, 'accountID')}
 
     # valid responses
-    responses = {200: {'transactionHeartbeat': TransactionHeartbeat,
+    responses = {200: {'HEARTBEAT': TransactionHeartbeat,
                        'CREATE': CreateTransaction,
                        'CLOSE': CloseTransaction,
                        'REOPEN': ReopenTransaction,

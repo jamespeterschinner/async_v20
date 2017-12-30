@@ -1,6 +1,8 @@
 import ujson as json
-import async_timeout
 from asyncio import TimeoutError as AsyncTimeOutError
+
+import async_timeout
+
 from .response import Response
 from .rest import update_account
 from ..definitions.base import create_attribute
@@ -8,7 +10,12 @@ from ..endpoints.account import GETAccountID
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.annotations import SinceTransactionID
 from ..endpoints.other_responses import other_responses
+from ..endpoints.pricing import GETPricingStream
+from ..endpoints.transaction import GETTransactionsStream
 
+TRANSACTION = 'transaction'
+HEARTBEAT = 'heartbeat'
+PRICE = 'price'
 
 
 def _lookup_schema(endpoint, status):
@@ -71,6 +78,19 @@ async def _rest_response(self, response, endpoint, enable_rest):
     return response
 
 
+def _construct_json_body_and_schema(line, schema, endpoint):
+    """This helper function standardises the streaming responses"""
+    typ = line['type']
+    obj = schema[typ]
+    key = None
+    if HEARTBEAT in typ.lower():
+        key = HEARTBEAT
+    elif endpoint == GETPricingStream:
+        key = PRICE
+    elif endpoint == GETTransactionsStream:
+        key = TRANSACTION
+    return {key: line}, {key: obj}
+
 
 async def _stream_parser(self, response, endpoint):
     async with response as resp:
@@ -78,9 +98,9 @@ async def _stream_parser(self, response, endpoint):
         while not resp.content.at_eof():
             try:
                 async with async_timeout.timeout(self.stream_timeout):
-                    body = json.loads(await resp.content.readline())
-                    json_body = {body.get('type'): body}  # mimic a rest response
-                    yield await _create_response(json_body, endpoint, schema, status, boolean, self.datetime_format)
+                    line = json.loads(await resp.content.readline())
+                    json_body, json_schema = _construct_json_body_and_schema(line, schema, endpoint)
+                    yield await _create_response(json_body, endpoint, json_schema, status, boolean, self.datetime_format)
             except AsyncTimeOutError as e:
                 raise TimeoutError(e)
 

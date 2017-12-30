@@ -213,3 +213,9 @@ Added attributes to TradeSummary:
 
 - Added default argument to Array.get_id & Array.get_instrument
 - Removed default value from get_candles(*count*)
+
+5.0.4b0
+=======
+
+- Added health API and initialization check
+- Fixed stream_transactions. Now returns correct type
