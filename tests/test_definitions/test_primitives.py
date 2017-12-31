@@ -3,11 +3,11 @@ from inspect import isclass
 import pytest
 
 from async_v20.definitions import primitives
-from async_v20.definitions.primitives import ClientComment, ClientID, ClientTag
+from async_v20.definitions.primitives import ClientComment, ClientID, ClientTag, OrderID, TradeID
 from async_v20.definitions.primitives import OrderSpecifier, TradeSpecifier, DateTime
 from async_v20.definitions.primitives import TransactionID, PriceValue, DecimalNumber
 from tests.test_definitions.helpers import get_valid_primitive_data
-
+from async_v20.exceptions import InvalidValue, InvalidFormatArguments
 from time import time
 from datetime import datetime
 
@@ -33,7 +33,7 @@ def test_datetime_converts_between_different_representations():
 
 def test_datetime_format_only_allows_valid_format_string():
     unix_example = '1502463871.639182000'
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidValue):
         assert DateTime(unix_example).json(datetime_format='BADVALUE')
 
 @pytest.mark.parametrize('primitive', map(lambda x: getattr(primitives, x), primitives.__all__))
@@ -48,7 +48,7 @@ def test_all_incorrect_primitive_values_cannot_be_assigned(primitive):
     if isclass(primitive):
         if getattr(primitive, 'values', None):
             for key in primitive.values.keys():
-                with pytest.raises(ValueError):
+                with pytest.raises(InvalidValue):
                     primitive(key + '_test')
 
 
@@ -58,7 +58,7 @@ def test_primitive_values_have_length_checking(primitive):
     if isclass(primitive):
         if getattr(primitive, 'values', None):
             for key in primitive.values.keys():
-                with pytest.raises(ValueError):
+                with pytest.raises(InvalidValue):
                     primitive(key + '_test')
 
 
@@ -67,8 +67,10 @@ def test_primitive_values_have_length_checking(primitive):
 def test_primitives_enforce_length_checking(primitive):
     if isclass(primitive):
         if getattr(primitive, 'example', None) and primitive not in \
-                (OrderSpecifier, ClientComment, ClientID, ClientTag, TransactionID, TradeSpecifier):
-            with pytest.raises(ValueError):
+                (OrderSpecifier, ClientComment, ClientID, ClientTag, TransactionID, TradeSpecifier,
+                # These are integers and this wouldn't make sense
+                 OrderID, TradeID):
+            with pytest.raises(InvalidValue):
                 primitive(primitive.example + '_')
 
 
@@ -81,7 +83,7 @@ def test_primitives_return_correct_type_when_initialized_with_value(primitive):
 
 
 def test_price_value_cannot_be_created_from_negative_value():
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidValue):
         PriceValue(-1)
 
 
@@ -97,7 +99,7 @@ def test_price_value_format():
     # test max limit
     assert price_value.format(3, 0, 100) == 100
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidFormatArguments):
         # Min must be greater than max
         price_value.format(4, 300, 150)
 
@@ -105,7 +107,7 @@ def test_price_value_format():
     assert price_value.format(4, 100, 100) == 100
 
     # Precision must be positive
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidFormatArguments):
         price_value.format(-1)
 
 def test_decimal_number_format():
@@ -120,7 +122,7 @@ def test_decimal_number_format():
     # test max limit
     assert decimal_number.format(3, 0, 100) == 100
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidFormatArguments):
         # Min must be greater than max
         decimal_number.format(4, 300, 150)
 
@@ -128,7 +130,7 @@ def test_decimal_number_format():
     assert decimal_number.format(4, 100, 100) == 100
 
     # Precision must be positive
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidFormatArguments):
         decimal_number.format(-1)
 
     # TEST THE SAME WORKS FOR NEGATIVE NUMBERS
@@ -142,7 +144,7 @@ def test_decimal_number_format():
     # test max limit
     assert decimal_number.format(3, 0, 100) == -100
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidFormatArguments):
         # Min must be greater than max
         decimal_number.format(4, 300, 150)
 

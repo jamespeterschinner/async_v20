@@ -19,6 +19,7 @@ from async_v20.definitions.types import MarketOrderRejectTransaction
 from async_v20.definitions.primitives import TradeSpecifier
 from async_v20.definitions.primitives import OrderSpecifier
 from async_v20.definitions.primitives import PriceComponent
+from async_v20.exceptions import IncompatibleValue
 import pandas as pd
 import pytest
 from itertools import permutations
@@ -44,9 +45,9 @@ def test_order_cancel_transaction_builds_from_dict():
     assert type(series) == pd.Series
 
 
-def test_supplying_incorret_preset_argument_raises_value_error():
+def test_supplying_incorret_preset_argument_raises_error():
     order_cancel_transaction_json_dict.update(type='INCORRECT VALUE')
-    with pytest.raises(ValueError):
+    with pytest.raises(IncompatibleValue):
         OrderCancelTransaction(**order_cancel_transaction_json_dict)
 
 def test_passing_empty_list_tuple_to_array_returns_empty_array():
@@ -65,7 +66,7 @@ def test_order_can_be_constructed_from_example_data():
     assert type(Order(**example_order)) == Order
 
 def test_supplying_incorrect_type_raises_error():
-    with pytest.raises(TypeError):
+    with pytest.raises(IncompatibleValue):
         Order(instrument=Instrument())
 
 def test_account_object_can_be_constructed_from_example():

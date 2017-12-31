@@ -4,7 +4,7 @@ import re
 
 import pandas as pd
 import pytest
-
+import logging
 from async_v20 import endpoints
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
@@ -24,6 +24,7 @@ from ..data.json_data import GETAccountID_response, example_instruments
 from ..fixtures.client import client
 from ..fixtures.server import server
 from ..test_definitions.helpers import get_valid_primitive_data
+from async_v20.exceptions import FailedToCreatePath, InvalidOrderRequest
 
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
@@ -125,7 +126,7 @@ def test_create_url(client, endpoint):
 @pytest.mark.parametrize('endpoint', [getattr(endpoints, cls) for cls in endpoints.__all__])
 def test_create_url_raises_error_when_missing_arguments(client, endpoint):
     if len(endpoint.path) > 3:  # URL TEMPLATES with len > 3 will require addition arguments to be passed
-        with pytest.raises(ValueError):
+        with pytest.raises(FailedToCreatePath):
             url = create_url(client, endpoint, {})
 
 
@@ -173,7 +174,7 @@ async def test_request_body_is_constructed_correctly(client, server, stop_loss_o
 async def test_request_body_raises_key_error_when_cannot_format_request(client, server, stop_loss_order):
     await client.initialize()
     client.format_order_requests = True
-    with pytest.raises(KeyError):
+    with pytest.raises(InvalidOrderRequest):
         create_body(client, POSTOrders.request_schema,
                     {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
 
@@ -203,7 +204,7 @@ def test_in_context_updates_units(instrument):
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_in_context_raises_error_when_units_less_than_minimum(instrument):
     order_request = OrderRequest(units=0.123456)
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidOrderRequest):
         _in_context(order_request, instrument)
 
 
@@ -271,7 +272,7 @@ def test_in_context_limits_trailing_stop_loss_on_fill_to_valid_range(instrument)
         trailing_stop_loss_on_fill=0
     )
     if instrument.minimum_trailing_stop_distance > 0:
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidOrderRequest):
             _in_context(order_request, instrument)
 
     result = _in_context(order_request, instrument, clip=True)
@@ -281,7 +282,7 @@ def test_in_context_limits_trailing_stop_loss_on_fill_to_valid_range(instrument)
         trailing_stop_loss_on_fill=instrument.maximum_trailing_stop_distance + 10
     )
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidOrderRequest):
         _in_context(order_request, instrument)
 
     result = _in_context(order_request, instrument, clip=True)
@@ -295,7 +296,7 @@ def test_in_context_limits_units_to_valid_range(instrument):
     )
 
     if instrument.minimum_trade_size > 0:
-        with pytest.raises(ValueError):
+        with pytest.raises(InvalidOrderRequest):
             _in_context(order_request, instrument)
 
     result = _in_context(order_request, instrument, clip=True)
@@ -306,7 +307,7 @@ def test_in_context_limits_units_to_valid_range(instrument):
         units=instrument.maximum_order_units + 10
     )
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InvalidOrderRequest):
         _in_context(order_request, instrument)
 
     result = _in_context(order_request, instrument, clip=True)

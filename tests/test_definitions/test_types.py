@@ -4,6 +4,7 @@ from async_v20.definitions import types
 from async_v20.definitions.base import Model
 from async_v20.definitions.base import create_attribute
 from tests.test_definitions.helpers import get_valid_primitive_data, create_cls_annotations
+from async_v20.exceptions import UnknownValue
 
 model_classes = (cls for cls in (getattr(types, typ) for typ in types.__all__) if
                  issubclass(cls, Model))
@@ -37,7 +38,7 @@ def test_all_types_can_be_instantiated_from_dict(cls, data):
 def test_all_types_instantiated_from_dict_with_incorrect_argument_raises_error(cls, data):
     arguments = data.copy()
     arguments.update(this_argument_doesnt_exist='TEST_VALUE')
-    with pytest.raises(ValueError):
+    with pytest.raises(UnknownValue):
         cls(**arguments)
 
 

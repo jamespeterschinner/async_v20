@@ -1,6 +1,11 @@
+import logging
+
 import pandas as pd
 
 from .helpers import domain_check
+from ..exceptions import InvalidValue, InvalidFormatArguments
+
+logger = logging.getLogger(__name__)
 
 __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'AccountUnits', 'CancellableOrderType',
            'CandlestickGranularity', 'ClientComment', 'ClientID', 'ClientTag', 'Currency', 'DateTime', 'DecimalNumber',
@@ -62,7 +67,9 @@ def _datetime_to_json(self, datetime_format):
         result = str(self.value)
         result = f'{result[:-9]}.{result[-9:]}'
     else:
-        raise ValueError(f'{datetime_format} is not a valid value. It must be either "RFC3339" or "UNIX"')
+        msg = f'{datetime_format} is not a valid value. It must be either "RFC3339" or "UNIX"'
+        logger.error(msg)
+        raise InvalidValue(msg)
 
     return result
 
@@ -394,20 +401,22 @@ class PriceValue(float, Primitive):
         try:
             assert float(value) >= 0
         except AssertionError:
-            raise ValueError(f'Cannot create PriceValue from {value}. PriceValues must be positive')
+            msg = f'Cannot create PriceValue from {value}. PriceValues must be positive'
+            logger.error(msg)
+            raise InvalidValue(msg)
         return super().__new__(cls, value)
 
     def format(self, precision, min_=None, max_=None):
         # Ignore the sign. `self` should be positive
-        try:
-            assert precision >= 0
-        except AssertionError:
-            raise ValueError(f'Cannot format PriceValue. precision {precision} must be >= 0')
+        if not precision >= 0:
+            msg = f'Cannot format PriceValue. precision {precision} must be >= 0'
+            logger.error(msg)
+            raise InvalidFormatArguments(msg)
         if min_ and max_:
-            try:
-                assert min_ <= max_
-            except AssertionError:
-                raise ValueError(f'Cannot format PriceValue. min_ {min_} is not <= max_ {max_}')
+            if not min_ <= max_:
+                msg = f'Cannot format PriceValue. min_ {min_} is not <= max_ {max_}'
+                logger.error(msg)
+                raise InvalidFormatArguments(msg)
 
         value = self
         if min_:
@@ -476,15 +485,16 @@ class DecimalNumber(float, Primitive):
 
     def format(self, precision, min_=None, max_=None):
         # A DecimalNumber can se + / -
-        try:
-            assert precision >= 0
-        except AssertionError:
-            raise ValueError(f'Cannot format PriceValue. precision {precision} must be >= 0')
+        if not precision >= 0:
+            msg = f'Cannot format PriceValue. precision {precision} must be >= 0'
+            logger.error(msg)
+            raise InvalidFormatArguments(msg)
+
         if min_ and max_:
-            try:
-                assert min_ <= max_
-            except AssertionError:
-                raise ValueError(f'Cannot format PriceValue. min_ {min_} is not <= max_ {max_}')
+            if not min_ <= max_:
+                msg = f'Cannot format PriceValue. min_ {min_} is not <= max_ {max_}'
+                logger.error(msg)
+                raise InvalidFormatArguments(msg)
 
         value = abs(self)
         if min_:

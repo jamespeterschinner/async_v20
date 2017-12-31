@@ -1,8 +1,7 @@
 import ujson as json
 from asyncio import TimeoutError as AsyncTimeOutError
-
-import async_timeout
-
+from async_timeout import timeout
+import logging
 from .response import Response
 from .rest import update_account
 from ..definitions.base import create_attribute
@@ -12,11 +11,15 @@ from ..endpoints.annotations import SinceTransactionID
 from ..endpoints.other_responses import other_responses
 from ..endpoints.pricing import GETPricingStream
 from ..endpoints.transaction import GETTransactionsStream
+from ..exceptions import ResponseTimeout, UnexpectedStatus
+
+from time import time
 
 TRANSACTION = 'transaction'
 HEARTBEAT = 'heartbeat'
 PRICE = 'price'
 
+logger = logging.getLogger(__name__)
 
 def _lookup_schema(endpoint, status):
     try:
@@ -25,7 +28,9 @@ def _lookup_schema(endpoint, status):
         try:
             schema = other_responses[status]  # See if a response status is an error code
         except KeyError:
-            raise ConnectionError(f'Unexpected response status {status}')
+            msg = str(status)
+            logger.error(msg)
+            raise UnexpectedStatus(msg)
         else:
             # Returns False if the status wasn't in the endpoints expected response
             return schema, status, False
@@ -48,15 +53,21 @@ async def _create_response(json_body, endpoint, schema, status, boolean, datetim
     return Response(data, status, boolean, datetime_format)
 
 
-async def _rest_response(self, response, endpoint, enable_rest):
-    async with response as resp:
-        schema, status, boolean = _lookup_schema(endpoint, resp.status)
+async def _rest_response(self, response, endpoint, enable_rest, method_name):
+    try:
+        async with timeout(self.rest_timeout):
+            async with response as resp:
+                schema, status, boolean = _lookup_schema(endpoint, resp.status)
+                # Update client headers.
+                self.default_parameters.update(resp.raw_headers)
+                json_body = await resp.json()
 
-        # Update client headers.
-        self.default_parameters.update(resp.raw_headers)
-        json_body = await resp.json()
-
-    response = await _create_response(json_body, endpoint, schema, status, boolean, self.datetime_format)
+    except AsyncTimeOutError:
+        msg = f'{method_name} took longer than {self.rest_timeout} seconds'
+        logger.error(msg)
+        raise ResponseTimeout(msg)
+    else:
+        response = await _create_response(json_body, endpoint, schema, status, boolean, self.datetime_format)
 
     if response:
         last_transaction_id = getattr(response, 'lastTransactionID', None)
@@ -92,22 +103,25 @@ def _construct_json_body_and_schema(line, schema, endpoint):
     return {key: line}, {key: obj}
 
 
-async def _stream_parser(self, response, endpoint):
+async def _stream_parser(self, response, endpoint, method_name):
     async with response as resp:
         schema, status, boolean = _lookup_schema(endpoint, resp.status)
         while not resp.content.at_eof():
             try:
-                async with async_timeout.timeout(self.stream_timeout):
+                async with timeout(self.stream_timeout):
                     line = json.loads(await resp.content.readline())
-                    json_body, json_schema = _construct_json_body_and_schema(line, schema, endpoint)
-                    yield await _create_response(json_body, endpoint, json_schema, status, boolean, self.datetime_format)
-            except AsyncTimeOutError as e:
-                raise TimeoutError(e)
+            except AsyncTimeOutError:
+                msg = f'{method_name} took longer than {self.stream_timeout} seconds'
+                logger.error(msg)
+                raise ResponseTimeout(msg)
+
+            json_body, json_schema = _construct_json_body_and_schema(line, schema, endpoint)
+            yield await _create_response(json_body, endpoint, json_schema, status, boolean, self.datetime_format)
 
 
-async def parse_response(self, response, endpoint, enable_rest):
+async def parse_response(self, response, endpoint, enable_rest, method_name):
     if endpoint.host in 'REST HEALTH':
-        result = await _rest_response(self, response, endpoint, enable_rest)
+        result = await _rest_response(self, response, endpoint, enable_rest, method_name)
     else:
-        result = _stream_parser(self, response, endpoint)
+        result = _stream_parser(self, response, endpoint, method_name)
     return result

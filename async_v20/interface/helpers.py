@@ -1,9 +1,14 @@
+import logging
 from functools import partial
 from inspect import _empty
 
+import pandas as pd
+
 from ..definitions.base import create_attribute
 from ..definitions.types import OrderRequest
-import pandas as pd
+from ..exceptions import FailedToCreatePath, InvalidOrderRequest
+
+logger = logging.getLogger(__name__)
 
 
 def _in_context(order_request, instrument, clip=False):
@@ -24,8 +29,10 @@ def _in_context(order_request, instrument, clip=False):
                 units=order_request.units.format(
                     instrument.trade_units_precision))
         else:
-            raise ValueError(f'OrderRequest units {order_request.units} '
-                             f'are less than the minimum trade size {instrument.minimum_trade_size}')
+            msg = f'OrderRequest units {order_request.units} ' \
+                  f'are less than the minimum trade size {instrument.minimum_trade_size}'
+            logger.error(msg)
+            raise InvalidOrderRequest(msg)
 
     for attr in ('price', 'price_bound', 'distance'):
         value = getattr(order_request, attr, None)
@@ -61,17 +68,16 @@ def _in_context(order_request, instrument, clip=False):
                         instrument.display_precision))}
             )
         else:
-            raise ValueError(f'Trailing stop loss distance {value.distance} is not within {instrument.name} '
-                             f'specified range {instrument.minimum_trailing_stop_distance} - '
-                             f'{instrument.maximum_trailing_stop_distance}')
+            msg = f'Trailing stop loss distance {value.distance} is not within {instrument.name} ' \
+                  f'specified range {instrument.minimum_trailing_stop_distance} - ' \
+                  f'{instrument.maximum_trailing_stop_distance}'
+            logger.error(msg)
+            raise InvalidOrderRequest(msg)
 
     return order_request.replace(**formatted_attributes)
 
 
-
-
 def _create_request_params(self, endpoint, arguments: dict, param_location: str):
-
     def lookup():
         for typ, (location, name) in endpoint.parameters.items():
             if not location == param_location:
@@ -95,9 +101,9 @@ def _create_request_params(self, endpoint, arguments: dict, param_location: str)
     return dict(lookup())
 
 
-def construct_path(template, arguments, default_arguments):
+def create_url(self, endpoint, arguments):
     path = ''
-    for segment in template:
+    for segment in endpoint.path:
         try:
             path += segment
         except TypeError:  # Need to cast to string as specifier may be an int.
@@ -107,18 +113,13 @@ def construct_path(template, arguments, default_arguments):
             except KeyError:
                 # Means the segment wasn't passed in the arguments
                 try:
-                    path += str(default_arguments[segment])
+                    path += str(self.default_parameters[segment])
                 except KeyError:
                     # Means path can not be constructed
-                    raise ValueError(f'Missing {segment} in arguments in supplied arguments {arguments}')
-    return path
-
-
-def create_url(self, endpoint, arguments):
-    try:
-        path = construct_path(endpoint.path, arguments, self.default_parameters)
-    except ValueError:
-        raise ValueError(f'Unable to construct path for {endpoint}')
+                    msg = f'Could not construct path for {endpoint.__class__.__name__}. ' \
+                          f'{segment} is missing in supplied arguments {arguments}'
+                    logger.error(msg)
+                    raise FailedToCreatePath(msg)
 
     host = self.hosts[endpoint.host]
     return host(path=path)
@@ -156,8 +157,10 @@ def create_body(self, request_schema, arguments):
                                             instrument,
                                             self.format_order_requests)
                     if not instrument and self.format_order_requests:
-                        raise KeyError(f'Could not find {value.instrument} '
-                                       f'in OandaClient.instruments')
+                        msg = f'The instrument specified{value.instrument} ' \
+                              f'is not tradeable by this account'
+                        logger.error(msg)
+                        raise InvalidOrderRequest(msg)
 
                 try:
                     value = value.dict(json=True, datetime_format=self.datetime_format)
@@ -217,7 +220,7 @@ def create_request_kwargs(self, endpoint, arguments):
 
     request_kwargs = {}
     for parameter, value in (
-            ('method',endpoint.method),
+            ('method', endpoint.method),
             ('url', url),
             ('headers', headers),
             ('params', parameters),
@@ -226,8 +229,6 @@ def create_request_kwargs(self, endpoint, arguments):
             continue
         else:
             request_kwargs.update({parameter: value})
-
-
 
     if endpoint.host == 'STREAM':
         request_kwargs.update({'timeout': 0})

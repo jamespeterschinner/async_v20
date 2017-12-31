@@ -2,7 +2,7 @@ import asyncio
 import gzip
 import re
 from inspect import isgenerator
-
+from time import time, sleep
 import pytest
 from aiohttp import web
 
@@ -88,7 +88,6 @@ async def handler(request):
             resp.write(bytes('\n', encoding='utf8'))
             await resp.drain()
             await asyncio.sleep(sleep_time)
-
     await asyncio.sleep(sleep_time)
     return web.Response(body=gzip.compress(bytes(response_data, encoding='utf8')), headers=rest_headers,
                         status=response_status)

@@ -85,7 +85,7 @@ class HealthInterface(object):
     @endpoint(GETCurrentEvent, initialize_required=False)
     def get_current_event(self, service_id: ServiceID):
         """Get the current event for a service
-        
+
         Args:
 
             service_id: :class:`~async_v20.endpoints.annotations.ServiceID`

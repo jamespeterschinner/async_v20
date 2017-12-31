@@ -1,22 +1,22 @@
 from inspect import _empty
 from itertools import starmap, chain
-
+import logging
+from ..exceptions import InvalidValue
+logger = logging.getLogger(__name__)
 
 def domain_check(value, example=None, possible_values=None):
     if example:
-        try:
-            assert len(str(example)) == len(str(value))
-        except (AssertionError, TypeError):
+        if not len(str(example)) == len(str(value)):
             msg = f'{value} does not match length of example {example}'
-            raise ValueError(msg)
+            logger.error(msg)
+            raise InvalidValue(msg)
 
     if possible_values:
-        try:
-            assert value in possible_values
-        except AssertionError:
+        if not value in possible_values:
             possible_values = ', '.join(possible_values)
             msg = f'{value} must be in {possible_values}. Possible values are {possible_values}'
-            raise ValueError(msg)
+            logger.error(msg)
+            raise InvalidValue(msg)
 
     return True
 

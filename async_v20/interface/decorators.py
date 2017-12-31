@@ -1,19 +1,20 @@
 """Module that defines the behaviour of the exposed client method calls by using decorators
 """
-from concurrent.futures._base import TimeoutError as ConcurrentTimeoutError
+import logging
 from functools import wraps
 from inspect import signature
 
 from .helpers import create_request_kwargs, construct_arguments
 from .parser import parse_response
 from ..definitions.helpers import create_doc_signature
-
 from ..endpoints.annotations import SinceTransactionID
+from ..exceptions import ResponseTimeout
+from asyncio import TimeoutError as AsyncTimeOutError
+logger = logging.getLogger(__name__)
 
 
-def endpoint(endpoint, rest=False, initialization_step=False, initialize_required=True):
+def endpoint(endpoint, rest=False, initialize_required=True):
     """Define a method call to be exposed to the user"""
-
 
     def wrapper(method):
         """Take the wrapped method and return a coroutine"""
@@ -29,27 +30,27 @@ def endpoint(endpoint, rest=False, initialization_step=False, initialize_require
         @wraps(method)
         async def wrap(self, *args, **kwargs):
             if initialize_required:
-                await self.initialize(initialization_step)
+                await self.initialize(method.__name__)
             elif not self.session:
                 await self.initialize_session()
 
+            logger.info('%s(args=%s, kwargs=%s)', method.__name__, args, kwargs)
             arguments = construct_arguments(self, sig, *args, **kwargs)
 
             enable_rest = False
             if rest and arguments[SinceTransactionID] == self.default_parameters[SinceTransactionID]:
                 enable_rest = True
 
-
-            request_args = create_request_kwargs(self, endpoint, arguments)
+            request_kwargs = create_request_kwargs(self, endpoint, arguments)
 
             await self._request_limiter()
 
-            response = self.session.request(**request_args)
+            if self.debug:
+                logger.debug('client.session.request(kwargs=%s)', request_kwargs)
+            response = self.session.request(**request_kwargs)
 
-            try:
-                return await parse_response(self, response, endpoint, enable_rest)
-            except ConcurrentTimeoutError:
-                raise TimeoutError(f'{method.__name__} took longer than {self.rest_timeout} seconds')
+            return await parse_response(self, response, endpoint, enable_rest, method.__name__)
+
 
         wrap.__signature__ = sig
 

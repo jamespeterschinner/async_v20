@@ -1,3 +1,4 @@
+import logging
 import ujson as json
 from collections import OrderedDict
 from functools import wraps
@@ -11,6 +12,9 @@ from .attributes import json_attributes
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
 from .primitives import Primitive, Specifier
+from ..exceptions import IncompatibleValue, UnknownValue, InstantiationFailure
+
+logger = logging.getLogger(__name__)
 
 
 def arg_parse(new: classmethod, signature=Signature) -> classmethod:
@@ -33,8 +37,10 @@ def arg_parse(new: classmethod, signature=Signature) -> classmethod:
             value = kwargs.pop(argument, None)
             if value is not None:
                 if not value == preset_value:
-                    raise ValueError(f'CLASS {cls.__name__}.{argument}'
-                                     f' MUST == {preset_value} NOT {value}')
+                    msg = f'CLASS {cls.__name__}.{argument}' \
+                          f' MUST == {preset_value} NOT {value}'
+                    logger.error(msg)
+                    raise IncompatibleValue(msg)
 
         def format():
             for name, value in kwargs.items():
@@ -43,9 +49,11 @@ def arg_parse(new: classmethod, signature=Signature) -> classmethod:
                 except KeyError:
                     possible_arguments = ', '.join(param.name for param in signature.parameters.values()
                                                    if param.name != 'cls')
-                    raise ValueError(f'`{name}` is not a valid keyword argument. '
-                                     f'Possible arguments for class {cls.__name__} '
-                                     f'include: {possible_arguments}')
+                    msg = f'`{name}` is not a valid keyword argument. ' \
+                          f'Possible arguments for class {cls.__name__} ' \
+                          f'include: {possible_arguments}'
+                    logger.error(msg)
+                    raise UnknownValue(msg)
 
         return new(cls, *args, **dict(format()))
 
@@ -201,7 +209,6 @@ class Model(tuple, metaclass=ORM):
             accuracy: - int: The accuracy to round PriceValues to.
         """
 
-
         def fields():
 
             for field in self._fields:
@@ -287,9 +294,11 @@ class Array(tuple):
 
         try:
             instance = super().__new__(cls, construct_items(data))
-        except (TypeError, ValueError):
-            msg = f'FAILED TO CREATE OBJECT: {cls.__name__} FROM DATA: {data} DATA TYPE: {type(data)}'
-            raise ValueError(msg)
+
+        except (TypeError, UnknownValue, ValueError):
+            msg = f'Could not create {cls.__name__}. DATA: {data}, TYPE: {type(data)}'
+            logger.exception(msg)
+            raise InstantiationFailure(msg)
         else:
             instance._ids = _ids
             instance._instruments = dict(_instruments)
@@ -319,11 +328,15 @@ def create_attribute(typ, data):
             result = typ(**data)
         elif isinstance(data, Specifier):
             if not issubclass(typ, Specifier):
-                raise TypeError(f'{data} must be a {Specifier} is {type(data)}')
+                msg= f'{data} must be a {Specifier} is {type(data)}'
+                logger.error(msg)
+                raise IncompatibleValue(msg)
             result = typ(data)
         elif isinstance(data, (Model, Array, Primitive)):
             if not issubclass(type(data), typ):
-                raise TypeError(f'{data} must be of type {typ} is {type(data)}')
+                msg = f'{data} must be of type {typ} is {type(data)}'
+                logger.error(msg)
+                raise IncompatibleValue(msg)
             result = data
         elif isinstance(data, (tuple, list)):
             result = typ(*data)
@@ -335,6 +348,8 @@ def create_attribute(typ, data):
         # when an error code has been returned
         # A none value should be returned if this is the case
         if typ is not None:
-            raise TypeError(f'Could note create {typ} from {data}. {type(data)}')
+            msg = f'Could note create {typ}. DATA: {data}, TYPE: {type(data)}'
+            logger.error(msg)
+            raise InstantiationFailure(msg)
     else:
         return result

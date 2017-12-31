@@ -7,7 +7,7 @@ from async_v20 import OandaClient
 from tests.test_definitions.helpers import get_valid_primitive_data
 from ..fixtures import server as server_module
 from ..fixtures.client import client
-
+from async_v20.exceptions import UnexpectedStatus
 client = client
 server = server_module.server
 received = server_module.received
@@ -26,7 +26,7 @@ async def test_client_initializes_automatically_with_every_api_method(method, se
     method = getattr(client, method[0])
     try:
         resp = await method(*data)
-    except (KeyError, ServerDisconnectedError, ContentTypeError, AttributeError, ConnectionError):
+    except (KeyError, ServerDisconnectedError, ContentTypeError, AttributeError, UnexpectedStatus):
         pass  # Caused by incorrect response status being returned
         # Server not keeping a data stream open
         # Response Not containing expected data

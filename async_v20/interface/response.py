@@ -1,6 +1,9 @@
 import ujson as json
+import logging
 from ..definitions.base import Specifier
 import pandas as pd
+
+logger = logging.getLogger(__name__)
 
 class Response(dict):
     """A response from OANDA.
@@ -28,7 +31,9 @@ class Response(dict):
         try:
             return self[name]
         except KeyError:
-            raise AttributeError("No such attribute: " + name)
+            msg = f'No such attribute `{name}`'
+            logger.exception(msg)
+            raise AttributeError(msg)
 
     def dict(self, json=False, datetime_format=None):
         """Convert the response to a nested dictionary

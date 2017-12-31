@@ -17,6 +17,10 @@ from .fixtures import server as server_module
 from .fixtures.client import client
 from .fixtures.static import close_all_trades_response
 from .test_definitions.helpers import get_valid_primitive_data
+from async_v20.exceptions import InitializationFailure
+from async_v20.exceptions import ResponseTimeout
+from async_v20.exceptions import CloseAllTradesFailure
+from async_v20.exceptions import UnexpectedStatus
 
 # prevent pycharm from removing the import
 client = client
@@ -63,7 +67,7 @@ error_status = [i for i in range(400, 600)]
 @pytest.mark.parametrize('error_status', error_status)
 async def test_client_raises_error_on_first_initialisation_failure(client, server, error_status):
     server_module.status = 400
-    with pytest.raises(ConnectionError):
+    with pytest.raises(InitializationFailure):
         await client.initialize()
     assert client.initialized == False
     assert client.initializing == False
@@ -73,7 +77,7 @@ async def test_client_raises_error_on_first_initialisation_failure(client, serve
 @pytest.mark.parametrize('error_status', error_status)
 async def test_client_raises_error_on_second_initialisation_failure(client, server, error_status):
     server_module.status = iter([200, 400])
-    with pytest.raises(ConnectionError):
+    with pytest.raises(InitializationFailure):
         await client.initialize()
     assert client.initialized == False
     assert client.initializing == False
@@ -83,7 +87,7 @@ async def test_client_raises_error_on_second_initialisation_failure(client, serv
 @pytest.mark.parametrize('error_status', error_status)
 async def test_client_raises_error_on_third_initialisation_failure(client, server, error_status):
     server_module.status = iter([200, 200, 400])
-    with pytest.raises(ConnectionError):
+    with pytest.raises(InitializationFailure):
         await client.initialize()
     assert client.initialized == False
     assert client.initializing == False
@@ -135,13 +139,6 @@ async def test_response_returns_json(client, server):
     assert account_details.dict()
     assert pricing.dict()
 
-
-@pytest.mark.asyncio
-async def test_enter_causes_warning(client, server, capsys):
-    with client as client:
-        assert capsys.readouterr()[0] == 'Warning: <with> used rather than <async with>\n'
-
-
 def test_client_request_limiter_minimum_value(client):
     client.max_requests_per_second = 0
     assert client.max_requests_per_second == 1
@@ -162,11 +159,11 @@ async def test_request_limiter_limits(client, server, event_loop):
 
 @pytest.mark.asyncio
 async def test_client_time_out(client, server):
-    server_module.sleep_time = 10
-    client.rest_timeout = 0.1
-    with pytest.raises(TimeoutError):
+    with pytest.raises(ResponseTimeout):
         async with client as client:
-            pass
+            server_module.sleep_time = 2
+            client.rest_timeout = 0.1
+            await client.get_account_details()
 
 
 @pytest.mark.asyncio
@@ -181,7 +178,7 @@ async def test_client_handles_multiple_concurrent_initializations(client, server
     method = getattr(client, method[0])
     try:
         await asyncio.gather(*[method(*data) for _ in range(5)])
-    except (AttributeError, ConnectionError, ContentTypeError):
+    except (UnexpectedStatus, ContentTypeError, AttributeError):
         # Don't care if incorrect data or status is returned)
         # Just want to make sure the client always initializes correctly
         pass
@@ -240,7 +237,7 @@ async def test_close_all_trades_returns_true_when_trades_are_closed(client, serv
 async def test_close_all_trades_error_first_list_trades_request(client, server):
     async with client as client:
         server_module.status = 401
-        with pytest.raises(ConnectionError):
+        with pytest.raises(CloseAllTradesFailure):
             response = await client.close_all_trades()
 
 
@@ -252,14 +249,14 @@ async def test_close_all_trades_error_second_list_trades_request(client, server)
     server_status = (i for i in chain((200,), (200 for _ in range(len(close_all_trades_response))), (400,)))
     async with client as client:
         server_module.status = server_status
-        with pytest.raises(ConnectionError):
+        with pytest.raises(CloseAllTradesFailure):
             response = await client.close_all_trades()
 
 
 @pytest.mark.asyncio
 async def test_initialize_timeout_resets_initialization(client, server):
-    with pytest.raises(TimeoutError):
-        server_module.sleep_time = 10
+    with pytest.raises(InitializationFailure):
+        server_module.sleep_time = 2
         client.rest_timeout = 0.1
         async with client as client:
             assert client.initializing == False
@@ -268,7 +265,7 @@ async def test_initialize_timeout_resets_initialization(client, server):
 
 @pytest.mark.asyncio
 async def test_initialize_connection_error_resets_initialization(client, server):
-    with pytest.raises(ConnectionError):
+    with pytest.raises(InitializationFailure):
         server_module.status = 400
         async with client as client:
             assert client.initializing == False

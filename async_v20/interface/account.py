@@ -9,7 +9,7 @@ __all__ = ['AccountInterface']
 
 
 class AccountInterface(object):
-    @endpoint(GETAccounts, initialization_step=1)
+    @endpoint(GETAccounts)
     def list_accounts(self):
         """Get a list of all Accounts authorized for the provided token.
 
@@ -22,7 +22,7 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountID, initialization_step=2)
+    @endpoint(GETAccountID)
     def get_account_details(self):
         """
         Get the full details for a single Account that a client has access to.
@@ -52,7 +52,7 @@ class AccountInterface(object):
         """
         pass
 
-    @endpoint(GETAccountIDInstruments, initialization_step=3)
+    @endpoint(GETAccountIDInstruments)
     def account_instruments(self, instruments: Instruments = ...):
         """
         Get the list of tradeable instruments for the given Account. The list

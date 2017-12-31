@@ -18,6 +18,7 @@ from tests.fixtures import server as server_module
 from tests.fixtures.client import client
 from tests.fixtures.static import account_changes_response
 from tests.test_interface.helpers import order_dict
+from async_v20.exceptions import ResponseTimeout, UnexpectedStatus
 
 client = client
 server = server_module.server
@@ -49,7 +50,8 @@ def rest_response():
 
 @pytest.mark.asyncio
 async def test_rest_response_builds_account_object_from_json_response(client, rest_response):
-    result = await _rest_response(client, rest_response(GETAccountID_response), GETAccountID, enable_rest=False)
+    result = await _rest_response(client, rest_response(GETAccountID_response), GETAccountID, enable_rest=False,
+                                  method_name='test_method')
     # Ensure the result contains an 'account'
     assert 'account' in result
     # Ensure that 'account' is indeed an Account
@@ -65,7 +67,7 @@ async def test_rest_response_builds_account_object_from_json_response(client, re
 @pytest.mark.asyncio
 async def test_rest_response_builds_account_summary_from_json_response(client, rest_response):
     result = await _rest_response(client, rest_response(GETAccountIDSummary_response), GETAccountIDSummary,
-                                  enable_rest=False)
+                                  enable_rest=False, method_name='test_method')
     # Ensure the result contains an 'account'
     assert 'account' in result
     # Ensure that 'account' is indeed an Account
@@ -84,7 +86,8 @@ def test_array_object_creates_tuple_of_objects():
 
 @pytest.mark.asyncio
 async def test_rest_response_builds_array_account_properties(client, rest_response):
-    result = await _rest_response(client, rest_response(GETAccounts_response), GETAccounts, enable_rest=False)
+    result = await _rest_response(client, rest_response(GETAccounts_response), GETAccounts, enable_rest=False,
+                                  method_name='test_method')
     # Ensure the result contains an 'account'
     print(result)
     assert 'accounts' in result
@@ -95,7 +98,8 @@ async def test_rest_response_builds_array_account_properties(client, rest_respon
 
 @pytest.mark.asyncio
 async def test_rest_response_updates_client_default_parameters(client, rest_response):
-    await _rest_response(client, rest_response(GETAccountID_response), GETAccountID, enable_rest=False)
+    await _rest_response(client, rest_response(GETAccountID_response), GETAccountID, enable_rest=False,
+                         method_name='test_method')
     # Ensure default_parameters is updated
     assert client.default_parameters[LastTransactionID] == 14
 
@@ -128,7 +132,7 @@ async def test_parser_returns_correct_boolean_for_response(client, server):
 @pytest.mark.asyncio
 async def test_parser_raises_connection_error_with_bad_http_status(client, server):
     server_module.status = 500
-    with pytest.raises(ConnectionError):
+    with pytest.raises(UnexpectedStatus):
         async with client as client:
             pass
 
@@ -156,7 +160,7 @@ async def test_stream_parser_raises_timeout_error(client, server):
         client.stream_timeout = 0.1
         items = 3
         async with async_timeout.timeout(items * client.stream_timeout + 1):
-            with pytest.raises(TimeoutError):
+            with pytest.raises(ResponseTimeout):
                 async for obj in await client.stream_pricing('AUD_USD'):
                     items -= 1
                     print(obj)

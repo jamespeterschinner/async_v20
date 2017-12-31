@@ -10,7 +10,7 @@ from ..data.json_data import GETAccountID_response, example_trade_summary, examp
 from ..data.json_data import example_transactions, example_positions, example_instruments
 from ..fixtures.client import client
 from ..fixtures.server import server
-
+from async_v20.exceptions import InstantiationFailure, IncompatibleValue
 from pandas import DataFrame
 import pandas as pd
 import numpy as np
@@ -126,19 +126,19 @@ def test_series_converts_time_to_datetime(account):
         assert isinstance(value, (float, str, int, list, type(None), Timestamp))
 
 
-def test_array_returns_type_error():
+def test_array_returns_instantiation_error():
     class ArrayTest(Array):
         _contains = int
 
-    with pytest.raises(ValueError):
+    with pytest.raises(InstantiationFailure):
         ArrayTest('ABC', 'DEF')
 
 
-def test_create_attribute_returns_type_error():
-    with pytest.raises(TypeError):
+def test_create_attribute_returns_incompatible_error():
+    with pytest.raises(IncompatibleValue):
         create_attribute(AccountID, TradeID(123))
 
-    with pytest.raises(TypeError):
+    with pytest.raises(IncompatibleValue):
         create_attribute(ArrayStr, TradeID(123))
 
 
