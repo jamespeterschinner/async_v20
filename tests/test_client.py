@@ -12,7 +12,7 @@ from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
 from async_v20.endpoints.annotations import Authorization
 from .fixtures import all_trades_open_closed
-from .fixtures import changes_response_two
+from .fixtures import changes_response_two, services_down
 from .fixtures import server as server_module
 from .fixtures.client import client
 from .fixtures.static import close_all_trades_response
@@ -27,6 +27,8 @@ client = client
 server = server_module.server
 changes_response_two = changes_response_two
 all_trades_open_closed = all_trades_open_closed
+services_down = services_down
+import logging
 
 
 def test_oanda_client_finds_token():
@@ -65,17 +67,7 @@ error_status = [i for i in range(400, 600)]
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
-async def test_client_raises_error_on_first_initialisation_failure(client, server, error_status):
-    server_module.status = 400
-    with pytest.raises(InitializationFailure):
-        await client.initialize()
-    assert client.initialized == False
-    assert client.initializing == False
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize('error_status', error_status)
-async def test_client_raises_error_on_second_initialisation_failure(client, server, error_status):
+async def test_client_raises_error_on_list_accounts_failure(client, server, error_status):
     server_module.status = iter([200, 400])
     with pytest.raises(InitializationFailure):
         await client.initialize()
@@ -85,8 +77,18 @@ async def test_client_raises_error_on_second_initialisation_failure(client, serv
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
-async def test_client_raises_error_on_third_initialisation_failure(client, server, error_status):
-    server_module.status = iter([200, 200, 400])
+async def test_client_raises_error_on_get_account_details_failure(client, server, error_status):
+    server_module.status = iter([200,200, 400])
+    with pytest.raises(InitializationFailure):
+        await client.initialize()
+    assert client.initialized == False
+    assert client.initializing == False
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('error_status', error_status)
+async def test_client_raises_error_on_get_instruments_failure(client, server, error_status):
+    server_module.status = iter([200, 200, 200, 400])
     with pytest.raises(InitializationFailure):
         await client.initialize()
     assert client.initialized == False
@@ -206,31 +208,16 @@ async def test_max_transaction_history_limits(client, server, changes_response_t
 
 
 @pytest.mark.asyncio
-async def test_close_all_trades_returns_false_when_trades_are_open(client, server):
+async def test_close_all_trades_closes_all_trades(client, server, all_trades_open_closed):
     """Test that calling closed trades closes all trades"""
     async with client as client:
-        trades_response = await client.list_open_trades()
-        result, close_responses = await client.close_all_trades()
-        closed_trades = {i.orderFillTransaction.trades_closed[0].trade_id: i.json()
-                         for i in close_responses}
-        for trade in trades_response.trades:
-            assert trade.id in closed_trades
-        # close_all_trades checks that no trades are open after giving the close command
-        # Due to the mocked test server, not reflecting the closed state. result should
-        # be false indicating that not all trades were closed
-        assert result == False
-
+        close_responses = await client.close_all_trades()
 
 @pytest.mark.asyncio
-async def test_close_all_trades_returns_true_when_trades_are_closed(client, server, all_trades_open_closed):
-    """Test that calling closed trades closes all trades"""
-
-    # all_trades_open_closed fixture mocks changing server response
-    # to closing all trades
-    server_module.routes.update()
+async def test_close_all_trades_raise_error_when_trades_are_still_open(client, server):
     async with client as client:
-        result, close_responses = await client.close_all_trades()
-        assert result == True
+        with pytest.raises(CloseAllTradesFailure):
+            close_responses = await client.close_all_trades()
 
 
 @pytest.mark.asyncio
@@ -275,3 +262,43 @@ async def test_initialize_connection_error_resets_initialization(client, server)
 def test_can_not_change_datetime_format_on_oanda_client_instance(client):
     with pytest.raises(AttributeError):
         client.datetime_format = 'RFC3339'
+
+
+@pytest.mark.asyncio
+async def test_logger_captures_request_wait_time_when_in_debug(client, server, capsys):
+    logger = logging.getLogger('async_v20')
+    logger.addHandler(logging.StreamHandler())
+    logger.setLevel(logging.DEBUG)
+    async with client as client:
+        client.debug = True
+        await asyncio.gather(*[
+            client.account() for _ in range(30)
+        ])
+
+    assert 'Request waiting' in capsys.readouterr()[1]
+
+
+@pytest.mark.asyncio
+async def test_logger_captures_when_sync_context_is_used(client, server, capsys):
+    logger = logging.getLogger('async_v20')
+    logger.addHandler(logging.StreamHandler())
+    logger.setLevel(logging.DEBUG)
+    with client as client:
+        pass
+
+    assert '<with> used rather than <async with>' in capsys.readouterr()[1]
+
+@pytest.mark.asyncio
+async def test_logger_warning_when_services_are_down(client, server, capsys, services_down):
+    logger = logging.getLogger('async_v20')
+    logger.addHandler(logging.StreamHandler())
+    logger.setLevel(logging.DEBUG)
+
+    async with client as client:
+        await client.account()
+    err = capsys.readouterr()[1]
+    for msg in ('fxTrade Practice REST API Service is running without issue',
+                'fxTrade Practice Streaming API Service is running without issue',
+                'fxTrade REST API Service is running without issue',
+                'fxTrade Streaming API Service is running without issue'):
+        assert msg in err

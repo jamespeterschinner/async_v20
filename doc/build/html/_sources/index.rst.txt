@@ -119,5 +119,7 @@ Contents
    types
    primitives
    annotations
+   exceptions
+   logging
    glossary
 

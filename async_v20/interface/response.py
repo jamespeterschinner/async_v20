@@ -32,7 +32,6 @@ class Response(dict):
             return self[name]
         except KeyError:
             msg = f'No such attribute `{name}`'
-            logger.exception(msg)
             raise AttributeError(msg)
 
     def dict(self, json=False, datetime_format=None):

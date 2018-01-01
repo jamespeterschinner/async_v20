@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>OandaClient API &#8212; async_v20 5.0.3b0 documentation</title>
+    <title>OandaClient API &#8212; async_v20 6.0.0b0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '5.0.3b0',
+        VERSION:     '6.0.0b0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -51,7 +51,7 @@ if no token is passed</p>
 <span id="id1"></span><h2>OandaClient<a class="headerlink" href="#oandaclient" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="async_v20.OandaClient">
-<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>format_order_requests=False</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>health_host='api-status.oanda.com'</em>, <em>health_port=80</em>, <em>health_scheme='http'</em>, <em>datetime_format='UNIX'</em>, <em>rest_timeout=10</em>, <em>stream_timeout=60</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em>, <em>loop=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">async_v20.</code><code class="descname">OandaClient</code><span class="sig-paren">(</span><em>token=None</em>, <em>account_id=None</em>, <em>format_order_requests=False</em>, <em>max_transaction_history=100</em>, <em>rest_host='api-fxpractice.oanda.com'</em>, <em>rest_port=443</em>, <em>rest_scheme='https'</em>, <em>stream_host='stream-fxpractice.oanda.com'</em>, <em>stream_port=None</em>, <em>stream_scheme='https'</em>, <em>health_host='api-status.oanda.com'</em>, <em>health_port=80</em>, <em>health_scheme='http'</em>, <em>datetime_format='UNIX'</em>, <em>rest_timeout=10</em>, <em>stream_timeout=60</em>, <em>max_requests_per_second=99</em>, <em>max_simultaneous_connections=10</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/async_v20/client.html#OandaClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#async_v20.OandaClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.account.AccountInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.instrument.InstrumentInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.order.OrderInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.position.PositionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.pricing.PricingInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.trade.TradeInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.transaction.TransactionInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.user.UserInterface</span></code>, <code class="xref py py-class docutils literal"><span class="pre">async_v20.interface.health.HealthInterface</span></code></p>
 <p>Create an API context for v20 access</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -69,14 +69,22 @@ raise ValueError for values outside of allowed range.</li>
 <li><strong>rest_port</strong> – – The port of the v20 REST server</li>
 <li><strong>stream_host</strong> – – The hostname of the v20 REST server</li>
 <li><strong>stream_port</strong> – – The port of the v20 REST server</li>
-<li><strong>rest_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
-<li><strong>stream_scheme</strong> – – The scheme of the connection. Defaults to ‘https’</li>
+<li><strong>rest_scheme</strong> – – The scheme of the connection to rest server.
+Defaults to ‘https’</li>
+<li><strong>stream_scheme</strong> – – The scheme of the connection to the stream server.
+Defaults to ‘https’</li>
+<li><strong>health_host</strong> – – The hostname of the health API server</li>
+<li><strong>health_port</strong> – – The port of the health server</li>
+<li><strong>health_scheme</strong> – – The scheme of the connection for the health server.
+Defaults to ‘http’</li>
 <li><strong>datetime_format</strong> – – The format to request when dealing with times</li>
 <li><strong>rest_timeout</strong> – – The timeout to use when making a polling request with
 the v20 REST server</li>
 <li><strong>stream_timeout</strong> – – period to wait for an new json object during streaming</li>
 <li><strong>max_requests_per_second</strong> – – Maximum HTTP requests sent per second</li>
 <li><strong>max_simultaneous_connections</strong> – – Maximum concurrent HTTP requests</li>
+<li><strong>debug</strong> – – Default=False. Set to True to log debug messages.
+Disabled by default to reduce overhead</li>
 </ul>
 </td>
 </tr>
@@ -2451,22 +2459,15 @@ The User Specifier</td>
 <dl class="method">
 <dt id="async_v20.OandaClient.get_current_event">
 <code class="descclassname">OandaClient.</code><code class="descname">get_current_event</code><span class="sig-paren">(</span><em>self</em>, <em>service_id: ServiceID</em><span class="sig-paren">)</span><a class="headerlink" href="#async_v20.OandaClient.get_current_event" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Get the current event for a service</dt>
-<dd><p class="first">Args:</p>
-<blockquote class="last">
-<div><dl class="docutils">
-<dt>service_id: <code class="xref py py-class docutils literal"><span class="pre">ServiceID</span></code></dt>
-<dd>The service to get the current event for</dd>
-</dl>
-</div></blockquote>
-</dd>
-</dl>
+<dd><p>Get the current event for a service</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>service_id</strong> – <code class="xref py py-class docutils literal"><span class="pre">ServiceID</span></code>
+The service to get the current event for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
 <dt>status [200]</dt>
 <dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
 (Event= <code class="xref py py-class docutils literal"><span class="pre">Event</span></code>)</dd>
@@ -2643,7 +2644,7 @@ The service to get events for.</td>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
 <dt>status [200]</dt>
 <dd><a class="reference internal" href="response.html#async_v20.interface.response.Response" title="async_v20.interface.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Response</span></code></a>
-(services= <code class="xref py py-class docutils literal"><span class="pre">ArrayService</span></code>)</dd>
+(services=( <code class="xref py py-class docutils literal"><span class="pre">Service</span></code>, …))</dd>
 </dl>
 </td>
 </tr>
@@ -2715,6 +2716,8 @@ The service to get events for.</td>
 <li class="toctree-l1"><a class="reference internal" href="types.html">Class Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="primitives.html">Primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="annotations.html">Annotations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 

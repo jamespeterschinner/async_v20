@@ -199,7 +199,6 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # - return close trade responses and successful/unsuccessful
 
         logger.info('close_all_trades()')
-        all_trades_closed = False
         response = await self.list_open_trades()
         if response:
             close_trade_responses = await asyncio.gather(*[self.close_trade(trade.id)
@@ -211,16 +210,15 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             raise CloseAllTradesFailure(msg)
         # After closing all trades check that all trades have indeed been closed
         response = await self.list_open_trades()
-        if response:
-            if len(response.trades) == 0:
-                all_trades_closed = True
+        if response and len(response.trades) == 0:
+            pass
         else:
             msg = f'Unable to confirm all trades have been closed! ' \
                   f'Server returned status {response.status}'
             logger.error(msg)
             raise CloseAllTradesFailure(msg)
 
-        return all_trades_closed, close_trade_responses
+        return close_trade_responses
 
     async def _request_limiter(self):
         """Wait for a minimum time interval before creating new request"""
@@ -305,12 +303,10 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 if response:
                     for service in response.services:
                         if service.current_event.status.name != 'Up':
-                            warnings.warn(f'{service.name} {service.current_event.message}')
+                            logger.warning(f'{service.name} {service.current_event.message}')
                 else:
                     logging.warning('Server did not return available services')
                     print(response.json())
-                if not self.session:
-                    await self.initialize_session()
 
                 # Get the first account listed in in accounts.
                 # If another is desired the account must be configured
