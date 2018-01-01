@@ -223,3 +223,5 @@ Added attributes to TradeSummary:
   response now contains 'price' or 'heartbeat'. Like wise stream_transactions() now returns
   'transaction' or 'heartbeat'. This has been done to standardise access to the transaction
   stream response and 'heartbeat' objects. Due to the different types these objects may take.
+- Added async_v20.exceptions module
+- Added logging 

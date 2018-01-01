@@ -72,8 +72,8 @@ def tool_tip(init, signature):
 
 
 class ORM(type):
-    def __init__(self, *args, **kwargs):
-        super().__init__(self)
+    def __init__(cls, *args, **kwargs):
+        super().__init__(cls)
 
     def __new__(mcs, *args, **kwargs):
 
@@ -206,7 +206,6 @@ class Model(tuple, metaclass=ORM):
         Args:
             json: - bool. True converts dict keys into JSON format
             datetime_format: - str. convert pd.Timestamps to desired format
-            accuracy: - int: The accuracy to round PriceValues to.
         """
 
         def fields():
