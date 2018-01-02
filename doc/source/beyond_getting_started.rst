@@ -41,7 +41,7 @@ Why is this useful?
     - Prevents you from importing required class' and instantiating them manually
     - HTTP requests are formatted based upon the objects the endpoint accepts. See :ref:`passing-arguments`
     - The base class :class:`~async_v20.definitions.base.Model` will convert the object into valid :term:`JSON`
-    - Invalid arguments will raise :class:`ValueError` catching mistakes earlier
+    - Invalid arguments will raise :class:`~async_v20.exceptions.InvalidValue` catching mistakes earlier
     - Provides flexibility when passing arguments
 
 Here is an Example
