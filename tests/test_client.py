@@ -270,9 +270,10 @@ async def test_logger_captures_request_wait_time_when_in_debug(client, server, c
     logger.addHandler(logging.StreamHandler())
     logger.setLevel(logging.DEBUG)
     async with client as client:
+        client.max_requests_per_second = 1
         client.debug = True
         await asyncio.gather(*[
-            client.account() for _ in range(30)
+            client.account() for _ in range(2)
         ])
 
     assert 'Request waiting' in capsys.readouterr()[1]
