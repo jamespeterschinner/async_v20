@@ -78,7 +78,7 @@ class HealthInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (lists= :class:`~async_v20.definitions.health_types.ServiceList`)
+                (lists=( :class:`~async_v20.definitions.health_types.Event`,...))
         """
         pass
 
