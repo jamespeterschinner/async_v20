@@ -135,6 +135,6 @@ class TransactionInterface(object):
 
 
                 :class:`~async_v20.interface.response.Response`
-                (transactionHeartbeat= :class:`~async_v20.definitions.types.TransactionHeartbeat`)
+                (Heartbeat= :class:`~async_v20.definitions.types.TransactionHeartbeat`)
         """
         pass

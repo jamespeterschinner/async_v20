@@ -62,12 +62,12 @@ class PricingInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (PRICE= :class:`~async_v20.definitions.types.Price`)
+                (price= :class:`~async_v20.definitions.types.Price`)
 
                 **OR**
 
                 :class:`~async_v20.interface.response.Response`
-                (HEARTBEAT= :class:`~async_v20.definitions.types.PricingHeartbeat`)
+                (heartbeat= :class:`~async_v20.definitions.types.PricingHeartbeat`)
 
 
         """
