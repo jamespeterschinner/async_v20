@@ -224,4 +224,4 @@ Added attributes to TradeSummary:
   'transaction' or 'heartbeat'. This has been done to standardise access to the transaction
   stream response and 'heartbeat' objects. Due to the different types these objects may take.
 - Added async_v20.exceptions module
-- Added logging 
+- Added logging to modules

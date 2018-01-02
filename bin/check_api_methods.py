@@ -165,7 +165,9 @@ for response in rsp:
 for instrument, units in positions.items():
     assert account.positions.get_instrument(instrument).long.units == units
 
-assert len(trades) == len(account.trades)
+rsp = run(client.list_open_trades())[0]
+
+assert len(rsp.trades) == len(account.trades)
 
 print(run(client.close_all_trades()))
 

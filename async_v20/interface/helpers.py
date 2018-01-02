@@ -11,7 +11,7 @@ from ..exceptions import FailedToCreatePath, InvalidOrderRequest
 logger = logging.getLogger(__name__)
 
 
-def _in_context(order_request, instrument, clip=False):
+def _format_order_request(order_request, instrument, clip=False):
     """Ensure the order request is formatted as per the instrument specification
     """
 
@@ -153,9 +153,9 @@ def create_body(self, request_schema, arguments):
                 if isinstance(value, OrderRequest):
                     instrument = self.instruments.get_instrument(value.instrument)
                     if instrument:
-                        value = _in_context(value,
-                                            instrument,
-                                            self.format_order_requests)
+                        value = _format_order_request(value,
+                                                      instrument,
+                                                      self.format_order_requests)
                     if not instrument and self.format_order_requests:
                         msg = f'The instrument specified{value.instrument} ' \
                               f'is not tradeable by this account'

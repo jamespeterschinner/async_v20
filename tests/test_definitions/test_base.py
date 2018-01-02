@@ -198,3 +198,7 @@ async def test_array_dataframe_converts_datetimes_to_correct_type(client, server
     assert len(str(df.time[0])) == 30
 
     assert type(df) == DataFrame
+
+def test_create_attribute_raises_error_when_unable_to_construct_type():
+    with pytest.raises(InstantiationFailure):
+        attribute = create_attribute(int, 'This is not an int')

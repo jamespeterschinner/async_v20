@@ -1,10 +1,10 @@
 import asyncio
 
 from async_v20 import OandaClient
-from async_v20.definitions.types import MarketOrder
+from async_v20.definitions.types import MarketOrderRequest
 
 # Create an order to place
-order = MarketOrder('AUD_USD', 1)
+order = MarketOrderRequest('AUD_USD', 1)
 
 
 async def account():

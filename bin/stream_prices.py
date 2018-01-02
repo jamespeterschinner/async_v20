@@ -5,10 +5,8 @@ from async_v20 import OandaClient
 
 async def stream(instruments):
     async with OandaClient() as client:
-        async for data in await client.stream_pricing(instruments):
-            price = data.get('PRICE', None)
-            if price:
-                print(price.series())
+        async for rsp in await client.stream_pricing(instruments):
+            print(rsp.dict(json=True))
 
 
 loop = asyncio.get_event_loop()

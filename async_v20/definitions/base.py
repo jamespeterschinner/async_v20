@@ -291,17 +291,10 @@ class Array(tuple):
                         _instruments.update({key: index})
                 yield item
 
-        try:
-            instance = super().__new__(cls, construct_items(data))
-
-        except (TypeError, UnknownValue, ValueError):
-            msg = f'Could not create {cls.__name__}. DATA: {data}, TYPE: {type(data)}'
-            logger.exception(msg)
-            raise InstantiationFailure(msg)
-        else:
-            instance._ids = _ids
-            instance._instruments = dict(_instruments)
-            return instance
+        instance = super().__new__(cls, construct_items(data))
+        instance._ids = _ids
+        instance._instruments = dict(_instruments)
+        return instance
 
     def get_id(self, id_, default=None):
         try:
@@ -341,7 +334,7 @@ def create_attribute(typ, data):
             result = typ(*data)
         else:
             result = typ(data)
-    except TypeError as e:
+    except (TypeError, ValueError, UnknownValue):
         # This error handling is required when there is no
         # schema available to parse the data. Typically
         # when an error code has been returned

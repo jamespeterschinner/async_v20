@@ -371,3 +371,15 @@ example_market_order_reject_transaction = {'type': 'MARKET_ORDER_REJECT',
                                            'id': '7158', 'userID': 6557245, 'accountID': '123-123-1234567-123',
                                            'batchID': '7157', 'requestID': '24359106208214028',
                                            'time': '1512696194.488775774'}
+
+stream_transaction_heartbeat = {'type': 'HEARTBEAT', 'lastTransactionID': '16388', 'time': '1514852380.912339327'}
+stream_transaction = {'id': '16389', 'time': '1514852381.353432710', 'userID': 6557245,
+                      'accountID': '101-011-6557245-001',
+                      'batchID': '16389', 'requestID': '24368149911764854', 'type': 'MARKET_ORDER',
+                      'reason': 'CLIENT_ORDER', 'timeInForce': 'FOK', 'instrument': 'AUD_USD', 'units': '1.0',
+                      'positionFill': 'DEFAULT'}
+stream_price_heartbeat = {'type': 'HEARTBEAT', 'time': '1514852538.463703935'}
+stream_price = {'type': 'PRICE', 'instrument': 'EUR_USD', 'time': '1514852541.189833163', 'status': 'tradeable',
+                'tradeable': True, 'bids': [{'price': '1.20165', 'liquidity': 10000000}],
+                'asks': [{'price': '1.2018', 'liquidity': 10000000}], 'closeoutBid': '1.2015',
+                'closeoutAsk': '1.20195'}

@@ -7,6 +7,8 @@ from async_v20.definitions.types import Position
 from async_v20.endpoints.account import GETAccountID, GETAccountIDSummary, GETAccounts
 from async_v20.endpoints.annotations import SinceTransactionID, LastTransactionID
 from async_v20.endpoints.instrument import GETInstrumentsCandles
+from async_v20.exceptions import ResponseTimeout, UnexpectedStatus
+from async_v20.interface.parser import _construct_json_body_and_schema
 from async_v20.interface.parser import _create_response
 from async_v20.interface.parser import _lookup_schema
 from async_v20.interface.parser import _rest_response
@@ -14,11 +16,20 @@ from tests.data.json_data import GETAccountIDSummary_response
 from tests.data.json_data import GETAccountID_response
 from tests.data.json_data import GETAccounts_response
 from tests.data.json_data import GETInstrumentsCandles_response
+from tests.data.json_data import stream_price
+from tests.data.json_data import stream_price_heartbeat
+from tests.data.json_data import stream_transaction
+from tests.data.json_data import stream_transaction_heartbeat
 from tests.fixtures import server as server_module
 from tests.fixtures.client import client
 from tests.fixtures.static import account_changes_response
 from tests.test_interface.helpers import order_dict
-from async_v20.exceptions import ResponseTimeout, UnexpectedStatus
+from async_v20.endpoints.pricing import GETPricingStream
+from async_v20.endpoints.transaction import GETTransactionsStream
+from async_v20.definitions.types import PricingHeartbeat
+from async_v20.definitions.types import TransactionHeartbeat
+from async_v20.definitions.types import Price
+from async_v20.definitions.types import Transaction
 
 client = client
 server = server_module.server
@@ -167,3 +178,47 @@ async def test_stream_parser_raises_timeout_error(client, server):
                     if items <= 0:
                         print('BREAK CALLED')
                         break
+
+
+def test_construct_json_body_and_schema_creates_same_key_for_both_heartbeat_types():
+    price_body, price_schema = _construct_json_body_and_schema(
+        line=stream_price_heartbeat,
+        schema=GETPricingStream.responses[200],
+        endpoint=GETPricingStream,
+    )
+    transaction_body, transaction_schema = _construct_json_body_and_schema(
+        line=stream_transaction_heartbeat,
+        schema=GETTransactionsStream.responses[200],
+        endpoint=GETTransactionsStream,
+    )
+    assert list(price_body) == list(transaction_body)
+    for body_schema in (price_body, price_schema, transaction_body, transaction_schema):
+        assert 'heartbeat' in body_schema
+
+    assert type(PricingHeartbeat(**price_body['heartbeat'])) == PricingHeartbeat
+    assert type(TransactionHeartbeat(**transaction_body['heartbeat'])) == TransactionHeartbeat
+
+def test_construct_json_body_and_schema_creates_price():
+    price_body, price_schema = _construct_json_body_and_schema(
+        line=stream_price,
+        schema=GETPricingStream.responses[200],
+        endpoint=GETPricingStream,
+    )
+    for body_schema in (price_body, price_schema):
+        assert 'price' in body_schema
+
+    assert type(price_schema['price'](**price_body['price'])) == Price
+
+def test_construct_json_body_and_schema_creates_transaction():
+    transaction_body, transaction_schema = _construct_json_body_and_schema(
+        line=stream_transaction,
+        schema=GETTransactionsStream.responses[200],
+        endpoint=GETTransactionsStream,
+    )
+    for body_schema in (transaction_body, transaction_schema):
+        assert 'transaction' in body_schema
+
+    assert isinstance(
+        transaction_schema['transaction'](**transaction_body['transaction']),
+        Transaction
+    )

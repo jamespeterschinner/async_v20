@@ -14,7 +14,7 @@ from async_v20.definitions.types import StopLossOrderRequest, ArrayInstrument
 from async_v20.endpoints import POSTOrders
 from async_v20.endpoints.annotations import Bool, Authorization
 from async_v20.interface.helpers import _create_request_params
-from async_v20.interface.helpers import _in_context
+from async_v20.interface.helpers import _format_order_request
 from async_v20.interface.helpers import construct_arguments
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import create_request_kwargs
@@ -197,7 +197,7 @@ async def test_objects_can_be_converted_between_Model_object_and_json():
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_in_context_updates_units(instrument):
     order_request = OrderRequest(units=0.123456)
-    result = _in_context(order_request, instrument, clip=True)
+    result = _format_order_request(order_request, instrument, clip=True)
     assert result.units >= instrument.minimum_trade_size
 
 
@@ -205,13 +205,13 @@ def test_in_context_updates_units(instrument):
 def test_in_context_raises_error_when_units_less_than_minimum(instrument):
     order_request = OrderRequest(units=0.123456)
     with pytest.raises(InvalidOrderRequest):
-        _in_context(order_request, instrument)
+        _format_order_request(order_request, instrument)
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_in_context_applies_correct_precision_to_units(instrument):
     order_request = OrderRequest(units=50.1234567891234)
-    result = _in_context(order_request, instrument)
+    result = _format_order_request(order_request, instrument)
     print(result.units)
     print(instrument.trade_units_precision)
     if instrument.trade_units_precision == 0:
@@ -220,7 +220,7 @@ def test_in_context_applies_correct_precision_to_units(instrument):
         assert len(re.findall(r'(?<=\.)\d+', str(result.units))[0]) == instrument.trade_units_precision
 
     order_request = OrderRequest(units=0.1234567891234)
-    result = _in_context(order_request, instrument, clip=True)
+    result = _format_order_request(order_request, instrument, clip=True)
     print(result.units)
     print(instrument.trade_units_precision)
     if instrument.trade_units_precision == 0:
@@ -233,7 +233,7 @@ def test_in_context_applies_correct_precision_to_units(instrument):
 def test_in_context_applies_correct_precision_to_price_price_bound_distance(instrument):
     order_request = OrderRequest(price=50.1234567891234, price_bound=1234.123456789,
                                  distance=20.123456789)
-    result = _in_context(order_request, instrument)
+    result = _format_order_request(order_request, instrument)
     for attr in (result.price, result.price_bound, result.distance):
         if instrument.display_precision == 0:
             assert re.findall(r'(?<=\.)\d+', str(attr))[0] == '0'
@@ -245,7 +245,7 @@ def test_in_context_applies_correct_precision_to_price_price_bound_distance(inst
 def test_in_context_applies_correct_precision_to_take_profit_on_fill_stop_loss_on_fill(instrument):
     order_request = OrderRequest(take_profit_on_fill=50.123456789,
                                  stop_loss_on_fill=50.123456789)
-    result = _in_context(order_request, instrument)
+    result = _format_order_request(order_request, instrument)
     for attr in (result.stop_loss_on_fill.price, result.take_profit_on_fill):
         if instrument.display_precision == 0:
             assert re.findall(r'(?<=\.)\d+', str(attr))[0] == '0'
@@ -258,7 +258,7 @@ def test_in_context_applies_correct_precision_to_trailing_stop_loss_on_fill(inst
     order_request = OrderRequest(
         trailing_stop_loss_on_fill=instrument.minimum_trailing_stop_distance + 0.123456789
     )
-    result = _in_context(order_request, instrument)
+    result = _format_order_request(order_request, instrument)
     attr = result.trailing_stop_loss_on_fill.distance
     if instrument.display_precision == 0:
         assert re.findall(r'(?<=\.)\d+', str(attr))[0] == '0'
@@ -273,9 +273,9 @@ def test_in_context_limits_trailing_stop_loss_on_fill_to_valid_range(instrument)
     )
     if instrument.minimum_trailing_stop_distance > 0:
         with pytest.raises(InvalidOrderRequest):
-            _in_context(order_request, instrument)
+            _format_order_request(order_request, instrument)
 
-    result = _in_context(order_request, instrument, clip=True)
+    result = _format_order_request(order_request, instrument, clip=True)
     assert result.trailing_stop_loss_on_fill.distance == instrument.minimum_trailing_stop_distance
 
     order_request = OrderRequest(
@@ -283,9 +283,9 @@ def test_in_context_limits_trailing_stop_loss_on_fill_to_valid_range(instrument)
     )
 
     with pytest.raises(InvalidOrderRequest):
-        _in_context(order_request, instrument)
+        _format_order_request(order_request, instrument)
 
-    result = _in_context(order_request, instrument, clip=True)
+    result = _format_order_request(order_request, instrument, clip=True)
     assert result.trailing_stop_loss_on_fill.distance == instrument.maximum_trailing_stop_distance
 
 
@@ -297,9 +297,9 @@ def test_in_context_limits_units_to_valid_range(instrument):
 
     if instrument.minimum_trade_size > 0:
         with pytest.raises(InvalidOrderRequest):
-            _in_context(order_request, instrument)
+            _format_order_request(order_request, instrument)
 
-    result = _in_context(order_request, instrument, clip=True)
+    result = _format_order_request(order_request, instrument, clip=True)
 
     assert result.units == instrument.minimum_trade_size
 
@@ -308,9 +308,9 @@ def test_in_context_limits_units_to_valid_range(instrument):
     )
 
     with pytest.raises(InvalidOrderRequest):
-        _in_context(order_request, instrument)
+        _format_order_request(order_request, instrument)
 
-    result = _in_context(order_request, instrument, clip=True)
+    result = _format_order_request(order_request, instrument, clip=True)
     assert result.units == instrument.maximum_order_units
 
 
@@ -320,11 +320,11 @@ def test_in_context_accepts_negative_values_for_units(instrument):
         units=-instrument.minimum_trade_size
     )
 
-    result = _in_context(order_request, instrument, clip=False)
+    result = _format_order_request(order_request, instrument, clip=False)
 
     assert result.units == -instrument.minimum_trade_size
 
-    result = _in_context(order_request, instrument, clip=True)
+    result = _format_order_request(order_request, instrument, clip=True)
 
     assert result.units == -instrument.minimum_trade_size
 
@@ -334,7 +334,7 @@ def test_ins_context_does_not_add_parameters_to_order_requests(instrument):
     order_request = OrderRequest(
         units=instrument.minimum_trade_size
     )
-    result = _in_context(order_request, instrument, clip=True)
+    result = _format_order_request(order_request, instrument, clip=True)
     assert getattr(result, 'price_bound') == None
     assert getattr(result, 'trailing_stop_loss_on_fill') == None
     assert getattr(result, 'stop_loss_on_fill') == None

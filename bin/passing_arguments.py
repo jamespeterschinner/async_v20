@@ -8,10 +8,10 @@ client = OandaClient()
 coroutine_1 = client.create_order('AUD_USD', 10)
 
 # Is the same as this
-from async_v20 import InstrumentName, Unit
+from async_v20 import InstrumentName, DecimalNumber
 
 coroutine_2 = client.create_order(
-    InstrumentName('AUD_USD'), Unit(10)
+    InstrumentName('AUD_USD'), DecimalNumber(10)
 )
 
 # Is the same as this
