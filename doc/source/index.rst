@@ -26,7 +26,7 @@ Disclaimer
 - Losses can exceed investment.
 - async_v20 and its creator has no affiliation with OANDA. And is not endorsed by OANDA in any manner.
 - async_v20 is in Beta stage and has not been tested on a live OANDA account
-- This package currently does not have full unittest coverage.
+- **Use at own risk**
 
 Features
 ---------
@@ -34,7 +34,7 @@ Features
 - Exposes the entire `v20 API <http://developer.oanda.com/rest-live-v20/introduction/>`_ `
 - immutable objects
 - No `*args, **kwargs` In client methods. So no guessing what arguments a method takes
-- Serialize objects directly into :term:`pandas`. `Series <http://pandas.pydata.org/pandas-docs/stable/dsintro.html#series>`_ objects
+- Serialize objects directly into *pandas* **Series** or **DataFrame** objects
 - Construct :term:`concurrent` trading algorithms
 
 .. _installation:

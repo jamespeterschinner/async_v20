@@ -1,89 +1,138 @@
 Changelog
 =========
 
-1.0.1a1
+6.0.0b0
 =======
 
-- Fixed code examples in bin directory
+- Added health API and initialization check
+- Fixed stream_transactions. Now returns correct type
+- Changed streaming responses keys. Where stream_pricing() returned 'PRICE' or 'HEARTBEAT'
+  response now contains 'price' or 'heartbeat'. Like wise stream_transactions() now returns
+  'transaction' or 'heartbeat'. This has been done to standardise access to the transaction
+  stream response and 'heartbeat' objects. Due to the different types these objects may take.
+- Added async_v20.exceptions module
+- Added logging to modules
 
-1.1.0a1
+5.0.3b0
 =======
 
+- Added default argument to Array.get_id & Array.get_instrument
+- Removed default value from get_candles(*count*)
 
-- Model.series() returns data in more specific types instead of all 'str'
-- OandaClient methods now have correct signature instead of args, kwargs
-
-1.1.1a1
+5.0.2b0
 =======
 
-- Floating point numbers are rounded to the correct accuracy required for correct
-  serialization.
+- Fixed bug in rest implementation. Positions now update correctly
 
-1.1.2a1
+5.0.1b0
 =======
 
-- OandaClient.initialize() method is now exposed
-- OandaClient is now also a context manager. To automatically close the http session
-- Additional documentation
+- OandaClient.datetime_format is read only
+- OandaClient._instruments is no longer a protected attribute. It is now OandaClient.instruments
 
-1.1.2a4
+5.0.0b0
 =======
 
-- Additional documentation
+- DateTime's create pandas.Timestamp's
+- Model.dict argument `datetime` is now `datetime_format`. Argument behaviour now
+  specifies the representation of times. Either `RFC3339` or `UNIX`. Corresponding `json` argument
+  changes the representation of UNIX times to either a `str` or `numpy.int64`
+- *Response* .json() accepts `datetime_format` argument string
 
-1.1.2a5
+4.0.0b0
 =======
 
-- Added Travis CI
-- Added Codecov
+- Changed get_positions to get_position (as method can only close one position)
+- _in_context accepts negative units
 
-1.1.3a0
+
+3.0.0b0
 =======
 
-- Fixed incorrect annotation on Interface methods
-- Fixed argument passing bug caused by false'y evaluation
+- Array.get_instrument() works with ArrayInstrument
+- OandaClient.initialize() gets account instruments
+- OandaClient has `format_order_request` attribute
+- async_v20.definitions.primitives.Unit has been removed
+- PriceValue and Decimal number has additional method `format(precision, min_, max_)`
 
-1.1.4a0
+2.3.0b0
 =======
 
-- Fixed incorrect annotation on:
-- PUTPositionsInstrumentClose
-- GETPositionsInstrument
+- Updated limit_replace_order() method to expose all arguments
+- TransactionID, TradeID & OrderID get stored as integers and cast to strings when creating JSON
+  representations
+- Added documentation for order API methods
 
-1.1.5a0
+
+2.2.5b2
 =======
 
-- method signatures were offset buy 1 argument due to handling of
-  'self' parameter. Methods now displaying correct signature
+- Fixed get_candles default value
 
-1.1.5a3
+2.2.5b1
 =======
 
-- Fix long description on PyPI
+- RejectTransactions have no required arguments
+- API methods now apply default values
+- Added undocumented attributes
+- Path class has been removed in favour of helper function. Allowing for more useful
+  error message on failure.
 
-1.1.5a4
+2.2.5b0
 =======
 
-- Argument passing
+- PriceComponent accepts all combinations of 'M' 'A' 'B'
 
-1.1.6a0
+2.2.4b3
 =======
 
-- Issue with object serialization not working with lists of Type[str, float, int]
+Added attributes to TradeSummary:
+    - margin_used
 
-2.0.0a0
+
+2.2.4b1
 =======
 
-- async_v20 objects are now immutable (greatly reducing complexity)
-- Objects now have a repr
-- removed inflection as a dependency
-- Higher test coverage
+Added attributes to TradeReduce:
+    - guaranteed_execution_fee
 
-2.0.1a0
+2.2.4b0
 =======
 
-- `type` argument is set automatically for subclass that define it
-- implementation improvements
+Added attributes to Transaction:
+    - guaranteed_execution_fee
+    - gain_quote_home_conversion_factor
+    - loss_quote_home_conversion_factor
+
+Added attributes to TradeOpen:
+    - price
+    - guaranteed_execution_fee
+
+
+2.2.3b0
+=======
+
+- Added 'margin_used' to Position object.
+  (OANDA added new attribute, causing error)
+- Added TimeoutError to stream
+
+
+2.2.2b0
+=======
+
+- Added get_position_book and get_order_book API calls
+
+2.2.1b0
+=======
+
+- series() method converts both UNIX and RFC3339 time's to pandas.Timestamp 's
+
+
+2.2.0b0
+=======
+
+- Initialization doesn't freeze after failure
+- Order methods exposes all arguments
 
 2.1.0b0
 =======
@@ -99,129 +148,93 @@ Changelog
 - Response parser checks HTTP status first
 - Added tests
 
-2.2.0b0
+2.0.1a0
 =======
 
-- Initialization doesn't freeze after failure
-- Order methods exposes all arguments
+- `type` argument is set automatically for subclass that define it
+- implementation improvements
 
-2.2.1b0
+2.0.0a0
 =======
 
-- series() method converts both UNIX and RFC3339 time's to pandas.Timestamp 's
+- async_v20 objects are now immutable (greatly reducing complexity)
+- Objects now have a repr
+- removed inflection as a dependency
+- Higher test coverage
 
-2.2.2b0
+1.1.6a0
 =======
 
-- Added get_position_book and get_order_book API calls
+- Issue with object serialization not working with lists of Type[str, float, int]
 
-2.2.3b0
+1.1.5a4
 =======
 
-- Added 'margin_used' to Position object.
-  (OANDA added new attribute, causing error)
-- Added TimeoutError to stream
+- Argument passing
 
-2.2.4b0
+1.1.5a3
 =======
 
-Added attributes to Transaction:
-    - guaranteed_execution_fee
-    - gain_quote_home_conversion_factor
-    - loss_quote_home_conversion_factor
+- Fix long description on PyPI
 
-Added attributes to TradeOpen:
-    - price
-    - guaranteed_execution_fee
 
-2.2.4b1
+1.1.5a0
 =======
 
-Added attributes to TradeReduce:
-    - guaranteed_execution_fee
+- method signatures were offset buy 1 argument due to handling of
+  'self' parameter. Methods now displaying correct signature
 
-2.2.4b3
+
+1.1.4a0
 =======
 
-Added attributes to TradeSummary:
-    - margin_used
+- Fixed incorrect annotation on:
+- PUTPositionsInstrumentClose
+- GETPositionsInstrument
 
-2.2.5b0
+
+1.1.3a0
 =======
 
-- PriceComponent accepts all combinations of 'M' 'A' 'B'
+- Fixed incorrect annotation on Interface methods
+- Fixed argument passing bug caused by false'y evaluation
 
-2.2.5b1
+
+1.1.2a5
 =======
 
-- RejectTransactions have no required arguments
-- API methods now apply default values
-- Added undocumented attributes
-- Path class has been removed in favour of helper function. Allowing for more useful
-  error message on failure.
+- Added Travis CI
+- Added Codecov
 
-2.2.5b2
+
+1.1.2a4
 =======
 
-- Fixed get_candles default value
+- Additional documentation
 
-2.3.0b0
+1.1.2a1
 =======
 
-- Updated limit_replace_order() method to expose all arguments
-- TransactionID, TradeID & OrderID get stored as integers and cast to strings when creating JSON
-  representations
-- Added documentation for order API methods
+- OandaClient.initialize() method is now exposed
+- OandaClient is now also a context manager. To automatically close the http session
+- Additional documentation
 
-3.0.0b0
+
+1.1.1a1
 =======
 
-- Array.get_instrument() works with ArrayInstrument
-- OandaClient.initialize() gets account instruments
-- OandaClient has `format_order_request` attribute
-- async_v20.definitions.primitives.Unit has been removed
-- PriceValue and Decimal number has additional method `format(precision, min_, max_)`
+- Floating point numbers are rounded to the correct accuracy required for correct
+  serialization.
 
-4.0.0b0
+1.1.0a1
 =======
 
-- Changed get_positions to get_position (as method can only close one position)
-- _in_context accepts negative units
 
-5.0.0b0
+- Model.series() returns data in more specific types instead of all 'str'
+- OandaClient methods now have correct signature instead of args, kwargs
+
+
+1.0.1a1
 =======
 
-- DateTime's create pandas.Timestamp's
-- Model.dict argument `datetime` is now `datetime_format`. Argument behaviour now
-  specifies the representation of times. Either `RFC3339` or `UNIX`. Corresponding `json` argument
-  changes the representation of UNIX times to either a `str` or `numpy.int64`
-- *Response* .json() accepts `datetime_format` argument string
-
-5.0.1b0
-=======
-
-- OandaClient.datetime_format is read only
-- OandaClient._instruments is no longer a protected attribute. It is now OandaClient.instruments
-
-5.0.2b0
-=======
-
-- Fixed bug in rest implementation. Positions now update correctly
-
-5.0.3b0
-=======
-
-- Added default argument to Array.get_id & Array.get_instrument
-- Removed default value from get_candles(*count*)
-
-6.0.0b0
-=======
-
-- Added health API and initialization check
-- Fixed stream_transactions. Now returns correct type
-- Changed streaming responses keys. Where stream_pricing() returned 'PRICE' or 'HEARTBEAT'
-  response now contains 'price' or 'heartbeat'. Like wise stream_transactions() now returns
-  'transaction' or 'heartbeat'. This has been done to standardise access to the transaction
-  stream response and 'heartbeat' objects. Due to the different types these objects may take.
-- Added async_v20.exceptions module
-- Added logging to modules
+- Fixed code examples in bin directory

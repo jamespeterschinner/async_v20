@@ -30,14 +30,14 @@ Disclaimer
 - Losses can exceed investment.
 - async_v20 and its creator has no affiliation with OANDA. And is not endorsed by OANDA in any manner.
 - async_v20 is in Beta stage and has not been tested on a live OANDA account
-- Use at own risk
+- **Use at own risk**
 
 Features
 ---------
 
 - Exposes the entire v20 API
 - No `*args, **kwargs` In client methods. Therefore no need to guess what arguments a method takes
-- Serialize objects directly into `pandas.Series` objects
+- Serialize objects directly into *pandas* **Series** or **DataFrame** objects
 - Construct *concurrent* trading algorithms
 
 
