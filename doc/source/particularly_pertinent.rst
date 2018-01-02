@@ -53,7 +53,9 @@ users to programme a `global` :term:`stop loss` by which all trades can be termi
     Users who implement this feature should account for the **Two** possible outcomes.
 
     - A :class:`~async_v20.exceptions.CloseAllTradesFailure` is raised
+
     **OR**
+
     - returns (**True**, `closed_trade_responses`) - All trades were closed
 
 
