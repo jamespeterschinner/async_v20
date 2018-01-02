@@ -54,8 +54,8 @@ Here is an Example
     worth 30 units.
 
 
-What might be usefull
----------------------
+What might be useful
+--------------------
 
 .. _passing-arguments:
 
