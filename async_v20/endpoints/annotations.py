@@ -200,17 +200,24 @@ class ServiceID(str):
     pass
 
 class ServiceListID(str):
+    """Identification string of service list to get"""
     pass
 
 class Start(str):
+    """Only show events which started after this date, inclusive.
+    Suggested format  RFC 2822 or RFC 1123"""
     pass
 
 class End(str):
+    """Only show events which started before this date, inclusive.
+    Suggested format  RFC 2822 or RFC 1123"""
     pass
 
 class EventSid(str):
+    """The SID of the event to get"""
     pass
 
 class StatusID(str):
+    """The ID of the status to get"""
     pass
 

@@ -13,6 +13,8 @@ Annotations
 .. autoclass:: async_v20.endpoints.annotations.Bool
 .. autoclass:: async_v20.endpoints.annotations.Count
 .. autoclass:: async_v20.endpoints.annotations.DailyAlignment
+.. autoclass:: async_v20.endpoints.annotations.End
+.. autoclass:: async_v20.endpoints.annotations.EventSid
 .. autoclass:: async_v20.endpoints.annotations.FromTime
 .. autoclass:: async_v20.endpoints.annotations.FromTransactionID
 .. autoclass:: async_v20.endpoints.annotations.Ids
@@ -22,11 +24,15 @@ Annotations
 .. autoclass:: async_v20.endpoints.annotations.LongClientExtensions
 .. autoclass:: async_v20.endpoints.annotations.LongUnits
 .. autoclass:: async_v20.endpoints.annotations.PageSize
+.. autoclass:: async_v20.endpoints.annotations.ServiceID
+.. autoclass:: async_v20.endpoints.annotations.ServiceListID
 .. autoclass:: async_v20.endpoints.annotations.ShortClientExtensions
 .. autoclass:: async_v20.endpoints.annotations.ShortUnits
 .. autoclass:: async_v20.endpoints.annotations.SinceTransactionID
 .. autoclass:: async_v20.endpoints.annotations.Smooth
 .. autoclass:: async_v20.endpoints.annotations.Snapshot
+.. autoclass:: async_v20.endpoints.annotations.Start
+.. autoclass:: async_v20.endpoints.annotations.StatusID
 .. autoclass:: async_v20.endpoints.annotations.ToTime
 .. autoclass:: async_v20.endpoints.annotations.ToTransactionID
 .. autoclass:: async_v20.endpoints.annotations.TradeClientExtensions
