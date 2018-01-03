@@ -9,6 +9,7 @@ from ..definitions.types import LimitOrderRequest
 from ..definitions.types import MarketIfTouchedOrderRequest
 from ..definitions.types import MarketOrderRequest
 from ..definitions.types import StopOrderRequest
+from ..definitions.types import Instrument
 from ..exceptions import FailedToCreatePath, InvalidOrderRequest
 
 logger = logging.getLogger(__name__)
@@ -157,7 +158,7 @@ def create_body(self, request_schema, arguments):
                                StopOrderRequest,
                                MarketIfTouchedOrderRequest)):
                     instrument = self.instruments.get_instrument(value.instrument)
-                    if instrument:
+                    if isinstance(instrument, Instrument):
                         value = _format_order_request(value,
                                                       instrument,
                                                       self.format_order_requests)

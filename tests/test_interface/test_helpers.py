@@ -188,6 +188,14 @@ async def test_request_body_raises_error_when_cannot_format_order_request(client
 
 
 @pytest.mark.asyncio
+async def test_request_body_does_not_raise_error_when_a_valid_order_request_is_passed(client, server):
+    await client.initialize()
+    client.format_order_requests = True
+    assert create_body(client, POSTOrders.request_schema,
+                       {OrderRequest: MarketOrderRequest(instrument='AUD_USD', units=0)})
+
+
+@pytest.mark.asyncio
 async def test_objects_can_be_converted_between_Model_object_and_json():
     account = Account(**GETAccountID_response['account'])
     response_json_account = GETAccountID_response['account']
