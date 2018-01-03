@@ -40,13 +40,13 @@ class TransactionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (from= :class:`~async_v20.definitions.primitives.DateTime`,
-                to= :class:`~async_v20.definitions.primitives.DateTime`,
+                (from= :class:`~async_v20.DateTime`,
+                to= :class:`~async_v20.DateTime`,
                 pageSize= :class:`~builtins.int`,
-                type= :class:`~async_v20.definitions.types.ArrayTransactionFilter`,
+                type= :class:`~async_v20.ArrayTransactionFilter`,
                 count= :class:`~builtins.int`,
-                pages= :class:`~async_v20.definitions.types.ArrayStr`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                pages= :class:`~async_v20.ArrayStr`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -57,15 +57,15 @@ class TransactionInterface(object):
 
         Args:
 
-            transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+            transaction_id: :class:`~async_v20.TransactionID`
                 A Transaction ID
 
         Returns:
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (transaction= :class:`~async_v20.definitions.types.Transaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (transaction= :class:`~async_v20.Transaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -92,8 +92,8 @@ class TransactionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (transactions= :class:`~async_v20.definitions.types.ArrayTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (transactions= :class:`~async_v20.ArrayTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -105,7 +105,7 @@ class TransactionInterface(object):
 
         Args:
 
-            transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+            transaction_id: :class:`~async_v20.TransactionID`
                 The ID of the last Transaction fetched. This query will return
                 all Transactions newer than the TransactionID.
 
@@ -113,8 +113,8 @@ class TransactionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (transactions= :class:`~async_v20.definitions.types.ArrayTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (transactions= :class:`~async_v20.ArrayTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -128,13 +128,13 @@ class TransactionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (transaction= :class:`~async_v20.definitions.types.Transaction`)
+                (transaction= :class:`~async_v20.Transaction`)
 
 
                 **OR**
 
 
                 :class:`~async_v20.interface.response.Response`
-                (Heartbeat= :class:`~async_v20.definitions.types.TransactionHeartbeat`)
+                (Heartbeat= :class:`~async_v20.TransactionHeartbeat`)
         """
         pass

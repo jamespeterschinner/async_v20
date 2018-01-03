@@ -17,7 +17,7 @@ class AccountInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (accounts= :class:`~async_v20.definitions.types.ArrayAccountProperties`)
+                (accounts= :class:`~async_v20.ArrayAccountProperties`)
 
         """
         pass
@@ -33,8 +33,8 @@ class AccountInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (account= :class:`~async_v20.definitions.types.Account`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (account= :class:`~async_v20.Account`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -47,8 +47,8 @@ class AccountInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (account= :class:`~async_v20.definitions.types.AccountSummary`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (account= :class:`~async_v20.AccountSummary`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -69,8 +69,8 @@ class AccountInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (instruments= :class:`~async_v20.definitions.types.ArrayInstrument`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (instruments= :class:`~async_v20.ArrayInstrument`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -83,27 +83,27 @@ class AccountInterface(object):
 
             alias: :class:`~async_v20.endpoints.annotations.Alias`
                 Client-defined alias (name) for the Account
-            margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
+            margin_rate: :class:`~async_v20.DecimalNumber`
                 The string representation of a decimal number.
 
         Returns:
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (clientConfigureTransaction= :class:`~async_v20.definitions.types.ClientConfigureTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (clientConfigureTransaction= :class:`~async_v20.ClientConfigureTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
-                (clientConfigureRejectTransaction= :class:`~async_v20.definitions.types.ClientConfigureRejectTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
+                (clientConfigureRejectTransaction= :class:`~async_v20.ClientConfigureRejectTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
 
             status [403]
                 :class:`~async_v20.interface.response.Response`
-                (clientConfigureRejectTransaction= :class:`~async_v20.definitions.types.ClientConfigureRejectTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
+                (clientConfigureRejectTransaction= :class:`~async_v20.ClientConfigureRejectTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
 
@@ -127,8 +127,8 @@ class AccountInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (changes= :class:`~async_v20.definitions.types.AccountChanges`,
-                state= :class:`~async_v20.definitions.types.AccountChangesState`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (changes= :class:`~async_v20.AccountChanges`,
+                state= :class:`~async_v20.AccountChangesState`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass

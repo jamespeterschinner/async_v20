@@ -21,8 +21,8 @@ class PositionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (positions= :class:`~async_v20.definitions.types.ArrayPosition`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (positions= :class:`~async_v20.ArrayPosition`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
 
         """
         pass
@@ -37,8 +37,8 @@ class PositionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (positions= :class:`~async_v20.definitions.types.ArrayPosition`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (positions= :class:`~async_v20.ArrayPosition`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -50,15 +50,15 @@ class PositionInterface(object):
 
         Args:
 
-            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+            instrument: :class:`~async_v20.InstrumentName`
                 Name of the Instrument
 
         Returns:
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (position= :class:`~async_v20.definitions.types.Position`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (position= :class:`~async_v20.Position`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -80,7 +80,7 @@ class PositionInterface(object):
 
         Args:
 
-            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+            instrument: :class:`~async_v20.InstrumentName`
                 Name of the Instrument
             long_units: :class:`~async_v20.endpoints.annotations.LongUnits`
                 Indication of how much of the long Position to closeout. Either
@@ -105,30 +105,30 @@ class PositionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (longOrderCreateTransaction= :class:`~async_v20.definitions.types.MarketOrderTransaction`,
-                longOrderFillTransaction= :class:`~async_v20.definitions.types.OrderFillTransaction`,
-                longOrderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
-                shortOrderCreateTransaction= :class:`~async_v20.definitions.types.MarketOrderTransaction`,
-                shortOrderFillTransaction= :class:`~async_v20.definitions.types.OrderFillTransaction`,
-                shortOrderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (longOrderCreateTransaction= :class:`~async_v20.MarketOrderTransaction`,
+                longOrderFillTransaction= :class:`~async_v20.OrderFillTransaction`,
+                longOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
+                shortOrderCreateTransaction= :class:`~async_v20.MarketOrderTransaction`,
+                shortOrderFillTransaction= :class:`~async_v20.OrderFillTransaction`,
+                shortOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
-                (longOrderRejectTransaction= :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
-                shortOrderRejectTransaction= :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
+                (longOrderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
+                shortOrderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
 
             status [401]
                 :class:`~async_v20.interface.response.Response`
-                (longOrderRejectTransaction= :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
-                shortOrderRejectTransaction= :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
+                (longOrderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
+                shortOrderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """

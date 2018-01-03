@@ -177,7 +177,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
         Returns:
 
-            :class:`~async_v20.definitions.types.Account`
+            :class:`~async_v20.Account`
         """
         logger.info('account()')
         await self.account_changes()

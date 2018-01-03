@@ -16,6 +16,12 @@
 
       http://aiohttp.readthedocs.io/en/stable/
 
+   aiodns
+
+      An python package for asynchronous DNS resolution.
+
+      https://github.com/saghul/aiodns
+
    asyncio
 
       The library for writing single-threaded concurrent code using

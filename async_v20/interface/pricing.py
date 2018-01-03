@@ -19,7 +19,7 @@ class PricingInterface(object):
 
             instruments: :class:`~async_v20.endpoints.annotations.Instruments`
             list of Instruments to get pricing for.
-            since: :class:`~async_v20.definitions.primitives.DateTime`
+            since: :class:`~async_v20.DateTime`
                 Date/Time filter to apply to the returned prices. Only prices
                 with a time later than this filter will be provided.
 
@@ -27,8 +27,8 @@ class PricingInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (prices= :class:`~async_v20.definitions.types.ArrayPrice`,
-                time= :class:`~async_v20.definitions.primitives.DateTime`)
+                (prices= :class:`~async_v20.ArrayPrice`,
+                time= :class:`~async_v20.DateTime`)
         """
         pass
 
@@ -62,12 +62,12 @@ class PricingInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (price= :class:`~async_v20.definitions.types.Price`)
+                (price= :class:`~async_v20.Price`)
 
                 **OR**
 
                 :class:`~async_v20.interface.response.Response`
-                (heartbeat= :class:`~async_v20.definitions.types.PricingHeartbeat`)
+                (heartbeat= :class:`~async_v20.PricingHeartbeat`)
 
 
         """

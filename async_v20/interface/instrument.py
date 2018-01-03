@@ -37,7 +37,7 @@ class InstrumentInterface(object):
         Args:
 
             include_first_query: :class:`~async_v20.endpoints.annotations.IncludeFirstQuery`
-            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+            instrument: :class:`~async_v20.InstrumentName`
                 Name of the Instrument
             price: :class:`~async_v20.endpoints.annotations.PriceComponent`
                 The Price component(s) to get candlestick data for. Can contain
@@ -66,7 +66,7 @@ class InstrumentInterface(object):
                 The timezone to use for the dailyAlignment parameter.
                 Candlesticks with daily alignment will be aligned to the
                 dailyAlignment hour within the alignmentTimezone.
-            weekly_alignment: :class:`~async_v20.definitions.primitives.WeeklyAlignment`
+            weekly_alignment: :class:`~async_v20.WeeklyAlignment`
                 The day of the week used for granularities that have weekly
                 alignment.
 
@@ -74,9 +74,9 @@ class InstrumentInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (instrument= :class:`~async_v20.definitions.primitives.InstrumentName`,
-                granularity= :class:`~async_v20.definitions.primitives.CandlestickGranularity`,
-                candles= :class:`~async_v20.definitions.types.ArrayCandlestick`)
+                (instrument= :class:`~async_v20.InstrumentName`,
+                granularity= :class:`~async_v20.CandlestickGranularity`,
+                candles= :class:`~async_v20.ArrayCandlestick`)
 
         """
         pass
@@ -89,9 +89,9 @@ class InstrumentInterface(object):
 
         Args:
 
-            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+            instrument: :class:`~async_v20.InstrumentName`
                 Name of the Instrument
-            time: :class:`~async_v20.definitions.primitives.DateTime`
+            time: :class:`~async_v20.DateTime`
                 The time of the snapshot to fetch. If not specified,
                 then the most recent snapshot is fetched
 
@@ -99,7 +99,7 @@ class InstrumentInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (orderBook= :class:`~async_v20.definitions.types.OrderBook`)
+                (orderBook= :class:`~async_v20.OrderBook`)
         """
         pass
 
@@ -111,9 +111,9 @@ class InstrumentInterface(object):
 
         Args:
 
-            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+            instrument: :class:`~async_v20.InstrumentName`
                 Name of the Instrument
-            time: :class:`~async_v20.definitions.primitives.DateTime`
+            time: :class:`~async_v20.DateTime`
                 The time of the snapshot to fetch. If not specified,
                 then the most recent snapshot is fetched
 
@@ -121,7 +121,7 @@ class InstrumentInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (positionBook= :class:`~async_v20.definitions.types.PositionBook`)
+                (positionBook= :class:`~async_v20.PositionBook`)
         """
         pass
 

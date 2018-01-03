@@ -55,11 +55,11 @@ class ClientExtensions(Model):
     delete this field if your account is associated with MT4.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.ClientID`
+        id: :class:`~async_v20.ClientID`
             The Client ID of the Order/Trade
-        tag: :class:`~async_v20.definitions.primitives.ClientTag`
+        tag: :class:`~async_v20.ClientTag`
             A tag associated with the Order/Trade
-        comment: :class:`~async_v20.definitions.primitives.ClientComment`
+        comment: :class:`~async_v20.ClientComment`
             A comment associated with the Order/Trade
 
     """
@@ -75,14 +75,14 @@ class TakeProfitDetails(Model):
     Profit Order is modified directly through the Trade.
 
     Attributes:
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price that the Take Profit Order will be triggered at.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time in force for the created Take Profit
             Order. This may only be GTC, GTD or GFD.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date when the Take Profit Order will be cancelled on if timeInForce is GTD.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The Client Extensions to add to the Take Profit Order when created.
 
     """
@@ -99,14 +99,14 @@ class StopLossDetails(Model):
     modified directly through the Trade.
 
     Attributes:
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price that the Stop Loss Order will be triggered at.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time in force for the created Stop Loss
             Order. This may only be GTC, GTD or GFD.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date when the Stop Loss Order will be cancelled on if timeInForce is GTD.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The Client Extensions to add to the Stop Loss Order when created.
 
     """
@@ -123,16 +123,16 @@ class TrailingStopLossDetails(Model):
     dependent Trailing Stop Loss Order is modified directly through the Trade.
 
     Attributes:
-        distance: :class:`~async_v20.definitions.primitives.PriceValue`
+        distance: :class:`~async_v20.PriceValue`
             The distance (in price units) from the Trade's fill price
             that the Trailing Stop Loss Order will be triggered at.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time in force for the created Trailing Stop
             Loss Order. This may only be GTC, GTD or GFD.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date when the Trailing Stop Loss Order
             will be cancelled on if timeInForce is GTD.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The Client Extensions to add to the Trailing Stop Loss Order when created.
 
     """
@@ -148,23 +148,23 @@ class OrderRequest(Model):
 
     Attributes:
 
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
-        type: :class:`~async_v20.definitions.primitives.OrderType`
-        client_trade_id: :class:`~async_v20.definitions.primitives.ClientID`
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
-        distance: :class:`~async_v20.definitions.primitives.PriceValue`
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_id: :class:`~async_v20.TradeID`
+        price: :class:`~async_v20.PriceValue`
+        type: :class:`~async_v20.OrderType`
+        client_trade_id: :class:`~async_v20.ClientID`
+        time_in_force: :class:`~async_v20.TimeInForce`
+        gtd_time: :class:`~async_v20.DateTime`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
+        client_extensions: :class:`~async_v20.ClientExtensions`
+        distance: :class:`~async_v20.PriceValue`
+        instrument: :class:`~async_v20.InstrumentName`
+        units: :class:`~async_v20.DecimalNumber`
+        price_bound: :class:`~async_v20.PriceValue`
+        position_fill: :class:`~async_v20.OrderPositionFill`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
     """
 
     def __new__(cls, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
@@ -183,9 +183,9 @@ class UnitsAvailableDetails(Model):
     for both long and short Orders.
 
     Attributes:
-        long: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        long: :class:`~async_v20.DecimalNumber`
             The units available for long Orders.
-        short: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        short: :class:`~async_v20.DecimalNumber`
             The units available for short Orders.
 
     """
@@ -200,18 +200,18 @@ class UnitsAvailable(Model):
 
     Attributes:
 
-        default: :class:`~async_v20.definitions.types.UnitsAvailableDetails`
+        default: :class:`~async_v20.UnitsAvailableDetails`
             The number of units that are available to be traded using an Order with a positionFill option of
             "DEFAULT". For an Account with hedging enabled,
             this value will be the same as the "OPEN_ONLY" value. For an Account without hedging enabled,
             this value will be the same as the "REDUCE_FIRST" value.
-        reduce_first: :class:`~async_v20.definitions.types.UnitsAvailableDetails`
+        reduce_first: :class:`~async_v20.UnitsAvailableDetails`
             The number of units that may are available to be
             traded with an Order with a positionFill option of "REDUCE_FIRST".
-        reduce_only: :class:`~async_v20.definitions.types.UnitsAvailableDetails`
+        reduce_only: :class:`~async_v20.UnitsAvailableDetails`
             The number of units that may are available to be
             traded with an Order with a positionFill option of "REDUCE_ONLY".
-        open_only: :class:`~async_v20.definitions.types.UnitsAvailableDetails`
+        open_only: :class:`~async_v20.UnitsAvailableDetails`
             The number of units that may are available to be
             traded with an Order with a positionFill option of "OPEN_ONLY".
 
@@ -228,11 +228,11 @@ class LiquidityRegenerationScheduleStep(Model):
     only change at the timestamp of the following step.
 
     Attributes:
-        timestamp: :class:`~async_v20.definitions.primitives.DateTime`
+        timestamp: :class:`~async_v20.DateTime`
             The timestamp of the schedule step.
-        bid_liquidity_used: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        bid_liquidity_used: :class:`~async_v20.DecimalNumber`
             The amount of bid liquidity used at this step in the schedule.
-        ask_liquidity_used: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        ask_liquidity_used: :class:`~async_v20.DecimalNumber`
             The amount of ask liquidity used at this step in the schedule.
 
     """
@@ -254,7 +254,7 @@ class LiquidityRegenerationSchedule(Model):
     the same instrument that is filled while it is still in effect.
 
     Attributes:
-        steps: :class:`~async_v20.definitions.types.ArrayLiquidityRegenerationScheduleStep`
+        steps: :class:`~async_v20.ArrayLiquidityRegenerationScheduleStep`
             The steps in the Liquidity Regeneration Schedule
 
     """
@@ -267,13 +267,13 @@ class CandlestickData(Model):
     """The price data (open, high, low, close) for the Candlestick representation.
 
     Attributes:
-        o: :class:`~async_v20.definitions.primitives.PriceValue`
+        o: :class:`~async_v20.PriceValue`
             The first (open) price in the time-range represented by the candlestick.
-        h: :class:`~async_v20.definitions.primitives.PriceValue`
+        h: :class:`~async_v20.PriceValue`
             The highest price in the time-range represented by the candlestick.
-        l: :class:`~async_v20.definitions.primitives.PriceValue`
+        l: :class:`~async_v20.PriceValue`
             The lowest price in the time-range represented by the candlestick.
-        c: :class:`~async_v20.definitions.primitives.PriceValue`
+        c: :class:`~async_v20.PriceValue`
             The last (closing) price in the time-range represented by the candlestick.
 
     """
@@ -287,9 +287,9 @@ class OrderIdentifier(Model):
     OrderID and the ClientOrderID.
 
     Attributes:
-        order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        order_id: :class:`~async_v20.OrderID`
             The OANDA-assigned Order ID
-        client_order_id: :class:`~async_v20.definitions.primitives.ClientID`
+        client_order_id: :class:`~async_v20.ClientID`
             The client-provided client Order ID
 
     """
@@ -304,12 +304,12 @@ class QuoteHomeConversionFactors(Model):
     Account's home currency.
 
     Attributes:
-        positive_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        positive_units: :class:`~async_v20.DecimalNumber`
             The factor used to convert a positive amount of the
             Price's Instrument's quote currency into a positive
             amount of the Account's home currency. Conversion is performed by multiplying
             the quote units by the conversion factor.
-        negative_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        negative_units: :class:`~async_v20.DecimalNumber`
             The factor used to convert a negative amount of the Price's Instrument's
             quote currency into a negative amount of the Account's home currency. Conversion is performed by
             multiplying the quote units by the conversion factor.
@@ -325,7 +325,7 @@ class MarketOrderMarginCloseout(Model):
     that is part of a Market Order Margin Closeout in a client's account
 
     Attributes:
-        reason: :class:`~async_v20.definitions.primitives.MarketOrderMarginCloseoutReason`
+        reason: :class:`~async_v20.MarketOrderMarginCloseoutReason`
             The reason the Market Order was created to perform a margin closeout
 
     """
@@ -338,14 +338,14 @@ class InstrumentCommission(Model):
     """An InstrumentCommission represents an instrument-specific commission
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The name of the instrument
-        commission: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        commission: :class:`~async_v20.DecimalNumber`
             The commission amount (in the Account's home
             currency) charged per unitsTraded of the instrument
-        units_traded: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units_traded: :class:`~async_v20.DecimalNumber`
             The number of units traded that the commission amount is based on.
-        minimum_commission: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        minimum_commission: :class:`~async_v20.DecimalNumber`
             The minimum commission amount (in the Account's home currency) that
             is charged when an Order is filled for this instrument.
 
@@ -360,13 +360,13 @@ class OrderBookBucket(Model):
     """The order book data for a partition of the instrument's prices.
 
     Attributes:
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The lowest price (inclusive) covered by the bucket. The bucket covers the
             price range from the price to price + the order book's bucketWidth.
-        long_count_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        long_count_percent: :class:`~async_v20.DecimalNumber`
             The percentage of the total number of orders
             represented by the long orders found in this bucket.
-        short_count_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        short_count_percent: :class:`~async_v20.DecimalNumber`
             The percentage of the total number of orders
             represented by the short orders found in this bucket.
 
@@ -385,13 +385,13 @@ class PositionBookBucket(Model):
     """The position book data for a partition of the instrument's prices.
 
     Attributes:
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The lowest price (inclusive) covered by the bucket. The bucket covers the
             price range from the price to price + the position book's bucketWidth.
-        long_count_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        long_count_percent: :class:`~async_v20.DecimalNumber`
             The percentage of the total number of positions
             represented by the long positions found in this bucket.
-        short_count_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        short_count_percent: :class:`~async_v20.DecimalNumber`
             The percentage of the total number of positions
             represented by the short positions found in this bucket.
 
@@ -411,11 +411,11 @@ class DynamicOrderState(Model):
     Orders, as no other Order type has dynamic state.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's ID.
-        trailing_stop_value: :class:`~async_v20.definitions.primitives.PriceValue`
+        trailing_stop_value: :class:`~async_v20.PriceValue`
             The Order's calculated trailing stop value.
-        trigger_distance: :class:`~async_v20.definitions.primitives.PriceValue`
+        trigger_distance: :class:`~async_v20.PriceValue`
             The distance between the Trailing Stop Loss Order's trailingStopValue and the current
             Market Price. This represents the distance (in price
             units) of the Order from a triggering price. If the distance could not be determined,
@@ -440,13 +440,13 @@ class CalculatedPositionState(Model):
     """The dynamic (calculated) state of a Position
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Position's Instrument.
-        net_unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        net_unrealized_pl: :class:`~async_v20.AccountUnits`
             The Position's net unrealized profit/loss
-        long_unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        long_unrealized_pl: :class:`~async_v20.AccountUnits`
             The unrealized profit/loss of the Position's long open Trades
-        short_unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        short_unrealized_pl: :class:`~async_v20.AccountUnits`
             The unrealized profit/loss of the Position's short open Trades
 
     """
@@ -466,19 +466,19 @@ class PositionSide(Model):
     """The representation of a Position for a single direction (long or short).
 
     Attributes:
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             Number of units in the position (negative
             value indicates short position, positive indicates long position).
-        average_price: :class:`~async_v20.definitions.primitives.PriceValue`
+        average_price: :class:`~async_v20.PriceValue`
             Volume-weighted average of the underlying Trade open prices for the Position.
-        trade_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
+        trade_i_ds: :class:`~async_v20.ArrayTradeID`
             List of the open Trade IDs which contribute to the open Position.
-        pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        pl: :class:`~async_v20.AccountUnits`
             Profit/loss realized by the PositionSide over the lifetime of the Account.
-        unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        unrealized_pl: :class:`~async_v20.AccountUnits`
             The unrealized profit/loss of all open
             Trades that contribute to this PositionSide.
-        resettable_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        resettable_pl: :class:`~async_v20.AccountUnits`
             Profit/loss realized by the PositionSide since the
             Account's resettablePL was last reset by the client.
 
@@ -494,21 +494,21 @@ class Position(Model):
     """The specification of a Position within an Account.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Position's Instrument.
-        pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        pl: :class:`~async_v20.AccountUnits`
             Profit/loss realized by the Position over the lifetime of the Account.
-        unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        unrealized_pl: :class:`~async_v20.AccountUnits`
             The unrealized profit/loss of all open Trades that contribute to this Position.
-        resettable_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        resettable_pl: :class:`~async_v20.AccountUnits`
             Profit/loss realized by the Position since the
             Account's resettablePL was last reset by the client.
-        commission: :class:`~async_v20.definitions.primitives.AccountUnits`
+        commission: :class:`~async_v20.AccountUnits`
             The total amount of commission paid for this instrument over
             the lifetime of the Account. Represented in the Account's home currency.
-        long: :class:`~async_v20.definitions.types.PositionSide`
+        long: :class:`~async_v20.PositionSide`
             The details of the long side of the Position.
-        short: :class:`~async_v20.definitions.types.PositionSide`
+        short: :class:`~async_v20.PositionSide`
             The details of the short side of the Position.
 
     """
@@ -529,7 +529,7 @@ class PriceBucket(Model):
     """A Price Bucket represents a price available for an amount of liquidity
 
     Attributes:
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The Price offered by the PriceBucket
         liquidity: :class:`int`
             The amount of liquidity offered by the PriceBucket
@@ -548,23 +548,23 @@ class ClientPrice(Model):
     """Client price for an Account.
 
     Attributes:
-        bids: :class:`~async_v20.definitions.types.ArrayPriceBucket`
+        bids: :class:`~async_v20.ArrayPriceBucket`
             The list of prices and liquidity available on the Instrument's bid side.
             It is possible for this list to be empty if there is no
             bid liquidity currently available for the Instrument in the Account.
-        asks: :class:`~async_v20.definitions.types.ArrayPriceBucket`
+        asks: :class:`~async_v20.ArrayPriceBucket`
             The list of prices and liquidity available on the Instrument's ask side.
             It is possible for this list to be empty if there is no
             ask liquidity currently available for the Instrument in the Account.
-        closeout_bid: :class:`~async_v20.definitions.primitives.PriceValue`
+        closeout_bid: :class:`~async_v20.PriceValue`
             The closeout bid Price. This Price is used when a bid is required to closeout a Position
             (margin closeout
             or manual) yet there is no bid liquidity. The closeout bid is never used to open a new position.
-        closeout_ask: :class:`~async_v20.definitions.primitives.PriceValue`
+        closeout_ask: :class:`~async_v20.PriceValue`
             The closeout ask Price. This Price is used when a ask is required to closeout a Position
             (margin closeout or manual) yet there is no ask liquidity.
             The closeout ask is never used to open a new position.
-        timestamp: :class:`~async_v20.definitions.primitives.DateTime`
+        timestamp: :class:`~async_v20.DateTime`
             The date/time when the Price was created.
 
     """
@@ -581,7 +581,7 @@ class PricingHeartbeat(Model):
     Attributes:
         type: :class:`str`
             The string "HEARTBEAT"
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Heartbeat was created.
 
     """
@@ -594,9 +594,9 @@ class CalculatedTradeState(Model):
     """The dynamic (calculated) state of an open Trade
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TradeID`
+        id: :class:`~async_v20.TradeID`
             The Trade's ID.
-        unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        unrealized_pl: :class:`~async_v20.AccountUnits`
             The Trade's unrealized profit/loss.
 
     """
@@ -617,11 +617,11 @@ class MarketOrderDelayedTradeClose(Model):
     already been closed but wasn't due to halted market conditions
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade being closed
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The Client ID of the Trade being closed
-        source_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        source_transaction_id: :class:`~async_v20.TransactionID`
             The Transaction ID of the DelayedTradeClosure transaction
             to which this Delayed Trade Close belongs to
 
@@ -637,7 +637,7 @@ class MarketOrderPositionCloseout(Model):
     when it has been created to closeout a specific Position.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The instrument of the Position being closed out.
         units: :class:`str`
             Indication of how much of the Position to close. Either "ALL", or a DecimalNumber reflection a
@@ -655,9 +655,9 @@ class MarketOrderTradeClose(Model):
     been created specifically to close a Trade.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade requested to be closed
-        client_trade_id: :class:`str` :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`str` :class:`~async_v20.TradeID`
             The client ID of the Trade requested to be closed
         units: :class:`str`
             Indication of how much of the Trade to close. Either
@@ -674,9 +674,9 @@ class OpenTradeFinancing(Model):
     open Trade within an Account
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade that financing is being paid/collected for.
-        financing: :class:`~async_v20.definitions.primitives.AccountUnits`
+        financing: :class:`~async_v20.AccountUnits`
             The amount of financing paid/collected for the Trade.
 
     """
@@ -694,11 +694,11 @@ class PositionFinancing(Model):
     Position within an Account
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The instrument of the Position that financing is being paid/collected for.
-        financing: :class:`~async_v20.definitions.primitives.AccountUnits`
+        financing: :class:`~async_v20.AccountUnits`
             The amount of financing paid/collected for the Position.
-        open_trade_financings: :class:`~async_v20.definitions.types.ArrayOpenTradeFinancing`
+        open_trade_financings: :class:`~async_v20.ArrayOpenTradeFinancing`
             The financing paid/collecte for each open Trade within the Position.
 
     """
@@ -718,11 +718,11 @@ class TradeOpen(Model):
     of an instrument in the Account, specifically the OrderFill Transaction.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade that was opened
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The number of units opened by the Trade
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions for the newly opened Trade
 
     """
@@ -741,9 +741,9 @@ class VWAPReceipt(Model):
     market, each bucket will be represented with a VWAP Receipt.
 
     Attributes:
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The number of units filled
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price at which the units were filled
 
     """
@@ -775,12 +775,12 @@ class AccountProperties(Model):
     """Properties related to an Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.AccountID`
+        id: :class:`~async_v20.AccountID`
             The Account's identifier
-        mt4account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        mt4account_id: :class:`~async_v20.AccountID`
             The Account's associated MT4 Account ID. This field will not
             be present if the Account is not an MT4 account.
-        tags: :class:`~async_v20.definitions.types.ArrayStr`
+        tags: :class:`~async_v20.ArrayStr`
             The Account's tags
 
     """
@@ -797,15 +797,15 @@ class Candlestick(Model):
     """The Candlestick representation
 
     Attributes:
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The start time of the candlestick
-        bid: :class:`~async_v20.definitions.types.CandlestickData`
+        bid: :class:`~async_v20.CandlestickData`
             The candlestick data based on bids.
             Only provided if bid-based candles were requested.
-        ask: :class:`~async_v20.definitions.types.CandlestickData`
+        ask: :class:`~async_v20.CandlestickData`
             The candlestick data based on asks.
             Only provided if ask-based candles were requested.
-        mid: :class:`~async_v20.definitions.types.CandlestickData`
+        mid: :class:`~async_v20.CandlestickData`
             The candlestick data based on midpoints.
             Only provided if midpoint-based candles were requested.
         volume: :class:`int`
@@ -830,17 +830,17 @@ class OrderBook(Model):
     """The representation of an instrument's order book at a point in time
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The order book's instrument
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The time when the order book snapshot was created.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price (midpoint) for the order book's instrument
             at the time of the order book snapshot
-        bucket_width: :class:`~async_v20.definitions.primitives.PriceValue`
+        bucket_width: :class:`~async_v20.PriceValue`
             The price width for each bucket. Each bucket covers the price
             range from the bucket's price to the bucket's price + bucketWidth.
-        buckets: :class:`~async_v20.definitions.types.ArrayOrderBookBucket`
+        buckets: :class:`~async_v20.ArrayOrderBookBucket`
             The partitioned order book, divided into buckets using a default bucket width. These
             buckets are only provided for price ranges which actually contain order or position data.
 
@@ -855,17 +855,17 @@ class PositionBook(Model):
     """The representation of an instrument's position book at a point in time
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The position book's instrument
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The time when the position book snapshot was created
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price (midpoint) for the position book's instrument
             at the time of the position book snapshot
-        bucket_width: :class:`~async_v20.definitions.primitives.PriceValue`
+        bucket_width: :class:`~async_v20.PriceValue`
             The price width for each bucket. Each bucket covers the price
             range from the bucket's price to the bucket's price + bucketWidth.
-        buckets: :class:`~async_v20.definitions.types.ArrayPositionBookBucket`
+        buckets: :class:`~async_v20.ArrayPositionBookBucket`
             The partitioned position book, divided into buckets using a default bucket width. These
             buckets are only provided for price ranges which actually contain order or position data.
 
@@ -881,49 +881,49 @@ class Order(Model):
     may contain
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's identifier, unique within the Order's Account.
-        create_time: :class:`~async_v20.definitions.primitives.DateTime`
+        create_time: :class:`~async_v20.DateTime`
             The time when the Order was created.
-        state: :class:`~async_v20.definitions.primitives.OrderState`
+        state: :class:`~async_v20.OrderState`
             The current state of the Order.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
-        type: :class:`~async_v20.definitions.primitives.OrderType`
-        client_trade_id: :class:`~async_v20.definitions.primitives.ClientID`
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
-        filling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
-        filled_time: :class:`~async_v20.definitions.primitives.DateTime`
-        trade_opened_id: :class:`~async_v20.definitions.primitives.TradeID`
-        trade_reduced_id: :class:`~async_v20.definitions.primitives.TradeID`
-        trade_closed_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
-        cancelled_time: :class:`~async_v20.definitions.primitives.DateTime`
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
-        replaced_by_order_id: :class:`~async_v20.definitions.primitives.OrderID`
-        distance: :class:`~async_v20.definitions.primitives.PriceValue`
-        trailing_stop_value: :class:`~async_v20.definitions.primitives.PriceValue`
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        trade_id: :class:`~async_v20.TradeID`
+        price: :class:`~async_v20.PriceValue`
+        type: :class:`~async_v20.OrderType`
+        client_trade_id: :class:`~async_v20.ClientID`
+        time_in_force: :class:`~async_v20.TimeInForce`
+        gtd_time: :class:`~async_v20.DateTime`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
+        filling_transaction_id: :class:`~async_v20.TransactionID`
+        filled_time: :class:`~async_v20.DateTime`
+        trade_opened_id: :class:`~async_v20.TradeID`
+        trade_reduced_id: :class:`~async_v20.TradeID`
+        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
+        cancelled_time: :class:`~async_v20.DateTime`
+        replaces_order_id: :class:`~async_v20.OrderID`
+        replaced_by_order_id: :class:`~async_v20.OrderID`
+        distance: :class:`~async_v20.PriceValue`
+        trailing_stop_value: :class:`~async_v20.PriceValue`
+        instrument: :class:`~async_v20.InstrumentName`
+        units: :class:`~async_v20.DecimalNumber`
         partial_fill: :class:`str`
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
-        initial_market_price: :class:`~async_v20.definitions.primitives.PriceValue`
-        trade_close: :class:`~async_v20.definitions.types.MarketOrderTradeClose`
-        long_position_closeout: :class:`~async_v20.definitions.types.MarketOrderPositionCloseout`
-        short_position_closeout: :class:`~async_v20.definitions.types.MarketOrderPositionCloseout`
-        margin_closeout: :class:`~async_v20.definitions.types.MarketOrderMarginCloseout`
-        delayed_trade_close: :class:`~async_v20.definitions.types.MarketOrderDelayedTradeClose`
-        trigger_distance: :class:`~async_v20.definitions.primitives.PriceValue`
+        position_fill: :class:`~async_v20.OrderPositionFill`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
+        price_bound: :class:`~async_v20.PriceValue`
+        initial_market_price: :class:`~async_v20.PriceValue`
+        trade_close: :class:`~async_v20.MarketOrderTradeClose`
+        long_position_closeout: :class:`~async_v20.MarketOrderPositionCloseout`
+        short_position_closeout: :class:`~async_v20.MarketOrderPositionCloseout`
+        margin_closeout: :class:`~async_v20.MarketOrderMarginCloseout`
+        delayed_trade_close: :class:`~async_v20.MarketOrderDelayedTradeClose`
+        trigger_distance: :class:`~async_v20.PriceValue`
         is_trigger_distance_exact: :class:`bool`
     """
 
@@ -963,13 +963,13 @@ class TradeReduce(Model):
     specifically the OrderFill Transaction.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade that was reduced or closed
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The number of units that the Trade was reduced by
-        realized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        realized_pl: :class:`~async_v20.AccountUnits`
             The PL realized when reducing the Trade
-        financing: :class:`~async_v20.definitions.primitives.AccountUnits`
+        financing: :class:`~async_v20.AccountUnits`
             The financing paid/collected when reducing the Trade
 
     """
@@ -993,9 +993,9 @@ class TransactionHeartbeat(Model):
     Attributes:
         type: :class:`str`
             The string "HEARTBEAT"
-        last_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        last_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the most recent Transaction created for the Account
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the TransactionHeartbeat was created.
 
     """
@@ -1027,43 +1027,43 @@ class TradeSummary(Model):
     provide the full details of the Trade's dependent Orders.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TradeID`
+        id: :class:`~async_v20.TradeID`
             The Trade's identifier, unique within the Trade's Account.
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Trade's Instrument.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The execution price of the Trade.
-        open_time: :class:`~async_v20.definitions.primitives.DateTime`
+        open_time: :class:`~async_v20.DateTime`
             The date/time when the Trade was opened.
-        state: :class:`~async_v20.definitions.primitives.TradeState`
+        state: :class:`~async_v20.TradeState`
             The current state of the Trade.
-        initial_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        initial_units: :class:`~async_v20.DecimalNumber`
             The initial size of the Trade. Negative values indicate
             a short Trade, and positive values indicate a long Trade.
-        current_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        current_units: :class:`~async_v20.DecimalNumber`
             The number of units currently open for the Trade. This
             value is reduced to 0.0 as the Trade is closed.
-        realized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        realized_pl: :class:`~async_v20.AccountUnits`
             The total profit/loss realized on the closed portion of the Trade.
-        unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        unrealized_pl: :class:`~async_v20.AccountUnits`
             The unrealized profit/loss on the open portion of the Trade.
-        average_close_price: :class:`~async_v20.definitions.primitives.PriceValue`
+        average_close_price: :class:`~async_v20.PriceValue`
             The average closing price of the Trade. Only present if
             the Trade has been closed or reduced at least once.
-        closing_transaction_i_ds: :class:`~async_v20.definitions.types.ArrayTransactionID`
+        closing_transaction_i_ds: :class:`~async_v20.ArrayTransactionID`
             The IDs of the Transactions that have closed portions of this Trade.
-        financing: :class:`~async_v20.definitions.primitives.AccountUnits`
+        financing: :class:`~async_v20.AccountUnits`
             The financing paid/collected for this Trade.
-        close_time: :class:`~async_v20.definitions.primitives.DateTime`
+        close_time: :class:`~async_v20.DateTime`
             The date/time when the Trade was fully closed.
             Only provided for Trades whose state is CLOSED.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Trade.
-        take_profit_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        take_profit_order_id: :class:`~async_v20.OrderID`
             ID of the Trade's Take Profit Order, only provided if such an Order exists.
-        stop_loss_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        stop_loss_order_id: :class:`~async_v20.OrderID`
             ID of the Trade's Stop Loss Order, only provided if such an Order exists.
-        trailing_stop_loss_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        trailing_stop_loss_order_id: :class:`~async_v20.OrderID`
             ID of the Trade's Trailing Stop Loss
             Order, only provided if such an Order exists.
 
@@ -1090,18 +1090,18 @@ class Transaction(Model):
     may contain.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
 
     """
@@ -1154,24 +1154,24 @@ class AccountChanges(Model):
     past.
 
     Attributes:
-        orders_created: :class:`~async_v20.definitions.types.ArrayOrder`
+        orders_created: :class:`~async_v20.ArrayOrder`
             The Orders created. These Orders may have been
             filled, cancelled or triggered in the same period.
-        orders_cancelled: :class:`~async_v20.definitions.types.ArrayOrder`
+        orders_cancelled: :class:`~async_v20.ArrayOrder`
             The Orders cancelled.
-        orders_filled: :class:`~async_v20.definitions.types.ArrayOrder`
+        orders_filled: :class:`~async_v20.ArrayOrder`
             The Orders filled.
-        orders_triggered: :class:`~async_v20.definitions.types.ArrayOrder`
+        orders_triggered: :class:`~async_v20.ArrayOrder`
             The Orders triggered.
-        trades_opened: :class:`~async_v20.definitions.types.ArrayTradeSummary`
+        trades_opened: :class:`~async_v20.ArrayTradeSummary`
             The Trades opened.
-        trades_reduced: :class:`~async_v20.definitions.types.ArrayTradeSummary`
+        trades_reduced: :class:`~async_v20.ArrayTradeSummary`
             The Trades reduced.
-        trades_closed: :class:`~async_v20.definitions.types.ArrayTradeSummary`
+        trades_closed: :class:`~async_v20.ArrayTradeSummary`
             The Trades closed.
-        positions: :class:`~async_v20.definitions.types.ArrayPosition`
+        positions: :class:`~async_v20.ArrayPosition`
             The Positions changed.
-        transactions: :class:`~async_v20.definitions.types.ArrayTransaction`
+        transactions: :class:`~async_v20.ArrayTransaction`
             The Transactions that have been generated.
 
     """
@@ -1188,11 +1188,11 @@ class Instrument(Model):
     """Full specification of an Instrument.
 
     Attributes:
-        name: :class:`~async_v20.definitions.primitives.InstrumentName`
+        name: :class:`~async_v20.InstrumentName`
             The name of the Instrument
-        type: :class:`~async_v20.definitions.primitives.InstrumentType`
+        type: :class:`~async_v20.InstrumentType`
             The type of the Instrument
-        display_name: :class:`str` :class:`~async_v20.definitions.primitives.InstrumentName`
+        display_name: :class:`str` :class:`~async_v20.InstrumentName`
             The display name of the Instrument
         pip_location: :class:`int`
             The location of the "pip" for this instrument. The decimal position of the pip in this
@@ -1204,22 +1204,22 @@ class Instrument(Model):
         trade_units_precision: :class:`int`
             The amount of decimal places that may be provided
             when specifying the number of units traded for this instrument.
-        minimum_trade_size: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        minimum_trade_size: :class:`~async_v20.DecimalNumber`
             The smallest number of units allowed to be traded for this instrument.
-        maximum_trailing_stop_distance: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        maximum_trailing_stop_distance: :class:`~async_v20.DecimalNumber`
             The maximum trailing stop distance allowed for a trailing
             stop loss created for this instrument. Specified in price units.
-        minimum_trailing_stop_distance: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        minimum_trailing_stop_distance: :class:`~async_v20.DecimalNumber`
             The minimum trailing stop distance allowed for a trailing
             stop loss created for this instrument. Specified in price units.
-        maximum_position_size: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        maximum_position_size: :class:`~async_v20.DecimalNumber`
             The maximum position size allowed for this instrument. Specified in units.
-        maximum_order_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        maximum_order_units: :class:`~async_v20.DecimalNumber`
             The maximum units allowed for an Order
             placed for this instrument. Specified in units.
-        margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_rate: :class:`~async_v20.DecimalNumber`
             The margin rate for this instrument.
-        commission: :class:`~async_v20.definitions.types.InstrumentCommission`
+        commission: :class:`~async_v20.InstrumentCommission`
             The commission structure for this instrument.
 
     """
@@ -1244,45 +1244,45 @@ class AccountChangesState(Model):
     Stop Loss Order state.
 
     Attributes:
-        unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        unrealized_pl: :class:`~async_v20.AccountUnits`
             The total unrealized profit/loss for all Trades currently open
             in the Account. Represented in the Account's home currency.
-        nav: :class:`~async_v20.definitions.primitives.AccountUnits`
+        nav: :class:`~async_v20.AccountUnits`
             The net asset value of the Account. Equal to
             Account balance + unrealizedPL. Represented in the Account's home currency.
-        margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_used: :class:`~async_v20.AccountUnits`
             Margin currently used for the Account.
             Represented in the Account's home currency.
-        margin_available: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_available: :class:`~async_v20.AccountUnits`
             Margin available for Account. Represented in the Account's home currency.
-        position_value: :class:`~async_v20.definitions.primitives.AccountUnits`
+        position_value: :class:`~async_v20.AccountUnits`
             The value of the Account's open
             positions represented in the Account's home currency.
-        margin_closeout_unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_unrealized_pl: :class:`~async_v20.AccountUnits`
             The Account's margin closeout unrealized PL.
-        margin_closeout_nav: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_nav: :class:`~async_v20.AccountUnits`
             The Account's margin closeout NAV.
-        margin_closeout_margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_margin_used: :class:`~async_v20.AccountUnits`
             The Account's margin closeout margin used.
-        margin_closeout_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_closeout_percent: :class:`~async_v20.DecimalNumber`
             The Account's margin closeout percentage. When this value is 1.0
             or above the Account is in a margin closeout situation.
-        margin_closeout_position_value: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_closeout_position_value: :class:`~async_v20.DecimalNumber`
             The value of the Account's open positions as used
             for margin closeout calculations represented in the Account's home currency.
-        withdrawal_limit: :class:`~async_v20.definitions.primitives.AccountUnits`
+        withdrawal_limit: :class:`~async_v20.AccountUnits`
             The current WithdrawalLimit for the account which will be zero or
             a positive value indicating how much can be withdrawn from the account.
-        margin_call_margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_call_margin_used: :class:`~async_v20.AccountUnits`
             The Account's margin call margin used.
-        margin_call_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_call_percent: :class:`~async_v20.DecimalNumber`
             The Account's margin call percentage. When this value is 1.0
             or above the Account is in a margin call situation.
-        orders: :class:`~async_v20.definitions.types.ArrayDynamicOrderState`
+        orders: :class:`~async_v20.ArrayDynamicOrderState`
             The price-dependent state of each pending Order in the Account.
-        trades: :class:`~async_v20.definitions.types.ArrayCalculatedTradeState`
+        trades: :class:`~async_v20.ArrayCalculatedTradeState`
             The price-dependent state for each open Trade in the Account.
-        positions: :class:`~async_v20.definitions.types.ArrayCalculatedPositionState`
+        positions: :class:`~async_v20.ArrayCalculatedPositionState`
             The price-dependent state for each open Position in the Account.
 
     """
@@ -1304,32 +1304,32 @@ class Price(Model):
     Attributes:
         type: :class:`str`
             The string "PRICE". Used to identify the a Price object when found in a stream.
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Price's Instrument.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Price was created
-        status: :class:`~async_v20.definitions.primitives.PriceStatus`
+        status: :class:`~async_v20.PriceStatus`
             The status of the Price.
         tradeable: :class:`bool`
             Flag indicating if the Price is tradeable or not
-        bids: :class:`~async_v20.definitions.types.ArrayPriceBucket`
+        bids: :class:`~async_v20.ArrayPriceBucket`
             The list of prices and liquidity available on the Instrument's bid side. It is possible for this
             list to be empty if there is no bid liquidity currently available for the Instrument in the Account.
-        asks: :class:`~async_v20.definitions.types.ArrayPriceBucket`
+        asks: :class:`~async_v20.ArrayPriceBucket`
             The list of prices and liquidity available on the Instrument's ask side. It is possible for this
             list to be empty if there is no ask liquidity currently available for the Instrument in the Account.
-        closeout_bid: :class:`~async_v20.definitions.primitives.PriceValue`
+        closeout_bid: :class:`~async_v20.PriceValue`
             The closeout bid Price. This Price is used when a bid is required to closeout a Position
             (margin closeout
             or manual) yet there is no bid liquidity. The closeout bid is never used to open a new position.
-        closeout_ask: :class:`~async_v20.definitions.primitives.PriceValue`
+        closeout_ask: :class:`~async_v20.PriceValue`
             The closeout ask Price. This Price is used when a ask is required to closeout a Position
             (margin closeout
             or manual) yet there is no ask liquidity. The closeout ask is never used to open a new position.
-        quote_home_conversion_factors: :class:`~async_v20.definitions.types.QuoteHomeConversionFactors`
+        quote_home_conversion_factors: :class:`~async_v20.QuoteHomeConversionFactors`
             The factors used to convert quantities of this price's Instrument's
             quote currency into a quantity of the Account's home currency.
-        units_available: :class:`~async_v20.definitions.types.UnitsAvailable`
+        units_available: :class:`~async_v20.UnitsAvailable`
             Representation of how many units of an Instrument are available
             to be traded by an Order depending on its postionFill option.
 
@@ -1354,18 +1354,18 @@ class CloseTransaction(Transaction):
     """A CloseTransaction represents the closing of an Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
 
     """
@@ -1382,18 +1382,18 @@ class MarginCallEnterTransaction(Transaction):
     call state.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
 
     """
@@ -1410,18 +1410,18 @@ class MarginCallExitTransaction(Transaction):
     margin call state.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
 
     """
@@ -1438,18 +1438,18 @@ class MarginCallExtendTransaction(Transaction):
     Account has been extended.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
         extension_number: :class:`int`
             The number of the extensions to the Account's current margin call that have
@@ -1469,18 +1469,18 @@ class ReopenTransaction(Transaction):
     """A ReopenTransaction represents the re-opening of a closed Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
     """
 
@@ -1496,18 +1496,18 @@ class ResetResettablePLTransaction(Transaction):
     resettable PL counters.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
 
     """
@@ -1524,23 +1524,23 @@ class StopLossOrderRequest(OrderRequest):
     creating a Stop Loss Order.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the StopLoss Order. The associated Trade will be
             closed by a market price that is equal to or worse than this threshold.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the StopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for StopLoss Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
 
@@ -1559,23 +1559,23 @@ class TakeProfitOrderRequest(OrderRequest):
     creating a Take Profit Order.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the TakeProfit Order. The associated Trade will be
             closed by a market price that is equal to or better than this threshold.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the TakeProfit Order. Restricted
             to "GTC", "GFD" and "GTD" for TakeProfit Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the TakeProfit Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
 
@@ -1594,22 +1594,22 @@ class TrailingStopLossOrderRequest(OrderRequest):
     when creating a Trailing Stop Loss Order.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        distance: :class:`~async_v20.definitions.primitives.PriceValue`
+        distance: :class:`~async_v20.PriceValue`
             The price distance specified for the TrailingStopLoss Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the TrailingStopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
 
@@ -1627,28 +1627,28 @@ class CreateTransaction(Transaction):
     """A CreateTransaction represents the creation of an Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        division_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        division_id: :class:`~async_v20.TransactionID`
             The ID of the Division that the Account is in
-        site_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        site_id: :class:`~async_v20.TransactionID`
             The ID of the Site that the Account was created at
         account_user_id: :class:`int`
             The ID of the user that the Account was created for
         account_number: :class:`int`
             The number of the Account within the site/division/user
-        home_currency: :class:`~async_v20.definitions.primitives.Currency`
+        home_currency: :class:`~async_v20.Currency`
             The home currency of the Account
 
     """
@@ -1667,22 +1667,22 @@ class ClientConfigureTransaction(Transaction):
     a client.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
         alias: :class:`str`
             The client-provided alias for the Account.
-        margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_rate: :class:`~async_v20.DecimalNumber`
             The margin rate override for the Account.
 
     """
@@ -1703,22 +1703,22 @@ class DelayedTradeClosureTransaction(Transaction):
     tradeable.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        reason: :class:`~async_v20.definitions.primitives.MarketOrderReason`
+        reason: :class:`~async_v20.MarketOrderReason`
             The reason for the delayed trade closure
-        trade_i_ds: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_i_ds: :class:`~async_v20.TradeID`
             List of Trade ID's identifying the open trades that
             will be closed when their respective instruments become tradeable
 
@@ -1738,27 +1738,27 @@ class OrderCancelTransaction(Transaction):
     client's Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_id: :class:`~async_v20.TransactionID`
             The ID of the Order cancelled
-        client_order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        client_order_id: :class:`~async_v20.TransactionID`
             The client ID of the Order cancelled (only
             provided if the Order has a client Order ID).
-        reason: :class:`~async_v20.definitions.primitives.OrderCancelReason`
+        reason: :class:`~async_v20.OrderCancelReason`
             The reason that the Order was cancelled.
-        replaced_by_order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        replaced_by_order_id: :class:`~async_v20.TransactionID`
             The ID of the Order that replaced this Order
             (only provided if this Order was cancelled for replacement).
 
@@ -1766,7 +1766,7 @@ class OrderCancelTransaction(Transaction):
 
     _preset_arguments = {'type': TransactionType('ORDER_CANCEL')}
 
-    # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.definitions.primitives.TransactionID` ClientID
+    # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.TransactionID` ClientID
 
     def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
@@ -1781,26 +1781,26 @@ class OrderClientExtensionsModifyTransaction(Transaction):
     Order's Client Extensions.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_id: :class:`~async_v20.TransactionID`
             The ID of the Order who's client extensions are to be modified.
-        client_order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        client_order_id: :class:`~async_v20.TransactionID`
             The original Client ID of the Order who's client extensions are to be modified.
-        client_extensions_modify: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions_modify: :class:`~async_v20.ClientExtensions`
             The new Client Extensions for the Order.
-        trade_client_extensions_modify: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions_modify: :class:`~async_v20.ClientExtensions`
             The new Client Extensions for the Order's Trade on fill.
 
     """
@@ -1820,26 +1820,26 @@ class DailyFinancingTransaction(Transaction):
     financing for an Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        financing: :class:`~async_v20.definitions.primitives.AccountUnits`
+        financing: :class:`~async_v20.AccountUnits`
             The amount of financing paid/collected for the Account.
-        account_balance: :class:`~async_v20.definitions.primitives.AccountUnits`
+        account_balance: :class:`~async_v20.AccountUnits`
             The Account's balance after daily financing.
-        account_financing_mode: :class:`~async_v20.definitions.primitives.AccountFinancingMode`
+        account_financing_mode: :class:`~async_v20.AccountFinancingMode`
             The account financing mode at the time of the daily financing.
-        position_financings: :class:`~async_v20.definitions.types.ArrayPositionFinancing`
+        position_financings: :class:`~async_v20.ArrayPositionFinancing`
             The financing paid/collected for each Position in the Account.
 
     """
@@ -1859,24 +1859,24 @@ class TradeClientExtensionsModifyTransaction(Transaction):
     Trade's Client Extensions.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade who's client extensions are to be modified.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The original Client ID of the Trade who's client extensions are to be modified.
-        trade_client_extensions_modify: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions_modify: :class:`~async_v20.ClientExtensions`
             The new Client Extensions for the Trade.
 
     """
@@ -1895,42 +1895,42 @@ class AccountSummary(Model):
     provide to full specification of pending Orders, open Trades and Positions.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.AccountID`
+        id: :class:`~async_v20.AccountID`
             The Account's identifier
         alias: :class:`str`
             Client-assigned alias for the Account. Only provided
             if the Account has an alias set
-        currency: :class:`~async_v20.definitions.primitives.Currency`
+        currency: :class:`~async_v20.Currency`
             The home currency of the Account
-        balance: :class:`~async_v20.definitions.primitives.AccountUnits`
+        balance: :class:`~async_v20.AccountUnits`
             The current balance of the Account. Represented in the Account's home currency.
         created_by_user_id: :class:`int`
             ID of the user that created the Account.
-        created_time: :class:`~async_v20.definitions.primitives.DateTime`
+        created_time: :class:`~async_v20.DateTime`
             The date/time when the Account was created.
-        pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        pl: :class:`~async_v20.AccountUnits`
             The total profit/loss realized over the lifetime of
             the Account. Represented in the Account's home currency.
-        resettable_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        resettable_pl: :class:`~async_v20.AccountUnits`
             The total realized profit/loss for the Account since it was
             last reset by the client. Represented in the Account's home currency.
-        resettabled_pl_time: :class:`~async_v20.definitions.primitives.DateTime`
+        resettabled_pl_time: :class:`~async_v20.DateTime`
             The date/time that the Account's resettablePL was last reset.
-        commission: :class:`~async_v20.definitions.primitives.AccountUnits`
+        commission: :class:`~async_v20.AccountUnits`
             The total amount of commission paid over the lifetime
             of the Account. Represented in the Account's home currency.
-        margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_rate: :class:`~async_v20.DecimalNumber`
             Client-provided margin rate override for the Account.
             The effective margin rate of the Account is the lesser of this
             value and the OANDA margin rate for the Account's division.
             This value is only provided if a margin rate override
             exists for the Account.
-        margin_call_enter_time: :class:`~async_v20.definitions.primitives.DateTime`
+        margin_call_enter_time: :class:`~async_v20.DateTime`
             The date/time when the Account entered a margin call state.
             Only provided if the Account is in a margin call.
         margin_call_extension_count: :class:`int`
             The number of times that the Account's current margin call was extended.
-        last_margin_call_extension_time: :class:`~async_v20.definitions.primitives.DateTime`
+        last_margin_call_extension_time: :class:`~async_v20.DateTime`
             The date/time of the Account's last margin call extension.
         open_trade_count: :class:`int`
             The number of Trades currently open in the Account.
@@ -1940,41 +1940,41 @@ class AccountSummary(Model):
             The number of Orders currently pending in the Account.
         hedging_enabled: :class:`bool`
             Flag indicating that the Account has hedging enabled.
-        unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        unrealized_pl: :class:`~async_v20.AccountUnits`
             The total unrealized profit/loss for all Trades currently open
             in the Account. Represented in the Account's home currency.
-        nav: :class:`~async_v20.definitions.primitives.AccountUnits`
+        nav: :class:`~async_v20.AccountUnits`
             The net asset value of the Account. Equal to
             Account balance + unrealizedPL. Represented in the Account's home currency.
-        margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_used: :class:`~async_v20.AccountUnits`
             Margin currently used for the Account.
             Represented in the Account's home currency.
-        margin_available: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_available: :class:`~async_v20.AccountUnits`
             Margin available for Account. Represented in the Account's home currency.
-        position_value: :class:`~async_v20.definitions.primitives.AccountUnits`
+        position_value: :class:`~async_v20.AccountUnits`
             The value of the Account's open
             positions represented in the Account's home currency.
-        margin_closeout_unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_unrealized_pl: :class:`~async_v20.AccountUnits`
             The Account's margin closeout unrealized PL.
-        margin_closeout_nav: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_nav: :class:`~async_v20.AccountUnits`
             The Account's margin closeout NAV.
-        margin_closeout_margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_margin_used: :class:`~async_v20.AccountUnits`
             The Account's margin closeout margin used.
-        margin_closeout_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_closeout_percent: :class:`~async_v20.DecimalNumber`
             The Account's margin closeout percentage. When this value is 1.0
             or above the Account is in a margin closeout situation.
-        margin_closeout_position_value: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_closeout_position_value: :class:`~async_v20.DecimalNumber`
             The value of the Account's open positions as used
             for margin closeout calculations represented in the Account's home currency.
-        withdrawal_limit: :class:`~async_v20.definitions.primitives.AccountUnits`
+        withdrawal_limit: :class:`~async_v20.AccountUnits`
             The current WithdrawalLimit for the account which will be zero or
             a positive value indicating how much can be withdrawn from the account.
-        margin_call_margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_call_margin_used: :class:`~async_v20.AccountUnits`
             The Account's margin call margin used.
-        margin_call_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_call_percent: :class:`~async_v20.DecimalNumber`
             The Account's margin call percentage. When this value is 1.0
             or above the Account is in a margin call situation.
-        last_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        last_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the last Transaction created for the Account.
 
     """
@@ -2002,38 +2002,38 @@ class MarketOrderRequest(OrderRequest):
     a Market Order.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Market Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Market Order. A positive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Market Order.
             Restricted to FOK or IOC for a MarketOrder.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst price that the client is willing to have the Market Order filled at.
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
@@ -2056,47 +2056,47 @@ class TakeProfitOrderTransaction(Transaction):
     in the user's Account.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the TakeProfit Order. The associated Trade will be
             closed by a market price that is equal to or better than this threshold.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        client_trade_id: :class:`~async_v20.definitions.primitives.ClientID`
+        client_trade_id: :class:`~async_v20.ClientID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the TakeProfit Order. Restricted
             to "GTC", "GFD" and "GTD" for TakeProfit Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the TakeProfit Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.TakeProfitOrderReason`
+        reason: :class:`~async_v20.TakeProfitOrderReason`
             The reason that the Take Profit Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        order_fill_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_fill_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
@@ -2121,56 +2121,56 @@ class TakeProfitOrder(Order):
     TakeProfitOrder cannot be used to open a new Position.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the TakeProfit Order. The associated Trade will be
             closed by a market price that is equal to or better than this threshold.
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's identifier, unique within the Order's Account.
-        create_time: :class:`~async_v20.definitions.primitives.DateTime`
+        create_time: :class:`~async_v20.DateTime`
             The time when the Order was created.
-        state: :class:`~async_v20.definitions.primitives.OrderState`
+        state: :class:`~async_v20.OrderState`
             The current state of the Order.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
-        client_trade_id: :class:`~async_v20.definitions.primitives.ClientID`
+        client_trade_id: :class:`~async_v20.ClientID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the TakeProfit Order. Restricted
             to "GTC", "GFD" and "GTD" for TakeProfit Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the TakeProfit Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        filling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        filling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        filled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        trade_opened_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_opened_id: :class:`~async_v20.TradeID`
             Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        trade_reduced_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
+        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        cancelled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replaced_by_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaced_by_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
@@ -2196,56 +2196,56 @@ class StopLossOrder(Order):
     cannot be used to open a new Position.
 
     Attributes:
-        :class:`~async_v20.definitions.primitives.TradeID`
+        :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the StopLoss Order. The associated Trade will be
             closed by a market price that is equal to or worse than this threshold.
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's identifier, unique within the Order's Account.
-        create_time: :class:`~async_v20.definitions.primitives.DateTime`
+        create_time: :class:`~async_v20.DateTime`
             The time when the Order was created.
-        state: :class:`~async_v20.definitions.primitives.OrderState`
+        state: :class:`~async_v20.OrderState`
             The current state of the Order.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
-        client_:class:`~async_v20.definitions.primitives.TradeID`
+        client_:class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the StopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for StopLoss Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        filling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        filling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        filled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        trade_opened_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_opened_id: :class:`~async_v20.TradeID`
             Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        trade_reduced_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
+        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        cancelled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replaced_by_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaced_by_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
@@ -2275,60 +2275,60 @@ class TrailingStopLossOrder(Order):
     used to open a new Position.
 
     Attributes:
-        :class:`~async_v20.definitions.primitives.TradeID`
+        :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        distance: :class:`~async_v20.definitions.primitives.PriceValue`
+        distance: :class:`~async_v20.PriceValue`
             The price distance specified for the TrailingStopLoss Order.
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's identifier, unique within the Order's Account.
-        create_time: :class:`~async_v20.definitions.primitives.DateTime`
+        create_time: :class:`~async_v20.DateTime`
             The time when the Order was created.
-        state: :class:`~async_v20.definitions.primitives.OrderState`
+        state: :class:`~async_v20.OrderState`
             The current state of the Order.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
-        client_:class:`~async_v20.definitions.primitives.TradeID`
+        client_:class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the TrailingStopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        trailing_stop_value: :class:`~async_v20.definitions.primitives.PriceValue`
+        trailing_stop_value: :class:`~async_v20.PriceValue`
             The trigger price for the Trailing Stop Loss Order. The trailing stop value will trail
             (follow) the market price by the TSL order's configured "distance" as the market price moves in the
             winning direction. If the market price moves to a level that is equal to or worse than the trailing stop
             value, the order will be filled and the Trade will be closed.
-        filling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        filling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        filled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        trade_opened_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_opened_id: :class:`~async_v20.TradeID`
             Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        trade_reduced_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
+        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        cancelled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replaced_by_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaced_by_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
@@ -2354,45 +2354,45 @@ class Trade(Model):
     those Orders.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TradeID`
+        id: :class:`~async_v20.TradeID`
             The Trade's identifier, unique within the Trade's Account.
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Trade's Instrument.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The execution price of the Trade.
-        open_time: :class:`~async_v20.definitions.primitives.DateTime`
+        open_time: :class:`~async_v20.DateTime`
             The date/time when the Trade was opened.
-        state: :class:`~async_v20.definitions.primitives.TradeState`
+        state: :class:`~async_v20.TradeState`
             The current state of the Trade.
-        initial_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        initial_units: :class:`~async_v20.DecimalNumber`
             The initial size of the Trade. Negative values indicate
             a short Trade, and positive values indicate a long Trade.
-        current_units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        current_units: :class:`~async_v20.DecimalNumber`
             The number of units currently open for the Trade. This
             value is reduced to 0.0 as the Trade is closed.
-        realized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        realized_pl: :class:`~async_v20.AccountUnits`
             The total profit/loss realized on the closed portion of the Trade.
-        unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        unrealized_pl: :class:`~async_v20.AccountUnits`
             The unrealized profit/loss on the open portion of the Trade.
-        average_close_price: :class:`~async_v20.definitions.primitives.PriceValue`
+        average_close_price: :class:`~async_v20.PriceValue`
             The average closing price of the Trade. Only present if
             the Trade has been closed or reduced at least once.
-        closing_transaction_i_ds: :class:`~async_v20.definitions.types.ArrayTransactionID`
+        closing_transaction_i_ds: :class:`~async_v20.ArrayTransactionID`
             The IDs of the Transactions that have closed portions of this Trade.
-        financing: :class:`~async_v20.definitions.primitives.AccountUnits`
+        financing: :class:`~async_v20.AccountUnits`
             The financing paid/collected for this Trade.
-        close_time: :class:`~async_v20.definitions.primitives.DateTime`
+        close_time: :class:`~async_v20.DateTime`
             The date/time when the Trade was fully closed.
             Only provided for Trades whose state is CLOSED.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Trade.
-        take_profit_order: :class:`~async_v20.definitions.types.TakeProfitOrder`
+        take_profit_order: :class:`~async_v20.TakeProfitOrder`
             Full representation of the Trade's Take Profit
             Order, only provided if such an Order exists.
-        stop_loss_order: :class:`~async_v20.definitions.types.StopLossOrder`
+        stop_loss_order: :class:`~async_v20.StopLossOrder`
             Full representation of the Trade's Stop Loss
             Order, only provided if such an Order exists.
-        trailing_stop_loss_order: :class:`~async_v20.definitions.types.TrailingStopLossOrder`
+        trailing_stop_loss_order: :class:`~async_v20.TrailingStopLossOrder`
             Full representation of the Trade's Trailing Stop Loss
             Order, only provided if such an Order exists.
 
@@ -2420,24 +2420,24 @@ class ClientConfigureRejectTransaction(Transaction):
     of an Account by a client.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
         alias: :class:`str`
             The client-provided alias for the Account.
-        margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_rate: :class:`~async_v20.DecimalNumber`
             The margin rate override for the Account.
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -2456,34 +2456,34 @@ class OrderCancelRejectTransaction(Transaction):
     cancellation of an Order in the client's Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_id: :class:`~async_v20.TransactionID`
             The ID of the Order intended to be cancelled
-        client_order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        client_order_id: :class:`~async_v20.TransactionID`
             The client ID of the Order intended to be cancelled
             (only provided if the Order has a client Order ID).
-        reason: :class:`~async_v20.definitions.primitives.OrderCancelReason`
+        reason: :class:`~async_v20.OrderCancelReason`
             The reason that the Order was to be cancelled.
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
 
     _preset_arguments = {'type': TransactionType('ORDER_CANCEL_REJECT')}
 
-    # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.definitions.primitives.TransactionID` ClientID
+    # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.TransactionID` ClientID
 
     def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
@@ -2498,28 +2498,28 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction):
     the modification of an Order's Client Extensions.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_id: :class:`~async_v20.TransactionID`
             The ID of the Order who's client extensions are to be modified.
-        client_order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        client_order_id: :class:`~async_v20.TransactionID`
             The original Client ID of the Order who's client extensions are to be modified.
-        client_extensions_modify: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions_modify: :class:`~async_v20.ClientExtensions`
             The new Client Extensions for the Order.
-        trade_client_extensions_modify: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions_modify: :class:`~async_v20.ClientExtensions`
             The new Client Extensions for the Order's Trade on fill.
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -2541,26 +2541,26 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction):
     the modification of a Trade's Client Extensions.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade who's client extensions are to be modified.
-        client_trade_id: :class:`~async_v20.definitions.primitives.ClientID`
+        client_trade_id: :class:`~async_v20.ClientID`
             The original Client ID of the Trade who's client extensions are to be modified.
-        trade_client_extensions_modify: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions_modify: :class:`~async_v20.ClientExtensions`
             The new Client Extensions for the Trade.
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -2581,27 +2581,27 @@ class TransferFundsTransaction(Transaction):
     Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        amount: :class:`~async_v20.definitions.primitives.AccountUnits`
+        amount: :class:`~async_v20.AccountUnits`
             The amount to deposit/withdraw from the Account in the Account's home currency.
             A positive value indicates a deposit, a negative value indicates a withdrawal.
-        funding_reason: :class:`~async_v20.definitions.primitives.FundingReason`
+        funding_reason: :class:`~async_v20.FundingReason`
             The reason that an Account is being funded.
         comment: :class:`str`
             An optional comment that may be attached to a fund transfer for audit purposes
-        account_balance: :class:`~async_v20.definitions.primitives.AccountUnits`
+        account_balance: :class:`~async_v20.AccountUnits`
             The Account's balance after funds are transferred.
 
     """
@@ -2620,27 +2620,27 @@ class TransferFundsRejectTransaction(Transaction):
     of funds in/out of an Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        amount: :class:`~async_v20.definitions.primitives.AccountUnits`
+        amount: :class:`~async_v20.AccountUnits`
             The amount to deposit/withdraw from the Account in the Account's home currency.
             A positive value indicates a deposit, a negative value indicates a withdrawal.
-        funding_reason: :class:`~async_v20.definitions.primitives.FundingReason`
+        funding_reason: :class:`~async_v20.FundingReason`
             The reason that an Account is being funded.
         comment: :class:`str`
             An optional comment that may be attached to a fund transfer for audit purposes
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -2660,44 +2660,44 @@ class LimitOrderRequest(OrderRequest):
     a Limit Order.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Limit Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Limit Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the Limit Order. The Limit Order will only be
             filled by a market price that is equal to or better than this price.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Limit Order.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the Limit Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
@@ -2721,49 +2721,49 @@ class MarketIfTouchedOrderRequest(OrderRequest):
 
     Attributes:
 
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The MarketIfTouched Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the MarketIfTouched Order. The MarketIfTouched Order will only be
             filled by a market price that crosses this price from the direction of the market price
             at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order's
             price and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst market price that may be used to fill this MarketIfTouched Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the MarketIfTouched Order. Restricted
             to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the MarketIfTouched Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
@@ -2787,47 +2787,47 @@ class StopOrderRequest(OrderRequest):
 
     Attributes:
 
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Stop Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Stop Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the Stop Order. The Stop Order will only be
             filled by a market price that is equal to or worse than this price.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst market price that may be used to fill this Stop Order. If the market gaps and
             crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Stop Order.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the Stop Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions to add to the Order. Do not set,
             modify, or delete clientExtensions if your account is associated with MT4.
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
@@ -2850,41 +2850,41 @@ class Account(AccountSummary):
     Position and pending Order representation.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.AccountID`
+        id: :class:`~async_v20.AccountID`
             The Account's identifier
         alias: :class:`str`
             Client-assigned alias for the Account. Only provided
             if the Account has an alias set
-        currency: :class:`~async_v20.definitions.primitives.Currency`
+        currency: :class:`~async_v20.Currency`
             The home currency of the Account
-        balance: :class:`~async_v20.definitions.primitives.AccountUnits`
+        balance: :class:`~async_v20.AccountUnits`
             The current balance of the Account. Represented in the Account's home currency.
         created_by_user_id: :class:`int`
             ID of the user that created the Account.
-        created_time: :class:`~async_v20.definitions.primitives.DateTime`
+        created_time: :class:`~async_v20.DateTime`
             The date/time when the Account was created.
-        pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        pl: :class:`~async_v20.AccountUnits`
             The total profit/loss realized over the lifetime of
             the Account. Represented in the Account's home currency.
-        resettable_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        resettable_pl: :class:`~async_v20.AccountUnits`
             The total realized profit/loss for the Account since it was
             last reset by the client. Represented in the Account's home currency.
-        resettabled_pl_time: :class:`~async_v20.definitions.primitives.DateTime`
+        resettabled_pl_time: :class:`~async_v20.DateTime`
             The date/time that the Account's resettablePL was last reset.
-        commission: :class:`~async_v20.definitions.primitives.AccountUnits`
+        commission: :class:`~async_v20.AccountUnits`
             The total amount of commission paid over the lifetime
             of the Account. Represented in the Account's home currency.
-        margin_rate: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_rate: :class:`~async_v20.DecimalNumber`
             Client-provided margin rate override for the Account. The effective margin rate of the Account
             is the lesser of this value and
             the OANDA margin rate for the Account's division. This value is only provided if a margin rate override
             exists for the Account.
-        margin_call_enter_time: :class:`~async_v20.definitions.primitives.DateTime`
+        margin_call_enter_time: :class:`~async_v20.DateTime`
             The date/time when the Account entered a margin call state.
             Only provided if the Account is in a margin call.
         margin_call_extension_count: :class:`int`
             The number of times that the Account's current margin call was extended.
-        last_margin_call_extension_time: :class:`~async_v20.definitions.primitives.DateTime`
+        last_margin_call_extension_time: :class:`~async_v20.DateTime`
             The date/time of the Account's last margin call extension.
         open_trade_count: :class:`int`
             The number of Trades currently open in the Account.
@@ -2894,47 +2894,47 @@ class Account(AccountSummary):
             The number of Orders currently pending in the Account.
         hedging_enabled: :class:`bool`
             Flag indicating that the Account has hedging enabled.
-        unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        unrealized_pl: :class:`~async_v20.AccountUnits`
             The total unrealized profit/loss for all Trades currently open
             in the Account. Represented in the Account's home currency.
-        nav: :class:`~async_v20.definitions.primitives.AccountUnits`
+        nav: :class:`~async_v20.AccountUnits`
             The net asset value of the Account. Equal to
             Account balance + unrealizedPL. Represented in the Account's home currency.
-        margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_used: :class:`~async_v20.AccountUnits`
             Margin currently used for the Account.
             Represented in the Account's home currency.
-        margin_available: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_available: :class:`~async_v20.AccountUnits`
             Margin available for Account. Represented in the Account's home currency.
-        position_value: :class:`~async_v20.definitions.primitives.AccountUnits`
+        position_value: :class:`~async_v20.AccountUnits`
             The value of the Account's open
             positions represented in the Account's home currency.
-        margin_closeout_unrealized_pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_unrealized_pl: :class:`~async_v20.AccountUnits`
             The Account's margin closeout unrealized PL.
-        margin_closeout_nav: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_nav: :class:`~async_v20.AccountUnits`
             The Account's margin closeout NAV.
-        margin_closeout_margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_closeout_margin_used: :class:`~async_v20.AccountUnits`
             The Account's margin closeout margin used.
-        margin_closeout_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_closeout_percent: :class:`~async_v20.DecimalNumber`
             The Account's margin closeout percentage. When this value is 1.0
             or above the Account is in a margin closeout situation.
-        margin_closeout_position_value: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_closeout_position_value: :class:`~async_v20.DecimalNumber`
             The value of the Account's open positions as used
             for margin closeout calculations represented in the Account's home currency.
-        withdrawal_limit: :class:`~async_v20.definitions.primitives.AccountUnits`
+        withdrawal_limit: :class:`~async_v20.AccountUnits`
             The current WithdrawalLimit for the account which will be zero or
             a positive value indicating how much can be withdrawn from the account.
-        margin_call_margin_used: :class:`~async_v20.definitions.primitives.AccountUnits`
+        margin_call_margin_used: :class:`~async_v20.AccountUnits`
             The Account's margin call margin used.
-        margin_call_percent: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        margin_call_percent: :class:`~async_v20.DecimalNumber`
             The Account's margin call percentage. When this value is 1.0
             or above the Account is in a margin call situation.
-        last_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        last_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the last Transaction created for the Account.
-        trades: :class:`~async_v20.definitions.types.ArrayTradeSummary`
+        trades: :class:`~async_v20.ArrayTradeSummary`
             The details of the Trades currently open in the Account.
-        positions: :class:`~async_v20.definitions.types.ArrayPosition`
+        positions: :class:`~async_v20.ArrayPosition`
             The details all Account Positions.
-        orders: :class:`~async_v20.definitions.types.ArrayOrder`
+        orders: :class:`~async_v20.ArrayOrder`
             The details of the Orders currently pending in the Account.
 
     """
@@ -2965,60 +2965,60 @@ class MarketOrderTransaction(Transaction):
     Position or to particiate in in a Margin closeout.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Market Order's Instrument.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Market Order.
             Restricted to FOK or IOC for a MarketOrder.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst price that the client is willing to have the Market Order filled at.
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trade_close: :class:`~async_v20.definitions.types.MarketOrderTradeClose`
+        trade_close: :class:`~async_v20.MarketOrderTradeClose`
             Details of the Trade requested to be closed, only provided when
             the Market Order is being used to explicitly close a Trade.
-        long_position_closeout: :class:`~async_v20.definitions.types.MarketOrderPositionCloseout`
+        long_position_closeout: :class:`~async_v20.MarketOrderPositionCloseout`
             Details of the long Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a long Position.
-        short_position_closeout: :class:`~async_v20.definitions.types.MarketOrderPositionCloseout`
+        short_position_closeout: :class:`~async_v20.MarketOrderPositionCloseout`
             Details of the short Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a short Position.
-        margin_closeout: :class:`~async_v20.definitions.types.MarketOrderMarginCloseout`
+        margin_closeout: :class:`~async_v20.MarketOrderMarginCloseout`
             Details of the Margin Closeout that this Market Order was created for
-        delayed_trade_close: :class:`~async_v20.definitions.types.MarketOrderDelayedTradeClose`
+        delayed_trade_close: :class:`~async_v20.MarketOrderDelayedTradeClose`
             Details of the delayed Trade close that this Market Order was created for
-        reason: :class:`~async_v20.definitions.primitives.MarketOrderReason`
+        reason: :class:`~async_v20.MarketOrderReason`
             The reason that the Market Order was created
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
 
@@ -3046,63 +3046,63 @@ class MarketOrderRejectTransaction(Transaction):
     a Market Order.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Market Order's Instrument.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Market Order.
             Restricted to FOK or IOC for a MarketOrder.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst price that the client is willing to have the Market Order filled at.
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trade_close: :class:`~async_v20.definitions.types.MarketOrderTradeClose`
+        trade_close: :class:`~async_v20.MarketOrderTradeClose`
             Details of the Trade requested to be closed, only provided when
             the Market Order is being used to explicitly close a Trade.
-        long_position_closeout: :class:`~async_v20.definitions.types.MarketOrderPositionCloseout`
+        long_position_closeout: :class:`~async_v20.MarketOrderPositionCloseout`
             Details of the long Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a long Position.
-        short_position_closeout: :class:`~async_v20.definitions.types.MarketOrderPositionCloseout`
+        short_position_closeout: :class:`~async_v20.MarketOrderPositionCloseout`
             Details of the short Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a short Position.
-        margin_closeout: :class:`~async_v20.definitions.types.MarketOrderMarginCloseout`
+        margin_closeout: :class:`~async_v20.MarketOrderMarginCloseout`
             Details of the Margin Closeout that this Market Order was created for
-        delayed_trade_close: :class:`~async_v20.definitions.types.MarketOrderDelayedTradeClose`
+        delayed_trade_close: :class:`~async_v20.MarketOrderDelayedTradeClose`
             Details of the delayed Trade close that this Market Order was created for
-        reason: :class:`~async_v20.definitions.primitives.MarketOrderReason`
+        reason: :class:`~async_v20.MarketOrderReason`
             The reason that the Market Order was created
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -3129,47 +3129,47 @@ class StopLossOrderTransaction(Transaction):
     the user's Account.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the StopLoss Order. The associated Trade will be
             closed by a market price that is equal to or worse than this threshold.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the StopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for StopLoss Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.StopLossOrderReason`
+        reason: :class:`~async_v20.StopLossOrderReason`
             The reason that the Stop Loss Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        order_fill_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_fill_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
@@ -3192,46 +3192,46 @@ class TrailingStopLossOrderTransaction(Transaction):
     TrailingStopLoss Order in the user's Account.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        distance: :class:`~async_v20.definitions.primitives.PriceValue`
+        distance: :class:`~async_v20.PriceValue`
             The price distance specified for the TrailingStopLoss Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the TrailingStopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.TrailingStopLossOrderReason`
+        reason: :class:`~async_v20.TrailingStopLossOrderReason`
             The reason that the Trailing Stop Loss Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        order_fill_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_fill_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
@@ -3254,78 +3254,78 @@ class LimitOrder(Order):
     only be filled by a price that is equal to or better than the threshold.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Limit Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Limit Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the Limit Order. The Limit Order will only be
             filled by a market price that is equal to or better than this price.
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's identifier, unique within the Order's Account.
-        create_time: :class:`~async_v20.definitions.primitives.DateTime`
+        create_time: :class:`~async_v20.DateTime`
             The time when the Order was created.
-        state: :class:`~async_v20.definitions.primitives.OrderState`
+        state: :class:`~async_v20.OrderState`
             The current state of the Order.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Limit Order.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the Limit Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
-        filling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        filling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        filled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        trade_opened_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_opened_id: :class:`~async_v20.TradeID`
             Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        trade_reduced_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
+        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        cancelled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replaced_by_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaced_by_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
@@ -3352,85 +3352,85 @@ class MarketIfTouchedOrder(Order):
     threshold.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The MarketIfTouched Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the MarketIfTouched Order. The MarketIfTouched Order will only be
             filled by a market price that crosses this price from the direction of the market price
             at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order's
             price and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's identifier, unique within the Order's Account.
-        create_time: :class:`~async_v20.definitions.primitives.DateTime`
+        create_time: :class:`~async_v20.DateTime`
             The time when the Order was created.
-        state: :class:`~async_v20.definitions.primitives.OrderState`
+        state: :class:`~async_v20.OrderState`
             The current state of the Order.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst market price that may be used to fill this MarketIfTouched Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the MarketIfTouched Order. Restricted
             to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the MarketIfTouched Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        initial_market_price: :class:`~async_v20.definitions.primitives.PriceValue`
+        initial_market_price: :class:`~async_v20.PriceValue`
             The Market price at the time when the MarketIfTouched Order was created.
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
-        filling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        filling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        filled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        trade_opened_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_opened_id: :class:`~async_v20.TradeID`
             Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        trade_reduced_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
+        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        cancelled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replaced_by_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaced_by_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
@@ -3458,81 +3458,81 @@ class StopOrder(Order):
     only be filled by a price that is equal to or worse than the threshold.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Stop Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Stop Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the Stop Order. The Stop Order will only be
             filled by a market price that is equal to or worse than this price.
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's identifier, unique within the Order's Account.
-        create_time: :class:`~async_v20.definitions.primitives.DateTime`
+        create_time: :class:`~async_v20.DateTime`
             The time when the Order was created.
-        state: :class:`~async_v20.definitions.primitives.OrderState`
+        state: :class:`~async_v20.OrderState`
             The current state of the Order.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst market price that may be used to fill this Stop Order. If the market gaps and
             crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Stop Order.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the Stop Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of
             a client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
-        filling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        filling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        filled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        trade_opened_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_opened_id: :class:`~async_v20.TradeID`
             Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        trade_reduced_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
+        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        cancelled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that was replaced by this Order
             (only provided if this Order was created as part of a cancel/replace).
-        replaced_by_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaced_by_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that replaced this Order (only
             provided if this Order was cancelled as part of a cancel/replace).
 
@@ -3559,52 +3559,52 @@ class OrderFillTransaction(Transaction):
     Account.
 
     Attributes:
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_id: :class:`~async_v20.TransactionID`
             The ID of the Order filled.
-        client_order_id: :class:`~async_v20.definitions.primitives.ClientID`
+        client_order_id: :class:`~async_v20.ClientID`
             The client Order ID of the Order filled
             (only provided if the client has assigned one).
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The name of the filled Order's instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The number of units filled by the Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The average market price that the Order was filled at.
-        full_price: :class:`~async_v20.definitions.primitives.PriceValue`
+        full_price: :class:`~async_v20.PriceValue`
             The price in effect for the account at the time of the Order fill.
-        reason: :class:`~async_v20.definitions.primitives.OrderFillReason`
+        reason: :class:`~async_v20.OrderFillReason`
             The reason that an Order was filled
-        pl: :class:`~async_v20.definitions.primitives.AccountUnits`
+        pl: :class:`~async_v20.AccountUnits`
             The profit or loss incurred when the Order was filled.
-        financing: :class:`~async_v20.definitions.primitives.AccountUnits`
+        financing: :class:`~async_v20.AccountUnits`
             The financing paid or collected when the Order was filled.
-        commission: :class:`~async_v20.definitions.primitives.AccountUnits`
+        commission: :class:`~async_v20.AccountUnits`
             The commission charged in the Account's home currency as a result of filling the Order. The
             commission is
             always represented as a positive quantity of the Account's home currency, however it reduces the balance in
             the Account.
-        account_balance: :class:`~async_v20.definitions.primitives.AccountUnits`
+        account_balance: :class:`~async_v20.AccountUnits`
             The Account's balance after the Order was filled.
-        trade_opened: :class:`~async_v20.definitions.types.TradeOpen`
+        trade_opened: :class:`~async_v20.TradeOpen`
             The Trade that was opened when the Order was filled
             (only provided if filling the Order resulted in a new Trade).
-        trades_closed: :class:`~async_v20.definitions.types.ArrayTradeReduce`
+        trades_closed: :class:`~async_v20.ArrayTradeReduce`
             The Trades that were closed when the Order was filled (only
             provided if filling the Order resulted in a closing open Trades).
-        trade_reduced: :class:`~async_v20.definitions.types.TradeReduce`
+        trade_reduced: :class:`~async_v20.TradeReduce`
             The Trade that was reduced when the Order was filled (only
             provided if filling the Order resulted in reducing an open Trade).
 
@@ -3633,47 +3633,47 @@ class StopLossOrderRejectTransaction(Transaction):
     of a StopLoss Order.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the StopLoss Order. The associated Trade will be
             closed by a market price that is equal to or worse than this threshold.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the StopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for StopLoss Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.StopLossOrderReason`
+        reason: :class:`~async_v20.StopLossOrderReason`
             The reason that the Stop Loss Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        order_fill_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_fill_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        intended_replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        intended_replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -3695,64 +3695,64 @@ class MarketIfTouchedOrderTransaction(Transaction):
     MarketIfTouched Order in the user's Account.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The MarketIfTouched Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the MarketIfTouched Order. The MarketIfTouched Order will only be
             filled by a market price that crosses this price from the direction of the market price
             at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order's price
             and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst market price that may be used to fill this MarketIfTouched Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the MarketIfTouched Order. Restricted
             to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the MarketIfTouched Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.MarketIfTouchedOrderReason`
+        reason: :class:`~async_v20.MarketIfTouchedOrderReason`
             The reason that the Market-if-touched Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
@@ -3778,59 +3778,59 @@ class LimitOrderTransaction(Transaction):
     user's Account.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Limit Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Limit Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the Limit Order. The Limit Order will only be
             filled by a market price that is equal to or better than this price.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Limit Order.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the Limit Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.LimitOrderReason`
+        reason: :class:`~async_v20.LimitOrderReason`
             The reason that the Limit Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
@@ -3856,47 +3856,47 @@ class TakeProfitOrderRejectTransaction(Transaction):
     of a TakeProfit Order.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the TakeProfit Order. The associated Trade will be
             closed by a market price that is equal to or better than this threshold.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the TakeProfit Order. Restricted
             to "GTC", "GFD" and "GTD" for TakeProfit Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the TakeProfit Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.TakeProfitOrderReason`
+        reason: :class:`~async_v20.TakeProfitOrderReason`
             The reason that the Take Profit Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        order_fill_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_fill_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        intended_replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        intended_replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -3918,46 +3918,46 @@ class TrailingStopLossOrderRejectTransaction(Transaction):
     creation of a TrailingStopLoss Order.
 
     Attributes:
-        trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
-        distance: :class:`~async_v20.definitions.primitives.PriceValue`
+        distance: :class:`~async_v20.PriceValue`
             The price distance specified for the TrailingStopLoss Order.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        client_trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+        client_trade_id: :class:`~async_v20.TradeID`
             The client ID of the Trade to be closed when the price threshold is breached.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the TrailingStopLoss Order. Restricted
             to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the StopLoss Order will
             be cancelled if its timeInForce is "GTD".
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.TrailingStopLossOrderReason`
+        reason: :class:`~async_v20.TrailingStopLossOrderReason`
             The reason that the Trailing Stop Loss Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        order_fill_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        order_fill_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the OrderFill Transaction that caused this Order to be created
             (only provided if this Order was created automatically when another Order was filled).
-        intended_replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        intended_replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -3979,62 +3979,62 @@ class StopOrderTransaction(Transaction):
     user's Account.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Stop Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Stop Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the Stop Order. The Stop Order will only be
             filled by a market price that is equal to or worse than this price.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst market price that may be used to fill this Stop Order. If the market gaps and
             crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Stop Order.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the Stop Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.StopOrderReason`
+        reason: :class:`~async_v20.StopOrderReason`
             The reason that the Stop Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order replaces
             (only provided if this Order replaces an existing Order).
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
 
@@ -4060,64 +4060,64 @@ class MarketIfTouchedOrderRejectTransaction(Transaction):
     creation of a MarketIfTouched Order.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The MarketIfTouched Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the MarketIfTouched Order. The MarketIfTouched Order will only be
             filled by a market price that crosses this price from the direction of the market price
             at the time when the Order was created (the initialMarketPrice). Depending on the value of the Order's price
             and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit or a Stop Order.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst market price that may be used to fill this MarketIfTouched Order.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the MarketIfTouched Order. Restricted
             to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the MarketIfTouched Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.MarketIfTouchedOrderReason`
+        reason: :class:`~async_v20.MarketIfTouchedOrderReason`
             The reason that the Market-if-touched Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        intended_replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        intended_replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -4143,59 +4143,59 @@ class LimitOrderRejectTransaction(Transaction):
     Limit Order.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Limit Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Limit Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the Limit Order. The Limit Order will only be
             filled by a market price that is equal to or better than this price.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Limit Order.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the Limit Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.LimitOrderReason`
+        reason: :class:`~async_v20.LimitOrderReason`
             The reason that the Limit Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        intended_replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        intended_replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -4220,62 +4220,62 @@ class StopOrderRejectTransaction(Transaction):
     Stop Order.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Stop Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Stop Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        price: :class:`~async_v20.definitions.primitives.PriceValue`
+        price: :class:`~async_v20.PriceValue`
             The price threshold specified for the Stop Order. The Stop Order will only be
             filled by a market price that is equal to or worse than this price.
-        id: :class:`~async_v20.definitions.primitives.TransactionID`
+        id: :class:`~async_v20.TransactionID`
             The Transaction's Identifier.
-        time: :class:`~async_v20.definitions.primitives.DateTime`
+        time: :class:`~async_v20.DateTime`
             The date/time when the Transaction was created.
         user_id: :class:`int`
             The ID of the user that initiated the creation of the Transaction.
-        account_id: :class:`~async_v20.definitions.primitives.AccountID`
+        account_id: :class:`~async_v20.AccountID`
             The ID of the Account the Transaction was created for.
-        batch_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        batch_id: :class:`~async_v20.TransactionID`
             The ID of the "batch" that the Transaction belongs to.
             Transactions in the same batch are applied to the Account simultaneously.
-        request_id: :class:`~async_v20.definitions.primitives.RequestID`
+        request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst market price that may be used to fill this Stop Order. If the market gaps and
             crosses through both the price and the priceBound, the Stop Order will be cancelled instead of being filled.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Stop Order.
-        gtd_time: :class:`~async_v20.definitions.primitives.DateTime`
+        gtd_time: :class:`~async_v20.DateTime`
             The date/time when the Stop Order will
             be cancelled if its timeInForce is "GTD".
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trigger_condition: :class:`~async_v20.definitions.primitives.OrderTriggerCondition`
+        trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
-        reason: :class:`~async_v20.definitions.primitives.StopOrderReason`
+        reason: :class:`~async_v20.StopOrderReason`
             The reason that the Stop Order was initiated
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Order (only provided
             if the Order is being created with client extensions).
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             The specification of the Take Profit Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             The specification of the Stop Loss Order that should be created for a
             Trade opened when the Order is filled (if such a Trade is created).
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             The specification of the Trailing Stop Loss Order that should be created for a
             Trade that is opened when the Order is filled (if such a Trade is created).
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.
-        intended_replaces_order_id: :class:`~async_v20.definitions.primitives.OrderID`
+        intended_replaces_order_id: :class:`~async_v20.OrderID`
             The ID of the Order that this Order was intended to replace
             (only provided if this Order was intended to replace an existing Order).
-        reject_reason: :class:`~async_v20.definitions.primitives.TransactionRejectReason`
+        reject_reason: :class:`~async_v20.TransactionRejectReason`
             The reason that the Reject Transaction was created
 
     """
@@ -4301,79 +4301,79 @@ class MarketOrder(Order):
     the current market price.
 
     Attributes:
-        instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+        instrument: :class:`~async_v20.InstrumentName`
             The Market Order's Instrument.
-        units: :class:`~async_v20.definitions.primitives.DecimalNumber`
+        units: :class:`~async_v20.DecimalNumber`
             The quantity requested to be filled by the Market Order. A posititive number of units
             results in a long Order, and a negative number of units results in a short Order.
-        id: :class:`~async_v20.definitions.primitives.OrderID`
+        id: :class:`~async_v20.OrderID`
             The Order's identifier, unique within the Order's Account.
-        create_time: :class:`~async_v20.definitions.primitives.DateTime`
+        create_time: :class:`~async_v20.DateTime`
             The time when the Order was created.
-        state: :class:`~async_v20.definitions.primitives.OrderState`
+        state: :class:`~async_v20.OrderState`
             The current state of the Order.
-        client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        client_extensions: :class:`~async_v20.ClientExtensions`
             The client extensions of the Order. Do not set, modify,
             or delete clientExtensions if your account is associated with MT4.
-        time_in_force: :class:`~async_v20.definitions.primitives.TimeInForce`
+        time_in_force: :class:`~async_v20.TimeInForce`
             The time-in-force requested for the Market Order.
             Restricted to FOK or IOC for a MarketOrder.
-        price_bound: :class:`~async_v20.definitions.primitives.PriceValue`
+        price_bound: :class:`~async_v20.PriceValue`
             The worst price that the client is willing to have the Market Order filled at.
-        position_fill: :class:`~async_v20.definitions.primitives.OrderPositionFill`
+        position_fill: :class:`~async_v20.OrderPositionFill`
             Specification of how Positions in the Account
             are modified when the Order is filled.
-        trade_close: :class:`~async_v20.definitions.types.MarketOrderTradeClose`
+        trade_close: :class:`~async_v20.MarketOrderTradeClose`
             Details of the Trade requested to be closed, only provided when
             the Market Order is being used to explicitly close a Trade.
-        long_position_closeout: :class:`~async_v20.definitions.types.MarketOrderPositionCloseout`
+        long_position_closeout: :class:`~async_v20.MarketOrderPositionCloseout`
             Details of the long Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a long Position.
-        short_position_closeout: :class:`~async_v20.definitions.types.MarketOrderPositionCloseout`
+        short_position_closeout: :class:`~async_v20.MarketOrderPositionCloseout`
             Details of the short Position requested to be closed out, only provided
             when a Market Order is being used to explicitly closeout a short Position.
-        margin_closeout: :class:`~async_v20.definitions.types.MarketOrderMarginCloseout`
+        margin_closeout: :class:`~async_v20.MarketOrderMarginCloseout`
             Details of the Margin Closeout that this Market Order was created for
-        delayed_trade_close: :class:`~async_v20.definitions.types.MarketOrderDelayedTradeClose`
+        delayed_trade_close: :class:`~async_v20.MarketOrderDelayedTradeClose`
             Details of the delayed Trade close that this Market Order was created for
-        take_profit_on_fill: :class:`~async_v20.definitions.types.TakeProfitDetails`
+        take_profit_on_fill: :class:`~async_v20.TakeProfitDetails`
             TakeProfitDetails specifies the details of a Take Profit Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Take Profit, or when a Trade's dependent Take Profit Order is
             modified directly through the Trade.
-        stop_loss_on_fill: :class:`~async_v20.definitions.types.StopLossDetails`
+        stop_loss_on_fill: :class:`~async_v20.StopLossDetails`
             StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a
             client. This may happen when an Order
             is filled that opens a Trade requiring a Stop Loss, or when a Trade's dependent Stop Loss Order is modified
             directly through the Trade.
-        trailing_stop_loss_on_fill: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+        trailing_stop_loss_on_fill: :class:`~async_v20.TrailingStopLossDetails`
             TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be
             created on behalf of a client. This may happen when an Order is
             filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade's dependent Trailing Stop Loss
             Order is modified directly through the Trade.
-        trade_client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+        trade_client_extensions: :class:`~async_v20.ClientExtensions`
             Client Extensions to add to the Trade created when the Order is filled (if such a
             Trade is created). Do not set, modify, or delete tradeClientExtensions if your account is associated with
             MT4.
-        filling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        filling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
-        filled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        filled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was filled (only
             provided when the Order's state is FILLED)
-        trade_opened_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_opened_id: :class:`~async_v20.TradeID`
             Trade ID of Trade opened when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was opened as a result of the fill)
-        trade_reduced_id: :class:`~async_v20.definitions.primitives.TradeID`
+        trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.definitions.types.ArrayTradeID`
+        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
-        cancelling_transaction_id: :class:`~async_v20.definitions.primitives.TransactionID`
+        cancelling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that cancelled the Order
             (only provided when the Order's state is CANCELLED)
-        cancelled_time: :class:`~async_v20.definitions.primitives.DateTime`
+        cancelled_time: :class:`~async_v20.DateTime`
             Date/time when the Order was cancelled (only provided
             when the state of the Order is CANCELLED)
 

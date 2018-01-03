@@ -22,7 +22,7 @@ class UserInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (userInfo= :class:`~async_v20.definitions.types.UserInfo`)
+                (userInfo= :class:`~async_v20.UserInfo`)
         """
         pass
 
@@ -42,6 +42,6 @@ class UserInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (userInfo= :class:`~async_v20.definitions.types.UserInfoExternal`)
+                (userInfo= :class:`~async_v20.UserInfoExternal`)
         """
         pass

@@ -29,13 +29,13 @@ class TradeInterface(object):
         Args:
             ids: :class:`~async_v20.endpoints.annotations.Ids`
                 List of Trade IDs to retrieve.
-            state: :class:`~async_v20.definitions.primitives.TradeStateFilter`
+            state: :class:`~async_v20.TradeStateFilter`
                 The state to filter the requested Trades by.
-            instrument: :class:`~async_v20.definitions.primitives.InstrumentName`
+            instrument: :class:`~async_v20.InstrumentName`
                 The instrument to filter the requested Trades by.
             count: :class:`~async_v20.endpoints.annotations.Count`
                 The maximum number of Trades to return.
-            trade_id: :class:`~async_v20.definitions.primitives.TradeID`
+            trade_id: :class:`~async_v20.TradeID`
                 The maximum Trade ID to return. If not provided the most recent
                 Trades in the Account are returned.
 
@@ -43,8 +43,8 @@ class TradeInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (trades= :class:`~async_v20.definitions.types.ArrayTrade`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (trades= :class:`~async_v20.ArrayTrade`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
 
         """
         pass
@@ -58,8 +58,8 @@ class TradeInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (trades= :class:`~async_v20.definitions.types.ArrayTrade`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (trades= :class:`~async_v20.ArrayTrade`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
 
@@ -70,15 +70,15 @@ class TradeInterface(object):
 
         Args:
 
-            trade_specifier: :class:`~async_v20.definitions.primitives.TradeSpecifier`
+            trade_specifier: :class:`~async_v20.TradeSpecifier`
                 Specifier for the Trade
 
         Returns:
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (trade= :class:`~async_v20.definitions.types.Trade`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (trade= :class:`~async_v20.Trade`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
 
         """
         pass
@@ -92,7 +92,7 @@ class TradeInterface(object):
 
         Args:
 
-            trade_specifier: :class:`~async_v20.definitions.primitives.TradeSpecifier`
+            trade_specifier: :class:`~async_v20.TradeSpecifier`
                 Specifier for the Trade
             units: :class:`~async_v20.endpoints.annotations.Units`
                 Indication of how much of the Trade to close. Either the string
@@ -106,23 +106,23 @@ class TradeInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (orderCreateTransaction= :class:`~async_v20.definitions.types.MarketOrderTransaction`,
-                orderFillTransaction= :class:`~async_v20.definitions.types.OrderFillTransaction`,
-                orderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (orderCreateTransaction= :class:`~async_v20.MarketOrderTransaction`,
+                orderFillTransaction= :class:`~async_v20.OrderFillTransaction`,
+                orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
-                (orderRejectTransaction= :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
+                (orderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
 
             status [401]
                 :class:`~async_v20.interface.response.Response`
-                (orderRejectTransaction= :class:`~async_v20.definitions.types.MarketOrderRejectTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                (orderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """
@@ -138,9 +138,9 @@ class TradeInterface(object):
 
         Args:
 
-            trade_specifier: :class:`~async_v20.definitions.primitives.TradeSpecifier`
+            trade_specifier: :class:`~async_v20.TradeSpecifier`
                 Specifier for the Trade
-            client_extensions: :class:`~async_v20.definitions.types.ClientExtensions`
+            client_extensions: :class:`~async_v20.ClientExtensions`
                 The Client Extensions to update the Trade with. Do not add,
                 update, or delete the Client Extensions if your account is
                 associated with MT4.
@@ -150,25 +150,25 @@ class TradeInterface(object):
             status [200]
                 :class:`~async_v20.interface.response.Response`
                 (tradeClientExtensionsModifyTransaction=
-                :class:`~async_v20.definitions.types.TradeClientExtensionsModifyTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                :class:`~async_v20.TradeClientExtensionsModifyTransaction`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (tradeClientExtensionsModifyRejectTransaction=
-                :class:`~async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                :class:`~async_v20.TradeClientExtensionsModifyRejectTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
 
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (tradeClientExtensionsModifyRejectTransaction=
-                :class:`~async_v20.definitions.types.TradeClientExtensionsModifyRejectTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                :class:`~async_v20.TradeClientExtensionsModifyRejectTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """
@@ -186,9 +186,9 @@ class TradeInterface(object):
 
         Args:
 
-            trade_specifier: :class:`~async_v20.definitions.primitives.TradeSpecifier`
+            trade_specifier: :class:`~async_v20.TradeSpecifier`
                 Specifier for the Trade
-            take_profit: :class:`~async_v20.definitions.types.TakeProfitDetails`
+            take_profit: :class:`~async_v20.TakeProfitDetails`
                 The specification of the Take Profit to create/modify/cancel.
                 If takeProfit is set to null, the Take Profit Order will be
                 cancelled if it exists. If takeProfit is not provided, the
@@ -196,14 +196,14 @@ class TradeInterface(object):
                 field of takeProfit is not specified, that field will be set to
                 a default value on create, and be inherited by the replacing
                 order on modify.
-            stop_loss: :class:`~async_v20.definitions.types.StopLossDetails`
+            stop_loss: :class:`~async_v20.StopLossDetails`
                 The specification of the Stop Loss to create/modify/cancel. If
                 stopLoss is set to null, the Stop Loss Order will be cancelled
                 if it exists. If stopLoss is not provided, the existing Stop
                 Loss Order will not be modified. If a sub-field of stopLoss is
                 not specified, that field will be set to a default value on
                 create, and be inherited by the replacing order on modify.
-            trailing_stop_loss: :class:`~async_v20.definitions.types.TrailingStopLossDetails`
+            trailing_stop_loss: :class:`~async_v20.TrailingStopLossDetails`
                 The specification of the Trailing Stop Loss to
                 create/modify/cancel. If trailingStopLoss is set to null, the
                 Trailing Stop Loss Order will be cancelled if it exists. If
@@ -217,32 +217,32 @@ class TradeInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (takeProfitOrderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
-                takeProfitOrderTransaction= :class:`~async_v20.definitions.types.TakeProfitOrderTransaction`,
-                takeProfitOrderFillTransaction= :class:`~async_v20.definitions.types.OrderFillTransaction`,
-                takeProfitOrderCreatedCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
-                stopLossOrderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
-                stopLossOrderTransaction= :class:`~async_v20.definitions.types.StopLossOrderTransaction`,
-                stopLossOrderFillTransaction= :class:`~async_v20.definitions.types.OrderFillTransaction`,
-                stopLossOrderCreatedCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
-                trailingStopLossOrderCancelTransaction= :class:`~async_v20.definitions.types.OrderCancelTransaction`,
-                trailingStopLossOrderTransaction= :class:`~async_v20.definitions.types.TrailingStopLossOrderTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`)
+                (takeProfitOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
+                takeProfitOrderTransaction= :class:`~async_v20.TakeProfitOrderTransaction`,
+                takeProfitOrderFillTransaction= :class:`~async_v20.OrderFillTransaction`,
+                takeProfitOrderCreatedCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
+                stopLossOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
+                stopLossOrderTransaction= :class:`~async_v20.StopLossOrderTransaction`,
+                stopLossOrderFillTransaction= :class:`~async_v20.OrderFillTransaction`,
+                stopLossOrderCreatedCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
+                trailingStopLossOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
+                trailingStopLossOrderTransaction= :class:`~async_v20.TrailingStopLossOrderTransaction`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (takeProfitOrderCancelRejectTransaction=
-                :class:`~async_v20.definitions.types.OrderCancelRejectTransaction`,
-                takeProfitOrderRejectTransaction= :class:`~async_v20.definitions.types.TakeProfitOrderRejectTransaction`,
-                stopLossOrderCancelRejectTransaction= :class:`~async_v20.definitions.types.OrderCancelRejectTransaction`,
-                stopLossOrderRejectTransaction= :class:`~async_v20.definitions.types.StopLossOrderRejectTransaction`,
+                :class:`~async_v20.OrderCancelRejectTransaction`,
+                takeProfitOrderRejectTransaction= :class:`~async_v20.TakeProfitOrderRejectTransaction`,
+                stopLossOrderCancelRejectTransaction= :class:`~async_v20.OrderCancelRejectTransaction`,
+                stopLossOrderRejectTransaction= :class:`~async_v20.StopLossOrderRejectTransaction`,
                 trailingStopLossOrderCancelRejectTransaction=
-                :class:`~async_v20.definitions.types.OrderCancelRejectTransaction`,
+                :class:`~async_v20.OrderCancelRejectTransaction`,
                 trailingStopLossOrderRejectTransaction=
-                :class:`~async_v20.definitions.types.TrailingStopLossOrderRejectTransaction`,
-                lastTransactionID= :class:`~async_v20.definitions.primitives.TransactionID`,
-                relatedTransactionIDs= :class:`~async_v20.definitions.types.ArrayTransactionID`,
+                :class:`~async_v20.TrailingStopLossOrderRejectTransaction`,
+                lastTransactionID= :class:`~async_v20.TransactionID`,
+                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """

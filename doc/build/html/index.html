@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>async_v20: Asynchronous OANDA v20 client &#8212; async_v20 6.0.0b0 documentation</title>
+    <title>async_v20: Asynchronous OANDA v20 client &#8212; async_v20 6.0.2b0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '6.0.0b0',
+        VERSION:     '6.0.2b0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -53,7 +53,7 @@
 <li>Losses can exceed investment.</li>
 <li>async_v20 and its creator has no affiliation with OANDA. And is not endorsed by OANDA in any manner.</li>
 <li>async_v20 is in Beta stage and has not been tested on a live OANDA account</li>
-<li>This package currently does not have full unittest coverage.</li>
+<li><strong>Use at own risk</strong></li>
 </ul>
 </div>
 <div class="section" id="features">
@@ -62,7 +62,7 @@
 <li>Exposes the entire <a class="reference external" href="http://developer.oanda.com/rest-live-v20/introduction/">v20 API</a> `</li>
 <li>immutable objects</li>
 <li>No <cite>*args, **kwargs</cite> In client methods. So no guessing what arguments a method takes</li>
-<li>Serialize objects directly into <a class="reference internal" href="glossary.html#term-pandas"><span class="xref std std-term">pandas</span></a>. <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html#series">Series</a> objects</li>
+<li>Serialize objects directly into <em>pandas</em> <strong>Series</strong> or <strong>DataFrame</strong> objects</li>
 <li>Construct <a class="reference internal" href="glossary.html#term-concurrent"><span class="xref std std-term">concurrent</span></a> trading algorithms</li>
 </ul>
 </div>
@@ -72,7 +72,7 @@
 </pre></div>
 </div>
 <p><a class="reference internal" href="glossary.html#term-async-v20"><span class="xref std std-term">async_v20</span></a> is built with <a class="reference external" href="https://github.com/aio-libs/aiohttp">aiohttp</a>.
-It is therefore recommended to also install <a class="reference internal" href="glossary.html#term-cchardet"><span class="xref std std-term">cchardet</span></a> and <span class="xref std std-term">aiodns</span> as per <a class="reference internal" href="glossary.html#term-aiohttp"><span class="xref std std-term">aiohttp</span></a>
+It is therefore recommended to also install <a class="reference internal" href="glossary.html#term-cchardet"><span class="xref std std-term">cchardet</span></a> and <a class="reference internal" href="glossary.html#term-aiodns"><span class="xref std std-term">aiodns</span></a> as per <a class="reference internal" href="glossary.html#term-aiohttp"><span class="xref std std-term">aiohttp</span></a>
 <a class="reference external" href="http://aiohttp.readthedocs.io/en/stable/">documentation</a> `</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install cchardet
 
@@ -153,7 +153,7 @@ or have some suggestion in order to improve the client.</p>
 <li class="toctree-l1"><a class="reference internal" href="beyond_getting_started.html">Beyond Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="beyond_getting_started.html#what-you-need-to-know">What you need to know</a></li>
 <li class="toctree-l2"><a class="reference internal" href="beyond_getting_started.html#underling-principles">Underling Principles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="beyond_getting_started.html#what-might-be-usefull">What might be usefull</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="beyond_getting_started.html#what-might-be-useful">What might be useful</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="beyond_getting_started.html#how-are-arguments-passed">How Are Arguments Passed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="beyond_getting_started.html#how-responses-are-constructed">How Responses are Constructed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="beyond_getting_started.html#how-objects-are-serialized">How Objects are Serialized</a></li>
