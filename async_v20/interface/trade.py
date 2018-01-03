@@ -109,7 +109,7 @@ class TradeInterface(object):
                 (orderCreateTransaction= :class:`~async_v20.MarketOrderTransaction`,
                 orderFillTransaction= :class:`~async_v20.OrderFillTransaction`,
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
@@ -122,7 +122,7 @@ class TradeInterface(object):
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
                 lastTransactionID= :class:`~async_v20.TransactionID`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """
@@ -151,7 +151,7 @@ class TradeInterface(object):
                 :class:`~async_v20.interface.response.Response`
                 (tradeClientExtensionsModifyTransaction=
                 :class:`~async_v20.TradeClientExtensionsModifyTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
@@ -159,7 +159,7 @@ class TradeInterface(object):
                 (tradeClientExtensionsModifyRejectTransaction=
                 :class:`~async_v20.TradeClientExtensionsModifyRejectTransaction`,
                 lastTransactionID= :class:`~async_v20.TransactionID`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
 
@@ -168,7 +168,7 @@ class TradeInterface(object):
                 (tradeClientExtensionsModifyRejectTransaction=
                 :class:`~async_v20.TradeClientExtensionsModifyRejectTransaction`,
                 lastTransactionID= :class:`~async_v20.TransactionID`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """
@@ -227,7 +227,7 @@ class TradeInterface(object):
                 stopLossOrderCreatedCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 trailingStopLossOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 trailingStopLossOrderTransaction= :class:`~async_v20.TrailingStopLossOrderTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
@@ -242,7 +242,7 @@ class TradeInterface(object):
                 trailingStopLossOrderRejectTransaction=
                 :class:`~async_v20.TrailingStopLossOrderRejectTransaction`,
                 lastTransactionID= :class:`~async_v20.TransactionID`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
         """

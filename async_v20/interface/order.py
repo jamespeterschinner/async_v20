@@ -52,13 +52,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -66,7 +66,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -116,13 +116,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -130,7 +130,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -239,13 +239,13 @@ class OrderInterface(object):
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
                 replacingOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -253,7 +253,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -275,13 +275,13 @@ class OrderInterface(object):
             status [200]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelRejectTransaction= :class:`~async_v20.OrderCancelRejectTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -326,7 +326,7 @@ class OrderInterface(object):
                 (orderClientExtensionsModifyRejectTransaction=
                 :class:`~async_v20.OrderClientExtensionsModifyRejectTransaction`,
                 lastTransactionID= :class:`~async_v20.TransactionID`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
 
@@ -335,7 +335,7 @@ class OrderInterface(object):
                 (orderClientExtensionsModifyRejectTransaction=
                 :class:`~async_v20.OrderClientExtensionsModifyRejectTransaction`,
                 lastTransactionID= :class:`~async_v20.TransactionID`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
 
@@ -399,13 +399,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -413,7 +413,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -493,13 +493,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -507,7 +507,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -593,13 +593,13 @@ class OrderInterface(object):
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
                 replacingOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -607,7 +607,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -662,13 +662,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -676,7 +676,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -761,13 +761,13 @@ class OrderInterface(object):
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
                 replacingOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -775,7 +775,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -868,13 +868,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -882,7 +882,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -978,13 +978,13 @@ class OrderInterface(object):
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
                 replacingOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -992,7 +992,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1054,13 +1054,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1068,7 +1068,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1129,13 +1129,13 @@ class OrderInterface(object):
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
                 replacingOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1143,7 +1143,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1197,13 +1197,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1211,7 +1211,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1267,13 +1267,13 @@ class OrderInterface(object):
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
                 replacingOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1281,7 +1281,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1337,13 +1337,13 @@ class OrderInterface(object):
                 orderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1351,7 +1351,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1410,13 +1410,13 @@ class OrderInterface(object):
                 orderReissueTransaction= :class:`~async_v20.Transaction`,
                 orderReissueRejectTransaction= :class:`~async_v20.Transaction`,
                 replacingOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (orderRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -1424,7 +1424,7 @@ class OrderInterface(object):
             status [401]
                 :class:`~async_v20.interface.response.Response`
                 (orderCancelRejectTransaction= :class:`~async_v20.Transaction`,
-                relatedTransactionIDs=( :class:`~async_v20.ArrayTransactionID`, ...),
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
