@@ -173,7 +173,7 @@ class OrderInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (orders=( :class:`~async_v20.Order`, ...), ,
+                (orders=( :class:`~async_v20.Order`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
         """
@@ -188,7 +188,7 @@ class OrderInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (orders=( :class:`~async_v20.Order`, ...), ,
+                (orders=( :class:`~async_v20.Order`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
         """
