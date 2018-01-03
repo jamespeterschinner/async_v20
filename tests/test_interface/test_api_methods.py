@@ -53,7 +53,7 @@ async def test_client_methods_send_correct_data(method, server, client):
             # Response Not containing expected data
         # TODO Added meaning full asserts
         print(server_module.received)
-        
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: hasattr(x, 'shortcut')))
 async def test_client_methods_shortcut_api_methods(method, server, client):
