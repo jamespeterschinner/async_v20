@@ -5,7 +5,10 @@ from inspect import _empty
 import pandas as pd
 
 from ..definitions.base import create_attribute
-from ..definitions.types import OrderRequest
+from ..definitions.types import LimitOrderRequest
+from ..definitions.types import MarketIfTouchedOrderRequest
+from ..definitions.types import MarketOrderRequest
+from ..definitions.types import StopOrderRequest
 from ..exceptions import FailedToCreatePath, InvalidOrderRequest
 
 logger = logging.getLogger(__name__)
@@ -147,10 +150,12 @@ def create_body(self, request_schema, arguments):
             except KeyError:
                 continue
             else:
-                # OrderRequests require PriceValues and DecimalNumbers to
-                # be rounded to the correct accuracy before being serialized
-                # else OANDA will reject the transaction.
-                if isinstance(value, OrderRequest):
+                # Only attempt to format OrderRequests that have an `instrument` attribute
+                if isinstance(value,
+                              (MarketOrderRequest,
+                               LimitOrderRequest,
+                               StopOrderRequest,
+                               MarketIfTouchedOrderRequest)):
                     instrument = self.instruments.get_instrument(value.instrument)
                     if instrument:
                         value = _format_order_request(value,
@@ -213,10 +218,6 @@ def create_request_kwargs(self, endpoint, arguments):
     json = create_body(self, endpoint.request_schema, arguments)
 
     headers = header_params(self, endpoint, arguments)
-    if json:
-        # All requests with a body require Content-Type: application/json
-        # unless specified otherwise.
-        headers.update({'Content-Type': 'application/json'})
 
     url = create_url(self, endpoint, arguments)
 

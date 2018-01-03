@@ -4,15 +4,16 @@ import re
 
 import pandas as pd
 import pytest
-import logging
+
 from async_v20 import endpoints
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import DateTime
 from async_v20.definitions.types import OrderRequest
-from async_v20.definitions.types import StopLossOrderRequest, ArrayInstrument
+from async_v20.definitions.types import StopLossOrderRequest, ArrayInstrument, MarketOrderRequest
 from async_v20.endpoints import POSTOrders
 from async_v20.endpoints.annotations import Bool, Authorization
+from async_v20.exceptions import FailedToCreatePath, InvalidOrderRequest
 from async_v20.interface.helpers import _create_request_params
 from async_v20.interface.helpers import _format_order_request
 from async_v20.interface.helpers import construct_arguments
@@ -24,7 +25,6 @@ from ..data.json_data import GETAccountID_response, example_instruments
 from ..fixtures.client import client
 from ..fixtures.server import server
 from ..test_definitions.helpers import get_valid_primitive_data
-from async_v20.exceptions import FailedToCreatePath, InvalidOrderRequest
 
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
@@ -92,8 +92,8 @@ async def test_create_request_params(client, method, signature, kwargs):
         print('Arguments: ', arguments)
         print('Location: ', location)
         result = _create_request_params(client, endpoint, arguments, location)
-        print('Possible Arguments', [typ for typ,(location, name) in endpoint.parameters.items()
-              if location == location])
+        print('Possible Arguments', [typ for typ, (location, name) in endpoint.parameters.items()
+                                     if location == location])
         print(location, ': ', result)
         total_params.extend(result)
 
@@ -171,12 +171,20 @@ async def test_request_body_is_constructed_correctly(client, server, stop_loss_o
 
 
 @pytest.mark.asyncio
-async def test_request_body_raises_key_error_when_cannot_format_request(client, server, stop_loss_order):
+async def test_request_body_does_not_format_order_request_with_no_instrument_parameter(client, server, stop_loss_order):
+    await client.initialize()
+    client.format_order_requests = True
+    create_body(client, POSTOrders.request_schema,
+                {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
+
+
+@pytest.mark.asyncio
+async def test_request_body_raises_error_when_cannot_format_order_request(client, server):
     await client.initialize()
     client.format_order_requests = True
     with pytest.raises(InvalidOrderRequest):
         create_body(client, POSTOrders.request_schema,
-                    {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
+                    {OrderRequest: MarketOrderRequest(instrument='NOT AN INSTRUMENT', units=1)})
 
 
 @pytest.mark.asyncio
