@@ -27,7 +27,7 @@ class PricingInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (prices= :class:`~async_v20.ArrayPrice`,
+                (prices=( :class:`~async_v20.Price`, ...),,
                 time= :class:`~async_v20.DateTime`)
         """
         pass

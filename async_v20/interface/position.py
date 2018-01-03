@@ -21,7 +21,7 @@ class PositionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (positions= :class:`~async_v20.ArrayPosition`,
+                (positions=( :class:`~async_v20.Position`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
         """
@@ -37,7 +37,7 @@ class PositionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (positions= :class:`~async_v20.ArrayPosition`,
+                (positions=( :class:`~async_v20.Position`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
@@ -111,14 +111,14 @@ class PositionInterface(object):
                 shortOrderCreateTransaction= :class:`~async_v20.MarketOrderTransaction`,
                 shortOrderFillTransaction= :class:`~async_v20.OrderFillTransaction`,
                 shortOrderCancelTransaction= :class:`~async_v20.OrderCancelTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
 
             status [400]
                 :class:`~async_v20.interface.response.Response`
                 (longOrderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
                 shortOrderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)
@@ -127,7 +127,7 @@ class PositionInterface(object):
                 :class:`~async_v20.interface.response.Response`
                 (longOrderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
                 shortOrderRejectTransaction= :class:`~async_v20.MarketOrderRejectTransaction`,
-                relatedTransactionIDs= :class:`~async_v20.ArrayTransactionID`,
+                relatedTransactionIDs=( :class:`~async_v20.TransactionID`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`,
                 errorCode= :class:`~builtins.str`,
                 errorMessage= :class:`~builtins.str`)

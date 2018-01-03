@@ -43,9 +43,9 @@ class TransactionInterface(object):
                 (from= :class:`~async_v20.DateTime`,
                 to= :class:`~async_v20.DateTime`,
                 pageSize= :class:`~builtins.int`,
-                type= :class:`~async_v20.ArrayTransactionFilter`,
+                type=( :class:`~async_v20.TransactionFilter`, ...),
                 count= :class:`~builtins.int`,
-                pages= :class:`~async_v20.ArrayStr`,
+                pages=( :class:`str`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
@@ -92,7 +92,7 @@ class TransactionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (transactions= :class:`~async_v20.ArrayTransaction`,
+                (transactions=( :class:`~async_v20.Transaction`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
@@ -113,7 +113,7 @@ class TransactionInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (transactions= :class:`~async_v20.ArrayTransaction`,
+                (transactions=( :class:`~async_v20.Transaction`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass

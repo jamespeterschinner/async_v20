@@ -76,7 +76,7 @@ class InstrumentInterface(object):
                 :class:`~async_v20.interface.response.Response`
                 (instrument= :class:`~async_v20.InstrumentName`,
                 granularity= :class:`~async_v20.CandlestickGranularity`,
-                candles= :class:`~async_v20.ArrayCandlestick`)
+                candles=( :class:`~async_v20.Candlestick`, ...),)
 
         """
         pass

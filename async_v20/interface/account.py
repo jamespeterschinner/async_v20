@@ -17,7 +17,7 @@ class AccountInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (accounts= :class:`~async_v20.ArrayAccountProperties`)
+                (accounts=( :class:`~async_v20.AccountProperties`, ...),)
 
         """
         pass
@@ -69,7 +69,7 @@ class AccountInterface(object):
 
             status [200]
                 :class:`~async_v20.interface.response.Response`
-                (instruments= :class:`~async_v20.ArrayInstrument`,
+                (instruments=( :class:`~async_v20.Instrument`, ...),
                 lastTransactionID= :class:`~async_v20.TransactionID`)
         """
         pass
