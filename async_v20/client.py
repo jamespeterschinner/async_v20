@@ -34,7 +34,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
 
     Args:
         token: -- User generated token from the online account configuration page
-        account_id: -- The account id the client will connect to
+        account_id: -- The account id the client will connect to. If None will default to
+            the first account number returned by `OandaClient`. **list_accounts()**
         format_order_requests: -- True=Format all OrderRequests
             in the context of the orders instrument. False=Do not format OrderRequests,
             raise ValueError for values outside of allowed range.
