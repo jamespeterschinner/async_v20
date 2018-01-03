@@ -91,16 +91,21 @@ async def _rest_response(self, response, endpoint, enable_rest, method_name):
 
 def _construct_json_body_and_schema(line, schema, endpoint):
     """This helper function standardises the streaming responses"""
-    typ = line['type']
-    obj = schema[typ]
-    key = None
-    if HEARTBEAT in typ.lower():
-        key = HEARTBEAT
-    elif endpoint == GETPricingStream:
-        key = PRICE
-    elif endpoint == GETTransactionsStream:
-        key = TRANSACTION
-    return {key: line}, {key: obj}
+    try:
+        typ = line['type']
+        obj = schema[typ]
+        key = None
+        if HEARTBEAT in typ.lower():
+            key = HEARTBEAT
+        elif endpoint == GETPricingStream:
+            key = PRICE
+        elif endpoint == GETTransactionsStream:
+            key = TRANSACTION
+    except KeyError:
+        json_body, json_schema = line, schema
+    else:
+        json_body, json_schema = {key: line}, {key: obj}
+    return json_body, json_schema
 
 
 async def _stream_parser(self, response, endpoint, method_name):
@@ -116,6 +121,7 @@ async def _stream_parser(self, response, endpoint, method_name):
                 raise ResponseTimeout(msg)
 
             json_body, json_schema = _construct_json_body_and_schema(line, schema, endpoint)
+
             yield await _create_response(json_body, endpoint, json_schema, status, boolean, self.datetime_format)
 
 

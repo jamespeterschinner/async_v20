@@ -1,6 +1,11 @@
 Changelog
 =========
 
+6.0.1b0
+=======
+
+- Fixed incorrect handling of stream response when endpoint returned status 400
+
 6.0.0b0
 =======
 

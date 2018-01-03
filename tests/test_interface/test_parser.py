@@ -222,3 +222,14 @@ def test_construct_json_body_and_schema_creates_transaction():
         transaction_schema['transaction'](**transaction_body['transaction']),
         Transaction
     )
+
+def test_construct_json_body_and_schema_returns_line_and_schema_upon_key_error():
+    line = {'errorMessage': "Invalid value specified for 'instruments'"}
+    schema = {'errorCode': str, 'errorMessage': str}
+    json_body, json_schema = _construct_json_body_and_schema(
+        line=line,
+        schema=schema,
+        endpoint=GETPricingStream,
+    )
+    assert line == json_body
+    assert schema == json_schema
