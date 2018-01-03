@@ -35,8 +35,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     Args:
         token: -- User generated token from the online account configuration page
         account_id: -- The account id the client will connect to
-        format_order_requests: -- bool. True, format all order_requests
-            in the context on the orders instrument. False, Don't format order requests,
+        format_order_requests: -- True=Format all OrderRequests
+            in the context of the orders instrument. False=Do not format OrderRequests,
             raise ValueError for values outside of allowed range.
         max_transaction_history: -- Maximum past transactions to store
         rest_host: -- The hostname of the v20 REST server
@@ -57,8 +57,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         stream_timeout: -- period to wait for an new json object during streaming
         max_requests_per_second: -- Maximum HTTP requests sent per second
         max_simultaneous_connections: -- Maximum concurrent HTTP requests
-        debug: -- Default=False. Set to True to log debug messages.
-            Disabled by default to reduce overhead
+        debug: -- Set to True to log debug messages.
 
     """
     headers = {'Connection': 'keep-alive',
