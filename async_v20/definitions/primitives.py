@@ -13,10 +13,10 @@ __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'Account
            'MarketIfTouchedOrderReason', 'MarketOrderMarginCloseoutReason', 'MarketOrderReason', 'OrderCancelReason',
            'OrderFillReason', 'OrderID', 'OrderPositionFill', 'OrderSpecifier', 'OrderState', 'OrderStateFilter',
            'OrderTriggerCondition', 'OrderType', 'PositionAggregationMode', 'PriceComponent', 'PriceStatus',
-           'PriceValue', 'Reason', 'RequestID', 'StopLossOrderReason', 'StopOrderReason', 'TakeProfitOrderReason',
-           'TimeInForce', 'TradeID', 'TradePL', 'TradeSpecifier', 'TradeState', 'TradeStateFilter',
-           'TrailingStopLossOrderReason', 'TransactionFilter', 'TransactionID', 'TransactionRejectReason',
-           'TransactionType', 'WeeklyAlignment']
+           'PriceValue', 'Reason', 'RequestID', 'StopLossOrderReason', 'StopOrderReason',
+           'TakeProfitOrderReason', 'TimeInForce', 'TradeID', 'TradePL', 'TradeSpecifier', 'TradeState',
+           'TradeStateFilter', 'TrailingStopLossOrderReason', 'TransactionFilter', 'TransactionID',
+           'TransactionRejectReason', 'TransactionType', 'WeeklyAlignment']
 
 
 class Primitive(object):

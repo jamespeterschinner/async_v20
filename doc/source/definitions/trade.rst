@@ -3,6 +3,6 @@
 Trade
 =====
 
-.. autoclass:: async_v20.definitions.types.Trade
-.. autoclass:: async_v20.definitions.types.TradeSummary
-.. autoclass:: async_v20.definitions.types.CalculatedTradeState
+.. autoclass:: async_v20.Trade
+.. autoclass:: async_v20.TradeSummary
+.. autoclass:: async_v20.CalculatedTradeState

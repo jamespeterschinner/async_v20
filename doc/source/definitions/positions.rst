@@ -3,7 +3,7 @@
 Positions
 =========
 
-.. autoclass:: async_v20.definitions.types.Position
-.. autoclass:: async_v20.definitions.types.PositionSide
-.. autoclass:: async_v20.definitions.types.CalculatedPositionState
+.. autoclass:: async_v20.Position
+.. autoclass:: async_v20.PositionSide
+.. autoclass:: async_v20.CalculatedPositionState
 

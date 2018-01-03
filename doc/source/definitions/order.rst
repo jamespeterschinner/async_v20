@@ -3,22 +3,22 @@
 Order
 =====
 
-.. autoclass:: async_v20.definitions.types.Order
-.. autoclass:: async_v20.definitions.types.MarketOrder
-.. autoclass:: async_v20.definitions.types.LimitOrder
-.. autoclass:: async_v20.definitions.types.StopOrder
-.. autoclass:: async_v20.definitions.types.MarketIfTouchedOrder
-.. autoclass:: async_v20.definitions.types.TakeProfitOrder
-.. autoclass:: async_v20.definitions.types.StopLossOrder
-.. autoclass:: async_v20.definitions.types.TrailingStopLossOrder
-.. autoclass:: async_v20.definitions.types.OrderRequest
-.. autoclass:: async_v20.definitions.types.MarketOrderRequest
-.. autoclass:: async_v20.definitions.types.LimitOrderRequest
-.. autoclass:: async_v20.definitions.types.StopOrderRequest
-.. autoclass:: async_v20.definitions.types.MarketIfTouchedOrderRequest
-.. autoclass:: async_v20.definitions.types.TakeProfitOrderRequest
-.. autoclass:: async_v20.definitions.types.StopLossOrderRequest
-.. autoclass:: async_v20.definitions.types.TrailingStopLossOrderRequest
-.. autoclass:: async_v20.definitions.types.DynamicOrderState
-.. autoclass:: async_v20.definitions.types.UnitsAvailableDetails
-.. autoclass:: async_v20.definitions.types.UnitsAvailable
+.. autoclass:: async_v20.Order
+.. autoclass:: async_v20.MarketOrder
+.. autoclass:: async_v20.LimitOrder
+.. autoclass:: async_v20.StopOrder
+.. autoclass:: async_v20.MarketIfTouchedOrder
+.. autoclass:: async_v20.TakeProfitOrder
+.. autoclass:: async_v20.StopLossOrder
+.. autoclass:: async_v20.TrailingStopLossOrder
+.. autoclass:: async_v20.OrderRequest
+.. autoclass:: async_v20.MarketOrderRequest
+.. autoclass:: async_v20.LimitOrderRequest
+.. autoclass:: async_v20.StopOrderRequest
+.. autoclass:: async_v20.MarketIfTouchedOrderRequest
+.. autoclass:: async_v20.TakeProfitOrderRequest
+.. autoclass:: async_v20.StopLossOrderRequest
+.. autoclass:: async_v20.TrailingStopLossOrderRequest
+.. autoclass:: async_v20.DynamicOrderState
+.. autoclass:: async_v20.UnitsAvailableDetails
+.. autoclass:: async_v20.UnitsAvailable

@@ -3,8 +3,8 @@
 Pricing
 =======
 
-.. autoclass:: async_v20.definitions.types.Price
-.. autoclass:: async_v20.definitions.types.PriceBucket
-.. autoclass:: async_v20.definitions.types.QuoteHomeConversionFactors
-.. autoclass:: async_v20.definitions.types.ClientPrice
-.. autoclass:: async_v20.definitions.types.PricingHeartbeat
+.. autoclass:: async_v20.Price
+.. autoclass:: async_v20.PriceBucket
+.. autoclass:: async_v20.QuoteHomeConversionFactors
+.. autoclass:: async_v20.ClientPrice
+.. autoclass:: async_v20.PricingHeartbeat
