@@ -143,7 +143,8 @@ class TrailingStopLossDetails(Model):
 
 
 class OrderRequest(Model):
-    """The base Order specification used when requesting that an Order be created.
+    """The base Order specification. Contains all attributes an OrderRequest
+    may contain.
 
     Attributes:
 
@@ -876,8 +877,8 @@ class PositionBook(Model):
 
 
 class Order(Model):
-    """The base Order definition specifies the properties that are common to all
-    Orders.
+    """The base Order definition. Contains all possible attributes an Order
+    may contain
 
     Attributes:
         id: :class:`~async_v20.definitions.primitives.OrderID`
@@ -1085,8 +1086,8 @@ class ArrayTradeSummary(Array):
 
 
 class Transaction(Model):
-    """The base Transaction specification. Specifies properties that are common
-    between all Transaction.
+    """The base Transaction specification. Contains all possible attributes a transaction
+    may contain.
 
     Attributes:
         id: :class:`~async_v20.definitions.primitives.TransactionID`
