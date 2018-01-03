@@ -213,6 +213,11 @@ def create_request_kwargs(self, endpoint, arguments):
     json = create_body(self, endpoint.request_schema, arguments)
 
     headers = header_params(self, endpoint, arguments)
+    if json:
+        # All requests with a body require Content-Type: application/json
+        # unless specified otherwise.
+        headers.update({'Content-Type': 'application/json'})
+
     url = create_url(self, endpoint, arguments)
 
     # yarl doesn't accept int subclass'

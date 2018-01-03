@@ -61,7 +61,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             Disabled by default to reduce overhead
 
     """
-    headers = {'Content-Type': 'application/json', 'Connection': 'keep-alive',
+    headers = {'Connection': 'keep-alive',
                'OANDA-Agent': 'async_v20_' + __version__}
 
     default_parameters = {}

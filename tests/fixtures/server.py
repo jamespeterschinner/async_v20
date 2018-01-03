@@ -63,7 +63,8 @@ async def handler(request):
     method = request.method
     path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
     path, path_id = get_id_from_path(path)
-
+    print('REQUEST HEADERS:\n',
+          request.headers)
     print(method, path, path_id)
 
     response_data = get_response_data(method, path, path_id)
