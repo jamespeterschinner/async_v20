@@ -186,13 +186,20 @@ async def test_request_body_raises_error_when_cannot_format_order_request(client
         create_body(client, POSTOrders.request_schema,
                     {OrderRequest: MarketOrderRequest(instrument='NOT AN INSTRUMENT', units=1)})
 
+@pytest.mark.asyncio
+async def test_request_body_formats_order_request_when_an_order_request_is_passed(client, server):
+    await client.initialize()
+    client.format_order_requests = True
+    with pytest.raises(InvalidOrderRequest):
+        create_body(client, POSTOrders.request_schema,
+                    {OrderRequest: MarketOrderRequest(instrument='NOT AN INSTRUMENT', units=1)})
 
 @pytest.mark.asyncio
 async def test_request_body_does_not_raise_error_when_a_valid_order_request_is_passed(client, server):
     await client.initialize()
     client.format_order_requests = True
-    assert create_body(client, POSTOrders.request_schema,
-                       {OrderRequest: MarketOrderRequest(instrument='AUD_USD', units=0)})
+    create_body(client, POSTOrders.request_schema,
+                       {OrderRequest: OrderRequest(instrument='AUD_USD', units=0)})
 
 
 @pytest.mark.asyncio
@@ -211,21 +218,21 @@ async def test_objects_can_be_converted_between_Model_object_and_json():
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_updates_units(instrument):
+def test_format_order_requests_updates_units(instrument):
     order_request = OrderRequest(units=0.123456)
     result = _format_order_request(order_request, instrument, clip=True)
     assert result.units >= instrument.minimum_trade_size
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_raises_error_when_units_less_than_minimum(instrument):
+def test_format_order_requests_raises_error_when_units_less_than_minimum(instrument):
     order_request = OrderRequest(units=0.123456)
     with pytest.raises(InvalidOrderRequest):
         _format_order_request(order_request, instrument)
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_applies_correct_precision_to_units(instrument):
+def test_format_order_requests_applies_correct_precision_to_units(instrument):
     order_request = OrderRequest(units=50.1234567891234)
     result = _format_order_request(order_request, instrument)
     print(result.units)
@@ -246,7 +253,7 @@ def test_in_context_applies_correct_precision_to_units(instrument):
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_applies_correct_precision_to_price_price_bound_distance(instrument):
+def test_format_order_requests_applies_correct_precision_to_price_price_bound_distance(instrument):
     order_request = OrderRequest(price=50.1234567891234, price_bound=1234.123456789,
                                  distance=20.123456789)
     result = _format_order_request(order_request, instrument)
@@ -258,7 +265,7 @@ def test_in_context_applies_correct_precision_to_price_price_bound_distance(inst
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_applies_correct_precision_to_take_profit_on_fill_stop_loss_on_fill(instrument):
+def test_format_order_requests_applies_correct_precision_to_take_profit_on_fill_stop_loss_on_fill(instrument):
     order_request = OrderRequest(take_profit_on_fill=50.123456789,
                                  stop_loss_on_fill=50.123456789)
     result = _format_order_request(order_request, instrument)
@@ -270,7 +277,7 @@ def test_in_context_applies_correct_precision_to_take_profit_on_fill_stop_loss_o
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_applies_correct_precision_to_trailing_stop_loss_on_fill(instrument):
+def test_format_order_requests_applies_correct_precision_to_trailing_stop_loss_on_fill(instrument):
     order_request = OrderRequest(
         trailing_stop_loss_on_fill=instrument.minimum_trailing_stop_distance + 0.123456789
     )
@@ -283,7 +290,7 @@ def test_in_context_applies_correct_precision_to_trailing_stop_loss_on_fill(inst
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_limits_trailing_stop_loss_on_fill_to_valid_range(instrument):
+def test_format_order_requests_limits_trailing_stop_loss_on_fill_to_valid_range(instrument):
     order_request = OrderRequest(
         trailing_stop_loss_on_fill=0
     )
@@ -306,7 +313,7 @@ def test_in_context_limits_trailing_stop_loss_on_fill_to_valid_range(instrument)
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_limits_units_to_valid_range(instrument):
+def test_format_order_requests_limits_units_to_valid_range(instrument):
     order_request = OrderRequest(
         units=0
     )
@@ -331,7 +338,7 @@ def test_in_context_limits_units_to_valid_range(instrument):
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
-def test_in_context_accepts_negative_values_for_units(instrument):
+def test_format_order_requests_accepts_negative_values_for_units(instrument):
     order_request = OrderRequest(
         units=-instrument.minimum_trade_size
     )

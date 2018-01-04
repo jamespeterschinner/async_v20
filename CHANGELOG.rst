@@ -5,6 +5,7 @@ Changelog
 =======
 
 - Changed incorrect naming _i_ds to _ids
+- Fixed OrderRequest formatting when a OrderRequest instance is passed that defines an instrument.
 
 6.0.2b0
 =======

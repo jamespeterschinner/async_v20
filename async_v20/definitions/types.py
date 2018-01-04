@@ -471,7 +471,7 @@ class PositionSide(Model):
             value indicates short position, positive indicates long position).
         average_price: :class:`~async_v20.PriceValue`
             Volume-weighted average of the underlying Trade open prices for the Position.
-        trade_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_ids: ( :class:`~async_v20.TradeID`, ...),
             List of the open Trade IDs which contribute to the open Position.
         pl: :class:`~async_v20.AccountUnits`
             Profit/loss realized by the PositionSide over the lifetime of the Account.
@@ -548,11 +548,11 @@ class ClientPrice(Model):
     """Client price for an Account.
 
     Attributes:
-        bids: ( :class:`~async_v20.PriceBucket`, ...)
+        bids: ( :class:`~async_v20.PriceBucket`, ...),
             The list of prices and liquidity available on the Instrument's bid side.
             It is possible for this list to be empty if there is no
             bid liquidity currently available for the Instrument in the Account.
-        asks: ( :class:`~async_v20.PriceBucket`, ...)
+        asks: ( :class:`~async_v20.PriceBucket`, ...),
             The list of prices and liquidity available on the Instrument's ask side.
             It is possible for this list to be empty if there is no
             ask liquidity currently available for the Instrument in the Account.
@@ -901,7 +901,7 @@ class Order(Model):
         filled_time: :class:`~async_v20.DateTime`
         trade_opened_id: :class:`~async_v20.TradeID`
         trade_reduced_id: :class:`~async_v20.TradeID`
-        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...),
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
         cancelled_time: :class:`~async_v20.DateTime`
         replaces_order_id: :class:`~async_v20.OrderID`
@@ -1312,10 +1312,10 @@ class Price(Model):
             The status of the Price.
         tradeable: :class:`bool`
             Flag indicating if the Price is tradeable or not
-        bids: ( :class:`~async_v20.PriceBucket`, ...)
+        bids: ( :class:`~async_v20.PriceBucket`, ...),
             The list of prices and liquidity available on the Instrument's bid side. It is possible for this
             list to be empty if there is no bid liquidity currently available for the Instrument in the Account.
-        asks: ( :class:`~async_v20.PriceBucket`, ...)
+        asks: ( :class:`~async_v20.PriceBucket`, ...),
             The list of prices and liquidity available on the Instrument's ask side. It is possible for this
             list to be empty if there is no ask liquidity currently available for the Instrument in the Account.
         closeout_bid: :class:`~async_v20.PriceValue`
@@ -2158,7 +2158,7 @@ class TakeProfitOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...),
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -2233,7 +2233,7 @@ class StopLossOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...),
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -2316,7 +2316,7 @@ class TrailingStopLossOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...),
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3313,7 +3313,7 @@ class LimitOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...),
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3418,7 +3418,7 @@ class MarketIfTouchedOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...),
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3520,7 +3520,7 @@ class StopOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...),
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3601,7 +3601,7 @@ class OrderFillTransaction(Transaction):
         trade_opened: :class:`~async_v20.TradeOpen`
             The Trade that was opened when the Order was filled
             (only provided if filling the Order resulted in a new Trade).
-        trades_closed: ( :class:`~async_v20.TradeReduce`, ...)
+        trades_closed: (:class:`~async_v20.ArrayTradeReduce`
             The Trades that were closed when the Order was filled (only
             provided if filling the Order resulted in a closing open Trades).
         trade_reduced: :class:`~async_v20.TradeReduce`
@@ -4367,7 +4367,7 @@ class MarketOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...),
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`

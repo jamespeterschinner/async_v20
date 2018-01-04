@@ -5,15 +5,16 @@ from inspect import _empty
 import pandas as pd
 
 from ..definitions.base import create_attribute
-from ..definitions.types import LimitOrderRequest
-from ..definitions.types import MarketIfTouchedOrderRequest
-from ..definitions.types import MarketOrderRequest
-from ..definitions.types import StopOrderRequest
+from ..definitions.types import OrderRequest
 from ..definitions.types import Instrument
 from ..exceptions import FailedToCreatePath, InvalidOrderRequest
 
 logger = logging.getLogger(__name__)
 
+STOP = 'STOP'
+MARKET = 'MARKET'
+MARKET_IF_TOUCHED = 'MARKET_IF_TOUCHED'
+LIMIT = 'LIMIT'
 
 def _format_order_request(order_request, instrument, clip=False):
     """Ensure the order request is formatted as per the instrument specification
@@ -96,6 +97,7 @@ def _create_request_params(self, endpoint, arguments: dict, param_location: str)
                     continue
 
             if isinstance(result, pd.Timestamp):
+                # json method added in primitives module
                 result = result.json(self.datetime_format)
             else:
                 result = str(result)
@@ -110,9 +112,10 @@ def create_url(self, endpoint, arguments):
     for segment in endpoint.path:
         try:
             path += segment
-        except TypeError:  # Need to cast to string as specifier may be an int.
-            # Means segment wasn't a string
+        except TypeError:
+            # Segment wasn't a string. Meaning it is a required parameter.
             try:
+                # Need to cast to string as specifier may be an int.
                 path += str(arguments[segment])
             except KeyError:
                 # Means the segment wasn't passed in the arguments
@@ -140,8 +143,6 @@ def create_body(self, request_schema, arguments):
         Dict containing the formatted data
     """
 
-    # Reverse the request schema to allow for lookups
-
     def dumps():
         """Iterate over the arguments returning dicts of matching objects
         and format order requests where required"""
@@ -152,19 +153,15 @@ def create_body(self, request_schema, arguments):
                 continue
             else:
                 # Only attempt to format OrderRequests that have an `instrument` attribute
-                if isinstance(value,
-                              (MarketOrderRequest,
-                               LimitOrderRequest,
-                               StopOrderRequest,
-                               MarketIfTouchedOrderRequest)):
+                if isinstance(value, OrderRequest) and value.instrument is not None:
                     instrument = self.instruments.get_instrument(value.instrument)
                     if isinstance(instrument, Instrument):
                         value = _format_order_request(value,
                                                       instrument,
                                                       self.format_order_requests)
-                    if not instrument and self.format_order_requests:
-                        msg = f'The instrument specified{value.instrument} ' \
-                              f'is not tradeable by this account'
+                    elif self.format_order_requests:
+                        msg = f'The instrument specified instrument {value.instrument} ' \
+                              f'for OrderRequest {value} is not tradeable by this account'
                         logger.error(msg)
                         raise InvalidOrderRequest(msg)
 
