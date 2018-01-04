@@ -237,7 +237,4 @@ def create_request_kwargs(self, endpoint, arguments):
         else:
             request_kwargs.update({parameter: value})
 
-    if endpoint.host == 'STREAM':
-        request_kwargs.update({'timeout': 0})
-
     return request_kwargs
