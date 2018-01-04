@@ -254,7 +254,7 @@ class LiquidityRegenerationSchedule(Model):
     the same instrument that is filled while it is still in effect.
 
     Attributes:
-        steps: :class:`~async_v20.ArrayLiquidityRegenerationScheduleStep`
+        steps: ( :class:`~async_v20.LiquidityRegenerationScheduleStep`, ...)
             The steps in the Liquidity Regeneration Schedule
 
     """
@@ -471,7 +471,7 @@ class PositionSide(Model):
             value indicates short position, positive indicates long position).
         average_price: :class:`~async_v20.PriceValue`
             Volume-weighted average of the underlying Trade open prices for the Position.
-        trade_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_i_ds: ( :class:`~async_v20.TradeID`, ...)
             List of the open Trade IDs which contribute to the open Position.
         pl: :class:`~async_v20.AccountUnits`
             Profit/loss realized by the PositionSide over the lifetime of the Account.
@@ -548,11 +548,11 @@ class ClientPrice(Model):
     """Client price for an Account.
 
     Attributes:
-        bids: :class:`~async_v20.ArrayPriceBucket`
+        bids: ( :class:`~async_v20.PriceBucket`, ...)
             The list of prices and liquidity available on the Instrument's bid side.
             It is possible for this list to be empty if there is no
             bid liquidity currently available for the Instrument in the Account.
-        asks: :class:`~async_v20.ArrayPriceBucket`
+        asks: ( :class:`~async_v20.PriceBucket`, ...)
             The list of prices and liquidity available on the Instrument's ask side.
             It is possible for this list to be empty if there is no
             ask liquidity currently available for the Instrument in the Account.
@@ -698,7 +698,7 @@ class PositionFinancing(Model):
             The instrument of the Position that financing is being paid/collected for.
         financing: :class:`~async_v20.AccountUnits`
             The amount of financing paid/collected for the Position.
-        open_trade_financings: :class:`~async_v20.ArrayOpenTradeFinancing`
+        open_trade_financings: ( :class:`~async_v20.OpenTradeFinancing`, ...)
             The financing paid/collecte for each open Trade within the Position.
 
     """
@@ -780,7 +780,7 @@ class AccountProperties(Model):
         mt4account_id: :class:`~async_v20.AccountID`
             The Account's associated MT4 Account ID. This field will not
             be present if the Account is not an MT4 account.
-        tags: :class:`~async_v20.ArrayStr`
+        tags: ( :class:`str`, ...)
             The Account's tags
 
     """
@@ -840,7 +840,7 @@ class OrderBook(Model):
         bucket_width: :class:`~async_v20.PriceValue`
             The price width for each bucket. Each bucket covers the price
             range from the bucket's price to the bucket's price + bucketWidth.
-        buckets: :class:`~async_v20.ArrayOrderBookBucket`
+        buckets: ( :class:`~async_v20.OrderBookBucket`, ...)
             The partitioned order book, divided into buckets using a default bucket width. These
             buckets are only provided for price ranges which actually contain order or position data.
 
@@ -865,7 +865,7 @@ class PositionBook(Model):
         bucket_width: :class:`~async_v20.PriceValue`
             The price width for each bucket. Each bucket covers the price
             range from the bucket's price to the bucket's price + bucketWidth.
-        buckets: :class:`~async_v20.ArrayPositionBookBucket`
+        buckets: ( :class:`~async_v20.PositionBookBucket`, ...)
             The partitioned position book, divided into buckets using a default bucket width. These
             buckets are only provided for price ranges which actually contain order or position data.
 
@@ -901,7 +901,7 @@ class Order(Model):
         filled_time: :class:`~async_v20.DateTime`
         trade_opened_id: :class:`~async_v20.TradeID`
         trade_reduced_id: :class:`~async_v20.TradeID`
-        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
         cancelled_time: :class:`~async_v20.DateTime`
         replaces_order_id: :class:`~async_v20.OrderID`
@@ -1050,7 +1050,7 @@ class TradeSummary(Model):
         average_close_price: :class:`~async_v20.PriceValue`
             The average closing price of the Trade. Only present if
             the Trade has been closed or reduced at least once.
-        closing_transaction_i_ds: :class:`~async_v20.ArrayTransactionID`
+        closing_transaction_i_ds: ( :class:`~async_v20.TransactionID`, ...)
             The IDs of the Transactions that have closed portions of this Trade.
         financing: :class:`~async_v20.AccountUnits`
             The financing paid/collected for this Trade.
@@ -1154,24 +1154,24 @@ class AccountChanges(Model):
     past.
 
     Attributes:
-        orders_created: :class:`~async_v20.ArrayOrder`
+        orders_created: ( :class:`~async_v20.Order`, ...)
             The Orders created. These Orders may have been
             filled, cancelled or triggered in the same period.
-        orders_cancelled: :class:`~async_v20.ArrayOrder`
+        orders_cancelled: ( :class:`~async_v20.Order`, ...)
             The Orders cancelled.
-        orders_filled: :class:`~async_v20.ArrayOrder`
+        orders_filled: ( :class:`~async_v20.Order`, ...)
             The Orders filled.
-        orders_triggered: :class:`~async_v20.ArrayOrder`
+        orders_triggered: ( :class:`~async_v20.Order`, ...)
             The Orders triggered.
-        trades_opened: :class:`~async_v20.ArrayTradeSummary`
+        trades_opened: ( :class:`~async_v20.TradeSummary`, ...)
             The Trades opened.
-        trades_reduced: :class:`~async_v20.ArrayTradeSummary`
+        trades_reduced: ( :class:`~async_v20.TradeSummary`, ...)
             The Trades reduced.
-        trades_closed: :class:`~async_v20.ArrayTradeSummary`
+        trades_closed: ( :class:`~async_v20.TradeSummary`, ...)
             The Trades closed.
-        positions: :class:`~async_v20.ArrayPosition`
+        positions: ( :class:`~async_v20.Position`, ...)
             The Positions changed.
-        transactions: :class:`~async_v20.ArrayTransaction`
+        transactions: ( :class:`~async_v20.Transaction`, ...)
             The Transactions that have been generated.
 
     """
@@ -1278,11 +1278,11 @@ class AccountChangesState(Model):
         margin_call_percent: :class:`~async_v20.DecimalNumber`
             The Account's margin call percentage. When this value is 1.0
             or above the Account is in a margin call situation.
-        orders: :class:`~async_v20.ArrayDynamicOrderState`
+        orders: ( :class:`~async_v20.DynamicOrderState`, ...)
             The price-dependent state of each pending Order in the Account.
-        trades: :class:`~async_v20.ArrayCalculatedTradeState`
+        trades: ( :class:`~async_v20.CalculatedTradeState`, ...)
             The price-dependent state for each open Trade in the Account.
-        positions: :class:`~async_v20.ArrayCalculatedPositionState`
+        positions: ( :class:`~async_v20.CalculatedPositionState`, ..)
             The price-dependent state for each open Position in the Account.
 
     """
@@ -1312,10 +1312,10 @@ class Price(Model):
             The status of the Price.
         tradeable: :class:`bool`
             Flag indicating if the Price is tradeable or not
-        bids: :class:`~async_v20.ArrayPriceBucket`
+        bids: ( :class:`~async_v20.PriceBucket`, ...)
             The list of prices and liquidity available on the Instrument's bid side. It is possible for this
             list to be empty if there is no bid liquidity currently available for the Instrument in the Account.
-        asks: :class:`~async_v20.ArrayPriceBucket`
+        asks: ( :class:`~async_v20.PriceBucket`, ...)
             The list of prices and liquidity available on the Instrument's ask side. It is possible for this
             list to be empty if there is no ask liquidity currently available for the Instrument in the Account.
         closeout_bid: :class:`~async_v20.PriceValue`
@@ -1839,7 +1839,7 @@ class DailyFinancingTransaction(Transaction):
             The Account's balance after daily financing.
         account_financing_mode: :class:`~async_v20.AccountFinancingMode`
             The account financing mode at the time of the daily financing.
-        position_financings: :class:`~async_v20.ArrayPositionFinancing`
+        position_financings: ( :class:`~async_v20.PositionFinancing`, ...)
             The financing paid/collected for each Position in the Account.
 
     """
@@ -2158,7 +2158,7 @@ class TakeProfitOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -2233,7 +2233,7 @@ class StopLossOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -2316,7 +2316,7 @@ class TrailingStopLossOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -2377,7 +2377,7 @@ class Trade(Model):
         average_close_price: :class:`~async_v20.PriceValue`
             The average closing price of the Trade. Only present if
             the Trade has been closed or reduced at least once.
-        closing_transaction_i_ds: :class:`~async_v20.ArrayTransactionID`
+        closing_transaction_i_ds: ( :class:`~async_v20.TransactionID`, ...)
             The IDs of the Transactions that have closed portions of this Trade.
         financing: :class:`~async_v20.AccountUnits`
             The financing paid/collected for this Trade.
@@ -2930,11 +2930,11 @@ class Account(AccountSummary):
             or above the Account is in a margin call situation.
         last_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the last Transaction created for the Account.
-        trades: :class:`~async_v20.ArrayTradeSummary`
+        trades: ( :class:`~async_v20.TradeSummary`, ...)
             The details of the Trades currently open in the Account.
-        positions: :class:`~async_v20.ArrayPosition`
+        positions: ( :class:`~async_v20.Position`, ...)
             The details all Account Positions.
-        orders: :class:`~async_v20.ArrayOrder`
+        orders: ( :class:`~async_v20.Order`, ...)
             The details of the Orders currently pending in the Account.
 
     """
@@ -3313,7 +3313,7 @@ class LimitOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3418,7 +3418,7 @@ class MarketIfTouchedOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3520,7 +3520,7 @@ class StopOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3601,7 +3601,7 @@ class OrderFillTransaction(Transaction):
         trade_opened: :class:`~async_v20.TradeOpen`
             The Trade that was opened when the Order was filled
             (only provided if filling the Order resulted in a new Trade).
-        trades_closed: :class:`~async_v20.ArrayTradeReduce`
+        trades_closed: ( :class:`~async_v20.TradeReduce`, ...)
             The Trades that were closed when the Order was filled (only
             provided if filling the Order resulted in a closing open Trades).
         trade_reduced: :class:`~async_v20.TradeReduce`
@@ -4367,7 +4367,7 @@ class MarketOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: :class:`~async_v20.ArrayTradeID`
+        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`

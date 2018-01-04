@@ -45,13 +45,10 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         stream_host: -- The hostname of the v20 REST server
         stream_port: -- The port of the v20 REST server
         rest_scheme: -- The scheme of the connection to rest server.
-            Defaults to 'https'
         stream_scheme: -- The scheme of the connection to the stream server.
-            Defaults to 'https'
         health_host: -- The hostname of the health API server
         health_port: -- The port of the health server
         health_scheme: -- The scheme of the connection for the health server.
-            Defaults to 'http'
         datetime_format: -- The format to request when dealing with times
         rest_timeout: -- The timeout to use when making a polling request with
             the v20 REST server
