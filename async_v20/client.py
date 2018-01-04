@@ -33,29 +33,29 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
     Create an API context for v20 access
 
     Args:
-        token: -- User generated token from the online account configuration page
-        account_id: -- The account id the client will connect to. If None will default to
-            the first account number returned by `OandaClient`. **list_accounts()**
-        format_order_requests: -- True=Format all OrderRequests
+        token: User generated token from the online account configuration page
+        account_id: The account id the client will connect to. If None will default to
+            the first account number returned by :meth:`~async_v20.OandaClient.list_accounts`
+        format_order_requests: True=Format all OrderRequests
             in the context of the orders instrument. False=Do not format OrderRequests,
-            raise ValueError for values outside of allowed range.
-        max_transaction_history: -- Maximum past transactions to store
-        rest_host: -- The hostname of the v20 REST server
-        rest_port: -- The port of the v20 REST server
-        stream_host: -- The hostname of the v20 REST server
-        stream_port: -- The port of the v20 REST server
-        rest_scheme: -- The scheme of the connection to rest server.
-        stream_scheme: -- The scheme of the connection to the stream server.
-        health_host: -- The hostname of the health API server
-        health_port: -- The port of the health server
-        health_scheme: -- The scheme of the connection for the health server.
-        datetime_format: -- The format to request when dealing with times
-        rest_timeout: -- The timeout to use when making a polling request with
+            raise :class:`~async_v20.exceptions.InvalidOrderRequest` for values outside of allowed range.
+        max_transaction_history: Maximum past transactions to store
+        rest_host: The hostname of the v20 REST server
+        rest_port: The port of the v20 REST server
+        stream_host: The hostname of the v20 REST server
+        stream_port: The port of the v20 REST server
+        rest_scheme: The scheme of the connection to rest server.
+        stream_scheme: The scheme of the connection to the stream server.
+        health_host: The hostname of the health API server
+        health_port: The port of the health server
+        health_scheme: The scheme of the connection for the health server.
+        datetime_format: The format to request when dealing with times
+        rest_timeout: The timeout to use when making a polling request with
             the v20 REST server
-        stream_timeout: -- period to wait for an new json object during streaming
-        max_requests_per_second: -- Maximum HTTP requests sent per second
-        max_simultaneous_connections: -- Maximum concurrent HTTP requests
-        debug: -- Set to True to log debug messages.
+        stream_timeout: Period to wait for an new json object during streaming
+        max_requests_per_second: Maximum HTTP requests sent per second
+        max_simultaneous_connections: Maximum concurrent HTTP requests
+        debug: Set to True to log debug messages.
 
     """
     headers = {'Connection': 'keep-alive',
