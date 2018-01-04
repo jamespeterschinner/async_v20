@@ -193,7 +193,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # - get all open trades
         # - attempt to close all open trades
         # - get all open trades again and check there there are None
-        # - return close trade responses and successful/unsuccessful
+        # - return close trade responses
 
         logger.info('close_all_trades()')
         response = await self.list_open_trades()
