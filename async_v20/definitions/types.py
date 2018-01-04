@@ -471,7 +471,7 @@ class PositionSide(Model):
             value indicates short position, positive indicates long position).
         average_price: :class:`~async_v20.PriceValue`
             Volume-weighted average of the underlying Trade open prices for the Position.
-        trade_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_ids: ( :class:`~async_v20.TradeID`, ...)
             List of the open Trade IDs which contribute to the open Position.
         pl: :class:`~async_v20.AccountUnits`
             Profit/loss realized by the PositionSide over the lifetime of the Account.
@@ -484,7 +484,7 @@ class PositionSide(Model):
 
     """
 
-    def __new__(cls, units: DecimalNumber = ..., average_price: PriceValue = ..., trade_i_ds: ArrayTradeID = ...,
+    def __new__(cls, units: DecimalNumber = ..., average_price: PriceValue = ..., trade_ids: ArrayTradeID = ...,
                 pl: AccountUnits = ..., unrealized_pl: AccountUnits = ..., resettable_pl: AccountUnits = ...,
                 financing: DecimalNumber = ...):
         return super().__new__(**PositionSide._preset_arguments, **locals())
@@ -901,7 +901,7 @@ class Order(Model):
         filled_time: :class:`~async_v20.DateTime`
         trade_opened_id: :class:`~async_v20.TradeID`
         trade_reduced_id: :class:`~async_v20.TradeID`
-        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
         cancelled_time: :class:`~async_v20.DateTime`
         replaces_order_id: :class:`~async_v20.OrderID`
@@ -935,7 +935,7 @@ class Order(Model):
                 gtd_time: DateTime = ..., trigger_condition: OrderTriggerCondition = ...,
                 filling_transaction_id: TransactionID = ..., filled_time: DateTime = ...,
                 trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ..., distance: PriceValue = ...,
                 trailing_stop_value: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
@@ -1050,7 +1050,7 @@ class TradeSummary(Model):
         average_close_price: :class:`~async_v20.PriceValue`
             The average closing price of the Trade. Only present if
             the Trade has been closed or reduced at least once.
-        closing_transaction_i_ds: ( :class:`~async_v20.TransactionID`, ...)
+        closing_transaction_ids: ( :class:`~async_v20.TransactionID`, ...)
             The IDs of the Transactions that have closed portions of this Trade.
         financing: :class:`~async_v20.AccountUnits`
             The financing paid/collected for this Trade.
@@ -1072,7 +1072,7 @@ class TradeSummary(Model):
     def __new__(cls, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
                 open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
                 current_units: DecimalNumber = ..., realized_pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
-                average_close_price: PriceValue = ..., closing_transaction_i_ds: ArrayTransactionID = ...,
+                average_close_price: PriceValue = ..., closing_transaction_ids: ArrayTransactionID = ...,
                 financing: AccountUnits = ..., close_time: DateTime = ...,
                 client_extensions: ClientExtensions = ..., take_profit_order_id: OrderID = ...,
                 stop_loss_order_id: OrderID = ..., trailing_stop_loss_order_id: OrderID = ...,
@@ -1111,7 +1111,7 @@ class Transaction(Model):
                 type: TransactionType = ..., extension_number: int = ..., division_id: int = ...,
                 site_id: int = ..., account_user_id: int = ..., account_number: int = ...,
                 home_currency: Currency = ..., alias: str = ..., margin_rate: DecimalNumber = ...,
-                reason: Reason = ..., trade_i_ds: TradeID = ..., order_id: OrderID = ...,
+                reason: Reason = ..., trade_ids: TradeID = ..., order_id: OrderID = ...,
                 client_order_id: ClientID = ..., replaced_by_order_id: OrderID = ...,
                 closed_trade_id: OrderID = ..., trade_close_transaction_id: TransactionID = ...,
                 client_extensions_modify: ClientExtensions = ...,
@@ -1718,7 +1718,7 @@ class DelayedTradeClosureTransaction(Transaction):
             The Request ID of the request which generated the transaction.
         reason: :class:`~async_v20.MarketOrderReason`
             The reason for the delayed trade closure
-        trade_i_ds: :class:`~async_v20.TradeID`
+        trade_ids: :class:`~async_v20.TradeID`
             List of Trade ID's identifying the open trades that
             will be closed when their respective instruments become tradeable
 
@@ -1729,7 +1729,7 @@ class DelayedTradeClosureTransaction(Transaction):
     def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 reason: MarketOrderReason = ...,
-                trade_i_ds: TradeID = ...):
+                trade_ids: TradeID = ...):
         return super().__new__(**DelayedTradeClosureTransaction._preset_arguments, **locals())
 
 
@@ -2158,7 +2158,7 @@ class TakeProfitOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -2183,7 +2183,7 @@ class TakeProfitOrder(Order):
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
         return super().__new__(**TakeProfitOrder._preset_arguments, **locals())
@@ -2233,7 +2233,7 @@ class StopLossOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -2258,7 +2258,7 @@ class StopLossOrder(Order):
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
         return super().__new__(**StopLossOrder._preset_arguments, **locals())
@@ -2316,7 +2316,7 @@ class TrailingStopLossOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -2342,7 +2342,7 @@ class TrailingStopLossOrder(Order):
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = ...,
                 filling_transaction_id: TransactionID = ..., filled_time: DateTime = ...,
                 trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
         return super().__new__(**TrailingStopLossOrder._preset_arguments, **locals())
@@ -2377,7 +2377,7 @@ class Trade(Model):
         average_close_price: :class:`~async_v20.PriceValue`
             The average closing price of the Trade. Only present if
             the Trade has been closed or reduced at least once.
-        closing_transaction_i_ds: ( :class:`~async_v20.TransactionID`, ...)
+        closing_transaction_ids: ( :class:`~async_v20.TransactionID`, ...)
             The IDs of the Transactions that have closed portions of this Trade.
         financing: :class:`~async_v20.AccountUnits`
             The financing paid/collected for this Trade.
@@ -2402,7 +2402,7 @@ class Trade(Model):
                 open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
                 current_units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
                 unrealized_pl: AccountUnits = ..., average_close_price: PriceValue = ...,
-                closing_transaction_i_ds: ArrayTransactionID = ..., financing: AccountUnits = ...,
+                closing_transaction_ids: ArrayTransactionID = ..., financing: AccountUnits = ...,
                 close_time: DateTime = ..., client_extensions: ClientExtensions = ...,
                 take_profit_order: TakeProfitOrder = ..., stop_loss_order: StopLossOrder = ...,
                 trailing_stop_loss_order: TrailingStopLossOrder = ...,
@@ -3313,7 +3313,7 @@ class LimitOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3340,7 +3340,7 @@ class LimitOrder(Order):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
         return super().__new__(**LimitOrder._preset_arguments, **locals())
@@ -3418,7 +3418,7 @@ class MarketIfTouchedOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3447,7 +3447,7 @@ class MarketIfTouchedOrder(Order):
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
         return super().__new__(**MarketIfTouchedOrder._preset_arguments, **locals())
@@ -3520,7 +3520,7 @@ class StopOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -3548,7 +3548,7 @@ class StopOrder(Order):
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
         return super().__new__(**StopOrder._preset_arguments, **locals())
@@ -4367,7 +4367,7 @@ class MarketOrder(Order):
         trade_reduced_id: :class:`~async_v20.TradeID`
             Trade ID of Trade reduced when the Order was filled (only provided when the
             Order's state is FILLED and a Trade was reduced as a result of the fill)
-        trade_closed_i_ds: ( :class:`~async_v20.TradeID`, ...)
+        trade_closed_ids: ( :class:`~async_v20.TradeID`, ...)
             Trade IDs of Trades closed when the Order was filled (only provided when the Order's
             state is FILLED and one or more Trades were closed as a result of the fill)
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
@@ -4393,6 +4393,6 @@ class MarketOrder(Order):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_i_ds: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ...):
         return super().__new__(**MarketOrder._preset_arguments, **locals())
