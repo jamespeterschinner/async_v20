@@ -1,6 +1,11 @@
 Changelog
 =========
 
+6.1.0b0
+=======
+
+- Changed incorrect naming _i_ds to _ids
+
 6.0.2b0
 =======
 
