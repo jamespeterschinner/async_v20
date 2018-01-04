@@ -198,9 +198,9 @@ async def test_request_body_formats_order_request_when_an_order_request_is_passe
 async def test_request_body_does_not_raise_error_when_a_valid_order_request_is_passed(client, server):
     await client.initialize()
     client.format_order_requests = True
-    create_body(client, POSTOrders.request_schema,
+    body = create_body(client, POSTOrders.request_schema,
                        {OrderRequest: OrderRequest(instrument='AUD_USD', units=0)})
-
+    assert body['order']['units'] == '1.0'
 
 @pytest.mark.asyncio
 async def test_objects_can_be_converted_between_Model_object_and_json():

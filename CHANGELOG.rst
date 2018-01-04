@@ -11,7 +11,6 @@ Changelog
 =======
 
 - Fixed InvalidFormatRequest Error when OrderRequest does not define an `instrument` attribute
-- Added corresponding test
 
 6.0.1b0
 =======
