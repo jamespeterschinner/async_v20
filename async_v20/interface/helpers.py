@@ -128,7 +128,7 @@ def create_url(self, endpoint, arguments):
                     logger.error(msg)
                     raise FailedToCreatePath(msg)
 
-    host = self.hosts[endpoint.host]
+    host = self._hosts[endpoint.host]
     return host(path=path)
 
 

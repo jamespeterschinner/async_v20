@@ -145,7 +145,7 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         # V20 API health URL
         health_host = partial(URL.build, host=health_host, port=health_port, scheme=health_scheme)
 
-        self.hosts = {'REST': rest_host, 'STREAM': stream_host, 'HEALTH': health_host}
+        self._hosts = {'REST': rest_host, 'STREAM': stream_host, 'HEALTH': health_host}
 
         # The timeout to use when making a polling request with the
         # v20 REST server
