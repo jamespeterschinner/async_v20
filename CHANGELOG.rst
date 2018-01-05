@@ -6,6 +6,7 @@ Changelog
 
 - Changed `get_transactions` method to `get_transaction` (API call can only return one transaction)
 - Removed default parameter argument for `get_transaction`.(**transaction_id**) it is a required parameter.
+- Made OandaClient.hosts a protected member. Now OandaClient._hosts
 
 6.1.0b0
 =======
