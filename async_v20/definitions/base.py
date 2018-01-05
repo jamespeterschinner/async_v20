@@ -1,6 +1,6 @@
 import logging
 import ujson as json
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from functools import wraps
 from inspect import signature, Signature
 from operator import itemgetter
@@ -265,6 +265,20 @@ class Model(tuple, metaclass=ORM):
         return pd.Series(dict(create_data()))
 
 
+class OneToMany(defaultdict):
+    """A One to many mapping"""
+
+    def __init__(self):
+        super().__init__(list)
+
+    def update(self, other):
+        for key, value in other.items():
+            self[key].append(value)
+
+    def asdict(self):
+        return {key: tuple(value) for key, value in self.items()}
+
+
 class Array(tuple):
     """Mixin to denote objects that are sent from OANDA in an array.
     Also used to correctly serialize objects.
@@ -272,10 +286,11 @@ class Array(tuple):
 
     # Denotes the type the Array contains
     _contains = None
+    _instruments = OneToMany
 
     def __new__(cls, *data):
-        _ids = {}
-        _instruments = {}
+        ids = {}
+        instruments = cls._instruments()
 
         def construct_items(data):
             for index, obj in enumerate(data):
@@ -283,17 +298,22 @@ class Array(tuple):
 
                 # It's useful to be able to lookup items in an array
                 # By the items attributes. If not id, instrument
-                try:
-                    _ids.update({str(getattr(item, 'id')): index})
-                except AttributeError:
-                    key = getattr(item, 'instrument', getattr(item, 'name', None))
-                    if key:
-                        _instruments.update({key: index})
+                key = str(getattr(item, 'id', getattr(item, 'trade_id', None)))
+                if key is not None:
+                    ids.update({key: index})
+
+                key = getattr(item, 'instrument', getattr(item, 'name', None))
+                if key is not None:
+                    instruments.update({key: index})
+
                 yield item
 
         instance = super().__new__(cls, construct_items(data))
-        instance._ids = _ids
-        instance._instruments = dict(_instruments)
+        instance._ids = ids
+        if isinstance(instruments, OneToMany):
+            instance._instruments = instruments.asdict()
+        else:
+            instance._instruments = instruments
         return instance
 
     def get_id(self, id_, default=None):
@@ -303,7 +323,12 @@ class Array(tuple):
             return default
 
     def get_instrument(self, instrument, default=None):
+        # ArrayPosition can only have a One to One relationship between an instrument
+        # and a Position. Though ArrayTrades and others can have a Many to One relationship
         try:
+            return self.__class__(*(self[index] for index in self._instruments[instrument]))
+        except TypeError:
+            # Means self._instruments is not a one to many mapping
             return self[self._instruments[instrument]]
         except KeyError:
             return default
@@ -320,7 +345,7 @@ def create_attribute(typ, data):
             result = typ(**data)
         elif isinstance(data, Specifier):
             if not issubclass(typ, Specifier):
-                msg= f'{data} must be a {Specifier} is {type(data)}'
+                msg = f'{data} must be a {Specifier} is {type(data)}'
                 logger.error(msg)
                 raise IncompatibleValue(msg)
             result = typ(data)

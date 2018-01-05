@@ -460,7 +460,7 @@ class CalculatedPositionState(Model):
 
 class ArrayCalculatedPositionState(Array):
     _contains = CalculatedPositionState
-
+    _instruments = dict
 
 class PositionSide(Model):
     """The representation of a Position for a single direction (long or short).
@@ -523,6 +523,7 @@ class Position(Model):
 
 class ArrayPosition(Array):
     _contains = Position
+    _instruments = dict
 
 
 class PriceBucket(Model):
@@ -1235,6 +1236,9 @@ class Instrument(Model):
 
 class ArrayInstrument(Array):
     _contains = Instrument
+    # There is a One to One relationship between an instrument eg. AUD_USD
+    # and an Instrument instance in an ArrayInstrument
+    _instruments = dict
 
 
 class AccountChangesState(Model):

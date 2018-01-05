@@ -1,23 +1,29 @@
 import ujson as json
 
+import numpy as np
+import pandas as pd
 import pytest
+from pandas import DataFrame
 
-from async_v20.definitions.base import Model, Array, create_attribute
+from async_v20.definitions.base import Model, Array, create_attribute, OneToMany
 from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import TradeID, AccountID
-from async_v20.definitions.types import Account, ArrayStr, TradeSummary, ArrayTransaction, ArrayPosition, ArrayInstrument
+from async_v20.definitions.types import Account
+from async_v20.definitions.types import ArrayInstrument
+from async_v20.definitions.types import ArrayPosition
+from async_v20.definitions.types import ArrayStr
+from async_v20.definitions.types import ArrayTrade
+from async_v20.definitions.types import ArrayTransaction
+from async_v20.definitions.types import Position
+from async_v20.definitions.types import TradeSummary
+from async_v20.exceptions import InstantiationFailure, IncompatibleValue
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
 from ..data.json_data import example_transactions, example_positions, example_instruments
 from ..fixtures.client import client
 from ..fixtures.server import server
-from async_v20.exceptions import InstantiationFailure, IncompatibleValue
-from pandas import DataFrame
-import pandas as pd
-import numpy as np
 
-client= client
+client = client
 server = server
-
 
 from pandas import Timestamp
 
@@ -114,6 +120,7 @@ def test_series_doesnt_convert_datetime(account):
             with pytest.raises(ValueError):
                 float(value)
 
+
 def test_series_converts_time_to_datetime(account):
     result = account.series()
     print(result)
@@ -151,6 +158,7 @@ def test_model_update():
     assert all(map(lambda x: x in merged, result.dict().keys()))
     assert result.dict() == TradeSummary(**merged).dict()
 
+
 def test_array_get_id_returns_id():
     data = json.loads(example_transactions)
     print(data)
@@ -158,14 +166,17 @@ def test_array_get_id_returns_id():
     assert transactions.get_id(6607).id == 6607
     assert transactions.get_id(123) == None
 
+
 def test_array_get_instrument_returns_instrument():
     positions = ArrayPosition(*json.loads(example_positions))
+    print(positions)
     assert positions.get_instrument('AUD_USD').instrument == 'AUD_USD'
     assert positions.get_instrument('EUR_USD') == None
 
     instruments = ArrayInstrument(*json.loads(example_instruments))
     assert instruments.get_instrument('AUD_USD').name == 'AUD_USD'
     assert instruments.get_instrument('EUR_USD').name == 'EUR_USD'
+
 
 @pytest.mark.asyncio
 async def test_array_dataframe_returns_dataframe(client, server):
@@ -192,13 +203,46 @@ async def test_array_dataframe_converts_datetimes_to_correct_type(client, server
     assert type(df.time[0]) == str
     assert len(str(df.time[0])) == 20
 
-
     df = rsp.candles.dataframe(datetime_format='RFC3339')
     assert type(df.time[0]) == str
     assert len(str(df.time[0])) == 30
 
     assert type(df) == DataFrame
 
+
 def test_create_attribute_raises_error_when_unable_to_construct_type():
     with pytest.raises(InstantiationFailure):
         attribute = create_attribute(int, 'This is not an int')
+
+
+@pytest.mark.asyncio
+async def test_array_get_instruments_returns_all_matching_objects(client, server):
+    async with client as client:
+        rsp = await client.list_open_trades()
+        trades = rsp.trades.get_instrument('AUD_USD')
+        assert len(trades) == 40
+        assert type(trades) == ArrayTrade
+
+
+@pytest.mark.asyncio
+async def test_array_get_instruments_returns_single_object(client, server):
+    async with client as client:
+        rsp = await client.list_positions()
+        position = rsp.positions.get_instrument('AUD_USD')
+        assert type(position) == Position
+
+
+def test_one_to_many_maps_one_to_many():
+    one_to_many = OneToMany()
+    for i in range(10):
+        one_to_many.update({'key': i})
+
+    assert len(one_to_many['key']) == 10
+
+
+def test_one_to_many_returns_tuple_values_when_cast_to_a_dict():
+    one_to_many = OneToMany()
+    for i in range(10):
+        one_to_many.update({'key': i})
+
+    assert isinstance(one_to_many.asdict()['key'], tuple)
