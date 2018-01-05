@@ -33,20 +33,20 @@ __all__ = ['Account', 'AccountChanges', 'AccountChangesState', 'AccountPropertie
            'UnitsAvailable', 'UnitsAvailableDetails', 'UserInfo', 'UserInfoExternal', 'VWAPReceipt']
 
 
-class ArrayStr(Array):
-    _contains = str
+class ArrayStr(Array, contains=str):
+    pass
 
 
-class ArrayTradeID(Array):
-    _contains = TradeID
+class ArrayTradeID(Array, contains=TradeID):
+    pass
 
 
-class ArrayTransactionFilter(Array):
-    _contains = TransactionFilter
+class ArrayTransactionFilter(Array, contains=TransactionFilter):
+    pass
 
 
-class ArrayTransactionID(Array):
-    _contains = TransactionID
+class ArrayTransactionID(Array, contains=TransactionID):
+    pass
 
 
 class ClientExtensions(Model):
@@ -242,8 +242,8 @@ class LiquidityRegenerationScheduleStep(Model):
         return super().__new__(**LiquidityRegenerationScheduleStep._preset_arguments, **locals())
 
 
-class ArrayLiquidityRegenerationScheduleStep(Array):
-    _contains = LiquidityRegenerationScheduleStep
+class ArrayLiquidityRegenerationScheduleStep(Array, contains=LiquidityRegenerationScheduleStep):
+    pass
 
 
 class LiquidityRegenerationSchedule(Model):
@@ -377,8 +377,8 @@ class OrderBookBucket(Model):
         return super().__new__(**OrderBookBucket._preset_arguments, **locals())
 
 
-class ArrayOrderBookBucket(Array):
-    _contains = OrderBookBucket
+class ArrayOrderBookBucket(Array, contains=OrderBookBucket):
+    pass
 
 
 class PositionBookBucket(Model):
@@ -402,8 +402,8 @@ class PositionBookBucket(Model):
         return super().__new__(**PositionBookBucket._preset_arguments, **locals())
 
 
-class ArrayPositionBookBucket(Array):
-    _contains = PositionBookBucket
+class ArrayPositionBookBucket(Array, contains=PositionBookBucket):
+    pass
 
 
 class DynamicOrderState(Model):
@@ -432,8 +432,8 @@ class DynamicOrderState(Model):
         return super().__new__(**DynamicOrderState._preset_arguments, **locals())
 
 
-class ArrayDynamicOrderState(Array):
-    _contains = DynamicOrderState
+class ArrayDynamicOrderState(Array, contains=DynamicOrderState):
+    pass
 
 
 class CalculatedPositionState(Model):
@@ -458,9 +458,8 @@ class CalculatedPositionState(Model):
         return super().__new__(**CalculatedPositionState._preset_arguments, **locals())
 
 
-class ArrayCalculatedPositionState(Array):
-    _contains = CalculatedPositionState
-    _instruments = dict
+class ArrayCalculatedPositionState(Array, contains=CalculatedPositionState, one_to_many=False):
+    pass
 
 class PositionSide(Model):
     """The representation of a Position for a single direction (long or short).
@@ -521,9 +520,8 @@ class Position(Model):
         return super().__new__(**Position._preset_arguments, **locals())
 
 
-class ArrayPosition(Array):
-    _contains = Position
-    _instruments = dict
+class ArrayPosition(Array, contains=Position, one_to_many=False):
+    pass
 
 
 class PriceBucket(Model):
@@ -541,8 +539,8 @@ class PriceBucket(Model):
         return super().__new__(**PriceBucket._preset_arguments, **locals())
 
 
-class ArrayPriceBucket(Array):
-    _contains = PriceBucket
+class ArrayPriceBucket(Array, contains=PriceBucket):
+    pass
 
 
 class ClientPrice(Model):
@@ -608,8 +606,8 @@ class CalculatedTradeState(Model):
         return super().__new__(**CalculatedTradeState._preset_arguments, **locals())
 
 
-class ArrayCalculatedTradeState(Array):
-    _contains = CalculatedTradeState
+class ArrayCalculatedTradeState(Array, contains=CalculatedTradeState):
+    pass
 
 
 class MarketOrderDelayedTradeClose(Model):
@@ -686,8 +684,8 @@ class OpenTradeFinancing(Model):
         return super().__new__(**OpenTradeFinancing._preset_arguments, **locals())
 
 
-class ArrayOpenTradeFinancing(Array):
-    _contains = OpenTradeFinancing
+class ArrayOpenTradeFinancing(Array, contains=OpenTradeFinancing):
+    pass
 
 
 class PositionFinancing(Model):
@@ -709,8 +707,8 @@ class PositionFinancing(Model):
         return super().__new__(**PositionFinancing._preset_arguments, **locals())
 
 
-class ArrayPositionFinancing(Array):
-    _contains = PositionFinancing
+class ArrayPositionFinancing(Array, contains=PositionFinancing):
+    pass
 
 
 class TradeOpen(Model):
@@ -790,8 +788,8 @@ class AccountProperties(Model):
         return super().__new__(**AccountProperties._preset_arguments, **locals())
 
 
-class ArrayAccountProperties(Array):
-    _contains = AccountProperties
+class ArrayAccountProperties(Array, contains=AccountProperties):
+    pass
 
 
 class Candlestick(Model):
@@ -823,8 +821,8 @@ class Candlestick(Model):
         return super().__new__(**Candlestick._preset_arguments, **locals())
 
 
-class ArrayCandlestick(Array):
-    _contains = Candlestick
+class ArrayCandlestick(Array, contains=Candlestick):
+    pass
 
 
 class OrderBook(Model):
@@ -953,8 +951,8 @@ class Order(Model):
         return super().__new__(**Order._preset_arguments, **locals())
 
 
-class ArrayOrder(Array):
-    _contains = Order
+class ArrayOrder(Array, contains=Order):
+    pass
 
 
 class TradeReduce(Model):
@@ -983,8 +981,8 @@ class TradeReduce(Model):
         return super().__new__(**TradeReduce._preset_arguments, **locals())
 
 
-class ArrayTradeReduce(Array):
-    _contains = TradeReduce
+class ArrayTradeReduce(Array, contains=TradeReduce):
+    pass
 
 
 class TransactionHeartbeat(Model):
@@ -1082,8 +1080,8 @@ class TradeSummary(Model):
         return super().__new__(**TradeSummary._preset_arguments, **locals())
 
 
-class ArrayTradeSummary(Array):
-    _contains = TradeSummary
+class ArrayTradeSummary(Array, contains=TradeSummary):
+    pass
 
 
 class Transaction(Model):
@@ -1145,8 +1143,8 @@ class Transaction(Model):
         return super().__new__(**Transaction._preset_arguments, **locals())
 
 
-class ArrayTransaction(Array):
-    _contains = Transaction
+class ArrayTransaction(Array, contains=Transaction):
+    pass
 
 
 class AccountChanges(Model):
@@ -1234,11 +1232,8 @@ class Instrument(Model):
         return super().__new__(**Instrument._preset_arguments, **locals())
 
 
-class ArrayInstrument(Array):
-    _contains = Instrument
-    # There is a One to One relationship between an instrument eg. AUD_USD
-    # and an Instrument instance in an ArrayInstrument
-    _instruments = dict
+class ArrayInstrument(Array, contains=Instrument, one_to_many=False):
+    pass
 
 
 class AccountChangesState(Model):
@@ -1350,8 +1345,8 @@ class Price(Model):
         return super().__new__(**Price._preset_arguments, **locals())
 
 
-class ArrayPrice(Array):
-    _contains = Price
+class ArrayPrice(Array, contains=Price):
+    pass
 
 
 class CloseTransaction(Transaction):
@@ -2415,8 +2410,8 @@ class Trade(Model):
         return super().__new__(**Trade._preset_arguments, **locals())
 
 
-class ArrayTrade(Array):
-    _contains = Trade
+class ArrayTrade(Array, contains=Trade):
+    pass
 
 
 class ClientConfigureRejectTransaction(Transaction):

@@ -5,7 +5,7 @@ import pandas as pd
 import pytest
 from pandas import DataFrame
 
-from async_v20.definitions.base import Model, Array, create_attribute, OneToMany
+from async_v20.definitions.base import Model, Array, create_attribute
 from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import TradeID, AccountID
 from async_v20.definitions.types import Account
@@ -134,8 +134,8 @@ def test_series_converts_time_to_datetime(account):
 
 
 def test_array_returns_instantiation_error():
-    class ArrayTest(Array):
-        _contains = int
+    class ArrayTest(Array, contains=int):
+       pass
 
     with pytest.raises(InstantiationFailure):
         ArrayTest('ABC', 'DEF')
@@ -219,30 +219,27 @@ def test_create_attribute_raises_error_when_unable_to_construct_type():
 async def test_array_get_instruments_returns_all_matching_objects(client, server):
     async with client as client:
         rsp = await client.list_open_trades()
-        trades = rsp.trades.get_instrument('AUD_USD')
+        trades = rsp.trades.get_instruments('AUD_USD')
         assert len(trades) == 40
         assert type(trades) == ArrayTrade
 
+@pytest.mark.asyncio
+async def test_array_get_instruments_returns_default(client, server):
+    async with client as client:
+        rsp = await client.list_open_trades()
+        trades = rsp.trades.get_instruments('NOTHING', 'DEFAULT')
+        assert trades == 'DEFAULT'
 
 @pytest.mark.asyncio
-async def test_array_get_instruments_returns_single_object(client, server):
+async def test_array_get_instrument_returns_single_object(client, server):
     async with client as client:
         rsp = await client.list_positions()
         position = rsp.positions.get_instrument('AUD_USD')
         assert type(position) == Position
 
-
-def test_one_to_many_maps_one_to_many():
-    one_to_many = OneToMany()
-    for i in range(10):
-        one_to_many.update({'key': i})
-
-    assert len(one_to_many['key']) == 10
-
-
-def test_one_to_many_returns_tuple_values_when_cast_to_a_dict():
-    one_to_many = OneToMany()
-    for i in range(10):
-        one_to_many.update({'key': i})
-
-    assert isinstance(one_to_many.asdict()['key'], tuple)
+@pytest.mark.asyncio
+async def test_array_get_instrument_returns_default(client, server):
+    async with client as client:
+        rsp = await client.list_positions()
+        position = rsp.positions.get_instrument('NOTHING', 'DEFAULT')
+        assert position == 'DEFAULT'

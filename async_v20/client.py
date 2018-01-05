@@ -23,7 +23,7 @@ async def sleep(s=0.0):
     await asyncio.sleep(s)
 
 
-__version__ = '6.1.0b0'
+__version__ = '6.2.0b0'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,

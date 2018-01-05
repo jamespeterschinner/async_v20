@@ -11,6 +11,7 @@ from .attributes import instance_attributes
 from .attributes import json_attributes
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
+from .helpers import create_indexed_lookup
 from .primitives import Primitive, Specifier
 from ..exceptions import IncompatibleValue, UnknownValue, InstantiationFailure
 
@@ -265,18 +266,6 @@ class Model(tuple, metaclass=ORM):
         return pd.Series(dict(create_data()))
 
 
-class OneToMany(defaultdict):
-    """A One to many mapping"""
-
-    def __init__(self):
-        super().__init__(list)
-
-    def update(self, other):
-        for key, value in other.items():
-            self[key].append(value)
-
-    def asdict(self):
-        return {key: tuple(value) for key, value in self.items()}
 
 
 class Array(tuple):
@@ -284,54 +273,14 @@ class Array(tuple):
     Also used to correctly serialize objects.
     """
 
+    def __init_subclass__(cls, contains, one_to_many=True, **kwargs):
     # Denotes the type the Array contains
-    _contains = None
-    _instruments = OneToMany
+        cls._contains = contains
+        cls._one_to_may = one_to_many
 
-    def __new__(cls, *data):
-        ids = {}
-        instruments = cls._instruments()
-
-        def construct_items(data):
-            for index, obj in enumerate(data):
-                item = create_attribute(cls._contains, obj)
-
-                # It's useful to be able to lookup items in an array
-                # By the items attributes. If not id, instrument
-                key = str(getattr(item, 'id', getattr(item, 'trade_id', None)))
-                if key is not None:
-                    ids.update({key: index})
-
-                key = getattr(item, 'instrument', getattr(item, 'name', None))
-                if key is not None:
-                    instruments.update({key: index})
-
-                yield item
-
-        instance = super().__new__(cls, construct_items(data))
-        instance._ids = ids
-        if isinstance(instruments, OneToMany):
-            instance._instruments = instruments.asdict()
-        else:
-            instance._instruments = instruments
-        return instance
-
-    def get_id(self, id_, default=None):
-        try:
-            return self[self._ids[str(id_)]]
-        except KeyError:
-            return default
-
-    def get_instrument(self, instrument, default=None):
-        # ArrayPosition can only have a One to One relationship between an instrument
-        # and a Position. Though ArrayTrades and others can have a Many to One relationship
-        try:
-            return self.__class__(*(self[index] for index in self._instruments[instrument]))
-        except TypeError:
-            # Means self._instruments is not a one to many mapping
-            return self[self._instruments[instrument]]
-        except KeyError:
-            return default
+    def __new__(cls, *items):
+        instance = super().__new__(cls, tuple(create_attribute(cls._contains, item) for item in items))
+        return create_indexed_lookup(instance, cls._one_to_may)
 
     def dataframe(self, json=False, datetime_format=None):
         """Create a pandas.Dataframe"""

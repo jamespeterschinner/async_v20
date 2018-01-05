@@ -9,8 +9,8 @@ class ServiceList(Model):
         return super().__new__(**ServiceList._preset_arguments, **locals())
 
 
-class ArrayServiceList(Array):
-    _contains = ServiceList
+class ArrayServiceList(Array, contains=ServiceList):
+    pass
 
 
 class Status(Model):
@@ -21,8 +21,8 @@ class Status(Model):
         return super().__new__(**Status._preset_arguments, **locals())
 
 
-class ArrayStatus(Array):
-    _contains = Status
+class ArrayStatus(Array, contains=Status):
+    pass
 
 
 class Event(Model):
@@ -33,8 +33,8 @@ class Event(Model):
         return super().__new__(**Event._preset_arguments, **locals())
 
 
-class ArrayEvent(Array):
-    _contains = Event
+class ArrayEvent(Array, contains=Event):
+    pass
 
 
 class Service(Model):
@@ -46,8 +46,8 @@ class Service(Model):
         return super().__new__(**Service._preset_arguments, **locals())
 
 
-class ArrayService(Array):
-    _contains = Service
+class ArrayService(Array, contains=Service):
+    pass
 
 class Image(Model):
     """An Image to be displayed to the end user.
@@ -57,5 +57,5 @@ class Image(Model):
         return super().__new__(**Image._preset_arguments, **locals())
 
 
-class ArrayImage(Array):
-    _contains = Image
+class ArrayImage(Array, contains=Image):
+    pass

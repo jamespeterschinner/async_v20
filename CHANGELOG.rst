@@ -7,9 +7,9 @@ Changelog
 - Changed `get_transactions` method to `get_transaction` (API call can only return one transaction)
 - Removed default parameter argument for `get_transaction`.(**transaction_id**) it is a required parameter.
 - Made OandaClient.hosts a protected member. Now OandaClient._hosts
-- `Array`. **get_instrument()** returns an Array of the same type when there is a one to many relationship
-  between the instrument and objects the array contains. Returns the single object when there is a one to one
-  relationship
+- `Array`. **get_instruments()** returns an Array of the same type this is when there is a one to many relationship
+  between the instrument and objects the array contains. `Array`. **get_instrument()** Returns the single object
+  when there is a one to one relationship. Both methods are mutually exclusive
 
 6.1.0b0
 =======
