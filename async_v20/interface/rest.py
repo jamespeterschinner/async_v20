@@ -64,5 +64,6 @@ def update_account(self, changes, changes_state):
     self._account = self._account.replace(**dict(changes_state.dict(json=False),
                                                  orders=orders, trades=trades, positions=positions))
 
-    self.transactions = ArrayTransaction(*sorted((changes.transactions + self.transactions)
-                                                 [-self.max_transaction_history:], reverse=True))
+    self.transactions = ArrayTransaction(
+        *sorted((changes.transactions + self.transactions)[-self.max_transaction_history:],
+                key=lambda x: x.id, reverse=True))

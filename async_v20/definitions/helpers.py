@@ -5,6 +5,23 @@ from ..exceptions import InvalidValue
 logger = logging.getLogger(__name__)
 
 
+def null_attribute():
+    return None
+
+def get_attribute(index, x):
+    return x[index]()
+
+def lazy_evaluate(func, *args, **kwargs):
+    acc = []
+    def evaluate():
+        try:
+            return acc[0]
+        except IndexError:
+            acc.append(func(*args, **kwargs))
+            return acc[0]
+    return evaluate
+
+
 def create_indexed_lookup(array, one_to_many):
     id_index = {}
     instrument_index = {}

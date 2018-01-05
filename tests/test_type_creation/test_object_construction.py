@@ -67,7 +67,9 @@ def test_order_can_be_constructed_from_example_data():
 
 def test_supplying_incorrect_type_raises_error():
     with pytest.raises(IncompatibleValue):
-        Order(instrument=Instrument())
+        result = Order(instrument=Instrument())
+        print(result.instrument)
+
 
 def test_account_object_can_be_constructed_from_example():
     assert type(Account(**account_example['account'])) == Account

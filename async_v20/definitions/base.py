@@ -1,17 +1,19 @@
 import logging
 import ujson as json
-from collections import OrderedDict, defaultdict
-from functools import wraps
+from collections import OrderedDict
+from functools import wraps, partial
 from inspect import signature, Signature
-from operator import itemgetter
 
 import pandas as pd
 
 from .attributes import instance_attributes
 from .attributes import json_attributes
 from .helpers import create_doc_signature
-from .helpers import flatten_dict
 from .helpers import create_indexed_lookup
+from .helpers import flatten_dict
+from .helpers import get_attribute
+from .helpers import lazy_evaluate
+from .helpers import null_attribute
 from .primitives import Primitive, Specifier
 from ..exceptions import IncompatibleValue, UnknownValue, InstantiationFailure
 
@@ -122,7 +124,7 @@ class ORM(type):
 
             # Create getters for each attribute
             for index, attr in enumerate(class_obj.template):
-                setattr(class_obj, attr, property(itemgetter(index)))
+                setattr(class_obj, attr, property(partial(get_attribute, index)))
 
             # Model.__new__ uses this class attribute to
             class_obj.__annotations__ = class_obj.__new__.__annotations__
@@ -177,7 +179,8 @@ class Model(tuple, metaclass=ORM):
 
         arguments = ((attr, cls.__annotations__[attr], kwargs[attr]) for attr in cls.template)
 
-        def construct_object_data():
+        def construct_object_data(arguments):
+
             for name, annotation, value in arguments:
                 # Sometimes OANDA JSON responses contain null values.
                 # Ellipsis (...) is used as the default parameter
@@ -185,16 +188,17 @@ class Model(tuple, metaclass=ORM):
                 # This is important because it allows converting objects
                 # back into the EXACT JSON they were created from.
                 # Without dropping the null values
+
                 if value is ...:
-                    yield None
+                    yield null_attribute
                 elif value is None:
                     fields.append(name)
-                    yield None
+                    yield null_attribute
                 else:
                     fields.append(name)
-                    yield create_attribute(annotation, value)
+                    yield lazy_evaluate(partial(create_attribute, annotation, value))
 
-        instance = super().__new__(cls, tuple(construct_object_data()))
+        instance = super().__new__(cls, tuple(construct_object_data(arguments)))
         instance._fields = tuple(fields)
         return instance
 
@@ -266,15 +270,13 @@ class Model(tuple, metaclass=ORM):
         return pd.Series(dict(create_data()))
 
 
-
-
 class Array(tuple):
     """Mixin to denote objects that are sent from OANDA in an array.
     Also used to correctly serialize objects.
     """
 
     def __init_subclass__(cls, contains, one_to_many=True, **kwargs):
-    # Denotes the type the Array contains
+        # Denotes the type the Array contains
         cls._contains = contains
         cls._one_to_may = one_to_many
 
