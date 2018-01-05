@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.2.0b0
+=======
+
+- Changed `get_transactions` method to `get_transaction` (API call can only return one transaction)
+- Removed default parameter argument for `get_transaction`.(**transaction_id**) it is a required parameter.
+
 6.1.0b0
 =======
 

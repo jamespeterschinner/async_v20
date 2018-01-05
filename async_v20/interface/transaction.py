@@ -51,7 +51,7 @@ class TransactionInterface(object):
         pass
 
     @endpoint(GETTransactionID)
-    def get_transactions(self, transaction_id: TransactionID = ...):
+    def get_transaction(self, transaction_id: TransactionID):
         """
         Get the details of a single Account Transaction.
 
