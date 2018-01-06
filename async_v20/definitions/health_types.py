@@ -6,7 +6,7 @@ class ServiceList(Model):
     """
 
     def __new__(cls, id: str, name: str, description: str, url: str):
-        return super().__new__(**ServiceList._preset_arguments, **locals())
+        return super().__new__(**locals())
 
 
 class ArrayServiceList(Array, contains=ServiceList):
@@ -18,7 +18,7 @@ class Status(Model):
 
     def __new__(cls, id: str, name: str, description: str, url: str,
                 level: str, image: str, default: bool):
-        return super().__new__(**Status._preset_arguments, **locals())
+        return super().__new__(**locals())
 
 
 class ArrayStatus(Array, contains=Status):
@@ -30,7 +30,7 @@ class Event(Model):
 
     def __new__(cls, sid: str, message: str, timestamp: str,
                 url: str, status: Status, informational: bool):
-        return super().__new__(**Event._preset_arguments, **locals())
+        return super().__new__(**locals())
 
 
 class ArrayEvent(Array, contains=Event):
@@ -43,7 +43,7 @@ class Service(Model):
 
     def __new__(cls, id: str, name: str, description: str,
                 list: ServiceList, current_event: Event, url: str):
-        return super().__new__(**Service._preset_arguments, **locals())
+        return super().__new__(**locals())
 
 
 class ArrayService(Array, contains=Service):
@@ -54,7 +54,7 @@ class Image(Model):
     """
 
     def __new__(cls, name: str, icon_set: str, url: str):
-        return super().__new__(**Image._preset_arguments, **locals())
+        return super().__new__(**locals())
 
 
 class ArrayImage(Array, contains=Image):

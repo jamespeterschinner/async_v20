@@ -195,7 +195,7 @@ async def test_request_body_formats_order_request_when_an_order_request_is_passe
                     {OrderRequest: MarketOrderRequest(instrument='NOT AN INSTRUMENT', units=1)})
 
 @pytest.mark.asyncio
-async def test_request_body_does_not_raise_error_when_a_valid_order_request_is_passed(client, server):
+async def test_request_body_does_not_raise_error_when_an_invalid_order_request_is_passed(client, server):
     await client.initialize()
     client.format_order_requests = True
     body = create_body(client, POSTOrders.request_schema,
@@ -220,6 +220,8 @@ async def test_objects_can_be_converted_between_Model_object_and_json():
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_updates_units(instrument):
     order_request = OrderRequest(units=0.123456)
+    print(order_request)
+    print(hasattr(order_request, 'units'))
     result = _format_order_request(order_request, instrument, clip=True)
     assert result.units >= instrument.minimum_trade_size
 
@@ -358,7 +360,7 @@ def test_ins_context_does_not_add_parameters_to_order_requests(instrument):
         units=instrument.minimum_trade_size
     )
     result = _format_order_request(order_request, instrument, clip=True)
-    assert getattr(result, 'price_bound') == None
-    assert getattr(result, 'trailing_stop_loss_on_fill') == None
-    assert getattr(result, 'stop_loss_on_fill') == None
-    assert getattr(result, 'take_profit_on_fill') == None
+    assert not hasattr(result, 'price_bound')
+    assert not hasattr(result, 'trailing_stop_loss_on_fill')
+    assert not hasattr(result, 'stop_loss_on_fill')
+    assert not hasattr(result, 'take_profit_on_fill')

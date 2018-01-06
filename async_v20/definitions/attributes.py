@@ -164,7 +164,12 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'guaranteed_execution_fee': 'guaranteed_execution_fee', 'halfSpreadCost': 'half_spread_cost',
                        'half_spread_cost': 'half_spread_cost', 'description': 'description', 'list': 'list',
                        'current-event': 'current_event', 'url': 'url', 'sid': 'sid', 'message': 'message',
-                       'informational': 'informational', 'level': 'level', 'image': 'image', 'icon_set': 'icon_set'}
+                       'informational': 'informational', 'level': 'level', 'image': 'image', 'icon_set': 'icon_set',
+                       'guaranteed_stop_loss_order_mode': 'guaranteed_stop_loss_order_mode',
+                       'guaranteedStopLossOrderMode': 'guaranteed_stop_loss_order_mode',
+                       'resettablePLTime': 'resettable_pl_time', 'resettable_pl_time': 'resettable_pl_time',
+                       'guaranteedExecutionFees':'guaranteed_execution_fees',
+                       'guaranteed_execution_fees':'guaranteed_execution_fees'}
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
                    'reduce_only': 'reduceOnly', 'open_only': 'openOnly', 'timestamp': 'timestamp',
@@ -250,6 +255,8 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'gain_quote_home_conversion_factor': 'gainQuoteHomeConversionFactor',
                    'loss_quote_home_conversion_factor': 'lossQuoteHomeConversionFactor',
                    'guaranteed_execution_fee': 'guaranteedExecutionFee', 'half_spread_cost': 'halfSpreadCost',
-                   'description': 'description', 'list': 'list',
-                   'current_event':'current-event', 'url': 'url', 'sid': 'sid', 'message': 'message',
-                   'informational': 'informational', 'level': 'level', 'image': 'image', 'icon_set': 'icon_set'}
+                   'description': 'description', 'list': 'list', 'current_event': 'current-event', 'url': 'url',
+                   'sid': 'sid', 'message': 'message', 'informational': 'informational', 'level': 'level',
+                   'image': 'image', 'icon_set': 'icon_set',
+                   'guaranteed_stop_loss_order_mode': 'guaranteedStopLossOrderMode',
+                   'resettable_pl_time': 'resettablePLTime', 'guaranteed_execution_fees':'guaranteedExecutionFees'}

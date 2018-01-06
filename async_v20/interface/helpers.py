@@ -15,13 +15,16 @@ STOP = 'STOP'
 MARKET = 'MARKET'
 MARKET_IF_TOUCHED = 'MARKET_IF_TOUCHED'
 LIMIT = 'LIMIT'
+INSTRUMENT = 'instrument'
+UNITS = 'units'
 
 def _format_order_request(order_request, instrument, clip=False):
     """Ensure the order request is formatted as per the instrument specification
     """
 
     formatted_attributes = {}
-    if order_request.units is not None:
+    if hasattr(order_request, UNITS):
+
         if clip:
             formatted_attributes.update(
                 units=order_request.units.format(
@@ -78,7 +81,6 @@ def _format_order_request(order_request, instrument, clip=False):
                   f'{instrument.maximum_trailing_stop_distance}'
             logger.error(msg)
             raise InvalidOrderRequest(msg)
-
     return order_request.replace(**formatted_attributes)
 
 
@@ -153,7 +155,7 @@ def create_body(self, request_schema, arguments):
                 continue
             else:
                 # Only attempt to format OrderRequests that have an `instrument` attribute
-                if isinstance(value, OrderRequest) and value.instrument is not None:
+                if isinstance(value, OrderRequest) and hasattr(value, INSTRUMENT):
                     instrument = self.instruments.get_instrument(value.instrument)
                     if isinstance(instrument, Instrument):
                         value = _format_order_request(value,

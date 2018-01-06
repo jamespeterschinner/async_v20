@@ -1,25 +1,34 @@
+import logging
 from inspect import _empty
 from itertools import starmap, chain
-import logging
+
+from .attributes import instance_attributes
 from ..exceptions import InvalidValue
+from ..exceptions import UnknownValue
+from ..exceptions import IncompatibleValue
+
 logger = logging.getLogger(__name__)
 
+def check_conflicting_arguments(cls, kwargs, preset_values):
+    for argument, preset_value in preset_values.items():
+        value = kwargs.pop(argument, None)
+        if value is not None and value != preset_value:
+            msg = f'CLASS {cls.__name__}.{argument}' \
+                  f' MUST == {preset_value} NOT {value}'
+            logger.error(msg)
+            raise IncompatibleValue(msg)
 
-def null_attribute():
-    return None
-
-def get_attribute(index, x):
-    return x[index]()
-
-def lazy_evaluate(func, *args, **kwargs):
-    acc = []
-    def evaluate():
+def json_to_instance_attributes(cls, kwargs, template):
+    for name, value in kwargs.items():
         try:
-            return acc[0]
-        except IndexError:
-            acc.append(func(*args, **kwargs))
-            return acc[0]
-    return evaluate
+            yield instance_attributes[name], value
+        except KeyError:
+            possible_arguments = ', '.join(attr for attr in template)
+            msg = f'`{name}` is not a valid keyword argument. ' \
+                  f'Possible arguments for class {cls.__name__} ' \
+                  f'include: {possible_arguments}'
+            logger.error(msg)
+            raise UnknownValue(msg)
 
 
 def create_indexed_lookup(array, one_to_many):
@@ -72,6 +81,7 @@ def create_indexed_lookup(array, one_to_many):
     else:
         array.get_instrument = get_instrument
     return array
+
 
 def domain_check(value, example=None, possible_values=None):
     if example:
