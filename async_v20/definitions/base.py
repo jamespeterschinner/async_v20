@@ -116,17 +116,13 @@ class ORM(type):
             # Only objects that derive directly from model get a template.
             # This means class' derived further down the inheritance tree
             # have the same data structure.
-            # Which is nice because object attributes can then use the same itemgetter
-            # And
-            # All objects derived from the same type will have a the columns aligning
-            # when the .series method is called.
             class_obj.template = OrderedDict.fromkeys(template_signature.parameters)
 
             # Create getters for each attribute
             for index, attr in enumerate(class_obj.template):
                 setattr(class_obj, attr, property(partial(get_attribute, index)))
 
-            # Model.__new__ uses this class attribute to
+            # Model.__new__ requires this to be set
             class_obj.__annotations__ = class_obj.__new__.__annotations__
 
         return class_obj
