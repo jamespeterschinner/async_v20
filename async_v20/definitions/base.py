@@ -135,9 +135,6 @@ class Model(tuple, metaclass=ORM):
     # The delimiter to use when flattening dictionaries
     _delimiter = '_'
 
-    # Representation string used when generating a summary for this object
-    _repr_format = ''
-
     # Arguments the base class defines
     # But the derived class require they are fixed.
     # Any arguments passed, that match names in `_preset_arguments`
