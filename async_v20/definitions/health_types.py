@@ -5,8 +5,8 @@ class ServiceList(Model):
     """A collection of related services
     """
 
-    def __new__(cls, id: str, name: str, description: str, url: str):
-        return super().__new__(**locals())
+    def __init__(self, id: str, name: str, description: str, url: str):
+        Model.__init__(**locals())
 
 
 class ArrayServiceList(Array, contains=ServiceList):
@@ -16,9 +16,9 @@ class ArrayServiceList(Array, contains=ServiceList):
 class Status(Model):
     """The current event of a status"""
 
-    def __new__(cls, id: str, name: str, description: str, url: str,
+    def __init__(self, id: str, name: str, description: str, url: str,
                 level: str, image: str, default: bool):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayStatus(Array, contains=Status):
@@ -28,9 +28,9 @@ class ArrayStatus(Array, contains=Status):
 class Event(Model):
     """Anything Interesting that has happened to a Service"""
 
-    def __new__(cls, sid: str, message: str, timestamp: str,
+    def __init__(self, sid: str, message: str, timestamp: str,
                 url: str, status: Status, informational: bool):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayEvent(Array, contains=Event):
@@ -41,9 +41,9 @@ class Service(Model):
     """A log of all events that have occurred in the past.
     The current state of a service is represented by the current status of the service."""
 
-    def __new__(cls, id: str, name: str, description: str,
+    def __init__(self, id: str, name: str, description: str,
                 list: ServiceList, current_event: Event, url: str):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayService(Array, contains=Service):
@@ -53,8 +53,8 @@ class Image(Model):
     """An Image to be displayed to the end user.
     """
 
-    def __new__(cls, name: str, icon_set: str, url: str):
-        return super().__new__(**locals())
+    def __init__(self, name: str, icon_set: str, url: str):
+        Model.__init__(**locals())
 
 
 class ArrayImage(Array, contains=Image):

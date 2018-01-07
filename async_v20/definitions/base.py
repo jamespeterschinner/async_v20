@@ -17,30 +17,19 @@ from ..exceptions import IncompatibleValue, UnknownValue, InstantiationFailure
 logger = logging.getLogger(__name__)
 
 
-def arg_parse(__new__, template: tuple, preset_values: dict) -> classmethod:
+def arg_parse(__init__, template: tuple, preset_values: dict) -> classmethod:
     """Wrapper to convert camelCase arguments to snake_case """
 
-    @wraps(__new__)
-    def wrap(cls, *args, **kwargs):
-        check_conflicting_arguments(cls, kwargs, preset_values)
-        if kwargs.pop('__class__', True):
-            # Means locals() has not been called
-            kwargs = dict(json_to_instance_attributes(cls, kwargs, template))
+    @wraps(__init__)
+    def wrap(self, *args, **kwargs):
+        check_conflicting_arguments(self, kwargs, preset_values)
+        kwargs = dict(json_to_instance_attributes(self, kwargs, template))
         try:
-            return __new__(cls, *args, **kwargs)
+            return __init__(self, *args, **kwargs)
         except TypeError as e:
             raise UnknownValue(e)
 
-    wrap.__annotations__ = __new__.__annotations__
-    return wrap
-
-
-def tool_tip(init, signature):
-    @wraps(init)
-    def wrap(*args, **kwargs):
-        return init(*args, **kwargs)
-
-    wrap.__signature__ = signature
+    wrap.__annotations__ = __init__.__annotations__
     return wrap
 
 
@@ -50,7 +39,7 @@ class ORM(type):
         jit = kwargs.pop('jit', True)
 
         try:
-            arg_names = tuple(signature(namespace.get('__new__')).parameters)
+            arg_names = tuple(signature(namespace.get('__init__')).parameters)
         except TypeError:
             arg_names = ()
 
@@ -62,29 +51,27 @@ class ORM(type):
 
         class_obj = super().__new__(mcs, name, bases, namespace)
 
-        sig = signature(class_obj)
+        bound_signature = signature(class_obj)  # Does not have `self`
 
-        template = tuple(sig.parameters)
+        unbound_signature = signature(class_obj.__init__)  # Does have `self`
+
+        template = tuple(bound_signature.parameters)
 
         class_obj._jit = jit
 
         class_obj._preset_values = kwargs
 
-        # This is for tool tips in IDE's (only tested in PyCharm)
-        bound_signature = signature(class_obj.__new__)
-        class_obj.__init__ = tool_tip(class_obj.__init__, bound_signature)
-        class_obj.__new__.__signature__ = bound_signature
-
         if not class_obj.__name__ == 'Model':
             # Only add the argument parser to objects that derive from Model
-            class_obj.__new__ = arg_parse(class_obj.__new__, template, kwargs)
+            class_obj.__init__ = arg_parse(class_obj.__init__, template, kwargs)
+            class_obj.__init__.__signature__ = unbound_signature
 
             class_obj._template = template
 
         # Create a pretty signature for documentation
-        class_obj.__doc__ = create_doc_signature(class_obj, sig)
+        class_obj.__doc__ = create_doc_signature(class_obj, bound_signature)
 
-        class_obj.__annotations__ = class_obj.__new__.__annotations__
+        class_obj.__annotations__ = class_obj.__init__.__annotations__
 
         return class_obj
 
@@ -94,9 +81,6 @@ class Model(object, metaclass=ORM):
     __slots__ = ('_fields',)
 
     _delimiter = '_'
-
-    def __init__(self, *args, **kwargs):
-        pass
 
     def __repr__(self):
         def information():
@@ -125,35 +109,33 @@ class Model(object, metaclass=ORM):
         delattr(self, '_' + item)
         return result
 
-    def __new__(cls, **kwargs):
-        instance = super().__new__(cls)
+    def __init__(self, **kwargs):
 
         # contains all the attributes the class instance contains
         fields = []
         instantiate = {
             True: lambda name, typ, data:
-                setattr(instance, '_' + name, partial(create_attribute, typ, data)),
+                setattr(self, '_' + name, partial(create_attribute, typ, data)),
             False: lambda name, typ, data:
-                setattr(instance, name, create_attribute(typ, data))}[cls._jit]
+                setattr(self, name, create_attribute(typ, data))}[self._jit]
 
-        for name, attr in cls._preset_values.items():
+        for name, attr in self._preset_values.items():
             fields.append(name)
-            setattr(instance, name, attr)
+            setattr(self, name, attr)
 
-        for name in cls._template:
+        for name in self._template:
             value = kwargs[name]
-            annotation = cls.__annotations__[name]
+            annotation = self.__annotations__[name]
             if value is ...:
                 pass
             elif value is None:
                 fields.append(name)
-                setattr(instance, name, None)
+                setattr(self, name, None)
             else:
                 fields.append(name)
                 instantiate(name, annotation, value)
 
-        setattr(instance, '_fields', tuple(fields))
-        return instance
+        setattr(self, '_fields', tuple(fields))
 
     def replace(self, **kwargs):
         return self.__class__(**dict(self.dict(), **kwargs))

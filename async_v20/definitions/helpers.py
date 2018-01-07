@@ -9,23 +9,23 @@ from ..exceptions import IncompatibleValue
 
 logger = logging.getLogger(__name__)
 
-def check_conflicting_arguments(cls, kwargs, preset_values):
+def check_conflicting_arguments(self, kwargs, preset_values):
     for argument, preset_value in preset_values.items():
         value = kwargs.pop(argument, None)
         if value is not None and value != preset_value:
-            msg = f'CLASS {cls.__name__}.{argument}' \
+            msg = f'CLASS {self.__class__.__name__}.{argument}' \
                   f' MUST == {preset_value} NOT {value}'
             logger.error(msg)
             raise IncompatibleValue(msg)
 
-def json_to_instance_attributes(cls, kwargs, template):
+def json_to_instance_attributes(self, kwargs, template):
     for name, value in kwargs.items():
         try:
             yield instance_attributes[name], value
         except KeyError:
             possible_arguments = ', '.join(attr for attr in template)
             msg = f'`{name}` is not a valid keyword argument. ' \
-                  f'Possible arguments for class {cls.__name__} ' \
+                  f'Possible arguments for class {self.__class__.__name__} ' \
                   f'include: {possible_arguments}'
             logger.error(msg)
             raise UnknownValue(msg)

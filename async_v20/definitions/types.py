@@ -64,8 +64,8 @@ class ClientExtensions(Model):
 
     """
 
-    def __new__(cls, id: ClientID = ..., tag: ClientTag = ..., comment: ClientComment = ...):
-        return super().__new__(**locals())
+    def __init__(self, id: ClientID = ..., tag: ClientTag = ..., comment: ClientComment = ...):
+        Model.__init__(**locals())
 
 
 class TakeProfitDetails(Model):
@@ -87,9 +87,9 @@ class TakeProfitDetails(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+    def __init__(self, price: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                 client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopLossDetails(Model):
@@ -111,9 +111,9 @@ class StopLossDetails(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+    def __init__(self, price: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                 client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TrailingStopLossDetails(Model):
@@ -137,9 +137,9 @@ class TrailingStopLossDetails(Model):
 
     """
 
-    def __new__(cls, distance: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+    def __init__(self, distance: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                 client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class OrderRequest(Model, jit=False):
@@ -167,7 +167,7 @@ class OrderRequest(Model, jit=False):
         trade_client_extensions: :class:`~async_v20.ClientExtensions`
     """
 
-    def __new__(cls, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
+    def __init__(self, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
                 distance: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
@@ -175,7 +175,7 @@ class OrderRequest(Model, jit=False):
                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class UnitsAvailableDetails(Model):
@@ -190,8 +190,8 @@ class UnitsAvailableDetails(Model):
 
     """
 
-    def __new__(cls, long: DecimalNumber = ..., short: DecimalNumber = ...):
-        return super().__new__(**locals())
+    def __init__(self, long: DecimalNumber = ..., short: DecimalNumber = ...):
+        Model.__init__(**locals())
 
 
 class UnitsAvailable(Model):
@@ -217,9 +217,9 @@ class UnitsAvailable(Model):
 
     """
 
-    def __new__(cls, default: UnitsAvailableDetails = ..., reduce_first: UnitsAvailableDetails = ...,
+    def __init__(self, default: UnitsAvailableDetails = ..., reduce_first: UnitsAvailableDetails = ...,
                 reduce_only: UnitsAvailableDetails = ..., open_only: UnitsAvailableDetails = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class LiquidityRegenerationScheduleStep(Model):
@@ -237,9 +237,9 @@ class LiquidityRegenerationScheduleStep(Model):
 
     """
 
-    def __new__(cls, timestamp: DateTime = ..., bid_liquidity_used: DecimalNumber = ...,
+    def __init__(self, timestamp: DateTime = ..., bid_liquidity_used: DecimalNumber = ...,
                 ask_liquidity_used: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayLiquidityRegenerationScheduleStep(Array, contains=LiquidityRegenerationScheduleStep):
@@ -259,8 +259,8 @@ class LiquidityRegenerationSchedule(Model):
 
     """
 
-    def __new__(cls, steps: ArrayLiquidityRegenerationScheduleStep = ...):
-        return super().__new__(**locals())
+    def __init__(self, steps: ArrayLiquidityRegenerationScheduleStep = ...):
+        Model.__init__(**locals())
 
 
 class CandlestickData(Model):
@@ -278,8 +278,8 @@ class CandlestickData(Model):
 
     """
 
-    def __new__(cls, o: PriceValue = ..., h: PriceValue = ..., l: PriceValue = ..., c: PriceValue = ...):
-        return super().__new__(**locals())
+    def __init__(self, o: PriceValue = ..., h: PriceValue = ..., l: PriceValue = ..., c: PriceValue = ...):
+        Model.__init__(**locals())
 
 
 class OrderIdentifier(Model):
@@ -294,8 +294,8 @@ class OrderIdentifier(Model):
 
     """
 
-    def __new__(cls, order_id: OrderID = ..., client_order_id: ClientID = ...):
-        return super().__new__(**locals())
+    def __init__(self, order_id: OrderID = ..., client_order_id: ClientID = ...):
+        Model.__init__(**locals())
 
 
 class QuoteHomeConversionFactors(Model):
@@ -316,8 +316,8 @@ class QuoteHomeConversionFactors(Model):
 
     """
 
-    def __new__(cls, positive_units: DecimalNumber = ..., negative_units: DecimalNumber = ...):
-        return super().__new__(**locals())
+    def __init__(self, positive_units: DecimalNumber = ..., negative_units: DecimalNumber = ...):
+        Model.__init__(**locals())
 
 
 class MarketOrderMarginCloseout(Model):
@@ -330,8 +330,8 @@ class MarketOrderMarginCloseout(Model):
 
     """
 
-    def __new__(cls, reason: MarketOrderMarginCloseoutReason = ...):
-        return super().__new__(**locals())
+    def __init__(self, reason: MarketOrderMarginCloseoutReason = ...):
+        Model.__init__(**locals())
 
 
 class InstrumentCommission(Model):
@@ -351,10 +351,10 @@ class InstrumentCommission(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., commission: DecimalNumber = ...,
+    def __init__(self, instrument: InstrumentName = ..., commission: DecimalNumber = ...,
                 units_traded: DecimalNumber = ...,
                 minimum_commission: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class OrderBookBucket(Model):
@@ -373,9 +373,9 @@ class OrderBookBucket(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = ..., long_count_percent: DecimalNumber = ...,
+    def __init__(self, price: PriceValue = ..., long_count_percent: DecimalNumber = ...,
                 short_count_percent: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayOrderBookBucket(Array, contains=OrderBookBucket):
@@ -398,9 +398,9 @@ class PositionBookBucket(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = ..., long_count_percent: DecimalNumber = ...,
+    def __init__(self, price: PriceValue = ..., long_count_percent: DecimalNumber = ...,
                 short_count_percent: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayPositionBookBucket(Array, contains=PositionBookBucket):
@@ -428,9 +428,9 @@ class DynamicOrderState(Model):
 
     """
 
-    def __new__(cls, id: OrderID = ..., trailing_stop_value: PriceValue = ..., trigger_distance: PriceValue = ...,
+    def __init__(self, id: OrderID = ..., trailing_stop_value: PriceValue = ..., trigger_distance: PriceValue = ...,
                 is_trigger_distance_exact: bool = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayDynamicOrderState(Array, contains=DynamicOrderState):
@@ -452,11 +452,11 @@ class CalculatedPositionState(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., net_unrealized_pl: AccountUnits = ...,
+    def __init__(self, instrument: InstrumentName = ..., net_unrealized_pl: AccountUnits = ...,
                 long_unrealized_pl: AccountUnits = ..., short_unrealized_pl: AccountUnits = ...,
                 # TODO Update when OANDA updates documentation
                 margin_used: AccountUnits = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayCalculatedPositionState(Array, contains=CalculatedPositionState, one_to_many=False):
@@ -485,10 +485,10 @@ class PositionSide(Model):
 
     """
 
-    def __new__(cls, units: DecimalNumber = ..., average_price: PriceValue = ..., trade_ids: ArrayTradeID = ...,
+    def __init__(self, units: DecimalNumber = ..., average_price: PriceValue = ..., trade_ids: ArrayTradeID = ...,
                 pl: AccountUnits = ..., unrealized_pl: AccountUnits = ..., resettable_pl: AccountUnits = ...,
                 financing: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class Position(Model):
@@ -514,12 +514,12 @@ class Position(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
+    def __init__(self, instrument: InstrumentName = ..., pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
                 resettable_pl: AccountUnits = ..., commission: AccountUnits = ..., long: PositionSide = ...,
                 short: PositionSide = ..., financing: DecimalNumber = ...,
                 # TODO update these attributes with the correct type when OANDA updates documentation
                 margin_used: AccountUnits = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayPosition(Array, contains=Position, one_to_many=False):
@@ -537,8 +537,8 @@ class PriceBucket(Model):
 
     """
 
-    def __new__(cls, price: PriceValue = ..., liquidity: int = ...):
-        return super().__new__(**locals())
+    def __init__(self, price: PriceValue = ..., liquidity: int = ...):
+        Model.__init__(**locals())
 
 
 class ArrayPriceBucket(Array, contains=PriceBucket):
@@ -570,9 +570,9 @@ class ClientPrice(Model):
 
     """
 
-    def __new__(cls, bids: ArrayPriceBucket = ..., asks: ArrayPriceBucket = ...,
+    def __init__(self, bids: ArrayPriceBucket = ..., asks: ArrayPriceBucket = ...,
                 closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ..., timestamp: DateTime = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class PricingHeartbeat(Model):
@@ -587,8 +587,8 @@ class PricingHeartbeat(Model):
 
     """
 
-    def __new__(cls, type: str = ..., time: DateTime = ...):
-        return super().__new__(**locals())
+    def __init__(self, type: str = ..., time: DateTime = ...):
+        Model.__init__(**locals())
 
 
 class CalculatedTradeState(Model):
@@ -602,10 +602,10 @@ class CalculatedTradeState(Model):
 
     """
 
-    def __new__(cls, id: TradeID = ..., unrealized_pl: AccountUnits = ...,
+    def __init__(self, id: TradeID = ..., unrealized_pl: AccountUnits = ...,
                 # TODO Update when OANDA updates documentation
                 margin_used: AccountUnits = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayCalculatedTradeState(Array, contains=CalculatedTradeState):
@@ -628,9 +628,9 @@ class MarketOrderDelayedTradeClose(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = ..., client_trade_id: TradeID = ...,
+    def __init__(self, trade_id: TradeID = ..., client_trade_id: TradeID = ...,
                 source_transaction_id: TransactionID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketOrderPositionCloseout(Model):
@@ -647,8 +647,8 @@ class MarketOrderPositionCloseout(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., units: str = ...):
-        return super().__new__(**locals())
+    def __init__(self, instrument: InstrumentName = ..., units: str = ...):
+        Model.__init__(**locals())
 
 
 class MarketOrderTradeClose(Model):
@@ -666,8 +666,8 @@ class MarketOrderTradeClose(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = ..., client_trade_id: str = ..., units: str = ...):
-        return super().__new__(**locals())
+    def __init__(self, trade_id: TradeID = ..., client_trade_id: str = ..., units: str = ...):
+        Model.__init__(**locals())
 
 
 class OpenTradeFinancing(Model):
@@ -682,8 +682,8 @@ class OpenTradeFinancing(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = ..., financing: AccountUnits = ...):
-        return super().__new__(**locals())
+    def __init__(self, trade_id: TradeID = ..., financing: AccountUnits = ...):
+        Model.__init__(**locals())
 
 
 class ArrayOpenTradeFinancing(Array, contains=OpenTradeFinancing):
@@ -704,9 +704,9 @@ class PositionFinancing(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., financing: AccountUnits = ...,
+    def __init__(self, instrument: InstrumentName = ..., financing: AccountUnits = ...,
                 open_trade_financings: ArrayOpenTradeFinancing = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayPositionFinancing(Array, contains=PositionFinancing):
@@ -728,12 +728,12 @@ class TradeOpen(Model):
 
     """
 
-    def __new__(cls, price: DecimalNumber = ..., trade_id: TradeID = ..., units: DecimalNumber = ...,
+    def __init__(self, price: DecimalNumber = ..., trade_id: TradeID = ..., units: DecimalNumber = ...,
                 client_extensions: ClientExtensions = ...,
                 # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
                 guaranteed_execution_fee: DecimalNumber = ...,
                 half_spread_cost: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class VWAPReceipt(Model):
@@ -749,8 +749,8 @@ class VWAPReceipt(Model):
 
     """
 
-    def __new__(cls, units: DecimalNumber = ..., price: PriceValue = ...):
-        return super().__new__(**locals())
+    def __init__(self, units: DecimalNumber = ..., price: PriceValue = ...):
+        Model.__init__(**locals())
 
 
 class UserInfo(Model):
@@ -768,8 +768,8 @@ class UserInfo(Model):
 
     """
 
-    def __new__(cls, username: str = ..., user_id: str = ..., country: str = ..., email_address: str = ...):
-        return super().__new__(**locals())
+    def __init__(self, username: str = ..., user_id: str = ..., country: str = ..., email_address: str = ...):
+        Model.__init__(**locals())
 
 
 class AccountProperties(Model):
@@ -786,8 +786,8 @@ class AccountProperties(Model):
 
     """
 
-    def __new__(cls, id: AccountID = ..., mt4_account_id: int = ..., tags: ArrayStr = ...):
-        return super().__new__(**locals())
+    def __init__(self, id: AccountID = ..., mt4_account_id: int = ..., tags: ArrayStr = ...):
+        Model.__init__(**locals())
 
 
 class ArrayAccountProperties(Array, contains=AccountProperties):
@@ -818,9 +818,9 @@ class Candlestick(Model):
 
     """
 
-    def __new__(cls, time: DateTime = ..., bid: CandlestickData = ..., ask: CandlestickData = ...,
+    def __init__(self, time: DateTime = ..., bid: CandlestickData = ..., ask: CandlestickData = ...,
                 mid: CandlestickData = ..., volume: int = ..., complete: bool = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayCandlestick(Array, contains=Candlestick):
@@ -847,9 +847,9 @@ class OrderBook(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
+    def __init__(self, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
                 bucket_width: PriceValue = ..., buckets: ArrayOrderBookBucket = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class PositionBook(Model):
@@ -872,9 +872,9 @@ class PositionBook(Model):
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
+    def __init__(self, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
                 bucket_width: PriceValue = ..., buckets: ArrayPositionBookBucket = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class Order(Model):
@@ -930,7 +930,7 @@ class Order(Model):
 
     # TODO: Update the annotation for partial_fill when OANDA responds to email
 
-    def __new__(cls, id: OrderID = ..., create_time: DateTime = ..., state: OrderState = ...,
+    def __init__(self, id: OrderID = ..., create_time: DateTime = ..., state: OrderState = ...,
                 client_extensions: ClientExtensions = ..., trade_id: TradeID = ..., price: PriceValue = ...,
                 type: OrderType = ..., client_trade_id: ClientID = ..., time_in_force: TimeInForce = ...,
                 gtd_time: DateTime = ..., trigger_condition: OrderTriggerCondition = ...,
@@ -950,7 +950,7 @@ class Order(Model):
                 margin_closeout: MarketOrderMarginCloseout = ...,
                 delayed_trade_close: MarketOrderDelayedTradeClose = ...,
                 trigger_distance: PriceValue = ..., is_trigger_distance_exact: bool = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayOrder(Array, contains=Order):
@@ -975,12 +975,12 @@ class TradeReduce(Model):
 
     """
 
-    def __new__(cls, trade_id: TradeID = ..., units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
+    def __init__(self, trade_id: TradeID = ..., units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
                 financing: AccountUnits = ..., price: DecimalNumber = ...,
                 # TODO: Update these with correct type when OANDA updated there documentation
                 guaranteed_execution_fee: DecimalNumber = ...,
                 half_spread_cost: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayTradeReduce(Array, contains=TradeReduce):
@@ -1001,8 +1001,8 @@ class TransactionHeartbeat(Model):
 
     """
 
-    def __new__(cls, type: str = ..., last_transaction_id: TransactionID = ..., time: DateTime = ...):
-        return super().__new__(**locals())
+    def __init__(self, type: str = ..., last_transaction_id: TransactionID = ..., time: DateTime = ...):
+        Model.__init__(**locals())
 
 
 class UserInfoExternal(Model):
@@ -1019,8 +1019,8 @@ class UserInfoExternal(Model):
 
     """
 
-    def __new__(cls, user_id: str = ..., country: str = ..., fifo: str = ...):
-        return super().__new__(**locals())
+    def __init__(self, user_id: str = ..., country: str = ..., fifo: str = ...):
+        Model.__init__(**locals())
 
 
 class TradeSummary(Model):
@@ -1070,7 +1070,7 @@ class TradeSummary(Model):
 
     """
 
-    def __new__(cls, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
+    def __init__(self, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
                 open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
                 current_units: DecimalNumber = ..., realized_pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
                 average_close_price: PriceValue = ..., closing_transaction_ids: ArrayTransactionID = ...,
@@ -1079,7 +1079,7 @@ class TradeSummary(Model):
                 stop_loss_order_id: OrderID = ..., trailing_stop_loss_order_id: OrderID = ...,
                 # TODO: margin_used is undocumented on OANDA's website
                 margin_used: AccountUnits = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayTradeSummary(Array, contains=TradeSummary):
@@ -1107,7 +1107,7 @@ class Transaction(Model):
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 type: TransactionType = ..., extension_number: int = ..., division_id: int = ...,
                 site_id: int = ..., account_user_id: int = ..., account_number: int = ...,
@@ -1142,7 +1142,7 @@ class Transaction(Model):
                 guaranteed_execution_fee: DecimalNumber = ...,
                 half_spread_cost: DecimalNumber = ...,
                 partial_fill: str = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayTransaction(Array, contains=Transaction):
@@ -1177,12 +1177,12 @@ class AccountChanges(Model):
 
     """
 
-    def __new__(cls, orders_created: ArrayOrder = ..., orders_cancelled: ArrayOrder = ...,
+    def __init__(self, orders_created: ArrayOrder = ..., orders_cancelled: ArrayOrder = ...,
                 orders_filled: ArrayOrder = ..., orders_triggered: ArrayOrder = ...,
                 trades_opened: ArrayTradeSummary = ..., trades_reduced: ArrayTradeSummary = ...,
                 trades_closed: ArrayTradeSummary = ..., positions: ArrayPosition = ...,
                 transactions: ArrayTransaction = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class Instrument(Model):
@@ -1225,13 +1225,13 @@ class Instrument(Model):
 
     """
 
-    def __new__(cls, name: InstrumentName = ..., type: InstrumentType = ..., display_name: str = ...,
+    def __init__(self, name: InstrumentName = ..., type: InstrumentType = ..., display_name: str = ...,
                 pip_location: int = ..., display_precision: int = ..., trade_units_precision: int = ...,
                 minimum_trade_size: DecimalNumber = ..., maximum_trailing_stop_distance: DecimalNumber = ...,
                 minimum_trailing_stop_distance: DecimalNumber = ..., maximum_position_size: DecimalNumber = ...,
                 maximum_order_units: DecimalNumber = ..., margin_rate: DecimalNumber = ...,
                 commission: InstrumentCommission = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayInstrument(Array, contains=Instrument, one_to_many=False):
@@ -1288,7 +1288,7 @@ class AccountChangesState(Model):
 
     """
 
-    def __new__(cls, unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
+    def __init__(self, unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
                 margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
                 margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
                 margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
@@ -1296,7 +1296,7 @@ class AccountChangesState(Model):
                 margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
                 orders: ArrayDynamicOrderState = ..., trades: ArrayCalculatedTradeState = ...,
                 positions: ArrayCalculatedPositionState = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class Price(Model):
@@ -1336,7 +1336,7 @@ class Price(Model):
 
     """
 
-    def __new__(cls, type: str = ..., instrument: InstrumentName = ..., time: DateTime = ...,
+    def __init__(self, type: str = ..., instrument: InstrumentName = ..., time: DateTime = ...,
                 # TODO: remove status when OANDA removes attribute
                 status: PriceStatus = ..., tradeable: bool = ..., bids: ArrayPriceBucket = ...,
                 asks: ArrayPriceBucket = ..., closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ...,
@@ -1344,7 +1344,7 @@ class Price(Model):
                 quote_home_conversion_factors: QuoteHomeConversionFactors = ...,
                 # TODO: remove units_available when OANDA removes attribute
                 units_available: UnitsAvailable = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayPrice(Array, contains=Price):
@@ -1371,9 +1371,9 @@ class CloseTransaction(Transaction, type=TransactionType('CLOSE')):
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarginCallEnterTransaction(Transaction, type=TransactionType('MARGIN_CALL_ENTER')):
@@ -1397,9 +1397,9 @@ class MarginCallEnterTransaction(Transaction, type=TransactionType('MARGIN_CALL_
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarginCallExitTransaction(Transaction, type=TransactionType('MARGIN_CALL_EXIT')):
@@ -1423,9 +1423,9 @@ class MarginCallExitTransaction(Transaction, type=TransactionType('MARGIN_CALL_E
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarginCallExtendTransaction(Transaction, type=TransactionType('MARGIN_CALL_EXTEND')):
@@ -1452,10 +1452,10 @@ class MarginCallExtendTransaction(Transaction, type=TransactionType('MARGIN_CALL
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 extension_number: int = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ReopenTransaction(Transaction, type=TransactionType('REOPEN')):
@@ -1477,9 +1477,9 @@ class ReopenTransaction(Transaction, type=TransactionType('REOPEN')):
             The Request ID of the request which generated the transaction.
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ResetResettablePLTransaction(Transaction, type=TransactionType('RESET_RESETTABLE_PL')):
@@ -1503,9 +1503,9 @@ class ResetResettablePLTransaction(Transaction, type=TransactionType('RESET_RESE
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopLossOrderRequest(OrderRequest, type=OrderType('STOP_LOSS')):
@@ -1535,10 +1535,10 @@ class StopLossOrderRequest(OrderRequest, type=OrderType('STOP_LOSS')):
 
     """
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue,
+    def __init__(self, trade_id: TradeID, price: PriceValue,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TakeProfitOrderRequest(OrderRequest, type=OrderType('TAKE_PROFIT')):
@@ -1568,10 +1568,10 @@ class TakeProfitOrderRequest(OrderRequest, type=OrderType('TAKE_PROFIT')):
 
     """
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue,
+    def __init__(self, trade_id: TradeID, price: PriceValue,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TrailingStopLossOrderRequest(OrderRequest, type=OrderType('TRAILING_STOP_LOSS')):
@@ -1600,10 +1600,10 @@ class TrailingStopLossOrderRequest(OrderRequest, type=OrderType('TRAILING_STOP_L
 
     """
 
-    def __new__(cls, trade_id: TradeID, distance: PriceValue,
+    def __init__(self, trade_id: TradeID, distance: PriceValue,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class CreateTransaction(Transaction, type=TransactionType('CREATE')):
@@ -1636,11 +1636,11 @@ class CreateTransaction(Transaction, type=TransactionType('CREATE')):
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 division_id: int = ..., site_id: int = ...,
                 account_user_id: int = ..., account_number: int = ..., home_currency: Currency = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ClientConfigureTransaction(Transaction, type=TransactionType('CLIENT_CONFIGURE')):
@@ -1668,10 +1668,10 @@ class ClientConfigureTransaction(Transaction, type=TransactionType('CLIENT_CONFI
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 alias: str = ..., margin_rate: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class DelayedTradeClosureTransaction(Transaction, type=TransactionType('DELAYED_TRADE_CLOSURE')):
@@ -1703,11 +1703,11 @@ class DelayedTradeClosureTransaction(Transaction, type=TransactionType('DELAYED_
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 reason: MarketOrderReason = ...,
                 trade_ids: TradeID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
@@ -1743,12 +1743,12 @@ class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
 
     # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.TransactionID` ClientID
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 order_id: OrderID = ..., client_order_id: ClientID = ...,
                 reason: OrderCancelReason = ..., replaced_by_order_id: OrderID = ...,
                 closed_trade_id: OrderID = ..., trade_close_transaction_id: TransactionID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class OrderClientExtensionsModifyTransaction(Transaction, type=TransactionType('ORDER_CLIENT_EXTENSIONS_MODIFY')):
@@ -1780,12 +1780,12 @@ class OrderClientExtensionsModifyTransaction(Transaction, type=TransactionType('
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 order_id: OrderID = ...,
                 client_order_id: ClientID = ..., client_extensions_modify: ClientExtensions = ...,
                 trade_client_extensions_modify: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class DailyFinancingTransaction(Transaction, type=TransactionType('DAILY_FINANCING')):
@@ -1817,12 +1817,12 @@ class DailyFinancingTransaction(Transaction, type=TransactionType('DAILY_FINANCI
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 financing: AccountUnits = ...,
                 account_balance: AccountUnits = ..., account_financing_mode: AccountFinancingMode = ...,
                 position_financings: ArrayPositionFinancing = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TradeClientExtensionsModifyTransaction(Transaction, type=TransactionType('TRADE_CLIENT_EXTENSIONS_MODIFY')):
@@ -1852,11 +1852,11 @@ class TradeClientExtensionsModifyTransaction(Transaction, type=TransactionType('
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 trade_id: TradeID = ...,
                 client_trade_id: ClientID = ..., trade_client_extensions_modify: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class AccountSummary(Model):
@@ -1948,7 +1948,7 @@ class AccountSummary(Model):
 
     """
 
-    def __new__(cls, id: AccountID = ..., alias: str = ..., currency: Currency = ..., balance: AccountUnits = ...,
+    def __init__(self, id: AccountID = ..., alias: str = ..., currency: Currency = ..., balance: AccountUnits = ...,
                 created_by_user_id: int = ..., created_time: DateTime = ..., pl: AccountUnits = ...,
                 resettable_pl: AccountUnits = ..., resettabled_pl_time: DateTime = ...,
                 commission: AccountUnits = ..., margin_rate: DecimalNumber = ...,
@@ -1968,7 +1968,7 @@ class AccountSummary(Model):
                 resettable_pl_time: DateTime = ...,
                 guaranteed_execution_fees: DecimalNumber = ...
                 ):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketOrderRequest(OrderRequest, type=OrderType('MARKET')):
@@ -2014,13 +2014,13 @@ class MarketOrderRequest(OrderRequest, type=OrderType('MARKET')):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = ...,
                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TakeProfitOrderTransaction(Transaction, type=TransactionType('TAKE_PROFIT_ORDER')):
@@ -2074,14 +2074,14 @@ class TakeProfitOrderTransaction(Transaction, type=TransactionType('TAKE_PROFIT_
 
     """
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = ...,
                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
                 replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TakeProfitOrder(Order, type=OrderType('TAKE_PROFIT')):
@@ -2146,7 +2146,7 @@ class TakeProfitOrder(Order, type=OrderType('TAKE_PROFIT')):
 
     """
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
                 state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
@@ -2154,7 +2154,7 @@ class TakeProfitOrder(Order, type=OrderType('TAKE_PROFIT')):
                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopLossOrder(Order, type=OrderType('STOP_LOSS')):
@@ -2219,7 +2219,7 @@ class StopLossOrder(Order, type=OrderType('STOP_LOSS')):
 
         """
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
                 state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
@@ -2227,7 +2227,7 @@ class StopLossOrder(Order, type=OrderType('STOP_LOSS')):
                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TrailingStopLossOrder(Order, type=OrderType('TRAILING_STOP_LOSS')):
@@ -2300,7 +2300,7 @@ class TrailingStopLossOrder(Order, type=OrderType('TRAILING_STOP_LOSS')):
 
     """
 
-    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
+    def __init__(self, trade_id: TradeID, distance: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
                 state: OrderState = ..., client_extensions: ClientExtensions = ..., client_trade_id: ClientID = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = ...,
@@ -2309,7 +2309,7 @@ class TrailingStopLossOrder(Order, type=OrderType('TRAILING_STOP_LOSS')):
                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class Trade(Model):
@@ -2362,7 +2362,7 @@ class Trade(Model):
 
     """
 
-    def __new__(cls, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
+    def __init__(self, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
                 open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
                 current_units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
                 unrealized_pl: AccountUnits = ..., average_close_price: PriceValue = ...,
@@ -2372,7 +2372,7 @@ class Trade(Model):
                 trailing_stop_loss_order: TrailingStopLossOrder = ...,
                 # TODO: Update this when OANDA UPDATES documention
                 margin_used: AccountUnits = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class ArrayTrade(Array, contains=Trade):
@@ -2406,11 +2406,11 @@ class ClientConfigureRejectTransaction(Transaction, type=TransactionType('CLIENT
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 alias: str = ...,
                 margin_rate: DecimalNumber = ..., reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class OrderCancelRejectTransaction(Transaction, type=TransactionType('ORDER_CANCEL_REJECT')):
@@ -2445,12 +2445,12 @@ class OrderCancelRejectTransaction(Transaction, type=TransactionType('ORDER_CANC
 
     # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.TransactionID` ClientID
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 order_id: OrderID = ...,
                 client_order_id: ClientID = ..., reason: OrderCancelReason = ...,
                 reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class OrderClientExtensionsModifyRejectTransaction(Transaction,
@@ -2485,13 +2485,13 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction,
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 order_id: OrderID = ...,
                 client_order_id: ClientID = ..., client_extensions_modify: ClientExtensions = ...,
                 trade_client_extensions_modify: ClientExtensions = ...,
                 reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TradeClientExtensionsModifyRejectTransaction(Transaction,
@@ -2524,12 +2524,12 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction,
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 trade_id: TradeID = ...,
                 client_trade_id: ClientID = ..., trade_client_extensions_modify: ClientExtensions = ...,
                 reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TransferFundsTransaction(Transaction, type=TransactionType('TRANSFER_FUNDS')):
@@ -2562,11 +2562,11 @@ class TransferFundsTransaction(Transaction, type=TransactionType('TRANSFER_FUNDS
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 amount: AccountUnits = ...,
                 funding_reason: FundingReason = ..., comment: str = ..., account_balance: AccountUnits = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TransferFundsRejectTransaction(Transaction, type=TransactionType('TRANSFER_FUNDS_REJECT')):
@@ -2599,12 +2599,12 @@ class TransferFundsRejectTransaction(Transaction, type=TransactionType('TRANSFER
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 amount: AccountUnits = ...,
                 funding_reason: FundingReason = ..., comment: str = ...,
                 reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class LimitOrderRequest(OrderRequest, type=OrderType('LIMIT')):
@@ -2656,13 +2656,13 @@ class LimitOrderRequest(OrderRequest, type=OrderType('LIMIT')):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketIfTouchedOrderRequest(OrderRequest, type=OrderType('MARKET_IF_TOUCHED')):
@@ -2720,13 +2720,13 @@ class MarketIfTouchedOrderRequest(OrderRequest, type=OrderType('MARKET_IF_TOUCHE
 
         """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, price_bound: PriceValue = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, price_bound: PriceValue = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopOrderRequest(OrderRequest, type=OrderType('STOP')):
@@ -2782,13 +2782,13 @@ class StopOrderRequest(OrderRequest, type=OrderType('STOP')):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class Account(AccountSummary):
@@ -2885,7 +2885,7 @@ class Account(AccountSummary):
 
     """
 
-    def __new__(cls, id: AccountID = ..., alias: str = ..., currency: Currency = ..., balance: AccountUnits = ...,
+    def __init__(self, id: AccountID = ..., alias: str = ..., currency: Currency = ..., balance: AccountUnits = ...,
                 created_by_user_id: int = ..., created_time: DateTime = ..., pl: AccountUnits = ...,
                 resettable_pl: AccountUnits = ..., resettabled_pl_time: DateTime = ...,
                 commission: AccountUnits = ..., margin_rate: DecimalNumber = ...,
@@ -2904,7 +2904,7 @@ class Account(AccountSummary):
                 guaranteed_stop_loss_order_mode: str = ...,
                 resettable_pl_time: DateTime = ...,
                 guaranteed_execution_fees: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketOrderTransaction(Transaction, type=TransactionType('MARKET_ORDER')):
@@ -2974,7 +2974,7 @@ class MarketOrderTransaction(Transaction, type=TransactionType('MARKET_ORDER')):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, id: TransactionID = ..., time: DateTime = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
@@ -2986,7 +2986,7 @@ class MarketOrderTransaction(Transaction, type=TransactionType('MARKET_ORDER')):
                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketOrderRejectTransaction(Transaction, type=TransactionType('MARKET_ORDER_REJECT')):
@@ -3055,7 +3055,7 @@ class MarketOrderRejectTransaction(Transaction, type=TransactionType('MARKET_ORD
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., units: DecimalNumber = ..., id: TransactionID = ...,
+    def __init__(self, instrument: InstrumentName = ..., units: DecimalNumber = ..., id: TransactionID = ...,
                 time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
@@ -3068,7 +3068,7 @@ class MarketOrderRejectTransaction(Transaction, type=TransactionType('MARKET_ORD
                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopLossOrderTransaction(Transaction, type=TransactionType('STOP_LOSS_ORDER')):
@@ -3122,14 +3122,14 @@ class StopLossOrderTransaction(Transaction, type=TransactionType('STOP_LOSS_ORDE
 
     """
 
-    def __new__(cls, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+    def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = ...,
                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
                 replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TrailingStopLossOrderTransaction(Transaction, type=TransactionType('TRAILING_STOP_LOSS_ORDER')):
@@ -3182,14 +3182,14 @@ class TrailingStopLossOrderTransaction(Transaction, type=TransactionType('TRAILI
 
     """
 
-    def __new__(cls, trade_id: TradeID, distance: PriceValue, id: TransactionID = ..., time: DateTime = ...,
+    def __init__(self, trade_id: TradeID, distance: PriceValue, id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = ...,
                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
                 replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class LimitOrder(Order, type=OrderType('LIMIT')):
@@ -3274,7 +3274,7 @@ class LimitOrder(Order, type=OrderType('LIMIT')):
 
         """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
@@ -3285,7 +3285,7 @@ class LimitOrder(Order, type=OrderType('LIMIT')):
                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketIfTouchedOrder(Order, type=OrderType('MARKET_IF_TOUCHED')):
@@ -3378,7 +3378,7 @@ class MarketIfTouchedOrder(Order, type=OrderType('MARKET_IF_TOUCHED')):
 
         """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 price_bound: PriceValue = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3390,7 +3390,7 @@ class MarketIfTouchedOrder(Order, type=OrderType('MARKET_IF_TOUCHED')):
                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopOrder(Order, type=OrderType('STOP')):
@@ -3478,7 +3478,7 @@ class StopOrder(Order, type=OrderType('STOP')):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC',
                 gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
@@ -3489,7 +3489,7 @@ class StopOrder(Order, type=OrderType('STOP')):
                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
                 replaced_by_order_id: OrderID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
@@ -3548,7 +3548,7 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
 
     """
 
-    def __new__(cls, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
+    def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
                 order_id: OrderID = ..., client_order_id: ClientID = ...,
                 instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
@@ -3561,7 +3561,7 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
                 loss_quote_home_conversion_factor: DecimalNumber = ...,
                 guaranteed_execution_fee: DecimalNumber = ...,
                 half_spread_cost: DecimalNumber = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopLossOrderRejectTransaction(Transaction, type=TransactionType('STOP_LOSS_ORDER_REJECT')):
@@ -3614,14 +3614,14 @@ class StopLossOrderRejectTransaction(Transaction, type=TransactionType('STOP_LOS
 
     """
 
-    def __new__(cls, trade_id: TradeID = ..., price: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
+    def __init__(self, trade_id: TradeID = ..., price: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = ...,
                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
                 intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketIfTouchedOrderTransaction(Transaction, type=TransactionType('MARKET_IF_TOUCHED_ORDER')):
@@ -3692,7 +3692,7 @@ class MarketIfTouchedOrderTransaction(Transaction, type=TransactionType('MARKET_
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3702,7 +3702,7 @@ class MarketIfTouchedOrderTransaction(Transaction, type=TransactionType('MARKET_
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
                 cancelling_transaction_id: TransactionID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class LimitOrderTransaction(Transaction, type=TransactionType('LIMIT_ORDER')):
@@ -3768,7 +3768,7 @@ class LimitOrderTransaction(Transaction, type=TransactionType('LIMIT_ORDER')):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ...,
                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3778,7 +3778,7 @@ class LimitOrderTransaction(Transaction, type=TransactionType('LIMIT_ORDER')):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
                 cancelling_transaction_id: TransactionID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TakeProfitOrderRejectTransaction(Transaction, type=TransactionType('TAKE_PROFIT_ORDER_REJECT')):
@@ -3831,14 +3831,14 @@ class TakeProfitOrderRejectTransaction(Transaction, type=TransactionType('TAKE_P
 
     """
 
-    def __new__(cls, trade_id: TradeID = ..., price: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
+    def __init__(self, trade_id: TradeID = ..., price: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = ...,
                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
                 intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class TrailingStopLossOrderRejectTransaction(Transaction, type=TransactionType('TRAILING_STOP_LOSS_ORDER_REJECT')):
@@ -3890,14 +3890,14 @@ class TrailingStopLossOrderRejectTransaction(Transaction, type=TransactionType('
 
     """
 
-    def __new__(cls, trade_id: TradeID = ..., distance: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
+    def __init__(self, trade_id: TradeID = ..., distance: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
                 request_id: RequestID = ...,
                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = ...,
                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
                 intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopOrderTransaction(Transaction, type=TransactionType('STOP_ORDER')):
@@ -3966,7 +3966,7 @@ class StopOrderTransaction(Transaction, type=TransactionType('STOP_ORDER')):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ...,
                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
@@ -3976,7 +3976,7 @@ class StopOrderTransaction(Transaction, type=TransactionType('STOP_ORDER')):
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
                 cancelling_transaction_id: TransactionID = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketIfTouchedOrderRejectTransaction(Transaction, type=TransactionType('MARKET_IF_TOUCHED_ORDER_REJECT')):
@@ -4046,7 +4046,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction, type=TransactionType('M
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
+    def __init__(self, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
                 id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
@@ -4057,7 +4057,7 @@ class MarketIfTouchedOrderRejectTransaction(Transaction, type=TransactionType('M
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
                 reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class LimitOrderRejectTransaction(Transaction, type=TransactionType('LIMIT_ORDER_REJECT')):
@@ -4122,7 +4122,7 @@ class LimitOrderRejectTransaction(Transaction, type=TransactionType('LIMIT_ORDER
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
+    def __init__(self, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
                 id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., time_in_force: TimeInForce = 'GTC',
@@ -4132,7 +4132,7 @@ class LimitOrderRejectTransaction(Transaction, type=TransactionType('LIMIT_ORDER
                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
                 reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class StopOrderRejectTransaction(Transaction, type=TransactionType('STOP_ORDER_REJECT')):
@@ -4200,7 +4200,7 @@ class StopOrderRejectTransaction(Transaction, type=TransactionType('STOP_ORDER_R
 
     """
 
-    def __new__(cls, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
+    def __init__(self, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
                 id: TransactionID = ...,
                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
@@ -4211,7 +4211,7 @@ class StopOrderRejectTransaction(Transaction, type=TransactionType('STOP_ORDER_R
                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
                 trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
                 reject_reason: TransactionRejectReason = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())
 
 
 class MarketOrder(Order, type=OrderType('MARKET')):
@@ -4297,7 +4297,7 @@ class MarketOrder(Order, type=OrderType('MARKET')):
 
     """
 
-    def __new__(cls, instrument: InstrumentName, units: DecimalNumber, id: OrderID = ..., create_time: DateTime = ...,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, id: OrderID = ..., create_time: DateTime = ...,
                 state: OrderState = ..., client_extensions: ClientExtensions = ...,
                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
@@ -4311,4 +4311,4 @@ class MarketOrder(Order, type=OrderType('MARKET')):
                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                 cancelled_time: DateTime = ...):
-        return super().__new__(**locals())
+        Model.__init__(**locals())

@@ -15,11 +15,11 @@ model_classes_data = [(cls, get_valid_primitive_data(cls)) for cls in model_clas
 @pytest.mark.parametrize('cls, data', model_classes_data)
 def test_class_annotations_match_the_parents_class_annotations(cls, data):
     if not cls.__bases__[0] == Model:
-        print(cls.__bases__[0].__new__.__annotations__)
-        print(cls.__new__.__annotations__)
+        print(cls.__bases__[0].__init__.__annotations__)
+        print(cls.__init__.__annotations__)
 
-        for annotation in cls.__new__.__annotations__:
-            assert annotation in cls.__bases__[0].__new__.__annotations__
+        for annotation in cls.__init__.__annotations__:
+            assert annotation in cls.__bases__[0].__init__.__annotations__
 
 
 @pytest.mark.parametrize('cls, data', model_classes_data)
@@ -53,9 +53,13 @@ def test_all_types_can_be_instantiated_from_tuple(cls, data):
 
     for index, argument in enumerate(arguments):
         if isinstance(argument, dict):
+            print(argument)
             args = list(arguments)
             args[index] = tuple(argument.values())
-            assert cls(*args).json(datetime_format='UNIX') == result_json
+            result = cls(*args).json(datetime_format='UNIX')
+            print(result)
+            print(result_json)
+            assert result == result_json
 
 
 @pytest.mark.parametrize('cls, data', model_classes_data)
@@ -69,8 +73,8 @@ def test_all_types_can_be_instantiated_from_annotation(cls, data):
 def test_all_derived_types_have_same_arguments_and_annotations_as_parent(cls, data):
     parent_class = cls.__bases__[0]
     if not parent_class == Model:
-        parent_class_parameters = parent_class.__new__.__signature__.parameters
-        for name, parameter in cls.__new__.__signature__.parameters.items():
+        parent_class_parameters = parent_class.__init__.__signature__.parameters
+        for name, parameter in cls.__init__.__signature__.parameters.items():
             assert name in parent_class_parameters
             try:
                 assert issubclass(parameter.annotation,parent_class_parameters[name].annotation)

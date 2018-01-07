@@ -7,7 +7,7 @@ from async_v20.endpoints.annotations import Bool, FromTime, ToTime
 def create_cls_annotations(cls):
     return {name: param.annotation for
             name, param in
-            signature(cls.__new__).parameters.items()}
+            signature(cls.__init__).parameters.items()}
 
 
 def get_valid_primitive_data(primitive):
@@ -21,8 +21,7 @@ def get_valid_primitive_data(primitive):
         return (get_valid_primitive_data(primitive._contains),)
     elif issubclass(primitive, Model):
         return {attr: get_valid_primitive_data(create_cls_annotations(primitive)[attr])
-                for attr in primitive.__new__.__signature__.parameters if
-                attr not in 'cls'}
+                for attr in primitive.__annotations__}
     if issubclass(primitive, (float)):
         data = 14.0
     elif issubclass(primitive, (int)):
