@@ -212,11 +212,11 @@ class Array(tuple):
     def __init_subclass__(cls, **kwargs):
         # Denotes the type the Array contains
         cls._contains = kwargs.pop('contains')
-        cls._one_to_may = kwargs.pop('one_to_many', True)
+        cls._one_to_many = kwargs.pop('one_to_many', True)
 
     def __new__(cls, *items):
         instance = super().__new__(cls, tuple(create_attribute(cls._contains, item) for item in items))
-        return create_indexed_lookup(instance, cls._one_to_may)
+        return create_indexed_lookup(instance, cls._one_to_many)
 
     def dataframe(self, json=False, datetime_format=None):
         """Create a pandas.Dataframe"""
