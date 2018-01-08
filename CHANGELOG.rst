@@ -10,6 +10,8 @@ Changelog
 - `Array`. **get_instruments()** returns an Array of the same type this is when there is a one to many relationship
   between the instrument and objects the array contains. `Array`. **get_instrument()** Returns the single object
   when there is a one to one relationship. Both methods are mutually exclusive
+- All objects now lazy instantiate attribute instances.
+- Large refactoring of async_v20.definitions.base
 
 6.1.0b0
 =======

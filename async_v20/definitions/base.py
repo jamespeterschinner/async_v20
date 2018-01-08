@@ -201,16 +201,7 @@ class Model(object, metaclass=ORM):
         return flatten_dict(self.dict(json=json, datetime_format=datetime_format), self._delimiter)
 
     def series(self, json=False, datetime_format=None):
-        def create_data():
-            for key, value in self.data(json=json, datetime_format=datetime_format).items():
-                if isinstance(value, str):
-                    try:
-                        value = int(value)
-                    except ValueError:
-                        pass
-                yield key, value
-
-        return pd.Series(dict(create_data()))
+        return pd.Series(self.data(json=json, datetime_format=datetime_format))
 
 
 class Array(tuple):
@@ -218,10 +209,10 @@ class Array(tuple):
     Also used to correctly serialize objects.
     """
 
-    def __init_subclass__(cls, contains, one_to_many=True, **kwargs):
+    def __init_subclass__(cls, **kwargs):
         # Denotes the type the Array contains
-        cls._contains = contains
-        cls._one_to_may = one_to_many
+        cls._contains = kwargs.pop('contains')
+        cls._one_to_may = kwargs.pop('one_to_many', True)
 
     def __new__(cls, *items):
         instance = super().__new__(cls, tuple(create_attribute(cls._contains, item) for item in items))
