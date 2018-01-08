@@ -82,6 +82,12 @@ class Model(object, metaclass=ORM):
 
     _delimiter = '_'
 
+    def __setattr__(self, key, value):
+        raise NotImplementedError
+
+    def __delattr__(self, item):
+        raise NotImplementedError
+
     def __repr__(self):
         def information():
 
@@ -105,8 +111,8 @@ class Model(object, metaclass=ORM):
 
     def __getattr__(self, item):
         result = self.__getattribute__('_' + item)()
-        setattr(self, item, result)
-        delattr(self, '_' + item)
+        object.__setattr__(self, item, result)
+        object.__delattr__(self, '_' + item)
         return result
 
     def __init__(self, **kwargs):
@@ -115,13 +121,13 @@ class Model(object, metaclass=ORM):
         fields = []
         instantiate = {
             True: lambda name, typ, data:
-                setattr(self, '_' + name, partial(create_attribute, typ, data)),
+                object.__setattr__(self, '_' + name, partial(create_attribute, typ, data)),
             False: lambda name, typ, data:
-                setattr(self, name, create_attribute(typ, data))}[self._jit]
+                object.__setattr__(self, name, create_attribute(typ, data))}[self._jit]
 
         for name, attr in self._preset_values.items():
             fields.append(name)
-            setattr(self, name, attr)
+            object.__setattr__(self, name, attr)
 
         for name in self._template:
             value = kwargs[name]
@@ -130,12 +136,12 @@ class Model(object, metaclass=ORM):
                 pass
             elif value is None:
                 fields.append(name)
-                setattr(self, name, None)
+                object.__setattr__(self, name, None)
             else:
                 fields.append(name)
                 instantiate(name, annotation, value)
 
-        setattr(self, '_fields', tuple(fields))
+        object.__setattr__(self, '_fields', tuple(fields))
 
     def replace(self, **kwargs):
         return self.__class__(**dict(self.dict(), **kwargs))
