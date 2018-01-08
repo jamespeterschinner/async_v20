@@ -8,7 +8,6 @@ import pandas as pd
 from .attributes import json_attributes
 from .helpers import check_conflicting_arguments
 from .helpers import create_doc_signature
-from .helpers import create_indexed_lookup
 from .helpers import flatten_dict
 from .helpers import json_to_instance_attributes
 from .primitives import Primitive, Specifier
@@ -35,7 +34,7 @@ def arg_parse(__init__, template: tuple, preset_values: dict) -> classmethod:
     return wrap
 
 
-class ORM(type):
+class Metaclass(type):
 
     def __new__(mcs, name, bases, namespace, **kwargs):
         jit = kwargs.pop('jit', True)
@@ -78,7 +77,7 @@ class ORM(type):
         return class_obj
 
 
-class Model(object, metaclass=ORM):
+class Model(object, metaclass=Metaclass):
     # Make attribute assignment impossible
     __slots__ = ('_fields',)
 
@@ -123,9 +122,9 @@ class Model(object, metaclass=ORM):
         fields = []
         instantiate = {
             True: lambda name, typ, data:
-                object.__setattr__(self, '_' + name, partial(create_attribute, typ, data)),
+            object.__setattr__(self, '_' + name, partial(create_attribute, typ, data)),
             False: lambda name, typ, data:
-                object.__setattr__(self, name, create_attribute(typ, data))}[self._jit]
+            object.__setattr__(self, name, create_attribute(typ, data))}[self._jit]
 
         for name, attr in self._preset_values.items():
             fields.append(name)
@@ -204,7 +203,7 @@ class Model(object, metaclass=ORM):
         return pd.Series(self.data(json=json, datetime_format=datetime_format))
 
 
-class Array(tuple):
+class Array(object):
     """Mixin to denote objects that are sent from OANDA in an array.
     Also used to correctly serialize objects.
     """
@@ -212,11 +211,78 @@ class Array(tuple):
     def __init_subclass__(cls, **kwargs):
         # Denotes the type the Array contains
         cls._contains = kwargs.pop('contains')
-        cls._one_to_many = kwargs.pop('one_to_many', True)
 
-    def __new__(cls, *items):
-        instance = super().__new__(cls, tuple(create_attribute(cls._contains, item) for item in items))
-        return create_indexed_lookup(instance, cls._one_to_many)
+    def __init__(self, *items):
+        for index, item in enumerate(items):
+            object.__setattr__(self, f'_{index}', item)
+
+    def __getattr__(self, item):
+        result = create_attribute(self._contains, self.__getattribute__('_' + item))
+        object.__setattr__(self, item, result)
+        object.__delattr__(self, '_' + item)
+        return result
+
+    def __len__(self):
+        return len(self.__dict__)
+
+    def __iter__(self):
+        def iterator():
+            for index in range(len(self)):
+                try:
+                    yield getattr(self, str(index))
+                except AttributeError:
+                    raise StopIteration
+
+        return iterator()
+
+    def __add__(self, other):
+        return self.__class__(*self.__dict__.values(), *other)
+
+    __radd__ = __add__
+
+    def __getitem__(self, item):
+        if isinstance(item, slice):
+            return self.__class__(*[self[index] for index in range(len(self))[item]])
+        return getattr(self, str(item))
+
+    def __delattr__(self, item):
+        raise NotImplementedError
+
+    def __setattr__(self, key, value):
+        raise NotImplementedError
+
+    def get_id(self, id_, default=None):
+        try:
+            for value in self:
+                if value.id == id_:
+                    return value
+        except AttributeError:
+            pass
+        return default
+
+    def get_instruments(self, instrument, default=None):
+        # ArrayPosition can only have a One to One relationship between an instrument
+        # and a Position. Though ArrayTrades and others can have a Many to One relationship
+        try:
+            matches = self.__class__(*[value for value in self if value.instrument == instrument])
+            if matches:
+                return matches
+        except AttributeError:
+            pass
+        return default
+
+    def get_instrument(self, instrument, default=None):
+        try:
+            for value in self:
+                try:
+                    if value.instrument == instrument:
+                        return value
+                except AttributeError:
+                    if value.name == instrument:
+                        return value
+        except AttributeError:
+            pass
+        return default
 
     def dataframe(self, json=False, datetime_format=None):
         """Create a pandas.Dataframe"""

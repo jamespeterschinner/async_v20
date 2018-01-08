@@ -31,57 +31,6 @@ def json_to_instance_attributes(self, kwargs, template):
             raise UnknownValue(msg)
 
 
-def create_indexed_lookup(array, one_to_many):
-    id_index = {}
-    instrument_index = {}
-
-    def construct_indexes():
-        for index, obj in enumerate(array):
-
-            key = str(getattr(obj, 'id', getattr(obj, 'trade_id', None)))
-            if key is not None:
-                id_index.update({key: index})
-
-            key = getattr(obj, 'instrument', getattr(obj, 'name', None))
-            if key is not None:
-                if one_to_many:
-                    instrument_index.setdefault(key, []).append(index)
-                    continue
-                instrument_index.update({key: index})
-
-    def get_id(id_, default=None):
-        if not id_index:
-            construct_indexes()
-        try:
-            return array[id_index[str(id_)]]
-        except KeyError:
-            return default
-
-    def get_instruments(instrument, default=None):
-        # ArrayPosition can only have a One to One relationship between an instrument
-        # and a Position. Though ArrayTrades and others can have a Many to One relationship
-        if not instrument_index:
-            construct_indexes()
-        try:
-            return type(array)(*(array[index] for index in instrument_index[instrument]))
-        except KeyError:
-            return default
-
-    def get_instrument(instrument, default=None):
-        if not instrument_index:
-            construct_indexes()
-        try:
-            return array[instrument_index[instrument]]
-        except KeyError:
-            return default
-
-    array.get_id = get_id
-    if one_to_many:
-        array.get_instruments = get_instruments
-    else:
-        array.get_instrument = get_instrument
-    return array
-
 
 def domain_check(value, example=None, possible_values=None):
     if example:

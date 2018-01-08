@@ -138,7 +138,8 @@ def test_array_returns_instantiation_error():
        pass
 
     with pytest.raises(InstantiationFailure):
-        ArrayTest('ABC', 'DEF')
+        instance = ArrayTest('ABC', 'DEF')
+        print(instance[0])
 
 
 def test_create_attribute_returns_incompatible_error():
@@ -242,4 +243,5 @@ async def test_array_get_instrument_returns_default(client, server):
     async with client as client:
         rsp = await client.list_positions()
         position = rsp.positions.get_instrument('NOTHING', 'DEFAULT')
+        print('POSITION IS ', position)
         assert position == 'DEFAULT'
