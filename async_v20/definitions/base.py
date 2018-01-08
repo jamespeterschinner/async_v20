@@ -235,6 +235,11 @@ class Array(object):
 
         return iterator()
 
+    def __contains__(self, item):
+        for value in self:
+            if value == item:
+                return True
+
     def __add__(self, other):
         return self.__class__(*self.__dict__.values(), *other)
 
