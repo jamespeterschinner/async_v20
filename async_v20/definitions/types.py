@@ -88,7 +88,7 @@ class TakeProfitDetails(Model):
     """
 
     def __init__(self, price: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
-                client_extensions: ClientExtensions = ...):
+                 client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -112,7 +112,7 @@ class StopLossDetails(Model):
     """
 
     def __init__(self, price: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
-                client_extensions: ClientExtensions = ...):
+                 client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -138,7 +138,7 @@ class TrailingStopLossDetails(Model):
     """
 
     def __init__(self, distance: PriceValue = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
-                client_extensions: ClientExtensions = ...):
+                 client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -168,13 +168,13 @@ class OrderRequest(Model, jit=False):
     """
 
     def __init__(self, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
-                distance: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
-                price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ...):
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
+                 distance: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
+                 price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -218,7 +218,7 @@ class UnitsAvailable(Model):
     """
 
     def __init__(self, default: UnitsAvailableDetails = ..., reduce_first: UnitsAvailableDetails = ...,
-                reduce_only: UnitsAvailableDetails = ..., open_only: UnitsAvailableDetails = ...):
+                 reduce_only: UnitsAvailableDetails = ..., open_only: UnitsAvailableDetails = ...):
         Model.__init__(**locals())
 
 
@@ -238,7 +238,7 @@ class LiquidityRegenerationScheduleStep(Model):
     """
 
     def __init__(self, timestamp: DateTime = ..., bid_liquidity_used: DecimalNumber = ...,
-                ask_liquidity_used: DecimalNumber = ...):
+                 ask_liquidity_used: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -352,8 +352,8 @@ class InstrumentCommission(Model):
     """
 
     def __init__(self, instrument: InstrumentName = ..., commission: DecimalNumber = ...,
-                units_traded: DecimalNumber = ...,
-                minimum_commission: DecimalNumber = ...):
+                 units_traded: DecimalNumber = ...,
+                 minimum_commission: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -374,7 +374,7 @@ class OrderBookBucket(Model):
     """
 
     def __init__(self, price: PriceValue = ..., long_count_percent: DecimalNumber = ...,
-                short_count_percent: DecimalNumber = ...):
+                 short_count_percent: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -399,7 +399,7 @@ class PositionBookBucket(Model):
     """
 
     def __init__(self, price: PriceValue = ..., long_count_percent: DecimalNumber = ...,
-                short_count_percent: DecimalNumber = ...):
+                 short_count_percent: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -429,7 +429,7 @@ class DynamicOrderState(Model):
     """
 
     def __init__(self, id: OrderID = ..., trailing_stop_value: PriceValue = ..., trigger_distance: PriceValue = ...,
-                is_trigger_distance_exact: bool = ...):
+                 is_trigger_distance_exact: bool = ...):
         Model.__init__(**locals())
 
 
@@ -453,9 +453,9 @@ class CalculatedPositionState(Model):
     """
 
     def __init__(self, instrument: InstrumentName = ..., net_unrealized_pl: AccountUnits = ...,
-                long_unrealized_pl: AccountUnits = ..., short_unrealized_pl: AccountUnits = ...,
-                # TODO Update when OANDA updates documentation
-                margin_used: AccountUnits = ...):
+                 long_unrealized_pl: AccountUnits = ..., short_unrealized_pl: AccountUnits = ...,
+                 # TODO Update when OANDA updates documentation
+                 margin_used: AccountUnits = ...):
         Model.__init__(**locals())
 
 
@@ -486,8 +486,10 @@ class PositionSide(Model):
     """
 
     def __init__(self, units: DecimalNumber = ..., average_price: PriceValue = ..., trade_ids: ArrayTradeID = ...,
-                pl: AccountUnits = ..., unrealized_pl: AccountUnits = ..., resettable_pl: AccountUnits = ...,
-                financing: DecimalNumber = ...):
+                 pl: AccountUnits = ..., unrealized_pl: AccountUnits = ..., resettable_pl: AccountUnits = ...,
+                 financing: DecimalNumber = ...,
+                 # TODO: update when OANDA updates documentation
+                 guaranteed_execution_fees: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -515,10 +517,11 @@ class Position(Model):
     """
 
     def __init__(self, instrument: InstrumentName = ..., pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
-                resettable_pl: AccountUnits = ..., commission: AccountUnits = ..., long: PositionSide = ...,
-                short: PositionSide = ..., financing: DecimalNumber = ...,
-                # TODO update these attributes with the correct type when OANDA updates documentation
-                margin_used: AccountUnits = ...):
+                 resettable_pl: AccountUnits = ..., commission: AccountUnits = ..., long: PositionSide = ...,
+                 short: PositionSide = ..., financing: DecimalNumber = ...,
+                 # TODO update these attributes with the correct type when OANDA updates documentation
+                 margin_used: AccountUnits = ...,
+                 guaranteed_execution_fees: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -571,7 +574,7 @@ class ClientPrice(Model):
     """
 
     def __init__(self, bids: ArrayPriceBucket = ..., asks: ArrayPriceBucket = ...,
-                closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ..., timestamp: DateTime = ...):
+                 closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ..., timestamp: DateTime = ...):
         Model.__init__(**locals())
 
 
@@ -603,8 +606,8 @@ class CalculatedTradeState(Model):
     """
 
     def __init__(self, id: TradeID = ..., unrealized_pl: AccountUnits = ...,
-                # TODO Update when OANDA updates documentation
-                margin_used: AccountUnits = ...):
+                 # TODO Update when OANDA updates documentation
+                 margin_used: AccountUnits = ...):
         Model.__init__(**locals())
 
 
@@ -629,7 +632,7 @@ class MarketOrderDelayedTradeClose(Model):
     """
 
     def __init__(self, trade_id: TradeID = ..., client_trade_id: TradeID = ...,
-                source_transaction_id: TransactionID = ...):
+                 source_transaction_id: TransactionID = ...):
         Model.__init__(**locals())
 
 
@@ -705,7 +708,7 @@ class PositionFinancing(Model):
     """
 
     def __init__(self, instrument: InstrumentName = ..., financing: AccountUnits = ...,
-                open_trade_financings: ArrayOpenTradeFinancing = ...):
+                 open_trade_financings: ArrayOpenTradeFinancing = ...):
         Model.__init__(**locals())
 
 
@@ -729,10 +732,10 @@ class TradeOpen(Model):
     """
 
     def __init__(self, price: DecimalNumber = ..., trade_id: TradeID = ..., units: DecimalNumber = ...,
-                client_extensions: ClientExtensions = ...,
-                # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
-                guaranteed_execution_fee: DecimalNumber = ...,
-                half_spread_cost: DecimalNumber = ...):
+                 client_extensions: ClientExtensions = ...,
+                 # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
+                 guaranteed_execution_fee: DecimalNumber = ...,
+                 half_spread_cost: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -819,7 +822,7 @@ class Candlestick(Model):
     """
 
     def __init__(self, time: DateTime = ..., bid: CandlestickData = ..., ask: CandlestickData = ...,
-                mid: CandlestickData = ..., volume: int = ..., complete: bool = ...):
+                 mid: CandlestickData = ..., volume: int = ..., complete: bool = ...):
         Model.__init__(**locals())
 
 
@@ -848,7 +851,7 @@ class OrderBook(Model):
     """
 
     def __init__(self, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
-                bucket_width: PriceValue = ..., buckets: ArrayOrderBookBucket = ...):
+                 bucket_width: PriceValue = ..., buckets: ArrayOrderBookBucket = ...):
         Model.__init__(**locals())
 
 
@@ -873,7 +876,7 @@ class PositionBook(Model):
     """
 
     def __init__(self, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
-                bucket_width: PriceValue = ..., buckets: ArrayPositionBookBucket = ...):
+                 bucket_width: PriceValue = ..., buckets: ArrayPositionBookBucket = ...):
         Model.__init__(**locals())
 
 
@@ -931,25 +934,25 @@ class Order(Model):
     # TODO: Update the annotation for partial_fill when OANDA responds to email
 
     def __init__(self, id: OrderID = ..., create_time: DateTime = ..., state: OrderState = ...,
-                client_extensions: ClientExtensions = ..., trade_id: TradeID = ..., price: PriceValue = ...,
-                type: OrderType = ..., client_trade_id: ClientID = ..., time_in_force: TimeInForce = ...,
-                gtd_time: DateTime = ..., trigger_condition: OrderTriggerCondition = ...,
-                filling_transaction_id: TransactionID = ..., filled_time: DateTime = ...,
-                trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
-                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
-                replaced_by_order_id: OrderID = ..., distance: PriceValue = ...,
-                trailing_stop_value: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
-                partial_fill: str = ..., position_fill: OrderPositionFill = ...,
-                take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., price_bound: PriceValue = ...,
-                initial_market_price: PriceValue = ..., trade_close: MarketOrderTradeClose = ...,
-                long_position_closeout: MarketOrderPositionCloseout = ...,
-                short_position_closeout: MarketOrderPositionCloseout = ...,
-                margin_closeout: MarketOrderMarginCloseout = ...,
-                delayed_trade_close: MarketOrderDelayedTradeClose = ...,
-                trigger_distance: PriceValue = ..., is_trigger_distance_exact: bool = ...):
+                 client_extensions: ClientExtensions = ..., trade_id: TradeID = ..., price: PriceValue = ...,
+                 type: OrderType = ..., client_trade_id: ClientID = ..., time_in_force: TimeInForce = ...,
+                 gtd_time: DateTime = ..., trigger_condition: OrderTriggerCondition = ...,
+                 filling_transaction_id: TransactionID = ..., filled_time: DateTime = ...,
+                 trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                 replaced_by_order_id: OrderID = ..., distance: PriceValue = ...,
+                 trailing_stop_value: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
+                 partial_fill: str = ..., position_fill: OrderPositionFill = ...,
+                 take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., price_bound: PriceValue = ...,
+                 initial_market_price: PriceValue = ..., trade_close: MarketOrderTradeClose = ...,
+                 long_position_closeout: MarketOrderPositionCloseout = ...,
+                 short_position_closeout: MarketOrderPositionCloseout = ...,
+                 margin_closeout: MarketOrderMarginCloseout = ...,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = ...,
+                 trigger_distance: PriceValue = ..., is_trigger_distance_exact: bool = ...):
         Model.__init__(**locals())
 
 
@@ -976,10 +979,10 @@ class TradeReduce(Model):
     """
 
     def __init__(self, trade_id: TradeID = ..., units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
-                financing: AccountUnits = ..., price: DecimalNumber = ...,
-                # TODO: Update these with correct type when OANDA updated there documentation
-                guaranteed_execution_fee: DecimalNumber = ...,
-                half_spread_cost: DecimalNumber = ...):
+                 financing: AccountUnits = ..., price: DecimalNumber = ...,
+                 # TODO: Update these with correct type when OANDA updated there documentation
+                 guaranteed_execution_fee: DecimalNumber = ...,
+                 half_spread_cost: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -1071,14 +1074,14 @@ class TradeSummary(Model):
     """
 
     def __init__(self, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
-                open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
-                current_units: DecimalNumber = ..., realized_pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
-                average_close_price: PriceValue = ..., closing_transaction_ids: ArrayTransactionID = ...,
-                financing: AccountUnits = ..., close_time: DateTime = ...,
-                client_extensions: ClientExtensions = ..., take_profit_order_id: OrderID = ...,
-                stop_loss_order_id: OrderID = ..., trailing_stop_loss_order_id: OrderID = ...,
-                # TODO: margin_used is undocumented on OANDA's website
-                margin_used: AccountUnits = ...):
+                 open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
+                 current_units: DecimalNumber = ..., realized_pl: AccountUnits = ..., unrealized_pl: AccountUnits = ...,
+                 average_close_price: PriceValue = ..., closing_transaction_ids: ArrayTransactionID = ...,
+                 financing: AccountUnits = ..., close_time: DateTime = ...,
+                 client_extensions: ClientExtensions = ..., take_profit_order_id: OrderID = ...,
+                 stop_loss_order_id: OrderID = ..., trailing_stop_loss_order_id: OrderID = ...,
+                 # TODO: margin_used is undocumented on OANDA's website
+                 margin_used: AccountUnits = ...):
         Model.__init__(**locals())
 
 
@@ -1108,40 +1111,40 @@ class Transaction(Model):
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                type: TransactionType = ..., extension_number: int = ..., division_id: int = ...,
-                site_id: int = ..., account_user_id: int = ..., account_number: int = ...,
-                home_currency: Currency = ..., alias: str = ..., margin_rate: DecimalNumber = ...,
-                reason: Reason = ..., trade_ids: TradeID = ..., order_id: OrderID = ...,
-                client_order_id: ClientID = ..., replaced_by_order_id: OrderID = ...,
-                closed_trade_id: OrderID = ..., trade_close_transaction_id: TransactionID = ...,
-                client_extensions_modify: ClientExtensions = ...,
-                trade_client_extensions_modify: ClientExtensions = ..., financing: AccountUnits = ...,
-                account_balance: AccountUnits = ..., account_financing_mode: AccountFinancingMode = ...,
-                position_financings: ArrayPositionFinancing = ..., trade_id: TradeID = ...,
-                client_trade_id: ClientID = ..., price: PriceValue = ..., time_in_force: TimeInForce = ...,
-                gtd_time: DateTime = ..., trigger_condition: OrderTriggerCondition = ...,
-                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
-                replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...,
-                reject_reason: TransactionRejectReason = ..., amount: AccountUnits = ...,
-                funding_reason: FundingReason = ..., comment: str = ..., instrument: InstrumentName = ...,
-                units: DecimalNumber = ..., price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
-                trade_close: MarketOrderTradeClose = ..., long_position_closeout: MarketOrderPositionCloseout = ...,
-                short_position_closeout: MarketOrderPositionCloseout = ...,
-                margin_closeout: MarketOrderMarginCloseout = ...,
-                delayed_trade_close: MarketOrderDelayedTradeClose = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., distance: PriceValue = ...,
-                full_price: ClientPrice = ..., pl: AccountUnits = ..., commission: AccountUnits = ...,
-                trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
-                trade_reduced: TradeReduce = ..., intended_replaces_order_id: OrderID = ...,
-                # TODO update when OANDA ADVISES correct type. This is currently a guess.
-                gain_quote_home_conversion_factor: DecimalNumber = ...,
-                loss_quote_home_conversion_factor: DecimalNumber = ...,
-                guaranteed_execution_fee: DecimalNumber = ...,
-                half_spread_cost: DecimalNumber = ...,
-                partial_fill: str = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 type: TransactionType = ..., extension_number: int = ..., division_id: int = ...,
+                 site_id: int = ..., account_user_id: int = ..., account_number: int = ...,
+                 home_currency: Currency = ..., alias: str = ..., margin_rate: DecimalNumber = ...,
+                 reason: Reason = ..., trade_ids: TradeID = ..., order_id: OrderID = ...,
+                 client_order_id: ClientID = ..., replaced_by_order_id: OrderID = ...,
+                 closed_trade_id: OrderID = ..., trade_close_transaction_id: TransactionID = ...,
+                 client_extensions_modify: ClientExtensions = ...,
+                 trade_client_extensions_modify: ClientExtensions = ..., financing: AccountUnits = ...,
+                 account_balance: AccountUnits = ..., account_financing_mode: AccountFinancingMode = ...,
+                 position_financings: ArrayPositionFinancing = ..., trade_id: TradeID = ...,
+                 client_trade_id: ClientID = ..., price: PriceValue = ..., time_in_force: TimeInForce = ...,
+                 gtd_time: DateTime = ..., trigger_condition: OrderTriggerCondition = ...,
+                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                 replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...,
+                 reject_reason: TransactionRejectReason = ..., amount: AccountUnits = ...,
+                 funding_reason: FundingReason = ..., comment: str = ..., instrument: InstrumentName = ...,
+                 units: DecimalNumber = ..., price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
+                 trade_close: MarketOrderTradeClose = ..., long_position_closeout: MarketOrderPositionCloseout = ...,
+                 short_position_closeout: MarketOrderPositionCloseout = ...,
+                 margin_closeout: MarketOrderMarginCloseout = ...,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., distance: PriceValue = ...,
+                 full_price: ClientPrice = ..., pl: AccountUnits = ..., commission: AccountUnits = ...,
+                 trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
+                 trade_reduced: TradeReduce = ..., intended_replaces_order_id: OrderID = ...,
+                 # TODO update when OANDA ADVISES correct type. This is currently a guess.
+                 gain_quote_home_conversion_factor: DecimalNumber = ...,
+                 loss_quote_home_conversion_factor: DecimalNumber = ...,
+                 guaranteed_execution_fee: DecimalNumber = ...,
+                 half_spread_cost: DecimalNumber = ...,
+                 partial_fill: str = ...):
         Model.__init__(**locals())
 
 
@@ -1178,10 +1181,10 @@ class AccountChanges(Model):
     """
 
     def __init__(self, orders_created: ArrayOrder = ..., orders_cancelled: ArrayOrder = ...,
-                orders_filled: ArrayOrder = ..., orders_triggered: ArrayOrder = ...,
-                trades_opened: ArrayTradeSummary = ..., trades_reduced: ArrayTradeSummary = ...,
-                trades_closed: ArrayTradeSummary = ..., positions: ArrayPosition = ...,
-                transactions: ArrayTransaction = ...):
+                 orders_filled: ArrayOrder = ..., orders_triggered: ArrayOrder = ...,
+                 trades_opened: ArrayTradeSummary = ..., trades_reduced: ArrayTradeSummary = ...,
+                 trades_closed: ArrayTradeSummary = ..., positions: ArrayPosition = ...,
+                 transactions: ArrayTransaction = ...):
         Model.__init__(**locals())
 
 
@@ -1226,11 +1229,11 @@ class Instrument(Model):
     """
 
     def __init__(self, name: InstrumentName = ..., type: InstrumentType = ..., display_name: str = ...,
-                pip_location: int = ..., display_precision: int = ..., trade_units_precision: int = ...,
-                minimum_trade_size: DecimalNumber = ..., maximum_trailing_stop_distance: DecimalNumber = ...,
-                minimum_trailing_stop_distance: DecimalNumber = ..., maximum_position_size: DecimalNumber = ...,
-                maximum_order_units: DecimalNumber = ..., margin_rate: DecimalNumber = ...,
-                commission: InstrumentCommission = ...):
+                 pip_location: int = ..., display_precision: int = ..., trade_units_precision: int = ...,
+                 minimum_trade_size: DecimalNumber = ..., maximum_trailing_stop_distance: DecimalNumber = ...,
+                 minimum_trailing_stop_distance: DecimalNumber = ..., maximum_position_size: DecimalNumber = ...,
+                 maximum_order_units: DecimalNumber = ..., margin_rate: DecimalNumber = ...,
+                 commission: InstrumentCommission = ...):
         Model.__init__(**locals())
 
 
@@ -1289,13 +1292,13 @@ class AccountChangesState(Model):
     """
 
     def __init__(self, unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
-                margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
-                margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
-                margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
-                margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
-                margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
-                orders: ArrayDynamicOrderState = ..., trades: ArrayCalculatedTradeState = ...,
-                positions: ArrayCalculatedPositionState = ...):
+                 margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
+                 margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
+                 margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
+                 margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
+                 margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
+                 orders: ArrayDynamicOrderState = ..., trades: ArrayCalculatedTradeState = ...,
+                 positions: ArrayCalculatedPositionState = ...):
         Model.__init__(**locals())
 
 
@@ -1337,13 +1340,13 @@ class Price(Model):
     """
 
     def __init__(self, type: str = ..., instrument: InstrumentName = ..., time: DateTime = ...,
-                # TODO: remove status when OANDA removes attribute
-                status: PriceStatus = ..., tradeable: bool = ..., bids: ArrayPriceBucket = ...,
-                asks: ArrayPriceBucket = ..., closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ...,
-                # TODO: remove quote_home_conversion_factors when OANDA removes attribute
-                quote_home_conversion_factors: QuoteHomeConversionFactors = ...,
-                # TODO: remove units_available when OANDA removes attribute
-                units_available: UnitsAvailable = ...):
+                 # TODO: remove status when OANDA removes attribute
+                 status: PriceStatus = ..., tradeable: bool = ..., bids: ArrayPriceBucket = ...,
+                 asks: ArrayPriceBucket = ..., closeout_bid: PriceValue = ..., closeout_ask: PriceValue = ...,
+                 # TODO: remove quote_home_conversion_factors when OANDA removes attribute
+                 quote_home_conversion_factors: QuoteHomeConversionFactors = ...,
+                 # TODO: remove units_available when OANDA removes attribute
+                 units_available: UnitsAvailable = ...):
         Model.__init__(**locals())
 
 
@@ -1372,7 +1375,7 @@ class CloseTransaction(Transaction, type=TransactionType('CLOSE')):
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         Model.__init__(**locals())
 
 
@@ -1398,7 +1401,7 @@ class MarginCallEnterTransaction(Transaction, type=TransactionType('MARGIN_CALL_
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         Model.__init__(**locals())
 
 
@@ -1424,7 +1427,7 @@ class MarginCallExitTransaction(Transaction, type=TransactionType('MARGIN_CALL_E
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         Model.__init__(**locals())
 
 
@@ -1453,8 +1456,8 @@ class MarginCallExtendTransaction(Transaction, type=TransactionType('MARGIN_CALL
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                extension_number: int = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 extension_number: int = ...):
         Model.__init__(**locals())
 
 
@@ -1478,7 +1481,7 @@ class ReopenTransaction(Transaction, type=TransactionType('REOPEN')):
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         Model.__init__(**locals())
 
 
@@ -1504,7 +1507,7 @@ class ResetResettablePLTransaction(Transaction, type=TransactionType('RESET_RESE
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...):
         Model.__init__(**locals())
 
 
@@ -1536,8 +1539,8 @@ class StopLossOrderRequest(OrderRequest, type=OrderType('STOP_LOSS')):
     """
 
     def __init__(self, trade_id: TradeID, price: PriceValue,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -1569,8 +1572,8 @@ class TakeProfitOrderRequest(OrderRequest, type=OrderType('TAKE_PROFIT')):
     """
 
     def __init__(self, trade_id: TradeID, price: PriceValue,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -1601,8 +1604,8 @@ class TrailingStopLossOrderRequest(OrderRequest, type=OrderType('TRAILING_STOP_L
     """
 
     def __init__(self, trade_id: TradeID, distance: PriceValue,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -1637,9 +1640,9 @@ class CreateTransaction(Transaction, type=TransactionType('CREATE')):
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                division_id: int = ..., site_id: int = ...,
-                account_user_id: int = ..., account_number: int = ..., home_currency: Currency = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 division_id: int = ..., site_id: int = ...,
+                 account_user_id: int = ..., account_number: int = ..., home_currency: Currency = ...):
         Model.__init__(**locals())
 
 
@@ -1669,8 +1672,8 @@ class ClientConfigureTransaction(Transaction, type=TransactionType('CLIENT_CONFI
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                alias: str = ..., margin_rate: DecimalNumber = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 alias: str = ..., margin_rate: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -1704,9 +1707,9 @@ class DelayedTradeClosureTransaction(Transaction, type=TransactionType('DELAYED_
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                reason: MarketOrderReason = ...,
-                trade_ids: TradeID = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 reason: MarketOrderReason = ...,
+                 trade_ids: TradeID = ...):
         Model.__init__(**locals())
 
 
@@ -1744,10 +1747,10 @@ class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
     # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.TransactionID` ClientID
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                order_id: OrderID = ..., client_order_id: ClientID = ...,
-                reason: OrderCancelReason = ..., replaced_by_order_id: OrderID = ...,
-                closed_trade_id: OrderID = ..., trade_close_transaction_id: TransactionID = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 order_id: OrderID = ..., client_order_id: ClientID = ...,
+                 reason: OrderCancelReason = ..., replaced_by_order_id: OrderID = ...,
+                 closed_trade_id: OrderID = ..., trade_close_transaction_id: TransactionID = ...):
         Model.__init__(**locals())
 
 
@@ -1781,10 +1784,10 @@ class OrderClientExtensionsModifyTransaction(Transaction, type=TransactionType('
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                order_id: OrderID = ...,
-                client_order_id: ClientID = ..., client_extensions_modify: ClientExtensions = ...,
-                trade_client_extensions_modify: ClientExtensions = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 order_id: OrderID = ...,
+                 client_order_id: ClientID = ..., client_extensions_modify: ClientExtensions = ...,
+                 trade_client_extensions_modify: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -1818,10 +1821,10 @@ class DailyFinancingTransaction(Transaction, type=TransactionType('DAILY_FINANCI
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                financing: AccountUnits = ...,
-                account_balance: AccountUnits = ..., account_financing_mode: AccountFinancingMode = ...,
-                position_financings: ArrayPositionFinancing = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 financing: AccountUnits = ...,
+                 account_balance: AccountUnits = ..., account_financing_mode: AccountFinancingMode = ...,
+                 position_financings: ArrayPositionFinancing = ...):
         Model.__init__(**locals())
 
 
@@ -1853,9 +1856,9 @@ class TradeClientExtensionsModifyTransaction(Transaction, type=TransactionType('
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                trade_id: TradeID = ...,
-                client_trade_id: ClientID = ..., trade_client_extensions_modify: ClientExtensions = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 trade_id: TradeID = ...,
+                 client_trade_id: ClientID = ..., trade_client_extensions_modify: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -1949,25 +1952,25 @@ class AccountSummary(Model):
     """
 
     def __init__(self, id: AccountID = ..., alias: str = ..., currency: Currency = ..., balance: AccountUnits = ...,
-                created_by_user_id: int = ..., created_time: DateTime = ..., pl: AccountUnits = ...,
-                resettable_pl: AccountUnits = ..., resettabled_pl_time: DateTime = ...,
-                commission: AccountUnits = ..., margin_rate: DecimalNumber = ...,
-                margin_call_enter_time: DateTime = ..., margin_call_extension_count: int = ...,
-                last_margin_call_extension_time: DateTime = ..., open_trade_count: int = ...,
-                open_position_count: int = ..., pending_order_count: int = ..., hedging_enabled: bool = ...,
-                unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
-                margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
-                margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
-                margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
-                margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
-                margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
-                last_transaction_id: TransactionID = ..., trades: ArrayTradeSummary = ...,
-                positions: ArrayPosition = ..., orders: ArrayOrder = ..., financing: DecimalNumber = ...,
-                # TODO: update when OANDA updates documentation
-                guaranteed_stop_loss_order_mode: str = ...,
-                resettable_pl_time: DateTime = ...,
-                guaranteed_execution_fees: DecimalNumber = ...
-                ):
+                 created_by_user_id: int = ..., created_time: DateTime = ..., pl: AccountUnits = ...,
+                 resettable_pl: AccountUnits = ..., resettabled_pl_time: DateTime = ...,
+                 commission: AccountUnits = ..., margin_rate: DecimalNumber = ...,
+                 margin_call_enter_time: DateTime = ..., margin_call_extension_count: int = ...,
+                 last_margin_call_extension_time: DateTime = ..., open_trade_count: int = ...,
+                 open_position_count: int = ..., pending_order_count: int = ..., hedging_enabled: bool = ...,
+                 unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
+                 margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
+                 margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
+                 margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
+                 margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
+                 margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
+                 last_transaction_id: TransactionID = ..., trades: ArrayTradeSummary = ...,
+                 positions: ArrayPosition = ..., orders: ArrayOrder = ..., financing: DecimalNumber = ...,
+                 # TODO: update when OANDA updates documentation
+                 guaranteed_stop_loss_order_mode: str = ...,
+                 resettable_pl_time: DateTime = ...,
+                 guaranteed_execution_fees: DecimalNumber = ...
+                 ):
         Model.__init__(**locals())
 
 
@@ -2015,11 +2018,11 @@ class MarketOrderRequest(OrderRequest, type=OrderType('MARKET')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber,
-                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ...):
+                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -2075,12 +2078,12 @@ class TakeProfitOrderTransaction(Transaction, type=TransactionType('TAKE_PROFIT_
     """
 
     def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
-                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
-                request_id: RequestID = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = ...,
-                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
-                replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
+                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                 request_id: RequestID = ...,
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                 replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
         Model.__init__(**locals())
 
 
@@ -2147,13 +2150,13 @@ class TakeProfitOrder(Order, type=OrderType('TAKE_PROFIT')):
     """
 
     def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
-                state: OrderState = ..., client_extensions: ClientExtensions = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
-                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
-                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
-                replaced_by_order_id: OrderID = ...):
+                 state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
+                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                 replaced_by_order_id: OrderID = ...):
         Model.__init__(**locals())
 
 
@@ -2220,13 +2223,13 @@ class StopLossOrder(Order, type=OrderType('STOP_LOSS')):
         """
 
     def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
-                state: OrderState = ..., client_extensions: ClientExtensions = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
-                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
-                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
-                replaced_by_order_id: OrderID = ...):
+                 state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
+                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                 replaced_by_order_id: OrderID = ...):
         Model.__init__(**locals())
 
 
@@ -2301,14 +2304,14 @@ class TrailingStopLossOrder(Order, type=OrderType('TRAILING_STOP_LOSS')):
     """
 
     def __init__(self, trade_id: TradeID, distance: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
-                state: OrderState = ..., client_extensions: ClientExtensions = ..., client_trade_id: ClientID = ...,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = ...,
-                filling_transaction_id: TransactionID = ..., filled_time: DateTime = ...,
-                trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
-                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
-                replaced_by_order_id: OrderID = ...):
+                 state: OrderState = ..., client_extensions: ClientExtensions = ..., client_trade_id: ClientID = ...,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = ...,
+                 filling_transaction_id: TransactionID = ..., filled_time: DateTime = ...,
+                 trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                 replaced_by_order_id: OrderID = ...):
         Model.__init__(**locals())
 
 
@@ -2363,15 +2366,15 @@ class Trade(Model):
     """
 
     def __init__(self, id: TradeID = ..., instrument: InstrumentName = ..., price: PriceValue = ...,
-                open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
-                current_units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
-                unrealized_pl: AccountUnits = ..., average_close_price: PriceValue = ...,
-                closing_transaction_ids: ArrayTransactionID = ..., financing: AccountUnits = ...,
-                close_time: DateTime = ..., client_extensions: ClientExtensions = ...,
-                take_profit_order: TakeProfitOrder = ..., stop_loss_order: StopLossOrder = ...,
-                trailing_stop_loss_order: TrailingStopLossOrder = ...,
-                # TODO: Update this when OANDA UPDATES documention
-                margin_used: AccountUnits = ...):
+                 open_time: DateTime = ..., state: TradeState = ..., initial_units: DecimalNumber = ...,
+                 current_units: DecimalNumber = ..., realized_pl: AccountUnits = ...,
+                 unrealized_pl: AccountUnits = ..., average_close_price: PriceValue = ...,
+                 closing_transaction_ids: ArrayTransactionID = ..., financing: AccountUnits = ...,
+                 close_time: DateTime = ..., client_extensions: ClientExtensions = ...,
+                 take_profit_order: TakeProfitOrder = ..., stop_loss_order: StopLossOrder = ...,
+                 trailing_stop_loss_order: TrailingStopLossOrder = ...,
+                 # TODO: Update this when OANDA UPDATES documention
+                 margin_used: AccountUnits = ...):
         Model.__init__(**locals())
 
 
@@ -2407,9 +2410,9 @@ class ClientConfigureRejectTransaction(Transaction, type=TransactionType('CLIENT
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                alias: str = ...,
-                margin_rate: DecimalNumber = ..., reject_reason: TransactionRejectReason = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 alias: str = ...,
+                 margin_rate: DecimalNumber = ..., reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -2446,10 +2449,10 @@ class OrderCancelRejectTransaction(Transaction, type=TransactionType('ORDER_CANC
     # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.TransactionID` ClientID
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                order_id: OrderID = ...,
-                client_order_id: ClientID = ..., reason: OrderCancelReason = ...,
-                reject_reason: TransactionRejectReason = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 order_id: OrderID = ...,
+                 client_order_id: ClientID = ..., reason: OrderCancelReason = ...,
+                 reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -2486,11 +2489,11 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction,
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                order_id: OrderID = ...,
-                client_order_id: ClientID = ..., client_extensions_modify: ClientExtensions = ...,
-                trade_client_extensions_modify: ClientExtensions = ...,
-                reject_reason: TransactionRejectReason = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 order_id: OrderID = ...,
+                 client_order_id: ClientID = ..., client_extensions_modify: ClientExtensions = ...,
+                 trade_client_extensions_modify: ClientExtensions = ...,
+                 reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -2525,10 +2528,10 @@ class TradeClientExtensionsModifyRejectTransaction(Transaction,
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                trade_id: TradeID = ...,
-                client_trade_id: ClientID = ..., trade_client_extensions_modify: ClientExtensions = ...,
-                reject_reason: TransactionRejectReason = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 trade_id: TradeID = ...,
+                 client_trade_id: ClientID = ..., trade_client_extensions_modify: ClientExtensions = ...,
+                 reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -2563,9 +2566,9 @@ class TransferFundsTransaction(Transaction, type=TransactionType('TRANSFER_FUNDS
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                amount: AccountUnits = ...,
-                funding_reason: FundingReason = ..., comment: str = ..., account_balance: AccountUnits = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 amount: AccountUnits = ...,
+                 funding_reason: FundingReason = ..., comment: str = ..., account_balance: AccountUnits = ...):
         Model.__init__(**locals())
 
 
@@ -2600,10 +2603,10 @@ class TransferFundsRejectTransaction(Transaction, type=TransactionType('TRANSFER
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                amount: AccountUnits = ...,
-                funding_reason: FundingReason = ..., comment: str = ...,
-                reject_reason: TransactionRejectReason = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 amount: AccountUnits = ...,
+                 funding_reason: FundingReason = ..., comment: str = ...,
+                 reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -2657,11 +2660,11 @@ class LimitOrderRequest(OrderRequest, type=OrderType('LIMIT')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ...):
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -2720,12 +2723,13 @@ class MarketIfTouchedOrderRequest(OrderRequest, type=OrderType('MARKET_IF_TOUCHE
 
         """
 
-    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, price_bound: PriceValue = ...,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ...):
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
+                 price_bound: PriceValue = ...,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -2783,11 +2787,11 @@ class StopOrderRequest(OrderRequest, type=OrderType('STOP')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ...):
+                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -2886,24 +2890,24 @@ class Account(AccountSummary):
     """
 
     def __init__(self, id: AccountID = ..., alias: str = ..., currency: Currency = ..., balance: AccountUnits = ...,
-                created_by_user_id: int = ..., created_time: DateTime = ..., pl: AccountUnits = ...,
-                resettable_pl: AccountUnits = ..., resettabled_pl_time: DateTime = ...,
-                commission: AccountUnits = ..., margin_rate: DecimalNumber = ...,
-                margin_call_enter_time: DateTime = ..., margin_call_extension_count: int = ...,
-                last_margin_call_extension_time: DateTime = ..., open_trade_count: int = ...,
-                open_position_count: int = ..., pending_order_count: int = ..., hedging_enabled: bool = ...,
-                unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
-                margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
-                margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
-                margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
-                margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
-                margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
-                last_transaction_id: TransactionID = ..., trades: ArrayTradeSummary = ...,
-                positions: ArrayPosition = ..., orders: ArrayOrder = ..., financing: DecimalNumber = ...,
-                # TODO: update when OANDA updates documentation
-                guaranteed_stop_loss_order_mode: str = ...,
-                resettable_pl_time: DateTime = ...,
-                guaranteed_execution_fees: DecimalNumber = ...):
+                 created_by_user_id: int = ..., created_time: DateTime = ..., pl: AccountUnits = ...,
+                 resettable_pl: AccountUnits = ..., resettabled_pl_time: DateTime = ...,
+                 commission: AccountUnits = ..., margin_rate: DecimalNumber = ...,
+                 margin_call_enter_time: DateTime = ..., margin_call_extension_count: int = ...,
+                 last_margin_call_extension_time: DateTime = ..., open_trade_count: int = ...,
+                 open_position_count: int = ..., pending_order_count: int = ..., hedging_enabled: bool = ...,
+                 unrealized_pl: AccountUnits = ..., nav: AccountUnits = ..., margin_used: AccountUnits = ...,
+                 margin_available: AccountUnits = ..., position_value: AccountUnits = ...,
+                 margin_closeout_unrealized_pl: AccountUnits = ..., margin_closeout_nav: AccountUnits = ...,
+                 margin_closeout_margin_used: AccountUnits = ..., margin_closeout_percent: DecimalNumber = ...,
+                 margin_closeout_position_value: DecimalNumber = ..., withdrawal_limit: AccountUnits = ...,
+                 margin_call_margin_used: AccountUnits = ..., margin_call_percent: DecimalNumber = ...,
+                 last_transaction_id: TransactionID = ..., trades: ArrayTradeSummary = ...,
+                 positions: ArrayPosition = ..., orders: ArrayOrder = ..., financing: DecimalNumber = ...,
+                 # TODO: update when OANDA updates documentation
+                 guaranteed_stop_loss_order_mode: str = ...,
+                 resettable_pl_time: DateTime = ...,
+                 guaranteed_execution_fees: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -2975,17 +2979,17 @@ class MarketOrderTransaction(Transaction, type=TransactionType('MARKET_ORDER')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, id: TransactionID = ..., time: DateTime = ...,
-                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
-                request_id: RequestID = ...,
-                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
-                long_position_closeout: MarketOrderPositionCloseout = ...,
-                short_position_closeout: MarketOrderPositionCloseout = ...,
-                margin_closeout: MarketOrderMarginCloseout = ...,
-                delayed_trade_close: MarketOrderDelayedTradeClose = ..., reason: MarketOrderReason = ...,
-                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ...):
+                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                 request_id: RequestID = ...,
+                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
+                 long_position_closeout: MarketOrderPositionCloseout = ...,
+                 short_position_closeout: MarketOrderPositionCloseout = ...,
+                 margin_closeout: MarketOrderMarginCloseout = ...,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = ..., reason: MarketOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
 
 
@@ -3056,18 +3060,18 @@ class MarketOrderRejectTransaction(Transaction, type=TransactionType('MARKET_ORD
     """
 
     def __init__(self, instrument: InstrumentName = ..., units: DecimalNumber = ..., id: TransactionID = ...,
-                time: DateTime = ...,
-                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
-                request_id: RequestID = ...,
-                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
-                long_position_closeout: MarketOrderPositionCloseout = ...,
-                short_position_closeout: MarketOrderPositionCloseout = ...,
-                margin_closeout: MarketOrderMarginCloseout = ...,
-                delayed_trade_close: MarketOrderDelayedTradeClose = ..., reason: MarketOrderReason = ...,
-                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., reject_reason: TransactionRejectReason = ...):
+                 time: DateTime = ...,
+                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                 request_id: RequestID = ...,
+                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
+                 long_position_closeout: MarketOrderPositionCloseout = ...,
+                 short_position_closeout: MarketOrderPositionCloseout = ...,
+                 margin_closeout: MarketOrderMarginCloseout = ...,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = ..., reason: MarketOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -3123,12 +3127,12 @@ class StopLossOrderTransaction(Transaction, type=TransactionType('STOP_LOSS_ORDE
     """
 
     def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = ..., time: DateTime = ...,
-                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
-                request_id: RequestID = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = ...,
-                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
-                replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
+                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                 request_id: RequestID = ...,
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                 replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
         Model.__init__(**locals())
 
 
@@ -3183,12 +3187,12 @@ class TrailingStopLossOrderTransaction(Transaction, type=TransactionType('TRAILI
     """
 
     def __init__(self, trade_id: TradeID, distance: PriceValue, id: TransactionID = ..., time: DateTime = ...,
-                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
-                request_id: RequestID = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = ...,
-                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
-                replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
+                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                 request_id: RequestID = ...,
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                 replaces_order_id: OrderID = ..., cancelling_transaction_id: TransactionID = ...):
         Model.__init__(**locals())
 
 
@@ -3275,16 +3279,16 @@ class LimitOrder(Order, type=OrderType('LIMIT')):
         """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
-                create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
-                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
-                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
-                replaced_by_order_id: OrderID = ...):
+                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
+                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                 replaced_by_order_id: OrderID = ...):
         Model.__init__(**locals())
 
 
@@ -3379,17 +3383,17 @@ class MarketIfTouchedOrder(Order, type=OrderType('MARKET_IF_TOUCHED')):
         """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
-                create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
-                price_bound: PriceValue = ...,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                initial_market_price: PriceValue = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
-                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
-                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
-                replaced_by_order_id: OrderID = ...):
+                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                 price_bound: PriceValue = ...,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 initial_market_price: PriceValue = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
+                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                 replaced_by_order_id: OrderID = ...):
         Model.__init__(**locals())
 
 
@@ -3479,16 +3483,16 @@ class StopOrder(Order, type=OrderType('STOP')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = ...,
-                create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
-                price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC',
-                gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
-                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
-                cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
-                replaced_by_order_id: OrderID = ...):
+                 create_time: DateTime = ..., state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
+                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                 cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,
+                 replaced_by_order_id: OrderID = ...):
         Model.__init__(**locals())
 
 
@@ -3549,18 +3553,18 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
     """
 
     def __init__(self, id: TransactionID = ..., time: DateTime = ..., user_id: int = ...,
-                account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
-                order_id: OrderID = ..., client_order_id: ClientID = ...,
-                instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
-                full_price: ClientPrice = ..., reason: OrderFillReason = ..., pl: AccountUnits = ...,
-                financing: AccountUnits = ..., commission: AccountUnits = ..., account_balance: AccountUnits = ...,
-                trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
-                trade_reduced: TradeReduce = ...,
-                # TODO update when OANDA ADVISES correct type. This is currently a guess.
-                gain_quote_home_conversion_factor: DecimalNumber = ...,
-                loss_quote_home_conversion_factor: DecimalNumber = ...,
-                guaranteed_execution_fee: DecimalNumber = ...,
-                half_spread_cost: DecimalNumber = ...):
+                 account_id: AccountID = ..., batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 order_id: OrderID = ..., client_order_id: ClientID = ...,
+                 instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
+                 full_price: ClientPrice = ..., reason: OrderFillReason = ..., pl: AccountUnits = ...,
+                 financing: AccountUnits = ..., commission: AccountUnits = ..., account_balance: AccountUnits = ...,
+                 trade_opened: TradeOpen = ..., trades_closed: ArrayTradeReduce = ...,
+                 trade_reduced: TradeReduce = ...,
+                 # TODO update when OANDA ADVISES correct type. This is currently a guess.
+                 gain_quote_home_conversion_factor: DecimalNumber = ...,
+                 loss_quote_home_conversion_factor: DecimalNumber = ...,
+                 guaranteed_execution_fee: DecimalNumber = ...,
+                 half_spread_cost: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -3615,12 +3619,12 @@ class StopLossOrderRejectTransaction(Transaction, type=TransactionType('STOP_LOS
     """
 
     def __init__(self, trade_id: TradeID = ..., price: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
-                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
-                request_id: RequestID = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = ...,
-                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
-                intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
+                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                 request_id: RequestID = ...,
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                 intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -3693,15 +3697,15 @@ class MarketIfTouchedOrderTransaction(Transaction, type=TransactionType('MARKET_
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
-                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
-                batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: MarketIfTouchedOrderReason = ..., client_extensions: ClientExtensions = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
-                cancelling_transaction_id: TransactionID = ...):
+                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: MarketIfTouchedOrderReason = ..., client_extensions: ClientExtensions = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
+                 cancelling_transaction_id: TransactionID = ...):
         Model.__init__(**locals())
 
 
@@ -3769,15 +3773,15 @@ class LimitOrderTransaction(Transaction, type=TransactionType('LIMIT_ORDER')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
-                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
-                batch_id: TransactionID = ..., request_id: RequestID = ...,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: LimitOrderReason = ..., client_extensions: ClientExtensions = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
-                cancelling_transaction_id: TransactionID = ...):
+                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                 batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: LimitOrderReason = ..., client_extensions: ClientExtensions = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
+                 cancelling_transaction_id: TransactionID = ...):
         Model.__init__(**locals())
 
 
@@ -3832,12 +3836,12 @@ class TakeProfitOrderRejectTransaction(Transaction, type=TransactionType('TAKE_P
     """
 
     def __init__(self, trade_id: TradeID = ..., price: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
-                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
-                request_id: RequestID = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = ...,
-                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
-                intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
+                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                 request_id: RequestID = ...,
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                 intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -3890,13 +3894,14 @@ class TrailingStopLossOrderRejectTransaction(Transaction, type=TransactionType('
 
     """
 
-    def __init__(self, trade_id: TradeID = ..., distance: PriceValue = ..., id: TransactionID = ..., time: DateTime = ...,
-                user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
-                request_id: RequestID = ...,
-                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = ...,
-                client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
-                intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
+    def __init__(self, trade_id: TradeID = ..., distance: PriceValue = ..., id: TransactionID = ...,
+                 time: DateTime = ...,
+                 user_id: int = ..., account_id: AccountID = ..., batch_id: TransactionID = ...,
+                 request_id: RequestID = ...,
+                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., order_fill_transaction_id: TransactionID = ...,
+                 intended_replaces_order_id: OrderID = ..., reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -3967,15 +3972,15 @@ class StopOrderTransaction(Transaction, type=TransactionType('STOP_ORDER')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = ...,
-                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
-                batch_id: TransactionID = ..., request_id: RequestID = ...,
-                price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: StopOrderReason = ..., client_extensions: ClientExtensions = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
-                cancelling_transaction_id: TransactionID = ...):
+                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                 batch_id: TransactionID = ..., request_id: RequestID = ...,
+                 price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: StopOrderReason = ..., client_extensions: ClientExtensions = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., replaces_order_id: OrderID = ...,
+                 cancelling_transaction_id: TransactionID = ...):
         Model.__init__(**locals())
 
 
@@ -4047,16 +4052,16 @@ class MarketIfTouchedOrderRejectTransaction(Transaction, type=TransactionType('M
     """
 
     def __init__(self, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
-                id: TransactionID = ...,
-                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
-                batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: MarketIfTouchedOrderReason = ..., client_extensions: ClientExtensions = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
-                reject_reason: TransactionRejectReason = ...):
+                 id: TransactionID = ...,
+                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: MarketIfTouchedOrderReason = ..., client_extensions: ClientExtensions = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
+                 reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -4123,15 +4128,15 @@ class LimitOrderRejectTransaction(Transaction, type=TransactionType('LIMIT_ORDER
     """
 
     def __init__(self, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
-                id: TransactionID = ...,
-                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
-                batch_id: TransactionID = ..., request_id: RequestID = ..., time_in_force: TimeInForce = 'GTC',
-                gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
-                trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: LimitOrderReason = ...,
-                client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
-                reject_reason: TransactionRejectReason = ...):
+                 id: TransactionID = ...,
+                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                 batch_id: TransactionID = ..., request_id: RequestID = ..., time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = ..., position_fill: OrderPositionFill = 'DEFAULT',
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: LimitOrderReason = ...,
+                 client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
+                 stop_loss_on_fill: StopLossDetails = ..., trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
+                 reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -4201,16 +4206,16 @@ class StopOrderRejectTransaction(Transaction, type=TransactionType('STOP_ORDER_R
     """
 
     def __init__(self, instrument: InstrumentName = ..., units: DecimalNumber = ..., price: PriceValue = ...,
-                id: TransactionID = ...,
-                time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
-                batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
-                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                reason: StopOrderReason = ..., client_extensions: ClientExtensions = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
-                reject_reason: TransactionRejectReason = ...):
+                 id: TransactionID = ...,
+                 time: DateTime = ..., user_id: int = ..., account_id: AccountID = ...,
+                 batch_id: TransactionID = ..., request_id: RequestID = ..., price_bound: PriceValue = ...,
+                 time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 reason: StopOrderReason = ..., client_extensions: ClientExtensions = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., intended_replaces_order_id: OrderID = ...,
+                 reject_reason: TransactionRejectReason = ...):
         Model.__init__(**locals())
 
 
@@ -4298,17 +4303,17 @@ class MarketOrder(Order, type=OrderType('MARKET')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, id: OrderID = ..., create_time: DateTime = ...,
-                state: OrderState = ..., client_extensions: ClientExtensions = ...,
-                time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
-                position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
-                long_position_closeout: MarketOrderPositionCloseout = ...,
-                short_position_closeout: MarketOrderPositionCloseout = ...,
-                margin_closeout: MarketOrderMarginCloseout = ...,
-                delayed_trade_close: MarketOrderDelayedTradeClose = ...,
-                take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
-                filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
-                trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
-                cancelled_time: DateTime = ...):
+                 state: OrderState = ..., client_extensions: ClientExtensions = ...,
+                 time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
+                 position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = ...,
+                 long_position_closeout: MarketOrderPositionCloseout = ...,
+                 short_position_closeout: MarketOrderPositionCloseout = ...,
+                 margin_closeout: MarketOrderMarginCloseout = ...,
+                 delayed_trade_close: MarketOrderDelayedTradeClose = ...,
+                 take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
+                 trade_client_extensions: ClientExtensions = ..., filling_transaction_id: TransactionID = ...,
+                 filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
+                 trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
+                 cancelled_time: DateTime = ...):
         Model.__init__(**locals())
