@@ -213,17 +213,28 @@ class Array(object):
         cls._contains = kwargs.pop('contains')
 
     def __init__(self, *items):
+        object.__setattr__(self, '_len', len(items))
         for index, item in enumerate(items):
             object.__setattr__(self, f'_{index}', item)
 
     def __getattr__(self, item):
-        result = create_attribute(self._contains, self.__getattribute__('_' + item))
-        object.__setattr__(self, item, result)
-        object.__delattr__(self, '_' + item)
-        return result
+        try:
+            result = create_attribute(self._contains, self.__getattribute__('_' + item))
+        except AttributeError as e:
+            if 'index' in item:
+                indexes = self._construct_indexes()
+                for key, value in indexes.items():
+                    object.__setattr__(self, key, value)
+                return indexes[item]
+            else:
+                raise AttributeError(e)
+        else:
+            object.__setattr__(self, item, result)
+            object.__delattr__(self, '_' + item)
+            return result
 
     def __len__(self):
-        return len(self.__dict__)
+        return self._len
 
     def __iter__(self):
         def iterator():
@@ -241,7 +252,7 @@ class Array(object):
                 return True
 
     def __add__(self, other):
-        return self.__class__(*self.__dict__.values(), *other)
+        return self.__class__(*self, *other)
 
     __radd__ = __add__
 
@@ -256,12 +267,25 @@ class Array(object):
     def __setattr__(self, key, value):
         raise NotImplementedError
 
+    def _construct_indexes(self):
+        id_index = {}
+        instrument_index = {}
+        for index, obj in enumerate(self):
+
+            key = getattr(obj, 'id', getattr(obj, 'trade_id', None))
+            if key is not None:
+                id_index.update({key: str(index)})
+
+            key = getattr(obj, 'instrument', getattr(obj, 'name', None))
+            if key is not None:
+                instrument_index.setdefault(key, []).append(str(index))
+
+        return dict(_id_index=id_index, _instrument_index=instrument_index)
+
     def get_id(self, id_, default=None):
         try:
-            for value in self:
-                if value.id == id_:
-                    return value
-        except AttributeError:
+            return getattr(self, self._id_index[id_])
+        except KeyError:
             pass
         return default
 
@@ -269,23 +293,15 @@ class Array(object):
         # ArrayPosition can only have a One to One relationship between an instrument
         # and a Position. Though ArrayTrades and others can have a Many to One relationship
         try:
-            matches = self.__class__(*[value for value in self if value.instrument == instrument])
-            if matches:
-                return matches
-        except AttributeError:
+            return self.__class__(*[getattr(self, idx) for idx in self._instrument_index[instrument]])
+        except KeyError:
             pass
         return default
 
     def get_instrument(self, instrument, default=None):
         try:
-            for value in self:
-                try:
-                    if value.instrument == instrument:
-                        return value
-                except AttributeError:
-                    if value.name == instrument:
-                        return value
-        except AttributeError:
+            return getattr(self, self._instrument_index[instrument][0])
+        except KeyError:
             pass
         return default
 
