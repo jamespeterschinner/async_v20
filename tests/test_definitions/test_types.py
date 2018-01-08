@@ -4,7 +4,7 @@ from async_v20.definitions import types
 from async_v20.definitions.base import Model
 from async_v20.definitions.base import create_attribute
 from tests.test_definitions.helpers import get_valid_primitive_data, create_cls_annotations
-from async_v20.exceptions import UnknownValue
+from async_v20.exceptions import UnknownValue, InstantiationFailure
 
 model_classes = (cls for cls in (getattr(types, typ) for typ in types.__all__) if
                  issubclass(cls, Model))
@@ -81,3 +81,21 @@ def test_all_derived_types_have_same_arguments_and_annotations_as_parent(cls, da
             except TypeError:
                 # means annotation is async_v20.definitions.helpers.time function
                 assert parameter.annotation == parent_class_parameters[name].annotation
+
+@pytest.mark.parametrize('cls, data', model_classes_data)
+def test_instances_are_immutable(cls, data):
+    instance = cls(**data)
+    with pytest.raises(NotImplementedError):
+        setattr(instance, instance._fields[0], None)
+
+    with pytest.raises(NotImplementedError):
+        delattr(instance, instance._fields[0])
+
+@pytest.mark.parametrize('cls, data', model_classes_data)
+def test_instantiation_failure_when_unknown_kwargs_are_passed(cls, data):
+    with pytest.raises(InstantiationFailure):
+        try:
+            cls(**data, o=1) # doubled up argument for CandlestickData
+        except TypeError:
+            cls(**data, instrument='AUD_USD')
+

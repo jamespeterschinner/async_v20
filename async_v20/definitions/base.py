@@ -27,7 +27,8 @@ def arg_parse(__init__, template: tuple, preset_values: dict) -> classmethod:
         try:
             return __init__(self, *args, **kwargs)
         except TypeError as e:
-            raise UnknownValue(e)
+            logger.error(e)
+            raise InstantiationFailure(e)
 
     wrap.__annotations__ = __init__.__annotations__
     return wrap
