@@ -362,7 +362,7 @@ class Array(object):
             json: True, DataFrame columns will have the JSON representation,
                 False, DataFrame columns will have the object attribute representation
 
-            datetime_format: 'UNIX' or 'RFC3339' 
+            datetime_format: 'UNIX' or 'RFC3339'
         """
         return pd.DataFrame(obj.data(json=json, datetime_format=datetime_format) for obj in self)
 
