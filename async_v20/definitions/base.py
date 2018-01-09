@@ -208,58 +208,101 @@ class Array(object):
     Also used to correctly serialize objects.
     """
 
-    def __init_subclass__(cls, **kwargs):
-        # Denotes the type the Array contains
-        cls._contains = kwargs.pop('contains')
-
-    def __init__(self, *items):
-        object.__setattr__(self, '_len', len(items))
-        for index, item in enumerate(items):
-            object.__setattr__(self, f'_{index}', item)
-
-    def __getattr__(self, item):
-        try:
-            result = create_attribute(self._contains, self.__getattribute__('_' + item))
-        except AttributeError as e:
-            if 'index' in item:
-                indexes = self._construct_indexes()
-                for key, value in indexes.items():
-                    object.__setattr__(self, key, value)
-                return indexes[item]
-            else:
-                raise AttributeError(e)
-        else:
-            object.__setattr__(self, item, result)
-            object.__delattr__(self, '_' + item)
-            return result
-
-    def __len__(self):
-        return self._len
-
-    def __iter__(self):
-        def iterator():
-            for index in range(len(self)):
-                try:
-                    yield getattr(self, str(index))
-                except AttributeError:
-                    raise StopIteration
-
-        return iterator()
-
     def __contains__(self, item):
+        """Return True if item in this array, False otherwise.
+
+        Note: this traverses all or part of the array, instantiating the
+        objects. Using `x in array` may, therefore, have a serious impact on
+        performance.
+
+        """
+        if item in self._id_index or item in self._instrument_index:
+            return True
         for value in self:
             if value == item:
                 return True
+
+    def __init__(self, *items):
+        """Initialize a new array.
+
+        The *items passed in are assumed to be JSON data. If an item is
+        accessed, it is passed to `create_attribute` with the appropriate
+        class type.
+
+        Initially, objects are stored in self._items. When accessed, the
+        objects are reified and stored in self.items. This is transparently
+        handled by self.__getitem__(self, key).
+
+        """
+        object.__setattr__(self, '_items', items)
+        object.__setattr__(self, 'items', [])
+
+    def __init_subclass__(cls, **kwargs):
+        """Record the type *contained in* the subclass-array.
+
+        A subclass like:
+
+            class array_holding_foo(Array, contains=Foo):
+                pass
+
+        will have all its inner objects instantiated using class Foo.
+
+        """
+        cls._contains = kwargs.pop('contains')
+
+    def __repr__(self):
+        try:
+            return f'({self[0]}, ...{len(self)}..., {self[-1]})'
+        except IndexError:
+            return f'()'
+
+    def __len__(self):
+        return len(self._items)
+
+    def __iter__(self):
+        """Iterate over items in array. Use integer indexing so that
+        __getitem__ can handle reifying all the objects.
+
+        """
+        for index in range(len(self)):
+            yield self[index]
+
+    def __getitem__(self, key):
+        if isinstance(key, slice):
+            return self.__class__(*[self[index]
+                for index in range(len(self._items))[key]])
+
+        length = len(self._items)
+        if key < 0:
+            key += length
+
+        if not (0 <= key < length):
+            raise IndexError('Array index out of range')
+
+        if key >= len(self.items):
+            self.items.__iadd__([None] * (key - len(self.items) + 1))
+
+        if self.items[key] is None:
+            json = self._items[key]
+            self.items[key] = create_attribute(self._contains, json)
+
+        return self.items[key]
+
+
+    def __getattr__(self, item):
+        try:
+            indexes = self._construct_indexes()
+            for key, value in indexes.items():
+                object.__setattr__(self, key, value)
+            return indexes[item]
+        except KeyError as e:
+            raise AttributeError(e)
+
 
     def __add__(self, other):
         return self.__class__(*self, *other)
 
     __radd__ = __add__
-
-    def __getitem__(self, item):
-        if isinstance(item, slice):
-            return self.__class__(*[self[index] for index in range(len(self))[item]])
-        return getattr(self, str(item))
 
     def __delattr__(self, item):
         raise NotImplementedError
@@ -274,39 +317,53 @@ class Array(object):
 
             key = getattr(obj, 'id', getattr(obj, 'trade_id', None))
             if key is not None:
-                id_index.update({key: str(index)})
+                id_index.update({key: index})
 
             key = getattr(obj, 'instrument', getattr(obj, 'name', None))
             if key is not None:
-                instrument_index.setdefault(key, []).append(str(index))
+                instrument_index.setdefault(key, []).append(index)
 
         return dict(_id_index=id_index, _instrument_index=instrument_index)
 
     def get_id(self, id_, default=None):
+        """Return the objects in the array where the
+        `object.id` attribute matches the passed id
+        else return the default"""
         try:
-            return getattr(self, self._id_index[id_])
+            return self[self._id_index[id_]]
         except KeyError:
             pass
         return default
 
     def get_instruments(self, instrument, default=None):
-        # ArrayPosition can only have a One to One relationship between an instrument
-        # and a Position. Though ArrayTrades and others can have a Many to One relationship
+        """Return all the objects in the array where the
+        `object.instrument` attribute matches the passed instrument
+        else return the default"""
         try:
-            return self.__class__(*[getattr(self, idx) for idx in self._instrument_index[instrument]])
+            return self.__class__(*[self[idx] for idx in self._instrument_index[instrument]])
         except KeyError:
             pass
         return default
 
     def get_instrument(self, instrument, default=None):
+        """Return the first object in the array where
+        where the `object.instrument` matches the passed instrument
+        else return default"""
         try:
-            return getattr(self, self._instrument_index[instrument][0])
+            return self[self._instrument_index[instrument].pop()]
         except KeyError:
             pass
         return default
 
     def dataframe(self, json=False, datetime_format=None):
-        """Create a pandas.Dataframe"""
+        """Create a pandas.Dataframe
+
+        Args:
+            json: True, DataFrame columns will have the JSON representation,
+                False, DataFrame columns will have the object attribute representation
+
+            datetime_format: 'UNIX' or 'RFC3339' 
+        """
         return pd.DataFrame(obj.data(json=json, datetime_format=datetime_format) for obj in self)
 
 
