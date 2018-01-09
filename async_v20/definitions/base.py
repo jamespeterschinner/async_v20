@@ -35,6 +35,14 @@ def arg_parse(__init__, template: tuple, preset_values: dict) -> classmethod:
 
 
 class Metaclass(type):
+    """Metaclass for all types in async_v20.
+
+    This class:
+        - Configures how the subclasses instantiate there attributes
+        - Adds __slots__ to improve memory management
+        - Wraps the subclass' __init__ to handle CamelCase kwargs
+        - Creates a nicer documentation signature for readthedocs.io
+        - Allows subclass' to be pre-define attributes"""
 
     def __new__(mcs, name, bases, namespace, **kwargs):
         jit = kwargs.pop('jit', True)
@@ -58,7 +66,12 @@ class Metaclass(type):
 
         template = tuple(bound_signature.parameters)
 
-        class_obj._jit = jit
+        # jit == True object attribute instantiation is deferred
+        class_obj._instantiate = {
+            True: lambda self, name, typ, data:
+                object.__setattr__(self, '_' + name, partial(create_attribute, typ, data)),
+            False: lambda self, name, typ, data:
+                object.__setattr__(self, name, create_attribute(typ, data))}[jit]
 
         class_obj._preset_values = kwargs
 
@@ -120,11 +133,6 @@ class Model(object, metaclass=Metaclass):
 
         # contains all the attributes the class instance contains
         fields = []
-        instantiate = {
-            True: lambda name, typ, data:
-            object.__setattr__(self, '_' + name, partial(create_attribute, typ, data)),
-            False: lambda name, typ, data:
-            object.__setattr__(self, name, create_attribute(typ, data))}[self._jit]
 
         for name, attr in self._preset_values.items():
             fields.append(name)
@@ -140,7 +148,7 @@ class Model(object, metaclass=Metaclass):
                 object.__setattr__(self, name, None)
             else:
                 fields.append(name)
-                instantiate(name, annotation, value)
+                self._instantiate(name, annotation, value)
 
         object.__setattr__(self, '_fields', tuple(fields))
 
@@ -209,7 +217,8 @@ class Array(object):
     """
 
     def __contains__(self, item):
-        """Return True if item in this array, False otherwise.
+        """Return True if item in this array or item matches an
+        objects id or instrument attribute, False otherwise.
 
         Note: this traverses all or part of the array, instantiating the
         objects. Using `x in array` may, therefore, have a serious impact on
