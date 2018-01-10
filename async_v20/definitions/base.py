@@ -42,7 +42,13 @@ class Metaclass(type):
         - Adds __slots__ to improve memory management
         - Wraps the subclass' __init__ to handle CamelCase kwargs
         - Creates a nicer documentation signature for readthedocs.io
-        - Allows subclass' to be pre-define attributes"""
+        - Allows subclass' to pre-define attributes by passing arguments. eg.
+
+        class Foo(Model, foo=Bar)
+            pass
+
+        would have the attribute foo_instance.foo == Bar 
+        """
 
     def __new__(mcs, name, bases, namespace, **kwargs):
         jit = kwargs.pop('jit', True)
