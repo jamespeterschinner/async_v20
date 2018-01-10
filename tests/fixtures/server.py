@@ -2,7 +2,7 @@ import asyncio
 import gzip
 import re
 from inspect import isgenerator
-from time import time, sleep
+
 import pytest
 from aiohttp import web
 
@@ -26,7 +26,6 @@ sleep_time = 0
 
 
 def get_id_from_path(path):
-    print(path)
     try:
         path_id = re.findall(r'(?<=\/)(\d+)(?=(\/|\Z))', path)[0][0]
         path = re.sub(r'(?<=\/)(\d+)(?=(\/|\Z))', '0000', path)
@@ -63,9 +62,6 @@ async def handler(request):
     method = request.method
     path = request.path.encode('ascii', 'backslashreplace').decode('ascii')
     path, path_id = get_id_from_path(path)
-    print('REQUEST HEADERS:\n',
-          request.headers)
-    print(method, path, path_id)
 
     response_data = get_response_data(method, path, path_id)
 
@@ -73,7 +69,6 @@ async def handler(request):
 
     global received
     received = await request.read()
-    print(received)
 
     if response_data is None:
         response_data = 'null'
@@ -84,7 +79,6 @@ async def handler(request):
                                   reason='OK')
         await resp.prepare(request)
         while True:
-            print('SENDING')
             resp.write(bytes(response_data, encoding='utf8'))
             resp.write(bytes('\n', encoding='utf8'))
             await resp.drain()

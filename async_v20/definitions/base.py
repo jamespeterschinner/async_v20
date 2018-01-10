@@ -366,13 +366,16 @@ class Array(object):
         id_index = {}
         instrument_index = {}
         for index, json_dict in enumerate(self._items):
-            key = json_dict.get('id', json_dict.get('trade_id', None))
-            if key is not None:
-                id_index.update({key: index})
+            try:
+                key = json_dict.get('id', json_dict.get('trade_id', None))
+                if key is not None:
+                    id_index.update({key: index})
 
-            key = json_dict.get('instrument', json_dict.get('name', None))
-            if key is not None:
-                instrument_index.setdefault(key, []).append(index)
+                key = json_dict.get('instrument', json_dict.get('name', None))
+                if key is not None:
+                    instrument_index.setdefault(key, []).append(index)
+            except AttributeError:
+                pass
 
         return dict(_id_index=id_index, _instrument_index=instrument_index)
 

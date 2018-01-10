@@ -32,7 +32,7 @@ from async_v20.definitions.types import Price
 from async_v20.definitions.types import Transaction
 
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 client = client
@@ -104,7 +104,7 @@ async def test_rest_response_builds_array_account_properties(client, rest_respon
     result = await _rest_response(client, rest_response(GETAccounts_response), GETAccounts, enable_rest=False,
                                   method_name='test_method')
     # Ensure the result contains an 'account'
-    print(result)
+
     assert 'accounts' in result
     # Ensure that 'account' is indeed an Account
     # assert type(result['accounts']) == tuple # TODO fix
@@ -128,8 +128,8 @@ async def test_conversion_from_server_json_to_response_object_to_json_equal(json
     response_json = response.dict(json=True, datetime_format='RFC3339')
     pretty_json_body = order_dict(json_body)
     pretty_response_json = order_dict(response_json)
-    print('SERVER JSON:\n', pretty_json_body)
-    print('Response JSON:\n', pretty_response_json)
+
+
     assert response_json == json_body
 
 
@@ -163,8 +163,8 @@ async def test_parser_updates_since_transaction_id(client, server):
 
         response = await client.account_changes()
         assert client.default_parameters[SinceTransactionID] == 10547
-        print(response.json())
-        print(account_changes_response)
+
+
         assert response.json() == account_changes_response
 
 
@@ -178,9 +178,9 @@ async def test_stream_parser_raises_timeout_error(client, server):
             with pytest.raises(ResponseTimeout):
                 async for obj in await client.stream_pricing('AUD_USD'):
                     items -= 1
-                    print(obj)
+
                     if items <= 0:
-                        print('BREAK CALLED')
+
                         break
 
 

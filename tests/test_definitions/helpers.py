@@ -3,7 +3,7 @@ from async_v20.definitions.types import DateTime
 from async_v20.definitions.base import Model, Array
 from async_v20.endpoints.annotations import Bool, FromTime, ToTime
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 def create_cls_annotations(cls):
@@ -35,7 +35,7 @@ def get_valid_primitive_data(primitive):
         data = primitive()
     # The only valid option here should be a subclass of str
     else:
-        print(primitive)
+
         assert issubclass(primitive, (str))
         try:
             data = primitive.example

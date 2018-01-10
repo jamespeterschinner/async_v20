@@ -4,7 +4,7 @@ import pytest
 
 from async_v20.endpoints import annotations
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 

@@ -6,7 +6,7 @@ from ..fixtures.client import client
 from ..fixtures import server as server_module
 
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 client = client
@@ -19,9 +19,9 @@ async def test_response_creates_correct_json(client, server):
     async with client as client:
         response = await client.get_account_details()
         resp_json = response.json()
-        print(resp_json)
+
         correct = get_account_details_response.replace(' ', '')
-        print(correct)
+
         assert resp_json == correct
 
 
@@ -34,8 +34,8 @@ async def test_response_returns_json(client, server):
 
     assert accounts.json() == list_accounts_response.replace(' ', '')
     assert account_details.json() == get_account_details_response.replace(' ', '')
-    print(pricing.json())
-    print(get_pricing_response.replace(' ', ''))
+
+
     assert pricing.json() == get_pricing_response.replace(' ', '')
 
 @pytest.mark.asyncio
@@ -52,4 +52,10 @@ async def test_response_keys_can_be_accessed_through_dot(client, server):
                 getattr(response, key+'_test')
 
 def test_response_doesnt_error_when_response_contains_no_data():
-    print(Response(data='',status=400, bool=0, datetime_format='UNIX'))
+    result = Response(None, 400, True, 'UNIX')
+
+@pytest.mark.asyncio
+async def test_response_repr(client, server):
+    with client as client:
+        rsp = await client.get_candles('AUD_USD')
+        repr(rsp)

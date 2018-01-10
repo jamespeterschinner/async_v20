@@ -11,7 +11,7 @@ from async_v20.exceptions import InvalidValue, InvalidFormatArguments
 from time import time
 from datetime import datetime
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 import pandas as pd

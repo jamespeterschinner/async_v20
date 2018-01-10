@@ -24,7 +24,7 @@ from ..data.json_data import example_transactions, example_positions, example_in
 from ..fixtures.client import client
 from ..fixtures.server import server
 
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 client = client
@@ -106,7 +106,6 @@ def test_data(account):
 
     result = account.data(json=False)
     for value in result:
-        print(value)
         assert isinstance(value, (float, str, int, list))
         if isinstance(value, str):
             with pytest.raises(ValueError):
@@ -115,12 +114,9 @@ def test_data(account):
 
 def test_series_doesnt_convert_datetime(account):
     result = account.series(datetime_format='UNIX')
-    print(result)
-
     for value in result:
         assert isinstance(value, (float, str, int, list, type(None)))
         if isinstance(value, str):
-            print(value)
             # All values in a series object should be a float if they can be
             with pytest.raises(ValueError):
                 float(value)
@@ -128,8 +124,6 @@ def test_series_doesnt_convert_datetime(account):
 
 def test_series_converts_time_to_datetime(account):
     result = account.series()
-    print(result)
-
     with pytest.raises(AssertionError):
         for value in result:
             assert isinstance(value, (float, str, int, list, type(None)))
@@ -144,7 +138,14 @@ def test_array_returns_instantiation_error():
 
     with pytest.raises(InstantiationFailure):
         instance = ArrayTest('ABC', 'DEF')
-        print(instance[0])
+        result = instance[0]
+
+def test_array_with_no_dict_does_not_error_when_attempting_get_id():
+    class ArrayTest(Array, contains=int):
+        pass
+
+    instance = ArrayTest('ABC', 'DEF')
+    result = instance.get_id(1)
 
 
 def test_create_attribute_returns_incompatible_error():
@@ -167,7 +168,7 @@ def test_model_update():
 
 def test_array_get_id_returns_id():
     data = json.loads(example_transactions)
-    print(data)
+
     transactions = ArrayTransaction(*json.loads(example_transactions))
     assert transactions.get_id(6607).id == 6607
     assert transactions.get_id(123) == None
@@ -175,7 +176,7 @@ def test_array_get_id_returns_id():
 
 def test_array_get_instrument_returns_instrument():
     positions = ArrayPosition(*json.loads(example_positions))
-    print(positions)
+
     assert positions.get_instrument('AUD_USD').instrument == 'AUD_USD'
     assert positions.get_instrument('EUR_USD') == None
 
@@ -318,5 +319,5 @@ async def test_array_get_instrument_returns_default(client, server):
     async with client as client:
         rsp = await client.list_positions()
         position = rsp.positions.get_instrument('NOTHING', 'DEFAULT')
-        print('POSITION IS ', position)
+
         assert position == 'DEFAULT'

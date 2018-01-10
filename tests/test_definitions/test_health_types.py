@@ -3,7 +3,7 @@ from async_v20.definitions.health_types import ArrayServiceList, ArrayImage
 import json
 
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 
@@ -11,9 +11,10 @@ def test_array_service_lists_constructs():
     data = json.loads(list_service_lists_response)
     array = ArrayServiceList(*data['lists'])
     for i in array:
-        print(i)
+        r = i.dict()
+
 
 def test_array_image_lists_constructs():
     array = ArrayImage(*json.loads(list_images_response)['images'])
     for i in array:
-        print(i)
+        r = i.dict()

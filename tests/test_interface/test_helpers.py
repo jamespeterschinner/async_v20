@@ -30,7 +30,7 @@ client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 client = client
@@ -92,13 +92,7 @@ async def test_create_request_params(client, method, signature, kwargs):
     total_params = []
     print(endpoint.request_schema)
     for location in locations:
-        print('Endpoint: ', endpoint)
-        print('Arguments: ', arguments)
-        print('Location: ', location)
         result = _create_request_params(client, endpoint, arguments, location)
-        print('Possible Arguments', [typ for typ, (location, name) in endpoint.parameters.items()
-                                     if location == location])
-        print(location, ': ', result)
         total_params.extend(result)
 
     # These parameters are set by default in the client.
@@ -137,13 +131,13 @@ def test_create_url_raises_error_when_missing_arguments(client, endpoint):
 @pytest.mark.asyncio
 @pytest.mark.parametrize('method, signature, kwargs', zip(client_methods, *zip(*annotation_lookup_arguments)))
 async def test_create_request_kwargs(client, server, method, signature, kwargs):
-    print(method)
+
     await client.initialize()
     client.format_order_requests = True
     args = construct_arguments(client, signature, **kwargs)
     if OrderRequest in args:
         args.update({OrderRequest: OrderRequest(instrument='AUD_USD', units=1)})
-    print('ARGS: ', args)
+
     request_kwargs = create_request_kwargs(client, method.endpoint, args)
 
     # Make sure args are not empty
@@ -169,8 +163,8 @@ async def test_request_body_is_constructed_correctly(client, server, stop_loss_o
                          {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
     correct = {'order': {'tradeID': '1234', 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
                          'triggerCondition': 'DEFAULT'}}
-    print('RESULT: \n', result)
-    print('CORRECT: \n', correct)
+
+
     assert result == correct
 
 
@@ -214,18 +208,18 @@ async def test_objects_can_be_converted_between_Model_object_and_json():
 
     response_json_account = order_dict(response_json_account)
     account_to_json = order_dict(account_to_json)
-    print('SERVER DATA')
-    print(response_json_account)
-    print('ASYNC_20 DATA')
-    print(account_to_json)
+
+
+
+
     assert response_json_account == account_to_json
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_updates_units(instrument):
     order_request = OrderRequest(units=0.123456)
-    print(order_request)
-    print(hasattr(order_request, 'units'))
+
+
     result = _format_order_request(order_request, instrument, clip=True)
     assert result.units >= instrument.minimum_trade_size
 
@@ -241,8 +235,8 @@ def test_format_order_requests_raises_error_when_units_less_than_minimum(instrum
 def test_format_order_requests_applies_correct_precision_to_units(instrument):
     order_request = OrderRequest(units=50.1234567891234)
     result = _format_order_request(order_request, instrument)
-    print(result.units)
-    print(instrument.trade_units_precision)
+
+
     if instrument.trade_units_precision == 0:
         assert re.findall(r'(?<=\.)\d+', str(result.units))[0] == '0'
     else:
@@ -250,8 +244,8 @@ def test_format_order_requests_applies_correct_precision_to_units(instrument):
 
     order_request = OrderRequest(units=0.1234567891234)
     result = _format_order_request(order_request, instrument, clip=True)
-    print(result.units)
-    print(instrument.trade_units_precision)
+
+
     if instrument.trade_units_precision == 0:
         assert re.findall(r'(?<=\.)\d+', str(result.units))[0] == '0'
     else:

@@ -6,7 +6,7 @@ from async_v20.definitions.base import create_attribute
 from tests.test_definitions.helpers import get_valid_primitive_data, create_cls_annotations
 from async_v20.exceptions import UnknownValue, InstantiationFailure
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 model_classes = (cls for cls in (getattr(types, typ) for typ in types.__all__) if
@@ -18,8 +18,8 @@ model_classes_data = [(cls, get_valid_primitive_data(cls)) for cls in model_clas
 @pytest.mark.parametrize('cls, data', model_classes_data)
 def test_class_annotations_match_the_parents_class_annotations(cls, data):
     if not cls.__bases__[0] == Model:
-        print(cls.__bases__[0].__init__.__annotations__)
-        print(cls.__init__.__annotations__)
+
+
 
         for annotation in cls.__init__.__annotations__:
             assert annotation in cls.__bases__[0].__init__.__annotations__
@@ -56,12 +56,12 @@ def test_all_types_can_be_instantiated_from_tuple(cls, data):
 
     for index, argument in enumerate(arguments):
         if isinstance(argument, dict):
-            print(argument)
+
             args = list(arguments)
             args[index] = tuple(argument.values())
             result = cls(*args).json(datetime_format='UNIX')
-            print(result)
-            print(result_json)
+
+
             assert result == result_json
 
 
@@ -69,7 +69,7 @@ def test_all_types_can_be_instantiated_from_tuple(cls, data):
 def test_all_types_can_be_instantiated_from_annotation(cls, data):
     arguments = {k: create_attribute(create_cls_annotations(cls)[k], v)
                  for k, v in data.items()}
-    print(arguments)
+
     assert cls(**arguments)
 
 @pytest.mark.parametrize('cls, data', model_classes_data)

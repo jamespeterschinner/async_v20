@@ -9,7 +9,7 @@ from ..fixtures import server as server_module
 from ..fixtures.client import client
 from async_v20.exceptions import UnexpectedStatus
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 client = client
@@ -56,7 +56,7 @@ async def test_client_methods_send_correct_data(method, server, client):
             # Server not keeping a data stream open
             # Response Not containing expected data
         # TODO Added meaning full asserts
-        print(server_module.received)
+
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: hasattr(x, 'shortcut')))
@@ -68,7 +68,7 @@ async def test_client_methods_shortcut_api_methods(method, server, client):
         method = getattr(client, method[0])
         server_module.status = 201
 
-        print(method)
+
         try:
             resp = await method(*data)
         except (KeyError, ServerDisconnectedError, ContentTypeError, AttributeError):
@@ -76,6 +76,6 @@ async def test_client_methods_shortcut_api_methods(method, server, client):
             # Server not keeping a data stream open
             # Response Not containing expected data
         # TODO Added meaning full asserts
-        print(server_module.received)
+
 
 

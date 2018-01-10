@@ -29,7 +29,7 @@ changes_response_two = changes_response_two
 all_trades_open_closed = all_trades_open_closed
 services_down = services_down
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('async_v20')
 logger.disabled = True
 
 
@@ -157,7 +157,7 @@ async def test_request_limiter_limits(client, server, event_loop):
     async with client as client:
         await asyncio.gather(*[client.list_orders() for _ in range(concurrent_requests)])
     time_taken = time.time() - start
-    print(time_taken)
+
     assert time_taken >= (concurrent_requests / client.max_requests_per_second)
 
 
