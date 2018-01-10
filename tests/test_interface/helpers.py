@@ -1,3 +1,6 @@
+import ujson as json
+def sort_json(x):
+    return json.dumps(json.loads(x), sort_keys=True)
 
 def order_dict(obj):
     if isinstance(obj, dict):

@@ -87,10 +87,8 @@ async def test_create_request_params(client, method, signature, kwargs):
     """Test that all every argument supplied to an endpoint goes into the HTTP request"""
 
     endpoint = method.endpoint
-    print(method.__name__)
     arguments = construct_arguments(client, signature, **kwargs)
     total_params = []
-    print(endpoint.request_schema)
     for location in locations:
         result = _create_request_params(client, endpoint, arguments, location)
         total_params.extend(result)

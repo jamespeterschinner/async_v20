@@ -1,9 +1,9 @@
 import pytest
-
 from tests.fixtures.static import get_account_details_response, get_pricing_response, list_accounts_response
 from async_v20.interface.response import Response
 from ..fixtures.client import client
 from ..fixtures import server as server_module
+from .helpers import sort_json
 
 import logging
 logger = logging.getLogger('async_v20')
@@ -11,6 +11,7 @@ logger.disabled = True
 
 client = client
 server = server_module.server
+
 
 
 @pytest.mark.asyncio
@@ -21,8 +22,7 @@ async def test_response_creates_correct_json(client, server):
         resp_json = response.json()
 
         correct = get_account_details_response.replace(' ', '')
-
-        assert resp_json == correct
+        assert sort_json(resp_json) == sort_json(correct)
 
 
 @pytest.mark.asyncio
@@ -32,11 +32,9 @@ async def test_response_returns_json(client, server):
         account_details = await client.get_account_details()
         pricing = await client.get_pricing()
 
-    assert accounts.json() == list_accounts_response.replace(' ', '')
-    assert account_details.json() == get_account_details_response.replace(' ', '')
-
-
-    assert pricing.json() == get_pricing_response.replace(' ', '')
+    assert sort_json(accounts.json()) == sort_json(list_accounts_response.replace(' ', ''))
+    assert sort_json(account_details.json()) == sort_json(get_account_details_response.replace(' ', ''))
+    assert sort_json(pricing.json()) == sort_json(get_pricing_response.replace(' ', ''))
 
 @pytest.mark.asyncio
 async def test_response_keys_can_be_accessed_through_dot(client, server):

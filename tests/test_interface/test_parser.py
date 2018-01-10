@@ -30,6 +30,7 @@ from async_v20.definitions.types import PricingHeartbeat
 from async_v20.definitions.types import TransactionHeartbeat
 from async_v20.definitions.types import Price
 from async_v20.definitions.types import Transaction
+from .helpers import sort_json
 
 import logging
 logger = logging.getLogger('async_v20')
@@ -165,7 +166,7 @@ async def test_parser_updates_since_transaction_id(client, server):
         assert client.default_parameters[SinceTransactionID] == 10547
 
 
-        assert response.json() == account_changes_response
+        assert sort_json(response.json()) == sort_json(account_changes_response)
 
 
 @pytest.mark.asyncio

@@ -47,7 +47,7 @@ class Metaclass(type):
         class Foo(Model, foo=Bar)
             pass
 
-        would have the attribute foo_instance.foo == Bar 
+        would have the attribute foo_instance.foo == Bar
         """
 
     def __new__(mcs, name, bases, namespace, **kwargs):
@@ -70,8 +70,6 @@ class Metaclass(type):
 
         unbound_signature = signature(class_obj.__init__)  # Does have `self`
 
-        template = tuple(bound_signature.parameters)
-
         # jit == True object attribute instantiation is deferred
         class_obj._instantiate = {
             True: lambda self, name, typ, data:
@@ -83,10 +81,8 @@ class Metaclass(type):
 
         if not class_obj.__name__ == 'Model':
             # Only add the argument parser to objects that derive from Model
-            class_obj.__init__ = arg_parse(class_obj.__init__, template, kwargs)
+            class_obj.__init__ = arg_parse(class_obj.__init__, bound_signature.parameters, kwargs)
             class_obj.__init__.__signature__ = unbound_signature
-
-            class_obj._template = template
 
         # Create a pretty signature for documentation
         class_obj.__doc__ = create_doc_signature(class_obj, bound_signature)
@@ -156,8 +152,7 @@ class Model(object, metaclass=Metaclass):
             fields.append(name)
             object.__setattr__(self, name, attr)
 
-        for name in self._template:
-            value = kwargs[name]
+        for name, value in kwargs.items():
             annotation = self.__annotations__[name]
             if value is ...:
                 pass
