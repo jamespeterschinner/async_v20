@@ -214,13 +214,38 @@ class Model(object, metaclass=Metaclass):
         return {json_attributes[field] if json else field: attr for field, attr in fields()}
 
     def json(self, datetime_format='UNIX'):
+        """Return the JSON representation of the object
+
+        Args:
+            datetime_format: either `UNIX` or `RFC3339` controls the representation
+              of :class:`~async_v20.definitions.primitives.DataTime` objects"""
         return json.dumps(self.dict(json=True, datetime_format=datetime_format))
 
-    def data(self, json=False, datetime_format=None):
-        return flatten_dict(self.dict(json=json, datetime_format=datetime_format), self._delimiter)
+    def data(self, json=False, datetime_format=None, delimiter=None):
+        """Return the a flattened dictionary representation of the object
 
-    def series(self, json=False, datetime_format=None):
-        return pd.Series(self.data(json=json, datetime_format=datetime_format))
+        Args:
+            json: True, dict will contain OANDA's JSON representation of objects (camelCase),
+              False, dict will contain async_v20 representation of objects (snake_case).
+            datetime_format: either `UNIX` or `RFC3339` will serialize the date times into the
+              corresponding format
+            delimiter: Value to use when flattening the the data structure. Defaults to `_`
+        """
+        if delimiter is None:
+            delimiter = self._delimiter
+        return flatten_dict(self.dict(json=json, datetime_format=datetime_format), delimiter)
+
+    def series(self, json=False, datetime_format=None, delimiter=None):
+        """Return a :class:`pandas.Series` representation of the object
+
+        Args:
+            json: True, dict will contain OANDA's JSON representation of objects (camelCase),
+              False, dict will contain async_v20 representation of objects (snake_case).
+            datetime_format: either `UNIX` or `RFC3339` will serialize the date times into the
+              corresponding format
+            delimiter: Value to use when flattening the the data structure. Defaults to `_`
+        """
+        return pd.Series(self.data(json=json, datetime_format=datetime_format, delimiter=delimiter))
 
 
 class Array(object):
