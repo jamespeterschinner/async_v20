@@ -1,3 +1,4 @@
+import logging
 import ujson as json
 
 import numpy as np
@@ -15,12 +16,16 @@ from async_v20.definitions.types import ArrayStr
 from async_v20.definitions.types import ArrayTrade
 from async_v20.definitions.types import ArrayTransaction
 from async_v20.definitions.types import Position
+from async_v20.definitions.types import Trade
 from async_v20.definitions.types import TradeSummary
 from async_v20.exceptions import InstantiationFailure, IncompatibleValue
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
-from ..data.json_data import example_transactions, example_positions, example_instruments
+from ..data.json_data import example_transactions, example_positions, example_instruments, example_trade_array
 from ..fixtures.client import client
 from ..fixtures.server import server
+
+logger = logging.getLogger()
+logger.disabled = True
 
 client = client
 server = server
@@ -135,7 +140,7 @@ def test_series_converts_time_to_datetime(account):
 
 def test_array_returns_instantiation_error():
     class ArrayTest(Array, contains=int):
-       pass
+        pass
 
     with pytest.raises(InstantiationFailure):
         instance = ArrayTest('ABC', 'DEF')
@@ -177,6 +182,62 @@ def test_array_get_instrument_returns_instrument():
     instruments = ArrayInstrument(*json.loads(example_instruments))
     assert instruments.get_instrument('AUD_USD').name == 'AUD_USD'
     assert instruments.get_instrument('EUR_USD').name == 'EUR_USD'
+
+
+def test_array_in_returns_true_when_instrument_is_present():
+    positions = ArrayPosition(*json.loads(example_positions))
+    assert 'AUD_USD' in positions
+
+
+def test_array_in_returns_true_when_id_is_present():
+    trades = ArrayTrade(*example_trade_array)
+    assert 7105 in trades
+
+
+def test_array_in_returns_true_when_object_is_present():
+    trades = ArrayTrade(*example_trade_array)
+    trade = Trade(**example_trade_array[0])
+    assert trade in trades
+
+
+def test_model_raises_not_implemented_when_checking_equality():
+    assert (Trade(0) == '0') == False
+
+
+def test_same_arrays_are_equal():
+    assert ArrayTrade(*example_trade_array) == ArrayTrade(*example_trade_array)
+
+
+def test_array_returns_false_checking_equality():
+    assert (ArrayTrade(*example_trade_array) == 'ERROR') == False
+
+
+def test_array_negative_indexing_works():
+    array = ArrayTrade(*example_trade_array)
+    assert array[-1] == array[len(array) - 1]
+
+
+def test_array_items_cannot_be_modified():
+    array = ArrayTrade(*example_trade_array)
+    with pytest.raises(TypeError):
+        array[0] = None
+
+
+def test_array_items_cannot_be_assigned_to():
+    array = ArrayTrade(*example_trade_array)
+    with pytest.raises(NotImplementedError):
+        array.test = 'ERROR'
+
+
+def test_array_items_cannot_be_deleted_to():
+    array = ArrayTrade(*example_trade_array)
+    with pytest.raises(NotImplementedError):
+        del array.items
+
+def test_array_raises_index_error():
+    array = ArrayTrade(*example_trade_array)
+    with pytest.raises(IndexError):
+        r = array[100]
 
 
 @pytest.mark.asyncio
@@ -224,6 +285,7 @@ async def test_array_get_instruments_returns_all_matching_objects(client, server
         assert len(trades) == 40
         assert type(trades) == ArrayTrade
 
+
 @pytest.mark.asyncio
 async def test_array_get_instruments_returns_default(client, server):
     async with client as client:
@@ -231,12 +293,14 @@ async def test_array_get_instruments_returns_default(client, server):
         trades = rsp.trades.get_instruments('NOTHING', 'DEFAULT')
         assert trades == 'DEFAULT'
 
+
 @pytest.mark.asyncio
 async def test_array_get_instrument_returns_single_object(client, server):
     async with client as client:
         rsp = await client.list_positions()
         position = rsp.positions.get_instrument('AUD_USD')
         assert type(position) == Position
+
 
 @pytest.mark.asyncio
 async def test_array_get_instrument_returns_default(client, server):

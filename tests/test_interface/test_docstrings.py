@@ -1,7 +1,9 @@
 import pytest
 from async_v20 import interface
 from inspect import Parameter
-
+import logging
+logger = logging.getLogger()
+logger.disabled = True
 
 @pytest.mark.parametrize('interface_method', [method for cls in (getattr(interface, cls) for cls in interface.__all__)
                                               for method in cls.__dict__.values() if hasattr(method, 'endpoint')])

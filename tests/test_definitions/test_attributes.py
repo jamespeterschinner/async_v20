@@ -1,5 +1,7 @@
 from async_v20.definitions.attributes import *
-
+import logging
+logger = logging.getLogger()
+logger.disabled = True
 
 def test_keys_in_json_attributes_are_lowercase():
     assert all(str.islower(i) for i in json_attributes)

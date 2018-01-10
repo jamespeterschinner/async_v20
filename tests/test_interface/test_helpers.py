@@ -29,6 +29,10 @@ from ..test_definitions.helpers import get_valid_primitive_data
 client_attrs = [getattr(OandaClient, attr) for attr in dir(OandaClient)]
 client_methods = list(filter(lambda x: hasattr(x, 'endpoint'), client_attrs))
 
+import logging
+logger = logging.getLogger()
+logger.disabled = True
+
 client = client
 server = server
 

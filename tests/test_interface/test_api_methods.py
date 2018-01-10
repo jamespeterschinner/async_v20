@@ -8,6 +8,10 @@ from tests.test_definitions.helpers import get_valid_primitive_data
 from ..fixtures import server as server_module
 from ..fixtures.client import client
 from async_v20.exceptions import UnexpectedStatus
+import logging
+logger = logging.getLogger()
+logger.disabled = True
+
 client = client
 server = server_module.server
 received = server_module.received

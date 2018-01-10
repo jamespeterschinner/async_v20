@@ -3,6 +3,9 @@ from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import AccountID, TradeID
 from async_v20.endpoints.annotations import Smooth, Count
 from .helpers import get_valid_primitive_data
+import logging
+logger = logging.getLogger()
+logger.disabled = True
 
 nested_dict = {'a': {'b': 2, 'c': {'d': 4}}}
 flattened_dict = {'a_b': 2, 'a_c_d': 4}

@@ -5,6 +5,10 @@ from async_v20.interface.response import Response
 from ..fixtures.client import client
 from ..fixtures import server as server_module
 
+import logging
+logger = logging.getLogger()
+logger.disabled = True
+
 client = client
 server = server_module.server
 

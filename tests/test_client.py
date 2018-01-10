@@ -29,6 +29,8 @@ changes_response_two = changes_response_two
 all_trades_open_closed = all_trades_open_closed
 services_down = services_down
 import logging
+logger = logging.getLogger()
+logger.disabled = True
 
 
 def test_oanda_client_finds_token():

@@ -3,6 +3,7 @@ from time import time
 
 from async_v20 import OandaClient
 
+import json
 
 class Time(object):
     def __enter__(self):

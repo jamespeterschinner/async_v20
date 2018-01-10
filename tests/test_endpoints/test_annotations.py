@@ -3,6 +3,9 @@ import random
 import pytest
 
 from async_v20.endpoints import annotations
+import logging
+logger = logging.getLogger()
+logger.disabled = True
 
 
 def test_count_only_allows_valid_data():

@@ -10,6 +10,9 @@ from tests.test_definitions.helpers import get_valid_primitive_data
 from async_v20.exceptions import InvalidValue, InvalidFormatArguments
 from time import time
 from datetime import datetime
+import logging
+logger = logging.getLogger()
+logger.disabled = True
 
 import pandas as pd
 

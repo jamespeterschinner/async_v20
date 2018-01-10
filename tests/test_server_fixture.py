@@ -1,7 +1,9 @@
 import pytest
 from .fixtures.client import client
 from .fixtures.server import server
-
+import logging
+logger = logging.getLogger()
+logger.disabled = True
 client = client
 server = server
 

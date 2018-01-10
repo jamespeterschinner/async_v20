@@ -31,6 +31,10 @@ from async_v20.definitions.types import TransactionHeartbeat
 from async_v20.definitions.types import Price
 from async_v20.definitions.types import Transaction
 
+import logging
+logger = logging.getLogger()
+logger.disabled = True
+
 client = client
 server = server_module.server
 

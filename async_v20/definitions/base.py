@@ -38,7 +38,7 @@ class Metaclass(type):
     """Metaclass for all types in async_v20.
 
     This class:
-        - Configures how the subclasses instantiate there attributes
+        - Configures how the subclasses instantiate their attributes
         - Adds __slots__ to improve memory management
         - Wraps the subclass' __init__ to handle CamelCase kwargs
         - Creates a nicer documentation signature for readthedocs.io
@@ -69,9 +69,9 @@ class Metaclass(type):
         # jit == True object attribute instantiation is deferred
         class_obj._instantiate = {
             True: lambda self, name, typ, data:
-                object.__setattr__(self, '_' + name, partial(create_attribute, typ, data)),
+            object.__setattr__(self, '_' + name, partial(create_attribute, typ, data)),
             False: lambda self, name, typ, data:
-                object.__setattr__(self, name, create_attribute(typ, data))}[jit]
+            object.__setattr__(self, name, create_attribute(typ, data))}[jit]
 
         class_obj._preset_values = kwargs
 
@@ -92,7 +92,7 @@ class Metaclass(type):
 
 class Model(object, metaclass=Metaclass):
     # Make attribute assignment impossible
-    __slots__ = ('_fields',)
+    __slots__ = ('_fields', '_str')
 
     _delimiter = '_'
 
@@ -101,6 +101,9 @@ class Model(object, metaclass=Metaclass):
 
     def __delattr__(self, item):
         raise NotImplementedError
+
+    def __str__(self):
+        return self._str
 
     def __repr__(self):
         def information():
@@ -126,14 +129,23 @@ class Model(object, metaclass=Metaclass):
     def __getattr__(self, item):
         result = self.__getattribute__('_' + item)()
         object.__setattr__(self, item, result)
-        object.__delattr__(self, '_' + item)
         return result
+
+    def __hash__(self):
+        return hash(self._str)
+
+    def __eq__(self, other):
+        try:
+            if self._str == other._str:
+                return True
+        except AttributeError:
+            pass
+        return False
 
     def __init__(self, **kwargs):
 
         # contains all the attributes the class instance contains
         fields = []
-
         for name, attr in self._preset_values.items():
             fields.append(name)
             object.__setattr__(self, name, attr)
@@ -149,7 +161,7 @@ class Model(object, metaclass=Metaclass):
             else:
                 fields.append(name)
                 self._instantiate(name, annotation, value)
-
+        object.__setattr__(self, '_str', f'{self.__class__.__name__}(**{kwargs})')
         object.__setattr__(self, '_fields', tuple(fields))
 
     def replace(self, **kwargs):
@@ -225,7 +237,7 @@ class Array(object):
         performance.
 
         """
-        if item in self._id_index or item in self._instrument_index:
+        if str(item) in self._id_index or item in self._instrument_index:
             return True
         for value in self:
             if value == item:
@@ -260,10 +272,15 @@ class Array(object):
         cls._contains = kwargs.pop('contains')
 
     def __repr__(self):
+        return f'<{self._contains.__name__} x {len(self)}>'
+
+    def __eq__(self, other):
         try:
-            return f'({self[0]}, ...{len(self)}..., {self[-1]})'
-        except IndexError:
-            return f'()'
+            if str(self._items) == str(other._items):
+                return True
+        except AttributeError:
+            pass
+        return False
 
     def __len__(self):
         return len(self._items)
@@ -279,7 +296,7 @@ class Array(object):
     def __getitem__(self, key):
         if isinstance(key, slice):
             return self.__class__(*[self[index]
-                for index in range(len(self._items))[key]])
+                                    for index in range(len(self._items))[key]])
 
         length = len(self._items)
         if key < 0:
@@ -297,7 +314,6 @@ class Array(object):
 
         return self.items[key]
 
-
     def __getattr__(self, item):
         try:
             indexes = self._construct_indexes()
@@ -306,7 +322,6 @@ class Array(object):
             return indexes[item]
         except KeyError as e:
             raise AttributeError(e)
-
 
     def __add__(self, other):
         return self.__class__(*self, *other)
@@ -322,13 +337,12 @@ class Array(object):
     def _construct_indexes(self):
         id_index = {}
         instrument_index = {}
-        for index, obj in enumerate(self):
-
-            key = getattr(obj, 'id', getattr(obj, 'trade_id', None))
+        for index, json_dict in enumerate(self._items):
+            key = json_dict.get('id', json_dict.get('trade_id', None))
             if key is not None:
                 id_index.update({key: index})
 
-            key = getattr(obj, 'instrument', getattr(obj, 'name', None))
+            key = json_dict.get('instrument', json_dict.get('name', None))
             if key is not None:
                 instrument_index.setdefault(key, []).append(index)
 
@@ -339,7 +353,7 @@ class Array(object):
         `object.id` attribute matches the passed id
         else return the default"""
         try:
-            return self[self._id_index[id_]]
+            return self[self._id_index[str(id_)]]
         except KeyError:
             pass
         return default
@@ -403,7 +417,7 @@ def create_attribute(typ, data):
         # when an error code has been returned
         # A none value should be returned if this is the case
         if typ is not None:
-            msg = f'Could note create {typ}. DATA: {data}, TYPE: {type(data)}'
+            msg = f'Could not create {typ}. DATA: {data}, TYPE: {type(data)}'
             logger.error(msg)
             raise InstantiationFailure(msg)
     else:
