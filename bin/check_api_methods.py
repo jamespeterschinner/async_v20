@@ -162,6 +162,9 @@ for response in rsp:
     if fill is not None:
         positions[fill.instrument] += fill.units
 
+print(positions)
+print(account.positions._instrument_index)
+print(account.positions._items)
 for instrument, units in positions.items():
     assert account.positions.get_instrument(instrument).long.units == units
 

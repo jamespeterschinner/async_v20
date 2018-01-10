@@ -21,6 +21,7 @@ from async_v20.definitions.types import TradeSummary
 from async_v20.exceptions import InstantiationFailure, IncompatibleValue
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
 from ..data.json_data import example_transactions, example_positions, example_instruments, example_trade_array
+from ..data.json_data import account_example
 from ..fixtures.client import client
 from ..fixtures.server import server
 
@@ -321,3 +322,8 @@ async def test_array_get_instrument_returns_default(client, server):
         position = rsp.positions.get_instrument('NOTHING', 'DEFAULT')
 
         assert position == 'DEFAULT'
+
+def test_model_get_method():
+    account = Account(**account_example['account'])
+    assert account.get('id')
+    assert account.get('doenstexist') == None

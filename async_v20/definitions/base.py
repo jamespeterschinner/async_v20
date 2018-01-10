@@ -165,6 +165,9 @@ class Model(object, metaclass=Metaclass):
         object.__setattr__(self, '_str', f'{self.__class__.__name__}(**{kwargs})')
         object.__setattr__(self, '_fields', tuple(fields))
 
+    def get(self, name, default=None):
+        return getattr(self, name, default)
+
     def replace(self, **kwargs):
         return self.__class__(**dict(self.dict(), **kwargs))
 
@@ -376,7 +379,8 @@ class Array(object):
                 if key is not None:
                     instrument_index.setdefault(key, []).append(index)
             except AttributeError:
-                pass
+                print('ERROR')
+                break
 
         return dict(_id_index=id_index, _instrument_index=instrument_index)
 
