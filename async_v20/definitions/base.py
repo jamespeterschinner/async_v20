@@ -376,7 +376,7 @@ class Array(object):
         where the `object.instrument` matches the passed instrument
         else return default"""
         try:
-            return self[self._instrument_index[instrument].pop()]
+            return self[self._instrument_index[instrument][0]]
         except KeyError:
             pass
         return default
