@@ -274,6 +274,9 @@ class Array(object):
     def __repr__(self):
         return f'<{self._contains.__name__} x {len(self)}>'
 
+    def __hash__(self):
+        return hash(str(self._items))
+
     def __eq__(self, other):
         try:
             if str(self._items) == str(other._items):
@@ -295,7 +298,7 @@ class Array(object):
 
     def __getitem__(self, key):
         if isinstance(key, slice):
-            return self.__class__(*[self[index]
+            return self.__class__(*[self._items[index]
                                     for index in range(len(self._items))[key]])
 
         length = len(self._items)

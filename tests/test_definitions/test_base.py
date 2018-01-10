@@ -239,6 +239,17 @@ def test_array_raises_index_error():
     with pytest.raises(IndexError):
         r = array[100]
 
+def test_array_hash_returns_same_hash():
+    array_1 = ArrayTrade(*example_trade_array)
+    array_2 = ArrayTrade(*example_trade_array)
+    assert hash(array_1) == hash(array_2)
+    assert array_1 == array_2
+
+def test_slicing_array_allows_for_equality_checking():
+    array_1 = ArrayInstrument(*json.loads(example_instruments))
+    array_2 = array_1[2:6:2]
+    assert array_1[2] == array_2[0]
+    assert array_1[4] == array_2[1]
 
 @pytest.mark.asyncio
 async def test_array_dataframe_returns_dataframe(client, server):
