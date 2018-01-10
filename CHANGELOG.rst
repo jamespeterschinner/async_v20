@@ -4,12 +4,13 @@ Changelog
 6.2.1b0
 =======
 
-- Array class lazy instantiates objects contained with in
+- Array class lazy instantiates objects
 - Model objects with same attributes now compare equal (proving equal DateTime format)
 - Improved repr of Array objects
 - Improved implementation of `get_instrument`/s, `get_id`
+- All Array objects have `get_instrument` and `get_instruments`. Returns either the first or all matching objects
 - Removed Model class `_template` attribute as it was obsolete
-- Added get method to Model to allow for dict like key access. (always has default of None)
+- Added `get(self, name, default=None)` method to Model to allow for dict like key access.
 
 6.2.0b0
 =======
