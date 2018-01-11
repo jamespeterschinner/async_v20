@@ -152,7 +152,7 @@
    pandas
 
       a Python package providing fast, flexible, and expressive data structures
-      designed to make working with “relational” or “labeled” data both easy and intuitive
+      designed to make working with "relational" or "labeled" data both easy and intuitive
 
       http://pandas.pydata.org/
 

@@ -100,7 +100,7 @@ class AccountID(str, Primitive):
     """
 
     # Correct syntax of value
-    format_syntax = '“-“-delimited string with format “{siteID}-{divisionID}-{userID}-{accountNumber}”'
+    format_syntax = '"-"-delimited string with format "{siteID}-{divisionID}-{userID}-{accountNumber}"'
     # Example of correct format
     example = '001-011-5838423-001'
 
@@ -261,7 +261,7 @@ class OrderSpecifier(str, Primitive, Specifier):
 
     # Correct syntax of value
     format_syntax = 'Either the Order’s OANDA-assigned OrderID or the Order’s client-provided ' \
-                    'ClientID prefixed by the “@” symbol'
+                    'ClientID prefixed by the "@" symbol'
     # Example of correct format
     example = '1523'
 
@@ -320,9 +320,9 @@ class OrderTriggerCondition(str, Primitive):
 
     # Valid values
     values = {
-        'DEFAULT': 'Trigger an Order the “natural” way: '
+        'DEFAULT': 'Trigger an Order the "natural" way: '
                    'compare its price to the ask for long Orders and bid for short Orders.',
-        'INVERSE': 'Trigger an Order the opposite of the “natural” way: '
+        'INVERSE': 'Trigger an Order the opposite of the "natural" way: '
                    'compare its price the bid for long Orders and ask for short Orders.',
         'BID': 'Trigger an Order by comparing its price to the bid regardless of whether it is long or short.',
         'ASK': 'Trigger an Order by comparing its price to the ask regardless of whether it is long or short.',
@@ -361,11 +361,11 @@ class TimeInForce(str, Primitive):
 
     # Valid values
     values = {
-        'GTC': 'The Order is “Good unTil Cancelled”',
-        'GTD': 'The Order is “Good unTil Date” and will be cancelled at the provided time',
-        'GFD': 'The Order is “Good For Day” and will be cancelled at 5pm New York time',
-        'FOK': 'The Order must be immediately “Filled Or Killed”',
-        'IOC': 'The Order must be “Immediatedly paritally filled Or Cancelled”'
+        'GTC': 'The Order is "Good unTil Cancelled"',
+        'GTD': 'The Order is "Good unTil Date" and will be cancelled at the provided time',
+        'GFD': 'The Order is "Good For Day" and will be cancelled at 5pm New York time',
+        'FOK': 'The Order must be immediately "Filled Or Killed"',
+        'IOC': 'The Order must be "Immediatedly paritally filled Or Cancelled"'
     }
 
     def __new__(cls, value):
@@ -433,10 +433,10 @@ class AcceptDatetimeFormat(str, Primitive):
 
     # Valid values
     values = {
-        'UNIX': 'If “UNIX” is specified DateTime fields will be specified or '
-                'returned in the “12345678.000000123” format.',
-        'RFC3339': 'If “RFC3339” is specified DateTime will be specified or '
-                   'returned in “YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ” format.'
+        'UNIX': 'If "UNIX" is specified DateTime fields will be specified or '
+                'returned in the "12345678.000000123" format.',
+        'RFC3339': 'If "RFC3339" is specified DateTime will be specified or '
+                   'returned in "YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ" format.'
     }
 
     def __new__(cls, value):
@@ -529,7 +529,7 @@ class InstrumentName(str, Primitive):
     """
 
     # Correct syntax of value
-    format_syntax = 'A string containing the base currency and quote currency delimited by a “_”.'
+    format_syntax = 'A string containing the base currency and quote currency delimited by a "_".'
 
     def __new__(cls, value):
         return super().__new__(cls, value)
@@ -557,7 +557,7 @@ class TradeSpecifier(str, Primitive, Specifier):
 
     # Correct syntax of value
     format_syntax = 'Either the Trade’s OANDA-assigned TradeID or the Trade’s client-provided ' \
-                    'ClientID prefixed by the “@” symbol'
+                    'ClientID prefixed by the "@" symbol'
     # Example of correct format
     example = '@my_trade_id'
 

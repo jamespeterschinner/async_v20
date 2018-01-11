@@ -379,7 +379,6 @@ class Array(object):
                 if key is not None:
                     instrument_index.setdefault(key, []).append(index)
             except AttributeError:
-                print('ERROR')
                 break
 
         return dict(_id_index=id_index, _instrument_index=instrument_index)

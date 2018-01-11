@@ -37,8 +37,8 @@ def _format_order_request(order_request, instrument, clip=False):
                 units=order_request.units.format(
                     instrument.trade_units_precision))
         else:
-            msg = f'OrderRequest units {order_request.units} ' \
-                  f'are less than the minimum trade size {instrument.minimum_trade_size}'
+            msg = f'OrderRequest units {order_request.units} {instrument.name} specified range ' \
+                  f'{instrument.minimum_trade_size} - {instrument.maximum_order_units}'
             logger.error(msg)
             raise InvalidOrderRequest(msg)
 

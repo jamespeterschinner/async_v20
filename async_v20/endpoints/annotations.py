@@ -91,7 +91,7 @@ class Ids(str):
 
 class LongUnits(str):
     """Indication of how much of the long Position to closeout. Either the
-    string “ALL”, the string “NONE”, or a DecimalNumber representing how many
+    string "ALL", the string "NONE", or a DecimalNumber representing how many
     units of the long position to close using a PositionCloseout MarketOrder.
     The units specified must always be positive.
     """
@@ -102,7 +102,7 @@ class LongUnits(str):
 
 class ShortUnits(str):
     """ Indication of how much of the short Position to closeout. Either the
-    string “ALL”, the string “NONE”, or a DecimalNumber representing how many
+    string "ALL", the string "NONE", or a DecimalNumber representing how many
     units of the short position to close using a PositionCloseout
     MarketOrder. The units specified must always be positive.
     """
@@ -165,7 +165,7 @@ class ShortClientExtensions(ClientExtensions):
 
 
 class Units(str):
-    """Indication of how much of the Trade to close. Either the string “ALL”
+    """Indication of how much of the Trade to close. Either the string "ALL"
     (indicating that all of the Trade should be closed), or a DecimalNumber
     representing the number of units of the open Trade to Close using a
     TradeClose MarketOrder. The units specified must always be positive, and

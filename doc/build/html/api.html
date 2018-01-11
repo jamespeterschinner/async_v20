@@ -291,8 +291,8 @@ lastTransactionID= <code class="xref py py-class docutils literal"><span class="
 Name of the Instrument</li>
 <li><strong>price</strong> – <code class="xref py py-class docutils literal"><span class="pre">PriceComponent</span></code>
 The Price component(s) to get candlestick data for. Can contain
-any combination of the characters “M” (midpoint candles) “B”
-(bid candles) and “A” (ask candles).</li>
+any combination of the characters "M" (midpoint candles) "B"
+(bid candles) and "A" (ask candles).</li>
 <li><strong>granularity</strong> – <code class="xref py py-class docutils literal"><span class="pre">CandlestickGranularity</span></code>
 The granularity of the candlesticks to fetch</li>
 <li><strong>count</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Count" title="async_v20.endpoints.annotations.Count"><code class="xref py py-class docutils literal"><span class="pre">Count</span></code></a>
@@ -305,7 +305,7 @@ The start of the time range to fetch candlesticks for.</li>
 <li><strong>to_time</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.ToTime" title="async_v20.endpoints.annotations.ToTime"><code class="xref py py-class docutils literal"><span class="pre">ToTime</span></code></a>
 The end of the time range to fetch candlesticks for.</li>
 <li><strong>smooth</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Smooth" title="async_v20.endpoints.annotations.Smooth"><code class="xref py py-class docutils literal"><span class="pre">Smooth</span></code></a>
-A flag that controls whether the candlestick is “smoothed” or
+A flag that controls whether the candlestick is "smoothed" or
 not.  A smoothed candlestick uses the previous candle’s close
 price as its open price, while an unsmoothed candlestick uses
 the first price from its time range as its open price.</li>
@@ -831,7 +831,7 @@ filled by a market price that is equal to or better than this price.</li>
 The time-in-force requested for the Limit Order.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the Limit Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>position_fill</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code>
 Specification of how Positions in the Account
 are modified when the Order is filled.</li>
@@ -921,7 +921,7 @@ filled by a market price that is equal to or better than this price.</li>
 The time-in-force requested for the Limit Order.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the Limit Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>position_fill</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code>
 Specification of how Positions in the Account
 are modified when the Order is filled.</li>
@@ -1007,10 +1007,10 @@ The price threshold specified for the StopLoss Order. The associated Trade will 
 closed by a market price that is equal to or worse than this threshold.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the StopLoss Order. Restricted
-to “GTC”, “GFD” and “GTD” for StopLoss Orders.</li>
+to "GTC", "GFD" and "GTD" for StopLoss Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the StopLoss Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>trigger_condition</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code>
 Specification of what component of a price should be used
 for comparison when determining if the Order should be filled.</li>
@@ -1081,7 +1081,7 @@ crosses through both the price and the priceBound, the Stop Order will be cancel
 The time-in-force requested for the Stop Order.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the Stop Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>position_fill</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code>
 Specification of how Positions in the Account
 are modified when the Order is filled.</li>
@@ -1172,10 +1172,10 @@ price and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit 
 The worst market price that may be used to fill this MarketIfTouched Order.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the MarketIfTouched Order. Restricted
-to “GTC”, “GFD” and “GTD” for MarketIfTouched Orders.</li>
+to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the MarketIfTouched Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>position_fill</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code>
 Specification of how Positions in the Account
 are modified when the Order is filled.</li>
@@ -1267,10 +1267,10 @@ price and initialMarketPrice, the MarketIfTouchedOrder will behave like a Limit 
 The worst market price that may be used to fill this MarketIfTouched Order.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the MarketIfTouched Order. Restricted
-to “GTC”, “GFD” and “GTD” for MarketIfTouched Orders.</li>
+to "GTC", "GFD" and "GTD" for MarketIfTouched Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the MarketIfTouched Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>position_fill</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderPositionFill</span></code>
 Specification of how Positions in the Account
 are modified when the Order is filled.</li>
@@ -1356,10 +1356,10 @@ The price threshold specified for the TakeProfit Order. The associated Trade wil
 closed by a market price that is equal to or better than this threshold.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the TakeProfit Order. Restricted
-to “GTC”, “GFD” and “GTD” for TakeProfit Orders.</li>
+to "GTC", "GFD" and "GTD" for TakeProfit Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the TakeProfit Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>trigger_condition</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code>
 Specification of what component of a price should be used
 for comparison when determining if the Order should be filled.</li>
@@ -1424,10 +1424,10 @@ The price threshold specified for the TakeProfit Order. The associated Trade wil
 closed by a market price that is equal to or better than this threshold.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the TakeProfit Order. Restricted
-to “GTC”, “GFD” and “GTD” for TakeProfit Orders.</li>
+to "GTC", "GFD" and "GTD" for TakeProfit Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the TakeProfit Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>trigger_condition</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code>
 Specification of what component of a price should be used
 for comparison when determining if the Order should be filled.</li>
@@ -1491,10 +1491,10 @@ The price threshold specified for the StopLoss Order. The associated Trade will 
 closed by a market price that is equal to or worse than this threshold.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the StopLoss Order. Restricted
-to “GTC”, “GFD” and “GTD” for StopLoss Orders.</li>
+to "GTC", "GFD" and "GTD" for StopLoss Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the StopLoss Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>trigger_condition</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code>
 Specification of what component of a price should be used
 for comparison when determining if the Order should be filled.</li>
@@ -1559,10 +1559,10 @@ The price threshold specified for the StopLoss Order. The associated Trade will 
 closed by a market price that is equal to or worse than this threshold.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the StopLoss Order. Restricted
-to “GTC”, “GFD” and “GTD” for StopLoss Orders.</li>
+to "GTC", "GFD" and "GTD" for StopLoss Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the StopLoss Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>trigger_condition</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code>
 Specification of what component of a price should be used
 for comparison when determining if the Order should be filled.</li>
@@ -1625,10 +1625,10 @@ The client ID of the Trade to be closed when the price threshold is breached.</l
 The price distance specified for the TrailingStopLoss Order.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the TrailingStopLoss Order. Restricted
-to “GTC”, “GFD” and “GTD” for TrailingStopLoss Orders.</li>
+to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the StopLoss Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>trigger_condition</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code>
 Specification of what component of a price should be used
 for comparison when determining if the Order should be filled.</li>
@@ -1692,10 +1692,10 @@ The client ID of the Trade to be closed when the price threshold is breached.</l
 The price distance specified for the TrailingStopLoss Order.</li>
 <li><strong>time_in_force</strong> – <code class="xref py py-class docutils literal"><span class="pre">TimeInForce</span></code>
 The time-in-force requested for the TrailingStopLoss Order. Restricted
-to “GTC”, “GFD” and “GTD” for TrailingStopLoss Orders.</li>
+to "GTC", "GFD" and "GTD" for TrailingStopLoss Orders.</li>
 <li><strong>gtd_time</strong> – <code class="xref py py-class docutils literal"><span class="pre">DateTime</span></code>
 The date/time when the StopLoss Order will
-be cancelled if its timeInForce is “GTD”.</li>
+be cancelled if its timeInForce is "GTD".</li>
 <li><strong>trigger_condition</strong> – <code class="xref py py-class docutils literal"><span class="pre">OrderTriggerCondition</span></code>
 Specification of what component of a price should be used
 for comparison when determining if the Order should be filled.</li>
@@ -1832,7 +1832,7 @@ if there are no units to close.</li>
 Name of the Instrument</li>
 <li><strong>long_units</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.LongUnits" title="async_v20.endpoints.annotations.LongUnits"><code class="xref py py-class docutils literal"><span class="pre">LongUnits</span></code></a>
 Indication of how much of the long Position to closeout. Either
-the string “ALL”, the string “NONE”, or a DecimalNumber
+the string "ALL", the string "NONE", or a DecimalNumber
 representing how many units of the long position to close using
 a PositionCloseout MarketOrder. The units specified must always
 be positive.</li>
@@ -1841,7 +1841,7 @@ The client extensions to add to the MarketOrder used to close
 the long position.</li>
 <li><strong>short_units</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.ShortUnits" title="async_v20.endpoints.annotations.ShortUnits"><code class="xref py py-class docutils literal"><span class="pre">ShortUnits</span></code></a>
 Indication of how much of the short Position to closeout.
-Either the string “ALL”, the string “NONE”, or a DecimalNumber
+Either the string "ALL", the string "NONE", or a DecimalNumber
 representing how many units of the short position to close
 using a PositionCloseout MarketOrder. The units specified must
 always be positive.</li>
@@ -2064,7 +2064,7 @@ lastTransactionID= <code class="xref py py-class docutils literal"><span class="
 Specifier for the Trade</li>
 <li><strong>units</strong> – <a class="reference internal" href="annotations.html#async_v20.endpoints.annotations.Units" title="async_v20.endpoints.annotations.Units"><code class="xref py py-class docutils literal"><span class="pre">Units</span></code></a>
 Indication of how much of the Trade to close. Either the string
-“ALL” (indicating that all of the Trade should be closed), or a
+"ALL" (indicating that all of the Trade should be closed), or a
 DecimalNumber representing the number of units of the open
 Trade to Close using a TradeClose MarketOrder. The units
 specified must always be positive, and the magnitude of the

@@ -39,4 +39,5 @@ They key point here is that you need to use async_v20 objects that derive from
 OrderRequest when passing an order request to the order_request argument
 of:
 
-   .. automethod:: async_v20.client.OandaClient.post_order
+   :meth:`~async_v20.client.OandaClient.post_order`
+
