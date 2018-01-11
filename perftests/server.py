@@ -15,8 +15,11 @@ async def handler(request):
     json = response
     if not isinstance(json, str):
         json = next(response)
+    status = 200
+    if method == 'POST':
+        status = 201
     return web.Response(body=gzip.compress(bytes(json, encoding='utf8')), headers=rest_headers,
-                        status=200)
+                        status=status)
 async def main(loop):
     await loop.create_server(web.Server(handler), "127.0.0.1", 8080)
     print("======= Serving on http://127.0.0.1:8080/ ======")
