@@ -176,7 +176,14 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
             :class:`~async_v20.Account`
         """
         logger.info('account()')
-        await self.account_changes()
+        passed_transactions = self.default_parameters[LastTransactionID] - \
+                              self.default_parameters[SinceTransactionID]
+        # OANDA hasn't documented this.
+        # I believe 950 is the actual maximum
+        if passed_transactions < 900:
+            await self.account_changes()
+        else:
+            await self.get_account_details()
         return self._account
 
     async def close_all_trades(self):

@@ -11,6 +11,7 @@ from async_v20 import AccountID
 from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
 from async_v20.endpoints.annotations import Authorization
+from async_v20 import LastTransactionID
 from .fixtures import all_trades_open_closed
 from .fixtures import changes_response_two, services_down
 from .fixtures import server as server_module
@@ -306,3 +307,10 @@ async def test_logger_warning_when_services_are_down(client, server, capsys, ser
                 'fxTrade REST API Service is running without issue',
                 'fxTrade Streaming API Service is running without issue'):
         assert msg in err
+
+@pytest.mark.asyncio
+async def test_account_calls_get_account_details_when_to_many_transactions_have_passed(client, server):
+    assert 0
+    async with client as client:
+        client.default_parameters[LastTransactionID] += 986
+        assert await client.account()
