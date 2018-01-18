@@ -931,7 +931,7 @@ class Order(Model):
         is_trigger_distance_exact: :class:`bool`
     """
 
-    # TODO: Update the annotation for partial_fill when OANDA responds to email
+    # TODO: Update the annotation for partial_fill when OANDA responds to email, & `guaranteed`
 
     def __init__(self, id: OrderID = ..., create_time: DateTime = ..., state: OrderState = ...,
                  client_extensions: ClientExtensions = ..., trade_id: TradeID = ..., price: PriceValue = ...,
@@ -952,7 +952,9 @@ class Order(Model):
                  short_position_closeout: MarketOrderPositionCloseout = ...,
                  margin_closeout: MarketOrderMarginCloseout = ...,
                  delayed_trade_close: MarketOrderDelayedTradeClose = ...,
-                 trigger_distance: PriceValue = ..., is_trigger_distance_exact: bool = ...):
+                 trigger_distance: PriceValue = ..., is_trigger_distance_exact: bool = ...,
+                 guaranteed: bool = ...
+                 ):
         Model.__init__(**locals())
 
 
