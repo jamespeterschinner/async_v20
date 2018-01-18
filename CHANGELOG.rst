@@ -1,6 +1,11 @@
 Changelog
 =========
 
+6.2.2b0
+=======
+
+- `guaranteed: bool` has been added to Order definition.
+
 6.2.1b0
 =======
 

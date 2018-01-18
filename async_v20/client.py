@@ -2,7 +2,6 @@ import asyncio
 import logging
 import os
 import ujson as json
-import warnings
 from functools import partial
 from time import time
 
@@ -23,7 +22,7 @@ async def sleep(s=0.0):
     await asyncio.sleep(s)
 
 
-__version__ = '6.2.1b1'
+__version__ = '6.2.2b0'
 
 
 class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, PositionInterface,
