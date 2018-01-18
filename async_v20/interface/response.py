@@ -1,6 +1,6 @@
 import ujson as json
 import logging
-from ..definitions.base import Specifier
+from ..definitions.base import Specifier, Model, Array
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -48,20 +48,20 @@ class Response(dict):
 
 
         def value_to_dict(value):
-            try:
-                # If value is an Model object
+            if isinstance(value, Model):
                 result = value.dict(json, datetime_format)
-            except AttributeError:
+            elif isinstance(value, Array):
                 try:
                     result = [obj.dict(json, datetime_format) for obj in value]
-                except (AttributeError, TypeError):
-                    if json and isinstance(value, Specifier):
-                        # Specifiers need to be strings for JSON
-                        result = str(value)
-                    elif json and isinstance(value, pd.Timestamp):
-                        result = value.json(datetime_format)
-                    else:
-                        result = value
+                except AttributeError:
+                    result = [obj for obj in value]
+            elif isinstance(value, Specifier) and json:
+                    # Specifiers need to be strings for JSON
+                result = str(value)
+            elif isinstance(value, pd.Timestamp) and json:
+                result = value.json(datetime_format)
+            else:
+                result = value
             return result
 
         return {key: value_to_dict(value) for key, value in self.items()}
