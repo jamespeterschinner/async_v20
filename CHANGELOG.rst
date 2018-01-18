@@ -6,6 +6,7 @@ Changelog
 
 - All OrderRequests now require an `instrument` as there first parameter.
   This is to allow correct rounding of decimal numbers to the instruments specification.
+- `guaranteed: bool` has been added to Transaction definition.
 
 
 6.2.2b0

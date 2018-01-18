@@ -1147,7 +1147,8 @@ class Transaction(Model):
                  loss_quote_home_conversion_factor: DecimalNumber = ...,
                  guaranteed_execution_fee: DecimalNumber = ...,
                  half_spread_cost: DecimalNumber = ...,
-                 partial_fill: str = ...):
+                 partial_fill: str = ...,
+                 guaranteed: bool = ...):
         Model.__init__(**locals())
 
 
