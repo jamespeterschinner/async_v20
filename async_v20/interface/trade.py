@@ -64,7 +64,7 @@ class TradeInterface(object):
         pass
 
     @endpoint(GETTradeSpecifier)
-    def get_trades(self, trade_specifier: TradeSpecifier = ...):
+    def get_trade(self, trade_specifier: TradeSpecifier = ...):
         """
         Get the details of a specific Trade in an Account
 
