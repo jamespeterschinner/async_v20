@@ -1,6 +1,13 @@
 Changelog
 =========
 
+7.0.0b0
+=======
+
+- All OrderRequests now require an `instrument` as there first parameter.
+  This is to allow correct rounding of decimal numbers to the instruments specification.
+
+
 6.2.2b0
 =======
 
