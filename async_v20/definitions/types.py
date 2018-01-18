@@ -148,6 +148,7 @@ class OrderRequest(Model, jit=False):
 
     Attributes:
 
+        instrument: :class:`~async_v20.InstrumentName`
         trade_id: :class:`~async_v20.TradeID`
         price: :class:`~async_v20.PriceValue`
         type: :class:`~async_v20.OrderType`
@@ -167,10 +168,10 @@ class OrderRequest(Model, jit=False):
         trade_client_extensions: :class:`~async_v20.ClientExtensions`
     """
 
-    def __init__(self, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
+    def __init__(self, instrument: InstrumentName, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                  trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
-                 distance: PriceValue = ..., instrument: InstrumentName = ..., units: DecimalNumber = ...,
+                 distance: PriceValue = ..., units: DecimalNumber = ...,
                  price_bound: PriceValue = ..., position_fill: OrderPositionFill = ...,
                  take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
                  trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
@@ -1518,6 +1519,8 @@ class StopLossOrderRequest(OrderRequest, type=OrderType('STOP_LOSS')):
     creating a Stop Loss Order.
 
     Attributes:
+        instrument: :class:`~async_v20.InstrumentName`
+            The StopLossOrderRequest instrument.
         trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
         client_trade_id: :class:`~async_v20.TradeID`
@@ -1540,7 +1543,7 @@ class StopLossOrderRequest(OrderRequest, type=OrderType('STOP_LOSS')):
 
     """
 
-    def __init__(self, trade_id: TradeID, price: PriceValue,
+    def __init__(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
@@ -1551,6 +1554,8 @@ class TakeProfitOrderRequest(OrderRequest, type=OrderType('TAKE_PROFIT')):
     creating a Take Profit Order.
 
     Attributes:
+        instrument: :class:`~async_v20.InstrumentName`
+            The TakeProfitOrderRequest instrument.
         trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
         client_trade_id: :class:`~async_v20.TradeID`
@@ -1573,7 +1578,7 @@ class TakeProfitOrderRequest(OrderRequest, type=OrderType('TAKE_PROFIT')):
 
     """
 
-    def __init__(self, trade_id: TradeID, price: PriceValue,
+    def __init__(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())
@@ -1584,6 +1589,10 @@ class TrailingStopLossOrderRequest(OrderRequest, type=OrderType('TRAILING_STOP_L
     when creating a Trailing Stop Loss Order.
 
     Attributes:
+        instrument: :class:`~async_v20.InstrumentName`
+            The TrailingStopLossOrderRequest instrument
+        instrument: :class:`~async_v20.InstrumentName`
+            The TrailingStopLossOrderRequest instrument
         trade_id: :class:`~async_v20.TradeID`
             The ID of the Trade to close when the price threshold is breached.
         client_trade_id: :class:`~async_v20.TradeID`
@@ -1605,7 +1614,7 @@ class TrailingStopLossOrderRequest(OrderRequest, type=OrderType('TRAILING_STOP_L
 
     """
 
-    def __init__(self, trade_id: TradeID, distance: PriceValue,
+    def __init__(self, instrument: InstrumentName, trade_id: TradeID, distance: PriceValue,
                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         Model.__init__(**locals())

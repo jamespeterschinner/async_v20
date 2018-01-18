@@ -3,6 +3,7 @@ import pytest
 from async_v20.definitions import types
 from async_v20.definitions.base import Model
 from async_v20.definitions.base import create_attribute
+from async_v20.definitions.types import OrderRequest
 from tests.test_definitions.helpers import get_valid_primitive_data, create_cls_annotations
 from async_v20.exceptions import UnknownValue, InstantiationFailure
 import logging
@@ -14,6 +15,14 @@ model_classes = (cls for cls in (getattr(types, typ) for typ in types.__all__) i
 
 model_classes_data = [(cls, get_valid_primitive_data(cls)) for cls in model_classes]
 
+
+@pytest.mark.parametrize('cls, data', model_classes_data)
+def test_all_order_requests_have_an_instrument_parameter(cls, data):
+    if issubclass(cls, OrderRequest):
+        assert hasattr(cls, 'instrument')
+
+        result = cls(**data)
+        assert getattr(result, 'instrument')
 
 @pytest.mark.parametrize('cls, data', model_classes_data)
 def test_class_annotations_match_the_parents_class_annotations(cls, data):

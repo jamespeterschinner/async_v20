@@ -155,13 +155,13 @@ def create_body(self, request_schema, arguments):
                 continue
             else:
                 # Only attempt to format OrderRequests that have an `instrument` attribute
-                if isinstance(value, OrderRequest) and hasattr(value, INSTRUMENT):
+                if isinstance(value, OrderRequest):
                     instrument = self.instruments.get_instrument(value.instrument)
-                    if isinstance(instrument, Instrument):
+                    if instrument is not None:
                         value = _format_order_request(value,
                                                       instrument,
                                                       self.format_order_requests)
-                    elif self.format_order_requests:
+                    else:
                         msg = f'The instrument specified instrument {value.instrument} ' \
                               f'for OrderRequest {value} is not tradeable by this account'
                         logger.error(msg)

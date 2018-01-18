@@ -1,4 +1,5 @@
 from inspect import signature, _empty
+from async_v20.definitions.primitives import InstrumentName
 from async_v20.definitions.types import DateTime
 from async_v20.definitions.base import Model, Array
 from async_v20.endpoints.annotations import Bool, FromTime, ToTime
@@ -24,6 +25,8 @@ def get_valid_primitive_data(primitive):
     elif issubclass(primitive, Model):
         return {attr: get_valid_primitive_data(create_cls_annotations(primitive)[attr])
                 for attr in primitive.__annotations__}
+    elif issubclass(primitive, InstrumentName):
+        return 'AUD_USD'
     if issubclass(primitive, (float)):
         data = 14.0
     elif issubclass(primitive, (int)):

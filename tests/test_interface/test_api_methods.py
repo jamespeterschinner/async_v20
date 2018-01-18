@@ -20,6 +20,7 @@ received = server_module.received
 @pytest.mark.asyncio
 @pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: hasattr(x, 'endpoint')))
 async def test_client_initializes_automatically_with_every_api_method(method, server, client):
+    client.format_order_requests = True
     global received
     global status
 
@@ -43,6 +44,7 @@ async def test_client_initializes_automatically_with_every_api_method(method, se
 @pytest.mark.asyncio
 @pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: hasattr(x, 'endpoint')))
 async def test_client_methods_send_correct_data(method, server, client):
+    client.format_order_requests = True
     data = tuple(get_valid_primitive_data(param.annotation)
                  for param in method[1].__signature__.parameters.values()
                  if param.name != 'self')
@@ -61,6 +63,7 @@ async def test_client_methods_send_correct_data(method, server, client):
 @pytest.mark.asyncio
 @pytest.mark.parametrize('method', inspect.getmembers(OandaClient, lambda x: hasattr(x, 'shortcut')))
 async def test_client_methods_shortcut_api_methods(method, server, client):
+    client.format_order_requests = True
     data = tuple(get_valid_primitive_data(param.annotation)
                  for param in method[1].__signature__.parameters.values()
                  if param.name not in 'self cls')

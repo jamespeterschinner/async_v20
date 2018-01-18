@@ -174,6 +174,7 @@ async def test_client_time_out(client, server):
 @pytest.mark.parametrize('method', inspect.getmembers(OandaClient,
 lambda x: True if hasattr(x, 'shortcut') or hasattr(x, 'endpoint') else False))
 async def test_client_handles_multiple_concurrent_initializations(client, server, method):
+    client.format_order_requests = True
     # Method is a tuple of attribute, function
     client.initialization_sleep = 0  # Make this small to speed up tests
     data = tuple(get_valid_primitive_data(param.annotation)

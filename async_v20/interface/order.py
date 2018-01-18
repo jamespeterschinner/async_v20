@@ -2,6 +2,7 @@ from .decorators import endpoint, shortcut
 from ..definitions.types import ClientExtensions
 from ..definitions.types import ClientID
 from ..definitions.types import DateTime
+from ..definitions.types import DecimalNumber
 from ..definitions.types import InstrumentName
 from ..definitions.types import LimitOrderRequest
 from ..definitions.types import MarketIfTouchedOrderRequest
@@ -23,7 +24,6 @@ from ..definitions.types import TimeInForce
 from ..definitions.types import TradeID
 from ..definitions.types import TrailingStopLossDetails
 from ..definitions.types import TrailingStopLossOrderRequest
-from ..definitions.types import DecimalNumber
 from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import TradeClientExtensions
@@ -77,7 +77,7 @@ class OrderInterface(object):
     @shortcut
     def create_order(self, instrument: InstrumentName, units: DecimalNumber, type: OrderType = 'MARKET',
                      trade_id: TradeID = ..., price: PriceValue = ..., client_trade_id: ClientID = ...,
-                     time_in_force: TimeInForce = ..., gtd_time: DateTime =  ...,
+                     time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                      trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
                      distance: PriceValue = ..., price_bound: PriceValue = ...,
                      position_fill: OrderPositionFill = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -431,7 +431,7 @@ class OrderInterface(object):
 
     @shortcut
     def limit_order(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
+                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                     position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                     client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
                     stop_loss_on_fill: StopLossDetails = ...,
@@ -527,8 +527,9 @@ class OrderInterface(object):
 
     @shortcut
     def limit_replace_order(self,
-                            order_specifier: OrderSpecifier, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                            time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
+                            instrument: InstrumentName, order_specifier: OrderSpecifier, units: DecimalNumber,
+                            price: PriceValue,
+                            time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                             position_fill: OrderPositionFill = 'DEFAULT',
                             trigger_condition: OrderTriggerCondition = 'DEFAULT',
                             client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -539,10 +540,11 @@ class OrderInterface(object):
         Replace a pending Limit Order
 
         Args:
-            order_specifier: :class:`~async_v20.OrderSpecifier`
-                The ID of the Limit Order to replace
+
             instrument: :class:`~async_v20.InstrumentName`
                 The Limit Order's Instrument.
+            order_specifier: :class:`~async_v20.OrderSpecifier`
+                The ID of the Limit Order to replace
             units: :class:`~async_v20.Unit`
                 The quantity requested to be filled by the Limit Order. A posititive number of units
                 results in a long Order, and a negative number of units results in a short Order.
@@ -625,14 +627,16 @@ class OrderInterface(object):
             ))
 
     @shortcut
-    def stop_order(self, trade_id: TradeID, price: PriceValue,
-                   client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
+    def stop_order(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
+                   client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                    trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
         """
         Create a Stop Order
 
         Args:
 
+            instrument: :class:`~async_v20.InstrumentName`
+                The StopOrder's Instrument.
             trade_id: :class:`~async_v20.TradeID`
                 The ID of the Trade to close when the price threshold is breached.
             client_trade_id: :class:`~async_v20.TradeID`
@@ -683,6 +687,7 @@ class OrderInterface(object):
         """
         return self.post_order(
             order_request=StopLossOrderRequest(
+                instrument=instrument,
                 trade_id=trade_id, price=price, client_trade_id=client_trade_id,
                 time_in_force=time_in_force, gtd_time=gtd_time,
                 trigger_condition=trigger_condition, client_extensions=client_extensions
@@ -690,9 +695,10 @@ class OrderInterface(object):
 
     @shortcut
     def stop_replace_order(self,
+                           instrument: InstrumentName,
                            order_specifier: OrderSpecifier,
-                           instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                           price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
+                           units: DecimalNumber, price: PriceValue,
+                           price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                            position_fill: OrderPositionFill = 'DEFAULT',
                            trigger_condition: OrderTriggerCondition = 'DEFAULT',
                            client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
@@ -703,11 +709,10 @@ class OrderInterface(object):
         Replace a pending Stop Order
 
         Args:
-
-            order_specifier: :class:`~async_v20.OrderSpecifier`
-                The ID of the Stop Order to replace
             instrument: :class:`~async_v20.InstrumentName`
                 The Stop Order's Instrument.
+            order_specifier: :class:`~async_v20.OrderSpecifier`
+                The ID of the Stop Order to replace
             units: :class:`~async_v20.Unit`
                 The quantity requested to be filled by the Stop Order. A posititive number of units
                 results in a long Order, and a negative number of units results in a short Order.
@@ -798,7 +803,7 @@ class OrderInterface(object):
     @shortcut
     def market_if_touched_order(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
                                 price_bound: PriceValue = ...,
-                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
+                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                                 position_fill: OrderPositionFill = 'DEFAULT',
                                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                 client_extensions: ClientExtensions = ...,
@@ -902,10 +907,11 @@ class OrderInterface(object):
 
     @shortcut
     def market_if_touched_replace_order(self,
+                                        instrument: InstrumentName,
                                         order_specifier: OrderSpecifier,
-                                        instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
+                                        units: DecimalNumber, price: PriceValue,
                                         price_bound: PriceValue = ...,
-                                        time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
+                                        time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                                         position_fill: OrderPositionFill = 'DEFAULT',
                                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                         client_extensions: ClientExtensions = ...,
@@ -919,10 +925,10 @@ class OrderInterface(object):
 
         Args:
 
-            order_specifier: :class:`~async_v20.OrderSpecifier`
-                The ID of the MarketIfTouched Order to replace
             instrument: :class:`~async_v20.InstrumentName`
                 The MarketIfTouched Order's Instrument.
+            order_specifier: :class:`~async_v20.OrderSpecifier`
+                The ID of the MarketIfTouched Order to replace
             units: :class:`~async_v20.Unit`
                 The quantity requested to be filled by the MarketIfTouched Order. A posititive number of units
                 results in a long Order, and a negative number of units results in a short Order.
@@ -1015,9 +1021,9 @@ class OrderInterface(object):
         )
 
     @shortcut
-    def take_profit_order(self, trade_id: TradeID, price: PriceValue,
+    def take_profit_order(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
                           client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                          gtd_time: DateTime =  ...,
+                          gtd_time: DateTime = ...,
                           trigger_condition: OrderTriggerCondition = 'DEFAULT',
                           client_extensions: ClientExtensions = ...):
         """
@@ -1025,6 +1031,8 @@ class OrderInterface(object):
 
         Args:
 
+            instrument: :class:`~async_v20.InstrumentName`
+                The TakeProfitOrder's Instrument.
             trade_id: :class:`~async_v20.TradeID`
                 The ID of the Trade to close when the price threshold is breached.
             client_trade_id: :class:`~async_v20.TradeID`
@@ -1076,6 +1084,7 @@ class OrderInterface(object):
         """
         return self.post_order(
             order_request=TakeProfitOrderRequest(
+                instrument=instrument,
                 trade_id=trade_id, price=price, client_trade_id=client_trade_id,
                 time_in_force=time_in_force, gtd_time=gtd_time,
                 trigger_condition=trigger_condition,
@@ -1084,10 +1093,11 @@ class OrderInterface(object):
 
     @shortcut
     def take_profit_replace_order(self,
+                                  instrument: InstrumentName,
                                   order_specifier: OrderSpecifier,
                                   trade_id: TradeID, price: PriceValue,
                                   client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                  gtd_time: DateTime =  ...,
+                                  gtd_time: DateTime = ...,
                                   trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                   client_extensions: ClientExtensions = ...
                                   ):
@@ -1096,6 +1106,8 @@ class OrderInterface(object):
 
         Args:
 
+            instrument: :class:`~async_v20.InstrumentName`
+                The TakeProfitOrder's Instrument.
             order_specifier: :class:`~async_v20.OrderSpecifier`
                 The ID of the Take Profit Order to replace
             trade_id: :class:`~async_v20.TradeID`
@@ -1151,6 +1163,7 @@ class OrderInterface(object):
         return self.replace_order(
             order_specifier=order_specifier,
             order_request=TakeProfitOrderRequest(
+                instrument=instrument,
                 trade_id=trade_id, price=price,
                 client_trade_id=client_trade_id,
                 time_in_force=time_in_force, gtd_time=gtd_time,
@@ -1159,8 +1172,8 @@ class OrderInterface(object):
         )
 
     @shortcut
-    def stop_loss_order(self, trade_id: TradeID, price: PriceValue,
-                        client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime =  ...,
+    def stop_loss_order(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
+                        client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
                         client_extensions: ClientExtensions = ...):
         """
@@ -1168,6 +1181,8 @@ class OrderInterface(object):
 
         Args:
 
+            instrument: :class:`~async_v20.InstrumentName`
+                The StopLossOrder's Instrument.
             trade_id: :class:`~async_v20.TradeID`
                 The ID of the Trade to close when the price threshold is breached.
             client_trade_id: :class:`~async_v20.TradeID`
@@ -1218,16 +1233,19 @@ class OrderInterface(object):
         """
         return self.post_order(
             order_request=StopLossOrderRequest(
+                instrument=instrument,
                 trade_id=trade_id, price=price, client_trade_id=client_trade_id,
                 time_in_force=time_in_force, gtd_time=gtd_time,
                 trigger_condition=trigger_condition, client_extensions=client_extensions
             ))
 
     @shortcut
-    def stop_loss_replace_order(self, order_specifier: OrderSpecifier,
+    def stop_loss_replace_order(self,
+                                instrument: InstrumentName,
+                                order_specifier: OrderSpecifier,
                                 trade_id: TradeID, price: PriceValue,
                                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                gtd_time: DateTime =  ...,
+                                gtd_time: DateTime = ...,
                                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                 client_extensions: ClientExtensions = ...):
         """
@@ -1235,6 +1253,8 @@ class OrderInterface(object):
 
         Args:
 
+            instrument: :class:`~async_v20.InstrumentName`
+                The StopLossOrder's Instrument.
             order_specifier: :class:`~async_v20.OrderSpecifier`
                 The ID of the Stop Loss Order to replace
             trade_id: :class:`~async_v20.TradeID`
@@ -1290,6 +1310,7 @@ class OrderInterface(object):
         return self.replace_order(
             order_specifier=order_specifier,
             order_request=StopLossOrderRequest(
+                instrument=instrument,
                 trade_id=trade_id, price=price,
                 client_trade_id=client_trade_id,
                 time_in_force=time_in_force, gtd_time=gtd_time,
@@ -1298,9 +1319,11 @@ class OrderInterface(object):
             ))
 
     @shortcut
-    def trailing_stop_loss_order(self, trade_id: TradeID, distance: PriceValue,
+    def trailing_stop_loss_order(self,
+                                 instrument: InstrumentName,
+                                 trade_id: TradeID, distance: PriceValue,
                                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                 gtd_time: DateTime =  ...,
+                                 gtd_time: DateTime = ...,
                                  trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                  client_extensions: ClientExtensions = ...):
         """
@@ -1308,6 +1331,8 @@ class OrderInterface(object):
 
         Args:
 
+            instrument: :class:`~async_v20.InstrumentName`
+                The TrailingStopLossOrder's Instrument.
             trade_id: :class:`~async_v20.TradeID`
                 The ID of the Trade to close when the price threshold is breached.
             client_trade_id: :class:`~async_v20.TradeID`
@@ -1358,6 +1383,7 @@ class OrderInterface(object):
         """
         return self.post_order(
             order_request=TrailingStopLossOrderRequest(
+                instrument=instrument,
                 trade_id=trade_id, distance=distance,
                 client_trade_id=client_trade_id,
                 time_in_force=time_in_force,
@@ -1367,10 +1393,12 @@ class OrderInterface(object):
             ))
 
     @shortcut
-    def trailing_stop_loss_replace_order(self, order_specifier: OrderSpecifier,
+    def trailing_stop_loss_replace_order(self,
+                                         instrument: InstrumentName,
+                                         order_specifier: OrderSpecifier,
                                          trade_id: TradeID, distance: PriceValue,
                                          client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                         gtd_time: DateTime =  ...,
+                                         gtd_time: DateTime = ...,
                                          trigger_condition: OrderTriggerCondition = 'DEFAULT',
                                          client_extensions: ClientExtensions = ...):
         """
@@ -1378,6 +1406,8 @@ class OrderInterface(object):
 
         Args:
 
+            instrument: :class:`~async_v20.InstrumentName`
+                The TrailingStopLossOrder's Instrument.
             order_specifier: :class:`~async_v20.OrderSpecifier`
                 The ID of the Take Profit Order to replace
             trade_id: :class:`~async_v20.TradeID`
@@ -1432,6 +1462,7 @@ class OrderInterface(object):
         return self.replace_order(
             order_specifier=order_specifier,
             order_request=TrailingStopLossOrderRequest(
+                instrument=instrument,
                 trade_id=trade_id, distance=distance,
                 client_trade_id=client_trade_id,
                 time_in_force=time_in_force,

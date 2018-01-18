@@ -45,7 +45,7 @@ def test_order_dict():
 
 @pytest.fixture
 def stop_loss_order():
-    order = StopLossOrderRequest(trade_id=1234, price=0.8)
+    order = StopLossOrderRequest(instrument='AUD_USD', trade_id=1234, price=0.8)
     yield order
     del order
 
@@ -159,7 +159,8 @@ async def test_request_body_is_constructed_correctly(client, server, stop_loss_o
     await client.initialize()
     result = create_body(client, POSTOrders.request_schema,
                          {OrderRequest: stop_loss_order, 'test': Account(), 'arg': 'random_string'})
-    correct = {'order': {'tradeID': '1234', 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
+
+    correct = {'order': {'instrument':'AUD_USD','tradeID': '1234', 'price': '0.8', 'type': 'STOP_LOSS', 'timeInForce': 'GTC',
                          'triggerCondition': 'DEFAULT'}}
 
 
@@ -215,7 +216,7 @@ async def test_objects_can_be_converted_between_Model_object_and_json():
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_updates_units(instrument):
-    order_request = OrderRequest(units=0.123456)
+    order_request = OrderRequest(instrument='AUD_JPY', units=0.123456)
 
 
     result = _format_order_request(order_request, instrument, clip=True)
@@ -224,14 +225,14 @@ def test_format_order_requests_updates_units(instrument):
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_raises_error_when_units_less_than_minimum(instrument):
-    order_request = OrderRequest(units=0.123456)
+    order_request = OrderRequest(instrument='XPT_USD', units=0.123456)
     with pytest.raises(InvalidOrderRequest):
         _format_order_request(order_request, instrument)
 
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_applies_correct_precision_to_units(instrument):
-    order_request = OrderRequest(units=50.1234567891234)
+    order_request = OrderRequest(instrument=instrument.name, units=50.1234567891234)
     result = _format_order_request(order_request, instrument)
 
 
@@ -240,7 +241,7 @@ def test_format_order_requests_applies_correct_precision_to_units(instrument):
     else:
         assert len(re.findall(r'(?<=\.)\d+', str(result.units))[0]) == instrument.trade_units_precision
 
-    order_request = OrderRequest(units=0.1234567891234)
+    order_request = OrderRequest(instrument=instrument.name, units=0.1234567891234)
     result = _format_order_request(order_request, instrument, clip=True)
 
 
@@ -252,7 +253,7 @@ def test_format_order_requests_applies_correct_precision_to_units(instrument):
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_applies_correct_precision_to_price_price_bound_distance(instrument):
-    order_request = OrderRequest(price=50.1234567891234, price_bound=1234.123456789,
+    order_request = OrderRequest(instrument='AUD_USD', price=50.1234567891234, price_bound=1234.123456789,
                                  distance=20.123456789)
     result = _format_order_request(order_request, instrument)
     for attr in (result.price, result.price_bound, result.distance):
@@ -264,7 +265,7 @@ def test_format_order_requests_applies_correct_precision_to_price_price_bound_di
 
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_applies_correct_precision_to_take_profit_on_fill_stop_loss_on_fill(instrument):
-    order_request = OrderRequest(take_profit_on_fill=50.123456789,
+    order_request = OrderRequest(instrument=instrument.name, take_profit_on_fill=50.123456789,
                                  stop_loss_on_fill=50.123456789)
     result = _format_order_request(order_request, instrument)
     for attr in (result.stop_loss_on_fill.price, result.take_profit_on_fill):
@@ -277,6 +278,7 @@ def test_format_order_requests_applies_correct_precision_to_take_profit_on_fill_
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_applies_correct_precision_to_trailing_stop_loss_on_fill(instrument):
     order_request = OrderRequest(
+        instrument=instrument.name,
         trailing_stop_loss_on_fill=instrument.minimum_trailing_stop_distance + 0.123456789
     )
     result = _format_order_request(order_request, instrument)
@@ -290,6 +292,7 @@ def test_format_order_requests_applies_correct_precision_to_trailing_stop_loss_o
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_limits_trailing_stop_loss_on_fill_to_valid_range(instrument):
     order_request = OrderRequest(
+        instrument=instrument.name,
         trailing_stop_loss_on_fill=0
     )
     if instrument.minimum_trailing_stop_distance > 0:
@@ -300,6 +303,7 @@ def test_format_order_requests_limits_trailing_stop_loss_on_fill_to_valid_range(
     assert result.trailing_stop_loss_on_fill.distance == instrument.minimum_trailing_stop_distance
 
     order_request = OrderRequest(
+        instrument=instrument.name,
         trailing_stop_loss_on_fill=instrument.maximum_trailing_stop_distance + 10
     )
 
@@ -313,6 +317,7 @@ def test_format_order_requests_limits_trailing_stop_loss_on_fill_to_valid_range(
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_limits_units_to_valid_range(instrument):
     order_request = OrderRequest(
+        instrument=instrument.name,
         units=0
     )
 
@@ -325,6 +330,7 @@ def test_format_order_requests_limits_units_to_valid_range(instrument):
     assert result.units == instrument.minimum_trade_size
 
     order_request = OrderRequest(
+        instrument=instrument.name,
         units=instrument.maximum_order_units + 10
     )
 
@@ -338,6 +344,7 @@ def test_format_order_requests_limits_units_to_valid_range(instrument):
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_format_order_requests_accepts_negative_values_for_units(instrument):
     order_request = OrderRequest(
+        instrument=instrument.name,
         units=-instrument.minimum_trade_size
     )
 
@@ -353,6 +360,7 @@ def test_format_order_requests_accepts_negative_values_for_units(instrument):
 @pytest.mark.parametrize('instrument', ArrayInstrument(*json.loads(example_instruments)))
 def test_ins_context_does_not_add_parameters_to_order_requests(instrument):
     order_request = OrderRequest(
+        instrument=instrument.name,
         units=instrument.minimum_trade_size
     )
     result = _format_order_request(order_request, instrument, clip=True)
