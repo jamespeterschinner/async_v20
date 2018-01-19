@@ -209,7 +209,7 @@ class Model(object, metaclass=Metaclass):
                     attr = str(attr)
                 elif isinstance(attr, pd.Timestamp):
                     if json or datetime_format == 'RFC3339':
-                        attr = attr.json(datetime_format)
+                        attr = attr.json(datetime_format=datetime_format)
                     elif datetime_format == 'UNIX':
                         attr = attr.value
 

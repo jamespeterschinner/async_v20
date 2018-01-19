@@ -67,7 +67,7 @@ def _datetime_to_json(self, datetime_format):
         result = str(self.value)
         result = f'{result[:-9]}.{result[-9:]}'
     else:
-        msg = f'{datetime_format} is not a valid value. It must be either "RFC3339" or "UNIX"'
+        msg = f'datetime_format {datetime_format} is not a valid value. It must be either "RFC3339" or "UNIX"'
         logger.error(msg)
         raise InvalidValue(msg)
 
