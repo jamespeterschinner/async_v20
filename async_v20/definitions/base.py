@@ -368,12 +368,17 @@ class Array(object):
 
     def _construct_indexes(self):
         id_index = {}
+        trade_id_index = {}
         instrument_index = {}
         for index, json_dict in enumerate(self._items):
             try:
-                key = json_dict.get('id', json_dict.get('trade_id', None))
+                key = json_dict.get('id', None)
                 if key is not None:
                     id_index.update({key: index})
+
+                key = json_dict.get('tradeID', None) # JSON TRADE_ID!
+                if key is not None:
+                    trade_id_index.update({key: index})
 
                 key = json_dict.get('instrument', json_dict.get('name', None))
                 if key is not None:
@@ -381,7 +386,11 @@ class Array(object):
             except AttributeError:
                 break
 
-        return dict(_id_index=id_index, _instrument_index=instrument_index)
+        return dict(
+            _id_index=id_index,
+            _trade_id_index=trade_id_index,
+            _instrument_index=instrument_index
+        )
 
     def get_id(self, id_, default=None):
         """Return the objects in the array where the
@@ -389,6 +398,17 @@ class Array(object):
         else return the default"""
         try:
             return self[self._id_index[str(id_)]]
+        except KeyError:
+            pass
+        return default
+
+    def get_trade_id(self, id_, default=None):
+        """Return the objects in the array where the
+        `object.trade_id` attribute matches the passed id
+        else return the default"""
+        print('TRADE ID INDEX: ', self._trade_id_index)
+        try:
+            return self[self._trade_id_index[str(id_)]]
         except KeyError:
             pass
         return default

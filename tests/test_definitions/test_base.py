@@ -18,6 +18,7 @@ from async_v20.definitions.types import ArrayTransaction
 from async_v20.definitions.types import Position
 from async_v20.definitions.types import Trade
 from async_v20.definitions.types import TradeSummary
+from async_v20.definitions.types import Order
 from async_v20.exceptions import InstantiationFailure, IncompatibleValue
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
 from ..data.json_data import example_transactions, example_positions, example_instruments, example_trade_array
@@ -322,6 +323,21 @@ async def test_array_get_instrument_returns_default(client, server):
         position = rsp.positions.get_instrument('NOTHING', 'DEFAULT')
 
         assert position == 'DEFAULT'
+
+@pytest.mark.asyncio
+async def test_array_get_trade_id_returns_single_object(client, server):
+    async with client as client:
+        rsp = await client.list_orders()
+        print(rsp.json())
+        order = rsp.orders.get_trade_id(34543)
+        assert type(order) == Order
+
+@pytest.mark.asyncio
+async def test_array_get_trade_id_returns_default(client, server):
+    async with client as client:
+        rsp = await client.list_orders()
+        order = rsp.orders.get_trade_id('NOTHING', 'DEFAULT')
+        assert order == 'DEFAULT'
 
 def test_model_get_method():
     account = Account(**account_example['account'])
