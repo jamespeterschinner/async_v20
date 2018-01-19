@@ -2,6 +2,7 @@ import pytest
 from tests.fixtures.static import get_account_details_response, get_pricing_response, list_accounts_response
 from async_v20.interface.response import Response
 from async_v20.definitions.base import Model, Array
+from async_v20.definitions.types import ArrayStr
 from ..fixtures.client import client
 from ..fixtures import server as server_module
 from .helpers import sort_json
@@ -77,3 +78,6 @@ async def test_response_dict(client, server):
                 client.list_open_trades(),
             ):
             check_types(rsp.dict())
+
+    response = Response({'test': ArrayStr('1','2','3')}, 200, True, 'UNIX')
+    check_types(response.dict())

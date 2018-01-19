@@ -356,7 +356,8 @@ async def test_array_get_trade_id_returns_correct_object(client, server):
         assert order.type == 'TAKE_PROFIT'
         order = rsp.orders.get_trade_id(34543, type='STOP_LOSS')
         assert order.type == 'STOP_LOSS'
-
+        order = rsp.orders.get_trade_id(34543, default='DEFAULT', type='INVALID')
+        assert order == 'DEFAULT'
 
 @pytest.mark.asyncio
 async def test_array_get_trade_ids_returns_array_object(client, server):

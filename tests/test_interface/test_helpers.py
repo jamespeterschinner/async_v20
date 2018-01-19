@@ -386,3 +386,6 @@ def test_too_many_passed_transactions(client):
     client.default_parameters[SinceTransactionID] = 0
     client.default_parameters[LastTransactionID] = 901
     assert too_many_passed_transactions(client)
+
+    client.default_parameters.pop(SinceTransactionID)
+    assert not too_many_passed_transactions(client)
