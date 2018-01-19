@@ -1,9 +1,11 @@
 import pytest
 from tests.fixtures.static import get_account_details_response, get_pricing_response, list_accounts_response
 from async_v20.interface.response import Response
+from async_v20.definitions.base import Model, Array
 from ..fixtures.client import client
 from ..fixtures import server as server_module
 from .helpers import sort_json
+import asyncio
 
 import logging
 logger = logging.getLogger('async_v20')
@@ -57,3 +59,21 @@ async def test_response_repr(client, server):
     with client as client:
         rsp = await client.get_candles('AUD_USD')
         repr(rsp)
+
+@pytest.mark.asyncio
+async def test_response_dict(client, server):
+    def check_types(item):
+        for value in item.values():
+            if isinstance(value, dict):
+                check_types(value)
+            assert not isinstance(value, (Model, Array))
+
+    async with client as client:
+        for rsp in await asyncio.gather(
+                client.get_account_details(),
+                client.get_candles('AUD_USD'),
+                client.list_accounts(),
+                client.list_services(),
+                client.list_open_trades(),
+            ):
+            check_types(rsp.dict())
