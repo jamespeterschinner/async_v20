@@ -11,18 +11,19 @@ from async_v20.definitions.helpers import flatten_dict
 from async_v20.definitions.primitives import TradeID, AccountID
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import ArrayInstrument
+from async_v20.definitions.types import ArrayOrder
 from async_v20.definitions.types import ArrayPosition
 from async_v20.definitions.types import ArrayStr
 from async_v20.definitions.types import ArrayTrade
 from async_v20.definitions.types import ArrayTransaction
+from async_v20.definitions.types import Order
 from async_v20.definitions.types import Position
 from async_v20.definitions.types import Trade
 from async_v20.definitions.types import TradeSummary
-from async_v20.definitions.types import Order
 from async_v20.exceptions import InstantiationFailure, IncompatibleValue
 from ..data.json_data import GETAccountID_response, example_trade_summary, example_changed_trade_summary
-from ..data.json_data import example_transactions, example_positions, example_instruments, example_trade_array
 from ..data.json_data import account_example
+from ..data.json_data import example_transactions, example_positions, example_instruments, example_trade_array
 from ..fixtures.client import client
 from ..fixtures.server import server
 
@@ -142,6 +143,7 @@ def test_array_returns_instantiation_error():
         instance = ArrayTest('ABC', 'DEF')
         result = instance[0]
 
+
 def test_array_with_no_dict_does_not_error_when_attempting_get_id():
     class ArrayTest(Array, contains=int):
         pass
@@ -237,10 +239,12 @@ def test_array_items_cannot_be_deleted_to():
     with pytest.raises(NotImplementedError):
         del array.items
 
+
 def test_array_raises_index_error():
     array = ArrayTrade(*example_trade_array)
     with pytest.raises(IndexError):
         r = array[100]
+
 
 def test_array_hash_returns_same_hash():
     array_1 = ArrayTrade(*example_trade_array)
@@ -248,11 +252,13 @@ def test_array_hash_returns_same_hash():
     assert hash(array_1) == hash(array_2)
     assert array_1 == array_2
 
+
 def test_slicing_array_allows_for_equality_checking():
     array_1 = ArrayInstrument(*json.loads(example_instruments))
     array_2 = array_1[2:6:2]
     assert array_1[2] == array_2[0]
     assert array_1[4] == array_2[1]
+
 
 @pytest.mark.asyncio
 async def test_array_dataframe_returns_dataframe(client, server):
@@ -324,6 +330,7 @@ async def test_array_get_instrument_returns_default(client, server):
 
         assert position == 'DEFAULT'
 
+
 @pytest.mark.asyncio
 async def test_array_get_trade_id_returns_single_object(client, server):
     async with client as client:
@@ -332,12 +339,42 @@ async def test_array_get_trade_id_returns_single_object(client, server):
         order = rsp.orders.get_trade_id(34543)
         assert type(order) == Order
 
+
 @pytest.mark.asyncio
 async def test_array_get_trade_id_returns_default(client, server):
     async with client as client:
         rsp = await client.list_orders()
         order = rsp.orders.get_trade_id('NOTHING', 'DEFAULT')
         assert order == 'DEFAULT'
+
+
+@pytest.mark.asyncio
+async def test_array_get_trade_id_returns_correct_object(client, server):
+    async with client as client:
+        rsp = await client.list_orders()
+        order = rsp.orders.get_trade_id(34543, type='TAKE_PROFIT')
+        assert order.type == 'TAKE_PROFIT'
+        order = rsp.orders.get_trade_id(34543, type='STOP_LOSS')
+        assert order.type == 'STOP_LOSS'
+
+
+@pytest.mark.asyncio
+async def test_array_get_trade_ids_returns_array_object(client, server):
+    async with client as client:
+        rsp = await client.list_orders()
+        print(rsp.json())
+        orders = rsp.orders.get_trade_ids(34543)
+        assert type(orders) == ArrayOrder
+
+
+@pytest.mark.asyncio
+async def test_array_get_trade_ids_returns_default(client, server):
+    async with client as client:
+        rsp = await client.list_orders()
+        print(rsp.json())
+        orders = rsp.orders.get_trade_ids('NOTHING', 'DEFAULT')
+        assert orders == 'DEFAULT'
+
 
 def test_model_get_method():
     account = Account(**account_example['account'])

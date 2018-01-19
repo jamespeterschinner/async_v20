@@ -370,17 +370,20 @@ class Array(object):
         id_index = {}
         trade_id_index = {}
         instrument_index = {}
-        for index, json_dict in enumerate(self._items):
+        for index, json_model in enumerate(self._items):
+            # json_model is either a json_dict. Or a Model object
+            # constructed from the json_dict
             try:
-                key = json_dict.get('id', None)
+                key = json_model.get('id', None)
                 if key is not None:
-                    id_index.update({key: index})
+                    id_index.update({str(key): index})
 
-                key = json_dict.get('tradeID', None) # JSON TRADE_ID!
+
+                key = json_model.get('trade_id', json_model.get('tradeID'))
                 if key is not None:
-                    trade_id_index.update({key: index})
+                    trade_id_index.setdefault(str(key), []).append(index)
 
-                key = json_dict.get('instrument', json_dict.get('name', None))
+                key = json_model.get('instrument', json_model.get('name', None))
                 if key is not None:
                     instrument_index.setdefault(key, []).append(index)
             except AttributeError:
@@ -402,12 +405,46 @@ class Array(object):
             pass
         return default
 
-    def get_trade_id(self, id_, default=None):
+    def get_trade_id(self, id_, default=None, *, type=None):
+        """Return the first object in the array where the
+        `object.trade_id` attribute matches the passed id
+        else return the default
+
+        Args:
+            id_: The trade_id to get.
+            default: The default value to return if the id_ cannot be found
+            type: The returned objects OANDA type. eg. 'STOP_LOSS'
+                not to be confused the `type(instance)`
+        """
+        try:
+            if type is not None:
+                for obj in (self[idx] for idx in self._trade_id_index[str(id_)]):
+                    if getattr(obj, 'type', None) == type:
+                        return obj
+                return default
+
+            return self[self._trade_id_index[str(id_)][0]]
+        except KeyError:
+            pass
+        return default
+
+    def get_trade_ids(self, id_, default=None):
         """Return the objects in the array where the
         `object.trade_id` attribute matches the passed id
         else return the default"""
         try:
-            return self[self._trade_id_index[str(id_)]]
+            return self.__class__(*[(self[idx] for idx in self._trade_id_index[str(id_)])])
+        except KeyError:
+            pass
+        return default
+
+
+    def get_instrument(self, instrument, default=None):
+        """Return the first object in the array where
+        where the `object.instrument` matches the passed instrument
+        else return default"""
+        try:
+            return self[self._instrument_index[instrument][0]]
         except KeyError:
             pass
         return default
@@ -418,16 +455,6 @@ class Array(object):
         else return the default"""
         try:
             return self.__class__(*[self[idx] for idx in self._instrument_index[instrument]])
-        except KeyError:
-            pass
-        return default
-
-    def get_instrument(self, instrument, default=None):
-        """Return the first object in the array where
-        where the `object.instrument` matches the passed instrument
-        else return default"""
-        try:
-            return self[self._instrument_index[instrument][0]]
         except KeyError:
             pass
         return default
