@@ -309,8 +309,35 @@ async def test_logger_warning_when_services_are_down(client, server, capsys, ser
         assert msg in err
 
 @pytest.mark.asyncio
-async def test_account_calls_get_account_details_when_to_many_transactions_have_passed(client, server):
-    assert 0
+async def test_account_calls_get_account_details_when_to_many_transactions_have_passed(client, server, caplog):
     async with client as client:
         client.default_parameters[LastTransactionID] += 986
         assert await client.account()
+
+    assert_next = False
+    for index, line in enumerate(caplog.text.split('\n')):
+        if assert_next:
+            assert 'get_account_details(args=(), kwargs={})' in line
+            break
+        if 'account()' in line:
+            assert_next = True
+
+    if not assert_next:
+        assert 0
+
+@pytest.mark.asyncio
+async def test_account_changes_logs_warning_when_too_many_transactions_have_passed(client, server, caplog):
+    async with client as client:
+        client.default_parameters[LastTransactionID] += 986
+        assert await client.account_changes()
+
+    assert 'Too many transactions have passed to use the default ' \
+           '`since_transaction_id` value.' in caplog.text
+
+@pytest.mark.asyncio
+async def test_changes_warning_too_many_transactions_have_passed_and_passed_value(client, server, caplog):
+    async with client as client:
+        client.default_parameters[LastTransactionID] += 986
+        assert await client.account_changes(since_transaction_id=0)
+
+    assert 'The passed `since_transaction_id` value 0' in caplog.text

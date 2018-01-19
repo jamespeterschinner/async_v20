@@ -6,7 +6,8 @@ import pandas as pd
 
 from ..definitions.base import create_attribute
 from ..definitions.types import OrderRequest
-from ..definitions.types import Instrument
+from ..endpoints.annotations import LastTransactionID
+from ..endpoints.annotations import SinceTransactionID
 from ..exceptions import FailedToCreatePath, InvalidOrderRequest
 
 logger = logging.getLogger(__name__)
@@ -17,6 +18,8 @@ MARKET_IF_TOUCHED = 'MARKET_IF_TOUCHED'
 LIMIT = 'LIMIT'
 INSTRUMENT = 'instrument'
 UNITS = 'units'
+ALLOWED_SINCE_TRANSACTION_ID = 900
+
 
 def _format_order_request(order_request, instrument, clip=False):
     """Ensure the order request is formatted as per the instrument specification
@@ -181,6 +184,13 @@ header_params = partial(_create_request_params, param_location='header')
 query_params = partial(_create_request_params, param_location='query')
 
 
+def too_many_passed_transactions(self):
+    if (self.default_parameters[LastTransactionID] -
+        self.default_parameters[SinceTransactionID]) > ALLOWED_SINCE_TRANSACTION_ID:
+        return True
+    return False
+
+
 def construct_arguments(self, sig, *args, **kwargs):
     """Construct passed arguments into corresponding objects
 
@@ -204,9 +214,20 @@ def construct_arguments(self, sig, *args, **kwargs):
                 try:
                     value = self.default_parameters[annotation]
                 except KeyError:
-                    pass
+                    continue
 
-            if not annotation == _empty and not value == ...:
+                if issubclass(annotation, SinceTransactionID) \
+                        and too_many_passed_transactions(self):
+                    logging.warning('Too many transactions have passed to use the default '
+                                    '`since_transaction_id` value.')
+                    value = self.default_parameters[LastTransactionID] - ALLOWED_SINCE_TRANSACTION_ID
+
+            if issubclass(annotation, SinceTransactionID) \
+                    and too_many_passed_transactions(self):
+                logging.warning(f'The passed `since_transaction_id` value {value} '
+                                f'is more than {ALLOWED_SINCE_TRANSACTION_ID} transactions ago.')
+
+            if not annotation == _empty:
                 yield annotation, create_attribute(annotation, value)
 
     return dict(yield_annotations())

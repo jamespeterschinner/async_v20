@@ -10,9 +10,14 @@ from async_v20.client import OandaClient
 from async_v20.definitions.types import Account
 from async_v20.definitions.types import DateTime
 from async_v20.definitions.types import OrderRequest
-from async_v20.definitions.types import StopLossOrderRequest, ArrayInstrument, MarketOrderRequest
+from async_v20.definitions.types import StopLossOrderRequest
+from async_v20.definitions.types import ArrayInstrument
+from async_v20.definitions.types import MarketOrderRequest
 from async_v20.endpoints import POSTOrders
-from async_v20.endpoints.annotations import Bool, Authorization
+from async_v20.endpoints.annotations import Bool
+from async_v20.endpoints.annotations import Authorization
+from async_v20.endpoints.annotations import SinceTransactionID
+from async_v20.endpoints.annotations import LastTransactionID
 from async_v20.exceptions import FailedToCreatePath, InvalidOrderRequest
 from async_v20.interface.helpers import _create_request_params
 from async_v20.interface.helpers import _format_order_request
@@ -20,6 +25,7 @@ from async_v20.interface.helpers import construct_arguments
 from async_v20.interface.helpers import create_body
 from async_v20.interface.helpers import create_request_kwargs
 from async_v20.interface.helpers import create_url
+from async_v20.interface.helpers import too_many_passed_transactions
 from .helpers import order_dict
 from ..data.json_data import GETAccountID_response, example_instruments
 from ..fixtures.client import client
@@ -64,8 +70,9 @@ annotation_lookup_arguments = [(sig, kwargs(sig)) for sig in client_signatures]
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize('signature, arguments', annotation_lookup_arguments)
-async def test_construct_arguments(client, signature, arguments):
+async def test_construct_arguments(client, server, signature, arguments):
     """Ensure that the annotation lookup dictionary is built correctly"""
+    await client.initialize()
     result = construct_arguments(client, signature, **arguments)
     for annotation, instance in result.items():
         if isinstance(instance, bool):
@@ -368,3 +375,14 @@ def test_ins_context_does_not_add_parameters_to_order_requests(instrument):
     assert not hasattr(result, 'trailing_stop_loss_on_fill')
     assert not hasattr(result, 'stop_loss_on_fill')
     assert not hasattr(result, 'take_profit_on_fill')
+
+
+def test_too_many_passed_transactions(client):
+
+    client.default_parameters[SinceTransactionID] = 0
+    client.default_parameters[LastTransactionID] = 0
+    assert not too_many_passed_transactions(client)
+
+    client.default_parameters[SinceTransactionID] = 0
+    client.default_parameters[LastTransactionID] = 901
+    assert too_many_passed_transactions(client)
