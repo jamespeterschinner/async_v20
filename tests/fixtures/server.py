@@ -97,3 +97,4 @@ async def server(event_loop):
     server = await event_loop.create_server(web.Server(handler), "127.0.0.1", 8080)
     yield server
     server.close()
+    await asyncio.sleep(0)

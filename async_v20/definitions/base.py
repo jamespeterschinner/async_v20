@@ -433,7 +433,7 @@ class Array(object):
         `object.trade_id` attribute matches the passed id
         else return the default"""
         try:
-            return self.__class__(*[(self[idx] for idx in self._trade_id_index[str(id_)])])
+            return self.__class__(*[self[idx] for idx in self._trade_id_index[str(id_)]])
         except KeyError:
             pass
         return default

@@ -71,7 +71,7 @@ error_status = [i for i in range(400, 600)]
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
 async def test_client_raises_error_on_list_accounts_failure(client, server, error_status):
-    server_module.status = iter([200, 400])
+    server_module.status = iter([200, 400, 200, 200])
     with pytest.raises(InitializationFailure):
         await client.initialize()
     assert client.initialized == False
@@ -81,7 +81,7 @@ async def test_client_raises_error_on_list_accounts_failure(client, server, erro
 @pytest.mark.asyncio
 @pytest.mark.parametrize('error_status', error_status)
 async def test_client_raises_error_on_get_account_details_failure(client, server, error_status):
-    server_module.status = iter([200,200, 400])
+    server_module.status = iter([200, 200, 400, 200])
     with pytest.raises(InitializationFailure):
         await client.initialize()
     assert client.initialized == False

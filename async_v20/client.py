@@ -326,7 +326,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                     else:
                         self.initializing = False
                         msg = f'Server did not return AccountID during initialization'
-                        raise InitializationFailure()
+                        logger.error(msg)
+                        raise InitializationFailure(msg)
 
                 # Get Account snapshot and last transaction id
                 # last transaction is automatically updated when the
@@ -339,7 +340,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 else:
                     self.initializing = False
                     msg = f'Server did not return Account Details during initialization.'
-                    raise InitializationFailure()
+                    logger.error(msg)
+                    raise InitializationFailure(msg)
 
                 self._initialization_step = self.account_instruments.__name__
                 response = await self.account_instruments()
@@ -348,7 +350,8 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 else:
                     self.initializing = False
                     msg = f'Server did not return Account Instruments during initialization'
-                    raise InitializationFailure()
+                    logger.error(msg)
+                    raise InitializationFailure(msg)
 
                 # On initialization the SinceTransactionID needs updated to reflect LastTransactionID
                 self.default_parameters.update({SinceTransactionID: self.default_parameters[LastTransactionID]})

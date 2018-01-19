@@ -1,5 +1,5 @@
 import pytest
-
+import asyncio
 from async_v20.client import OandaClient
 
 
@@ -11,3 +11,4 @@ async def client():
                                health_host='127.0.0.1', health_port=8080, health_scheme='http')
     yield oanda_client
     oanda_client.close()
+    await asyncio.sleep(0)
