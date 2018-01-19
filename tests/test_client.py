@@ -341,3 +341,7 @@ async def test_changes_warning_too_many_transactions_have_passed_and_passed_valu
         assert await client.account_changes(since_transaction_id=0)
 
     assert 'The passed `since_transaction_id` value 0' in caplog.text
+
+@pytest.mark.asyncio
+async def test_first_call_to_account_does_not_raise_error(client, server):
+    assert await client.account()

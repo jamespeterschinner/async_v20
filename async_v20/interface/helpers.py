@@ -185,9 +185,13 @@ query_params = partial(_create_request_params, param_location='query')
 
 
 def too_many_passed_transactions(self):
-    if (self.default_parameters[LastTransactionID] -
-        self.default_parameters[SinceTransactionID]) > ALLOWED_SINCE_TRANSACTION_ID:
-        return True
+    try:
+        if (self.default_parameters[LastTransactionID] -
+            self.default_parameters[SinceTransactionID]) > ALLOWED_SINCE_TRANSACTION_ID:
+            return True
+    except KeyError:
+        # Means client isn't initialized
+        pass
     return False
 
 
