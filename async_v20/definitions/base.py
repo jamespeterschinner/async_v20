@@ -406,7 +406,6 @@ class Array(object):
         """Return the objects in the array where the
         `object.trade_id` attribute matches the passed id
         else return the default"""
-        print('TRADE ID INDEX: ', self._trade_id_index)
         try:
             return self[self._trade_id_index[str(id_)]]
         except KeyError:
