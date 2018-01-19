@@ -7,6 +7,9 @@ Changelog
 - All OrderRequests now require an `instrument` as there first parameter.
   This is to allow correct rounding of decimal numbers to the instruments specification.
 - `guaranteed: bool` has been added to Transaction definition.
+- Default SinceTransactionID value is now limited to the passed 900 transactions.
+- `OandaClient.account()` method will use `get_account_details()` method when default
+  `SinceTransactionID` has expired.
 
 
 6.2.2b0
