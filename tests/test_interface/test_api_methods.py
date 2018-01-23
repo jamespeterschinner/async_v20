@@ -8,6 +8,7 @@ from tests.test_definitions.helpers import get_valid_primitive_data
 from ..fixtures import server as server_module
 from ..fixtures.client import client
 from async_v20.exceptions import UnexpectedStatus
+from async_v20 import InstrumentName
 import logging
 logger = logging.getLogger('async_v20')
 logger.disabled = True
@@ -81,4 +82,6 @@ async def test_client_methods_shortcut_api_methods(method, server, client):
         # TODO Added meaning full asserts
 
 
-
+@pytest.mark.asyncio
+async def test_get_pricing_accepts_instrument_name(server, client):
+    await client.get_pricing(InstrumentName('AUD_USD'))

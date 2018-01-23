@@ -10,7 +10,7 @@ from .helpers import check_conflicting_arguments
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
 from .helpers import json_to_instance_attributes
-from .primitives import Primitive, Specifier
+from .primitives import Primitive, Specifier, InstrumentName
 from ..exceptions import IncompatibleValue, UnknownValue, InstantiationFailure
 
 logger = logging.getLogger(__name__)
@@ -481,6 +481,8 @@ def create_attribute(typ, data):
                 msg = f'{data} must be a {Specifier} is {type(data)}'
                 logger.error(msg)
                 raise IncompatibleValue(msg)
+            result = typ(data)
+        elif isinstance(data, InstrumentName):
             result = typ(data)
         elif isinstance(data, (Model, Array, Primitive)):
             if not issubclass(type(data), typ):

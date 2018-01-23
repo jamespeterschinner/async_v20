@@ -1,4 +1,5 @@
 from ..definitions.types import ClientExtensions
+from ..definitions.primitives import InstrumentName
 from ..definitions.types import TransactionID
 from ..definitions.types import DateTime
 

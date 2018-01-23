@@ -10,6 +10,7 @@ Changelog
 - Default SinceTransactionID value is now limited to the passed 900 transactions.
 - `OandaClient.account()` method will use `get_account_details()` method when default
   `SinceTransactionID` has expired.
+- `OandaClient.get_pricing` now accepts an `InstrumentName` for `instruments`
 
 
 6.2.2b0
