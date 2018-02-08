@@ -20,6 +20,7 @@ parser.add_argument('--to-time', help='Get the required data up to this date', )
 parser.add_argument('--instrument', help='The instrument of the data to get')
 parser.add_argument('--granularity', help='The width of the candle to get')
 parser.add_argument('--out-file', help='The destination of the data')
+parser.add_argument('--time_out', help='The request time out period', default=30)
 
 granularity_to_minutes = {
     'S5': 416,
@@ -101,7 +102,8 @@ async def execute():
     to_time = datetime(*[int(i) for i in namespace.to_time.split('-')])
     granularity = namespace.granularity
     out_file = namespace.out_file
-    async with OandaClient(account_id='101-011-6557245-001', rest_timeout=120) as client:
+    time_out = namespace.time_out
+    async with OandaClient(rest_timeout=time_out) as client:
         df = await get_data(client, namespace.instrument, granularity, from_time, to_time)
     df.to_csv(out_file)
 
