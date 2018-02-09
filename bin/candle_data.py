@@ -1,5 +1,4 @@
-"A tool for downloading historical data"
-
+"""A tool for downloading historical data"""
 
 import argparse
 import asyncio
