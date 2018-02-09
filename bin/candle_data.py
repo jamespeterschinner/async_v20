@@ -45,17 +45,6 @@ granularity_to_minutes = {
     'M': 201600000
 }
 
-loop = asyncio.get_event_loop()
-run = loop.run_until_complete
-
-
-def rolling(df, window, step):
-    count = 0
-    df_length = len(df)
-    while count < (df_length - window):
-        yield count, df[count:window + count]
-        count += step
-
 
 def create_requests(client,
                     instrument_name,
@@ -106,5 +95,8 @@ async def execute():
         df = await get_data(client, namespace.instrument, granularity, from_time, to_time)
     df.to_csv(out_file)
 
+
+loop = asyncio.get_event_loop()
+run = loop.run_until_complete
 
 loop.run_until_complete(execute())
