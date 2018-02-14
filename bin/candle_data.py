@@ -91,7 +91,7 @@ async def execute():
     granularity = namespace.granularity
     out_file = namespace.out_file
     time_out = namespace.time_out
-    async with OandaClient(rest_timeout=time_out) as client:
+    async with OandaClient(rest_timeout=int(time_out)) as client:
         df = await get_data(client, namespace.instrument, granularity, from_time, to_time)
     df.to_csv(out_file)
 
