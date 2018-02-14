@@ -19,7 +19,7 @@ parser.add_argument('--to-time', help='Get the required data up to this date', )
 parser.add_argument('--instrument', help='The instrument of the data to get')
 parser.add_argument('--granularity', help='The width of the candle to get')
 parser.add_argument('--out-file', help='The destination of the data')
-parser.add_argument('--time_out', help='The request time out period', default=30)
+parser.add_argument('--time-out', help='The request time out period', default=30)
 
 granularity_to_minutes = {
     'S5': 416,
@@ -69,7 +69,7 @@ async def worker(coroutines, data_frames):
             return
         rsp = await coroutine
         if not rsp.status == 200:
-            continue
+            raise ConnectionError(f'Failed Downloading candles. {rsp.json()}')
         df = rsp.candles.dataframe(datetime_format='UNIX')
         df.index = df.time
         data_frames.append(df)
