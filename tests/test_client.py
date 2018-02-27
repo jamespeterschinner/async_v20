@@ -59,7 +59,7 @@ async def test_client_initializes(client, server):
     except:
         assert 0
     finally:
-        client.close()
+        await client.close()
         assert client.session.closed == True
 
 

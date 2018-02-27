@@ -1,6 +1,10 @@
 Changelog
 =========
 
+7.0.1b0
+=======
+- OandaClient.close is now a coroutine
+
 7.0.0b0
 =======
 

@@ -240,18 +240,18 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        self.close()
+        await self.close()
 
     def __enter__(self):
         logger.warning('<with> used rather than <async with>')
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.close()
+        pass
 
-    def close(self):
+    async def close(self):
         try:
-            self.session.close()
+            await self.session.close()
         except AttributeError:
             # In case the client was never initialized
             pass
