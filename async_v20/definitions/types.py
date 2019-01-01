@@ -48,6 +48,10 @@ class ArrayTransactionFilter(Array, contains=TransactionFilter):
 class ArrayTransactionID(Array, contains=TransactionID):
     pass
 
+class ArrayDict(Array, contains=dict):
+    # TODO: Update this class when OANDA updates documentation for Instrument class.
+    # This class is used for the 'tags' attribute of the Instrument class
+    pass
 
 class ClientExtensions(Model):
     """A ClientExtensions object allows a client to attach a clientID, tag and
@@ -879,7 +883,7 @@ class PositionBook(Model):
 
     """
 
-    def __init__(self, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
+    def __init__(self, instrument: InstrumentName = ..., time: DateTime = ..., unix_time: DateTime = ..., price: PriceValue = ...,
                  bucket_width: PriceValue = ..., buckets: ArrayPositionBookBucket = ...):
         Model.__init__(**locals())
 
@@ -1264,7 +1268,8 @@ class Instrument(Model):
                  minimum_trailing_stop_distance: DecimalNumber = ..., maximum_position_size: DecimalNumber = ...,
                  maximum_order_units: DecimalNumber = ..., margin_rate: DecimalNumber = ...,
                  commission: InstrumentCommission = ...,
-                 guaranteed_stop_loss_order_level_restriction: GuaranteedStopLossOrderLevelRestriction = ...):
+                 guaranteed_stop_loss_order_level_restriction: GuaranteedStopLossOrderLevelRestriction = ...,
+                 tags: Tags = ...):
         Model.__init__(**locals())
 
 

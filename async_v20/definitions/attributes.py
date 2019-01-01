@@ -169,7 +169,11 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'guaranteedStopLossOrderMode': 'guaranteed_stop_loss_order_mode',
                        'resettablePLTime': 'resettable_pl_time', 'resettable_pl_time': 'resettable_pl_time',
                        'guaranteedExecutionFees':'guaranteed_execution_fees',
-                       'guaranteed_execution_fees':'guaranteed_execution_fees', 'guaranteed':'guaranteed'}
+                       'guaranteed_execution_fees':'guaranteed_execution_fees', 'guaranteed':'guaranteed',
+                       'priceRange':'price_range', 'price_range':'price_range', 'unixTime': 'unix_time',
+                       'unix_time':'unix_time',
+                       'guaranteedStopLossOrderLevelRestriction': 'guaranteed_stop_loss_order_level_restriction',
+                       'guaranteed_stop_loss_order_level_restriction':'guaranteed_stop_loss_order_level_restriction'}
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
                    'reduce_only': 'reduceOnly', 'open_only': 'openOnly', 'timestamp': 'timestamp',
@@ -260,4 +264,5 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'image': 'image', 'icon_set': 'icon_set',
                    'guaranteed_stop_loss_order_mode': 'guaranteedStopLossOrderMode',
                    'resettable_pl_time': 'resettablePLTime', 'guaranteed_execution_fees':'guaranteedExecutionFees',
-                   'guaranteed': 'guaranteed'}
+                   'guaranteed': 'guaranteed', 'price_range': 'priceRange', 'unix_time': 'unixTime',
+                   'guaranteed_stop_loss_order_level_restriction':'guaranteedStopLossOrderLevelRestriction'}

@@ -32,6 +32,7 @@ class Specifier(object):
     pass
 
 
+
 class DateTime(Primitive):
     """A date and time value using either RFC3339 or UNIX time representation.
     """
@@ -571,7 +572,7 @@ class TradeID(int, Primitive, Specifier):
 
     # Correct syntax of value
     format_syntax = 'The string representation of the OANDA-assigned TradeID. ' \
-                    'OANDA-assigned TradeIDs are positive integers, and are ' \
+                    'OANDA-assigned https://github.com/jamespeterschinner/async_v20/issues/12s are positive integers, and are ' \
                     'derived from the TransactionID of the Transaction that opened the Trade.'
     # Example of correct format
     example = '1523'
