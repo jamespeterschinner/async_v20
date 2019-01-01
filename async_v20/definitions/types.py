@@ -1269,7 +1269,7 @@ class Instrument(Model):
                  maximum_order_units: DecimalNumber = ..., margin_rate: DecimalNumber = ...,
                  commission: InstrumentCommission = ...,
                  guaranteed_stop_loss_order_level_restriction: GuaranteedStopLossOrderLevelRestriction = ...,
-                 tags: Tags = ...):
+                 tags: ArrayDict = ...):
         Model.__init__(**locals())
 
 
@@ -2236,6 +2236,11 @@ class StopLossOrder(Order, type=OrderType('STOP_LOSS')):
         trigger_condition: :class:`~async_v20.OrderTriggerCondition`
             Specification of what component of a price should be used
             for comparison when determining if the Order should be filled.
+        guaranteed: :class: `bool`
+            Flag indicating that the Stop Loss Order is guaranteed. The default value
+            depends on the GuaranteedStopLossOrderMode of the account, if it is
+            REQUIRED, the default will be true, for DISABLED or ENABLED the default
+            is false.
         filling_transaction_id: :class:`~async_v20.TransactionID`
             ID of the Transaction that filled this Order
             (only provided when the Order's state is FILLED)
@@ -2269,7 +2274,8 @@ class StopLossOrder(Order, type=OrderType('STOP_LOSS')):
     def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = ..., create_time: DateTime = ...,
                  state: OrderState = ..., client_extensions: ClientExtensions = ...,
                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                 trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = ...,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT', guaranteed: bool = ...,
+                 filling_transaction_id: TransactionID = ...,
                  filled_time: DateTime = ..., trade_opened_id: TradeID = ..., trade_reduced_id: TradeID = ...,
                  trade_closed_ids: ArrayTradeID = ..., cancelling_transaction_id: TransactionID = ...,
                  cancelled_time: DateTime = ..., replaces_order_id: OrderID = ...,

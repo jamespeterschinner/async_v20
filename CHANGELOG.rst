@@ -1,6 +1,12 @@
 Changelog
 =========
 
+7.1.0b0 (01/01/2019)
+=======
+ - Added guaranteedStopLossOrderRestriction to Instrument definition
+ - Added unixTime attribute to orderBook definition
+ - Added tags attribute to Instrument definition
+ - Added guarateed to StopLossOrder definition
 7.0.1b0
 =======
 - OandaClient.close is now a coroutine

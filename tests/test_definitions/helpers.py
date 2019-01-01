@@ -34,12 +34,14 @@ def get_valid_primitive_data(primitive):
             data = primitive()  # See if the annotation has a default value
         except TypeError:
             data = 123456789
-    elif issubclass(primitive, Bool):
+    elif issubclass(primitive, (Bool, dict)):
+        # dict covers ArrayDict used for `tags` attribute of Instrument class
         data = primitive()
     # The only valid option here should be a subclass of str
     else:
 
         assert issubclass(primitive, (str))
+
         try:
             data = primitive.example
         except AttributeError:
