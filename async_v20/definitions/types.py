@@ -168,7 +168,8 @@ class OrderRequest(Model, jit=False):
         trade_client_extensions: :class:`~async_v20.ClientExtensions`
     """
 
-    def __init__(self, instrument: InstrumentName, trade_id: TradeID = ..., price: PriceValue = ..., type: OrderType = ...,
+    def __init__(self, instrument: InstrumentName, trade_id: TradeID = ..., price: PriceValue = ...,
+                 type: OrderType = ...,
                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
                  trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
                  distance: PriceValue = ..., units: DecimalNumber = ...,
@@ -839,6 +840,8 @@ class OrderBook(Model):
             The order book's instrument
         time: :class:`~async_v20.DateTime`
             The time when the order book snapshot was created.
+        unix_time: :class:`~async_v20.DateTime`
+            The time when the order book snapshot was created in unix format.
         price: :class:`~async_v20.PriceValue`
             The price (midpoint) for the order book's instrument
             at the time of the order book snapshot
@@ -851,8 +854,8 @@ class OrderBook(Model):
 
     """
 
-    def __init__(self, instrument: InstrumentName = ..., time: DateTime = ..., price: PriceValue = ...,
-                 bucket_width: PriceValue = ..., buckets: ArrayOrderBookBucket = ...):
+    def __init__(self, instrument: InstrumentName = ..., time: DateTime = ..., unix_time: DateTime = ...,
+                 price: PriceValue = ..., bucket_width: PriceValue = ..., buckets: ArrayOrderBookBucket = ...):
         Model.__init__(**locals())
 
 
@@ -1192,6 +1195,26 @@ class AccountChanges(Model):
         Model.__init__(**locals())
 
 
+class GuaranteedStopLossOrderLevelRestriction(Model):
+    """A GuaranteedStopLossOrderLevelRestriction represents the total position size
+    that can exist within a given price window for Trades with guaranteed Stop Loss
+    Orders attached for a specific Instrument.
+
+    Attributes:
+        volume: :class: `~async_v20.DecimalNumber`
+            Applies to Trades with a guaranteed Stop Loss Order attached for the
+            specified Instrument. This is the total allowed Trade volume that can
+            exist within the priceRange based on the trigger prices of the guaranteed
+            Stop Loss Orders.
+        price_range: :class: `~async_v20.DecimalNumber`
+            The price range the volume applies to. This value is in price units.
+
+    """
+
+    def __init__(self, volume: DecimalNumber = ..., price_range: DecimalNumber = ...):
+        Model.__init__(**locals())
+
+
 class Instrument(Model):
     """Full specification of an Instrument.
 
@@ -1229,6 +1252,9 @@ class Instrument(Model):
             The margin rate for this instrument.
         commission: :class:`~async_v20.InstrumentCommission`
             The commission structure for this instrument.
+        guaranteed_stop_loss_order_level_restriction: :class: `~async_v20.GuaranteedStopLossOrderLevelRestriction`
+            The total position size that can exist within a given price window for Trades with a guaranteed Stop Loss Orders
+            attached for a specific Instrument
 
     """
 
@@ -1237,7 +1263,8 @@ class Instrument(Model):
                  minimum_trade_size: DecimalNumber = ..., maximum_trailing_stop_distance: DecimalNumber = ...,
                  minimum_trailing_stop_distance: DecimalNumber = ..., maximum_position_size: DecimalNumber = ...,
                  maximum_order_units: DecimalNumber = ..., margin_rate: DecimalNumber = ...,
-                 commission: InstrumentCommission = ...):
+                 commission: InstrumentCommission = ...,
+                 guaranteed_stop_loss_order_level_restriction: GuaranteedStopLossOrderLevelRestriction = ...):
         Model.__init__(**locals())
 
 
