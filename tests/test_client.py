@@ -46,8 +46,8 @@ def test_oanda_client_accepts_token():
 
 
 def test_oanda_client_constructs_url(client):
-    assert client._hosts['REST'](path='test').human_repr() == 'http://127.0.0.1:8080/test'
-    assert client._hosts['STREAM'](path='test').human_repr() == 'http://127.0.0.1:8080/test'
+    assert client._hosts['REST'](path='/test').human_repr() == 'http://127.0.0.1:8080/test'
+    assert client._hosts['STREAM'](path='/test').human_repr() == 'http://127.0.0.1:8080/test'
 
 
 @pytest.mark.asyncio
