@@ -6,7 +6,7 @@ Changelog
  - Added guaranteedStopLossOrderRestriction to Instrument definition
  - Added unixTime attribute to orderBook definition
  - Added tags attribute to Instrument definition
- - Added guarateed to StopLossOrder definition
+ - Added guaranteed to StopLossOrder definition
  - Replaced ellipsis (...) with sentinel object
  - Added fullVWAP to Transaction definition
  - UnknownValue Exception is now a Warning in order to make the client more robust

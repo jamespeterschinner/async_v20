@@ -455,12 +455,13 @@ class CalculatedPositionState(Model):
             The unrealized profit/loss of the Position's long open Trades
         short_unrealized_pl: :class:`~async_v20.AccountUnits`
             The unrealized profit/loss of the Position's short open Trades
+        Margin_used:
+            Margin currently used by the Position
 
     """
 
     def __init__(self, instrument: InstrumentName = sentinel, net_unrealized_pl: AccountUnits = sentinel,
                  long_unrealized_pl: AccountUnits = sentinel, short_unrealized_pl: AccountUnits = sentinel,
-                 # TODO Update when OANDA updates documentation
                  margin_used: AccountUnits = sentinel):
         Model.__init__(**locals())
 
