@@ -7,6 +7,9 @@ Changelog
  - Added unixTime attribute to orderBook definition
  - Added tags attribute to Instrument definition
  - Added guarateed to StopLossOrder definition
+ - Replaced ellipsis (...) with sentinel object
+ - Added fullVWAP to Transaction definition
+
 7.0.1b0
 =======
 - OandaClient.close is now a coroutine

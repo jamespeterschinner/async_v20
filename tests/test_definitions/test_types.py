@@ -50,7 +50,7 @@ def test_all_types_can_be_instantiated_from_dict(cls, data):
 def test_all_types_instantiated_from_dict_with_incorrect_argument_raises_error(cls, data):
     arguments = data.copy()
     arguments.update(this_argument_doesnt_exist='TEST_VALUE')
-    with pytest.raises(UnknownValue):
+    with pytest.warns(UnknownValue):
         cls(**arguments)
 
 

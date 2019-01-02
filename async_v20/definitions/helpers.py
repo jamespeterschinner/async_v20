@@ -5,6 +5,7 @@ from itertools import starmap, chain
 from .attributes import instance_attributes
 from ..exceptions import InvalidValue
 from ..exceptions import UnknownValue
+import warnings
 from ..exceptions import IncompatibleValue
 
 logger = logging.getLogger(__name__)
@@ -30,7 +31,7 @@ def json_to_instance_attributes(self, kwargs, template):
                   f'Possible arguments for class {self.__class__.__name__} ' \
                   f'include: {possible_arguments}'
             logger.error(msg)
-            raise UnknownValue(msg)
+            warnings.warn(msg, UnknownValue)
 
 
 

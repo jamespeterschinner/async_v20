@@ -2,6 +2,10 @@ class AsyncV20Exception(Exception):
     """A base exception for all exceptions in the async_v20 package"""
     pass
 
+class AsyncV20Warning(Warning):
+    """A base warning for all warnings in the async_v20 package"""
+    pass
+
 class InitializationFailure(AsyncV20Exception):
     """OandaClient Failed to initialize"""
     pass
@@ -28,7 +32,7 @@ class IncompatibleValue(AsyncV20Exception):
     """A supplied argument is different than the predefined value"""
     pass
 
-class UnknownValue(AsyncV20Exception):
+class UnknownValue(AsyncV20Warning):
     """A passed keyword argument is not in the objects __init__ signature"""
     pass
 
