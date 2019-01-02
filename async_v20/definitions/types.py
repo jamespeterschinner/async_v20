@@ -527,7 +527,7 @@ class Position(Model):
                  short: PositionSide = sentinel, financing: DecimalNumber = sentinel,
                  # TODO update these attributes with the correct type when OANDA updates documentation
                  margin_used: AccountUnits = sentinel,
-                 guaranteed_execution_fees: DecimalNumber = sentinel):
+                 guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())
 
 
