@@ -2010,7 +2010,6 @@ class AccountSummary(Model):
                  margin_call_margin_used: AccountUnits = sentinel, margin_call_percent: DecimalNumber = sentinel,
                  last_transaction_id: TransactionID = sentinel, trades: ArrayTradeSummary = sentinel,
                  positions: ArrayPosition = sentinel, orders: ArrayOrder = sentinel, financing: DecimalNumber = sentinel,
-                 # TODO: update when OANDA updates documentation
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel
@@ -2412,6 +2411,8 @@ class Trade(Model):
         trailing_stop_loss_order: :class:`~async_v20.TrailingStopLossOrder`
             Full representation of the Trade's Trailing Stop Loss
             Order, only provided if such an Order exists.
+        margin_used:
+            Margin currently used by the Trade.
 
     """
 
@@ -2423,7 +2424,6 @@ class Trade(Model):
                  close_time: DateTime = sentinel, client_extensions: ClientExtensions = sentinel,
                  take_profit_order: TakeProfitOrder = sentinel, stop_loss_order: StopLossOrder = sentinel,
                  trailing_stop_loss_order: TrailingStopLossOrder = sentinel,
-                 # TODO: Update this when OANDA UPDATES documention
                  margin_used: AccountUnits = sentinel):
         Model.__init__(**locals())
 
