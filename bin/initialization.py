@@ -9,4 +9,4 @@ response = loop.run_until_complete(client.initialize())
 
 # Write your code here
 
-client.close()
+loop.run_until_complete(client.close())

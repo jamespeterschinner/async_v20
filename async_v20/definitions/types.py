@@ -1378,7 +1378,9 @@ class AccountChangesState(Model):
                  balance: AccountUnits = sentinel,
                  # TODO check definition against OANDA docs
                  pl: AccountUnits = sentinel,
-                 resettable_pl: AccountUnits = sentinel
+                 resettable_pl: AccountUnits = sentinel,
+                 commission: AccountUnits = sentinel,
+                 guaranteed_execution_fees: AccountUnits = sentinel
                  ):
         Model.__init__(**locals())
 
