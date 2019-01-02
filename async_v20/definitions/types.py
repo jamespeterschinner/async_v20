@@ -2011,7 +2011,7 @@ class AccountSummary(Model):
                  last_transaction_id: TransactionID = sentinel, trades: ArrayTradeSummary = sentinel,
                  positions: ArrayPosition = sentinel, orders: ArrayOrder = sentinel, financing: DecimalNumber = sentinel,
                  # TODO: update when OANDA updates documentation
-                 guaranteed_stop_loss_order_mode: str = sentinel,
+                 guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel
                  ):
@@ -2955,7 +2955,7 @@ class Account(AccountSummary):
                  last_transaction_id: TransactionID = sentinel, trades: ArrayTradeSummary = sentinel,
                  positions: ArrayPosition = sentinel, orders: ArrayOrder = sentinel, financing: DecimalNumber = sentinel,
                  # TODO: update when OANDA updates documentation
-                 guaranteed_stop_loss_order_mode: str = sentinel,
+                 guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())

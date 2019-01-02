@@ -16,7 +16,7 @@ __all__ = ['AcceptDatetimeFormat', 'AccountFinancingMode', 'AccountID', 'Account
            'PriceValue', 'Reason', 'RequestID', 'StopLossOrderReason', 'StopOrderReason',
            'TakeProfitOrderReason', 'TimeInForce', 'TradeID', 'TradePL', 'TradeSpecifier', 'TradeState',
            'TradeStateFilter', 'TrailingStopLossOrderReason', 'TransactionFilter', 'TransactionID',
-           'TransactionRejectReason', 'TransactionType', 'WeeklyAlignment']
+           'TransactionRejectReason', 'TransactionType', 'WeeklyAlignment', 'GuaranteedStopLossOrderMode']
 
 
 class Primitive(object):
@@ -1203,4 +1203,16 @@ class TransactionType(str, Primitive):
         assert domain_check(value, possible_values=cls.values)
         return super().__new__(cls, value)
 
-# Health Primitives
+class GuaranteedStopLossOrderMode(str, Primitive):
+    """The overall behaviour of the Account regarding guaranteed Stop Loss Orders
+    """
+
+    # Valid values
+    values = { 'DISABLED' : 'The Account is not permitted to create guaranteed Stop Loss Orders.',
+               'ALLOWED' : 'The Account is able, but not required to have guaranteed Stop Loss Orders for open Trades.',
+               'REQUIRED' : 'The Account is required to have guaranteed Stop Loss Orders for all open Trades.'
+    }
+
+    def __new__(cls, value):
+        assert domain_check(value, possible_values=cls.values)
+        return super().__new__(cls, value)
