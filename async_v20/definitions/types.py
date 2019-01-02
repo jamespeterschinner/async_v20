@@ -295,12 +295,12 @@ class OrderIdentifier(Model):
     Attributes:
         order_id: :class:`~async_v20.OrderID`
             The OANDA-assigned Order ID
-        client_order_id: :class:`~async_v20.ClientID`
+        client_order_id: :class:`~async_v20.OrderID`
             The client-provided client Order ID
 
     """
 
-    def __init__(self, order_id: OrderID = sentinel, client_order_id: ClientID = sentinel):
+    def __init__(self, order_id: OrderID = sentinel, client_order_id: OrderID = sentinel):
         Model.__init__(**locals())
 
 
@@ -1123,7 +1123,7 @@ class Transaction(Model):
                  site_id: int = sentinel, account_user_id: int = sentinel, account_number: int = sentinel,
                  home_currency: Currency = sentinel, alias: str = sentinel, margin_rate: DecimalNumber = sentinel,
                  reason: Reason = sentinel, trade_ids: TradeID = sentinel, order_id: OrderID = sentinel,
-                 client_order_id: ClientID = sentinel, replaced_by_order_id: OrderID = sentinel,
+                 client_order_id: OrderID = sentinel, replaced_by_order_id: OrderID = sentinel,
                  closed_trade_id: OrderID = sentinel, trade_close_transaction_id: TransactionID = sentinel,
                  client_extensions_modify: ClientExtensions = sentinel,
                  trade_client_extensions_modify: ClientExtensions = sentinel, financing: AccountUnits = sentinel,
@@ -1776,11 +1776,8 @@ class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
             The Request ID of the request which generated the transaction.
         order_id: :class:`~async_v20.TransactionID`
             The ID of the Order cancelled
-        client_order_id:
+        client_order_id: :class:`~async_v20.OrderID`
             The reason that the Order was cancelled.
-        client_order_id: :class:`~async_v20.TransactionID`
-            The client ID of the Order cancelled (only
-            provided if the Order has a client Order ID).
         reason: :class:`~async_v20.OrderCancelReason`
             The reason that the Order was cancelled.
         replaced_by_order_id: :class:`~async_v20.TransactionID`
@@ -1816,9 +1813,9 @@ class OrderClientExtensionsModifyTransaction(Transaction, type=TransactionType('
             Transactions in the same batch are applied to the Account simultaneously.
         request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.TransactionID`
+        order_id: :class:`~async_v20.OrderID`
             The ID of the Order who's client extensions are to be modified.
-        client_order_id: :class:`~async_v20.TransactionID`
+        client_order_id: :class:`~async_v20.OrderID`
             The original Client ID of the Order who's client extensions are to be modified.
         client_extensions_modify: :class:`~async_v20.ClientExtensions`
             The new Client Extensions for the Order.
@@ -1830,7 +1827,7 @@ class OrderClientExtensionsModifyTransaction(Transaction, type=TransactionType('
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  order_id: OrderID = sentinel,
-                 client_order_id: ClientID = sentinel, client_extensions_modify: ClientExtensions = sentinel,
+                 client_order_id: OrderID = sentinel, client_extensions_modify: ClientExtensions = sentinel,
                  trade_client_extensions_modify: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -2484,9 +2481,9 @@ class OrderCancelRejectTransaction(Transaction, type=TransactionType('ORDER_CANC
             Transactions in the same batch are applied to the Account simultaneously.
         request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.TransactionID`
+        order_id: :class:`~async_v20.OrderID`
             The ID of the Order intended to be cancelled
-        client_order_id: :class:`~async_v20.TransactionID`
+        client_order_id: :class:`~async_v20.OrderID`
             The client ID of the Order intended to be cancelled
             (only provided if the Order has a client Order ID).
         reason: :class:`~async_v20.OrderCancelReason`
@@ -2524,9 +2521,9 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction,
             Transactions in the same batch are applied to the Account simultaneously.
         request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.TransactionID`
+        order_id: :class:`~async_v20.OrderID`
             The ID of the Order who's client extensions are to be modified.
-        client_order_id: :class:`~async_v20.TransactionID`
+        client_order_id: :class:`~async_v20.OrderID`
             The original Client ID of the Order who's client extensions are to be modified.
         client_extensions_modify: :class:`~async_v20.ClientExtensions`
             The new Client Extensions for the Order.
@@ -2540,7 +2537,7 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction,
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  order_id: OrderID = sentinel,
-                 client_order_id: ClientID = sentinel, client_extensions_modify: ClientExtensions = sentinel,
+                 client_order_id: OrderID = sentinel, client_extensions_modify: ClientExtensions = sentinel,
                  trade_client_extensions_modify: ClientExtensions = sentinel,
                  reject_reason: TransactionRejectReason = sentinel):
         Model.__init__(**locals())
@@ -3562,9 +3559,9 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
             Transactions in the same batch are applied to the Account simultaneously.
         request_id: :class:`~async_v20.RequestID`
             The Request ID of the request which generated the transaction.
-        order_id: :class:`~async_v20.TransactionID`
+        order_id: :class:`~async_v20.OrderID`
             The ID of the Order filled.
-        client_order_id: :class:`~async_v20.ClientID`
+        client_order_id: :class:`~async_v20.OrderID`
             The client Order ID of the Order filled
             (only provided if the client has assigned one).
         instrument: :class:`~async_v20.InstrumentName`
@@ -3618,7 +3615,7 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
-                 order_id: OrderID = sentinel, client_order_id: ClientID = sentinel,
+                 order_id: OrderID = sentinel, client_order_id: OrderID = sentinel,
                  instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel, price: PriceValue = sentinel,
                  full_price: ClientPrice = sentinel, reason: OrderFillReason = sentinel, pl: AccountUnits = sentinel,
                  financing: AccountUnits = sentinel, commission: AccountUnits = sentinel, account_balance: AccountUnits = sentinel,
