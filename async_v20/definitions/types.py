@@ -2496,12 +2496,11 @@ class OrderCancelRejectTransaction(Transaction, type=TransactionType('ORDER_CANC
 
     """
 
-    # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.TransactionID` ClientID
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  order_id: OrderID = sentinel,
-                 client_order_id: ClientID = sentinel, reason: OrderCancelReason = sentinel,
+                 client_order_id: OrderID = sentinel, reason: OrderCancelReason = sentinel,
                  reject_reason: TransactionRejectReason = sentinel):
         Model.__init__(**locals())
 
