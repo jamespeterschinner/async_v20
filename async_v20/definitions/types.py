@@ -987,9 +987,8 @@ class TradeReduce(Model):
 
     def __init__(self, trade_id: TradeID = sentinel, units: DecimalNumber = sentinel, realized_pl: AccountUnits = sentinel,
                  financing: AccountUnits = sentinel, price: DecimalNumber = sentinel,
-                 # TODO: Update these with correct type when OANDA updated there documentation
-                 guaranteed_execution_fee: DecimalNumber = sentinel,
-                 half_spread_cost: DecimalNumber = sentinel):
+                 guaranteed_execution_fee: AccountUnits = sentinel,
+                 half_spread_cost: AccountUnits = sentinel):
         Model.__init__(**locals())
 
 
@@ -1149,8 +1148,8 @@ class Transaction(Model):
                  # TODO update when OANDA ADVISES correct type. This is currently a guess.
                  gain_quote_home_conversion_factor: DecimalNumber = sentinel,
                  loss_quote_home_conversion_factor: DecimalNumber = sentinel,
-                 guaranteed_execution_fee: DecimalNumber = sentinel,
-                 half_spread_cost: DecimalNumber = sentinel,
+                 guaranteed_execution_fee: AccountUnits = sentinel,
+                 half_spread_cost: AccountUnits = sentinel,
                  partial_fill: str = sentinel,
                  guaranteed: bool = sentinel,
                  requested_units: DecimalNumber = sentinel,
@@ -2012,7 +2011,7 @@ class AccountSummary(Model):
                  # TODO: update when OANDA updates documentation
                  guaranteed_stop_loss_order_mode: str = sentinel,
                  resettable_pl_time: DateTime = sentinel,
-                 guaranteed_execution_fees: DecimalNumber = sentinel
+                 guaranteed_execution_fees: AccountUnits = sentinel
                  ):
         Model.__init__(**locals())
 
@@ -2956,7 +2955,7 @@ class Account(AccountSummary):
                  # TODO: update when OANDA updates documentation
                  guaranteed_stop_loss_order_mode: str = sentinel,
                  resettable_pl_time: DateTime = sentinel,
-                 guaranteed_execution_fees: DecimalNumber = sentinel):
+                 guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())
 
 
@@ -3612,7 +3611,7 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
                  # TODO update when OANDA ADVISES correct type. This is currently a guess.
                  gain_quote_home_conversion_factor: DecimalNumber = sentinel,
                  loss_quote_home_conversion_factor: DecimalNumber = sentinel,
-                 guaranteed_execution_fee: DecimalNumber = sentinel,
+                 guaranteed_execution_fee: AccountUnits = sentinel,
                  half_spread_cost: DecimalNumber = sentinel,
                  requested_units: DecimalNumber = sentinel,
                  full_vwap: DecimalNumber = sentinel):
