@@ -11,6 +11,7 @@ Changelog
  - Added fullVWAP to Transaction definition
  - UnknownValue Exception is now a Warning in order to make the client more robust
  to breaking changes from OANDA
+ - Checked many class definitions against updated OANDA documentation
 
 7.0.1b0
 =======
