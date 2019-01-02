@@ -2953,7 +2953,6 @@ class Account(AccountSummary):
                  margin_call_margin_used: AccountUnits = sentinel, margin_call_percent: DecimalNumber = sentinel,
                  last_transaction_id: TransactionID = sentinel, trades: ArrayTradeSummary = sentinel,
                  positions: ArrayPosition = sentinel, orders: ArrayOrder = sentinel, financing: DecimalNumber = sentinel,
-                 # TODO: update when OANDA updates documentation
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
