@@ -1076,6 +1076,8 @@ class TradeSummary(Model):
         trailing_stop_loss_order_id: :class:`~async_v20.OrderID`
             ID of the Trade's Trailing Stop Loss
             Order, only provided if such an Order exists.
+        margin_used:
+            Margin currently used by the Trade.
 
     """
 
@@ -1086,7 +1088,6 @@ class TradeSummary(Model):
                  financing: AccountUnits = sentinel, close_time: DateTime = sentinel,
                  client_extensions: ClientExtensions = sentinel, take_profit_order_id: OrderID = sentinel,
                  stop_loss_order_id: OrderID = sentinel, trailing_stop_loss_order_id: OrderID = sentinel,
-                 # TODO: margin_used is undocumented on OANDA's website
                  margin_used: AccountUnits = sentinel):
         Model.__init__(**locals())
 
@@ -1775,6 +1776,8 @@ class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
             The Request ID of the request which generated the transaction.
         order_id: :class:`~async_v20.TransactionID`
             The ID of the Order cancelled
+        client_order_id:
+            The reason that the Order was cancelled.
         client_order_id: :class:`~async_v20.TransactionID`
             The client ID of the Order cancelled (only
             provided if the Order has a client Order ID).
@@ -1786,11 +1789,10 @@ class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
 
     """
 
-    # TODO wait for OANDA to confirm client_order_id: :class:`~async_v20.TransactionID` ClientID
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
-                 order_id: OrderID = sentinel, client_order_id: ClientID = sentinel,
+                 order_id: OrderID = sentinel, client_order_id: OrderID = sentinel,
                  reason: OrderCancelReason = sentinel, replaced_by_order_id: OrderID = sentinel,
                  closed_trade_id: OrderID = sentinel, trade_close_transaction_id: TransactionID = sentinel):
         Model.__init__(**locals())
