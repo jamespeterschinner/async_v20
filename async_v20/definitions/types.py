@@ -612,7 +612,6 @@ class CalculatedTradeState(Model):
     """
 
     def __init__(self, id: TradeID = sentinel, unrealized_pl: AccountUnits = sentinel,
-                 # TODO Update when OANDA updates documentation
                  margin_used: AccountUnits = sentinel):
         Model.__init__(**locals())
 
