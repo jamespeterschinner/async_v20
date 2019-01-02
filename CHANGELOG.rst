@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.1.0b0 (01/01/2019)
+8.0.0b0 (01/01/2019)
 =======
  - Added guaranteedStopLossOrderRestriction to Instrument definition
  - Added unixTime attribute to orderBook definition
