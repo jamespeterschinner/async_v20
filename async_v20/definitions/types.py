@@ -525,7 +525,6 @@ class Position(Model):
     def __init__(self, instrument: InstrumentName = sentinel, pl: AccountUnits = sentinel, unrealized_pl: AccountUnits = sentinel,
                  resettable_pl: AccountUnits = sentinel, commission: AccountUnits = sentinel, long: PositionSide = sentinel,
                  short: PositionSide = sentinel, financing: DecimalNumber = sentinel,
-                 # TODO update these attributes with the correct type when OANDA updates documentation
                  margin_used: AccountUnits = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())
@@ -738,9 +737,8 @@ class TradeOpen(Model):
 
     def __init__(self, price: DecimalNumber = sentinel, trade_id: TradeID = sentinel, units: DecimalNumber = sentinel,
                  client_extensions: ClientExtensions = sentinel,
-                 # TODO: Wait for OANDA to confirm price and guaranteed_execution_fee types
-                 guaranteed_execution_fee: DecimalNumber = sentinel,
-                 half_spread_cost: DecimalNumber = sentinel):
+                 guaranteed_execution_fee: AccountUnits = sentinel,
+                 half_spread_cost: AccountUnits = sentinel):
         Model.__init__(**locals())
 
 
