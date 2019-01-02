@@ -10,6 +10,7 @@ from .helpers import check_conflicting_arguments
 from .helpers import create_doc_signature
 from .helpers import flatten_dict
 from .helpers import json_to_instance_attributes
+from .helpers import sentinel
 from .primitives import Primitive, Specifier, InstrumentName
 from ..exceptions import IncompatibleValue, UnknownValue, InstantiationFailure
 
@@ -154,7 +155,7 @@ class Model(object, metaclass=Metaclass):
 
         for name, value in kwargs.items():
             annotation = self.__annotations__[name]
-            if value is ...:
+            if value is sentinel:
                 pass
             elif value is None:
                 fields.append(name)

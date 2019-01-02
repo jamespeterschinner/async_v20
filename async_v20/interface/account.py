@@ -4,6 +4,7 @@ from ..endpoints.account import *
 from ..endpoints.annotations import Alias
 from ..endpoints.annotations import Instruments
 from ..endpoints.annotations import SinceTransactionID
+from ..definitions.helpers import sentinel
 
 __all__ = ['AccountInterface']
 
@@ -53,7 +54,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDInstruments)
-    def account_instruments(self, instruments: Instruments = ...):
+    def account_instruments(self, instruments: Instruments = sentinel):
         """
         Get the list of tradeable instruments for the given Account. The list
         of tradeable instruments is dependent on the regulatory division that
@@ -75,7 +76,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(PATCHAccountIDConfiguration)
-    def configure_account(self, alias: Alias = ..., margin_rate: DecimalNumber = ...):
+    def configure_account(self, alias: Alias = sentinel, margin_rate: DecimalNumber = sentinel):
         """
         Set the client-configurable portions of an Account.
 
@@ -111,7 +112,7 @@ class AccountInterface(object):
         pass
 
     @endpoint(GETAccountIDChanges, rest=True)
-    def account_changes(self, since_transaction_id: SinceTransactionID = ...):
+    def account_changes(self, since_transaction_id: SinceTransactionID = sentinel):
         """
         Endpoint used to poll an Account for its current state and changes
         since a specified TransactionID.

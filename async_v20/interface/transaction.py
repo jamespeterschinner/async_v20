@@ -7,6 +7,7 @@ from ..endpoints.annotations import ToTime
 from ..endpoints.annotations import ToTransactionID
 from ..endpoints.annotations import Type
 from ..endpoints.transaction import *
+from ..definitions.helpers import sentinel
 
 __all__ = ['TransactionInterface']
 
@@ -14,10 +15,10 @@ __all__ = ['TransactionInterface']
 class TransactionInterface(object):
     @endpoint(GETTransactions)
     def list_transactions(self,
-                          from_time: FromTime = ...,  # TODO should default to account creation time
-                          to_time: ToTime = ...,  # TODO should default to request time
+                          from_time: FromTime = sentinel,  # TODO should default to account creation time
+                          to_time: ToTime = sentinel,  # TODO should default to request time
                           page_size: PageSize = 100,
-                          type_: Type = ...):
+                          type_: Type = sentinel):
         """
         Get a list of Transactions pages that satisfy a time-based Transaction
         query.
@@ -73,7 +74,7 @@ class TransactionInterface(object):
     def transaction_range(self,
                           from_transaction: FromTransactionID,
                           to_transaction: ToTransactionID,  # TODO make this default to now
-                          type_: Type = ...):
+                          type_: Type = sentinel):
         """
         Get a range of Transactions for an Account based on the Transaction
         IDs.
@@ -98,7 +99,7 @@ class TransactionInterface(object):
         pass
 
     @endpoint(GETSinceID)
-    def since_transaction(self, transaction_id: TransactionID = ...):
+    def since_transaction(self, transaction_id: TransactionID = sentinel):
         """
         Get a range of Transactions for an Account starting at (but not
         including) a provided Transaction ID.

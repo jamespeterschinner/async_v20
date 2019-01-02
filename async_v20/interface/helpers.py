@@ -6,6 +6,7 @@ import pandas as pd
 
 from ..definitions.base import create_attribute
 from ..definitions.types import OrderRequest
+from ..definitions.helpers import sentinel
 from ..endpoints.annotations import LastTransactionID
 from ..endpoints.annotations import SinceTransactionID
 from ..exceptions import FailedToCreatePath, InvalidOrderRequest
@@ -214,7 +215,7 @@ def construct_arguments(self, sig, *args, **kwargs):
         for name, value in bound.arguments.items():
             annotation = sig.parameters[name].annotation
 
-            if value == ...:
+            if value == sentinel:
                 try:
                     value = self.default_parameters[annotation]
                 except KeyError:

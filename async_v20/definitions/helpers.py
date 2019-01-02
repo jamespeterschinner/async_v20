@@ -9,6 +9,8 @@ from ..exceptions import IncompatibleValue
 
 logger = logging.getLogger(__name__)
 
+sentinel = object()
+
 def check_conflicting_arguments(self, kwargs, preset_values):
     for argument, preset_value in preset_values.items():
         value = kwargs.pop(argument, None)

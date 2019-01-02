@@ -28,13 +28,14 @@ from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import TradeClientExtensions
 from ..endpoints.order import *
+from ..definitions.helpers import sentinel
 
 __all__ = ['OrderInterface']
 
 
 class OrderInterface(object):
     @endpoint(POSTOrders)
-    def post_order(self, order_request: OrderRequest = ...):
+    def post_order(self, order_request: OrderRequest = sentinel):
         """
         Post an OrderRequest.
 
@@ -76,14 +77,14 @@ class OrderInterface(object):
 
     @shortcut
     def create_order(self, instrument: InstrumentName, units: DecimalNumber, type: OrderType = 'MARKET',
-                     trade_id: TradeID = ..., price: PriceValue = ..., client_trade_id: ClientID = ...,
-                     time_in_force: TimeInForce = ..., gtd_time: DateTime = ...,
-                     trigger_condition: OrderTriggerCondition = ..., client_extensions: ClientExtensions = ...,
-                     distance: PriceValue = ..., price_bound: PriceValue = ...,
-                     position_fill: OrderPositionFill = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                     stop_loss_on_fill: StopLossDetails = ...,
-                     trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                     trade_client_extensions: ClientExtensions = ...):
+                     trade_id: TradeID = sentinel, price: PriceValue = sentinel, client_trade_id: ClientID = sentinel,
+                     time_in_force: TimeInForce = sentinel, gtd_time: DateTime = sentinel,
+                     trigger_condition: OrderTriggerCondition = sentinel, client_extensions: ClientExtensions = sentinel,
+                     distance: PriceValue = sentinel, price_bound: PriceValue = sentinel,
+                     position_fill: OrderPositionFill = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
+                     stop_loss_on_fill: StopLossDetails = sentinel,
+                     trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                     trade_client_extensions: ClientExtensions = sentinel):
         """
         create an OrderRequest
 
@@ -147,11 +148,11 @@ class OrderInterface(object):
 
     @endpoint(GETOrders)
     def list_orders(self,
-                    ids: Ids = ...,
-                    state: OrderStateFilter = ...,
-                    instrument: InstrumentName = ...,
-                    count: Count = ...,
-                    before_id: OrderID = ...):
+                    ids: Ids = sentinel,
+                    state: OrderStateFilter = sentinel,
+                    instrument: InstrumentName = sentinel,
+                    count: Count = sentinel,
+                    before_id: OrderID = sentinel):
         """
         Get a list of Orders for an Account
 
@@ -195,7 +196,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(GETOrderSpecifier)
-    def get_order(self, order_specifier: OrderSpecifier = ...):
+    def get_order(self, order_specifier: OrderSpecifier = sentinel):
         """
         Get details for a single Order
 
@@ -216,8 +217,8 @@ class OrderInterface(object):
 
     @endpoint(PUTOrderSpecifier)
     def replace_order(self,
-                      order_specifier: OrderSpecifier = ...,
-                      order_request: OrderRequest = ...):
+                      order_specifier: OrderSpecifier = sentinel,
+                      order_request: OrderRequest = sentinel):
         """
         Replace an Order  by simultaneously cancelling it and
         creating a replacement Order
@@ -261,7 +262,7 @@ class OrderInterface(object):
         pass
 
     @endpoint(PUTOrderSpecifierCancel)
-    def cancel_order(self, order_specifier: OrderSpecifier = ...):
+    def cancel_order(self, order_specifier: OrderSpecifier = sentinel):
         """
         Cancel a pending Order
 
@@ -291,9 +292,9 @@ class OrderInterface(object):
 
     @endpoint(PUTClientExtensions)
     def set_client_extensions(self,
-                              order_specifier: OrderSpecifier = ...,
-                              client_extensions: ClientExtensions = ...,
-                              trade_client_extensions: TradeClientExtensions = ...):
+                              order_specifier: OrderSpecifier = sentinel,
+                              client_extensions: ClientExtensions = sentinel,
+                              trade_client_extensions: TradeClientExtensions = sentinel):
         """
         Update the Client Extensions for an Order . Do not set,
         modify, or delete clientExtensions if your account is associated with
@@ -344,11 +345,11 @@ class OrderInterface(object):
 
     @shortcut
     def market_order(self, instrument: InstrumentName, units: DecimalNumber,
-                     time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = ...,
-                     position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = ...,
-                     take_profit_on_fill: TakeProfitDetails = ..., stop_loss_on_fill: StopLossDetails = ...,
-                     trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                     trade_client_extensions: ClientExtensions = ...):
+                     time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = sentinel,
+                     position_fill: OrderPositionFill = 'DEFAULT', client_extensions: ClientExtensions = sentinel,
+                     take_profit_on_fill: TakeProfitDetails = sentinel, stop_loss_on_fill: StopLossDetails = sentinel,
+                     trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                     trade_client_extensions: ClientExtensions = sentinel):
         """
         Create a Market Order Request
 
@@ -431,12 +432,12 @@ class OrderInterface(object):
 
     @shortcut
     def limit_order(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                    time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                     position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                    client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                    stop_loss_on_fill: StopLossDetails = ...,
-                    trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                    trade_client_extensions: ClientExtensions = ...):
+                    client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
+                    stop_loss_on_fill: StopLossDetails = sentinel,
+                    trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                    trade_client_extensions: ClientExtensions = sentinel):
         """
         Create a Limit Order
 
@@ -529,13 +530,13 @@ class OrderInterface(object):
     def limit_replace_order(self,
                             instrument: InstrumentName, order_specifier: OrderSpecifier, units: DecimalNumber,
                             price: PriceValue,
-                            time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                            time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                             position_fill: OrderPositionFill = 'DEFAULT',
                             trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                            client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                            stop_loss_on_fill: StopLossDetails = ...,
-                            trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                            trade_client_extensions: ClientExtensions = ...):
+                            client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
+                            stop_loss_on_fill: StopLossDetails = sentinel,
+                            trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                            trade_client_extensions: ClientExtensions = sentinel):
         """
         Replace a pending Limit Order
 
@@ -628,8 +629,8 @@ class OrderInterface(object):
 
     @shortcut
     def stop_order(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
-                   client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
-                   trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = ...):
+                   client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                   trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = sentinel):
         """
         Create a Stop Order
 
@@ -698,13 +699,13 @@ class OrderInterface(object):
                            instrument: InstrumentName,
                            order_specifier: OrderSpecifier,
                            units: DecimalNumber, price: PriceValue,
-                           price_bound: PriceValue = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                           price_bound: PriceValue = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                            position_fill: OrderPositionFill = 'DEFAULT',
                            trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                           client_extensions: ClientExtensions = ..., take_profit_on_fill: TakeProfitDetails = ...,
-                           stop_loss_on_fill: StopLossDetails = ...,
-                           trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                           trade_client_extensions: ClientExtensions = ...):
+                           client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
+                           stop_loss_on_fill: StopLossDetails = sentinel,
+                           trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                           trade_client_extensions: ClientExtensions = sentinel):
         """
         Replace a pending Stop Order
 
@@ -802,15 +803,15 @@ class OrderInterface(object):
 
     @shortcut
     def market_if_touched_order(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
-                                price_bound: PriceValue = ...,
-                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                                price_bound: PriceValue = sentinel,
+                                time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                                 position_fill: OrderPositionFill = 'DEFAULT',
                                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                                client_extensions: ClientExtensions = ...,
-                                take_profit_on_fill: TakeProfitDetails = ...,
-                                stop_loss_on_fill: StopLossDetails = ...,
-                                trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                                trade_client_extensions: ClientExtensions = ...):
+                                client_extensions: ClientExtensions = sentinel,
+                                take_profit_on_fill: TakeProfitDetails = sentinel,
+                                stop_loss_on_fill: StopLossDetails = sentinel,
+                                trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                                trade_client_extensions: ClientExtensions = sentinel):
         """
         Create a market if touched order
 
@@ -910,15 +911,15 @@ class OrderInterface(object):
                                         instrument: InstrumentName,
                                         order_specifier: OrderSpecifier,
                                         units: DecimalNumber, price: PriceValue,
-                                        price_bound: PriceValue = ...,
-                                        time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                                        price_bound: PriceValue = sentinel,
+                                        time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                                         position_fill: OrderPositionFill = 'DEFAULT',
                                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                                        client_extensions: ClientExtensions = ...,
-                                        take_profit_on_fill: TakeProfitDetails = ...,
-                                        stop_loss_on_fill: StopLossDetails = ...,
-                                        trailing_stop_loss_on_fill: TrailingStopLossDetails = ...,
-                                        trade_client_extensions: ClientExtensions = ...
+                                        client_extensions: ClientExtensions = sentinel,
+                                        take_profit_on_fill: TakeProfitDetails = sentinel,
+                                        stop_loss_on_fill: StopLossDetails = sentinel,
+                                        trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                                        trade_client_extensions: ClientExtensions = sentinel
                                         ):
         """
         Replace a pending market if touched order
@@ -1022,10 +1023,10 @@ class OrderInterface(object):
 
     @shortcut
     def take_profit_order(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
-                          client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                          gtd_time: DateTime = ...,
+                          client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                          gtd_time: DateTime = sentinel,
                           trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                          client_extensions: ClientExtensions = ...):
+                          client_extensions: ClientExtensions = sentinel):
         """
         Create a take profit order
 
@@ -1096,10 +1097,10 @@ class OrderInterface(object):
                                   instrument: InstrumentName,
                                   order_specifier: OrderSpecifier,
                                   trade_id: TradeID, price: PriceValue,
-                                  client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                  gtd_time: DateTime = ...,
+                                  client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                                  gtd_time: DateTime = sentinel,
                                   trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                                  client_extensions: ClientExtensions = ...
+                                  client_extensions: ClientExtensions = sentinel
                                   ):
         """
         Replace a pending take profit order
@@ -1173,9 +1174,9 @@ class OrderInterface(object):
 
     @shortcut
     def stop_loss_order(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
-                        client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = ...,
+                        client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                         trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                        client_extensions: ClientExtensions = ...):
+                        client_extensions: ClientExtensions = sentinel):
         """
         Create a Stop Loss Order
 
@@ -1244,10 +1245,10 @@ class OrderInterface(object):
                                 instrument: InstrumentName,
                                 order_specifier: OrderSpecifier,
                                 trade_id: TradeID, price: PriceValue,
-                                client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                gtd_time: DateTime = ...,
+                                client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                                gtd_time: DateTime = sentinel,
                                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                                client_extensions: ClientExtensions = ...):
+                                client_extensions: ClientExtensions = sentinel):
         """
         Replace a pending Stop Loss Order
 
@@ -1322,10 +1323,10 @@ class OrderInterface(object):
     def trailing_stop_loss_order(self,
                                  instrument: InstrumentName,
                                  trade_id: TradeID, distance: PriceValue,
-                                 client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                 gtd_time: DateTime = ...,
+                                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                                 gtd_time: DateTime = sentinel,
                                  trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                                 client_extensions: ClientExtensions = ...):
+                                 client_extensions: ClientExtensions = sentinel):
         """
         Create a Trailing Stop Loss Order
 
@@ -1397,10 +1398,10 @@ class OrderInterface(object):
                                          instrument: InstrumentName,
                                          order_specifier: OrderSpecifier,
                                          trade_id: TradeID, distance: PriceValue,
-                                         client_trade_id: ClientID = ..., time_in_force: TimeInForce = 'GTC',
-                                         gtd_time: DateTime = ...,
+                                         client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                                         gtd_time: DateTime = sentinel,
                                          trigger_condition: OrderTriggerCondition = 'DEFAULT',
-                                         client_extensions: ClientExtensions = ...):
+                                         client_extensions: ClientExtensions = sentinel):
         """
         Replace a pending Trailing Stop Loss Order
 

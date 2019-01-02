@@ -5,6 +5,7 @@ from ..endpoints.annotations import LongUnits
 from ..endpoints.annotations import ShortClientExtensions
 from ..endpoints.annotations import ShortUnits
 from ..endpoints.position import *
+from ..definitions.helpers import sentinel
 
 __all__ = ['PositionInterface']
 
@@ -43,7 +44,7 @@ class PositionInterface(object):
         pass
 
     @endpoint(GETPositionsInstrument)
-    def get_position(self, instrument: InstrumentName = ...):
+    def get_position(self, instrument: InstrumentName = sentinel):
         """
         Get the details of a single Instrument's Position in an Account. The
         Position may by open or not.
@@ -64,11 +65,11 @@ class PositionInterface(object):
 
     @endpoint(PUTPositionsInstrumentClose)
     def close_position(self,
-                       instrument: InstrumentName = ...,
-                       long_units: LongUnits = ...,
-                       long_client_extensions: LongClientExtensions = ...,
-                       short_units: ShortUnits = ...,
-                       short_client_extensions: ShortClientExtensions = ...):
+                       instrument: InstrumentName = sentinel,
+                       long_units: LongUnits = sentinel,
+                       long_client_extensions: LongClientExtensions = sentinel,
+                       short_units: ShortUnits = sentinel,
+                       short_client_extensions: ShortClientExtensions = sentinel):
         """
         Closeout the open Position for a specific instrument in an Account.
 

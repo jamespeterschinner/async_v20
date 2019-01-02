@@ -12,6 +12,7 @@ from ..endpoints.annotations import IncludeFirstQuery
 from ..endpoints.annotations import Smooth
 from ..endpoints.annotations import ToTime
 from ..endpoints.instrument import *
+from ..definitions.helpers import sentinel
 
 __all__ = ['InstrumentInterface']
 
@@ -22,11 +23,11 @@ class InstrumentInterface(object):
                     instrument: InstrumentName,
                     price: PriceComponent = 'M',
                     granularity: CandlestickGranularity = 'S5',
-                    count: Count = ...,
-                    from_time: FromTime = ...,
-                    to_time: ToTime = ...,
+                    count: Count = sentinel,
+                    from_time: FromTime = sentinel,
+                    to_time: ToTime = sentinel,
                     smooth: Smooth = False,
-                    include_first_query: IncludeFirstQuery = ...,
+                    include_first_query: IncludeFirstQuery = sentinel,
                     daily_alignment: DailyAlignment = 17,
                     alignment_timezone: AlignmentTimezone = 'America/New_York',
                     weekly_alignment: WeeklyAlignment = 'Friday',
@@ -84,7 +85,7 @@ class InstrumentInterface(object):
     @endpoint(GETInstrumentOrderBook)
     def get_order_book(self,
                        instrument: InstrumentName,
-                       time: DateTime = ...):
+                       time: DateTime = sentinel):
         """Fetch a gzip compressed order book for an instrument
 
         Args:
@@ -106,7 +107,7 @@ class InstrumentInterface(object):
     @endpoint(GETInstrumentsPositionBook)
     def get_position_book(self,
                           instrument: InstrumentName,
-                          time: DateTime = ...):
+                          time: DateTime = sentinel):
         """Fetch a gzip compressed order book for an instrument
 
         Args:

@@ -2,6 +2,7 @@ from .decorators import endpoint
 from ..definitions.types import DateTime
 from ..endpoints.annotations import *
 from ..endpoints.pricing import *
+from ..definitions.helpers import sentinel
 
 __all__ = ['PricingInterface']
 
@@ -9,8 +10,8 @@ __all__ = ['PricingInterface']
 class PricingInterface(object):
     @endpoint(GETPricing)
     def get_pricing(self,
-                    instruments: Instruments = ...,
-                    since: DateTime = ...):
+                    instruments: Instruments = sentinel,
+                    since: DateTime = sentinel):
         """
         Get pricing information for a specified list of Instruments within an
         Account.
@@ -34,8 +35,8 @@ class PricingInterface(object):
 
     @endpoint(GETPricingStream)
     def stream_pricing(self,
-                       instruments: Instruments = ...,
-                       snapshot: Snapshot = ...):
+                       instruments: Instruments = sentinel,
+                       snapshot: Snapshot = sentinel):
         """
         Get a stream of Account Prices starting from when the request is made.
         This pricing stream does not include every single price created for the

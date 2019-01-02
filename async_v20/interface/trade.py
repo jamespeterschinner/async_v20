@@ -11,6 +11,7 @@ from ..endpoints.annotations import Count
 from ..endpoints.annotations import Ids
 from ..endpoints.annotations import Units
 from ..endpoints.trade import *
+from ..definitions.helpers import sentinel
 
 __all__ = ['TradeInterface']
 
@@ -18,11 +19,11 @@ __all__ = ['TradeInterface']
 class TradeInterface(object):
     @endpoint(GETTrades)
     def list_trades(self,
-                    ids: Ids = ...,
-                    state: TradeStateFilter = ...,
-                    instrument: InstrumentName = ...,
-                    count: Count = ...,
-                    trade_id: TradeID = ...):
+                    ids: Ids = sentinel,
+                    state: TradeStateFilter = sentinel,
+                    instrument: InstrumentName = sentinel,
+                    count: Count = sentinel,
+                    trade_id: TradeID = sentinel):
         """
         Get a list of Trades for an Account
 
@@ -64,7 +65,7 @@ class TradeInterface(object):
         pass
 
     @endpoint(GETTradeSpecifier)
-    def get_trade(self, trade_specifier: TradeSpecifier = ...):
+    def get_trade(self, trade_specifier: TradeSpecifier = sentinel):
         """
         Get the details of a specific Trade in an Account
 
@@ -85,8 +86,8 @@ class TradeInterface(object):
 
     @endpoint(PUTTradeSpecifierClose)
     def close_trade(self,
-                     trade_specifier: TradeSpecifier = ...,
-                     units: Units = ...):
+                     trade_specifier: TradeSpecifier = sentinel,
+                     units: Units = sentinel):
         """
         Close (partially or fully) a specific open Trade in an Account
 
@@ -130,8 +131,8 @@ class TradeInterface(object):
 
     @endpoint(PUTTradeSpecifierClientExtensions)
     def set_client_extensions_trade(self,
-                                    trade_specifier: TradeSpecifier = ...,
-                                    client_extensions: ClientExtensions = ...):
+                                    trade_specifier: TradeSpecifier = sentinel,
+                                    client_extensions: ClientExtensions = sentinel):
         """
         Update the Client Extensions for a Trade. Do not add, update, or delete
         the Client Extensions if your account is associated with MT4.
@@ -176,10 +177,10 @@ class TradeInterface(object):
 
     @endpoint(PUTTradesSpecifierOrders)
     def set_dependent_orders_trade(self,
-                                   trade_specifier: TradeSpecifier = ...,
-                                   take_profit: TakeProfitDetails = ...,
-                                   stop_loss: StopLossDetails = ...,
-                                   trailing_stop_loss: TrailingStopLossDetails = ...):
+                                   trade_specifier: TradeSpecifier = sentinel,
+                                   take_profit: TakeProfitDetails = sentinel,
+                                   stop_loss: StopLossDetails = sentinel,
+                                   trailing_stop_loss: TrailingStopLossDetails = sentinel):
         """
         Create, replace and cancel a Trade's dependent Orders (Take Profit,
         Stop Loss and Trailing Stop Loss) through the Trade itself
