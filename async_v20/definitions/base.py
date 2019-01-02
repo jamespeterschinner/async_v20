@@ -12,7 +12,7 @@ from .helpers import flatten_dict
 from .helpers import json_to_instance_attributes
 from .helpers import sentinel
 from .primitives import Primitive, Specifier, InstrumentName
-from ..exceptions import IncompatibleValue, UnknownValue, InstantiationFailure
+from ..exceptions import IncompatibleValue, UnknownKeywordArgument, InstantiationFailure
 
 logger = logging.getLogger(__name__)
 
@@ -495,7 +495,7 @@ def create_attribute(typ, data):
             result = typ(*data)
         else:
             result = typ(data)
-    except (TypeError, ValueError, UnknownValue):
+    except (TypeError, ValueError, UnknownKeywordArgument):
         # This error handling is required when there is no
         # schema available to parse the data. Typically
         # when an error code has been returned

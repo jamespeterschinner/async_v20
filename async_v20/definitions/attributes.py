@@ -175,7 +175,9 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'guaranteedStopLossOrderLevelRestriction': 'guaranteed_stop_loss_order_level_restriction',
                        'guaranteed_stop_loss_order_level_restriction':'guaranteed_stop_loss_order_level_restriction',
                        'requestedUnits': 'requested_units', 'requested_units': 'requested_units',
-                       'fullVWAP': 'full_vwap', 'full_vwap': 'full_vwap'}
+                       'fullVWAP': 'full_vwap', 'full_vwap': 'full_vwap',
+                       'initialMarginRequired': 'initial_margin_required',
+                       'initial_margin_required': 'initial_margin_required'}
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
                    'reduce_only': 'reduceOnly', 'open_only': 'openOnly', 'timestamp': 'timestamp',
@@ -268,4 +270,5 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'resettable_pl_time': 'resettablePLTime', 'guaranteed_execution_fees':'guaranteedExecutionFees',
                    'guaranteed': 'guaranteed', 'price_range': 'priceRange', 'unix_time': 'unixTime',
                    'guaranteed_stop_loss_order_level_restriction':'guaranteedStopLossOrderLevelRestriction',
-                   'requested_units':'requestedUnits', 'full_vwap': 'fullVWAP'}
+                   'requested_units':'requestedUnits', 'full_vwap': 'fullVWAP',
+                   'initial_margin_required':'initialMarginRequired'}

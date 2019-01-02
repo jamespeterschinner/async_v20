@@ -5,7 +5,7 @@ from async_v20.definitions.base import Model
 from async_v20.definitions.base import create_attribute
 from async_v20.definitions.types import OrderRequest
 from tests.test_definitions.helpers import get_valid_primitive_data, create_cls_annotations
-from async_v20.exceptions import UnknownValue, InstantiationFailure
+from async_v20.exceptions import UnknownKeywordArgument, InstantiationFailure
 import logging
 logger = logging.getLogger('async_v20')
 logger.disabled = True
@@ -50,7 +50,7 @@ def test_all_types_can_be_instantiated_from_dict(cls, data):
 def test_all_types_instantiated_from_dict_with_incorrect_argument_raises_error(cls, data):
     arguments = data.copy()
     arguments.update(this_argument_doesnt_exist='TEST_VALUE')
-    with pytest.warns(UnknownValue):
+    with pytest.warns(UnknownKeywordArgument):
         cls(**arguments)
 
 

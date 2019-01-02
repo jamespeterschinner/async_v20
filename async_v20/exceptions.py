@@ -32,7 +32,7 @@ class IncompatibleValue(AsyncV20Exception):
     """A supplied argument is different than the predefined value"""
     pass
 
-class UnknownValue(AsyncV20Warning):
+class UnknownKeywordArgument(AsyncV20Warning):
     """A passed keyword argument is not in the objects __init__ signature"""
     pass
 

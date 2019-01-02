@@ -1,16 +1,17 @@
 import logging
+import warnings
 from inspect import _empty
 from itertools import starmap, chain
 
 from .attributes import instance_attributes
-from ..exceptions import InvalidValue
-from ..exceptions import UnknownValue
-import warnings
 from ..exceptions import IncompatibleValue
+from ..exceptions import InvalidValue
+from ..exceptions import UnknownKeywordArgument
 
 logger = logging.getLogger(__name__)
 
 sentinel = object()
+
 
 def check_conflicting_arguments(self, kwargs, preset_values):
     for argument, preset_value in preset_values.items():
@@ -21,18 +22,19 @@ def check_conflicting_arguments(self, kwargs, preset_values):
             logger.error(msg)
             raise IncompatibleValue(msg)
 
+
 def json_to_instance_attributes(self, kwargs, template):
     for name, value in kwargs.items():
         try:
             yield instance_attributes[name], value
         except KeyError:
             possible_arguments = ', '.join(attr for attr in template)
-            msg = f'`{name}` is not a valid keyword argument. ' \
-                  f'Possible arguments for class {self.__class__.__name__} ' \
+            msg = f'`{name}` with value `{value}`. ' \
+                  f'supplied to class {self.__class__.__qualname__} \n' \
+                  f'Possible arguments for class {self.__class__.__qualname__} ' \
                   f'include: {possible_arguments}'
             logger.error(msg)
-            warnings.warn(msg, UnknownValue)
-
+            warnings.warn(msg, UnknownKeywordArgument)
 
 
 def domain_check(value, example=None, possible_values=None):

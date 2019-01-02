@@ -1050,6 +1050,10 @@ class TradeSummary(Model):
         initial_units: :class:`~async_v20.DecimalNumber`
             The initial size of the Trade. Negative values indicate
             a short Trade, and positive values indicate a long Trade.
+        initial_margin_required: :class:`~async_v20.AccountUnits`
+            The margin required at the time the Trade was created. Note, this is the
+            ‘pure’ margin required, it is not the ‘effective’ margin used that
+            factors in the trade risk if a GSLO is attached to the trade.
         current_units: :class:`~async_v20.DecimalNumber`
             The number of units currently open for the Trade. This
             value is reduced to 0.0 as the Trade is closed.
@@ -1083,6 +1087,7 @@ class TradeSummary(Model):
 
     def __init__(self, id: TradeID = sentinel, instrument: InstrumentName = sentinel, price: PriceValue = sentinel,
                  open_time: DateTime = sentinel, state: TradeState = sentinel, initial_units: DecimalNumber = sentinel,
+                 initial_margin_required: AccountUnits = sentinel,
                  current_units: DecimalNumber = sentinel, realized_pl: AccountUnits = sentinel, unrealized_pl: AccountUnits = sentinel,
                  average_close_price: PriceValue = sentinel, closing_transaction_ids: ArrayTransactionID = sentinel,
                  financing: AccountUnits = sentinel, close_time: DateTime = sentinel,
