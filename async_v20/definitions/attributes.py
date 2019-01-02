@@ -173,7 +173,9 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'priceRange':'price_range', 'price_range':'price_range', 'unixTime': 'unix_time',
                        'unix_time':'unix_time',
                        'guaranteedStopLossOrderLevelRestriction': 'guaranteed_stop_loss_order_level_restriction',
-                       'guaranteed_stop_loss_order_level_restriction':'guaranteed_stop_loss_order_level_restriction'}
+                       'guaranteed_stop_loss_order_level_restriction':'guaranteed_stop_loss_order_level_restriction',
+                       'requestedUnits': 'requested_units', 'requested_units': 'requested_units',
+                       'fullVWAP': 'full_vwap', 'full_vwap': 'full_vwap'}
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
                    'reduce_only': 'reduceOnly', 'open_only': 'openOnly', 'timestamp': 'timestamp',
@@ -265,4 +267,5 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'guaranteed_stop_loss_order_mode': 'guaranteedStopLossOrderMode',
                    'resettable_pl_time': 'resettablePLTime', 'guaranteed_execution_fees':'guaranteedExecutionFees',
                    'guaranteed': 'guaranteed', 'price_range': 'priceRange', 'unix_time': 'unixTime',
-                   'guaranteed_stop_loss_order_level_restriction':'guaranteedStopLossOrderLevelRestriction'}
+                   'guaranteed_stop_loss_order_level_restriction':'guaranteedStopLossOrderLevelRestriction',
+                   'requested_units':'requestedUnits', 'full_vwap': 'fullVWAP'}

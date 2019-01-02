@@ -1155,7 +1155,9 @@ class Transaction(Model):
                  guaranteed_execution_fee: DecimalNumber = ...,
                  half_spread_cost: DecimalNumber = ...,
                  partial_fill: str = ...,
-                 guaranteed: bool = ...):
+                 guaranteed: bool = ...,
+                 requested_units: DecimalNumber = ...,
+                 full_vwap: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
@@ -3614,7 +3616,9 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
                  gain_quote_home_conversion_factor: DecimalNumber = ...,
                  loss_quote_home_conversion_factor: DecimalNumber = ...,
                  guaranteed_execution_fee: DecimalNumber = ...,
-                 half_spread_cost: DecimalNumber = ...):
+                 half_spread_cost: DecimalNumber = ...,
+                 requested_units: DecimalNumber = ...,
+                 full_vwap: DecimalNumber = ...):
         Model.__init__(**locals())
 
 
