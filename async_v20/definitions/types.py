@@ -1153,7 +1153,7 @@ class Transaction(Model):
                  half_spread_cost: AccountUnits = sentinel,
                  partial_fill: str = sentinel,
                  guaranteed: bool = sentinel,
-                 requested_units: DecimalNumber = sentinel,
+                 requested_units: AccountUnits = sentinel,
                  full_vwap: DecimalNumber = sentinel):
         Model.__init__(**locals())
 
@@ -3571,6 +3571,14 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
             The name of the filled Order's instrument.
         units: :class:`~async_v20.DecimalNumber`
             The number of units filled by the Order.
+        gain_quote_home_conversion_factor:
+            This is the conversion factor in effect for the Account at the time of
+            the OrderFill for converting any gains realized in Instrument quote units
+            into units of the Account’s home currency.
+        loss_quote_home_conversion_factor:
+            This is the conversion factor in effect for the Account at the time of
+            the OrderFill for converting any losses realized in Instrument quote
+            units into units of the Account’s home currency.
         price: :class:`~async_v20.PriceValue`
             The average market price that the Order was filled at.
         full_price: :class:`~async_v20.PriceValue`
@@ -3586,6 +3594,9 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
             commission is
             always represented as a positive quantity of the Account's home currency, however it reduces the balance in
             the Account.
+        guaranteed_execution_fee:
+            The total guaranteed execution fees charged for all Trades opened, closed
+            or reduced with guaranteed Stop Loss Orders.
         account_balance: :class:`~async_v20.AccountUnits`
             The Account's balance after the Order was filled.
         trade_opened: :class:`~async_v20.TradeOpen`
@@ -3597,6 +3608,11 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
         trade_reduced: :class:`~async_v20.TradeReduce`
             The Trade that was reduced when the Order was filled (only
             provided if filling the Order resulted in reducing an open Trade).
+        half_spread_cost:
+            The half spread cost for the OrderFill, which is the sum of the
+            halfSpreadCost values in the tradeOpened, tradesClosed and tradeReduced
+            fields. This can be a positive or negative value and is represented in
+            the home currency of the Account.
 
     """
 
@@ -3608,12 +3624,11 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
                  financing: AccountUnits = sentinel, commission: AccountUnits = sentinel, account_balance: AccountUnits = sentinel,
                  trade_opened: TradeOpen = sentinel, trades_closed: ArrayTradeReduce = sentinel,
                  trade_reduced: TradeReduce = sentinel,
-                 # TODO update when OANDA ADVISES correct type. This is currently a guess.
                  gain_quote_home_conversion_factor: DecimalNumber = sentinel,
                  loss_quote_home_conversion_factor: DecimalNumber = sentinel,
                  guaranteed_execution_fee: AccountUnits = sentinel,
-                 half_spread_cost: DecimalNumber = sentinel,
-                 requested_units: DecimalNumber = sentinel,
+                 half_spread_cost: AccountUnits = sentinel,
+                 requested_units: AccountUnits = sentinel,
                  full_vwap: DecimalNumber = sentinel):
         Model.__init__(**locals())
 
