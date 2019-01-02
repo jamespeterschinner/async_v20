@@ -9,6 +9,8 @@ Changelog
  - Added guarateed to StopLossOrder definition
  - Replaced ellipsis (...) with sentinel object
  - Added fullVWAP to Transaction definition
+ - UnknownValue Exception is now a Warning in order to make the client more robust
+ to breaking changes from OANDA
 
 7.0.1b0
 =======
