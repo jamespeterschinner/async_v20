@@ -495,8 +495,7 @@ class PositionSide(Model):
     def __init__(self, units: DecimalNumber = sentinel, average_price: PriceValue = sentinel, trade_ids: ArrayTradeID = sentinel,
                  pl: AccountUnits = sentinel, unrealized_pl: AccountUnits = sentinel, resettable_pl: AccountUnits = sentinel,
                  financing: DecimalNumber = sentinel,
-                 # TODO: update when OANDA updates documentation
-                 guaranteed_execution_fees: DecimalNumber = sentinel):
+                 guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())
 
 
