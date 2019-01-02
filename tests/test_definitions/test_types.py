@@ -104,8 +104,8 @@ def test_instances_are_immutable(cls, data):
         delattr(instance, instance._fields[0])
 
 @pytest.mark.parametrize('cls, data', model_classes_data)
-def test_instantiation_failure_when_unknown_kwargs_are_passed(cls, data):
-    with pytest.raises(InstantiationFailure):
+def test_warning_when_unknown_kwargs_are_passed_to_class(cls, data):
+    with pytest.warns(UnknownKeywordArgument):
         try:
             cls(**data, o=1) # doubled up argument for CandlestickData
         except TypeError:

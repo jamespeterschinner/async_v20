@@ -18,18 +18,13 @@ logger = logging.getLogger(__name__)
 
 
 def arg_parse(__init__, template: tuple, preset_values: dict) -> classmethod:
-    """Wrapper to convert camelCase arguments to snake_case """
+    """Wrapper to convert camelCase arguments to snake_case"""
 
     @wraps(__init__)
     def wrap(self, *args, **kwargs):
         check_conflicting_arguments(self, kwargs, preset_values)
         kwargs = dict(json_to_instance_attributes(self, kwargs, template))
-        try:
-            return __init__(self, *args, **kwargs)
-        except TypeError as e:
-            msg = f'Could note create {self.__class__}. ARGUMENTS: {args, kwargs}. {e}'
-            logger.error(msg)
-            raise InstantiationFailure(msg)
+        return __init__(self, *args, **kwargs)
 
     wrap.__annotations__ = __init__.__annotations__
     return wrap

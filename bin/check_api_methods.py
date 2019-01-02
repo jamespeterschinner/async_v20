@@ -127,7 +127,7 @@ for i in rsp:
 rsp = run(
     client.list_open_trades(),
     client.list_trades(),
-    client.get_trades(TradeSpecifier(client.default_parameters[LastTransactionID])),
+    client.get_trade(TradeSpecifier(client.default_parameters[LastTransactionID])),
     client.list_transactions(),
     client.get_transaction(TransactionID(client.default_parameters[LastTransactionID])),
 

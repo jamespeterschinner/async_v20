@@ -24,15 +24,20 @@ def check_conflicting_arguments(self, kwargs, preset_values):
 
 
 def json_to_instance_attributes(self, kwargs, template):
-    for name, value in kwargs.items():
+    """Convert CamelCase keyword arguments to snake_case. Also
+    validate corresponding snake_case keyword argument is a valid
+    argument for the class being initialized.
+    """
+
+    for key, value in kwargs.items():
         try:
-            yield instance_attributes[name], value
-        except KeyError:
+            attr = instance_attributes[key]
+            assert attr in template
+            yield attr, value
+        except (KeyError, AssertionError):
             possible_arguments = ', '.join(attr for attr in template)
-            msg = f'`{name}` with value `{value}`. ' \
-                  f'supplied to class {self.__class__.__qualname__} \n' \
-                  f'Possible arguments for class {self.__class__.__qualname__} ' \
-                  f'include: {possible_arguments}'
+            msg = f'`{key}` with value `{value}` supplied to {self.__class__.__qualname__} \n' \
+                  f'Possible arguments include: {possible_arguments}'
             logger.error(msg)
             warnings.warn(msg, UnknownKeywordArgument)
 
