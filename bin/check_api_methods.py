@@ -177,5 +177,5 @@ print(run(client.close_all_trades()))
 account = run(client.account())[0]
 
 assert len(account.trades) == 0, f'Account still has trades open {account.trades}'
-client.close()
+run(client.close())
 print('TEST SUCCESSFUL!')

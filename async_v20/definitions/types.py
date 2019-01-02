@@ -48,10 +48,12 @@ class ArrayTransactionFilter(Array, contains=TransactionFilter):
 class ArrayTransactionID(Array, contains=TransactionID):
     pass
 
+
 class ArrayDict(Array, contains=dict):
     # TODO: Update this class when OANDA updates documentation for Instrument class.
     # This class is used for the 'tags' attribute of the Instrument class
     pass
+
 
 class ClientExtensions(Model):
     """A ClientExtensions object allows a client to attach a clientID, tag and
@@ -91,7 +93,8 @@ class TakeProfitDetails(Model):
 
     """
 
-    def __init__(self, price: PriceValue = sentinel, time_in_force: TimeInForce = sentinel, gtd_time: DateTime = sentinel,
+    def __init__(self, price: PriceValue = sentinel, time_in_force: TimeInForce = sentinel,
+                 gtd_time: DateTime = sentinel,
                  client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -115,7 +118,8 @@ class StopLossDetails(Model):
 
     """
 
-    def __init__(self, price: PriceValue = sentinel, time_in_force: TimeInForce = sentinel, gtd_time: DateTime = sentinel,
+    def __init__(self, price: PriceValue = sentinel, time_in_force: TimeInForce = sentinel,
+                 gtd_time: DateTime = sentinel,
                  client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -141,7 +145,8 @@ class TrailingStopLossDetails(Model):
 
     """
 
-    def __init__(self, distance: PriceValue = sentinel, time_in_force: TimeInForce = sentinel, gtd_time: DateTime = sentinel,
+    def __init__(self, distance: PriceValue = sentinel, time_in_force: TimeInForce = sentinel,
+                 gtd_time: DateTime = sentinel,
                  client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -174,7 +179,8 @@ class OrderRequest(Model, jit=False):
 
     def __init__(self, instrument: InstrumentName, trade_id: TradeID = sentinel, price: PriceValue = sentinel,
                  type: OrderType = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = sentinel, gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = sentinel,
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = sentinel, client_extensions: ClientExtensions = sentinel,
                  distance: PriceValue = sentinel, units: DecimalNumber = sentinel,
                  price_bound: PriceValue = sentinel, position_fill: OrderPositionFill = sentinel,
@@ -284,7 +290,8 @@ class CandlestickData(Model):
 
     """
 
-    def __init__(self, o: PriceValue = sentinel, h: PriceValue = sentinel, l: PriceValue = sentinel, c: PriceValue = sentinel):
+    def __init__(self, o: PriceValue = sentinel, h: PriceValue = sentinel, l: PriceValue = sentinel,
+                 c: PriceValue = sentinel):
         Model.__init__(**locals())
 
 
@@ -434,7 +441,8 @@ class DynamicOrderState(Model):
 
     """
 
-    def __init__(self, id: OrderID = sentinel, trailing_stop_value: PriceValue = sentinel, trigger_distance: PriceValue = sentinel,
+    def __init__(self, id: OrderID = sentinel, trailing_stop_value: PriceValue = sentinel,
+                 trigger_distance: PriceValue = sentinel,
                  is_trigger_distance_exact: bool = sentinel):
         Model.__init__(**locals())
 
@@ -492,8 +500,10 @@ class PositionSide(Model):
 
     """
 
-    def __init__(self, units: DecimalNumber = sentinel, average_price: PriceValue = sentinel, trade_ids: ArrayTradeID = sentinel,
-                 pl: AccountUnits = sentinel, unrealized_pl: AccountUnits = sentinel, resettable_pl: AccountUnits = sentinel,
+    def __init__(self, units: DecimalNumber = sentinel, average_price: PriceValue = sentinel,
+                 trade_ids: ArrayTradeID = sentinel,
+                 pl: AccountUnits = sentinel, unrealized_pl: AccountUnits = sentinel,
+                 resettable_pl: AccountUnits = sentinel,
                  financing: DecimalNumber = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())
@@ -522,8 +532,10 @@ class Position(Model):
 
     """
 
-    def __init__(self, instrument: InstrumentName = sentinel, pl: AccountUnits = sentinel, unrealized_pl: AccountUnits = sentinel,
-                 resettable_pl: AccountUnits = sentinel, commission: AccountUnits = sentinel, long: PositionSide = sentinel,
+    def __init__(self, instrument: InstrumentName = sentinel, pl: AccountUnits = sentinel,
+                 unrealized_pl: AccountUnits = sentinel,
+                 resettable_pl: AccountUnits = sentinel, commission: AccountUnits = sentinel,
+                 long: PositionSide = sentinel,
                  short: PositionSide = sentinel, financing: DecimalNumber = sentinel,
                  margin_used: AccountUnits = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
@@ -579,7 +591,8 @@ class ClientPrice(Model):
     """
 
     def __init__(self, bids: ArrayPriceBucket = sentinel, asks: ArrayPriceBucket = sentinel,
-                 closeout_bid: PriceValue = sentinel, closeout_ask: PriceValue = sentinel, timestamp: DateTime = sentinel):
+                 closeout_bid: PriceValue = sentinel, closeout_ask: PriceValue = sentinel,
+                 timestamp: DateTime = sentinel):
         Model.__init__(**locals())
 
 
@@ -779,7 +792,8 @@ class UserInfo(Model):
 
     """
 
-    def __init__(self, username: str = sentinel, user_id: str = sentinel, country: str = sentinel, email_address: str = sentinel):
+    def __init__(self, username: str = sentinel, user_id: str = sentinel, country: str = sentinel,
+                 email_address: str = sentinel):
         Model.__init__(**locals())
 
 
@@ -861,7 +875,8 @@ class OrderBook(Model):
     """
 
     def __init__(self, instrument: InstrumentName = sentinel, time: DateTime = sentinel, unix_time: DateTime = sentinel,
-                 price: PriceValue = sentinel, bucket_width: PriceValue = sentinel, buckets: ArrayOrderBookBucket = sentinel):
+                 price: PriceValue = sentinel, bucket_width: PriceValue = sentinel,
+                 buckets: ArrayOrderBookBucket = sentinel):
         Model.__init__(**locals())
 
 
@@ -885,7 +900,8 @@ class PositionBook(Model):
 
     """
 
-    def __init__(self, instrument: InstrumentName = sentinel, time: DateTime = sentinel, unix_time: DateTime = sentinel, price: PriceValue = sentinel,
+    def __init__(self, instrument: InstrumentName = sentinel, time: DateTime = sentinel, unix_time: DateTime = sentinel,
+                 price: PriceValue = sentinel,
                  bucket_width: PriceValue = sentinel, buckets: ArrayPositionBookBucket = sentinel):
         Model.__init__(**locals())
 
@@ -944,18 +960,22 @@ class Order(Model):
     # TODO: Update the annotation for partial_fill when OANDA responds to email, & `guaranteed`
 
     def __init__(self, id: OrderID = sentinel, create_time: DateTime = sentinel, state: OrderState = sentinel,
-                 client_extensions: ClientExtensions = sentinel, trade_id: TradeID = sentinel, price: PriceValue = sentinel,
-                 type: OrderType = sentinel, client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = sentinel,
+                 client_extensions: ClientExtensions = sentinel, trade_id: TradeID = sentinel,
+                 price: PriceValue = sentinel,
+                 type: OrderType = sentinel, client_trade_id: ClientID = sentinel,
+                 time_in_force: TimeInForce = sentinel,
                  gtd_time: DateTime = sentinel, trigger_condition: OrderTriggerCondition = sentinel,
                  filling_transaction_id: TransactionID = sentinel, filled_time: DateTime = sentinel,
                  trade_opened_id: TradeID = sentinel, trade_reduced_id: TradeID = sentinel,
                  trade_closed_ids: ArrayTradeID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
                  cancelled_time: DateTime = sentinel, replaces_order_id: OrderID = sentinel,
                  replaced_by_order_id: OrderID = sentinel, distance: PriceValue = sentinel,
-                 trailing_stop_value: PriceValue = sentinel, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel,
+                 trailing_stop_value: PriceValue = sentinel, instrument: InstrumentName = sentinel,
+                 units: DecimalNumber = sentinel,
                  partial_fill: str = sentinel, position_fill: OrderPositionFill = sentinel,
                  take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel, price_bound: PriceValue = sentinel,
                  initial_market_price: PriceValue = sentinel, trade_close: MarketOrderTradeClose = sentinel,
                  long_position_closeout: MarketOrderPositionCloseout = sentinel,
@@ -990,7 +1010,8 @@ class TradeReduce(Model):
 
     """
 
-    def __init__(self, trade_id: TradeID = sentinel, units: DecimalNumber = sentinel, realized_pl: AccountUnits = sentinel,
+    def __init__(self, trade_id: TradeID = sentinel, units: DecimalNumber = sentinel,
+                 realized_pl: AccountUnits = sentinel,
                  financing: AccountUnits = sentinel, price: DecimalNumber = sentinel,
                  guaranteed_execution_fee: AccountUnits = sentinel,
                  half_spread_cost: AccountUnits = sentinel):
@@ -1093,7 +1114,8 @@ class TradeSummary(Model):
     def __init__(self, id: TradeID = sentinel, instrument: InstrumentName = sentinel, price: PriceValue = sentinel,
                  open_time: DateTime = sentinel, state: TradeState = sentinel, initial_units: DecimalNumber = sentinel,
                  initial_margin_required: AccountUnits = sentinel,
-                 current_units: DecimalNumber = sentinel, realized_pl: AccountUnits = sentinel, unrealized_pl: AccountUnits = sentinel,
+                 current_units: DecimalNumber = sentinel, realized_pl: AccountUnits = sentinel,
+                 unrealized_pl: AccountUnits = sentinel,
                  average_close_price: PriceValue = sentinel, closing_transaction_ids: ArrayTransactionID = sentinel,
                  financing: AccountUnits = sentinel, close_time: DateTime = sentinel,
                  client_extensions: ClientExtensions = sentinel, take_profit_order_id: OrderID = sentinel,
@@ -1139,14 +1161,18 @@ class Transaction(Model):
                  trade_client_extensions_modify: ClientExtensions = sentinel, financing: AccountUnits = sentinel,
                  account_balance: AccountUnits = sentinel, account_financing_mode: AccountFinancingMode = sentinel,
                  position_financings: ArrayPositionFinancing = sentinel, trade_id: TradeID = sentinel,
-                 client_trade_id: ClientID = sentinel, price: PriceValue = sentinel, time_in_force: TimeInForce = sentinel,
+                 client_trade_id: ClientID = sentinel, price: PriceValue = sentinel,
+                 time_in_force: TimeInForce = sentinel,
                  gtd_time: DateTime = sentinel, trigger_condition: OrderTriggerCondition = sentinel,
                  client_extensions: ClientExtensions = sentinel, order_fill_transaction_id: TransactionID = sentinel,
                  replaces_order_id: OrderID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
                  reject_reason: TransactionRejectReason = sentinel, amount: AccountUnits = sentinel,
-                 funding_reason: FundingReason = sentinel, comment: str = sentinel, instrument: InstrumentName = sentinel,
-                 units: DecimalNumber = sentinel, price_bound: PriceValue = sentinel, position_fill: OrderPositionFill = sentinel,
-                 trade_close: MarketOrderTradeClose = sentinel, long_position_closeout: MarketOrderPositionCloseout = sentinel,
+                 funding_reason: FundingReason = sentinel, comment: str = sentinel,
+                 instrument: InstrumentName = sentinel,
+                 units: DecimalNumber = sentinel, price_bound: PriceValue = sentinel,
+                 position_fill: OrderPositionFill = sentinel,
+                 trade_close: MarketOrderTradeClose = sentinel,
+                 long_position_closeout: MarketOrderPositionCloseout = sentinel,
                  short_position_closeout: MarketOrderPositionCloseout = sentinel,
                  margin_closeout: MarketOrderMarginCloseout = sentinel,
                  delayed_trade_close: MarketOrderDelayedTradeClose = sentinel,
@@ -1274,7 +1300,8 @@ class Instrument(Model):
     def __init__(self, name: InstrumentName = sentinel, type: InstrumentType = sentinel, display_name: str = sentinel,
                  pip_location: int = sentinel, display_precision: int = sentinel, trade_units_precision: int = sentinel,
                  minimum_trade_size: DecimalNumber = sentinel, maximum_trailing_stop_distance: DecimalNumber = sentinel,
-                 minimum_trailing_stop_distance: DecimalNumber = sentinel, maximum_position_size: DecimalNumber = sentinel,
+                 minimum_trailing_stop_distance: DecimalNumber = sentinel,
+                 maximum_position_size: DecimalNumber = sentinel,
                  maximum_order_units: DecimalNumber = sentinel, margin_rate: DecimalNumber = sentinel,
                  commission: InstrumentCommission = sentinel,
                  guaranteed_stop_loss_order_level_restriction: GuaranteedStopLossOrderLevelRestriction = sentinel,
@@ -1334,17 +1361,25 @@ class AccountChangesState(Model):
         positions: ( :class:`~async_v20.CalculatedPositionState`, ..)
             The price-dependent state for each open Position in the Account.
 
+        # TODO add documentation for Pl and resettabel_pl
+
     """
 
-    def __init__(self, unrealized_pl: AccountUnits = sentinel, nav: AccountUnits = sentinel, margin_used: AccountUnits = sentinel,
+    def __init__(self, unrealized_pl: AccountUnits = sentinel, nav: AccountUnits = sentinel,
+                 margin_used: AccountUnits = sentinel,
                  margin_available: AccountUnits = sentinel, position_value: AccountUnits = sentinel,
                  margin_closeout_unrealized_pl: AccountUnits = sentinel, margin_closeout_nav: AccountUnits = sentinel,
-                 margin_closeout_margin_used: AccountUnits = sentinel, margin_closeout_percent: DecimalNumber = sentinel,
+                 margin_closeout_margin_used: AccountUnits = sentinel,
+                 margin_closeout_percent: DecimalNumber = sentinel,
                  margin_closeout_position_value: DecimalNumber = sentinel, withdrawal_limit: AccountUnits = sentinel,
                  margin_call_margin_used: AccountUnits = sentinel, margin_call_percent: DecimalNumber = sentinel,
                  orders: ArrayDynamicOrderState = sentinel, trades: ArrayCalculatedTradeState = sentinel,
                  positions: ArrayCalculatedPositionState = sentinel,
-                 balance: AccountUnits = sentinel):
+                 balance: AccountUnits = sentinel,
+                 # TODO check definition against OANDA docs
+                 pl: AccountUnits = sentinel,
+                 resettable_pl: AccountUnits = sentinel
+                 ):
         Model.__init__(**locals())
 
 
@@ -1388,7 +1423,8 @@ class Price(Model):
     def __init__(self, type: str = sentinel, instrument: InstrumentName = sentinel, time: DateTime = sentinel,
                  # TODO: remove status when OANDA removes attribute
                  status: PriceStatus = sentinel, tradeable: bool = sentinel, bids: ArrayPriceBucket = sentinel,
-                 asks: ArrayPriceBucket = sentinel, closeout_bid: PriceValue = sentinel, closeout_ask: PriceValue = sentinel,
+                 asks: ArrayPriceBucket = sentinel, closeout_bid: PriceValue = sentinel,
+                 closeout_ask: PriceValue = sentinel,
                  # TODO: remove quote_home_conversion_factors when OANDA removes attribute
                  quote_home_conversion_factors: QuoteHomeConversionFactors = sentinel,
                  # TODO: remove units_available when OANDA removes attribute
@@ -1421,7 +1457,8 @@ class CloseTransaction(Transaction, type=TransactionType('CLOSE')):
     """
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
-                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel):
+                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
+                 request_id: RequestID = sentinel):
         Model.__init__(**locals())
 
 
@@ -1447,7 +1484,8 @@ class MarginCallEnterTransaction(Transaction, type=TransactionType('MARGIN_CALL_
     """
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
-                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel):
+                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
+                 request_id: RequestID = sentinel):
         Model.__init__(**locals())
 
 
@@ -1473,7 +1511,8 @@ class MarginCallExitTransaction(Transaction, type=TransactionType('MARGIN_CALL_E
     """
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
-                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel):
+                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
+                 request_id: RequestID = sentinel):
         Model.__init__(**locals())
 
 
@@ -1527,7 +1566,8 @@ class ReopenTransaction(Transaction, type=TransactionType('REOPEN')):
     """
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
-                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel):
+                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
+                 request_id: RequestID = sentinel):
         Model.__init__(**locals())
 
 
@@ -1553,7 +1593,8 @@ class ResetResettablePLTransaction(Transaction, type=TransactionType('RESET_RESE
     """
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
-                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel):
+                 account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
+                 request_id: RequestID = sentinel):
         Model.__init__(**locals())
 
 
@@ -1587,7 +1628,8 @@ class StopLossOrderRequest(OrderRequest, type=OrderType('STOP_LOSS')):
     """
 
     def __init__(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -1622,7 +1664,8 @@ class TakeProfitOrderRequest(OrderRequest, type=OrderType('TAKE_PROFIT')):
     """
 
     def __init__(self, instrument: InstrumentName, trade_id: TradeID, price: PriceValue,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -1658,7 +1701,8 @@ class TrailingStopLossOrderRequest(OrderRequest, type=OrderType('TRAILING_STOP_L
     """
 
     def __init__(self, instrument: InstrumentName, trade_id: TradeID, distance: PriceValue,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -1796,7 +1840,6 @@ class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
             (only provided if this Order was cancelled for replacement).
 
     """
-
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
@@ -2003,21 +2046,26 @@ class AccountSummary(Model):
 
     """
 
-    def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel, balance: AccountUnits = sentinel,
+    def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel,
+                 balance: AccountUnits = sentinel,
                  created_by_user_id: int = sentinel, created_time: DateTime = sentinel, pl: AccountUnits = sentinel,
                  resettable_pl: AccountUnits = sentinel, resettabled_pl_time: DateTime = sentinel,
                  commission: AccountUnits = sentinel, margin_rate: DecimalNumber = sentinel,
                  margin_call_enter_time: DateTime = sentinel, margin_call_extension_count: int = sentinel,
                  last_margin_call_extension_time: DateTime = sentinel, open_trade_count: int = sentinel,
-                 open_position_count: int = sentinel, pending_order_count: int = sentinel, hedging_enabled: bool = sentinel,
-                 unrealized_pl: AccountUnits = sentinel, nav: AccountUnits = sentinel, margin_used: AccountUnits = sentinel,
+                 open_position_count: int = sentinel, pending_order_count: int = sentinel,
+                 hedging_enabled: bool = sentinel,
+                 unrealized_pl: AccountUnits = sentinel, nav: AccountUnits = sentinel,
+                 margin_used: AccountUnits = sentinel,
                  margin_available: AccountUnits = sentinel, position_value: AccountUnits = sentinel,
                  margin_closeout_unrealized_pl: AccountUnits = sentinel, margin_closeout_nav: AccountUnits = sentinel,
-                 margin_closeout_margin_used: AccountUnits = sentinel, margin_closeout_percent: DecimalNumber = sentinel,
+                 margin_closeout_margin_used: AccountUnits = sentinel,
+                 margin_closeout_percent: DecimalNumber = sentinel,
                  margin_closeout_position_value: DecimalNumber = sentinel, withdrawal_limit: AccountUnits = sentinel,
                  margin_call_margin_used: AccountUnits = sentinel, margin_call_percent: DecimalNumber = sentinel,
                  last_transaction_id: TransactionID = sentinel, trades: ArrayTradeSummary = sentinel,
-                 positions: ArrayPosition = sentinel, orders: ArrayOrder = sentinel, financing: DecimalNumber = sentinel,
+                 positions: ArrayPosition = sentinel, orders: ArrayOrder = sentinel,
+                 financing: DecimalNumber = sentinel,
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel
@@ -2131,7 +2179,8 @@ class TakeProfitOrderTransaction(Transaction, type=TransactionType('TAKE_PROFIT_
     def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = sentinel, time: DateTime = sentinel,
                  user_id: int = sentinel, account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
                  request_id: RequestID = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, order_fill_transaction_id: TransactionID = sentinel,
                  replaces_order_id: OrderID = sentinel, cancelling_transaction_id: TransactionID = sentinel):
@@ -2202,9 +2251,11 @@ class TakeProfitOrder(Order, type=OrderType('TAKE_PROFIT')):
 
     def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = sentinel, create_time: DateTime = sentinel,
                  state: OrderState = sentinel, client_extensions: ClientExtensions = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', filling_transaction_id: TransactionID = sentinel,
-                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel, trade_reduced_id: TradeID = sentinel,
+                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel,
+                 trade_reduced_id: TradeID = sentinel,
                  trade_closed_ids: ArrayTradeID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
                  cancelled_time: DateTime = sentinel, replaces_order_id: OrderID = sentinel,
                  replaced_by_order_id: OrderID = sentinel):
@@ -2280,10 +2331,12 @@ class StopLossOrder(Order, type=OrderType('STOP_LOSS')):
 
     def __init__(self, trade_id: TradeID, price: PriceValue, id: OrderID = sentinel, create_time: DateTime = sentinel,
                  state: OrderState = sentinel, client_extensions: ClientExtensions = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', guaranteed: bool = sentinel,
                  filling_transaction_id: TransactionID = sentinel,
-                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel, trade_reduced_id: TradeID = sentinel,
+                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel,
+                 trade_reduced_id: TradeID = sentinel,
                  trade_closed_ids: ArrayTradeID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
                  cancelled_time: DateTime = sentinel, replaces_order_id: OrderID = sentinel,
                  replaced_by_order_id: OrderID = sentinel):
@@ -2360,8 +2413,10 @@ class TrailingStopLossOrder(Order, type=OrderType('TRAILING_STOP_LOSS')):
 
     """
 
-    def __init__(self, trade_id: TradeID, distance: PriceValue, id: OrderID = sentinel, create_time: DateTime = sentinel,
-                 state: OrderState = sentinel, client_extensions: ClientExtensions = sentinel, client_trade_id: ClientID = sentinel,
+    def __init__(self, trade_id: TradeID, distance: PriceValue, id: OrderID = sentinel,
+                 create_time: DateTime = sentinel,
+                 state: OrderState = sentinel, client_extensions: ClientExtensions = sentinel,
+                 client_trade_id: ClientID = sentinel,
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', trailing_stop_value: PriceValue = sentinel,
                  filling_transaction_id: TransactionID = sentinel, filled_time: DateTime = sentinel,
@@ -2509,7 +2564,6 @@ class OrderCancelRejectTransaction(Transaction, type=TransactionType('ORDER_CANC
 
     """
 
-
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  order_id: OrderID = sentinel,
@@ -2630,7 +2684,8 @@ class TransferFundsTransaction(Transaction, type=TransactionType('TRANSFER_FUNDS
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  amount: AccountUnits = sentinel,
-                 funding_reason: FundingReason = sentinel, comment: str = sentinel, account_balance: AccountUnits = sentinel):
+                 funding_reason: FundingReason = sentinel, comment: str = sentinel,
+                 account_balance: AccountUnits = sentinel):
         Model.__init__(**locals())
 
 
@@ -2725,7 +2780,8 @@ class LimitOrderRequest(OrderRequest, type=OrderType('LIMIT')):
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -2790,7 +2846,8 @@ class MarketIfTouchedOrderRequest(OrderRequest, type=OrderType('MARKET_IF_TOUCHE
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -2852,7 +2909,8 @@ class StopOrderRequest(OrderRequest, type=OrderType('STOP')):
                  price_bound: PriceValue = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -2951,21 +3009,26 @@ class Account(AccountSummary):
 
     """
 
-    def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel, balance: AccountUnits = sentinel,
+    def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel,
+                 balance: AccountUnits = sentinel,
                  created_by_user_id: int = sentinel, created_time: DateTime = sentinel, pl: AccountUnits = sentinel,
                  resettable_pl: AccountUnits = sentinel, resettabled_pl_time: DateTime = sentinel,
                  commission: AccountUnits = sentinel, margin_rate: DecimalNumber = sentinel,
                  margin_call_enter_time: DateTime = sentinel, margin_call_extension_count: int = sentinel,
                  last_margin_call_extension_time: DateTime = sentinel, open_trade_count: int = sentinel,
-                 open_position_count: int = sentinel, pending_order_count: int = sentinel, hedging_enabled: bool = sentinel,
-                 unrealized_pl: AccountUnits = sentinel, nav: AccountUnits = sentinel, margin_used: AccountUnits = sentinel,
+                 open_position_count: int = sentinel, pending_order_count: int = sentinel,
+                 hedging_enabled: bool = sentinel,
+                 unrealized_pl: AccountUnits = sentinel, nav: AccountUnits = sentinel,
+                 margin_used: AccountUnits = sentinel,
                  margin_available: AccountUnits = sentinel, position_value: AccountUnits = sentinel,
                  margin_closeout_unrealized_pl: AccountUnits = sentinel, margin_closeout_nav: AccountUnits = sentinel,
-                 margin_closeout_margin_used: AccountUnits = sentinel, margin_closeout_percent: DecimalNumber = sentinel,
+                 margin_closeout_margin_used: AccountUnits = sentinel,
+                 margin_closeout_percent: DecimalNumber = sentinel,
                  margin_closeout_position_value: DecimalNumber = sentinel, withdrawal_limit: AccountUnits = sentinel,
                  margin_call_margin_used: AccountUnits = sentinel, margin_call_percent: DecimalNumber = sentinel,
                  last_transaction_id: TransactionID = sentinel, trades: ArrayTradeSummary = sentinel,
-                 positions: ArrayPosition = sentinel, orders: ArrayOrder = sentinel, financing: DecimalNumber = sentinel,
+                 positions: ArrayPosition = sentinel, orders: ArrayOrder = sentinel,
+                 financing: DecimalNumber = sentinel,
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
@@ -3039,7 +3102,8 @@ class MarketOrderTransaction(Transaction, type=TransactionType('MARKET_ORDER')):
 
     """
 
-    def __init__(self, instrument: InstrumentName, units: DecimalNumber, id: TransactionID = sentinel, time: DateTime = sentinel,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, id: TransactionID = sentinel,
+                 time: DateTime = sentinel,
                  user_id: int = sentinel, account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
                  request_id: RequestID = sentinel,
                  time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = sentinel,
@@ -3049,7 +3113,8 @@ class MarketOrderTransaction(Transaction, type=TransactionType('MARKET_ORDER')):
                  margin_closeout: MarketOrderMarginCloseout = sentinel,
                  delayed_trade_close: MarketOrderDelayedTradeClose = sentinel, reason: MarketOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -3120,7 +3185,8 @@ class MarketOrderRejectTransaction(Transaction, type=TransactionType('MARKET_ORD
 
     """
 
-    def __init__(self, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel, id: TransactionID = sentinel,
+    def __init__(self, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel,
+                 id: TransactionID = sentinel,
                  time: DateTime = sentinel,
                  user_id: int = sentinel, account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
                  request_id: RequestID = sentinel,
@@ -3131,8 +3197,10 @@ class MarketOrderRejectTransaction(Transaction, type=TransactionType('MARKET_ORD
                  margin_closeout: MarketOrderMarginCloseout = sentinel,
                  delayed_trade_close: MarketOrderDelayedTradeClose = sentinel, reason: MarketOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
-                 trade_client_extensions: ClientExtensions = sentinel, reject_reason: TransactionRejectReason = sentinel):
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 trade_client_extensions: ClientExtensions = sentinel,
+                 reject_reason: TransactionRejectReason = sentinel):
         Model.__init__(**locals())
 
 
@@ -3190,7 +3258,8 @@ class StopLossOrderTransaction(Transaction, type=TransactionType('STOP_LOSS_ORDE
     def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = sentinel, time: DateTime = sentinel,
                  user_id: int = sentinel, account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
                  request_id: RequestID = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, order_fill_transaction_id: TransactionID = sentinel,
                  replaces_order_id: OrderID = sentinel, cancelling_transaction_id: TransactionID = sentinel):
@@ -3250,7 +3319,8 @@ class TrailingStopLossOrderTransaction(Transaction, type=TransactionType('TRAILI
     def __init__(self, trade_id: TradeID, distance: PriceValue, id: TransactionID = sentinel, time: DateTime = sentinel,
                  user_id: int = sentinel, account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
                  request_id: RequestID = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, order_fill_transaction_id: TransactionID = sentinel,
                  replaces_order_id: OrderID = sentinel, cancelling_transaction_id: TransactionID = sentinel):
@@ -3340,13 +3410,15 @@ class LimitOrder(Order, type=OrderType('LIMIT')):
         """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = sentinel,
-                 create_time: DateTime = sentinel, state: OrderState = sentinel, client_extensions: ClientExtensions = sentinel,
+                 create_time: DateTime = sentinel, state: OrderState = sentinel,
+                 client_extensions: ClientExtensions = sentinel,
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  take_profit_on_fill: TakeProfitDetails = sentinel, stop_loss_on_fill: StopLossDetails = sentinel,
                  trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel, filling_transaction_id: TransactionID = sentinel,
-                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel, trade_reduced_id: TradeID = sentinel,
+                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel,
+                 trade_reduced_id: TradeID = sentinel,
                  trade_closed_ids: ArrayTradeID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
                  cancelled_time: DateTime = sentinel, replaces_order_id: OrderID = sentinel,
                  replaced_by_order_id: OrderID = sentinel):
@@ -3444,14 +3516,17 @@ class MarketIfTouchedOrder(Order, type=OrderType('MARKET_IF_TOUCHED')):
         """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = sentinel,
-                 create_time: DateTime = sentinel, state: OrderState = sentinel, client_extensions: ClientExtensions = sentinel,
+                 create_time: DateTime = sentinel, state: OrderState = sentinel,
+                 client_extensions: ClientExtensions = sentinel,
                  price_bound: PriceValue = sentinel,
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  initial_market_price: PriceValue = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel, filling_transaction_id: TransactionID = sentinel,
-                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel, trade_reduced_id: TradeID = sentinel,
+                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel,
+                 trade_reduced_id: TradeID = sentinel,
                  trade_closed_ids: ArrayTradeID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
                  cancelled_time: DateTime = sentinel, replaces_order_id: OrderID = sentinel,
                  replaced_by_order_id: OrderID = sentinel):
@@ -3544,13 +3619,17 @@ class StopOrder(Order, type=OrderType('STOP')):
     """
 
     def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: OrderID = sentinel,
-                 create_time: DateTime = sentinel, state: OrderState = sentinel, client_extensions: ClientExtensions = sentinel,
+                 create_time: DateTime = sentinel, state: OrderState = sentinel,
+                 client_extensions: ClientExtensions = sentinel,
                  price_bound: PriceValue = sentinel, time_in_force: TimeInForce = 'GTC',
                  gtd_time: DateTime = sentinel, position_fill: OrderPositionFill = 'DEFAULT',
-                 trigger_condition: OrderTriggerCondition = 'DEFAULT', take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 trigger_condition: OrderTriggerCondition = 'DEFAULT',
+                 take_profit_on_fill: TakeProfitDetails = sentinel,
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel, filling_transaction_id: TransactionID = sentinel,
-                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel, trade_reduced_id: TradeID = sentinel,
+                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel,
+                 trade_reduced_id: TradeID = sentinel,
                  trade_closed_ids: ArrayTradeID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
                  cancelled_time: DateTime = sentinel, replaces_order_id: OrderID = sentinel,
                  replaced_by_order_id: OrderID = sentinel):
@@ -3634,7 +3713,8 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
                  order_id: OrderID = sentinel, client_order_id: OrderID = sentinel,
                  instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel, price: PriceValue = sentinel,
                  full_price: ClientPrice = sentinel, reason: OrderFillReason = sentinel, pl: AccountUnits = sentinel,
-                 financing: AccountUnits = sentinel, commission: AccountUnits = sentinel, account_balance: AccountUnits = sentinel,
+                 financing: AccountUnits = sentinel, commission: AccountUnits = sentinel,
+                 account_balance: AccountUnits = sentinel,
                  trade_opened: TradeOpen = sentinel, trades_closed: ArrayTradeReduce = sentinel,
                  trade_reduced: TradeReduce = sentinel,
                  gain_quote_home_conversion_factor: DecimalNumber = sentinel,
@@ -3696,10 +3776,12 @@ class StopLossOrderRejectTransaction(Transaction, type=TransactionType('STOP_LOS
 
     """
 
-    def __init__(self, trade_id: TradeID = sentinel, price: PriceValue = sentinel, id: TransactionID = sentinel, time: DateTime = sentinel,
+    def __init__(self, trade_id: TradeID = sentinel, price: PriceValue = sentinel, id: TransactionID = sentinel,
+                 time: DateTime = sentinel,
                  user_id: int = sentinel, account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
                  request_id: RequestID = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, order_fill_transaction_id: TransactionID = sentinel,
                  intended_replaces_order_id: OrderID = sentinel, reject_reason: TransactionRejectReason = sentinel):
@@ -3774,9 +3856,11 @@ class MarketIfTouchedOrderTransaction(Transaction, type=TransactionType('MARKET_
 
     """
 
-    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = sentinel,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
+                 id: TransactionID = sentinel,
                  time: DateTime = sentinel, user_id: int = sentinel, account_id: AccountID = sentinel,
-                 batch_id: TransactionID = sentinel, request_id: RequestID = sentinel, price_bound: PriceValue = sentinel,
+                 batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
+                 price_bound: PriceValue = sentinel,
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  reason: MarketIfTouchedOrderReason = sentinel, client_extensions: ClientExtensions = sentinel,
@@ -3850,7 +3934,8 @@ class LimitOrderTransaction(Transaction, type=TransactionType('LIMIT_ORDER')):
 
     """
 
-    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = sentinel,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
+                 id: TransactionID = sentinel,
                  time: DateTime = sentinel, user_id: int = sentinel, account_id: AccountID = sentinel,
                  batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
@@ -3913,10 +3998,12 @@ class TakeProfitOrderRejectTransaction(Transaction, type=TransactionType('TAKE_P
 
     """
 
-    def __init__(self, trade_id: TradeID = sentinel, price: PriceValue = sentinel, id: TransactionID = sentinel, time: DateTime = sentinel,
+    def __init__(self, trade_id: TradeID = sentinel, price: PriceValue = sentinel, id: TransactionID = sentinel,
+                 time: DateTime = sentinel,
                  user_id: int = sentinel, account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
                  request_id: RequestID = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TakeProfitOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, order_fill_transaction_id: TransactionID = sentinel,
                  intended_replaces_order_id: OrderID = sentinel, reject_reason: TransactionRejectReason = sentinel):
@@ -3976,7 +4063,8 @@ class TrailingStopLossOrderRejectTransaction(Transaction, type=TransactionType('
                  time: DateTime = sentinel,
                  user_id: int = sentinel, account_id: AccountID = sentinel, batch_id: TransactionID = sentinel,
                  request_id: RequestID = sentinel,
-                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
+                 client_trade_id: ClientID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: TrailingStopLossOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, order_fill_transaction_id: TransactionID = sentinel,
                  intended_replaces_order_id: OrderID = sentinel, reject_reason: TransactionRejectReason = sentinel):
@@ -4049,7 +4137,8 @@ class StopOrderTransaction(Transaction, type=TransactionType('STOP_ORDER')):
 
     """
 
-    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue, id: TransactionID = sentinel,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, price: PriceValue,
+                 id: TransactionID = sentinel,
                  time: DateTime = sentinel, user_id: int = sentinel, account_id: AccountID = sentinel,
                  batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  price_bound: PriceValue = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
@@ -4129,10 +4218,12 @@ class MarketIfTouchedOrderRejectTransaction(Transaction, type=TransactionType('M
 
     """
 
-    def __init__(self, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel, price: PriceValue = sentinel,
+    def __init__(self, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel,
+                 price: PriceValue = sentinel,
                  id: TransactionID = sentinel,
                  time: DateTime = sentinel, user_id: int = sentinel, account_id: AccountID = sentinel,
-                 batch_id: TransactionID = sentinel, request_id: RequestID = sentinel, price_bound: PriceValue = sentinel,
+                 batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
+                 price_bound: PriceValue = sentinel,
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  reason: MarketIfTouchedOrderReason = sentinel, client_extensions: ClientExtensions = sentinel,
@@ -4205,14 +4296,17 @@ class LimitOrderRejectTransaction(Transaction, type=TransactionType('LIMIT_ORDER
 
     """
 
-    def __init__(self, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel, price: PriceValue = sentinel,
+    def __init__(self, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel,
+                 price: PriceValue = sentinel,
                  id: TransactionID = sentinel,
                  time: DateTime = sentinel, user_id: int = sentinel, account_id: AccountID = sentinel,
-                 batch_id: TransactionID = sentinel, request_id: RequestID = sentinel, time_in_force: TimeInForce = 'GTC',
+                 batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
+                 time_in_force: TimeInForce = 'GTC',
                  gtd_time: DateTime = sentinel, position_fill: OrderPositionFill = 'DEFAULT',
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: LimitOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, take_profit_on_fill: TakeProfitDetails = sentinel,
-                 stop_loss_on_fill: StopLossDetails = sentinel, trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
+                 stop_loss_on_fill: StopLossDetails = sentinel,
+                 trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel, intended_replaces_order_id: OrderID = sentinel,
                  reject_reason: TransactionRejectReason = sentinel):
         Model.__init__(**locals())
@@ -4283,10 +4377,12 @@ class StopOrderRejectTransaction(Transaction, type=TransactionType('STOP_ORDER_R
 
     """
 
-    def __init__(self, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel, price: PriceValue = sentinel,
+    def __init__(self, instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel,
+                 price: PriceValue = sentinel,
                  id: TransactionID = sentinel,
                  time: DateTime = sentinel, user_id: int = sentinel, account_id: AccountID = sentinel,
-                 batch_id: TransactionID = sentinel, request_id: RequestID = sentinel, price_bound: PriceValue = sentinel,
+                 batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
+                 price_bound: PriceValue = sentinel,
                  time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  reason: StopOrderReason = sentinel, client_extensions: ClientExtensions = sentinel,
@@ -4380,7 +4476,8 @@ class MarketOrder(Order, type=OrderType('MARKET')):
 
     """
 
-    def __init__(self, instrument: InstrumentName, units: DecimalNumber, id: OrderID = sentinel, create_time: DateTime = sentinel,
+    def __init__(self, instrument: InstrumentName, units: DecimalNumber, id: OrderID = sentinel,
+                 create_time: DateTime = sentinel,
                  state: OrderState = sentinel, client_extensions: ClientExtensions = sentinel,
                  time_in_force: TimeInForce = 'FOK', price_bound: PriceValue = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trade_close: MarketOrderTradeClose = sentinel,
@@ -4391,7 +4488,8 @@ class MarketOrder(Order, type=OrderType('MARKET')):
                  take_profit_on_fill: TakeProfitDetails = sentinel, stop_loss_on_fill: StopLossDetails = sentinel,
                  trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel, filling_transaction_id: TransactionID = sentinel,
-                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel, trade_reduced_id: TradeID = sentinel,
+                 filled_time: DateTime = sentinel, trade_opened_id: TradeID = sentinel,
+                 trade_reduced_id: TradeID = sentinel,
                  trade_closed_ids: ArrayTradeID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
                  cancelled_time: DateTime = sentinel):
         Model.__init__(**locals())

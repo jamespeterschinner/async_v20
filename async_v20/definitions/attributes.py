@@ -177,7 +177,7 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'requestedUnits': 'requested_units', 'requested_units': 'requested_units',
                        'fullVWAP': 'full_vwap', 'full_vwap': 'full_vwap',
                        'initialMarginRequired': 'initial_margin_required',
-                       'initial_margin_required': 'initial_margin_required'}
+                       'initial_margin_required': 'initial_margin_required',}
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
                    'reduce_only': 'reduceOnly', 'open_only': 'openOnly', 'timestamp': 'timestamp',
@@ -271,4 +271,4 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'guaranteed': 'guaranteed', 'price_range': 'priceRange', 'unix_time': 'unixTime',
                    'guaranteed_stop_loss_order_level_restriction':'guaranteedStopLossOrderLevelRestriction',
                    'requested_units':'requestedUnits', 'full_vwap': 'fullVWAP',
-                   'initial_margin_required':'initialMarginRequired'}
+                   'initial_margin_required':'initialMarginRequired', }
