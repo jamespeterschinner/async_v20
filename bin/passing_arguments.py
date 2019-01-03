@@ -19,7 +19,7 @@ from async_v20 import OrderRequest
 
 coroutine_3 = client.post_order(
     order_request=OrderRequest(
-        instrument='AUD_USD', units=10
+        instrument='AUD_USD', units=10, type='MARKET'
     )
 )
 
