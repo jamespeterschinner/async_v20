@@ -20,7 +20,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(r'..\async_v20\async_v20'))
+sys.path.insert(0, os.path.abspath('..\\..\\'))
 
 # -- General configuration ------------------------------------------------
 

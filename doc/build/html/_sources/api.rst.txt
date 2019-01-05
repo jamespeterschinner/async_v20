@@ -79,7 +79,7 @@ Trade
 
 .. automethod:: async_v20.OandaClient.list_trades
 .. automethod:: async_v20.OandaClient.list_open_trades
-.. automethod:: async_v20.OandaClient.get_trades
+.. automethod:: async_v20.OandaClient.get_trade
 .. automethod:: async_v20.OandaClient.close_trade
 .. _close_all_trades:
 .. automethod:: async_v20.OandaClient.close_all_trades
@@ -90,7 +90,7 @@ Transaction
 -----------
 
 .. automethod:: async_v20.OandaClient.list_transactions
-.. automethod:: async_v20.OandaClient.get_transactions
+.. automethod:: async_v20.OandaClient.get_transaction
 .. automethod:: async_v20.OandaClient.transaction_range
 .. automethod:: async_v20.OandaClient.since_transaction
 .. automethod:: async_v20.OandaClient.stream_transactions

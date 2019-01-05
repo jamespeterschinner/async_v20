@@ -86,6 +86,7 @@ def create_doc_signature(obj, sig):
     names = list(sig.parameters.keys())
     annotations = list(
         map(lambda x: '' if x.annotation == _empty else ': ' + x.annotation.__name__, sig.parameters.values()))
-    defaults = list(map(lambda x: '' if x.default == _empty else '=' + str(x.default), sig.parameters.values()))
+    defaults = list(map(lambda x: '' if x.default == _empty else '=' + str(x.default)
+                        if not x.default is sentinel else '= sentinel ', sig.parameters.values()))
     arguments = ', '.join(''.join(argument) for argument in zip(names, annotations, defaults))
     return f'{obj.__name__}({arguments})\n{obj.__doc__}'

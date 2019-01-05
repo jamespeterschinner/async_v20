@@ -12,4 +12,9 @@ Exceptions
 .. autoclass:: async_v20.exceptions.InvalidValue
 .. autoclass:: async_v20.exceptions.ResponseTimeout
 .. autoclass:: async_v20.exceptions.UnexpectedStatus
-.. autoclass:: async_v20.exceptions.UnknownValue
+
+
+Warnings
+========
+
+.. autoclass:: async_v20.exceptions.UnknownKeywordArgument

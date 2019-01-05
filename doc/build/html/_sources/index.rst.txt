@@ -23,7 +23,7 @@ async_v20: Asynchronous OANDA v20 client
 Disclaimer
 ----------
 
-- Losses can exceed investment.
+- **Losses can exceed investment.**
 - async_v20 and its creator has no affiliation with OANDA. And is not endorsed by OANDA in any manner.
 - async_v20 is in Beta stage and has not been tested on a live OANDA account
 - **Use at own risk**

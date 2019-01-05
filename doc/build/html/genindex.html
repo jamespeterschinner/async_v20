@@ -6,13 +6,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Index &#8212; async_v20 6.0.2b0 documentation</title>
+    <title>Index &#8212; async_v20 8.0.0b1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '6.0.2b0',
+        VERSION:     '8.0.0b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -603,10 +603,10 @@
       </ul></li>
       <li><a href="definitions/transaction.html#async_v20.CloseTransaction">CloseTransaction (class in async_v20)</a>
 </li>
-      <li><a href="definitions/trade.html#async_v20.Trade.closing_transaction_i_ds">closing_transaction_i_ds (async_v20.Trade attribute)</a>
+      <li><a href="definitions/trade.html#async_v20.Trade.closing_transaction_ids">closing_transaction_ids (async_v20.Trade attribute)</a>
 
       <ul>
-        <li><a href="definitions/trade.html#async_v20.TradeSummary.closing_transaction_i_ds">(async_v20.TradeSummary attribute)</a>
+        <li><a href="definitions/trade.html#async_v20.TradeSummary.closing_transaction_ids">(async_v20.TradeSummary attribute)</a>
 </li>
       </ul></li>
       <li><a href="definitions/transaction.html#async_v20.ClientExtensions.comment">comment (async_v20.ClientExtensions attribute)</a>
@@ -843,6 +843,8 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="definitions/transaction.html#async_v20.OrderFillTransaction.gain_quote_home_conversion_factor">gain_quote_home_conversion_factor (async_v20.OrderFillTransaction attribute)</a>
+</li>
       <li><a href="api.html#async_v20.OandaClient.get_account_details">get_account_details() (async_v20.OandaClient method)</a>
 </li>
       <li><a href="api.html#async_v20.OandaClient.get_candles">get_candles() (async_v20.OandaClient method)</a>
@@ -869,9 +871,9 @@
 </li>
       <li><a href="api.html#async_v20.OandaClient.get_status">get_status() (async_v20.OandaClient method)</a>
 </li>
-      <li><a href="api.html#async_v20.OandaClient.get_trades">get_trades() (async_v20.OandaClient method)</a>
+      <li><a href="api.html#async_v20.OandaClient.get_trade">get_trade() (async_v20.OandaClient method)</a>
 </li>
-      <li><a href="api.html#async_v20.OandaClient.get_transactions">get_transactions() (async_v20.OandaClient method)</a>
+      <li><a href="api.html#async_v20.OandaClient.get_transaction">get_transaction() (async_v20.OandaClient method)</a>
 </li>
       <li><a href="api.html#async_v20.OandaClient.get_user_info">get_user_info() (async_v20.OandaClient method)</a>
 </li>
@@ -936,12 +938,20 @@
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="definitions/order.html#async_v20.StopLossOrder.guaranteed">guaranteed (async_v20.StopLossOrder attribute)</a>
+</li>
+      <li><a href="definitions/transaction.html#async_v20.OrderFillTransaction.guaranteed_execution_fee">guaranteed_execution_fee (async_v20.OrderFillTransaction attribute)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="definitions/instrument.html#async_v20.CandlestickData.h">h (async_v20.CandlestickData attribute)</a>
+</li>
+      <li><a href="definitions/transaction.html#async_v20.OrderFillTransaction.half_spread_cost">half_spread_cost (async_v20.OrderFillTransaction attribute)</a>
 </li>
       <li><a href="definitions/account.html#async_v20.Account.hedging_enabled">hedging_enabled (async_v20.Account attribute)</a>
 
@@ -1065,14 +1075,22 @@
         <li><a href="definitions/transaction.html#async_v20.TransferFundsTransaction.id">(async_v20.TransferFundsTransaction attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="annotations.html#async_v20.endpoints.annotations.Ids">Ids (class in async_v20.endpoints.annotations)</a>
 </li>
       <li><a href="annotations.html#async_v20.endpoints.annotations.IncludeFirstQuery">IncludeFirstQuery (class in async_v20.endpoints.annotations)</a>
 </li>
       <li><a href="exceptions.html#async_v20.exceptions.IncompatibleValue">IncompatibleValue (class in async_v20.exceptions)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="definitions/trade.html#async_v20.Trade.initial_margin_required">initial_margin_required (async_v20.Trade attribute)</a>
+
+      <ul>
+        <li><a href="definitions/transaction.html#async_v20.TradeOpen.initial_margin_required">(async_v20.TradeOpen attribute)</a>
+</li>
+        <li><a href="definitions/trade.html#async_v20.TradeSummary.initial_margin_required">(async_v20.TradeSummary attribute)</a>
+</li>
+      </ul></li>
       <li><a href="definitions/order.html#async_v20.MarketIfTouchedOrder.initial_market_price">initial_market_price (async_v20.MarketIfTouchedOrder attribute)</a>
 
       <ul>
@@ -1124,7 +1142,7 @@
 </li>
         <li><a href="definitions/transaction.html#async_v20.OrderFillTransaction.instrument">(async_v20.OrderFillTransaction attribute)</a>
 </li>
-        <li><a href="definitions/order.html#async_v20.OrderRequest.instrument">(async_v20.OrderRequest attribute)</a>
+        <li><a href="definitions/order.html#async_v20.OrderRequest.instrument">(async_v20.OrderRequest attribute)</a>, <a href="definitions/order.html#async_v20.OrderRequest.instrument">[1]</a>
 </li>
         <li><a href="definitions/positions.html#async_v20.Position.instrument">(async_v20.Position attribute)</a>
 </li>
@@ -1134,6 +1152,8 @@
 </li>
         <li><a href="definitions/pricing.html#async_v20.Price.instrument">(async_v20.Price attribute)</a>
 </li>
+        <li><a href="definitions/order.html#async_v20.StopLossOrderRequest.instrument">(async_v20.StopLossOrderRequest attribute)</a>
+</li>
         <li><a href="definitions/order.html#async_v20.StopOrder.instrument">(async_v20.StopOrder attribute)</a>
 </li>
         <li><a href="definitions/transaction.html#async_v20.StopOrderRejectTransaction.instrument">(async_v20.StopOrderRejectTransaction attribute)</a>
@@ -1142,9 +1162,13 @@
 </li>
         <li><a href="definitions/transaction.html#async_v20.StopOrderTransaction.instrument">(async_v20.StopOrderTransaction attribute)</a>
 </li>
+        <li><a href="definitions/order.html#async_v20.TakeProfitOrderRequest.instrument">(async_v20.TakeProfitOrderRequest attribute)</a>
+</li>
         <li><a href="definitions/trade.html#async_v20.Trade.instrument">(async_v20.Trade attribute)</a>
 </li>
         <li><a href="definitions/trade.html#async_v20.TradeSummary.instrument">(async_v20.TradeSummary attribute)</a>
+</li>
+        <li><a href="definitions/order.html#async_v20.TrailingStopLossOrderRequest.instrument">(async_v20.TrailingStopLossOrderRequest attribute)</a>, <a href="definitions/order.html#async_v20.TrailingStopLossOrderRequest.instrument">[1]</a>
 </li>
       </ul></li>
       <li><a href="primitives.html#async_v20.InstrumentName">InstrumentName (class in async_v20)</a>
@@ -1249,10 +1273,10 @@
 </li>
       <li><a href="api.html#async_v20.OandaClient.list_images">list_images() (async_v20.OandaClient method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#async_v20.OandaClient.list_open_positions">list_open_positions() (async_v20.OandaClient method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#async_v20.OandaClient.list_open_trades">list_open_trades() (async_v20.OandaClient method)</a>
 </li>
       <li><a href="api.html#async_v20.OandaClient.list_orders">list_orders() (async_v20.OandaClient method)</a>
@@ -1298,6 +1322,8 @@
       <li><a href="annotations.html#async_v20.endpoints.annotations.LongClientExtensions">LongClientExtensions (class in async_v20.endpoints.annotations)</a>
 </li>
       <li><a href="annotations.html#async_v20.endpoints.annotations.LongUnits">LongUnits (class in async_v20.endpoints.annotations)</a>
+</li>
+      <li><a href="definitions/transaction.html#async_v20.OrderFillTransaction.loss_quote_home_conversion_factor">loss_quote_home_conversion_factor (async_v20.OrderFillTransaction attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1391,8 +1417,6 @@
         <li><a href="definitions/account.html#async_v20.AccountSummary.margin_closeout_unrealized_pl">(async_v20.AccountSummary attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="definitions/account.html#async_v20.Account.margin_rate">margin_rate (async_v20.Account attribute)</a>
 
       <ul>
@@ -1403,12 +1427,22 @@
         <li><a href="definitions/transaction.html#async_v20.ClientConfigureTransaction.margin_rate">(async_v20.ClientConfigureTransaction attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="definitions/account.html#async_v20.Account.margin_used">margin_used (async_v20.Account attribute)</a>
 
       <ul>
         <li><a href="definitions/account.html#async_v20.AccountChangesState.margin_used">(async_v20.AccountChangesState attribute)</a>
 </li>
         <li><a href="definitions/account.html#async_v20.AccountSummary.margin_used">(async_v20.AccountSummary attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="definitions/positions.html#async_v20.CalculatedPositionState.Margin_used">Margin_used (async_v20.CalculatedPositionState attribute)</a>
+</li>
+      <li><a href="definitions/trade.html#async_v20.Trade.margin_used">margin_used (async_v20.Trade attribute)</a>
+
+      <ul>
+        <li><a href="definitions/trade.html#async_v20.TradeSummary.margin_used">(async_v20.TradeSummary attribute)</a>
 </li>
       </ul></li>
       <li><a href="definitions/transaction.html#async_v20.MarginCallEnterTransaction">MarginCallEnterTransaction (class in async_v20)</a>
@@ -1697,12 +1731,8 @@
 </li>
       <li><a href="definitions/pricing.html#async_v20.QuoteHomeConversionFactors.positive_units">positive_units (async_v20.QuoteHomeConversionFactors attribute)</a>
 </li>
-      <li><a href="traps.html#async_v20.client.OandaClient.post_order">post_order() (async_v20.client.OandaClient method)</a>
-
-      <ul>
-        <li><a href="api.html#async_v20.OandaClient.post_order">(async_v20.OandaClient method)</a>
+      <li><a href="api.html#async_v20.OandaClient.post_order">post_order() (async_v20.OandaClient method)</a>
 </li>
-      </ul></li>
       <li><a href="definitions/order.html#async_v20.LimitOrder.price">price (async_v20.LimitOrder attribute)</a>
 
       <ul>
@@ -2534,32 +2564,26 @@
         <li><a href="definitions/order.html#async_v20.Order.trade_close">(async_v20.Order attribute)</a>
 </li>
       </ul></li>
-      <li><a href="definitions/order.html#async_v20.LimitOrder.trade_closed_i_ds">trade_closed_i_ds (async_v20.LimitOrder attribute)</a>
+      <li><a href="definitions/order.html#async_v20.LimitOrder.trade_closed_ids">trade_closed_ids (async_v20.LimitOrder attribute)</a>
 
       <ul>
-        <li><a href="definitions/order.html#async_v20.MarketIfTouchedOrder.trade_closed_i_ds">(async_v20.MarketIfTouchedOrder attribute)</a>
+        <li><a href="definitions/order.html#async_v20.MarketIfTouchedOrder.trade_closed_ids">(async_v20.MarketIfTouchedOrder attribute)</a>
 </li>
-        <li><a href="definitions/order.html#async_v20.MarketOrder.trade_closed_i_ds">(async_v20.MarketOrder attribute)</a>
+        <li><a href="definitions/order.html#async_v20.MarketOrder.trade_closed_ids">(async_v20.MarketOrder attribute)</a>
 </li>
-        <li><a href="definitions/order.html#async_v20.Order.trade_closed_i_ds">(async_v20.Order attribute)</a>
+        <li><a href="definitions/order.html#async_v20.Order.trade_closed_ids">(async_v20.Order attribute)</a>
 </li>
-        <li><a href="definitions/order.html#async_v20.StopLossOrder.trade_closed_i_ds">(async_v20.StopLossOrder attribute)</a>
+        <li><a href="definitions/order.html#async_v20.StopLossOrder.trade_closed_ids">(async_v20.StopLossOrder attribute)</a>
 </li>
-        <li><a href="definitions/order.html#async_v20.StopOrder.trade_closed_i_ds">(async_v20.StopOrder attribute)</a>
+        <li><a href="definitions/order.html#async_v20.StopOrder.trade_closed_ids">(async_v20.StopOrder attribute)</a>
 </li>
-        <li><a href="definitions/order.html#async_v20.TakeProfitOrder.trade_closed_i_ds">(async_v20.TakeProfitOrder attribute)</a>
+        <li><a href="definitions/order.html#async_v20.TakeProfitOrder.trade_closed_ids">(async_v20.TakeProfitOrder attribute)</a>
 </li>
-        <li><a href="definitions/order.html#async_v20.TrailingStopLossOrder.trade_closed_i_ds">(async_v20.TrailingStopLossOrder attribute)</a>
+        <li><a href="definitions/order.html#async_v20.TrailingStopLossOrder.trade_closed_ids">(async_v20.TrailingStopLossOrder attribute)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="definitions/transaction.html#async_v20.DelayedTradeClosureTransaction.trade_i_ds">trade_i_ds (async_v20.DelayedTradeClosureTransaction attribute)</a>
-
-      <ul>
-        <li><a href="definitions/positions.html#async_v20.PositionSide.trade_i_ds">(async_v20.PositionSide attribute)</a>
-</li>
-      </ul></li>
       <li><a href="definitions/transaction.html#async_v20.MarketOrderDelayedTradeClose.trade_id">trade_id (async_v20.MarketOrderDelayedTradeClose attribute)</a>
 
       <ul>
@@ -2598,6 +2622,12 @@
         <li><a href="definitions/order.html#async_v20.TrailingStopLossOrderRequest.trade_id">(async_v20.TrailingStopLossOrderRequest attribute)</a>
 </li>
         <li><a href="definitions/transaction.html#async_v20.TrailingStopLossOrderTransaction.trade_id">(async_v20.TrailingStopLossOrderTransaction attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="definitions/transaction.html#async_v20.DelayedTradeClosureTransaction.trade_ids">trade_ids (async_v20.DelayedTradeClosureTransaction attribute)</a>
+
+      <ul>
+        <li><a href="definitions/positions.html#async_v20.PositionSide.trade_ids">(async_v20.PositionSide attribute)</a>
 </li>
       </ul></li>
       <li><a href="definitions/transaction.html#async_v20.OrderFillTransaction.trade_opened">trade_opened (async_v20.OrderFillTransaction attribute)</a>
@@ -2910,7 +2940,9 @@
 </li>
       <li><a href="definitions/order.html#async_v20.UnitsAvailableDetails">UnitsAvailableDetails (class in async_v20)</a>
 </li>
-      <li><a href="exceptions.html#async_v20.exceptions.UnknownValue">UnknownValue (class in async_v20.exceptions)</a>
+      <li><a href="definitions/instrument.html#async_v20.OrderBook.unix_time">unix_time (async_v20.OrderBook attribute)</a>
+</li>
+      <li><a href="exceptions.html#async_v20.exceptions.UnknownKeywordArgument">UnknownKeywordArgument (class in async_v20.exceptions)</a>
 </li>
       <li><a href="definitions/account.html#async_v20.Account.unrealized_pl">unrealized_pl (async_v20.Account attribute)</a>
 
@@ -3071,6 +3103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="primitives.html">Primitives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="annotations.html">Annotations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html#warnings">Warnings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
