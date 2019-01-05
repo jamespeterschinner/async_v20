@@ -168,21 +168,29 @@ async def test_parser_updates_since_transaction_id(client, server):
 
         assert sort_json(response.json()) == sort_json(account_changes_response)
 
+@pytest.mark.asyncio
+async def test_stream_parser_creates_response_objects(client, server):
+    async with client as client:
+        server_module.sleep_time = 0
+        client.stream_timeout = 1
+        resp = None
+        async with async_timeout.timeout(1):
+            async for obj in await client.stream_pricing('AUD_USD'):
+                resp = obj
+                break
+        assert resp
+        assert resp.status == 200
 
 @pytest.mark.asyncio
 async def test_stream_parser_raises_timeout_error(client, server):
     async with client as client:
-        server_module.sleep_time = 1
+        server_module.sleep_time = 0.2
         client.stream_timeout = 0.1
-        items = 3
-        async with async_timeout.timeout(items * client.stream_timeout + 1):
+        async with async_timeout.timeout(1):
             with pytest.raises(ResponseTimeout):
                 async for obj in await client.stream_pricing('AUD_USD'):
-                    items -= 1
+                    pass
 
-                    if items <= 0:
-
-                        break
 
 
 def test_construct_json_body_and_schema_creates_same_key_for_both_heartbeat_types():

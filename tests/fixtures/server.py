@@ -79,9 +79,9 @@ async def handler(request):
                                   reason='OK')
         await resp.prepare(request)
         while True:
-            resp.write(bytes(response_data, encoding='utf8'))
-            resp.write(bytes('\n', encoding='utf8'))
-            await resp.drain()
+            await resp.write(bytes(response_data, encoding='utf8'))
+            await resp.write(bytes('\n', encoding='utf8'))
+
             await asyncio.sleep(sleep_time)
     await asyncio.sleep(sleep_time)
     return web.Response(body=gzip.compress(bytes(response_data, encoding='utf8')), headers=rest_headers,

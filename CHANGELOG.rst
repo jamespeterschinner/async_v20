@@ -2,7 +2,8 @@ Changelog
 =========
 
 8.0.0b0 (01/01/2019)
-=======
+====================
+
 - Added guaranteedStopLossOrderRestriction to Instrument definition
 - Added unixTime attribute to orderBook definition
 - Added tags attribute to Instrument definition
@@ -10,7 +11,7 @@ Changelog
 - Replaced ellipsis (...) with sentinel object
 - Added fullVWAP to Transaction definition
 - UnknownValue Exception is now replaced with UnknownKeywordArgument Warning
-in order to make the client more robust to breaking changes from OANDA
+  in order to make the client more robust to breaking changes from OANDA
 - Checked many class definitions against updated OANDA documentation
 
 7.0.1b0
