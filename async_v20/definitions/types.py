@@ -2047,7 +2047,8 @@ class AccountSummary(Model):
             or above the Account is in a margin call situation.
         last_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the last Transaction created for the Account.
-
+        dividend: :class:`~async_v20.DecimalNumber`
+            Dividend
     """
 
     def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel,
@@ -2072,7 +2073,8 @@ class AccountSummary(Model):
                  financing: DecimalNumber = sentinel,
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
-                 guaranteed_execution_fees: AccountUnits = sentinel
+                 guaranteed_execution_fees: AccountUnits = sentinel,
+                 dividend: DecimalNumber = sentinel,
                  ):
         Model.__init__(**locals())
 
@@ -3010,6 +3012,8 @@ class Account(AccountSummary):
             The details all Account Positions.
         orders: ( :class:`~async_v20.Order`, ...)
             The details of the Orders currently pending in the Account.
+        dividend: :class:`~async_v20.DecimalNumber`
+            Dividend
 
     """
 
@@ -3035,6 +3039,7 @@ class Account(AccountSummary):
                  financing: DecimalNumber = sentinel,
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
+                 dividend: DecimalNumber = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())
 
