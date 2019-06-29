@@ -298,15 +298,16 @@ class OandaClient(AccountInterface, InstrumentInterface, OrderInterface, Positio
                 self.initializing = True  # immediately set initializing to make sure
                 # Upcoming requests wait for this initialization to complete.
 
-                self._initialization_step = self.list_services.__name__
-                response = await self.list_services()
-                if response:
-                    for service in response.services:
-                        if service.current_event.status.name != 'Up':
-                            logger.warning(f'{service.name} {service.current_event.message}')
-                else:
-                    logging.warning('Server did not return available services')
-                    print(response.json())
+                # V1 REST API is deprecated
+                # self._initialization_step = self.list_services.__name__
+                # response = await self.list_services()
+                # if response:
+                #     for service in response.services:
+                #         if service.current_event.status.name != 'Up':
+                #             logger.warning(f'{service.name} {service.current_event.message}')
+                # else:
+                #     logging.warning('Server did not return available services')
+                #     print(response.json())
 
                 # Get the first account listed in in accounts.
                 # If another is desired the account must be configured
