@@ -179,6 +179,7 @@ instance_attributes = {'long': 'long', 'short': 'short', 'default': 'default', '
                        'initialMarginRequired': 'initial_margin_required',
                        'initial_margin_required': 'initial_margin_required',
                        'dividend': 'dividend',
+                       'dividendAdjustment': 'dividend_adjustment',
                        }
 
 json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'reduce_first': 'reduceFirst',
@@ -275,4 +276,5 @@ json_attributes = {'long': 'long', 'short': 'short', 'default': 'default', 'redu
                    'requested_units':'requestedUnits', 'full_vwap': 'fullVWAP',
                    'initial_margin_required':'initialMarginRequired',
                    'dividend': 'dividend',
+                   'dividend_adjustment': 'dividendAdjustment',
                    }

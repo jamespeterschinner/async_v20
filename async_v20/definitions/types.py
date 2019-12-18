@@ -2049,6 +2049,8 @@ class AccountSummary(Model):
             The ID of the last Transaction created for the Account.
         dividend: :class:`~async_v20.DecimalNumber`
             Dividend
+        dividendAdjustment: :class:`~async_v20.AccountUnits`
+            Something
     """
 
     def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel,
@@ -3040,6 +3042,7 @@ class Account(AccountSummary):
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
                  dividend: DecimalNumber = sentinel,
+                 dividend_adjustment: AccountUnits = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())
 
