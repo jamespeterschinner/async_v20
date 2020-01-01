@@ -1296,6 +1296,7 @@ class Instrument(Model):
         guaranteed_stop_loss_order_level_restriction: :class: `~async_v20.GuaranteedStopLossOrderLevelRestriction`
             The total position size that can exist within a given price window for Trades with a guaranteed Stop Loss Orders
             attached for a specific Instrument
+        financing: :class:`object`
 
     """
 
@@ -1307,7 +1308,7 @@ class Instrument(Model):
                  maximum_order_units: DecimalNumber = sentinel, margin_rate: DecimalNumber = sentinel,
                  commission: InstrumentCommission = sentinel,
                  guaranteed_stop_loss_order_level_restriction: GuaranteedStopLossOrderLevelRestriction = sentinel,
-                 tags: ArrayDict = sentinel):
+                 tags: ArrayDict = sentinel, financing: object = sentinel):
         Model.__init__(**locals())
 
 
