@@ -1296,6 +1296,8 @@ class Instrument(Model):
         guaranteed_stop_loss_order_level_restriction: :class: `~async_v20.GuaranteedStopLossOrderLevelRestriction`
             The total position size that can exist within a given price window for Trades with a guaranteed Stop Loss Orders
             attached for a specific Instrument
+        guaranteed_stop_loss_order_mode:
+            pass
         financing: :class:`object`
 
     """
@@ -1308,6 +1310,7 @@ class Instrument(Model):
                  maximum_order_units: DecimalNumber = sentinel, margin_rate: DecimalNumber = sentinel,
                  commission: InstrumentCommission = sentinel,
                  guaranteed_stop_loss_order_level_restriction: GuaranteedStopLossOrderLevelRestriction = sentinel,
+                 guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  tags: ArrayDict = sentinel, financing: object = sentinel):
         Model.__init__(**locals())
 
@@ -3017,7 +3020,8 @@ class Account(AccountSummary):
             The details of the Orders currently pending in the Account.
         dividend: :class:`~async_v20.DecimalNumber`
             Dividend
-
+        dividendAdjustment: :class:`~async_v20.DecimalNumber`
+            Undocumented
     """
 
     def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel,
@@ -4160,6 +4164,7 @@ class StopOrderTransaction(Transaction, type=TransactionType('STOP_ORDER')):
                  id: TransactionID = sentinel,
                  time: DateTime = sentinel, user_id: int = sentinel, account_id: AccountID = sentinel,
                  batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
+                 partial_fill: str = sentinel,
                  price_bound: PriceValue = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  reason: StopOrderReason = sentinel, client_extensions: ClientExtensions = sentinel,
