@@ -307,7 +307,7 @@ class OrderIdentifier(Model):
 
     """
 
-    def __init__(self, order_id: OrderID = sentinel, client_order_id: OrderID = sentinel):
+    def __init__(self, order_id: OrderID = sentinel, client_order_id: ClientID = sentinel):
         Model.__init__(**locals())
 
 
@@ -1007,14 +1007,16 @@ class TradeReduce(Model):
             The PL realized when reducing the Trade
         financing: :class:`~async_v20.AccountUnits`
             The financing paid/collected when reducing the Trade
-
+        client_trade_id: :class:`~async_v20.ClientID`
+            The ID specified by the client (undocumented by Oanda)
     """
 
     def __init__(self, trade_id: TradeID = sentinel, units: DecimalNumber = sentinel,
                  realized_pl: AccountUnits = sentinel,
                  financing: AccountUnits = sentinel, price: DecimalNumber = sentinel,
                  guaranteed_execution_fee: AccountUnits = sentinel,
-                 half_spread_cost: AccountUnits = sentinel):
+                 half_spread_cost: AccountUnits = sentinel,
+                 client_trade_id: ClientID = sentinel):
         Model.__init__(**locals())
 
 
@@ -1155,7 +1157,7 @@ class Transaction(Model):
                  site_id: int = sentinel, account_user_id: int = sentinel, account_number: int = sentinel,
                  home_currency: Currency = sentinel, alias: str = sentinel, margin_rate: DecimalNumber = sentinel,
                  reason: Reason = sentinel, trade_ids: TradeID = sentinel, order_id: OrderID = sentinel,
-                 client_order_id: OrderID = sentinel, replaced_by_order_id: OrderID = sentinel,
+                 client_order_id: ClientID = sentinel, replaced_by_order_id: OrderID = sentinel,
                  closed_trade_id: OrderID = sentinel, trade_close_transaction_id: TransactionID = sentinel,
                  client_extensions_modify: ClientExtensions = sentinel,
                  trade_client_extensions_modify: ClientExtensions = sentinel, financing: AccountUnits = sentinel,
@@ -1294,6 +1296,9 @@ class Instrument(Model):
         guaranteed_stop_loss_order_level_restriction: :class: `~async_v20.GuaranteedStopLossOrderLevelRestriction`
             The total position size that can exist within a given price window for Trades with a guaranteed Stop Loss Orders
             attached for a specific Instrument
+        guaranteed_stop_loss_order_mode:
+            pass
+        financing: :class:`object`
 
     """
 
@@ -1305,7 +1310,8 @@ class Instrument(Model):
                  maximum_order_units: DecimalNumber = sentinel, margin_rate: DecimalNumber = sentinel,
                  commission: InstrumentCommission = sentinel,
                  guaranteed_stop_loss_order_level_restriction: GuaranteedStopLossOrderLevelRestriction = sentinel,
-                 tags: ArrayDict = sentinel):
+                 guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
+                 tags: ArrayDict = sentinel, financing: object = sentinel):
         Model.__init__(**locals())
 
 
@@ -1833,7 +1839,7 @@ class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
             The Request ID of the request which generated the transaction.
         order_id: :class:`~async_v20.TransactionID`
             The ID of the Order cancelled
-        client_order_id: :class:`~async_v20.OrderID`
+        client_order_id: :class:`~async_v20.ClientID`
             The reason that the Order was cancelled.
         reason: :class:`~async_v20.OrderCancelReason`
             The reason that the Order was cancelled.
@@ -1845,7 +1851,7 @@ class OrderCancelTransaction(Transaction, type=TransactionType('ORDER_CANCEL')):
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
-                 order_id: OrderID = sentinel, client_order_id: OrderID = sentinel,
+                 order_id: OrderID = sentinel, client_order_id: ClientID = sentinel,
                  reason: OrderCancelReason = sentinel, replaced_by_order_id: OrderID = sentinel,
                  closed_trade_id: OrderID = sentinel, trade_close_transaction_id: TransactionID = sentinel):
         Model.__init__(**locals())
@@ -1883,7 +1889,7 @@ class OrderClientExtensionsModifyTransaction(Transaction, type=TransactionType('
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  order_id: OrderID = sentinel,
-                 client_order_id: OrderID = sentinel, client_extensions_modify: ClientExtensions = sentinel,
+                 client_order_id: ClientID = sentinel, client_extensions_modify: ClientExtensions = sentinel,
                  trade_client_extensions_modify: ClientExtensions = sentinel):
         Model.__init__(**locals())
 
@@ -2045,7 +2051,10 @@ class AccountSummary(Model):
             or above the Account is in a margin call situation.
         last_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the last Transaction created for the Account.
-
+        dividend: :class:`~async_v20.DecimalNumber`
+            Dividend
+        dividendAdjustment: :class:`~async_v20.AccountUnits`
+            Something
     """
 
     def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel,
@@ -2070,7 +2079,8 @@ class AccountSummary(Model):
                  financing: DecimalNumber = sentinel,
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
-                 guaranteed_execution_fees: AccountUnits = sentinel
+                 guaranteed_execution_fees: AccountUnits = sentinel,
+                 dividend: DecimalNumber = sentinel,
                  ):
         Model.__init__(**locals())
 
@@ -2569,7 +2579,7 @@ class OrderCancelRejectTransaction(Transaction, type=TransactionType('ORDER_CANC
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  order_id: OrderID = sentinel,
-                 client_order_id: OrderID = sentinel, reason: OrderCancelReason = sentinel,
+                 client_order_id: ClientID = sentinel, reason: OrderCancelReason = sentinel,
                  reject_reason: TransactionRejectReason = sentinel):
         Model.__init__(**locals())
 
@@ -2609,7 +2619,7 @@ class OrderClientExtensionsModifyRejectTransaction(Transaction,
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
                  order_id: OrderID = sentinel,
-                 client_order_id: OrderID = sentinel, client_extensions_modify: ClientExtensions = sentinel,
+                 client_order_id: ClientID = sentinel, client_extensions_modify: ClientExtensions = sentinel,
                  trade_client_extensions_modify: ClientExtensions = sentinel,
                  reject_reason: TransactionRejectReason = sentinel):
         Model.__init__(**locals())
@@ -3008,7 +3018,10 @@ class Account(AccountSummary):
             The details all Account Positions.
         orders: ( :class:`~async_v20.Order`, ...)
             The details of the Orders currently pending in the Account.
-
+        dividend: :class:`~async_v20.DecimalNumber`
+            Dividend
+        dividendAdjustment: :class:`~async_v20.DecimalNumber`
+            Undocumented
     """
 
     def __init__(self, id: AccountID = sentinel, alias: str = sentinel, currency: Currency = sentinel,
@@ -3033,6 +3046,8 @@ class Account(AccountSummary):
                  financing: DecimalNumber = sentinel,
                  guaranteed_stop_loss_order_mode: GuaranteedStopLossOrderMode = sentinel,
                  resettable_pl_time: DateTime = sentinel,
+                 dividend: DecimalNumber = sentinel,
+                 dividend_adjustment: AccountUnits = sentinel,
                  guaranteed_execution_fees: AccountUnits = sentinel):
         Model.__init__(**locals())
 
@@ -3254,7 +3269,11 @@ class StopLossOrderTransaction(Transaction, type=TransactionType('STOP_LOSS_ORDE
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
-
+        guaranteed: :class:`bool`
+            Flag indicating that the Stop Loss Order is guaranteed. The default value
+            depends on the GuaranteedStopLossOrderMode of the account, if it is
+            REQUIRED, the default will be true, for DISABLED or ENABLED the default
+            is false.
     """
 
     def __init__(self, trade_id: TradeID, price: PriceValue, id: TransactionID = sentinel, time: DateTime = sentinel,
@@ -3264,7 +3283,8 @@ class StopLossOrderTransaction(Transaction, type=TransactionType('STOP_LOSS_ORDE
                  gtd_time: DateTime = sentinel,
                  trigger_condition: OrderTriggerCondition = 'DEFAULT', reason: StopLossOrderReason = sentinel,
                  client_extensions: ClientExtensions = sentinel, order_fill_transaction_id: TransactionID = sentinel,
-                 replaces_order_id: OrderID = sentinel, cancelling_transaction_id: TransactionID = sentinel):
+                 replaces_order_id: OrderID = sentinel, cancelling_transaction_id: TransactionID = sentinel,
+                 guaranteed: bool = sentinel):
         Model.__init__(**locals())
 
 
@@ -3658,7 +3678,7 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
             The Request ID of the request which generated the transaction.
         order_id: :class:`~async_v20.OrderID`
             The ID of the Order filled.
-        client_order_id: :class:`~async_v20.OrderID`
+        client_order_id: :class:`~async_v20.ClientID`
             The client Order ID of the Order filled
             (only provided if the client has assigned one).
         instrument: :class:`~async_v20.InstrumentName`
@@ -3712,7 +3732,7 @@ class OrderFillTransaction(Transaction, type=TransactionType('ORDER_FILL')):
 
     def __init__(self, id: TransactionID = sentinel, time: DateTime = sentinel, user_id: int = sentinel,
                  account_id: AccountID = sentinel, batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
-                 order_id: OrderID = sentinel, client_order_id: OrderID = sentinel,
+                 order_id: OrderID = sentinel, client_order_id: ClientID = sentinel,
                  instrument: InstrumentName = sentinel, units: DecimalNumber = sentinel, price: PriceValue = sentinel,
                  full_price: ClientPrice = sentinel, reason: OrderFillReason = sentinel, pl: AccountUnits = sentinel,
                  financing: AccountUnits = sentinel, commission: AccountUnits = sentinel,
@@ -3933,6 +3953,7 @@ class LimitOrderTransaction(Transaction, type=TransactionType('LIMIT_ORDER')):
         cancelling_transaction_id: :class:`~async_v20.TransactionID`
             The ID of the Transaction that cancels the replaced
             Order (only provided if this Order replaces an existing Order).
+        partial_fill: = positionFill (seems to be a mismatch in Oanda documentation)
 
     """
 
@@ -3946,7 +3967,7 @@ class LimitOrderTransaction(Transaction, type=TransactionType('LIMIT_ORDER')):
                  take_profit_on_fill: TakeProfitDetails = sentinel, stop_loss_on_fill: StopLossDetails = sentinel,
                  trailing_stop_loss_on_fill: TrailingStopLossDetails = sentinel,
                  trade_client_extensions: ClientExtensions = sentinel, replaces_order_id: OrderID = sentinel,
-                 cancelling_transaction_id: TransactionID = sentinel):
+                 cancelling_transaction_id: TransactionID = sentinel, partial_fill: OrderPositionFill = sentinel):
         Model.__init__(**locals())
 
 
@@ -4143,6 +4164,7 @@ class StopOrderTransaction(Transaction, type=TransactionType('STOP_ORDER')):
                  id: TransactionID = sentinel,
                  time: DateTime = sentinel, user_id: int = sentinel, account_id: AccountID = sentinel,
                  batch_id: TransactionID = sentinel, request_id: RequestID = sentinel,
+                 partial_fill: str = sentinel,
                  price_bound: PriceValue = sentinel, time_in_force: TimeInForce = 'GTC', gtd_time: DateTime = sentinel,
                  position_fill: OrderPositionFill = 'DEFAULT', trigger_condition: OrderTriggerCondition = 'DEFAULT',
                  reason: StopOrderReason = sentinel, client_extensions: ClientExtensions = sentinel,
